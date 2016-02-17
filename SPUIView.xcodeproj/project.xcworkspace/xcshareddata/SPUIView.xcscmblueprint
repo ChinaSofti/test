@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "f396be06-b849-4151-b615-b2cd1a7402ca",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "f396be06-b849-4151-b615-b2cd1a7402ca" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "f396be06-b849-4151-b615-b2cd1a7402ca" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BB6BA504-8D35-4883-A9D5-DACA16A3CCD6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "f396be06-b849-4151-b615-b2cd1a7402ca" : "Workspace\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "SPUIView",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SpeedPro\/SpeedPro2\/SPUIView.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/127.0.0.1",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "f396be06-b849-4151-b615-b2cd1a7402ca"
+    }
+  ]
+}
