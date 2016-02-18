@@ -358,6 +358,8 @@
     //    currentResultModel.testId = 123;
     //    currentResultModel.uvMOS = 2.4;
     //    currentResultModel.firstBufferTime = 2342;
+
+
     //    currentResultModel.cuttonTimes = 2;
     //    currentResultView.currentResultModel = currentResultModel;
     //    currentResultView.navigationController = navigationController;
