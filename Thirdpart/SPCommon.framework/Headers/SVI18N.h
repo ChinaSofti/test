@@ -6,7 +6,6 @@
 //  Copyright © 2016年 HuaWei. All rights reserved.
 //
 #define I18N(key) [SVI18N valueForKey:key]
-#define SetUserLanguage [SVI18N setUserlanguage]
 
 #import <Foundation/Foundation.h>
 
@@ -18,13 +17,50 @@ typedef enum {
     System //系统
 } Language;
 
-//设置当前语言
-+ (void)setUserlanguage:(Language)language;
 
-//获取当前语言
-+ (NSString *)currentLanguage;
+/**
+ *  单例
+ *
+ *  @return 单例对象
+ */
++ (id)sharedInstance;
+
+/**
+ *  覆写allocWithZone方法
+ *
+ *  @param zone _NSZone
+ *
+ *  @return 单例对象
+ */
++ (id)allocWithZone:(struct _NSZone *)zone;
+
+/**
+ *  覆写copyWithZone方法
+ *
+ *  @param zone _NSZone
+ *
+ *  @return 单例对象
+ */
++ (id)copyWithZone:(struct _NSZone *)zone;
+
+
+/**
+ *  设置当前语言
+ *
+ *  @param langugae 设置当前语言
+ */
+- (void)setLanguage:(NSString *)langugae;
+
+/**
+ *  查询当前语言
+ *
+ *  @return 当前语言
+ */
+- (NSString *)getLanguage;
+
 
 //根据key获取值
 + (NSString *)valueForKey:(NSString *)key;
+
 
 @end

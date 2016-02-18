@@ -102,4 +102,17 @@
   // appropriate. See also applicationDidEnterBackground:.
 }
 
+/**
+ *  禁用横屏
+ *
+ *  @param application <#application description#>
+ *  @param window      <#window description#>
+ *
+ *  @return <#return value description#>
+ */
+- (NSUInteger)application:(UIApplication *)application
+    supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return UIInterfaceOrientationMaskPortrait;
+}
+
 @end

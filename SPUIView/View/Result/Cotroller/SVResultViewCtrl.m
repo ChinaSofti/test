@@ -14,7 +14,6 @@
 #import "SVSortTools.h"
 #import <SPCommon/SVDBManager.h>
 #import <SPService/SVSummaryResultModel.h>
-
 @interface SVResultViewCtrl () <UITableViewDataSource, UITableViewDelegate,
                                 UIAlertViewDelegate> {
   NSInteger currentBtn;
@@ -58,7 +57,7 @@
   if (_tableView == nil) {
     // 1.创建一个 tableView
     _tableView = [[UITableView alloc]
-        initWithFrame:CGRectMake(0, 130, kScreenW, kScreenH - 64)
+        initWithFrame:CGRectMake(0, 135, kScreenW, kScreenH - 64)
                 style:UITableViewStylePlain];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 

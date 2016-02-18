@@ -178,15 +178,13 @@
       @"title" : @"网络类型",
       @"title2" : @"WIFI"
     },
-    @{
-      @"title" : @"测试时间",
-      @"title2" : @"2016年02月16日 09:15:10"
-    },
-    @{
-      @"title" : @"信号强度",
-      @"title2" : @"-104"
-                  @"dBm"
-    },
+    //        @{ @"title": @"测试时间",
+    //           @"title2": @"2016年02月16日 09:15:10" },
+    //        @{
+    //            @"title": @"信号强度",
+    //            @"title2": @"-104"
+    //                       @"dBm"
+    //        },
 
   ];
   NSMutableArray *sourceMA = [NSMutableArray array];

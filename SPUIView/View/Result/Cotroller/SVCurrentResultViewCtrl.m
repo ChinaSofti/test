@@ -12,7 +12,6 @@
 #import <SPCommon/SVI18N.h>
 #import <SPCommon/SVSystemUtil.h>
 #import <SPService/SVTestContextGetter.h>
-
 #define kFirstHederH 40
 #define kLastFooterH 140
 #define kCellH (kScreenW - 20) * 0.22
@@ -100,8 +99,13 @@
   UILabel *uvMosLabelValue = [[UILabel alloc]
       initWithFrame:CGRectMake(kViewR(_imgView) + 15, kViewY(_imgView) - 10, 50,
                                imgViewWAndH)];
-  [uvMosLabelValue
-      setText:[NSString stringWithFormat:@"%.2f", currentResultModel.uvMOS]];
+  if (currentResultModel.uvMOS == -1) {
+    [uvMosLabelValue setText:@"失败"];
+  } else {
+    [uvMosLabelValue
+        setText:[NSString stringWithFormat:@"%.2f", currentResultModel.uvMOS]];
+  }
+
   [uvMosLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
   [uvMosLabelValue setTextAlignment:NSTextAlignmentCenter];
   [uvMosLabelValue setTextColor:[UIColor orangeColor]];
@@ -118,9 +122,13 @@
   UILabel *firstBufferTimeLabelValue = [[UILabel alloc]
       initWithFrame:CGRectMake(kViewR(uvMosLabelValue) + 15,
                                kViewY(_imgView) - 10, 80, imgViewWAndH)];
-  [firstBufferTimeLabelValue
-      setText:[NSString stringWithFormat:@"%dms",
-                                         currentResultModel.firstBufferTime]];
+  if (currentResultModel.firstBufferTime == -1) {
+    [firstBufferTimeLabelValue setText:@"失败"];
+  } else {
+    [firstBufferTimeLabelValue
+        setText:[NSString stringWithFormat:@"%dms",
+                                           currentResultModel.firstBufferTime]];
+  }
   [firstBufferTimeLabelValue
       setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
   [firstBufferTimeLabelValue setTextAlignment:NSTextAlignmentCenter];
@@ -138,9 +146,13 @@
   UILabel *cuttonTimesLabelValue = [[UILabel alloc]
       initWithFrame:CGRectMake(kViewR(firstBufferTimeLabelValue) + 15,
                                kViewY(_imgView) - 10, 60, imgViewWAndH)];
-  [cuttonTimesLabelValue
-      setText:[NSString
-                  stringWithFormat:@"%d", currentResultModel.cuttonTimes]];
+  if (currentResultModel.cuttonTimes == -1) {
+    [cuttonTimesLabelValue setText:@"失败"];
+  } else {
+    [cuttonTimesLabelValue
+        setText:[NSString
+                    stringWithFormat:@"%d", currentResultModel.cuttonTimes]];
+  }
   [cuttonTimesLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
   [cuttonTimesLabelValue setTextAlignment:NSTextAlignmentCenter];
   [cuttonTimesLabelValue setTextColor:[UIColor orangeColor]];

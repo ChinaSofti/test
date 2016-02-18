@@ -82,14 +82,16 @@
 		56EC8C981C4F467000EBDA6C /* tabbar_test_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C911C4F467000EBDA6C /* tabbar_test_selected.png */; };
 		56F523E41C4DCF7F00E6472B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F523E31C4DCF7F00E6472B /* main.m */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
-		B723CE4A1C74454400B419E3 /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B723CE481C74453000B419E3 /* SPCommon.framework */; };
-		B723CE4B1C74454400B419E3 /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B723CE481C74453000B419E3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B723CE4C1C74454400B419E3 /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71E7C651C74435500DF1AA4 /* SPService.framework */; };
-		B723CE4D1C74454400B419E3 /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B71E7C651C74435500DF1AA4 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B723CE531C74505B00B419E3 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B723CE511C74505B00B419E3 /* Default-667h@2x.png */; };
+		B723CE541C74505B00B419E3 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B723CE521C74505B00B419E3 /* Default-736h@3x.png */; };
+		B723CE561C74515600B419E3 /* starting_window.png in Resources */ = {isa = PBXBuildFile; fileRef = B723CE551C74515600B419E3 /* starting_window.png */; };
 		B72A1D0E1C7192B600C3141A /* speed_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = B72A1D0D1C7192B600C3141A /* speed_pro.png */; };
 		B72A1D161C71A1E300C3141A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B72A1D141C71A1E300C3141A /* icon.png */; };
-		B72A1D171C71A1E300C3141A /* starting_window.png in Resources */ = {isa = PBXBuildFile; fileRef = B72A1D151C71A1E300C3141A /* starting_window.png */; };
 		B732E6281C6EC365000353B9 /* SVResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B732E6271C6EC365000353B9 /* SVResultCell.m */; };
+		B73D0B3D1C755E7A00E291C6 /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B73D0B391C755E7000E291C6 /* SPCommon.framework */; };
+		B73D0B3E1C755E7A00E291C6 /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B73D0B391C755E7000E291C6 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B73D0B3F1C755E7A00E291C6 /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B73D0B3A1C755E7000E291C6 /* SPService.framework */; };
+		B73D0B401C755E7A00E291C6 /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B73D0B3A1C755E7000E291C6 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */; };
 		B7CD574A1C705C8D00668E88 /* SVCurrentResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CD57491C705C8D00668E88 /* SVCurrentResultViewCtrl.m */; };
 		B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CD57511C70C7FB00668E88 /* SVCurrentResultModel.m */; };
@@ -113,8 +115,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B723CE4B1C74454400B419E3 /* SPCommon.framework in Embed Frameworks */,
-				B723CE4D1C74454400B419E3 /* SPService.framework in Embed Frameworks */,
+				B73D0B3E1C755E7A00E291C6 /* SPCommon.framework in Embed Frameworks */,
+				B73D0B401C755E7A00E291C6 /* SPService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,13 +229,15 @@
 		B70FF3D31C6582AA002D571B /* SPUIViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SPUIViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70FF3D51C6582AA002D571B /* SPUIViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUIViewTests.m; sourceTree = "<group>"; };
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B71E7C651C74435500DF1AA4 /* SPService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPService.framework; sourceTree = "<group>"; };
-		B723CE481C74453000B419E3 /* SPCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPCommon.framework; sourceTree = "<group>"; };
+		B723CE511C74505B00B419E3 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
+		B723CE521C74505B00B419E3 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
+		B723CE551C74515600B419E3 /* starting_window.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starting_window.png; sourceTree = "<group>"; };
 		B72A1D0D1C7192B600C3141A /* speed_pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speed_pro.png; sourceTree = "<group>"; };
 		B72A1D141C71A1E300C3141A /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		B72A1D151C71A1E300C3141A /* starting_window.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starting_window.png; sourceTree = "<group>"; };
 		B732E6261C6EC365000353B9 /* SVResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultCell.h; sourceTree = "<group>"; };
 		B732E6271C6EC365000353B9 /* SVResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultCell.m; sourceTree = "<group>"; };
+		B73D0B391C755E7000E291C6 /* SPCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPCommon.framework; sourceTree = "<group>"; };
+		B73D0B3A1C755E7000E291C6 /* SPService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPService.framework; sourceTree = "<group>"; };
 		B7CAB7C61C7416E100108B02 /* SVDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVDetailViewModel.h; sourceTree = "<group>"; };
 		B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDetailViewModel.m; sourceTree = "<group>"; };
 		B7CD57481C705C8D00668E88 /* SVCurrentResultViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVCurrentResultViewCtrl.h; sourceTree = "<group>"; };
@@ -248,8 +252,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B723CE4A1C74454400B419E3 /* SPCommon.framework in Frameworks */,
-				B723CE4C1C74454400B419E3 /* SPService.framework in Frameworks */,
+				B73D0B3D1C755E7A00E291C6 /* SPCommon.framework in Frameworks */,
+				B73D0B3F1C755E7A00E291C6 /* SPService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +535,9 @@
 		56EC8C631C4F45A500EBDA6C /* Resoruces */ = {
 			isa = PBXGroup;
 			children = (
+				B723CE551C74515600B419E3 /* starting_window.png */,
+				B723CE511C74505B00B419E3 /* Default-667h@2x.png */,
+				B723CE521C74505B00B419E3 /* Default-736h@3x.png */,
 				B7F3CA491C72CA3F009B087F /* toast_icon.png */,
 				56DC2FD01C72C77F0062A14A /* rt_detail_title_collector_img.png */,
 				56DC2FD21C72C77F0062A14A /* rt_detail_title_web_img.png */,
@@ -539,7 +546,6 @@
 				56587B8D1C722E9B00AAA52A /* share.png */,
 				563200551C7223560076A0FF /* homeindicator.png */,
 				B72A1D141C71A1E300C3141A /* icon.png */,
-				B72A1D151C71A1E300C3141A /* starting_window.png */,
 				4DABA3621C5F50C10018EF57 /* Testing */,
 				4DD005E61C609EDB007D4D2F /* Result */,
 				565DFAD61C515BB10024FF45 /* LaunchImage */,
@@ -629,8 +635,8 @@
 		B71E7C4F1C743DA200DF1AA4 /* Thirdpart */ = {
 			isa = PBXGroup;
 			children = (
-				B723CE481C74453000B419E3 /* SPCommon.framework */,
-				B71E7C651C74435500DF1AA4 /* SPService.framework */,
+				B73D0B391C755E7000E291C6 /* SPCommon.framework */,
+				B73D0B3A1C755E7000E291C6 /* SPService.framework */,
 			);
 			path = Thirdpart;
 			sourceTree = "<group>";
@@ -735,6 +741,7 @@
 				4DD006021C609EDB007D4D2F /* ic_speed_testing.png in Resources */,
 				565DFAEB1C515BB10024FF45 /* ic_speed_testing.png in Resources */,
 				565DFAEA1C515BB10024FF45 /* ic_speed_normal.png in Resources */,
+				B723CE541C74505B00B419E3 /* Default-736h@3x.png in Resources */,
 				4DD006011C609EDB007D4D2F /* ic_speed_normal.png in Resources */,
 				4DABA3691C5F50C10018EF57 /* clock_pointer_gray.png in Resources */,
 				56EC8C931C4F467000EBDA6C /* tabbar_result.png in Resources */,
@@ -744,12 +751,14 @@
 				4DD006051C609EDB007D4D2F /* ic_video_normal.png in Resources */,
 				4DD033941C734BD600A8CE9B /* ic_settings_mobile.png in Resources */,
 				4DABA36A1C5F50C10018EF57 /* clock_video_panel.png in Resources */,
+				B723CE561C74515600B419E3 /* starting_window.png in Resources */,
 				565DFAF11C515BB10024FF45 /* ic_web_label.png in Resources */,
 				4DD006071C609EDB007D4D2F /* ic_web_normal.png in Resources */,
 				565DFAF01C515BB10024FF45 /* ic_web_check.png in Resources */,
 				56587B901C722F0100AAA52A /* rt_detail_title_video_img.png in Resources */,
 				565DFAEE1C515BB10024FF45 /* ic_video_normal.png in Resources */,
 				4DD006031C609EDB007D4D2F /* ic_start_time.png in Resources */,
+				B723CE531C74505B00B419E3 /* Default-667h@2x.png in Resources */,
 				56D40F851C5CFFEC00455C7E /* SVPointView.xib in Resources */,
 				563200561C7223560076A0FF /* homeindicator.png in Resources */,
 				4DABA3671C5F50C10018EF57 /* clock_middle.png in Resources */,
@@ -770,7 +779,6 @@
 				56A9191F1C4F4C2500E8BB72 /* Main.storyboard in Resources */,
 				56EC8C971C4F467000EBDA6C /* tabbar_test.png in Resources */,
 				4DD006001C609EDB007D4D2F /* ic_sort_asc.png in Resources */,
-				B72A1D171C71A1E300C3141A /* starting_window.png in Resources */,
 				565DFAED1C515BB10024FF45 /* ic_video_label.png in Resources */,
 				4DD005FE1C609EDB007D4D2F /* ic_network_type_wifi.png in Resources */,
 				4DD033951C734BD600A8CE9B /* ic_settings_wifi.png in Resources */,

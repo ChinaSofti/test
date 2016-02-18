@@ -1,21 +1,28 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "f396be06-b849-4151-b615-b2cd1a7402ca",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "71CA260049A21A02C7F2DFB523360D62D4326777",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
     "f396be06-b849-4151-b615-b2cd1a7402ca" : {
 
     }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "71CA260049A21A02C7F2DFB523360D62D4326777" : 0,
     "f396be06-b849-4151-b615-b2cd1a7402ca" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BB6BA504-8D35-4883-A9D5-DACA16A3CCD6",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "f396be06-b849-4151-b615-b2cd1a7402ca" : "Workspace\/"
+    "71CA260049A21A02C7F2DFB523360D62D4326777" : "SpeedProUI\/",
+    "f396be06-b849-4151-b615-b2cd1a7402ca" : ".."
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "SPUIView",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SpeedPro\/SpeedPro2\/SPUIView.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SPUIView.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ChinaSofti\/SpeedProUI.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "71CA260049A21A02C7F2DFB523360D62D4326777"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/127.0.0.1",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",

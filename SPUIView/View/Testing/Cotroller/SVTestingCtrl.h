@@ -15,9 +15,11 @@
 
 @interface SVTestingCtrl : UIViewController <SVVideoTestDelegate>
 
-@property(nonatomic, retain) NSArray *selectedA;
+@property (nonatomic, retain) NSArray *selectedA;
 
-@property(nonatomic, retain) UINavigationController *navigationController;
+@property (nonatomic, retain) UINavigationController *navigationController;
+
+@property UITabBarController *tabBarController;
 
 @property SVCurrentResultModel *currentResultModel;
 
