@@ -69,7 +69,7 @@
                                       reuseIdentifier:@"aCell"];
 
         //取消cell 被点中的效果
-        cell.backgroundColor = [UIColor redColor];
+        //        cell.backgroundColor = [UIColor redColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
     }
@@ -164,6 +164,11 @@
 }
 //设置 tableView的section 的Footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return kCellH;
+}
+//设置cell的高度
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return kCellH;
 }
