@@ -310,7 +310,7 @@
 {
     if (section == 0 || section == 15)
     {
-        return 40;
+        return 35;
     }
     else
     {
@@ -325,11 +325,11 @@
         UIView *bgdView = [[UIView alloc] init];
         UIImage *image = [UIImage imageNamed:@"rt_detail_title_video_img"];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        imageView.frame = CGRectMake (18, 15, 17, 17);
+        imageView.frame = CGRectMake (18, 10, 17, 17);
         [bgdView addSubview:imageView];
 
         UILabel *label =
-        [[UILabel alloc] initWithFrame:CGRectMake (kMargin + 33, 3, kScreenW - kMargin, kFirstHederH)];
+        [[UILabel alloc] initWithFrame:CGRectMake (kMargin + 33, -2, kScreenW - kMargin, kFirstHederH)];
         label.text = @"视频测试";
         label.font = [UIFont systemFontOfSize:12.0f];
         [bgdView addSubview:label];
@@ -340,11 +340,11 @@
         UIView *bgdView = [[UIView alloc] init];
         UIImage *image = [UIImage imageNamed:@"rt_detail_title_collector_img"];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        imageView.frame = CGRectMake (18, 15, 17, 17);
+        imageView.frame = CGRectMake (18, 10, 17, 17);
         [bgdView addSubview:imageView];
 
         UILabel *label =
-        [[UILabel alloc] initWithFrame:CGRectMake (kMargin + 33, 3, kScreenW - kMargin, kFirstHederH)];
+        [[UILabel alloc] initWithFrame:CGRectMake (kMargin + 33, -2, kScreenW - kMargin, kFirstHederH)];
         label.text = @"采集器信息";
         label.font = [UIFont systemFontOfSize:12.0f];
         [bgdView addSubview:label];

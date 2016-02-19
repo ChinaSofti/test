@@ -66,7 +66,7 @@
     if (_tableView == nil)
     {
         // 1.创建一个 tableView
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake (0, 130, kScreenW, kScreenH - 64)
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake (0, 140, kScreenW, kScreenH - 64)
                                                   style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
@@ -109,9 +109,6 @@
     [self readDataFromDB];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-}
 
 - (void)readDataFromDB
 {
@@ -133,13 +130,14 @@
 {
     [super viewDidAppear:animated];
 
-    [self buttonClick:_typeButton];
+    //每次界面加载按钮都别点击
+    //    [self buttonClick:_typeButton];
 }
 
 //添加NavigationRightItem
 - (void)addNavigationRightItem
 {
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 25, 25)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 20, 20)];
     [button setImage:[UIImage imageNamed:@"ic_clear"] forState:UIControlStateNormal];
 
     [button addTarget:self
@@ -182,14 +180,7 @@
  */
 - (void)addHeadView
 {
-    NSArray *titles = @[
-        @"类型    ",
-        @"时间   ",
-        @"U-vMOS",
-        @"首次缓冲时间",
-        @"速率  "
-        @" "
-    ];
+    NSArray *titles = @[@"类型    ", @"时间   ", @"U-vMOS", @"首次缓冲时间", @"速率  "];
     NSArray *images = @[
         @"ic_network_type_normal",
         @"ic_start_time_normal",
@@ -210,7 +201,7 @@
     [UIColor colorWithRed:69 / 255.0 green:84 / 255.0 blue:92 / 255.0 alpha:1.0];
 
     //设置左右边距
-    CGFloat BandGap = 10;
+    CGFloat BandGap = 13;
     //设置按钮宽度
     CGFloat ButtonWidth = (kScreenW - 2 * BandGap) / 5;
 
@@ -221,6 +212,8 @@
 
         [_button setTitle:titles[i] forState:UIControlStateNormal];
         _button.titleLabel.font = [UIFont systemFontOfSize:12];
+        //设置文字居中
+        _button.titleLabel.textAlignment = NSTextAlignmentCenter;
         // button普通状态下的字体颜色
         [_button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         // button选中状态下的字体颜色
@@ -233,14 +226,11 @@
         [_button setImage:[UIImage imageNamed:imagesSelected[i]]
                  forState:UIControlStateSelected | UIControlStateHighlighted];
         [_button setImage:[UIImage imageNamed:imagesSelected[i]] forState:UIControlStateSelected];
-
-        _button.titleEdgeInsets = UIEdgeInsetsMake (25, -30, 0, -5);
+        _button.titleEdgeInsets = UIEdgeInsetsMake (25, -35, 0, -5);
         _button.imageEdgeInsets = UIEdgeInsetsMake (-25, 20, 0, 4);
-
-        //      _button.titleLabel.backgroundColor = [UIColor redColor];
-        [_button addTarget:self
-                    action:@selector (buttonClick:)
-          forControlEvents:UIControlEventTouchUpInside];
+        //        [_button addTarget:self
+        //                    action:@selector (buttonClick:)
+        //          forControlEvents:UIControlEventTouchUpInside];
 
         _button.tag = Button_Tag + i;
         _button.selected = NO;
@@ -463,7 +453,6 @@
     // cellbutton
     UIButton *cellButton = [UIButton buttonWithType:UIButtonTypeCustom];
     cellButton.frame = CGRectMake (10, 0, 390, 80);
-    //        cellButton.backgroundColor = [UIColor redColor];
     [cellButton setImage:[UIImage imageNamed:@"camera.png"] forState:UIControlStateNormal];
     [cellButton addTarget:self
                    action:@selector (CellDetailClick:)
