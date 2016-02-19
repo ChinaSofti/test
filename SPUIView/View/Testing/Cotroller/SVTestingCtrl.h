@@ -22,5 +22,4 @@
 @property UITabBarController *tabBarController;
 
 @property SVCurrentResultModel *currentResultModel;
-
 @end

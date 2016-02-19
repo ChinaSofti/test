@@ -46,6 +46,9 @@
 }
 
 @property (nonatomic, strong) SVBackView *backView;
+//定义gray遮挡View
+@property (nonatomic, strong) UIView *grayview;
+
 @end
 
 @implementation SVTestingCtrl
@@ -70,28 +73,19 @@
     //电池显示不了,设置样式让电池显示
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
-    // 2.设置整个Viewcontroller
-    //设置背景颜色
-    self.view.backgroundColor =
-    [UIColor colorWithRed:250 / 255.0 green:250 / 255.0 blue:250 / 255.0 alpha:1.0];
-    //打印排序结果
-    //    NSLog (@"%@", _selectedA);
-
-    // 3.自定义UIBarButtonItem
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 44, 44)];
-    //    button.backgroundColor = [UIColor redColor];
-    //    [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    //图片位置(相对于)
-    //    [button setImageEdgeInsets:UIEdgeInsetsMake (0, -10, 0, 10)];
-    //设置点击事件
-    [button addTarget:self
-               action:@selector (backBtnClik)
-     forControlEvents:UIControlEventTouchUpInside];
+    //添加返回按钮
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
+    [button setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    // backButton设为navigationItem.leftBarButtonItem
-    self.navigationItem.leftBarButtonItem = backButton;
-    //是否允许用户交互(默认是交互的)
-    //    self.navigationItem.leftBarButtonItem.enabled = YES;
+    UIBarButtonItem *back0 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                           target:nil
+                                                                           action:nil];
+    back0.width = -15;
+    self.navigationItem.leftBarButtonItems = @[back0, backButton];
+
+    [button addTarget:self
+               action:@selector (removeButtonClicked:)
+     forControlEvents:UIControlEventTouchUpInside];
 
     //为了保持平衡添加一个leftBtn
     UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 44, 44)];
@@ -99,13 +93,47 @@
     self.navigationItem.rightBarButtonItem = backButton1;
     self.navigationItem.rightBarButtonItem.enabled = NO;
 
+    // 2.设置整个Viewcontroller
+    //设置背景颜色
+    self.view.backgroundColor =
+    [UIColor colorWithRed:250 / 255.0 green:250 / 255.0 blue:250 / 255.0 alpha:1.0];
+    //打印排序结果
+    //    NSLog (@"%@", _selectedA);
+
+
     //添加方法
     [self creatHeaderView];
     [self creatTestingView];
     [self creatVideoView];
     [self creatFooterView];
+
+    //添加覆盖grayview(为了防止用户在测试的过程中点击按钮)
+    //获取整个屏幕的window
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    //创建一个覆盖garyView
+    _grayview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
+    //设置透明度
+    _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    //添加
+    [window addSubview:_grayview];
 }
 
+- (void)removeButtonClicked:(UIButton *)button
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                    message:@"是否结束本次测试"
+                                                   delegate:self
+                                          cancelButtonTitle:@"否"
+                                          otherButtonTitles:@"是", nil];
+    [alert show];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        [navigationController popToRootViewControllerAnimated:NO];
+    }
+}
 /**
  *  初始化当前页面和全局变量
  */
@@ -162,6 +190,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+
+
     //取消定时器
     if (_timer)
     {
@@ -177,6 +207,8 @@
           [_videoTest stopTest];
       }
     });
+    //移除覆盖grayView
+    [_grayview removeFromSuperview];
 }
 
 #pragma mark - 创建头headerView
@@ -258,7 +290,6 @@
     //把headerView添加到中整个视图上
     [self.view addSubview:_footerView];
 }
-
 
 #pragma mark - back弹框页
 
