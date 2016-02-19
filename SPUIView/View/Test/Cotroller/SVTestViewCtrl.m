@@ -236,23 +236,23 @@
         _testBtn.backgroundColor =
         [UIColor colorWithRed:229 / 255.0 green:229 / 255.0 blue:229 / 255.0 alpha:1.0];
         //按钮文字和类型
-        BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
-        if (isConnectionAvailable)
-        {
-            [_testBtn setTitle:@"开始测试" forState:UIControlStateNormal];
-            //按钮点击事件
-            [_testBtn addTarget:self
-                         action:@selector (testBtnClick)
-               forControlEvents:UIControlEventTouchUpInside];
-        }
-        else
-        {
-            [_testBtn setTitle:@"网络设置" forState:UIControlStateNormal];
-            //按钮点击事件
-            [_testBtn addTarget:self
-                         action:@selector (goNetworkSetting)
-               forControlEvents:UIControlEventTouchUpInside];
-        }
+        //        BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
+        //        if (isConnectionAvailable)
+        //        {
+        [_testBtn setTitle:@"开始测试" forState:UIControlStateNormal];
+        //按钮点击事件
+        [_testBtn addTarget:self
+                     action:@selector (testBtnClick)
+           forControlEvents:UIControlEventTouchUpInside];
+        //        }
+        //        else
+        //        {
+        //            [_testBtn setTitle:@"网络设置" forState:UIControlStateNormal];
+        //            //按钮点击事件
+        //            [_testBtn addTarget:self
+        //                         action:@selector (goNetworkSetting)
+        //               forControlEvents:UIControlEventTouchUpInside];
+        //        }
 
         //按钮圆角
         _testBtn.layer.cornerRadius = kCornerRadius;

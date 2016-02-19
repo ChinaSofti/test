@@ -16,7 +16,6 @@
 
 @interface SVTestingCtrl ()
 {
-
     // 定义headerView
     SVPointView *_headerView;
 
@@ -112,9 +111,9 @@
  */
 - (void)initContext
 {
-    [_footerView.placeLabel setText:@""];
-    [_footerView.resolutionLabel setText:@""];
-    [_footerView.bitLabel setText:@""];
+    [_footerView.placeLabel setText:@"计算中..."];
+    [_footerView.resolutionLabel setText:@"计算中..."];
+    [_footerView.bitLabel setText:@"计算中..."];
     [_headerView.bufferLabel setText:@""];
     [_headerView.speedLabel setText:@""];
     [_testingView updateUvMOS:0];
@@ -140,7 +139,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //    tabBarController
     [self initContext];
     // 当用户离开进入页面时，开始测试
     long testId = [SVTimeUtil currentMilliSecondStamp];
@@ -148,19 +146,15 @@
     [[SVVideoTest alloc] initWithView:testId showVideoView:_videoView testDelegate:self];
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       BOOL isOK = [_videoTest initTestContext];
-      if (!isOK)
+      if (isOK)
       {
-          // TODO liuchengyu 初始化TestContext失败，提示用户
-          [self goToCurrentResultViewCtrl];
+          [_videoTest startTest];
       }
       else
       {
-          isOK = [_videoTest startTest];
-          if (!isOK)
-          {
-              // TODO liuchengyu 启动测试失败，提示用户
-              [self goToCurrentResultViewCtrl];
-          }
+          dispatch_async (dispatch_get_main_queue (), ^{
+            [self goToCurrentResultViewCtrl];
+          });
       }
     });
 }
@@ -214,16 +208,10 @@
     [self.view addSubview:_testingView.pointView];
     [_testingView start];
     [self.view addSubview:_testingView.grayView];
-    //    _testingView.grayViewSuperView = _testingView.grayView.superview;
-    //    _testingView.grayViewIndexInSuperView = [self.view.subviews
-    //    indexOfObject:_testingView.grayView];
     [self.view addSubview:_testingView.panelView];
     [self.view addSubview:_testingView.middleView];
     [self.view addSubview:_testingView.label1];
     [self.view addSubview:_testingView.label2];
-    //    _testingView.label2SuperView = _testingView.label2.superview;
-    //    _testingView.label2IndexInSuperView = [self.view.subviews
-    //    indexOfObject:_testingView.label2];
 }
 
 
@@ -235,7 +223,7 @@
     //初始化
     _videoView = [[SVPointView alloc]
     initWithFrame:CGRectMake (FITWIDTH (10), FITWIDTH (420), FITWIDTH (150), FITWIDTH (92))];
-
+    [_videoView setBackgroundColor:[UIColor blackColor]];
     //把panlView添加到中整个视图上
     [self.view addSubview:_videoView];
 
@@ -434,29 +422,43 @@
  */
 - (void)changeValueUseFakeData
 {
-    int firstFakeBitrate = (arc4random () % 100 + realBitrate - 100);
-    int lastFakeBitrate = arc4random () % 100;
-    float fakeBitrate = [[NSString stringWithFormat:@"%d.%d", firstFakeBitrate, lastFakeBitrate] floatValue];
-    //    NSLog (@"fake bitrate:%f", fakeBitrate);
-    [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fkpbs", fakeBitrate]];
-
-    int firstFakeUvMOSSession = (int)realuvMOSSession;
-    int lastFakeUvMOSSession = arc4random () % 50;
-    float fakeUvMOSSession =
-    [[NSString stringWithFormat:@"%d.%d", firstFakeUvMOSSession, lastFakeUvMOSSession] floatValue];
-    //    NSLog (@"fake UvMOS:%f", fakeUvMOSSession);
-    [_testingView updateUvMOS:fakeUvMOSSession];
-
-    _resultTimes += 1;
-    if (_resultTimes % 10 == 0)
+    if (realBitrate > 0)
     {
-        _UvMOSbarResultTimes += 1;
-        if (_UvMOSbarResultTimes < 20)
+        int firstFakeBitrate = (arc4random () % 100 + realBitrate - 100);
+        if (firstFakeBitrate < 0)
         {
-            // 如果显示柱子个数少于等于 20 个，添加新的柱子
-            UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5 + _UvMOSbarResultTimes * 3, -10, 1, 30)];
-            [bar setBarValue:fakeUvMOSSession];
-            [_headerView.uvMosBarView addSubview:bar];
+            firstFakeBitrate = 0;
+        }
+        int lastFakeBitrate = arc4random () % 100;
+        float fakeBitrate = [[NSString stringWithFormat:@"%d.%d", firstFakeBitrate, lastFakeBitrate] floatValue];
+        //    NSLog (@"fake bitrate:%f", fakeBitrate);
+        [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fkpbs", fakeBitrate]];
+    }
+
+    if (realuvMOSSession > 0)
+    {
+        int firstFakeUvMOSSession = (int)realuvMOSSession;
+        if (firstFakeUvMOSSession < 0)
+        {
+            firstFakeUvMOSSession = 0;
+        }
+        int lastFakeUvMOSSession = arc4random () % 50;
+        float fakeUvMOSSession =
+        [[NSString stringWithFormat:@"%d.%d", firstFakeUvMOSSession, lastFakeUvMOSSession] floatValue];
+        //    NSLog (@"fake UvMOS:%f", fakeUvMOSSession);
+        [_testingView updateUvMOS:fakeUvMOSSession];
+        _resultTimes += 1;
+        if (_resultTimes % 10 == 0)
+        {
+            _UvMOSbarResultTimes += 1;
+            if (_UvMOSbarResultTimes < 20)
+            {
+                // 如果显示柱子个数少于等于 20 个，添加新的柱子
+                UUBar *bar =
+                [[UUBar alloc] initWithFrame:CGRectMake (5 + _UvMOSbarResultTimes * 3, -10, 1, 30)];
+                [bar setBarValue:fakeUvMOSSession];
+                [_headerView.uvMosBarView addSubview:bar];
+            }
         }
     }
 }
