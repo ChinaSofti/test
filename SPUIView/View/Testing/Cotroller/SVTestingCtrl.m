@@ -61,8 +61,7 @@
 
     // 1.自定义navigationItem.titleView
     //设置图片大小
-    UIImageView *imageView = [[UIImageView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (0), FITWIDTH (0), FITWIDTH (100), FITWIDTH (30))];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, 100, 30)];
     //设置图片名称
     imageView.image = [UIImage imageNamed:@"speed_pro"];
     //让图片适应

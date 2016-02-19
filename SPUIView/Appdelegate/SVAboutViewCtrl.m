@@ -39,14 +39,17 @@
 
 - (void)createLeftBarButtonItem
 {
-    UIButton *leftBack = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 44, 25)];
-    [leftBack setBackgroundImage:[UIImage imageNamed:@"homeindicator"]
-                        forState:UIControlStateNormal];
-    [leftBack addTarget:self
-                 action:@selector (leftBackButtonClick)
-       forControlEvents:UIControlEventTouchUpInside];
-
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBack];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
+    [button setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem *back0 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                           target:nil
+                                                                           action:nil];
+    back0.width = -15;
+    self.navigationItem.leftBarButtonItems = @[back0, backButton];
+    [button addTarget:self
+               action:@selector (leftBackButtonClick)
+     forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)leftBackButtonClick

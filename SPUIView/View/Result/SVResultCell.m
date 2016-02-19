@@ -55,10 +55,10 @@
     if (_testDate == nil)
     {
         _testDate = [[UILabel alloc] init];
-        _testDate.frame = CGRectMake (kScreenW / 5 - 5, (CellHeight - LabelHeight - TimeHeight) / 2,
+        _testDate.frame = CGRectMake (kScreenW / 5 - 20, (CellHeight - LabelHeight - TimeHeight) / 2,
                                       kScreenW / 5, LabelHeight);
         _testDate.textColor = [UIColor grayColor];
-        _testDate.font = [UIFont systemFontOfSize:kScreenW / 23];
+        _testDate.font = [UIFont systemFontOfSize:16];
         _testDate.textAlignment = NSTextAlignmentCenter;
     }
     return _testDate;
@@ -69,10 +69,10 @@
     if (_testTime == nil)
     {
         _testTime = [[UILabel alloc] init];
-        _testTime.frame = CGRectMake (kScreenW / 5 - 5, (CellHeight - LabelHeight - TimeHeight) / 2 + LabelHeight,
+        _testTime.frame = CGRectMake (kScreenW / 5 - 20, (CellHeight - LabelHeight - TimeHeight) / 2 + LabelHeight,
                                       kScreenW / 5, LabelHeight);
         _testTime.textColor = [UIColor grayColor];
-        _testTime.font = [UIFont systemFontOfSize:kScreenW / 30];
+        _testTime.font = [UIFont systemFontOfSize:13];
         _testTime.textAlignment = NSTextAlignmentCenter;
     }
     return _testTime;
@@ -84,38 +84,39 @@
     {
         _videoMOS = [[UILabel alloc] init];
         _videoMOS.frame =
-        CGRectMake (kScreenW * 2 / 5 - 5, (CellHeight - LabelHeight) / 2, kScreenW / 5, LabelHeight);
+        CGRectMake (kScreenW * 2 / 5 - 25, (CellHeight - LabelHeight) / 2, kScreenW / 5, LabelHeight);
         _videoMOS.textColor = [UIColor grayColor];
-        _videoMOS.font = [UIFont systemFontOfSize:kScreenW / 23];
+        _videoMOS.font = [UIFont systemFontOfSize:16];
         _videoMOS.textAlignment = NSTextAlignmentCenter;
     }
     return _videoMOS;
 }
 
-//加载时间
+//首次缓冲时间
 - (UILabel *)loadTime
 {
     if (_loadTime == nil)
     {
         _loadTime = [[UILabel alloc] init];
         _loadTime.frame =
-        CGRectMake (kScreenW * 3 / 5 - 5, (CellHeight - LabelHeight) / 2, kScreenW / 5, LabelHeight);
+        CGRectMake (kScreenW * 3 / 5 - 25, (CellHeight - LabelHeight) / 2, kScreenW / 6, LabelHeight);
         _loadTime.textColor = [UIColor grayColor];
-        _loadTime.font = [UIFont systemFontOfSize:kScreenW / 23];
+        //      _loadTime.backgroundColor =[UIColor redColor];
+        _loadTime.font = [UIFont systemFontOfSize:16];
         _loadTime.textAlignment = NSTextAlignmentCenter;
     }
     return _loadTime;
 }
-//带宽
+//速率
 - (UILabel *)bandWidth
 {
     if (_bandWidth == nil)
     {
         _bandWidth = [[UILabel alloc] init];
         _bandWidth.frame =
-        CGRectMake (kScreenW * 4 / 5 - 5, (CellHeight - LabelHeight) / 2, kScreenW / 6, LabelHeight);
+        CGRectMake (kScreenW * 4 / 5 - 35, (CellHeight - LabelHeight) / 2, kScreenW / 4, LabelHeight);
         _bandWidth.textColor = [UIColor grayColor];
-        _bandWidth.font = [UIFont systemFontOfSize:kScreenW / 23];
+        _bandWidth.font = [UIFont systemFontOfSize:16];
         _bandWidth.textAlignment = NSTextAlignmentCenter;
     }
     return _bandWidth;

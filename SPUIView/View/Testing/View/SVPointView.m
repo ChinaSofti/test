@@ -27,7 +27,7 @@
 
         //设置Label
         _uvMosBarView = [[UIView alloc]
-        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (100), FITWIDTH (80), FITWIDTH (20))];
+        initWithFrame:CGRectMake (FITWIDTH (25), FITWIDTH (100), FITWIDTH (80), FITWIDTH (20))];
 
         _speedLabel =
         [CTWBViewTools createLabelWithFrame:CGRectMake (_uvMosBarView.rightX + FITWIDTH (25),

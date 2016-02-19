@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "56F523DE1C4DCF7F00E6472B"
-            BuildableName = "SPUIView.app"
-            BlueprintName = "SPUIView"
-            ReferencedContainer = "container:SPUIView.xcodeproj">
+            BuildableName = "SpeedPro.app"
+            BlueprintName = "SpeedPro"
+            ReferencedContainer = "container:SpeedPro.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -86,9 +86,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "56F523DE1C4DCF7F00E6472B"
-            BuildableName = "SPUIView.app"
-            BlueprintName = "SPUIView"
-            ReferencedContainer = "container:SPUIView.xcodeproj">
+            BuildableName = "SpeedPro.app"
+            BlueprintName = "SpeedPro"
+            ReferencedContainer = "container:SpeedPro.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>

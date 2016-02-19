@@ -47,20 +47,23 @@
     self.view.backgroundColor =
     [UIColor colorWithRed:250 / 255.0 green:250 / 255.0 blue:250 / 255.0 alpha:1.0];
 
-    // 3.自定义UIBarButtonItem
+    // 3.自定义UIBarButtonItem(图片调整到最左边)
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
     [button setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem *back0 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                           target:nil
+                                                                           action:nil];
+    back0.width = -15;
+    self.navigationItem.leftBarButtonItems = @[back0, backButton];
     // 4.设置点击事件
     [button addTarget:self
                action:@selector (backBtnClik)
      forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    // backButton设为navigationItem.leftBarButtonItem
-    self.navigationItem.leftBarButtonItem = backButton;
 
     //为了保持平衡添加一个leftBtn
     UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake (300, 0, 23, 23)];
-    [button1 setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+    [button1 setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     UIBarButtonItem *backButton1 = [[UIBarButtonItem alloc] initWithCustomView:button1];
     self.navigationItem.rightBarButtonItem = backButton1;
 
