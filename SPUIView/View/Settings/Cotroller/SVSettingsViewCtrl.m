@@ -50,21 +50,21 @@
     //三.添加
     // 7.把tableView添加到 view
     [self.view addSubview:_tableView];
-    //在cell的imageview上加一圈白环
-    [self addView];
+    //    //在cell的imageview上加一圈白环
+    //    [self addView];
 }
 
-- (void)addView
-{
-    UIView *imageView = [[UIView alloc] init];
-    imageView.frame = CGRectMake (23.5, 84.5, 87.5, 79);
-    imageView.layer.borderWidth = 10;
-    imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
-    imageView.layer.masksToBounds = YES;
-    imageView.layer.cornerRadius = 40;
-
-    [self.view addSubview:imageView];
-}
+//- (void)addView
+//{
+//    UIView *imageView = [[UIView alloc] init];
+//    imageView.frame = CGRectMake (23.5, 84.5, 87.5, 79);
+//    imageView.layer.borderWidth = 10;
+//    imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
+//    imageView.layer.masksToBounds = YES;
+//    imageView.layer.cornerRadius = 40;
+//
+//    [self.view addSubview:imageView];
+//}
 
 
 //方法:
@@ -99,11 +99,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title1 = I18N (@"urrent connection");
-    //    NSString *title2 = I18N (@"Carrier");
+    NSString *title1 = I18N (@"Current connection");
+    NSString *title2 = I18N (@"China Unicom Beijing");
     NSString *title3 = I18N (@"About");
     NSString *title4 = I18N (@"Language Setting");
-    NSString *title5 = I18N (@"Upload logs");
+    NSString *title5 = I18N (@"Upload Logs");
     NSString *title6 = I18N (@"Advanced setting");
 
 
@@ -130,7 +130,7 @@
         {
             cell.imageView.image = [UIImage imageNamed:@"ic_settings_wifi"];
             cell.textLabel.text = title1;
-            cell.detailTextLabel.text = @"China Unicom Beijing";
+            cell.detailTextLabel.text = title2;
             cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
             [cell.detailTextLabel setNumberOfLines:0];
         }

@@ -88,7 +88,7 @@
     // 6.定义数组展示图片
     _selectedMA = [NSMutableArray array];
     //国际化
-    NSString *title = I18N (@"VideoTest");
+    NSString *title = I18N (@"Video Test");
     NSString *title2 = I18N (@"Web Test");
     NSString *title3 = I18N (@"Speed Test");
 

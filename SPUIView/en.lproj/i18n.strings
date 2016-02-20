@@ -5,17 +5,17 @@
   Created by WBapple on 16/1/22.
   Copyright © 2016年 chinasofti. All rights reserved.
 */
+
 //测试界面
 
 //初始设置
 "Setting Bandwidth Information" = "Setting Bandwidth Information";
-
 "Ignore" = "Ignore";
 
 //退出程序视图
 "Press Back Key again to exit the program" = "Press Back Key again to exit the program";
-
 "Testing" = "Testing";
+
 //主测试界面
 "Select Test Item"="Select Test Item";
 "Video Test"="Video Test";
@@ -26,18 +26,13 @@
 "Begin Test"="Begin Test";
 
 //视频测试
-"waiting..." = "waiting...";
+"Loading..." = "Loading...";
 "Fail" = "Fail";
 "inch" = "inch";
 "U-vMos"="U-vMos";
 "U-vMOS"="U-vMOS";
-//"Initial buffer time"="";
-//"Buffer times"="";
 
 //网页测试
-//"Response Time"="Response Time";
-//"Download speed" = "Download speed";
-//"Load duration"="Load duration";
 "response"="response";
 "Test Url"="Test Url";
 
@@ -48,17 +43,11 @@
 //退出的试图
 "Test stopped"="Test stopped";
 "Are you sure you want to exit the test"="Are you sure you want to exit the test";
-
 "Test Again"="Test Again";
 
-
-
-
-
-"Result" = "Result";
 //结果界面
+"Result" = "Result";
 "Result List"="Result List";
-
 "Type"="Type";
 "Time"="Time";
 "U-vMOS"="U-vMOS";
@@ -104,10 +93,7 @@
 "Upload speed" = "Upload speed";
 "Delay" = "Delay";
 "Server Location" = "Server Location";
-//"Carrier" = "Carrier";
-
 "Collector Information"="Collector Information";
-"Carriers"="Carrier";
 "Bandwidth package"="Bandwidth package";
 "Network type"="Network type";
 "unknown" = "unknown";
@@ -116,56 +102,45 @@
 
 //分享提示视图
 "Share on"="Share on";
-
 "Sina Weibo"="Sina Weibo";
 "WeChat"="WeChat";
 "WeChat Friend Circle"="WeChat Friend Circle";
 "Email"="Email";
-
 "Cancel"="Cancel";
 
 
 
-
-
-
-"Setting" = "Setting";
 //设置界面
 "Settings"="Settings";
-
+"Setting" = "Setting";
 "Current connection"="Current connection";
 "Carrier" = "Carrier";
+"Carriers"="Carriers";
 "bandwidth type"="bandwidth type";
 "bandwidth packages"="bandwidth packages";
-
+"China Unicom Beijing" = "China Unicom Beijing";
 "Bandwidth Settings" = "Bandwidth Settings";
-"Type" = "Type";
-//"unknown" = "";
 "Fiber" = "Fiber";
 "Copper" = "Copper";
 "Package" = "Package";
-
-
-
 "Version upgrade" = "Version upgrade";
-
 "Feedback" = "Feedback";
+
 //反馈
 "Enter your feedback" = "Enter your feedback";
 "Submit" = "Submit";
 
-"Share"="Share";
 //分享
+"Share"="Share";
 
-"About"="About";
 //关于
+"About"="About";
 
-
-"FAQ"="FAQ";
 //FAQ
+"FAQ"="FAQ";
 
-"Language Setting"="Language Setting";
 //语言设置
+"Language Setting"="Language Setting";
 "Auto" = "Auto";
 "简体中文" = "简体中文";
 "English" = "English";
@@ -175,13 +150,12 @@
 "You are using Wi-Fi" = "You are using Wi-Fi";
 "You are using the mobile phone network." = "You are using the mobile phone network.";
 
-"Upload Logs"="Upload Logs";
+
 //上传日志
+"Upload Logs" = "Upload Logs";
 "Upload logs" = "Upload logs";
 "Are you sure Upload logs" = "Are you sure Upload logs";
-//"No" = "";
-//"Yes" = "";
 "Upload logs start" = "Upload logs start";
-
+//高级设置
 "Advanced setting" = "Advanced setting";
 "Size:" = "Size:";

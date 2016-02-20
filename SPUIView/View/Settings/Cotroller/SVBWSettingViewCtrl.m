@@ -83,6 +83,8 @@
     NSString *title4 = I18N (@"Copper");
     NSString *title5 = I18N (@"Package");
     NSString *title7 = I18N (@"Carrier");
+    NSString *title8 = I18N (@"China Unicom Beijing");
+    NSString *title9 = I18N (@"Save");
 
 
     // views
@@ -173,7 +175,7 @@
 
     UILabel *lableCarriers = [[UILabel alloc] init];
     lableCarriers.frame = CGRectMake (10, 160, 150, 20);
-    lableCarriers.text = @"China Unicom Beijing";
+    lableCarriers.text = title8;
     lableCarriers.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableCarriers];
 
@@ -189,7 +191,7 @@
     saveBtn.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
     //保存按钮文字和颜色
-    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
+    [saveBtn setTitle:title9 forState:UIControlStateNormal];
     [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //设置居中
     saveBtn.titleLabel.textAlignment = NSTextAlignmentCenter;

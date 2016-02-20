@@ -247,6 +247,7 @@
 
 - (UIButton *)buildTestBtn
 {
+    NSString *title1 = I18N (@"Test Again");
     //按钮高度
     CGFloat testBtnH = 50;
     //按钮类型
@@ -263,7 +264,7 @@
     //设置居中
     _reTestButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     //按钮文字和类型
-    [_reTestButton setTitle:@"再测一次" forState:UIControlStateNormal];
+    [_reTestButton setTitle:title1 forState:UIControlStateNormal];
     //按钮点击事件
     [_reTestButton addTarget:self
                       action:@selector (testBtnClick)

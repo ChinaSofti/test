@@ -107,16 +107,6 @@
     [self creatTestingView];
     [self creatVideoView];
     [self creatFooterView];
-
-    //添加覆盖grayview(为了防止用户在测试的过程中点击按钮)
-    //获取整个屏幕的window
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    //创建一个覆盖garyView
-    _grayview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
-    //设置透明度
-    _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
-    //添加
-    [window addSubview:_grayview];
 }
 
 - (void)removeButtonClicked:(UIButton *)button
@@ -145,7 +135,7 @@
  */
 - (void)initContext
 {
-    NSString *title5 = I18N (@"Waiting...");
+    NSString *title5 = I18N (@"Loading...");
     [_footerView.placeLabel setText:title5];
     [_footerView.resolutionLabel setText:title5];
     [_footerView.bitLabel setText:title5];
@@ -173,7 +163,18 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated
+
 {
+    //添加覆盖grayview(为了防止用户在测试的过程中点击按钮)
+    //获取整个屏幕的window
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    //创建一个覆盖garyView
+    _grayview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
+    //设置透明度
+    //    _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    _grayview.backgroundColor = [UIColor redColor];
+    //添加
+    [window addSubview:_grayview];
     [self initContext];
     // 当用户离开进入页面时，开始测试
     long testId = [SVTimeUtil currentMilliSecondStamp];
@@ -189,6 +190,7 @@
       {
           dispatch_async (dispatch_get_main_queue (), ^{
             [self goToCurrentResultViewCtrl];
+
           });
       }
     });
@@ -212,10 +214,11 @@
       if (_videoTest)
       {
           [_videoTest stopTest];
+
+          //移除覆盖grayView
+          [_grayview removeFromSuperview];
       }
     });
-    //移除覆盖grayView
-    [_grayview removeFromSuperview];
 }
 
 #pragma mark - 创建头headerView

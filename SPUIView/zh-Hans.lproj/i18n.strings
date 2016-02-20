@@ -7,6 +7,7 @@
 */
 
 //测试界面
+
 //初始设置
 "Setting Bandwidth Information" = "设置带宽信息";
 "Ignore" = "忽略";
@@ -25,20 +26,13 @@
 "Begin Test"="开始测试";
 
 //视频测试
-"Waiting..." = "计算中...";
+"Loading..." = "计算中...";
 "Fail" = "失败";
 "inch" = "英寸";
-
 "U-vMos"="U-vMos";
 "U-vMOS"="U-vMOS";
-//"Initial buffer time"="";
-//"Buffer times"="";
 
 //网页测试
-//"Response Time"="Response Time";
-//"Download speed" = "Download speed";
-//"Load duration"="Load duration";
-//"Download" = "Download";
 "response"="响应时间";
 "Test Url"="测试网址";
 
@@ -52,17 +46,11 @@
 
 "Test Again"="再测一次";
 
-
-
-
-
-"Result" = "结果";
 //结果界面
+"Result" = "结果";
 "Result List"="结果列表";
-
 "Type"="类型";
 "Time"="时间";
-"U-vMOS"="U-vMOS";
 "Load Time"="加载时间";
 "Bandwidth"="带宽";
 //删除 提示视图
@@ -71,9 +59,9 @@
 "No"="否";
 "Yes"="是";
 
-
 //结果详情界面
 "Detailed Data"="详细数据";
+
 //视频测试
 "Video Test" = "视频测试";
 "U-vMOS Score" = "U-vMOS得分";
@@ -90,7 +78,6 @@
 "Screen size" = "屏幕尺寸";
 "Video URL" = "视频地址";
 "Video server location" = "视频服务器地址";
-"Carrier" = "所属运营商";
 
 //网页测试
 "Web Test"="网页测试";
@@ -106,7 +93,6 @@
 "Delay" = "时延";
 "Server Location" = "测试服务器地址";
 "Carrier" = "所属运营商";
-
 "Collector Information"="采集器信息";
 "Carriers"="采集器所属运营商";
 "Bandwidth package"="宽带套餐";
@@ -123,48 +109,32 @@
 "Email"="邮件";
 "Cancel"="取消";
 
-
-
-
-
-
-"Setting" = "设置";
 //设置界面
+"Setting" = "设置";
 "Settings"="设置";
-
 "Current connection"="当前连接";
-"Carrier" = "所属运营商";
 "bandwidth type"="带宽类型";
 "bandwidth packages"="带宽套餐";
-
-
+"China Unicom Beijing" = "中国联通  北京";
 "Bandwidth Settings" = "带宽设置";
-"Type" = "带宽类型";
-//"unknown" = "";
 "Fiber" = "光纤";
 "Copper" = "铜线";
 "Package" = "带宽套餐";
-
-
 "Version upgrade"="版本升级";
 
-"Feedback"="意见反馈";
 //反馈
+"Feedback"="意见反馈";
 "Enter your feedback" = "请输入您的宝贵意见";
 "Submit" = "提交";
 
-"Share"="分享";
 //分享
+"Share"="分享";
 
-"About"="关于";
 //关于
+"About"="关于";
 
-
-"FAQ"="FAQ";
-//FAQ
-
-"Language Setting"="语言设置";
 //语言设置
+"Language Setting"="语言设置";
 "Auto" = "跟随系统";
 "简体中文" = "简体中文";
 "English" = "English";
@@ -174,14 +144,14 @@
 "You are using Wi-Fi" = "您正在使用wifi";
 "You are using the mobile phone network." = "您正在使用手机移动网络";
 
-"Upload Logs"="上传日志";
+
 //上传日志
+"Upload Logs"="上传日志";
 "Upload logs" = "上传日志";
 "Are you sure Upload logs" = "是否上传日志";
-//"No" = "";
-//"Yes" = "";
 "Upload logs start" = "开始上传日志";
 
+//高级设置
 "Advanced setting" = "高级设置";
 "Size:" = "屏幕尺寸:";
 
