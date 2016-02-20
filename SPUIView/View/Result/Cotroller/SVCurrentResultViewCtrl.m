@@ -61,6 +61,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+    NSString *title1 = I18N (@"Fail");
+    NSString *title2 = I18N (@"Initial buffer time");
+    NSString *title3 = I18N (@"Butter times");
+
     NSLog (@"indexPath %@", indexPath);
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aCell"];
     if (cell == nil)
@@ -101,7 +106,7 @@
     initWithFrame:CGRectMake (kViewR (_imgView) + FITHEIGHT (25), kViewY (_imgView) - 10, 50, imgViewWAndH)];
     if (currentResultModel.uvMOS == -1)
     {
-        [uvMosLabelValue setText:@"失败"];
+        [uvMosLabelValue setText:title1];
     }
     else
     {
@@ -124,7 +129,7 @@
     initWithFrame:CGRectMake (kViewR (uvMosLabelValue) + FITHEIGHT (25), kViewY (_imgView) - 10, 80, imgViewWAndH)];
     if (currentResultModel.firstBufferTime == -1)
     {
-        [firstBufferTimeLabelValue setText:@"失败"];
+        [firstBufferTimeLabelValue setText:title1];
     }
     else
     {
@@ -135,8 +140,8 @@
     [firstBufferTimeLabelValue setTextAlignment:NSTextAlignmentCenter];
     [firstBufferTimeLabelValue setTextColor:[UIColor orangeColor]];
     UILabel *firstBufferTimeLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (kViewR (uvMosLabel) + FITHEIGHT (25), kViewY (_imgView) + 10, 80, imgViewWAndH)];
-    [firstBufferTimeLabel setText:@"首次缓冲时间"];
+    initWithFrame:CGRectMake (kViewR (uvMosLabel) + FITHEIGHT (15), kViewY (_imgView) + 10, 100, imgViewWAndH)];
+    [firstBufferTimeLabel setText:title2];
     [firstBufferTimeLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
     [firstBufferTimeLabel setTextAlignment:NSTextAlignmentCenter];
     [_bgdBtn addSubview:firstBufferTimeLabelValue];
@@ -148,7 +153,7 @@
                                                kViewY (_imgView) - 10, 60, imgViewWAndH)];
     if (currentResultModel.cuttonTimes == -1)
     {
-        [cuttonTimesLabelValue setText:@"失败"];
+        [cuttonTimesLabelValue setText:title1];
     }
     else
     {
@@ -158,9 +163,10 @@
     [cuttonTimesLabelValue setTextAlignment:NSTextAlignmentCenter];
     [cuttonTimesLabelValue setTextColor:[UIColor orangeColor]];
     UILabel *cuttonTimesLabel =
-    [[UILabel alloc] initWithFrame:CGRectMake (kViewR (firstBufferTimeLabel) + FITHEIGHT (25),
-                                               kViewY (_imgView) + 10, 60, imgViewWAndH)];
-    [cuttonTimesLabel setText:@"卡顿次数"];
+    [[UILabel alloc] initWithFrame:CGRectMake (kViewR (firstBufferTimeLabel) - FITHEIGHT (5),
+                                               kViewY (_imgView) + 10, 100, imgViewWAndH)];
+    [cuttonTimesLabel setText:title3];
+
     [cuttonTimesLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
     [cuttonTimesLabel setTextAlignment:NSTextAlignmentCenter];
     [_bgdBtn addSubview:cuttonTimesLabelValue];

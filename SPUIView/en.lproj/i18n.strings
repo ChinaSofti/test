@@ -5,4 +5,183 @@
   Created by WBapple on 16/1/22.
   Copyright © 2016年 chinasofti. All rights reserved.
 */
-"VideoTest"="VideoTest";
+//测试界面
+
+//初始设置
+"Setting Bandwidth Information" = "Setting Bandwidth Information";
+
+"Ignore" = "Ignore";
+
+//退出程序视图
+"Press Back Key again to exit the program" = "Press Back Key again to exit the program";
+
+"Testing" = "Testing";
+//主测试界面
+"Select Test Item"="Select Test Item";
+"Video Test"="Video Test";
+"Web Test"="Web Test";
+"Speed Test"="Speed Test";
+"NetWork disconnection,unable to test" = "NetWork disconnection,unable to test";
+"Network Settings" = "Network Settings";
+"Begin Test"="Begin Test";
+
+//视频测试
+"waiting..." = "waiting...";
+"Fail" = "Fail";
+"inch" = "inch";
+"U-vMos"="U-vMos";
+"U-vMOS"="U-vMOS";
+//"Initial buffer time"="";
+//"Buffer times"="";
+
+//网页测试
+//"Response Time"="Response Time";
+//"Download speed" = "Download speed";
+//"Load duration"="Load duration";
+"response"="response";
+"Test Url"="Test Url";
+
+//带宽测试
+"download"="Download";
+"upload"="Upload";
+
+//退出的试图
+"Test stopped"="Test stopped";
+"Are you sure you want to exit the test"="Are you sure you want to exit the test";
+
+"Test Again"="Test Again";
+
+
+
+
+
+"Result" = "Result";
+//结果界面
+"Result List"="Result List";
+
+"Type"="Type";
+"Time"="Time";
+"U-vMOS"="U-vMOS";
+"Load Time"="Load Time";
+"Bandwidth"="Bandwidth";
+//删除 提示视图
+"Prompt"="Prompt";
+"Clear all test results"="Clear all test results";
+"No"="No";
+"Yes"="Yes";
+
+//结果详情界面
+"Detailed Data"="Detailed Data";
+
+//视频测试
+"Video Test" = "Video Test";
+"U-vMOS Score" = "U-vMOS Score";
+"      Video View score" = "      Video View score";
+"      Video quality score" = "      Video quality score";
+"      Interaction score" = "      Interaction score";
+"Initial buffer time" = "Initial buffer time";
+"Buffer time" = "Buffer time";
+"Butter times" = "Butter times";
+"Download speed" = "Download speed";
+"Bit rate" = "Bit rate";
+"Frame rate" = "Frame rat";
+"Resolution" = "Resolution";
+"Screen size" = "Screen size";
+"Video URL" = "Video URL";
+"Video server location" = "Video server location";
+"Carrier" = "Carrier";
+
+//网页测试
+"Web Test"="Web Test";
+"Response Time"="Response Time";
+"Load duration"="Load duration";
+"Download"="Download";
+
+
+//宽带测试
+"Speed Test" = "Speed Test";
+"Download speed" = "Download speed";
+"Upload speed" = "Upload speed";
+"Delay" = "Delay";
+"Server Location" = "Server Location";
+//"Carrier" = "Carrier";
+
+"Collector Information"="Collector Information";
+"Carriers"="Carrier";
+"Bandwidth package"="Bandwidth package";
+"Network type"="Network type";
+"unknown" = "unknown";
+"Test time"="Test time";
+"Signaling strength"="Signaling strength";
+
+//分享提示视图
+"Share on"="Share on";
+
+"Sina Weibo"="Sina Weibo";
+"WeChat"="WeChat";
+"WeChat Friend Circle"="WeChat Friend Circle";
+"Email"="Email";
+
+"Cancel"="Cancel";
+
+
+
+
+
+
+"Setting" = "Setting";
+//设置界面
+"Settings"="Settings";
+
+"Current connection"="Current connection";
+"Carrier" = "Carrier";
+"bandwidth type"="bandwidth type";
+"bandwidth packages"="bandwidth packages";
+
+"Bandwidth Settings" = "Bandwidth Settings";
+"Type" = "Type";
+//"unknown" = "";
+"Fiber" = "Fiber";
+"Copper" = "Copper";
+"Package" = "Package";
+
+
+
+"Version upgrade" = "Version upgrade";
+
+"Feedback" = "Feedback";
+//反馈
+"Enter your feedback" = "Enter your feedback";
+"Submit" = "Submit";
+
+"Share"="Share";
+//分享
+
+"About"="About";
+//关于
+
+
+"FAQ"="FAQ";
+//FAQ
+
+"Language Setting"="Language Setting";
+//语言设置
+"Auto" = "Auto";
+"简体中文" = "简体中文";
+"English" = "English";
+"Save" = "Save";
+
+//提示试图
+"You are using Wi-Fi" = "You are using Wi-Fi";
+"You are using the mobile phone network." = "You are using the mobile phone network.";
+
+"Upload Logs"="Upload Logs";
+//上传日志
+"Upload logs" = "Upload logs";
+"Are you sure Upload logs" = "Are you sure Upload logs";
+//"No" = "";
+//"Yes" = "";
+"Upload logs start" = "Upload logs start";
+
+"Advanced setting" = "Advanced setting";
+"Size:" = "Size:";

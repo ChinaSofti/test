@@ -10,6 +10,7 @@
 #import "SVCurrentResultViewCtrl.h"
 #import "SVPointView.h"
 #import "SVTestingCtrl.h"
+#import <SPCommon/SVI18N.h>
 #import <SPCommon/SVTimeUtil.h>
 #import <SPCommon/UUBar.h>
 #import <SPService/SVVideoTest.h>
@@ -120,11 +121,16 @@
 
 - (void)removeButtonClicked:(UIButton *)button
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                    message:@"是否结束本次测试"
+    NSString *title1 = I18N (@"Test stopped");
+    NSString *title2 = I18N (@"Are you sure you want to exit the test");
+    NSString *title3 = I18N (@"No");
+    NSString *title4 = I18N (@"Yes");
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title1
+                                                    message:title2
                                                    delegate:self
-                                          cancelButtonTitle:@"否"
-                                          otherButtonTitles:@"是", nil];
+                                          cancelButtonTitle:title3
+                                          otherButtonTitles:title4, nil];
     [alert show];
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -139,9 +145,10 @@
  */
 - (void)initContext
 {
-    [_footerView.placeLabel setText:@"计算中..."];
-    [_footerView.resolutionLabel setText:@"计算中..."];
-    [_footerView.bitLabel setText:@"计算中..."];
+    NSString *title5 = I18N (@"Waiting...");
+    [_footerView.placeLabel setText:title5];
+    [_footerView.resolutionLabel setText:title5];
+    [_footerView.bitLabel setText:title5];
     [_headerView.bufferLabel setText:@""];
     [_headerView.speedLabel setText:@""];
     [_testingView updateUvMOS:0];

@@ -11,6 +11,7 @@
 #import "SVSettingsViewCtrl.h"
 #import "SVTabBarController.h"
 #import "SVTestViewCtrl.h"
+#import <SPCommon/SVI18N.h>
 
 @interface SVTabBarController () <AlertViewDelegate>
 
@@ -24,16 +25,19 @@
 {
     [super viewDidLoad];
     NSLog (@"SVTabbarController");
+    NSString *title1 = I18N (@"Testing");
+    NSString *title2 = I18N (@"Result");
+    NSString *title3 = I18N (@"Setting");
 
     //测试
     SVTestViewCtrl *testCtrl = [SVTestViewCtrl new];
-    [self addChildViewController:testCtrl imageName:@"tabbar_test" title:@"测试"];
+    [self addChildViewController:testCtrl imageName:@"tabbar_test" title:title1];
     //结果
     SVResultViewCtrl *resultCtrl = [SVResultViewCtrl new];
-    [self addChildViewController:resultCtrl imageName:@"tabbar_result" title:@"结果"];
+    [self addChildViewController:resultCtrl imageName:@"tabbar_result" title:title2];
     //设置
     SVSettingsViewCtrl *settingsCtrl = [SVSettingsViewCtrl new];
-    [self addChildViewController:settingsCtrl imageName:@"tabbar_settings" title:@"设置"];
+    [self addChildViewController:settingsCtrl imageName:@"tabbar_settings" title:title3];
     //添加通知的监听
     [self addNotificataion];
 }

@@ -9,6 +9,7 @@
 
 #import "SVPointView.h"
 #import "SVTestingCtrl.h"
+#import <SPCommon/SVI18N.h>
 #import <SPCommon/UUBar.h>
 
 @interface SVPointView ()
@@ -23,6 +24,11 @@
 {
     if ([super init])
     {
+        NSString *title1 = I18N (@"Initial buffer time");
+        NSString *title2 = I18N (@"Butter times");
+        NSString *title3 = I18N (@"Video server location");
+        NSString *title4 = I18N (@"Resolution");
+        NSString *title5 = I18N (@"Bit rate");
         // 1.HeaderView中的初始化
 
         //设置Label
@@ -53,17 +59,17 @@
 
         _speedNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_uvMosNumLabel.rightX + FITWIDTH (35),
-                                         _uvMosBarView.bottomY + FITWIDTH (10), FITWIDTH (80), FITWIDTH (10))
+                                         _uvMosBarView.bottomY + FITWIDTH (10), FITWIDTH (90), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
-                   withTitle:@"首次缓冲时间"];
+                   withTitle:title1];
 
         _bufferNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_speedNumLabel.rightX + FITWIDTH (20),
                                          _uvMosBarView.bottomY + FITWIDTH (10), FITWIDTH (80), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
-                   withTitle:@"卡顿次数"];
+                   withTitle:title2];
         //所有Label居中对齐
         _bufferLabel.textAlignment = NSTextAlignmentCenter;
         _speedLabel.textAlignment = NSTextAlignmentCenter;
@@ -149,19 +155,19 @@
         createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (445), FITWIDTH (150), FITWIDTH (20))
                     withFont:12
               withTitleColor:[UIColor lightGrayColor]
-                   withTitle:@"视频服务器位置"];
+                   withTitle:title3];
 
         _resolutionNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (470), FITWIDTH (50), FITWIDTH (20))
                     withFont:10
               withTitleColor:[UIColor lightGrayColor]
-                   withTitle:@"分辨率"];
+                   withTitle:title4];
 
         _bitNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (495), FITWIDTH (50), FITWIDTH (20))
                     withFont:10
               withTitleColor:[UIColor lightGrayColor]
-                   withTitle:@"码率"];
+                   withTitle:title5];
         //所有Label居中对齐
         _placeLabel.textAlignment = NSTextAlignmentLeft;
         _bitLabel.textAlignment = NSTextAlignmentRight;

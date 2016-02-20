@@ -76,7 +76,8 @@
 
 - (void)createUI
 {
-    NSArray *titlesArr = @[@"跟随系统", @"简体中文", @"English"];
+    NSString *title1 = I18N (@"Auto");
+    NSArray *titlesArr = @[title1, @"简体中文", @"English"];
     for (int i = 0; i < 3; i++)
     {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (10, 74 + i * 43, kScreenW - 20, 44)];

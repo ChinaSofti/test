@@ -11,6 +11,7 @@
 #import "SVResultViewCtrl.h"
 #import "SVToolCells.h"
 #import <SPCommon/SVDBManager.h>
+#import <SPCommon/SVI18N.h>
 #import <SPCommon/SVLog.h>
 #import <SPService/SVDetailResultModel.h>
 #define kMargin 10
@@ -32,13 +33,14 @@
 
 - (void)viewDidLoad
 {
+    NSString *title1 = I18N (@"Detailed Data");
     [super viewDidLoad];
     //设置背景颜色
     //    self.view.backgroundColor = [UIColor redColor];
     NSLog (@"SVDetailViewCtrl页面");
     _db = [SVDBManager sharedInstance];
     // 1.自定义navigationItem.title
-    self.navigationItem.title = @"详细数据";
+    self.navigationItem.title = title1;
     //电池显示不了,设置样式让电池显示
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
@@ -99,75 +101,97 @@
     // 6.定义数组展示图片
     _selectedMA = [NSMutableArray array];
 
+
+    NSString *title1 = I18N (@"U-vMOS Score");
+    NSString *title2 = I18N (@"      Video View score");
+    NSString *title3 = I18N (@"      Video quality score");
+    NSString *title4 = I18N (@"      Interaction score");
+    NSString *title5 = I18N (@"Initial buffer time");
+    NSString *title6 = I18N (@"Buffer time");
+    NSString *title7 = I18N (@"Butter times");
+    NSString *title8 = I18N (@"Download speed");
+    NSString *title9 = I18N (@"Bit rate");
+    NSString *title10 = I18N (@"Frame rate");
+    NSString *title11 = I18N (@"Resolution");
+    NSString *title12 = I18N (@"Screen size");
+    NSString *title13 = I18N (@"Video URL");
+    NSString *title14 = I18N (@"Video server location");
+    NSString *title15 = I18N (@"Carrier");
+    NSString *title16 = I18N (@"Carriers");
+    NSString *title17 = I18N (@"Bandwidth package");
+    NSString *title18 = I18N (@"unknown");
+    NSString *title19 = I18N (@"Network type");
+    NSString *title20 = I18N (@"inch");
+
     NSArray *sourceA = @[
         @{
-            @"title": @"U-vMOS得分",
+            @"title": title1,
             @"title2": [self formatFloatValue:viewModel.UvMOSSession],
         },
         @{
-            @"title": @"      观看得分",
+            @"title": title2,
             @"title2": [self formatFloatValue:viewModel.sViewSession],
         },
         @{
-            @"title": @"      片源得分",
+            @"title": title3,
             @"title2": [self formatFloatValue:viewModel.sQualitySession],
         },
         @{
-            @"title": @"      交互得分",
+            @"title": title4,
             @"title2": [self formatFloatValue:viewModel.sInteractionSession],
         },
         @{
-            @"title": @"首次缓冲时间",
+            @"title": title5,
             @"title2": [self formatValue:viewModel.firstBufferTime unit:@"ms"],
         },
         @{
-            @"title": @"卡顿总时长",
+            @"title": title6,
             @"title2": [self formatValue:viewModel.videoCuttonTotalTime unit:@"ms"],
         },
-        @{ @"title": @"卡顿次数",
+        @{ @"title": title7,
            @"title2": [self formatValue:viewModel.videoCuttonTimes] },
         @{
-            @"title": @"下载速度",
+            @"title": title8,
             @"title2": [self formatValue:viewModel.downloadSpeed unit:@"kbps"],
 
         },
         @{
-            @"title": @"码率",
+            @"title": title9,
             @"title2": [self formatValue:viewModel.bitrate unit:@"kbps"],
         },
         @{
-            @"title": @"帧率",
+            @"title": title10,
             @"title2": [self formatValue:viewModel.frameRate unit:@"Fps"],
         },
         @{
-            @"title": @"分辨率",
+            @"title": title11,
             @"title2": [self formatValue:viewModel.videoResolution],
         },
         @{
-            @"title": @"屏幕尺寸",
-            @"title2": [self formatValue:viewModel.screenSize unit:@"英寸"],
+            @"title": title12,
+            @"title2": [self formatValue:viewModel.screenSize unit:title20],
         },
         @{
-            @"title": @"视频地址",
+            @"title": title13,
             @"title2": [self formatValue:viewModel.videoSegementURLString],
         },
         @{
-            @"title": @"视频服务器位置",
+            @"title": title14,
             @"title2": [self formatValue:viewModel.videoSegemnetLocation],
         },
 
         @{
-            @"title": @"所属运营商",
+            @"title": title15,
             @"title2": [self formatValue:viewModel.videoSegemnetISP],
         },
 
         @{
-            @"title": @"采集器所属运营商",
+            @"title": title16,
             @"title2": [self formatValue:viewModel.isp],
         },
-        @{ @"title": @"宽带套餐",
-           @"title2": @"未知" },
-        @{ @"title": @"网络类型",
+        @{ @"title": title17,
+           @"title2": title18 },
+        @{ @"title": title19,
            @"title2": @"WIFI" },
         //        @{ @"title": @"测试时间",
         //           @"title2": @"2016年02月16日 09:15:10" },
@@ -320,8 +344,11 @@
 //设置 tableView 的 sectionHeader蓝色 的header的有无
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    NSString *title1 = I18N (@"Video Test");
+    NSString *title2 = I18N (@"Collector Information");
     if (section == 0)
     {
+
         UIView *bgdView = [[UIView alloc] init];
         UIImage *image = [UIImage imageNamed:@"rt_detail_title_video_img"];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
@@ -330,7 +357,7 @@
 
         UILabel *label =
         [[UILabel alloc] initWithFrame:CGRectMake (kMargin + 33, -2, kScreenW - kMargin, kFirstHederH)];
-        label.text = @"视频测试";
+        label.text = title1;
         label.font = [UIFont systemFontOfSize:12.0f];
         [bgdView addSubview:label];
         return bgdView;
@@ -345,7 +372,7 @@
 
         UILabel *label =
         [[UILabel alloc] initWithFrame:CGRectMake (kMargin + 33, -2, kScreenW - kMargin, kFirstHederH)];
-        label.text = @"采集器信息";
+        label.text = title2;
         label.font = [UIFont systemFontOfSize:12.0f];
         [bgdView addSubview:label];
         return bgdView;

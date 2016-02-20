@@ -32,11 +32,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSString *title6 = I18N (@"Begin Test");
+    NSString *title7 = I18N (@"Network Settings");
     //按钮文字和类型
     BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
     if (isConnectionAvailable)
     {
-        [_testBtn setTitle:@"开始测试" forState:UIControlStateNormal];
+        [_testBtn setTitle:title6 forState:UIControlStateNormal];
         //按钮点击事件
         [_testBtn addTarget:self
                      action:@selector (testBtnClick)
@@ -44,7 +46,7 @@
     }
     else
     {
-        [_testBtn setTitle:@"网络设置" forState:UIControlStateNormal];
+        [_testBtn setTitle:title7 forState:UIControlStateNormal];
         //按钮点击事件
         [_testBtn addTarget:self
                      action:@selector (goNetworkSetting)
@@ -85,8 +87,11 @@
     _tableView.dataSource = self;
     // 6.定义数组展示图片
     _selectedMA = [NSMutableArray array];
+    //国际化
     NSString *title = I18N (@"VideoTest");
-    //    NSString *title = @"视频测试";
+    NSString *title2 = I18N (@"Web Test");
+    NSString *title3 = I18N (@"Speed Test");
+
     NSArray *sourceA = @[
         @{
             @"img_normal": @"ic_video_label",
@@ -98,14 +103,14 @@
         @{
             @"img_normal": @"ic_web_label",
             @"img_selected": @"ic_web_label",
-            @"title": @"网页测试",
+            @"title": title2,
             @"rightImg_normal": @"1",
             @"rightImg_selected": @"ic_web_check"
         },
         @{
             @"img_normal": @"ic_speed_label",
             @"img_selected": @"ic_speed_label",
-            @"title": @"带宽测试",
+            @"title": title3,
             @"rightImg_normal": @"1",
             @"rightImg_selected": @"ic_speed_check"
         }
@@ -169,7 +174,8 @@
         UIView *bgdView = [[UIView alloc] init];
         UILabel *label =
         [[UILabel alloc] initWithFrame:CGRectMake (kMargin, 0, kScreenW - kMargin, kFirstHederH)];
-        label.text = @"选择测试项";
+        NSString *title4 = I18N (@"Select Test Item");
+        label.text = title4;
         label.font = [UIFont systemFontOfSize:13.0f];
         [bgdView addSubview:label];
         return bgdView;
@@ -239,7 +245,9 @@
         //        BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
         //        if (isConnectionAvailable)
         //        {
-        [_testBtn setTitle:@"开始测试" forState:UIControlStateNormal];
+        NSString *title5 = I18N (@"Begin Test");
+
+        [_testBtn setTitle:title5 forState:UIControlStateNormal];
         //按钮点击事件
         [_testBtn addTarget:self
                      action:@selector (testBtnClick)

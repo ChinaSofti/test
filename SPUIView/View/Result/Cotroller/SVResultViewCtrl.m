@@ -13,6 +13,7 @@
 #import "SVResultViewCtrl.h"
 #import "SVSortTools.h"
 #import <SPCommon/SVDBManager.h>
+#import <SPCommon/SVI18N.h>
 #import <SPService/SVSummaryResultModel.h>
 
 @interface SVResultViewCtrl () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
@@ -149,11 +150,15 @@
 
 - (void)removeButtonClicked:(UIButton *)button
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                    message:@"清空所有测试结果"
+    NSString *title1 = I18N (@"Prompt");
+    NSString *title2 = I18N (@"Clear all test results");
+    NSString *title3 = I18N (@"No");
+    NSString *title4 = I18N (@"Yes");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title1
+                                                    message:title2
                                                    delegate:self
-                                          cancelButtonTitle:@"否"
-                                          otherButtonTitles:@"是", nil];
+                                          cancelButtonTitle:title3
+                                          otherButtonTitles:title4, nil];
     [alert show];
 }
 /**
@@ -181,7 +186,13 @@
  */
 - (void)addHeadView
 {
-    NSArray *titles = @[@"类型", @"时间", @"U-vMOS", @"首次缓冲时间     ", @"速率"];
+    NSString *title1 = I18N (@"Type");
+    NSString *title2 = I18N (@"Time");
+    NSString *title3 = I18N (@"U-vMOS");
+    NSString *title4 = I18N (@"Load Time");
+    NSString *title5 = I18N (@"Bandwidth");
+
+    NSArray *titles = @[title1,title2,title3,title4,title5];
     NSArray *images = @[
         @"ic_network_type_normal",
         @"ic_start_time_normal",

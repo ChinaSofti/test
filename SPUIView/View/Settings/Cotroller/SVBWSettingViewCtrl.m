@@ -8,6 +8,7 @@
 #define BUTTON_TAG 30
 
 #import "SVBWSettingViewCtrl.h"
+#import <SPCommon/SVI18N.h>
 
 @interface SVBWSettingViewCtrl ()
 
@@ -76,6 +77,14 @@
 
 - (void)createUI
 {
+    NSString *title1 = I18N (@"Bandwidth Settings");
+    NSString *title2 = I18N (@"unknown");
+    NSString *title3 = I18N (@"Fiber");
+    NSString *title4 = I18N (@"Copper");
+    NSString *title5 = I18N (@"Package");
+    NSString *title7 = I18N (@"Carrier");
+
+
     // views
     UIView *views = [[UIView alloc] init];
     views.frame = CGRectMake (10, 74, kScreenW - 20, 180);
@@ -84,13 +93,13 @@
 
     // lableBWType
     UILabel *lableBWType = [[UILabel alloc] init];
-    lableBWType.frame = CGRectMake (10, 10, 100, 20);
-    lableBWType.text = @"带宽类型";
+    lableBWType.frame = CGRectMake (10, 10, 200, 20);
+    lableBWType.text = title1;
     lableBWType.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableBWType];
 
     //三个button
-    NSArray *titleArr = @[@"未知", @"光纤", @"铜线"];
+    NSArray *titleArr = @[title2, title3, title4];
     for (int i = 0; i < 3; i++)
     {
         _button = [[UIButton alloc] init];
@@ -140,7 +149,7 @@
     // lableBWPackage
     UILabel *lableBWPackage = [[UILabel alloc] init];
     lableBWPackage.frame = CGRectMake (10, 70, 100, 20);
-    lableBWPackage.text = @"带宽套餐";
+    lableBWPackage.text = title5;
     lableBWPackage.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableBWPackage];
 
@@ -148,7 +157,7 @@
     textField.frame = CGRectMake (10, 90, kScreenW - 40, 20);
     textField.borderStyle = UITextBorderStyleRoundedRect;
     textField.text = @"-1.0";
-    textField.placeholder = @"请输入带宽";
+    textField.placeholder = @"Please input bandwidth";
     textField.font = [UIFont systemFontOfSize:14];
     textField.keyboardType = UIKeyboardTypeDefault;
 
@@ -158,13 +167,13 @@
     // lableCarrier
     UILabel *lableCarrier = [[UILabel alloc] init];
     lableCarrier.frame = CGRectMake (10, 130, 100, 20);
-    lableCarrier.text = @"运营商";
+    lableCarrier.text = title7;
     lableCarrier.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableCarrier];
 
     UILabel *lableCarriers = [[UILabel alloc] init];
     lableCarriers.frame = CGRectMake (10, 160, 150, 20);
-    lableCarriers.text = @"中国联通 北京市";
+    lableCarriers.text = @"China Unicom Beijing";
     lableCarriers.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableCarriers];
 

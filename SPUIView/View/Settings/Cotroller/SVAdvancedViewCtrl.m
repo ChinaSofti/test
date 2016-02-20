@@ -7,8 +7,8 @@
 //
 
 #import "SVAdvancedViewCtrl.h"
+#import <SPCommon/SVI18N.h>
 #import <SPService/SVAdvancedSetting.h>
-
 @interface SVAdvancedViewCtrl ()
 
 @end
@@ -65,10 +65,13 @@
 
 - (void)createUI
 {
+    NSString *title1 = I18N (@"Size:");
+    NSString *title2 = I18N (@"inch");
+
     //屏幕尺寸
     UILabel *lableScreenSize = [[UILabel alloc] init];
     lableScreenSize.frame = CGRectMake (10, 84, 70, 20);
-    lableScreenSize.text = @"屏幕尺寸：";
+    lableScreenSize.text = title1;
     lableScreenSize.font = [UIFont systemFontOfSize:14];
     [self.view addSubview:lableScreenSize];
 
@@ -91,7 +94,7 @@
     //英寸
     UILabel *lableInch = [[UILabel alloc] init];
     lableInch.frame = CGRectMake (kScreenW - 30, 84, 30, 20);
-    lableInch.text = @"英寸";
+    lableInch.text = title2;
     lableInch.font = [UIFont systemFontOfSize:14];
     [self.view addSubview:lableInch];
 }

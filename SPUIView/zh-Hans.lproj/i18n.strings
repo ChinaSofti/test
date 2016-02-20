@@ -6,4 +6,182 @@
   Copyright © 2016年 chinasofti. All rights reserved.
 */
 
-"VideoTest"="视频测试";
+//测试界面
+//初始设置
+"Setting Bandwidth Information" = "设置带宽信息";
+"Ignore" = "忽略";
+
+//退出程序视图
+"Press Back Key again to exit the program" = "再按一次 back 键退出程序";
+"Testing" = "测试";
+
+//主测试界面
+"Select Test Item"="选择测试项";
+"Video Test"="视频测试";
+"Web Test"="网页测试";
+"Speed Test"="带宽测试";
+"NetWork disconnection,unable to test" = "网络异常，无法测试";
+"Network Settings" = "网络设置";
+"Begin Test"="开始测试";
+
+//视频测试
+"Waiting..." = "计算中...";
+"Fail" = "失败";
+"inch" = "英寸";
+
+"U-vMos"="U-vMos";
+"U-vMOS"="U-vMOS";
+//"Initial buffer time"="";
+//"Buffer times"="";
+
+//网页测试
+//"Response Time"="Response Time";
+//"Download speed" = "Download speed";
+//"Load duration"="Load duration";
+//"Download" = "Download";
+"response"="响应时间";
+"Test Url"="测试网址";
+
+//带宽测试
+"download"="Download";
+"upload"="Upload";
+
+//退出的试图
+"Test stopped"="终止测试";
+"Are you sure you want to exit the test"="确定退出本次测试吗?";
+
+"Test Again"="再测一次";
+
+
+
+
+
+"Result" = "结果";
+//结果界面
+"Result List"="结果列表";
+
+"Type"="类型";
+"Time"="时间";
+"U-vMOS"="U-vMOS";
+"Load Time"="加载时间";
+"Bandwidth"="带宽";
+//删除 提示视图
+"Prompt"="提示";
+"Clear all test results"="清空所有测试结果";
+"No"="否";
+"Yes"="是";
+
+
+//结果详情界面
+"Detailed Data"="详细数据";
+//视频测试
+"Video Test" = "视频测试";
+"U-vMOS Score" = "U-vMOS得分";
+"      Video View score" = "      观看得分";
+"      Video quality score" = "      片源得分";
+"      Interaction score" = "      交互得分";
+"Initial buffer time" = "首次缓冲时间";
+"Buffer time" = "卡顿总时长";
+"Butter times" = "卡顿次数";
+"Download speed" = "下载速率";
+"Bit rate" = "码率";
+"Frame rate" = "帧率";
+"Resolution" = "分辨率";
+"Screen size" = "屏幕尺寸";
+"Video URL" = "视频地址";
+"Video server location" = "视频服务器地址";
+"Carrier" = "所属运营商";
+
+//网页测试
+"Web Test"="网页测试";
+"Response Time"="响应时间";
+"Load duration"="完全加载时间";
+"Download"="下载速率";
+
+
+//宽带测试
+"Speed Test" = "带宽测试";
+"Download speed" = "下载速率";
+"Upload speed" = "上传速率";
+"Delay" = "时延";
+"Server Location" = "测试服务器地址";
+"Carrier" = "所属运营商";
+
+"Collector Information"="采集器信息";
+"Carriers"="采集器所属运营商";
+"Bandwidth package"="宽带套餐";
+"Network type"="网络类型";
+"unknown" = "未知";
+"Test time"="测试时间";
+"Signaling strength"="信号强度";
+
+//分享提示视图
+"Share on"="分享到";
+"Sina Weibo"="新浪微博";
+"WeChat"="微信";
+"WeChat Friend Circle"="微信朋友圈";
+"Email"="邮件";
+"Cancel"="取消";
+
+
+
+
+
+
+"Setting" = "设置";
+//设置界面
+"Settings"="设置";
+
+"Current connection"="当前连接";
+"Carrier" = "所属运营商";
+"bandwidth type"="带宽类型";
+"bandwidth packages"="带宽套餐";
+
+
+"Bandwidth Settings" = "带宽设置";
+"Type" = "带宽类型";
+//"unknown" = "";
+"Fiber" = "光纤";
+"Copper" = "铜线";
+"Package" = "带宽套餐";
+
+
+"Version upgrade"="版本升级";
+
+"Feedback"="意见反馈";
+//反馈
+"Enter your feedback" = "请输入您的宝贵意见";
+"Submit" = "提交";
+
+"Share"="分享";
+//分享
+
+"About"="关于";
+//关于
+
+
+"FAQ"="FAQ";
+//FAQ
+
+"Language Setting"="语言设置";
+//语言设置
+"Auto" = "跟随系统";
+"简体中文" = "简体中文";
+"English" = "English";
+"Save" = "保存";
+
+//提示试图
+"You are using Wi-Fi" = "您正在使用wifi";
+"You are using the mobile phone network." = "您正在使用手机移动网络";
+
+"Upload Logs"="上传日志";
+//上传日志
+"Upload logs" = "上传日志";
+"Are you sure Upload logs" = "是否上传日志";
+//"No" = "";
+//"Yes" = "";
+"Upload logs start" = "开始上传日志";
+
+"Advanced setting" = "高级设置";
+"Size:" = "屏幕尺寸:";
+
