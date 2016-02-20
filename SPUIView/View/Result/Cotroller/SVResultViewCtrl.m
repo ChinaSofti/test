@@ -92,6 +92,7 @@
     //电池显示不了,设置样式让电池显示
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
+
     //添加NavigationRightItem
     [self addNavigationRightItem];
 
@@ -130,7 +131,7 @@
 {
     [super viewDidAppear:animated];
 
-    //每次界面加载按钮都别点击
+    //每次界面加载按钮都点击
     //    [self buttonClick:_typeButton];
 }
 
@@ -180,7 +181,7 @@
  */
 - (void)addHeadView
 {
-    NSArray *titles = @[@"类型    ", @"时间   ", @"U-vMOS", @"首次缓冲时间", @"速率  "];
+    NSArray *titles = @[@"类型", @"时间", @"U-vMOS", @"首次缓冲时间", @"速率"];
     NSArray *images = @[
         @"ic_network_type_normal",
         @"ic_start_time_normal",
@@ -201,33 +202,38 @@
     [UIColor colorWithRed:69 / 255.0 green:84 / 255.0 blue:92 / 255.0 alpha:1.0];
 
     //设置左右边距
-    CGFloat BandGap = 13;
+    CGFloat BandGap = 10;
     //设置按钮宽度
     CGFloat ButtonWidth = (kScreenW - 2 * BandGap) / 5;
 
     for (int i = 0; i < 5; i++)
     {
         _button = [[UIButton alloc]
-        initWithFrame:CGRectMake (BandGap + ButtonWidth * i, 0, ButtonWidth, ButtonWidth)];
+        initWithFrame:CGRectMake (BandGap + ButtonWidth * i, 0, ButtonWidth - 5, ButtonWidth - 5)];
 
         [_button setTitle:titles[i] forState:UIControlStateNormal];
-        _button.titleLabel.font = [UIFont systemFontOfSize:12];
+        _button.titleLabel.font = [UIFont systemFontOfSize:11];
+
+        //        _button.titleLabel.backgroundColor = [UIColor yellowColor];
+        //        _button.imageView.backgroundColor = [UIColor blueColor];
+        //        _button.backgroundColor = [UIColor redColor];
         //设置文字居中
         _button.titleLabel.textAlignment = NSTextAlignmentCenter;
         // button普通状态下的字体颜色
-        [_button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         // button选中状态下的字体颜色
         [_button setTitleColor:[UIColor whiteColor]
                       forState:UIControlStateSelected | UIControlStateHighlighted];
         [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         // button普通状态下的图片
-        [_button setImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
+        [_button setImage:[UIImage imageNamed:imagesSelected[i]] forState:UIControlStateNormal];
         // button选中状态下的图片
         [_button setImage:[UIImage imageNamed:imagesSelected[i]]
                  forState:UIControlStateSelected | UIControlStateHighlighted];
         [_button setImage:[UIImage imageNamed:imagesSelected[i]] forState:UIControlStateSelected];
-        _button.titleEdgeInsets = UIEdgeInsetsMake (25, -35, 0, -5);
-        _button.imageEdgeInsets = UIEdgeInsetsMake (-25, 20, 0, 4);
+        // _button.titleEdgeInsets = UIEdgeInsetsMake (上, 左, 下, 右);
+        _button.titleEdgeInsets = UIEdgeInsetsMake (30, -24, 0, 0);
+        _button.imageEdgeInsets = UIEdgeInsetsMake (-15, 17, 0, 0);
         //        [_button addTarget:self
         //                    action:@selector (buttonClick:)
         //          forControlEvents:UIControlEventTouchUpInside];
