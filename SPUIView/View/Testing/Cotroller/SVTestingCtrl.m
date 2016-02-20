@@ -171,8 +171,7 @@
     //创建一个覆盖garyView
     _grayview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
     //设置透明度
-    //    _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
-    _grayview.backgroundColor = [UIColor redColor];
+        _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     //添加
     [window addSubview:_grayview];
     [self initContext];
