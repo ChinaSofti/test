@@ -12,11 +12,26 @@
 @interface SVBWSettingViewCtrl ()
 
 @property (strong, nonatomic) UIButton *button;
+@property (nonatomic, strong) UIView *imageView;
+
 
 @end
 
 @implementation SVBWSettingViewCtrl
 
+- (UIView *)imageView
+{
+    if (_imageView == nil)
+    {
+        _imageView = [[UIView alloc] init];
+        _imageView.layer.borderWidth = 1;
+        _imageView.layer.borderColor =
+        [[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1] CGColor];
+        _imageView.layer.masksToBounds = YES;
+        _imageView.layer.cornerRadius = 8;
+    }
+    return _imageView;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -79,15 +94,18 @@
     for (int i = 0; i < 3; i++)
     {
         _button = [[UIButton alloc] init];
-        _button.frame = CGRectMake (50 + i * (50 + 20), 40, 60, 30);
+        _button.frame = CGRectMake (50 + i * (50 + 20), 35, 60, 30);
         [_button setTitle:titleArr[i] forState:UIControlStateNormal];
         // button普通状态下的字体颜色
         [_button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 
         // button选中状态下的字体颜色
-        [_button setTitleColor:[UIColor blueColor]
-                      forState:UIControlStateSelected | UIControlStateHighlighted];
-        [_button setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
+        [_button
+        setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
+             forState:UIControlStateSelected | UIControlStateHighlighted];
+        [_button
+        setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
+             forState:UIControlStateSelected];
 
         _button.titleLabel.font = [UIFont systemFontOfSize:14];
 
@@ -103,7 +121,16 @@
                     action:@selector (buttonClicked:)
           forControlEvents:UIControlEventTouchUpInside];
         _button.tag = BUTTON_TAG + i;
+        //设置初始默认选择按钮
+        if (_button.tag == 30)
+        {
+            _button.selected = YES;
+            self.imageView.frame = CGRectMake (60, 110, 60, 30);
 
+            [self.imageView removeFromSuperview];
+            [self.view addSubview:self.imageView];
+        }
+        //      _button.selected = NO;
         //   _button.userInteractionEnabled = YES;
 
         [views addSubview:_button];
@@ -182,24 +209,34 @@
 
     self.button.selected = YES;
 
-
     switch (button.tag - BUTTON_TAG)
     {
     case 0:
         //跟随系统
-        NSLog (@"跟随系统");
+        NSLog (@"未知");
 
+        self.imageView.frame = CGRectMake (60, 110, 60, 30);
+
+        [self.imageView removeFromSuperview];
+        [self.view addSubview:self.imageView];
 
         break;
     case 1:
         //简体中文
-        NSLog (@"简体中文");
+        NSLog (@"光纤");
+        self.imageView.frame = CGRectMake (130, 110, 60, 30);
 
+        [self.imageView removeFromSuperview];
+        [self.view addSubview:self.imageView];
 
         break;
     case 2:
         // English
-        NSLog (@"English");
+        NSLog (@"铜线");
+        self.imageView.frame = CGRectMake (200, 110, 60, 30);
+
+        [self.imageView removeFromSuperview];
+        [self.view addSubview:self.imageView];
 
         break;
 

@@ -181,7 +181,7 @@
  */
 - (void)addHeadView
 {
-    NSArray *titles = @[@"类型", @"时间", @"U-vMOS", @"首次缓冲时间", @"速率"];
+    NSArray *titles = @[@"类型", @"时间", @"U-vMOS", @"首次缓冲时间     ", @"速率"];
     NSArray *images = @[
         @"ic_network_type_normal",
         @"ic_start_time_normal",

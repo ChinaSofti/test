@@ -12,7 +12,7 @@
 #import "SVAdvancedViewCtrl.h"
 #import "SVBWSettingViewCtrl.h"
 #import "SVLanguageSettingViewCtrl.h"
-
+#import "SVLogsViewCtrl.h"
 
 @interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -49,10 +49,24 @@
     //三.添加
     // 7.把tableView添加到 view
     [self.view addSubview:_tableView];
+    //在cell的imageview上加一圈白环
+    [self addView];
 }
 
-//方法:
+- (void)addView
+{
+    UIView *imageView = [[UIView alloc] init];
+    imageView.frame = CGRectMake (23.5, 84.5, 87.5, 79);
+    imageView.layer.borderWidth = 10;
+    imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
+    imageView.layer.masksToBounds = YES;
+    imageView.layer.cornerRadius = 40;
 
+    [self.view addSubview:imageView];
+}
+
+
+//方法:
 //设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -66,7 +80,7 @@
         return 1;
     }
     else
-        return 3;
+        return 4;
 }
 
 // 设置 tableView 的行高
@@ -79,21 +93,7 @@
     else
         return 40;
 }
-//调整cell中线条的长度
-//-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
-//forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if ([cell respondsToSelector:@selector(setLayoutMargins:)])
-//    {
-//        [cell setLayoutMargins:UIEdgeInsetsMake(0, -50, 0, 0)];
-//
-//    }
-////    if ([cell respondsToSelector:@selector(setSeparatorInset:)])
-////    {
-//////    [cell setLayoutMargins:UIEdgeInsetsMake(0, -20, 0, 20)];
-////    //[cell setLayoutMargins:UIEdgeInsetsMake(0, 100, 0, 0)];
-////    }
-//}
+
 //设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,37 +130,56 @@
     {
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 
-        //        if (indexPath.row == 0)
-        //        {
-        //            cell.textLabel.text = @"版本升级";
-        //        }
-        //        if (indexPath.row == 1)
-        //        {
-        //            cell.textLabel.text = @"分享";
-        //        }
         if (indexPath.row == 0)
         {
             cell.textLabel.text = @"关于";
-            //   cell.frame = CGRectMake(10, 0, kScreenW-20, 40);
         }
-        //        if (indexPath.row == 3)
-        //        {
-        //            cell.textLabel.text = @"FAQ";
-        //        }
         if (indexPath.row == 1)
         {
             cell.textLabel.text = @"语言设置";
         }
-        //        if (indexPath.row == 5)
-        //        {
-        //            cell.textLabel.text = @"上传日志";
-        //        }
         if (indexPath.row == 2)
+        {
+            cell.textLabel.text = @"上传日志";
+
+            //添加上传日志的点击事件
+            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, 40)];
+            //            button.backgroundColor = [UIColor redColor];
+            [button addTarget:self
+                       action:@selector (removeButtonClicked:)
+             forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:button];
+        }
+        if (indexPath.row == 3)
         {
             cell.textLabel.text = @"高级设置";
         }
     }
     return cell;
+}
+//上传日志按钮的点击事件
+- (void)removeButtonClicked:(UIButton *)button
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"上传日志"
+                                                    message:@"是否上传日志"
+                                                   delegate:self
+                                          cancelButtonTitle:@"否"
+                                          otherButtonTitles:@"是", nil];
+    [alert show];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        //如果点击上传怎样,写在这里
+        /*
+
+
+         雨哥加代码处
+
+
+         */
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -189,8 +208,14 @@
             languageSetting.title = @"语言设置";
             [self.navigationController pushViewController:languageSetting animated:YES];
         }
-        //高级设置
+        //上传日志
         if (indexPath.row == 2)
+        {
+            SVLogsViewCtrl *logs = [[SVLogsViewCtrl alloc] init];
+            logs.title = @"上传日志";
+        }
+        //高级设置
+        if (indexPath.row == 3)
         {
             SVAdvancedViewCtrl *advanced = [[SVAdvancedViewCtrl alloc] init];
             advanced.title = @"高级设置";

@@ -28,10 +28,6 @@
 		4DD006081C609EDB007D4D2F /* ic_web_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD005F71C609EDB007D4D2F /* ic_web_test.png */; };
 		4DD006191C609F7A007D4D2F /* SVResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD006141C609F7A007D4D2F /* SVResultViewCtrl.m */; };
 		4DD0061A1C609F7A007D4D2F /* SVSortTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD006161C609F7A007D4D2F /* SVSortTools.m */; };
-		4DD0338C1C734A8500A8CE9B /* SVAboutViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD033851C734A8500A8CE9B /* SVAboutViewCtrl.m */; };
-		4DD0338D1C734A8500A8CE9B /* SVAdvancedViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD033871C734A8500A8CE9B /* SVAdvancedViewCtrl.m */; };
-		4DD0338E1C734A8500A8CE9B /* SVBWSettingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD033891C734A8500A8CE9B /* SVBWSettingViewCtrl.m */; };
-		4DD0338F1C734A8500A8CE9B /* SVLanguageSettingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD0338B1C734A8500A8CE9B /* SVLanguageSettingViewCtrl.m */; };
 		4DD033911C734BB400A8CE9B /* ic_language_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD033901C734BB400A8CE9B /* ic_language_select.png */; };
 		4DD033941C734BD600A8CE9B /* ic_settings_mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD033921C734BD600A8CE9B /* ic_settings_mobile.png */; };
 		4DD033951C734BD600A8CE9B /* ic_settings_wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD033931C734BD600A8CE9B /* ic_settings_wifi.png */; };
@@ -82,6 +78,11 @@
 		56EC8C971C4F467000EBDA6C /* tabbar_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C901C4F467000EBDA6C /* tabbar_test.png */; };
 		56EC8C981C4F467000EBDA6C /* tabbar_test_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C911C4F467000EBDA6C /* tabbar_test_selected.png */; };
 		56F523E41C4DCF7F00E6472B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F523E31C4DCF7F00E6472B /* main.m */; };
+		56FF0E3E1C78492C0080487D /* SVAboutViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FF0E351C78492C0080487D /* SVAboutViewCtrl.m */; };
+		56FF0E3F1C78492C0080487D /* SVAdvancedViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FF0E371C78492C0080487D /* SVAdvancedViewCtrl.m */; };
+		56FF0E401C78492C0080487D /* SVBWSettingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FF0E391C78492C0080487D /* SVBWSettingViewCtrl.m */; };
+		56FF0E411C78492C0080487D /* SVLanguageSettingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FF0E3B1C78492C0080487D /* SVLanguageSettingViewCtrl.m */; };
+		56FF0E421C78492C0080487D /* SVLogsViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FF0E3D1C78492C0080487D /* SVLogsViewCtrl.m */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B723CE561C74515600B419E3 /* starting_window.png in Resources */ = {isa = PBXBuildFile; fileRef = B723CE551C74515600B419E3 /* starting_window.png */; };
 		B72A1D0E1C7192B600C3141A /* speed_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = B72A1D0D1C7192B600C3141A /* speed_pro.png */; };
@@ -146,14 +147,6 @@
 		4DD006141C609F7A007D4D2F /* SVResultViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultViewCtrl.m; sourceTree = "<group>"; };
 		4DD006151C609F7A007D4D2F /* SVSortTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSortTools.h; sourceTree = "<group>"; };
 		4DD006161C609F7A007D4D2F /* SVSortTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSortTools.m; sourceTree = "<group>"; };
-		4DD033841C734A8500A8CE9B /* SVAboutViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVAboutViewCtrl.h; path = SPUIView/Appdelegate/SVAboutViewCtrl.h; sourceTree = SOURCE_ROOT; };
-		4DD033851C734A8500A8CE9B /* SVAboutViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVAboutViewCtrl.m; path = SPUIView/Appdelegate/SVAboutViewCtrl.m; sourceTree = SOURCE_ROOT; };
-		4DD033861C734A8500A8CE9B /* SVAdvancedViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVAdvancedViewCtrl.h; path = SPUIView/Appdelegate/SVAdvancedViewCtrl.h; sourceTree = SOURCE_ROOT; };
-		4DD033871C734A8500A8CE9B /* SVAdvancedViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVAdvancedViewCtrl.m; path = SPUIView/Appdelegate/SVAdvancedViewCtrl.m; sourceTree = SOURCE_ROOT; };
-		4DD033881C734A8500A8CE9B /* SVBWSettingViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVBWSettingViewCtrl.h; path = SPUIView/Appdelegate/SVBWSettingViewCtrl.h; sourceTree = SOURCE_ROOT; };
-		4DD033891C734A8500A8CE9B /* SVBWSettingViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVBWSettingViewCtrl.m; path = SPUIView/Appdelegate/SVBWSettingViewCtrl.m; sourceTree = SOURCE_ROOT; };
-		4DD0338A1C734A8500A8CE9B /* SVLanguageSettingViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVLanguageSettingViewCtrl.h; path = SPUIView/Appdelegate/SVLanguageSettingViewCtrl.h; sourceTree = SOURCE_ROOT; };
-		4DD0338B1C734A8500A8CE9B /* SVLanguageSettingViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVLanguageSettingViewCtrl.m; path = SPUIView/Appdelegate/SVLanguageSettingViewCtrl.m; sourceTree = SOURCE_ROOT; };
 		4DD033901C734BB400A8CE9B /* ic_language_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_language_select.png; path = ../ic_language_select.png; sourceTree = "<group>"; };
 		4DD033921C734BD600A8CE9B /* ic_settings_mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_mobile.png; sourceTree = "<group>"; };
 		4DD033931C734BD600A8CE9B /* ic_settings_wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_wifi.png; sourceTree = "<group>"; };
@@ -226,6 +219,16 @@
 		56EC8C911C4F467000EBDA6C /* tabbar_test_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_test_selected.png; sourceTree = "<group>"; };
 		56F523DF1C4DCF7F00E6472B /* SpeedPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F523E31C4DCF7F00E6472B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		56FF0E341C78492C0080487D /* SVAboutViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVAboutViewCtrl.h; path = SPUIView/View/Settings/Cotroller/SVAboutViewCtrl.h; sourceTree = SOURCE_ROOT; };
+		56FF0E351C78492C0080487D /* SVAboutViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVAboutViewCtrl.m; path = SPUIView/View/Settings/Cotroller/SVAboutViewCtrl.m; sourceTree = SOURCE_ROOT; };
+		56FF0E361C78492C0080487D /* SVAdvancedViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVAdvancedViewCtrl.h; path = SPUIView/View/Settings/Cotroller/SVAdvancedViewCtrl.h; sourceTree = SOURCE_ROOT; };
+		56FF0E371C78492C0080487D /* SVAdvancedViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVAdvancedViewCtrl.m; path = SPUIView/View/Settings/Cotroller/SVAdvancedViewCtrl.m; sourceTree = SOURCE_ROOT; };
+		56FF0E381C78492C0080487D /* SVBWSettingViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVBWSettingViewCtrl.h; path = SPUIView/View/Settings/Cotroller/SVBWSettingViewCtrl.h; sourceTree = SOURCE_ROOT; };
+		56FF0E391C78492C0080487D /* SVBWSettingViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVBWSettingViewCtrl.m; path = SPUIView/View/Settings/Cotroller/SVBWSettingViewCtrl.m; sourceTree = SOURCE_ROOT; };
+		56FF0E3A1C78492C0080487D /* SVLanguageSettingViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVLanguageSettingViewCtrl.h; path = SPUIView/View/Settings/Cotroller/SVLanguageSettingViewCtrl.h; sourceTree = SOURCE_ROOT; };
+		56FF0E3B1C78492C0080487D /* SVLanguageSettingViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVLanguageSettingViewCtrl.m; path = SPUIView/View/Settings/Cotroller/SVLanguageSettingViewCtrl.m; sourceTree = SOURCE_ROOT; };
+		56FF0E3C1C78492C0080487D /* SVLogsViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVLogsViewCtrl.h; path = SPUIView/View/Settings/Cotroller/SVLogsViewCtrl.h; sourceTree = SOURCE_ROOT; };
+		56FF0E3D1C78492C0080487D /* SVLogsViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVLogsViewCtrl.m; path = SPUIView/View/Settings/Cotroller/SVLogsViewCtrl.m; sourceTree = SOURCE_ROOT; };
 		B70FF3D31C6582AA002D571B /* SpeedPro.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedPro.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70FF3D51C6582AA002D571B /* SPUIViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUIViewTests.m; sourceTree = "<group>"; };
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -317,14 +320,16 @@
 			children = (
 				561E46701C56433600CA58E8 /* SVSettingsViewCtrl.h */,
 				561E46711C56433600CA58E8 /* SVSettingsViewCtrl.m */,
-				4DD033881C734A8500A8CE9B /* SVBWSettingViewCtrl.h */,
-				4DD033891C734A8500A8CE9B /* SVBWSettingViewCtrl.m */,
-				4DD033841C734A8500A8CE9B /* SVAboutViewCtrl.h */,
-				4DD033851C734A8500A8CE9B /* SVAboutViewCtrl.m */,
-				4DD0338A1C734A8500A8CE9B /* SVLanguageSettingViewCtrl.h */,
-				4DD0338B1C734A8500A8CE9B /* SVLanguageSettingViewCtrl.m */,
-				4DD033861C734A8500A8CE9B /* SVAdvancedViewCtrl.h */,
-				4DD033871C734A8500A8CE9B /* SVAdvancedViewCtrl.m */,
+				56FF0E341C78492C0080487D /* SVAboutViewCtrl.h */,
+				56FF0E351C78492C0080487D /* SVAboutViewCtrl.m */,
+				56FF0E361C78492C0080487D /* SVAdvancedViewCtrl.h */,
+				56FF0E371C78492C0080487D /* SVAdvancedViewCtrl.m */,
+				56FF0E381C78492C0080487D /* SVBWSettingViewCtrl.h */,
+				56FF0E391C78492C0080487D /* SVBWSettingViewCtrl.m */,
+				56FF0E3A1C78492C0080487D /* SVLanguageSettingViewCtrl.h */,
+				56FF0E3B1C78492C0080487D /* SVLanguageSettingViewCtrl.m */,
+				56FF0E3C1C78492C0080487D /* SVLogsViewCtrl.h */,
+				56FF0E3D1C78492C0080487D /* SVLogsViewCtrl.m */,
 			);
 			path = Cotroller;
 			sourceTree = "<group>";
@@ -813,33 +818,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				56B518101C51271100AA76F1 /* CTYYLToolView.m in Sources */,
-				4DD0338C1C734A8500A8CE9B /* SVAboutViewCtrl.m in Sources */,
 				56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */,
 				56A919181C4F4BAB00E8BB72 /* ViewController.m in Sources */,
 				B7CD574A1C705C8D00668E88 /* SVCurrentResultViewCtrl.m in Sources */,
+				56FF0E401C78492C0080487D /* SVBWSettingViewCtrl.m in Sources */,
 				5661187C1C574BB500F64161 /* SVBackView.m in Sources */,
 				56665D351C71F9C400A63D44 /* SVDetailViewCtrl.m in Sources */,
 				B732E6281C6EC365000353B9 /* SVResultCell.m in Sources */,
+				56FF0E411C78492C0080487D /* SVLanguageSettingViewCtrl.m in Sources */,
 				56BA8FDD1C561E9100886CAE /* SVTestingCtrl.m in Sources */,
 				B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */,
+				56FF0E3F1C78492C0080487D /* SVAdvancedViewCtrl.m in Sources */,
 				564435771C5216AD009B7024 /* CTViewTools.m in Sources */,
 				4DD006191C609F7A007D4D2F /* SVResultViewCtrl.m in Sources */,
 				56BA8FDA1C561E9100886CAE /* SVToolModel.m in Sources */,
 				56665D381C71F9E100A63D44 /* SVToolModels.m in Sources */,
 				56BA8FD91C561E9100886CAE /* SVTestViewCtrl.m in Sources */,
+				56FF0E3E1C78492C0080487D /* SVAboutViewCtrl.m in Sources */,
 				56AA27361C57090400FA5D0F /* CTWBViewTools.m in Sources */,
 				56EC8C811C4F45A500EBDA6C /* SVTabBarController.m in Sources */,
 				56B5180D1C5126C700AA76F1 /* UIView+Exten.m in Sources */,
 				4DD0061A1C609F7A007D4D2F /* SVSortTools.m in Sources */,
 				56BA8FDC1C561E9100886CAE /* SVToolCell.m in Sources */,
-				4DD0338E1C734A8500A8CE9B /* SVBWSettingViewCtrl.m in Sources */,
 				561E46721C56433600CA58E8 /* SVSettingsViewCtrl.m in Sources */,
-				4DD0338F1C734A8500A8CE9B /* SVLanguageSettingViewCtrl.m in Sources */,
 				56A919151C4F4BAA00E8BB72 /* AppDelegate.m in Sources */,
 				56665D3B1C71F9EF00A63D44 /* SVToolCells.m in Sources */,
 				56F523E41C4DCF7F00E6472B /* main.m in Sources */,
+				56FF0E421C78492C0080487D /* SVLogsViewCtrl.m in Sources */,
 				561447C11C59BCE900003B9A /* SVPointView.m in Sources */,
-				4DD0338D1C734A8500A8CE9B /* SVAdvancedViewCtrl.m in Sources */,
 				B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
