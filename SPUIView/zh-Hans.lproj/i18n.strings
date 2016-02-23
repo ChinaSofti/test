@@ -28,7 +28,7 @@
 //视频测试
 "Loading..." = "计算中...";
 "Fail" = "失败";
-"inch" = "英寸";
+"Inch" = "英寸";
 "U-vMos"="U-vMos";
 "U-vMOS"="U-vMOS";
 
@@ -112,11 +112,13 @@
 //设置界面
 "Setting" = "设置";
 "Settings"="设置";
-"Current connection"="当前连接";
+"Current:"="当前连接:";
+"Current connection:"="当前连接:";
 "bandwidth type"="带宽类型";
 "bandwidth packages"="带宽套餐";
 "China Unicom Beijing" = "中国联通  北京";
 "Bandwidth Settings" = "带宽设置";
+"Type" = "类型";
 "Fiber" = "光纤";
 "Copper" = "铜线";
 "Package" = "带宽套餐";
@@ -135,7 +137,7 @@
 
 //语言设置
 "Language Setting"="语言设置";
-"Auto" = "跟随系统";
+"Auto      " = "跟随系统";
 "简体中文" = "简体中文";
 "English" = "English";
 "Save" = "保存";
@@ -152,6 +154,7 @@
 "Upload logs start" = "开始上传日志";
 
 //高级设置
+"Advanced" = "高级设置";
 "Advanced setting" = "高级设置";
-"Size:" = "屏幕尺寸:";
+"Screen Size:" = "  屏幕尺寸 :";
 

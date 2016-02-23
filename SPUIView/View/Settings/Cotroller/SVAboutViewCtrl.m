@@ -76,7 +76,7 @@
     //添加LabV0.00.32
     UILabel *labV = [[UILabel alloc] initWithFrame:CGRectMake (CGRectGetMaxX (imageView.frame) + 20,
                                                                imageView.frame.origin.y + 45, 120, 44)];
-    labV.text = @"V0.00.32";
+    labV.text = @"V0.0.1";
     labV.textColor = [UIColor grayColor];
     labV.font = [UIFont systemFontOfSize:14];
     [self.view addSubview:labV];
@@ -92,16 +92,16 @@
     initWithFrame:CGRectMake (viewLine.frame.origin.x, viewLine.frame.origin.y + 20, kScreenW - 80, 44)];
     labCopyright.text = @"Copyright @ Huawei Software Technologies Co.,";
     labCopyright.textColor = [UIColor grayColor];
-    labCopyright.font = [UIFont systemFontOfSize:14];
+    labCopyright.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:labCopyright];
 
     //添加LabLtd
     UILabel *labLtd =
     [[UILabel alloc] initWithFrame:CGRectMake (labCopyright.frame.origin.x,
                                                labCopyright.frame.origin.y + 20, kScreenW - 80, 44)];
-    labLtd.text = @"Ltd. 2015-2018.";
+    labLtd.text = @"Ltd. 2016-2018.";
     labLtd.textColor = [UIColor grayColor];
-    labLtd.font = [UIFont systemFontOfSize:14];
+    labLtd.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:labLtd];
 
     //添加LabAllRights
@@ -109,7 +109,7 @@
     initWithFrame:CGRectMake (labLtd.frame.origin.x, labLtd.frame.origin.y + 25, kScreenW - 80, 44)];
     labAllRights.text = @"All rights reserved.";
     labAllRights.textColor = [UIColor grayColor];
-    labAllRights.font = [UIFont systemFontOfSize:14];
+    labAllRights.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:labAllRights];
 }
 

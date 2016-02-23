@@ -76,8 +76,16 @@
 
 - (void)createUI
 {
-    NSString *title1 = I18N (@"Auto");
-    NSArray *titlesArr = @[title1, @"简体中文", @"English"];
+    // views
+    UIView *views = [[UIView alloc] init];
+    views.frame = CGRectMake (10, 74, kScreenW - 20, 131);
+    views.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:views];
+
+    NSString *title1 = I18N (@"Auto      ");
+    NSString *title2 = I18N (@"Save");
+
+    NSArray *titlesArr = @[title1, @"简体中文", @"English  "];
     for (int i = 0; i < 3; i++)
     {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (10, 74 + i * 43, kScreenW - 20, 44)];
@@ -85,7 +93,7 @@
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         button.titleEdgeInsets = UIEdgeInsetsMake (0, -(kScreenW + 120) / 2, 0, 0);
-
+        button.titleLabel.textAlignment = NSTextAlignmentLeft;
         button.layer.cornerRadius = 2;
         button.layer.borderColor = [UIColor colorWithWhite:200 / 255.0 alpha:0.5].CGColor;
         button.layer.borderWidth = 1;
@@ -124,7 +132,7 @@
     saveBtn.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
     //保存按钮文字和颜色
-    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
+    [saveBtn setTitle:title2 forState:UIControlStateNormal];
     [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //设置居中
     saveBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -148,7 +156,7 @@
 
     //按钮被点击后 右侧显示排序箭头
     UIImage *image = [UIImage imageNamed:@"ic_language_select"];
-    self.imageView.frame = CGRectMake (kScreenW - 60, button.titleLabel.frame.origin.y + 5, 15, 10);
+    self.imageView.frame = CGRectMake (kScreenW - 60, 17, 15, 10);
     self.imageView.image = image;
 
     switch (button.tag - Button_Tag)

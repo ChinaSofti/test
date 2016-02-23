@@ -77,7 +77,7 @@
 
 - (void)createUI
 {
-    NSString *title1 = I18N (@"Bandwidth Settings");
+    NSString *title1 = I18N (@"Type");
     NSString *title2 = I18N (@"unknown");
     NSString *title3 = I18N (@"Fiber");
     NSString *title4 = I18N (@"Copper");
@@ -118,15 +118,7 @@
         setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
              forState:UIControlStateSelected];
 
-        _button.titleLabel.font = [UIFont systemFontOfSize:14];
-
-
-        //按钮被点击后 按钮外部显示边框
-        //            _button.layer.cornerRadius = 2;
-        //            _button.layer.borderColor = [UIColor colorWithWhite:200 / 255.0
-        //            alpha:0.5].CGColor;
-        //            _button.layer.borderWidth = 1;
-
+        _button.titleLabel.font = [UIFont systemFontOfSize:12];
 
         [_button addTarget:self
                     action:@selector (buttonClicked:)
@@ -141,9 +133,6 @@
             [self.imageView removeFromSuperview];
             [self.view addSubview:self.imageView];
         }
-        //      _button.selected = NO;
-        //   _button.userInteractionEnabled = YES;
-
         [views addSubview:_button];
     }
 
@@ -162,9 +151,12 @@
     textField.placeholder = @"Please input bandwidth";
     textField.font = [UIFont systemFontOfSize:14];
     textField.keyboardType = UIKeyboardTypeDefault;
-
     [views addSubview:textField];
 
+    UILabel *M = [[UILabel alloc] initWithFrame:CGRectMake (FITWIDTH (280), 90, 20, 20)];
+    M.font = [UIFont systemFontOfSize:14];
+    M.text = @"M";
+    [views addSubview:M];
 
     // lableCarrier
     UILabel *lableCarrier = [[UILabel alloc] init];
@@ -206,7 +198,7 @@
 
 
     //保存按钮交互
-    //  saveBtn.userInteractionEnabled = YES;
+    saveBtn.userInteractionEnabled = YES;
 
     [self.view addSubview:saveBtn];
 }

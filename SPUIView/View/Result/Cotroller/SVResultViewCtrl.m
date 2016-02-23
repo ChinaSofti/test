@@ -192,7 +192,7 @@
     NSString *title4 = I18N (@"Load Time");
     NSString *title5 = I18N (@"Bandwidth");
 
-    NSArray *titles = @[title1,title2,title3,title4,title5];
+    NSArray *titles = @[title1, title2, title3, title4, title5];
     NSArray *images = @[
         @"ic_network_type_normal",
         @"ic_start_time_normal",

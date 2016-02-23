@@ -139,8 +139,8 @@
     [_footerView.placeLabel setText:title5];
     [_footerView.resolutionLabel setText:title5];
     [_footerView.bitLabel setText:title5];
-    [_headerView.bufferLabel setText:@""];
-    [_headerView.speedLabel setText:@""];
+    [_headerView.bufferLabel setText:@"0"];
+    [_headerView.speedLabel setText:@"0"];
     [_testingView updateUvMOS:0];
 
     for (UIView *view in [_headerView.uvMosBarView subviews])
@@ -171,7 +171,7 @@
     //创建一个覆盖garyView
     _grayview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
     //设置透明度
-        _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     //添加
     [window addSubview:_grayview];
     [self initContext];
@@ -230,6 +230,7 @@
     //把所有Label添加到View中
     [self.view addSubview:_headerView.uvMosBarView];
     [self.view addSubview:_headerView.speedLabel];
+    [self.view addSubview:_headerView.speedLabel1];
     [self.view addSubview:_headerView.bufferLabel];
     [self.view addSubview:_headerView.uvMosNumLabel];
     [self.view addSubview:_headerView.speedNumLabel];
@@ -404,7 +405,7 @@
       [_footerView.resolutionLabel setText:videoResolution];
       [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fkpbs", bitrate]];
       [_headerView.bufferLabel setText:[NSString stringWithFormat:@"%d", cuttonTimes]];
-      [_headerView.speedLabel setText:[NSString stringWithFormat:@"%ldms", firstBufferTime]];
+      [_headerView.speedLabel setText:[NSString stringWithFormat:@"%ld", firstBufferTime]];
 
       UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
       [bar setBarValue:uvMOSSession];

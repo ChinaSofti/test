@@ -27,7 +27,7 @@
     NSLog (@"SVTabbarController");
     NSString *title1 = I18N (@"Testing");
     NSString *title2 = I18N (@"Result");
-    NSString *title3 = I18N (@"Setting");
+    NSString *title3 = I18N (@"Settings");
 
     //测试
     SVTestViewCtrl *testCtrl = [SVTestViewCtrl new];

@@ -121,7 +121,7 @@
     NSString *title17 = I18N (@"Bandwidth package");
     NSString *title18 = I18N (@"unknown");
     NSString *title19 = I18N (@"Network type");
-    NSString *title20 = I18N (@"inch");
+    NSString *title20 = I18N (@"Inch");
 
     NSArray *sourceA = @[
         @{
@@ -142,26 +142,26 @@
         },
         @{
             @"title": title5,
-            @"title2": [self formatValue:viewModel.firstBufferTime unit:@"ms"],
+            @"title2": [self formatValue1:viewModel.firstBufferTime unit:@"ms"],
         },
         @{
             @"title": title6,
-            @"title2": [self formatValue:viewModel.videoCuttonTotalTime unit:@"ms"],
+            @"title2": [self formatValue1:viewModel.videoCuttonTotalTime unit:@"ms"],
         },
         @{ @"title": title7,
            @"title2": [self formatValue:viewModel.videoCuttonTimes] },
         @{
             @"title": title8,
-            @"title2": [self formatValue:viewModel.downloadSpeed unit:@"kbps"],
+            @"title2": [self formatValue2:viewModel.downloadSpeed unit:@"kbps"],
 
         },
         @{
             @"title": title9,
-            @"title2": [self formatValue:viewModel.bitrate unit:@"kbps"],
+            @"title2": [self formatValue2:viewModel.bitrate unit:@"kbps"],
         },
         @{
             @"title": title10,
-            @"title2": [self formatValue:viewModel.frameRate unit:@"Fps"],
+            @"title2": [self formatValue2:viewModel.frameRate unit:@"Fps"],
         },
         @{
             @"title": title11,
@@ -169,7 +169,7 @@
         },
         @{
             @"title": title12,
-            @"title2": [self formatValue:viewModel.screenSize unit:title20],
+            @"title2": [self formatValue1:viewModel.screenSize unit:title20],
         },
         @{
             @"title": title13,
@@ -401,30 +401,30 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+//输出浮点型的数值,保留2位小数
 - (NSString *)formatFloatValue:(NSString *)value
 {
     return [NSString stringWithFormat:@"%.2f", [value floatValue]];
 }
-
+//输出整形的数值,无小数
 - (NSString *)formatValue:(NSString *)value
 {
     if (!value)
     {
         return @" ";
     }
-
     return [NSString stringWithFormat:@"%@ ", value];
 }
-
-- (NSString *)formatValue:(NSString *)value unit:(NSString *)unit
+//输出整形的数值,无小数+单位
+- (NSString *)formatValue1:(NSString *)value unit:(NSString *)unit
 {
-    if ([value isKindOfClass:NSNumber.class])
-    {
-        return [NSString stringWithFormat:@"%lld%@ ", !value ? 0l : value.longLongValue, unit];
-    }
-
-    return [NSString stringWithFormat:@"%@%@", !value ? @"" : value, unit];
+    return [NSString stringWithFormat:@"%.0f%@ ", [value floatValue], unit];
 }
+//输出浮点型的数值,保留2位小数+单位
+- (NSString *)formatValue2:(NSString *)value unit:(NSString *)unit
+{
+    return [NSString stringWithFormat:@"%.2f%@ ", [value floatValue], unit];
+}
+
 
 @end

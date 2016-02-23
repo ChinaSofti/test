@@ -103,7 +103,8 @@
 
     // U-vMOS 值
     UILabel *uvMosLabelValue = [[UILabel alloc]
-    initWithFrame:CGRectMake (kViewR (_imgView) + FITHEIGHT (25), kViewY (_imgView) - 10, 50, imgViewWAndH)];
+    initWithFrame:CGRectMake (kViewR (_imgView) + FITHEIGHT (15), kViewY (_imgView) - FITWIDTH (10),
+                              FITWIDTH (50), imgViewWAndH)];
     if (currentResultModel.uvMOS == -1)
     {
         [uvMosLabelValue setText:title1];
@@ -116,8 +117,10 @@
     [uvMosLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
     [uvMosLabelValue setTextAlignment:NSTextAlignmentCenter];
     [uvMosLabelValue setTextColor:[UIColor orangeColor]];
+
     UILabel *uvMosLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (kViewR (_imgView) + FITHEIGHT (25), kViewY (_imgView) + 10, 50, imgViewWAndH)];
+    initWithFrame:CGRectMake (kViewR (_imgView) + FITHEIGHT (15), kViewY (_imgView) + FITWIDTH (10),
+                              FITWIDTH (50), imgViewWAndH)];
     [uvMosLabel setText:@"U-vMOS"];
     [uvMosLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
     [uvMosLabel setTextAlignment:NSTextAlignmentCenter];
@@ -126,31 +129,43 @@
 
     // 首次缓冲时间
     UILabel *firstBufferTimeLabelValue = [[UILabel alloc]
-    initWithFrame:CGRectMake (kViewR (uvMosLabelValue) + FITHEIGHT (25), kViewY (_imgView) - 10, 80, imgViewWAndH)];
+    initWithFrame:CGRectMake (kViewR (uvMosLabelValue) + FITWIDTH (10),
+                              kViewY (_imgView) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH)];
     if (currentResultModel.firstBufferTime == -1)
     {
         [firstBufferTimeLabelValue setText:title1];
     }
     else
     {
-        [firstBufferTimeLabelValue
-        setText:[NSString stringWithFormat:@"%dms", currentResultModel.firstBufferTime]];
+        [firstBufferTimeLabelValue setText:[NSString stringWithFormat:@"%d", currentResultModel.firstBufferTime]];
     }
     [firstBufferTimeLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
-    [firstBufferTimeLabelValue setTextAlignment:NSTextAlignmentCenter];
+    [firstBufferTimeLabelValue setTextAlignment:NSTextAlignmentRight];
     [firstBufferTimeLabelValue setTextColor:[UIColor orangeColor]];
-    UILabel *firstBufferTimeLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (kViewR (uvMosLabel) + FITHEIGHT (15), kViewY (_imgView) + 10, 100, imgViewWAndH)];
+
+    UILabel *firstBufferTimeLabelValue1 = [[UILabel alloc]
+    initWithFrame:CGRectMake (kViewR (uvMosLabelValue) + FITHEIGHT (57),
+                              kViewY (_imgView) + FITWIDTH (3), FITWIDTH (20), FITWIDTH (20))];
+    [firstBufferTimeLabelValue1 setText:@"ms"];
+    [firstBufferTimeLabelValue1 setFont:[UIFont systemFontOfSize:10]];
+    [firstBufferTimeLabelValue1 setTextAlignment:NSTextAlignmentCenter];
+    [firstBufferTimeLabelValue1 setTextColor:[UIColor orangeColor]];
+
+    UILabel *firstBufferTimeLabel =
+    [[UILabel alloc] initWithFrame:CGRectMake (kViewR (uvMosLabel), kViewY (_imgView) + FITWIDTH (10),
+                                               FITWIDTH (100), imgViewWAndH)];
     [firstBufferTimeLabel setText:title2];
     [firstBufferTimeLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
     [firstBufferTimeLabel setTextAlignment:NSTextAlignmentCenter];
+
     [_bgdBtn addSubview:firstBufferTimeLabelValue];
+    [_bgdBtn addSubview:firstBufferTimeLabelValue1];
     [_bgdBtn addSubview:firstBufferTimeLabel];
 
     // 卡顿次数
-    UILabel *cuttonTimesLabelValue =
-    [[UILabel alloc] initWithFrame:CGRectMake (kViewR (firstBufferTimeLabelValue) + FITHEIGHT (25),
-                                               kViewY (_imgView) - 10, 60, imgViewWAndH)];
+    UILabel *cuttonTimesLabelValue = [[UILabel alloc]
+    initWithFrame:CGRectMake (kViewR (firstBufferTimeLabelValue) + FITHEIGHT (45),
+                              kViewY (_imgView) - FITWIDTH (10), FITWIDTH (60), imgViewWAndH)];
     if (currentResultModel.cuttonTimes == -1)
     {
         [cuttonTimesLabelValue setText:title1];
@@ -162,9 +177,10 @@
     [cuttonTimesLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
     [cuttonTimesLabelValue setTextAlignment:NSTextAlignmentCenter];
     [cuttonTimesLabelValue setTextColor:[UIColor orangeColor]];
-    UILabel *cuttonTimesLabel =
-    [[UILabel alloc] initWithFrame:CGRectMake (kViewR (firstBufferTimeLabel) - FITHEIGHT (5),
-                                               kViewY (_imgView) + 10, 100, imgViewWAndH)];
+
+    UILabel *cuttonTimesLabel = [[UILabel alloc]
+    initWithFrame:CGRectMake (kViewR (firstBufferTimeLabel) - FITHEIGHT (15),
+                              kViewY (_imgView) + FITWIDTH (10), FITWIDTH (100), imgViewWAndH)];
     [cuttonTimesLabel setText:title3];
 
     [cuttonTimesLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];

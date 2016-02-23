@@ -65,12 +65,17 @@
 
 - (void)createUI
 {
-    NSString *title1 = I18N (@"Size:");
-    NSString *title2 = I18N (@"inch");
+    NSString *title1 = I18N (@"Screen Size:");
+    NSString *title2 = I18N (@"Inch");
+    // views
+    UIView *views = [[UIView alloc] init];
+    views.frame = CGRectMake (10, 74, kScreenW - 20, 44);
+    views.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:views];
 
     //屏幕尺寸
     UILabel *lableScreenSize = [[UILabel alloc] init];
-    lableScreenSize.frame = CGRectMake (10, 84, 70, 20);
+    lableScreenSize.frame = CGRectMake (20, 84, 100, 20);
     lableScreenSize.text = title1;
     lableScreenSize.font = [UIFont systemFontOfSize:14];
     [self.view addSubview:lableScreenSize];
@@ -79,7 +84,7 @@
 
     //文本框
     _textField = [[UITextField alloc] init];
-    _textField.frame = CGRectMake (85, 84, kScreenW - 84 - 30, 20);
+    _textField.frame = CGRectMake (110, 84, kScreenW - 84 - 30, 20);
     _textField.text = setting.getScreenSize;
     _textField.placeholder = @"请输入13英寸~100英寸的数字";
     _textField.font = [UIFont systemFontOfSize:14];
@@ -87,13 +92,13 @@
 
     //文本框下的细线
     UIView *viewLine = [[UIView alloc] init];
-    viewLine.frame = CGRectMake (80, 104, kScreenW - 84 - 30, 1);
+    viewLine.frame = CGRectMake (100, 104, kScreenW - 84 - 70, 1);
     viewLine.backgroundColor = [UIColor grayColor];
     [self.view addSubview:viewLine];
 
     //英寸
     UILabel *lableInch = [[UILabel alloc] init];
-    lableInch.frame = CGRectMake (kScreenW - 30, 84, 30, 20);
+    lableInch.frame = CGRectMake (kScreenW - 45, 84, 30, 20);
     lableInch.text = title2;
     lableInch.font = [UIFont systemFontOfSize:14];
     [self.view addSubview:lableInch];

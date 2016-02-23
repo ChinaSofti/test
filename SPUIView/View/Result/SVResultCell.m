@@ -57,7 +57,7 @@
         _testDate = [[UILabel alloc] init];
         _testDate.frame = CGRectMake (kScreenW / 5 - FITHEIGHT (12),
                                       (CellHeight - LabelHeight - TimeHeight) / 2, kScreenW / 5, LabelHeight);
-        _testDate.textColor = [UIColor grayColor];
+        _testDate.textColor = [UIColor blackColor];
         _testDate.font = [UIFont systemFontOfSize:13];
         _testDate.textAlignment = NSTextAlignmentCenter;
     }
@@ -72,7 +72,7 @@
         _testTime.frame = CGRectMake (kScreenW / 5 - FITHEIGHT (12),
                                       (CellHeight - LabelHeight - TimeHeight) / 2 + LabelHeight,
                                       kScreenW / 5, LabelHeight);
-        _testTime.textColor = [UIColor grayColor];
+        _testTime.textColor = [UIColor blackColor];
         _testTime.font = [UIFont systemFontOfSize:11];
         _testTime.textAlignment = NSTextAlignmentCenter;
     }
@@ -86,7 +86,7 @@
         _videoMOS = [[UILabel alloc] init];
         _videoMOS.frame = CGRectMake (kScreenW * 2 / 5 - FITHEIGHT (12),
                                       (CellHeight - LabelHeight) / 2, kScreenW / 5, LabelHeight);
-        _videoMOS.textColor = [UIColor grayColor];
+        _videoMOS.textColor = [UIColor blackColor];
         _videoMOS.font = [UIFont systemFontOfSize:13];
         _videoMOS.textAlignment = NSTextAlignmentCenter;
     }
@@ -101,8 +101,7 @@
         _loadTime = [[UILabel alloc] init];
         _loadTime.frame = CGRectMake (kScreenW * 3 / 5 - FITHEIGHT (12),
                                       (CellHeight - LabelHeight) / 2, kScreenW / 6, LabelHeight);
-        _loadTime.textColor = [UIColor grayColor];
-        //      _loadTime.backgroundColor =[UIColor redColor];
+        _loadTime.textColor = [UIColor blackColor];
         _loadTime.font = [UIFont systemFontOfSize:13];
         _loadTime.textAlignment = NSTextAlignmentCenter;
     }
@@ -116,7 +115,7 @@
         _bandWidth = [[UILabel alloc] init];
         _bandWidth.frame = CGRectMake (kScreenW * 4 / 5 - FITHEIGHT (30),
                                        (CellHeight - LabelHeight) / 2, kScreenW / 4, LabelHeight);
-        _bandWidth.textColor = [UIColor grayColor];
+        _bandWidth.textColor = [UIColor blackColor];
         _bandWidth.font = [UIFont systemFontOfSize:13];
         _bandWidth.textAlignment = NSTextAlignmentCenter;
     }

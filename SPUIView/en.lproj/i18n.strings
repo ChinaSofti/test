@@ -28,7 +28,7 @@
 //视频测试
 "Loading..." = "Loading...";
 "Fail" = "Fail";
-"inch" = "inch";
+"Inch" = "Inch";
 "U-vMos"="U-vMos";
 "U-vMOS"="U-vMOS";
 
@@ -114,12 +114,14 @@
 "Settings"="Settings";
 "Setting" = "Setting";
 "Current connection"="Current connection";
+"Curren:"="Current:";
 "Carrier" = "Carrier";
 "Carriers"="Carriers";
 "bandwidth type"="bandwidth type";
 "bandwidth packages"="bandwidth packages";
 "China Unicom Beijing" = "China Unicom Beijing";
 "Bandwidth Settings" = "Bandwidth Settings";
+"Type" = "Type";
 "Fiber" = "Fiber";
 "Copper" = "Copper";
 "Package" = "Package";
@@ -141,7 +143,7 @@
 
 //语言设置
 "Language Setting"="Language Setting";
-"Auto" = "Auto";
+"Auto      " = "Auto      ";
 "简体中文" = "简体中文";
 "English" = "English";
 "Save" = "Save";
@@ -157,5 +159,6 @@
 "Are you sure Upload logs" = "Are you sure Upload logs";
 "Upload logs start" = "Upload logs start";
 //高级设置
+"Advanced" = "Advanced";
 "Advanced setting" = "Advanced setting";
-"Size:" = "Size:";
+"Screen Size:" = "Screen Size:";

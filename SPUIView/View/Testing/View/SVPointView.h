@@ -19,6 +19,8 @@
 @property (nonatomic, strong) UIView *uvMosBarView;
 //测试速度
 @property (nonatomic, strong) UILabel *speedLabel;
+// ms
+@property (nonatomic, strong) UILabel *speedLabel1;
 //首次加载时间
 @property (nonatomic, strong) UILabel *bufferLabel;
 @property (nonatomic, strong) UILabel *uvMosNumLabel;
