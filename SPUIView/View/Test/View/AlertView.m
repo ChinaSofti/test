@@ -7,8 +7,8 @@
 //
 
 #import "AlertView.h"
-#import "CTYYLToolView.h"
 #import "UIView+Exten.h"
+#import <SPCommon/SVI18N.h>
 
 static NSInteger BtnTag = 10086;
 @interface AlertView ()
@@ -16,10 +16,38 @@ static NSInteger BtnTag = 10086;
     UIView *_bgView;
     UIButton *_typeBtn;
 }
+@property (nonatomic, strong) UIView *imageView;
+@property (nonatomic, strong) UIView *imageView2;
+
 @end
 
 @implementation AlertView
-
+//按钮边框
+- (UIView *)imageView
+{
+    if (_imageView == nil)
+    {
+        _imageView = [[UIView alloc] init];
+        _imageView.layer.borderWidth = 1;
+        _imageView.layer.borderColor =
+        [[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1] CGColor];
+        _imageView.layer.masksToBounds = YES;
+        _imageView.layer.cornerRadius = 5;
+    }
+    return _imageView;
+}
+- (UIView *)imageView2
+{
+    if (_imageView2 == nil)
+    {
+        _imageView2 = [[UIView alloc] init];
+        _imageView2.layer.borderWidth = 1;
+        _imageView2.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        _imageView2.layer.masksToBounds = YES;
+        _imageView2.layer.cornerRadius = 5;
+    }
+    return _imageView2;
+}
 - (instancetype)initWithFrame:(CGRect)frame bgColor:(UIColor *)color
 {
     self = [super initWithFrame:frame];
@@ -30,134 +58,157 @@ static NSInteger BtnTag = 10086;
         _bgView.backgroundColor = color;
         _bgView.layer.cornerRadius = 5;
         _bgView.layer.masksToBounds = YES;
-
         [self addSubview:_bgView];
         [self createUI];
-
-        UIImageView *imageView =
-        [[UIImageView alloc] initWithFrame:CGRectMake (FITWIDTH (80), _bgView.bottomY + FITWIDTH (50),
-                                                       FITWIDTH (20), FITWIDTH (20))];
-        imageView.image = [UIImage imageNamed:@"a"];
-        UILabel *signLabel = [CTYYLToolView
-        createLabelWithFrame:CGRectMake (FITWIDTH (105), _bgView.bottomY + FITWIDTH (50),
-                                         FITWIDTH (100), FITWIDTH (20))
-                    withFont:14
-              withTitleColor:[UIColor whiteColor]
-                   withTitle:@"您正在使用WiFi"];
-
-        [self addSubview:imageView];
-        [self addSubview:signLabel];
     }
+
     return self;
 }
 
 - (void)createUI
 {
-    UILabel *titleLabel = [CTYYLToolView
-    createLabelWithFrame:CGRectMake (FITWIDTH (50), FITWIDTH (15), FITWIDTH (180), FITWIDTH (20))
+    NSString *title1 = I18N (@"Setting Bandwidth Information");
+    NSString *title2 = I18N (@"Type ");
+    NSString *title3 = I18N (@"unknown");
+    NSString *title4 = I18N (@"Fiber");
+    NSString *title5 = I18N (@"Copper");
+    NSString *title6 = I18N (@"Package");
+    NSString *title7 = I18N (@"Carrier");
+    NSString *title8 = I18N (@"China Unicom Beijing");
+    NSString *title9 = I18N (@"Ignore");
+    NSString *title10 = I18N (@"Save");
+    //标题
+    UILabel *titleLabel = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (0), FITWIDTH (15), FITWIDTH (279), FITWIDTH (20))
                 withFont:17
           withTitleColor:[UIColor blackColor]
-               withTitle:@"设置带宽信息"];
+               withTitle:title1];
     titleLabel.textAlignment = NSTextAlignmentCenter;
-
-    UILabel *internetTypeLabel = [CTYYLToolView
+    //类型
+    UILabel *internetTypeLabel = [CTWBViewTools
     createLabelWithFrame:CGRectMake (FITWIDTH (15), titleLabel.bottomY + FITWIDTH (15), FITWIDTH (60), FITWIDTH (20))
                 withFont:15
           withTitleColor:RGBACOLOR (88, 88, 88, 1)
-               withTitle:@"带宽类型"];
-
+               withTitle:title2];
+    //三个button
     for (int i = 0; i < 3; i++)
     {
-        _typeBtn = [self btnWithFrame:CGRectMake (FITWIDTH (140) + FITWIDTH (45) * i,
-                                                  internetTypeLabel.originY, FITWIDTH (35), FITWIDTH (20))
-                                title:nil];
+        //初始化
+        _typeBtn = [[UIButton alloc]
+        initWithFrame:CGRectMake (FITWIDTH (84) + FITWIDTH (60) * i, internetTypeLabel.originY,
+                                  FITWIDTH (60), FITWIDTH (20))];
+        [_typeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_typeBtn
+        setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
+             forState:UIControlStateSelected];
+        [_typeBtn setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor whiteColor]
+                                                              size:CGSizeMake (FITWIDTH (35), FITWIDTH (20))]
+                            forState:UIControlStateSelected];
+        _typeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+
         _typeBtn.tag = BtnTag + i;
 
         if (_typeBtn.tag == 0 + BtnTag)
         {
-            [_typeBtn setTitle:@"未知" forState:UIControlStateNormal];
+            [_typeBtn setTitle:title3 forState:UIControlStateNormal];
         }
         if (_typeBtn.tag == 1 + BtnTag)
         {
-            [_typeBtn setTitle:@"光纤" forState:UIControlStateNormal];
+            [_typeBtn setTitle:title4 forState:UIControlStateNormal];
         }
         if (_typeBtn.tag == 2 + BtnTag)
         {
-            [_typeBtn setTitle:@"铜线" forState:UIControlStateNormal];
+            [_typeBtn setTitle:title5 forState:UIControlStateNormal];
         }
 
         [_typeBtn addTarget:self
                      action:@selector (selectBtn:)
            forControlEvents:UIControlEventTouchUpInside];
 
+        if (_typeBtn.tag == 10086)
+        {
+            _typeBtn.selected = YES;
+            self.imageView.frame = CGRectMake (FITWIDTH (83), FITWIDTH (45), FITHEIGHT (61), FITHEIGHT (30));
+            [_bgView addSubview:self.imageView];
+        }
         [_bgView addSubview:_typeBtn];
     }
-
-    UILabel *internetMealLabel = [CTYYLToolView
+    //宽带套餐
+    UILabel *internetMealLabel = [CTWBViewTools
     createLabelWithFrame:CGRectMake (FITWIDTH (15), internetTypeLabel.bottomY + FITWIDTH (15),
                                      FITWIDTH (60), FITWIDTH (20))
                 withFont:15
           withTitleColor:RGBACOLOR (88, 88, 88, 1)
-               withTitle:@"带宽套餐"];
-
-    UIView *lineView = [CTYYLToolView
-    lineViewWithFrame:CGRectMake (FITWIDTH (140), internetMealLabel.bottomY, FITWIDTH (100), FITWIDTH (1.5))
+               withTitle:title6];
+    //线
+    UIView *lineView = [CTWBViewTools
+    lineViewWithFrame:CGRectMake (FITWIDTH (80), internetMealLabel.bottomY, FITWIDTH (170), FITWIDTH (1.5))
             withColor:RGBACOLOR (67, 184, 202, 1)];
-
-    UIImageView *imageView = [[UIImageView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (245), internetMealLabel.originY + FITWIDTH (3),
-                              FITWIDTH (14), FITWIDTH (14))];
-    imageView.image = [UIImage imageNamed:@"m"];
-
-    _mealTextField = [CTYYLToolView
+    //单位
+    UILabel *M =
+    [[UILabel alloc] initWithFrame:CGRectMake (FITWIDTH (255), internetTypeLabel.bottomY + FITWIDTH (15),
+                                               FITHEIGHT (20), FITHEIGHT (20))];
+    M.font = [UIFont systemFontOfSize:14];
+    M.text = @"M";
+    //输入文本
+    _mealTextField = [CTWBViewTools
     createTextFieldWithFrame:CGRectMake (FITWIDTH (140), internetMealLabel.originY, FITWIDTH (100), FITWIDTH (20))
                  placeholder:nil
                         Font:15
                    fontColor:[UIColor blackColor]];
-
-    UILabel *internetCompanyLabel = [CTYYLToolView
+    //所属运营商
+    UILabel *internetCompanyLabel = [CTWBViewTools
     createLabelWithFrame:CGRectMake (FITWIDTH (15), internetMealLabel.bottomY + FITWIDTH (15),
                                      FITWIDTH (80), FITWIDTH (20))
                 withFont:15
           withTitleColor:RGBACOLOR (88, 88, 88, 1)
-               withTitle:@"所属运营商"];
-
-    _contentLabel = [CTYYLToolView
-    createLabelWithFrame:CGRectMake (FITWIDTH (140), internetMealLabel.bottomY + FITWIDTH (15),
-                                     FITWIDTH (120), FITWIDTH (20))
+               withTitle:title7];
+    //运营商
+    _contentLabel = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (100), internetMealLabel.bottomY + FITWIDTH (15),
+                                     FITWIDTH (160), FITWIDTH (20))
                 withFont:15
           withTitleColor:[UIColor blackColor]
-               withTitle:@"中国电信 江苏省"];
+               withTitle:title8];
     _contentLabel.textAlignment = NSTextAlignmentRight;
-
+    //按钮篮筐
+    _imageView2 = [[UIView alloc] init];
+    _imageView2.layer.borderWidth = 1;
+    _imageView2.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    _imageView2.layer.masksToBounds = YES;
+    _imageView2.layer.cornerRadius = 5;
+    self.imageView2.frame = CGRectMake (FITWIDTH (15), internetCompanyLabel.bottomY + FITWIDTH (25),
+                                        FITWIDTH (115), FITWIDTH (40));
+    //忽略按钮
     UIButton *overLookBtn = [[UIButton alloc]
     initWithFrame:CGRectMake (FITWIDTH (15), internetCompanyLabel.bottomY + FITWIDTH (25),
                               FITWIDTH (115), FITWIDTH (40))];
-    [overLookBtn setTitle:@"忽略" forState:UIControlStateNormal];
+    [overLookBtn setTitle:title9 forState:UIControlStateNormal];
     [overLookBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [overLookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [overLookBtn setBackgroundImage:[CTYYLToolView imageWithColor:RGBACOLOR (35, 144, 222, 1)
+    [overLookBtn setBackgroundImage:[CTWBViewTools imageWithColor:RGBACOLOR (35, 144, 222, 1)
                                                              size:CGSizeMake (FITWIDTH (114), FITWIDTH (40))]
                            forState:UIControlStateHighlighted];
     overLookBtn.layer.cornerRadius = 5;
     overLookBtn.layer.masksToBounds = YES;
-
     [overLookBtn addTarget:self
                     action:@selector (overBtnClick:)
           forControlEvents:UIControlEventTouchUpInside];
 
+    //保存按钮
     UIButton *saveBtn = [[UIButton alloc]
     initWithFrame:CGRectMake (FITWIDTH (150), internetCompanyLabel.bottomY + FITWIDTH (25),
                               FITWIDTH (115), FITWIDTH (40))];
-    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
-    [saveBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [saveBtn setTitle:title10 forState:UIControlStateNormal];
+    [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [saveBtn setBackgroundImage:[CTYYLToolView imageWithColor:RGBACOLOR (35, 144, 222, 1)
+    [saveBtn setBackgroundImage:[CTWBViewTools imageWithColor:RGBACOLOR (35, 144, 222, 1)
                                                          size:CGSizeMake (FITWIDTH (114), FITWIDTH (40))]
                        forState:UIControlStateHighlighted];
     saveBtn.layer.cornerRadius = 5;
     saveBtn.layer.masksToBounds = YES;
-
+    saveBtn.backgroundColor =
+    [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
     [saveBtn addTarget:self
                 action:@selector (saveButtonClick:)
       forControlEvents:UIControlEventTouchUpInside];
@@ -166,31 +217,16 @@ static NSInteger BtnTag = 10086;
     [_bgView addSubview:internetTypeLabel];
     [_bgView addSubview:internetMealLabel];
     [_bgView addSubview:lineView];
-    [_bgView addSubview:imageView];
+    [_bgView addSubview:M];
     [_bgView addSubview:_mealTextField];
     [_bgView addSubview:internetCompanyLabel];
     [_bgView addSubview:_contentLabel];
+    [_bgView addSubview:_imageView2];
     [_bgView addSubview:overLookBtn];
     [_bgView addSubview:saveBtn];
 }
 
-- (UIButton *)btnWithFrame:(CGRect)frame title:(NSString *)title
-{
-    UIButton *button = [[UIButton alloc] initWithFrame:frame];
-
-    [button setTitle:title forState:UIControlStateNormal];
-
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [button setTitleColor:RGBACOLOR (37, 146, 224, 1) forState:UIControlStateSelected];
-    [button setBackgroundImage:[CTYYLToolView imageWithColor:[UIColor yellowColor]
-                                                        size:CGSizeMake (FITWIDTH (35), FITWIDTH (20))]
-                      forState:UIControlStateSelected];
-
-    button.titleLabel.font = [UIFont systemFontOfSize:15];
-
-    return button;
-}
-
+//按钮点击事件
 - (void)selectBtn:(UIButton *)sender
 {
     if ([self.delegate respondsToSelector:@selector (alertView:didClickBtn:)])
@@ -209,24 +245,36 @@ static NSInteger BtnTag = 10086;
         {
             btnTwo.selected = NO;
             btnThree.selected = NO;
+
+            self.imageView.frame = CGRectMake (FITWIDTH (83), FITWIDTH (45), FITHEIGHT (61), FITHEIGHT (30));
+
+            [self.imageView removeFromSuperview];
+            [_bgView addSubview:self.imageView];
         }
         if (sender.tag == BtnTag + 1)
         {
             btnOne.selected = NO;
             btnThree.selected = NO;
+            self.imageView.frame =
+            CGRectMake (FITWIDTH (83) + FITHEIGHT (60), FITWIDTH (45), FITHEIGHT (61), FITHEIGHT (30));
+
+            [self.imageView removeFromSuperview];
+            [_bgView addSubview:self.imageView];
         }
         if (sender.tag == BtnTag + 2)
         {
             btnOne.selected = NO;
             btnTwo.selected = NO;
+            self.imageView.frame =
+            CGRectMake (FITWIDTH (83) + FITHEIGHT (120), FITWIDTH (45), FITHEIGHT (61), FITHEIGHT (30));
+
+            [self.imageView removeFromSuperview];
+            [_bgView addSubview:self.imageView];
         }
     }
 }
-/**
- *  <#Description#>
- *
- *  @param btn <#btn description#>
- */
+
+//忽略按钮
 - (void)overBtnClick:(UIButton *)btn
 {
     if ([self.delegate respondsToSelector:@selector (alertView:overLookBtnClick:)])
@@ -234,11 +282,7 @@ static NSInteger BtnTag = 10086;
         [self.delegate alertView:self overLookBtnClick:btn];
     }
 }
-/**
- *  保存按钮方法
- *
- *  @param btn 按钮
- */
+//保存按钮
 - (void)saveButtonClick:(UIButton *)btn
 {
     if ([self.delegate respondsToSelector:@selector (alertView:saveBtnClick:)])
@@ -246,13 +290,6 @@ static NSInteger BtnTag = 10086;
         [self.delegate alertView:self saveBtnClick:btn];
     }
 }
-/*
 
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect {
- // Drawing code
- }
- */
 
 @end

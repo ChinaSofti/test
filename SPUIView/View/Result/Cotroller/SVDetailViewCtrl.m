@@ -86,6 +86,8 @@
     _tableView.dataSource = self;
     //设置tableView的section的分割线隐藏
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    // 6.设置tableView不可上下拖动
+    _tableView.bounces = NO;
 
     [self.view addSubview:_tableView];
 }

@@ -78,6 +78,8 @@
         _tableView.delegate = self;
         // 4.设置数据源
         _tableView.dataSource = self;
+        // 5.设置tableView不可上下拖动
+        _tableView.bounces = NO;
     }
     return _tableView;
 }
@@ -93,7 +95,6 @@
     //电池显示不了,设置样式让电池显示
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
-
     //添加NavigationRightItem
     [self addNavigationRightItem];
 
@@ -104,38 +105,6 @@
     [self addTableView];
     currentBtn = -1;
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    //从数据库中读取数据
-    [self readDataFromDB];
-}
-
-
-- (void)readDataFromDB
-{
-    // 1、添加数据之前 先清空数据源
-    _selectedResultTestId = 0;
-    [buttonAndTest removeAllObjects];
-    [self.dataSource removeAllObjects];
-    // 2、添加数据
-    NSArray *array = [_db executeQuery:[SVSummaryResultModel class]
-                                   SQL:@"select * from SVSummaryResultModel "
-                                       @"order by id asc limit 100 offset 0;"];
-    [self.dataSource addObjectsFromArray:array];
-
-    // 3、刷新列表
-    [_tableView reloadData];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-
-    //每次界面加载按钮都点击
-    //    [self buttonClick:_typeButton];
-}
-
 //添加NavigationRightItem
 - (void)addNavigationRightItem
 {
@@ -147,7 +116,34 @@
      forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    //默认情况下按照时间的降序排列
+    //从数据库中读取数据
+    [self readDataFromDB:@"testTime" order:@"desc"];
+}
+/**
+ *  读取数据方法
+ *
+ *  @param type  类型
+ *  @param order 展示顺序
+ */
+- (void)readDataFromDB:(NSString *)type order:(NSString *)order
+{
+    // 1、添加数据之前 先清空数据源
+    _selectedResultTestId = 0;
+    [buttonAndTest removeAllObjects];
+    [self.dataSource removeAllObjects];
+    // 2、添加数据
+    NSString *sql = [NSString
+    stringWithFormat:@"select * from SVSummaryResultModel order by %@ %@ limit 100 offset  0;", type, order];
+    NSArray *array = [_db executeQuery:[SVSummaryResultModel class] SQL:sql];
+    [self.dataSource addObjectsFromArray:array];
+    // 3、刷新列表
+    [_tableView reloadData];
+}
 
+//清楚按钮点击事件
 - (void)removeButtonClicked:(UIButton *)button
 {
     NSString *title1 = I18N (@"Prompt");
@@ -161,10 +157,7 @@
                                           otherButtonTitles:title4, nil];
     [alert show];
 }
-/**
- *  UIAlertViewDelegate
- *
- */
+// UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1)
@@ -176,7 +169,6 @@
 
         //从UI上删除
         [_dataSource removeAllObjects];
-
         [_tableView reloadData];
     }
 }
@@ -237,7 +229,7 @@
                       forState:UIControlStateSelected | UIControlStateHighlighted];
         [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         // button普通状态下的图片
-        [_button setImage:[UIImage imageNamed:imagesSelected[i]] forState:UIControlStateNormal];
+        [_button setImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
         // button选中状态下的图片
         [_button setImage:[UIImage imageNamed:imagesSelected[i]]
                  forState:UIControlStateSelected | UIControlStateHighlighted];
@@ -245,15 +237,15 @@
         // _button.titleEdgeInsets = UIEdgeInsetsMake (上, 左, 下, 右);
         _button.titleEdgeInsets = UIEdgeInsetsMake (30, -24, 0, 0);
         _button.imageEdgeInsets = UIEdgeInsetsMake (-15, 17, 0, 0);
-        //        [_button addTarget:self
-        //                    action:@selector (buttonClick:)
-        //          forControlEvents:UIControlEventTouchUpInside];
+        [_button addTarget:self
+                    action:@selector (buttonClick:)
+          forControlEvents:UIControlEventTouchUpInside];
 
         _button.tag = Button_Tag + i;
         _button.selected = NO;
 
         [_toolView addSubview:_button];
-        if (i == 0)
+        if (i == 1)
         {
             _typeButton = _button;
         }
@@ -261,7 +253,7 @@
 
     [self.view addSubview:_toolView];
 }
-
+//按钮点击事件
 - (void)buttonClick:(UIButton *)button
 {
 
@@ -307,7 +299,6 @@
         [self.bottomImageView removeFromSuperview];
         [_toolView addSubview:self.bottomImageView];
         break;
-
     default:
         break;
     }
@@ -317,57 +308,48 @@
     self.imageView.frame =
     CGRectMake (CGRectGetMaxX (button.titleLabel.frame) - 6, button.titleLabel.frame.origin.y - 10,
                 image.size.width, image.size.height);
-
     static int a = 0;
-    //    if (currentBtn != button.tag - Button_Tag)
+
+    NSString *type = @"type";
+    NSString *order = @"asc";
 
     if (a % 2 == 0)
     {
         //显示向上箭头
         UIImage *image = [UIImage imageNamed:@"ic_sort_asc"];
         self.imageView.image = image;
-        //       UInt64 recordTime = [[NSDate date] timeIntervalSince1970] * 1000;
         switch (button.tag - Button_Tag)
         {
         case 0:
             //类型
-            //            NSLog (@"类型--箭头向上");
-            [SVSortTools sortByType:_dataSource];
-            [SVSortTools reverse:_dataSource];
-            [_tableView reloadData];
-
+            NSLog (@"类型--箭头向上");
+            type = @"type";
+            order = @"asc";
             break;
         case 1:
             //时间
             NSLog (@"时间--箭头向上");
-            [SVSortTools sortByTime:_dataSource];
-            [SVSortTools reverse:_dataSource];
-            [_tableView reloadData];
-
+            type = @"testTime";
+            order = @"asc";
             break;
         case 2:
             // U-vMOS
-            [SVSortTools sortByScore:_dataSource];
-            [SVSortTools reverse:_dataSource];
-            [_tableView reloadData];
             NSLog (@"U-vMOS--箭头向上");
+            type = @"UvMOS";
+            order = @"asc";
             break;
         case 3:
             //加载时间
             NSLog (@"加载时间--箭头向上");
-            [SVSortTools sortByLoadTime:_dataSource];
-            [SVSortTools reverse:_dataSource];
-            [_tableView reloadData];
+            type = @"loadTime";
+            order = @"asc";
             break;
         case 4:
             //带宽
             NSLog (@"带宽--箭头向上");
-            [SVSortTools sortByBandWitdh:_dataSource];
-            [SVSortTools reverse:_dataSource];
-            [_tableView reloadData];
-
+            type = @"bandwidth";
+            order = @"asc";
             break;
-
         default:
             break;
         }
@@ -381,47 +363,41 @@
         {
         case 0:
             //类型
-            //            NSLog (@"类型--箭头向下");
-            [SVSortTools sortByType:_dataSource];
-
-            [_tableView reloadData];
+            NSLog (@"类型--箭头向下");
+            type = @"type";
+            order = @"desc";
             break;
         case 1:
             //时间
             NSLog (@"时间--箭头向下");
-            [SVSortTools sortByTime:_dataSource];
-
-            [_tableView reloadData];
+            type = @"testTime";
+            order = @"desc";
             break;
         case 2:
             // U-vMOS
             NSLog (@"U-vMOS--箭头向下");
-            [SVSortTools sortByScore:_dataSource];
-
-            [_tableView reloadData];
+            type = @"UvMOS";
+            order = @"desc";
             break;
         case 3:
             //加载时间
             NSLog (@"加载时间--箭头向下");
-            [SVSortTools sortByLoadTime:_dataSource];
-
-            [_tableView reloadData];
+            type = @"loadTime";
+            order = @"desc";
             break;
         case 4:
             //带宽
             NSLog (@"带宽--箭头向下");
-            [SVSortTools sortByBandWitdh:_dataSource];
-
-            [_tableView reloadData];
+            type = @"bandwidth";
+            order = @"desc";
             break;
-
         default:
             break;
         }
-        //        [SVSortTools reverse:_dataSource];
-        //        [_tableView reloadData];
     }
     a++;
+    // asc 生序  desc 降序
+    [self readDataFromDB:type order:order];
     [self.imageView removeFromSuperview];
     [button addSubview:self.imageView];
 }

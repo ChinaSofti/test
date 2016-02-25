@@ -85,9 +85,11 @@
     _tableView.delegate = self;
     //*5.设置数据源
     _tableView.dataSource = self;
-    // 6.定义数组展示图片
+    // 6.设置tableView不可上下拖动
+    _tableView.bounces = NO;
+    // 7.定义数组展示图片
     _selectedMA = [NSMutableArray array];
-    //国际化
+    // 8.国际化
     NSString *title = I18N (@"Video Test");
     NSString *title2 = I18N (@"Web Test");
     NSString *title3 = I18N (@"Speed Test");
@@ -123,7 +125,7 @@
     }
 
     _soucreMA = sourceMA;
-    // 7.把tableView添加到 view
+    // 9.把tableView添加到 view
     [self.view addSubview:_tableView];
 
     BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
@@ -241,34 +243,18 @@
         //按钮背景颜色
         _testBtn.backgroundColor =
         [UIColor colorWithRed:229 / 255.0 green:229 / 255.0 blue:229 / 255.0 alpha:1.0];
-        //按钮文字和类型
-        //        BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
-        //        if (isConnectionAvailable)
-        //        {
         NSString *title5 = I18N (@"Begin Test");
-
         [_testBtn setTitle:title5 forState:UIControlStateNormal];
         //按钮点击事件
         [_testBtn addTarget:self
-                     action:@selector (testBtnClick)
+                     action:@selector (testBtnClick1)
            forControlEvents:UIControlEventTouchUpInside];
-        //        }
-        //        else
-        //        {
-        //            [_testBtn setTitle:@"网络设置" forState:UIControlStateNormal];
-        //            //按钮点击事件
-        //            [_testBtn addTarget:self
-        //                         action:@selector (goNetworkSetting)
-        //               forControlEvents:UIControlEventTouchUpInside];
-        //        }
-
         //按钮圆角
         _testBtn.layer.cornerRadius = kCornerRadius;
         //设置居中
         _testBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         //按钮文字颜色和类型
         [_testBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-
         //按钮交互
         //设置按钮默认情况下不可交互
         _testBtn.userInteractionEnabled = NO;
@@ -337,14 +323,14 @@
         [_testBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
 }
-
+//进入设置网络界面
 - (void)goNetworkSetting
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
 }
 
 //按钮的点击事件
-- (void)testBtnClick
+- (void)testBtnClick1
 {
 
 #pragma mark - 在这里对 数组 排序
@@ -360,19 +346,6 @@
 
     // push界面
     [self.navigationController pushViewController:testingCtrl animated:YES];
-
-
-    //    SVCurrentResultViewCtrl *currentResultView = [[SVCurrentResultViewCtrl alloc] init];
-    //    currentResultModel.testId = 123;
-    //    currentResultModel.uvMOS = 2.4;
-    //    currentResultModel.firstBufferTime = 2342;
-
-
-    //    currentResultModel.cuttonTimes = 2;
-    //    currentResultView.currentResultModel = currentResultModel;
-    //    currentResultView.navigationController = navigationController;
-    //    //          [self presentViewController:currentResultView animated:YES completion:nil];
-    //    [navigationController pushViewController:currentResultView animated:YES];
 
     NSLog (@"testBtnClick...");
 }

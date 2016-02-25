@@ -38,7 +38,7 @@
         _speedLabel =
         [CTWBViewTools createLabelWithFrame:CGRectMake (_uvMosBarView.rightX + FITWIDTH (33),
                                                         FITWIDTH (100), FITWIDTH (40), FITWIDTH (20))
-                                   withFont:16
+                                   withFont:19
                              withTitleColor:RGBACOLOR (250, 180, 86, 1)
                                   withTitle:@"0"];
         _speedLabel1 =
@@ -52,7 +52,7 @@
         _bufferLabel =
         [CTWBViewTools createLabelWithFrame:CGRectMake (_speedLabel.rightX + FITWIDTH (65),
                                                         FITWIDTH (100), FITWIDTH (50), FITWIDTH (20))
-                                   withFont:16
+                                   withFont:19
                              withTitleColor:RGBACOLOR (250, 180, 86, 1)
                                   withTitle:@"0"];
 

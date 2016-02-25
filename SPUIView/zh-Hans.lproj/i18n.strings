@@ -10,6 +10,7 @@
 
 //初始设置
 "Setting Bandwidth Information" = "设置带宽信息";
+"Type " = "宽带类型";
 "Ignore" = "忽略";
 
 //退出程序视图

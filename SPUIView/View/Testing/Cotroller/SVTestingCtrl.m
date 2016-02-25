@@ -6,7 +6,6 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
-#import "SVBackView.h"
 #import "SVCurrentResultViewCtrl.h"
 #import "SVPointView.h"
 #import "SVTestingCtrl.h"
@@ -46,7 +45,6 @@
     int _UvMOSbarResultTimes;
 }
 
-@property (nonatomic, strong) SVBackView *backView;
 //定义gray遮挡View
 @property (nonatomic, strong) UIView *grayview;
 
@@ -127,8 +125,10 @@
 {
     if (buttonIndex == 1)
     {
+        NSLog (@"取消了此次测试");
         [navigationController popToRootViewControllerAnimated:NO];
     }
+    NSLog (@"继续测试");
 }
 /**
  *  初始化当前页面和全局变量
@@ -175,7 +175,7 @@
     //添加
     [window addSubview:_grayview];
     [self initContext];
-    // 当用户离开进入页面时，开始测试
+    // 进入页面时，开始测试
     long testId = [SVTimeUtil currentMilliSecondStamp];
     _videoTest =
     [[SVVideoTest alloc] initWithView:testId showVideoView:_videoView testDelegate:self];
@@ -189,7 +189,6 @@
       {
           dispatch_async (dispatch_get_main_queue (), ^{
             [self goToCurrentResultViewCtrl];
-
           });
       }
     });
@@ -300,73 +299,6 @@
     //把headerView添加到中整个视图上
     [self.view addSubview:_footerView];
 }
-
-#pragma mark - back弹框页
-
-//生命周期(点击按钮就创建)
-- (void)backBtnClik
-{
-    //    [self setShadowView];
-}
-/**
- *  创建阴影背景
- */
-
-//代理方法
-- (void)setShadowView
-{
-    //添加动画
-    [UIView
-    animateWithDuration:1
-             animations:^{
-               //黑色透明阴影
-               UIView *shadowView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-               shadowView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.8];
-
-               if (!_backView)
-               {
-                   _backView = [[SVBackView alloc]
-                   initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (140),
-                                             shadowView.frame.size.width - FITWIDTH (40), FITWIDTH (220))
-                         bgColor:[UIColor whiteColor]];
-
-                   //                   _backView.delegate = self;
-               }
-
-               [shadowView addGestureRecognizer:[[UITapGestureRecognizer alloc]
-                                                initWithTarget:self
-                                                        action:@selector (dismissTextField:)]];
-
-               [shadowView addSubview:_backView];
-
-               [self.view.window addSubview:shadowView];
-             }];
-}
-//取消键盘
-- (void)dismissTextField:(UIGestureRecognizer *)tap
-{
-    UIView *view = tap.view;
-    [view endEditing:YES];
-}
-//代理方法-否
-- (void)backView:(SVBackView *)backView overLookBtnClick:(UIButton *)Btn
-{
-    NSLog (@"NO");
-    UIView *shadowView = [[[Btn superview] superview] superview];
-    [shadowView removeFromSuperview];
-    backView = nil;
-}
-//代理方法-是
-- (void)backView:(SVBackView *)backView saveBtnClick:(UIButton *)Btn
-{
-    NSLog (@"YES");
-    UIView *shadowView = [[[Btn superview] superview] superview];
-    [shadowView removeFromSuperview];
-    backView = nil;
-}
-/**
- ******************************以上弹框代码结束*****************************************
- **/
 
 - (void)didReceiveMemoryWarning
 {

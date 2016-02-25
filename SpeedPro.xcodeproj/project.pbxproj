@@ -23,7 +23,6 @@
 		4DD006071C609EDB007D4D2F /* ic_web_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD005F61C609EDB007D4D2F /* ic_web_normal.png */; };
 		4DD006081C609EDB007D4D2F /* ic_web_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD005F71C609EDB007D4D2F /* ic_web_test.png */; };
 		4DD006191C609F7A007D4D2F /* SVResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD006141C609F7A007D4D2F /* SVResultViewCtrl.m */; };
-		4DD0061A1C609F7A007D4D2F /* SVSortTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD006161C609F7A007D4D2F /* SVSortTools.m */; };
 		4DD033911C734BB400A8CE9B /* ic_language_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD033901C734BB400A8CE9B /* ic_language_select.png */; };
 		561447C11C59BCE900003B9A /* SVPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 561447C01C59BCE900003B9A /* SVPointView.m */; };
 		561E46721C56433600CA58E8 /* SVSettingsViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561E46711C56433600CA58E8 /* SVSettingsViewCtrl.m */; };
@@ -40,7 +39,6 @@
 		565DFAEF1C515BB10024FF45 /* ic_video_testing.png in Resources */ = {isa = PBXBuildFile; fileRef = 565DFAE21C515BB10024FF45 /* ic_video_testing.png */; };
 		565DFAF01C515BB10024FF45 /* ic_web_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 565DFAE31C515BB10024FF45 /* ic_web_check.png */; };
 		565DFAF11C515BB10024FF45 /* ic_web_label.png in Resources */ = {isa = PBXBuildFile; fileRef = 565DFAE41C515BB10024FF45 /* ic_web_label.png */; };
-		5661187C1C574BB500F64161 /* SVBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5661187B1C574BB500F64161 /* SVBackView.m */; };
 		56665D351C71F9C400A63D44 /* SVDetailViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56665D341C71F9C400A63D44 /* SVDetailViewCtrl.m */; };
 		56665D381C71F9E100A63D44 /* SVToolModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 56665D371C71F9E100A63D44 /* SVToolModels.m */; };
 		56665D3B1C71F9EF00A63D44 /* SVToolCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 56665D3A1C71F9EF00A63D44 /* SVToolCells.m */; };
@@ -54,8 +52,6 @@
 		568E03421C78137C00A7CD72 /* ic_language_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 568E03411C78137C00A7CD72 /* ic_language_select.png */; };
 		56A919151C4F4BAA00E8BB72 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A919101C4F4BAA00E8BB72 /* AppDelegate.m */; };
 		56A919181C4F4BAB00E8BB72 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A919141C4F4BAA00E8BB72 /* ViewController.m */; };
-		56A9191E1C4F4C2500E8BB72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56A9191A1C4F4C2500E8BB72 /* LaunchScreen.storyboard */; };
-		56A9191F1C4F4C2500E8BB72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56A9191C1C4F4C2500E8BB72 /* Main.storyboard */; };
 		56AA27361C57090400FA5D0F /* CTWBViewTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AA27351C57090400FA5D0F /* CTWBViewTools.m */; };
 		56AA273B1C57122500FA5D0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56AA27391C57122500FA5D0F /* Assets.xcassets */; };
 		56AA74771C7C36C500BA7E51 /* clock_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = 56AA74711C7C36C500BA7E51 /* clock_middle.png */; };
@@ -66,7 +62,6 @@
 		56AA747E1C7C389400BA7E51 /* SVPointView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56AA747D1C7C389400BA7E51 /* SVPointView.xib */; };
 		56AA74801C7C3A9900BA7E51 /* clock_pointer_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 56AA747F1C7C3A9900BA7E51 /* clock_pointer_blue.png */; };
 		56B5180D1C5126C700AA76F1 /* UIView+Exten.m in Sources */ = {isa = PBXBuildFile; fileRef = 56B5180C1C5126C700AA76F1 /* UIView+Exten.m */; };
-		56B518101C51271100AA76F1 /* CTYYLToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56B5180F1C51271100AA76F1 /* CTYYLToolView.m */; };
 		56BA8FD91C561E9100886CAE /* SVTestViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FC71C561E9100886CAE /* SVTestViewCtrl.m */; };
 		56BA8FDA1C561E9100886CAE /* SVToolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCA1C561E9100886CAE /* SVToolModel.m */; };
 		56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCD1C561E9100886CAE /* AlertView.m */; };
@@ -111,6 +106,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		56A239E41C7D9E4D000C6341 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B72AC8691C76EA4500AAC3B3 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,8 +148,6 @@
 		4DD005F71C609EDB007D4D2F /* ic_web_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_web_test.png; sourceTree = "<group>"; };
 		4DD006131C609F7A007D4D2F /* SVResultViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultViewCtrl.h; sourceTree = "<group>"; };
 		4DD006141C609F7A007D4D2F /* SVResultViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultViewCtrl.m; sourceTree = "<group>"; };
-		4DD006151C609F7A007D4D2F /* SVSortTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSortTools.h; sourceTree = "<group>"; };
-		4DD006161C609F7A007D4D2F /* SVSortTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSortTools.m; sourceTree = "<group>"; };
 		4DD033901C734BB400A8CE9B /* ic_language_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_language_select.png; path = ../ic_language_select.png; sourceTree = "<group>"; };
 		561447BF1C59BCE900003B9A /* SVPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPointView.h; sourceTree = "<group>"; };
 		561447C01C59BCE900003B9A /* SVPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPointView.m; sourceTree = "<group>"; };
@@ -165,8 +168,6 @@
 		565DFAE21C515BB10024FF45 /* ic_video_testing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_video_testing.png; sourceTree = "<group>"; };
 		565DFAE31C515BB10024FF45 /* ic_web_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_web_check.png; sourceTree = "<group>"; };
 		565DFAE41C515BB10024FF45 /* ic_web_label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_web_label.png; sourceTree = "<group>"; };
-		5661187A1C574BB500F64161 /* SVBackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVBackView.h; sourceTree = "<group>"; };
-		5661187B1C574BB500F64161 /* SVBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVBackView.m; sourceTree = "<group>"; };
 		56622C4D1C4F320A00B4A50B /* CTCommonDefine.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCommonDefine.pch; sourceTree = "<group>"; };
 		56665D331C71F9C400A63D44 /* SVDetailViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVDetailViewCtrl.h; sourceTree = "<group>"; };
 		56665D341C71F9C400A63D44 /* SVDetailViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDetailViewCtrl.m; sourceTree = "<group>"; };
@@ -187,8 +188,6 @@
 		56A919121C4F4BAA00E8BB72 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		56A919131C4F4BAA00E8BB72 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = ../ViewController.h; sourceTree = "<group>"; };
 		56A919141C4F4BAA00E8BB72 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = ../ViewController.m; sourceTree = "<group>"; };
-		56A9191B1C4F4C2500E8BB72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		56A9191D1C4F4C2500E8BB72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		56AA27341C57090400FA5D0F /* CTWBViewTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTWBViewTools.h; sourceTree = "<group>"; };
 		56AA27351C57090400FA5D0F /* CTWBViewTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTWBViewTools.m; sourceTree = "<group>"; };
 		56AA273A1C57122500FA5D0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Base; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -201,8 +200,6 @@
 		56AA747F1C7C3A9900BA7E51 /* clock_pointer_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock_pointer_blue.png; sourceTree = "<group>"; };
 		56B5180B1C5126C700AA76F1 /* UIView+Exten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Exten.h"; sourceTree = "<group>"; };
 		56B5180C1C5126C700AA76F1 /* UIView+Exten.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Exten.m"; sourceTree = "<group>"; };
-		56B5180E1C51271100AA76F1 /* CTYYLToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTYYLToolView.h; sourceTree = "<group>"; };
-		56B5180F1C51271100AA76F1 /* CTYYLToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTYYLToolView.m; sourceTree = "<group>"; };
 		56BA8FC61C561E9100886CAE /* SVTestViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVTestViewCtrl.h; sourceTree = "<group>"; };
 		56BA8FC71C561E9100886CAE /* SVTestViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVTestViewCtrl.m; sourceTree = "<group>"; };
 		56BA8FC91C561E9100886CAE /* SVToolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToolModel.h; sourceTree = "<group>"; };
@@ -381,8 +378,6 @@
 		56A919191C4F4C2500E8BB72 /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				56A9191A1C4F4C2500E8BB72 /* LaunchScreen.storyboard */,
-				56A9191C1C4F4C2500E8BB72 /* Main.storyboard */,
 			);
 			name = Base.lproj;
 			path = ../Base.lproj;
@@ -439,8 +434,6 @@
 				4DD006141C609F7A007D4D2F /* SVResultViewCtrl.m */,
 				B7CD57481C705C8D00668E88 /* SVCurrentResultViewCtrl.h */,
 				B7CD57491C705C8D00668E88 /* SVCurrentResultViewCtrl.m */,
-				4DD006151C609F7A007D4D2F /* SVSortTools.h */,
-				4DD006161C609F7A007D4D2F /* SVSortTools.m */,
 				56665D331C71F9C400A63D44 /* SVDetailViewCtrl.h */,
 				56665D341C71F9C400A63D44 /* SVDetailViewCtrl.m */,
 			);
@@ -531,8 +524,6 @@
 				561447BF1C59BCE900003B9A /* SVPointView.h */,
 				561447C01C59BCE900003B9A /* SVPointView.m */,
 				56AA747D1C7C389400BA7E51 /* SVPointView.xib */,
-				5661187A1C574BB500F64161 /* SVBackView.h */,
-				5661187B1C574BB500F64161 /* SVBackView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -579,8 +570,6 @@
 				56AA27351C57090400FA5D0F /* CTWBViewTools.m */,
 				564435751C5216AD009B7024 /* CTViewTools.h */,
 				564435761C5216AD009B7024 /* CTViewTools.m */,
-				56B5180E1C51271100AA76F1 /* CTYYLToolView.h */,
-				56B5180F1C51271100AA76F1 /* CTYYLToolView.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -680,6 +669,7 @@
 				56F523DC1C4DCF7F00E6472B /* Frameworks */,
 				56F523DD1C4DCF7F00E6472B /* Resources */,
 				B72AC8691C76EA4500AAC3B3 /* Embed Frameworks */,
+				56A239E41C7D9E4D000C6341 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -715,6 +705,9 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SV;
+				KnownAssetTags = (
+					New,
+				);
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = chinasofti;
 				TargetAttributes = {
@@ -778,7 +771,6 @@
 				4DD006031C609EDB007D4D2F /* ic_start_time.png in Resources */,
 				568E033D1C78135D00A7CD72 /* rt_detail_title_ftp_img.png in Resources */,
 				563200561C7223560076A0FF /* homeindicator.png in Resources */,
-				56A9191E1C4F4C2500E8BB72 /* LaunchScreen.storyboard in Resources */,
 				4DD005FB1C609EDB007D4D2F /* ic_network_type.png in Resources */,
 				4DD006041C609EDB007D4D2F /* ic_start_time_normal.png in Resources */,
 				4DD005FA1C609EDB007D4D2F /* ic_clear.png in Resources */,
@@ -793,7 +785,6 @@
 				B72A1D0E1C7192B600C3141A /* speed_pro.png in Resources */,
 				4DD005FF1C609EDB007D4D2F /* ic_sort.png in Resources */,
 				56AA747A1C7C36C500BA7E51 /* clock_speed_panel.png in Resources */,
-				56A9191F1C4F4C2500E8BB72 /* Main.storyboard in Resources */,
 				56EC8C971C4F467000EBDA6C /* tabbar_test.png in Resources */,
 				4DD006001C609EDB007D4D2F /* ic_sort_asc.png in Resources */,
 				565DFAED1C515BB10024FF45 /* ic_video_label.png in Resources */,
@@ -826,12 +817,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56B518101C51271100AA76F1 /* CTYYLToolView.m in Sources */,
 				56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */,
 				56A919181C4F4BAB00E8BB72 /* ViewController.m in Sources */,
 				B7CD574A1C705C8D00668E88 /* SVCurrentResultViewCtrl.m in Sources */,
 				56FF0E401C78492C0080487D /* SVBWSettingViewCtrl.m in Sources */,
-				5661187C1C574BB500F64161 /* SVBackView.m in Sources */,
 				56665D351C71F9C400A63D44 /* SVDetailViewCtrl.m in Sources */,
 				B732E6281C6EC365000353B9 /* SVResultCell.m in Sources */,
 				56FF0E411C78492C0080487D /* SVLanguageSettingViewCtrl.m in Sources */,
@@ -847,7 +836,6 @@
 				56AA27361C57090400FA5D0F /* CTWBViewTools.m in Sources */,
 				56EC8C811C4F45A500EBDA6C /* SVTabBarController.m in Sources */,
 				56B5180D1C5126C700AA76F1 /* UIView+Exten.m in Sources */,
-				4DD0061A1C609F7A007D4D2F /* SVSortTools.m in Sources */,
 				56BA8FDC1C561E9100886CAE /* SVToolCell.m in Sources */,
 				561E46721C56433600CA58E8 /* SVSettingsViewCtrl.m in Sources */,
 				56A919151C4F4BAA00E8BB72 /* AppDelegate.m in Sources */,
@@ -885,22 +873,6 @@
 				564435781C52172B009B7024 /* zh-Hans */,
 			);
 			name = i18n.strings;
-			sourceTree = "<group>";
-		};
-		56A9191A1C4F4C2500E8BB72 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				56A9191B1C4F4C2500E8BB72 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		56A9191C1C4F4C2500E8BB72 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				56A9191D1C4F4C2500E8BB72 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		56AA27391C57122500FA5D0F /* Assets.xcassets */ = {

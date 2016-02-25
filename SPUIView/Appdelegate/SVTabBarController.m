@@ -110,7 +110,7 @@
 {
     [super viewDidAppear:animated];
 
-    //                [self setShadowView];
+    [self setShadowView];
 }
 /**
  *  创建阴影背景
@@ -121,16 +121,16 @@
 {
     //添加动画
     [UIView
-    animateWithDuration:1
+    animateWithDuration:0.01
              animations:^{
                //黑色透明阴影
                UIView *shadowView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-               shadowView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.3];
+               shadowView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.2];
 
                if (!_alertView)
                {
                    _alertView = [[AlertView alloc]
-                   initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (140),
+                   initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (183),
                                              shadowView.frame.size.width - FITWIDTH (40), FITWIDTH (220))
                          bgColor:[UIColor whiteColor]];
 

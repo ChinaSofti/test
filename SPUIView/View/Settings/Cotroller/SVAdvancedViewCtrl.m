@@ -84,17 +84,16 @@
 
     //文本框
     _textField = [[UITextField alloc] init];
-    _textField.frame = CGRectMake (110, 84, kScreenW - 84 - 30, 20);
+    _textField.frame = CGRectMake (110, 84, kScreenW - 84 - 40, 20);
     _textField.text = setting.getScreenSize;
     _textField.placeholder = @"请输入13英寸~100英寸的数字";
     _textField.font = [UIFont systemFontOfSize:14];
+    //设置文本框类型
+    _textField.borderStyle = UITextBorderStyleRoundedRect;
+    //输入键盘类型
+    _textField.keyboardType = UIKeyboardTypeDefault;
     [self.view addSubview:_textField];
 
-    //文本框下的细线
-    UIView *viewLine = [[UIView alloc] init];
-    viewLine.frame = CGRectMake (100, 104, kScreenW - 84 - 70, 1);
-    viewLine.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:viewLine];
 
     //英寸
     UILabel *lableInch = [[UILabel alloc] init];

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface CTWBViewTools : NSObject
 
@@ -14,12 +15,32 @@
 + (UIView *)createBackgroundViewWithFrame:(CGRect)frame cornerRadius:(CGFloat)radius;
 
 #pragma mark - Label
-+ (UILabel *)createLabelWithFrame:(CGRect)frame withFont:(CGFloat)font withTitleColor:(UIColor *)color withTitle:(NSString *)title;
++ (UILabel *)createLabelWithFrame:(CGRect)frame
+                         withFont:(CGFloat)font
+                   withTitleColor:(UIColor *)color
+                        withTitle:(NSString *)title;
 
 #pragma mark - 输入框
-+ (UITextField *)createTextFieldWithFrame:(CGRect)frame placeholder:(NSString*)placeholder passWord:(BOOL)YESorNO leftView:(UIView*)leftView rightView:(UIView*)rightView Font:(float)font fontColor:(UIColor *)color;
++ (UITextField *)createTextFieldWithFrame:(CGRect)frame
+                              placeholder:(NSString *)placeholder
+                                     Font:(float)font
+                                fontColor:(UIColor *)color;
++ (UITextField *)createTextFieldWithFrame:(CGRect)frame
+                              placeholder:(NSString *)placeholder
+                                 passWord:(BOOL)YESorNO
+                                 leftView:(UIView *)leftView
+                                rightView:(UIView *)rightView
+                                     Font:(float)font
+                                fontColor:(UIColor *)color;
 
-+ (UITextField*)createTextFieldWithFrame:(CGRect)frame placeholder:(NSString*)placeholder passWord:(BOOL)YESorNO leftView:(UIView*)leftView rightView:(UIView*)rightView Font:(float)font withLineColor:(UIColor *)lineColor lineWidth:(CGFloat)linewidth;
++ (UITextField *)createTextFieldWithFrame:(CGRect)frame
+                              placeholder:(NSString *)placeholder
+                                 passWord:(BOOL)YESorNO
+                                 leftView:(UIView *)leftView
+                                rightView:(UIView *)rightView
+                                     Font:(float)font
+                            withLineColor:(UIColor *)lineColor
+                                lineWidth:(CGFloat)linewidth;
 
 //输入框左view
 + (UIView *)viewWithFrame:(CGRect)frame withImage:(UIImage *)image withTitle:(NSString *)title;
@@ -27,15 +48,34 @@
 #pragma mark - Button
 
 // 普通button
-+ (UIButton *)createBtnWithFrame:(CGRect)frame backgroundImage:(NSString *)backgroundImage hightlightedImage:(NSString *)hightlighted title:(NSString *)title titleColor:(UIColor *)titleColor;
++ (UIButton *)createBtnWithFrame:(CGRect)frame
+                 backgroundImage:(NSString *)backgroundImage
+               hightlightedImage:(NSString *)hightlighted
+                           title:(NSString *)title
+                      titleColor:(UIColor *)titleColor;
 
-+ (UIButton *)createBtnWithFrame:(CGRect)frame normalImage:(NSString *)normalImage highlighImage:(NSString *)highlighImage seleceImage:(NSString *)selectImage normalTitle:(NSString *)normalTitle normalColor:(UIColor *)normalColor;
++ (UIButton *)createBtnWithFrame:(CGRect)frame
+                     normalImage:(NSString *)normalImage
+                   highlighImage:(NSString *)highlighImage
+                     seleceImage:(NSString *)selectImage
+                     normalTitle:(NSString *)normalTitle
+                     normalColor:(UIColor *)normalColor;
 
 // 文字与图片有偏移
-+ (UIButton *)createBtnWithFrame:(CGRect)frame normalImage:(NSString *)normalImage highlighImage:(NSString *)highlighImage seleceImage:(NSString *)selectImage normalTitle:(NSString *)normalTitle normalColor:(UIColor *)normalColor titleEdge:(UIEdgeInsets)titleEdge imageEdge:(UIEdgeInsets)imageEdge;
++ (UIButton *)createBtnWithFrame:(CGRect)frame
+                     normalImage:(NSString *)normalImage
+                   highlighImage:(NSString *)highlighImage
+                     seleceImage:(NSString *)selectImage
+                     normalTitle:(NSString *)normalTitle
+                     normalColor:(UIColor *)normalColor
+                       titleEdge:(UIEdgeInsets)titleEdge
+                       imageEdge:(UIEdgeInsets)imageEdge;
 
 //自定义UIBarButtonItem
-+ (UIBarButtonItem *)itemWithImage:(NSString *)imageName selectedImage:(NSString *)selectedImageName Target:(id)target action:(SEL)action;
++ (UIBarButtonItem *)itemWithImage:(NSString *)imageName
+                     selectedImage:(NSString *)selectedImageName
+                            Target:(id)target
+                            action:(SEL)action;
 
 
 #pragma mark - 线view
@@ -47,18 +87,23 @@
 
 #pragma mark - alertControl
 #pragma mark AlertView
-+ (UIAlertController *)alertViewWithTitle:(NSString *)title message:(NSString *)message okTitle:(NSString *)okTitle okClick:(void(^)(void))okClick  cancelTitle:(NSString *)cancelTitle  cancelClick:(void(^)(void))cancelClick;
++ (UIAlertController *)alertViewWithTitle:(NSString *)title
+                                  message:(NSString *)message
+                                  okTitle:(NSString *)okTitle
+                                  okClick:(void (^) (void))okClick
+                              cancelTitle:(NSString *)cancelTitle
+                              cancelClick:(void (^) (void))cancelClick;
 
 #pragma mark ActionSheet
-//+ (UIAlertController *)actionSheetWithTitle:(NSString *)title message:(NSString *)message titleArray:(NSArray *)titleArray cancelTitle:(NSString *)cancelTitle;
-
+//+ (UIAlertController *)actionSheetWithTitle:(NSString *)title message:(NSString *)message
+// titleArray:(NSArray *)titleArray cancelTitle:(NSString *)cancelTitle;
 #pragma mark - 生成图片缩略图
 + (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize;
 
 #pragma mark - 表情输入
 + (BOOL)isContainsEmoji:(NSString *)string;
 
-#pragma mark - 取消searchbar背景色
+#pragma mark - 取消searchbar背景色/图片
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 
 @end
