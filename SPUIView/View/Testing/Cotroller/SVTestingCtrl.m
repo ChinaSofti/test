@@ -274,66 +274,66 @@
 #pragma mark - 创建视频播放View
 - (void)creatVideoView
 {
-    CGSize size = self.view.bounds.size;
     // 在全屏模式下，在_videoView上方显示测试指标
-    _showCurrentResultInFullScreenMode = [[UIView alloc] initWithFrame:CGRectMake (0, 0, size.height, 30)];
-    _showCurrentResultInFullScreenMode.alpha = 0.5;
-    [_showCurrentResultInFullScreenMode setBackgroundColor:[UIColor blackColor]];
 
-    // U-vMOS 0.0
-    UILabel *UvMosInFullScreenLabel =
-    [[UILabel alloc] initWithFrame:CGRectMake (20, 5, FITWIDTH (45), FITHEIGHT (20))];
+    _showCurrentResultInFullScreenMode = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenH, 30)];
+    [_showCurrentResultInFullScreenMode setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.3]];
+
+    // 1.U-vMOS 0.0
+    UILabel *UvMosInFullScreenLabel = [[UILabel alloc]
+    initWithFrame:CGRectMake (FITHEIGHT (40), FITHEIGHT (5), FITHEIGHT (45), FITHEIGHT (20))];
     [UvMosInFullScreenLabel setText:@"U-vMOS"];
     [UvMosInFullScreenLabel setTextColor:[UIColor whiteColor]];
-    [UvMosInFullScreenLabel setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
+    [UvMosInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:UvMosInFullScreenLabel];
-    _UvMosInFullScreenValue = [[UILabel alloc]
-    initWithFrame:CGRectMake (UvMosInFullScreenLabel.rightX + 2, 5, FITWIDTH (35), FITHEIGHT (20))];
-    //    [_UvMosInFullScreenValue setText:@"2.2"];
-    [_UvMosInFullScreenValue setTextColor:[UIColor greenColor]];
-    [_UvMosInFullScreenValue setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
+    // 1.5 U-vMOS值
+    _UvMosInFullScreenValue =
+    [[UILabel alloc] initWithFrame:CGRectMake (UvMosInFullScreenLabel.rightX + FITHEIGHT (2),
+                                               FITHEIGHT (5), FITWIDTH (40), FITHEIGHT (20))];
+    [_UvMosInFullScreenValue setTextColor:RGBACOLOR (44, 166, 222, 1)];
+    [_UvMosInFullScreenValue setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:_UvMosInFullScreenValue];
-
-    // Buffer times 0
+    // 2.Buffer times 0
     UILabel *bufferTimesInFullScreenLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (_UvMosInFullScreenValue.rightX + 20, 5, FITWIDTH (62), FITHEIGHT (20))];
+    initWithFrame:CGRectMake (kScreenH / 4 + FITHEIGHT (30), FITHEIGHT (5), FITWIDTH (70), FITHEIGHT (20))];
     [bufferTimesInFullScreenLabel setText:@"Buffer times"];
     [bufferTimesInFullScreenLabel setTextColor:[UIColor whiteColor]];
-    [bufferTimesInFullScreenLabel setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
+    [bufferTimesInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:bufferTimesInFullScreenLabel];
-    _bufferTimesInFullScreenValue = [[UILabel alloc]
-    initWithFrame:CGRectMake (bufferTimesInFullScreenLabel.rightX + 2, 5, FITWIDTH (20), FITHEIGHT (20))];
-    //    [_bufferTimesInFullScreenValue setText:@"2"];
-    [_bufferTimesInFullScreenValue setTextColor:[UIColor greenColor]];
-    [_bufferTimesInFullScreenValue setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
+    // 2.5 Buffer times值
+    _bufferTimesInFullScreenValue =
+    [[UILabel alloc] initWithFrame:CGRectMake (bufferTimesInFullScreenLabel.rightX + FITHEIGHT (2),
+                                               FITHEIGHT (5), FITWIDTH (20), FITHEIGHT (20))];
+    [_bufferTimesInFullScreenValue setTextColor:RGBACOLOR (44, 166, 222, 1)];
+    [_bufferTimesInFullScreenValue setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:_bufferTimesInFullScreenValue];
 
-    // Bit rate 3002.23kbps
+    // 3.Bit rate 3002.23kbps
     UILabel *bitRateInFullScreenLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (_bufferTimesInFullScreenValue.rightX + 20, 5, FITWIDTH (37), FITHEIGHT (20))];
+    initWithFrame:CGRectMake (kScreenH / 2 + FITHEIGHT (12), FITHEIGHT (5), FITWIDTH (45), FITHEIGHT (20))];
     [bitRateInFullScreenLabel setText:@"Bit rate"];
     [bitRateInFullScreenLabel setTextColor:[UIColor whiteColor]];
-    [bitRateInFullScreenLabel setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
+    [bitRateInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:bitRateInFullScreenLabel];
-    _bitRateInFullScreenValue = [[UILabel alloc]
-    initWithFrame:CGRectMake (bitRateInFullScreenLabel.rightX + 2, 5, FITWIDTH (80), FITHEIGHT (20))];
-    //    [_bitRateInFullScreenValue setText:@"3002.23kbps"];
-    [_bitRateInFullScreenValue setTextColor:[UIColor greenColor]];
-    [_bitRateInFullScreenValue setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
+    // 3.5 Bit rate 值
+    _bitRateInFullScreenValue =
+    [[UILabel alloc] initWithFrame:CGRectMake (bitRateInFullScreenLabel.rightX + FITHEIGHT (2),
+                                               FITHEIGHT (5), FITWIDTH (80), FITHEIGHT (20))];
+    [_bitRateInFullScreenValue setTextColor:RGBACOLOR (44, 166, 222, 1)];
+    [_bitRateInFullScreenValue setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:_bitRateInFullScreenValue];
-
-    // Resolution  1920 * 1080
+    // 4. Resolution  1920 * 1080
     UILabel *resolutionInFullScreenLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (_bitRateInFullScreenValue.rightX + 20, 5, FITWIDTH (53), FITHEIGHT (20))];
+    initWithFrame:CGRectMake (3 * kScreenH / 4, FITHEIGHT (5), FITWIDTH (60), FITHEIGHT (20))];
     [resolutionInFullScreenLabel setText:@"Resolution"];
     [resolutionInFullScreenLabel setTextColor:[UIColor whiteColor]];
-    [resolutionInFullScreenLabel setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
+    [resolutionInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:resolutionInFullScreenLabel];
+    // 4.5Resolution值
     _resolutionInFullScreenValue = [[UILabel alloc]
     initWithFrame:CGRectMake (resolutionInFullScreenLabel.rightX + 2, 5, FITWIDTH (80), FITHEIGHT (20))];
-    //    [_resolutionInFullScreenValue setText:@"1920 * 1080"];
-    [_resolutionInFullScreenValue setTextColor:[UIColor greenColor]];
-    [_resolutionInFullScreenValue setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
+    [_resolutionInFullScreenValue setTextColor:RGBACOLOR (44, 166, 222, 1)];
+    [_resolutionInFullScreenValue setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:_resolutionInFullScreenValue];
 
     //初始化
@@ -342,6 +342,7 @@
     [_videoView setContentMode:UIViewContentModeScaleToFill];
     UITapGestureRecognizer *tapGesture =
     [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector (ClickVideoView:)];
+    //    tapGesture.view.frame = kVideoViewDefaultRect;
     [tapGesture setNumberOfTapsRequired:1];
     [_videoView addGestureRecognizer:tapGesture];
     [self.view addSubview:_videoView];
@@ -533,7 +534,6 @@
 {
     // 如果视频在全屏模式，则退出全屏模式
     [self exitFullScreenMode];
-
     SVCurrentResultViewCtrl *currentResultView = [[SVCurrentResultViewCtrl alloc] init];
     currentResultView.currentResultModel = currentResultModel;
     currentResultView.navigationController = navigationController;

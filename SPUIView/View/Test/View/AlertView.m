@@ -184,6 +184,7 @@ static NSInteger BtnTag = 10086;
     initWithFrame:CGRectMake (FITWIDTH (15), internetCompanyLabel.bottomY + FITWIDTH (25),
                               FITWIDTH (115), FITWIDTH (40))];
     [overLookBtn setTitle:title9 forState:UIControlStateNormal];
+    overLookBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [overLookBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [overLookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [overLookBtn setBackgroundImage:[CTWBViewTools imageWithColor:RGBACOLOR (35, 144, 222, 1)
@@ -200,6 +201,7 @@ static NSInteger BtnTag = 10086;
     initWithFrame:CGRectMake (FITWIDTH (150), internetCompanyLabel.bottomY + FITWIDTH (25),
                               FITWIDTH (115), FITWIDTH (40))];
     [saveBtn setTitle:title10 forState:UIControlStateNormal];
+    saveBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [saveBtn setBackgroundImage:[CTWBViewTools imageWithColor:RGBACOLOR (35, 144, 222, 1)

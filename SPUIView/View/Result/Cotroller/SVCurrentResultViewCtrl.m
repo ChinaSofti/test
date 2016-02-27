@@ -235,6 +235,8 @@
     tableView.delegate = self;
     //*5.设置数据源
     tableView.dataSource = self;
+    // 6.设置tableView不可上下拖动
+    tableView.bounces = NO;
     return tableView;
 }
 
