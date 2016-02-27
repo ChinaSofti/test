@@ -26,6 +26,7 @@
 		4DD033911C734BB400A8CE9B /* ic_language_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD033901C734BB400A8CE9B /* ic_language_select.png */; };
 		561447C11C59BCE900003B9A /* SVPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 561447C01C59BCE900003B9A /* SVPointView.m */; };
 		561E46721C56433600CA58E8 /* SVSettingsViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561E46711C56433600CA58E8 /* SVSettingsViewCtrl.m */; };
+		562C1F691C80778500A76F49 /* SVUploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 562C1F681C80778500A76F49 /* SVUploadFile.m */; };
 		563200561C7223560076A0FF /* homeindicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 563200551C7223560076A0FF /* homeindicator.png */; };
 		5644354C1C5215AB009B7024 /* i18n.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5644354E1C5215AB009B7024 /* i18n.strings */; };
 		564435771C5216AD009B7024 /* CTViewTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 564435761C5216AD009B7024 /* CTViewTools.m */; };
@@ -153,6 +154,8 @@
 		561447C01C59BCE900003B9A /* SVPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPointView.m; sourceTree = "<group>"; };
 		561E46701C56433600CA58E8 /* SVSettingsViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVSettingsViewCtrl.h; path = SPUIView/View/Settings/Cotroller/SVSettingsViewCtrl.h; sourceTree = SOURCE_ROOT; };
 		561E46711C56433600CA58E8 /* SVSettingsViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVSettingsViewCtrl.m; path = SPUIView/View/Settings/Cotroller/SVSettingsViewCtrl.m; sourceTree = SOURCE_ROOT; };
+		562C1F671C80778500A76F49 /* SVUploadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVUploadFile.h; path = Service/SVUploadFile.h; sourceTree = "<group>"; };
+		562C1F681C80778500A76F49 /* SVUploadFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVUploadFile.m; path = Service/SVUploadFile.m; sourceTree = "<group>"; };
 		563200551C7223560076A0FF /* homeindicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeindicator.png; sourceTree = "<group>"; };
 		5644354D1C5215AB009B7024 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/i18n.strings; sourceTree = "<group>"; };
 		564435751C5216AD009B7024 /* CTViewTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTViewTools.h; sourceTree = "<group>"; };
@@ -292,6 +295,15 @@
 				4DD005F71C609EDB007D4D2F /* ic_web_test.png */,
 			);
 			path = Result;
+			sourceTree = "<group>";
+		};
+		5607F8681C8056930080B851 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				562C1F671C80778500A76F49 /* SVUploadFile.h */,
+				562C1F681C80778500A76F49 /* SVUploadFile.m */,
+			);
+			name = Service;
 			sourceTree = "<group>";
 		};
 		563479081C56348C002179BF /* Settings */ = {
@@ -609,6 +621,7 @@
 		56F523E11C4DCF7F00E6472B /* SPUIView */ = {
 			isa = PBXGroup;
 			children = (
+				5607F8681C8056930080B851 /* Service */,
 				56BA8FB51C561E9100886CAE /* View */,
 				56B5180A1C5126C700AA76F1 /* Category */,
 				56EC8C581C4F45A500EBDA6C /* AppDelegate */,
@@ -844,6 +857,7 @@
 				56FF0E421C78492C0080487D /* SVLogsViewCtrl.m in Sources */,
 				561447C11C59BCE900003B9A /* SVPointView.m in Sources */,
 				B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */,
+				562C1F691C80778500A76F49 /* SVUploadFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

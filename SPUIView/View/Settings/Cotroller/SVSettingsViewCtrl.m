@@ -6,13 +6,13 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
-#import "SVSettingsViewCtrl.h"
-
 #import "SVAboutViewCtrl.h"
 #import "SVAdvancedViewCtrl.h"
 #import "SVBWSettingViewCtrl.h"
 #import "SVLanguageSettingViewCtrl.h"
 #import "SVLogsViewCtrl.h"
+#import "SVSettingsViewCtrl.h"
+#import "SVUploadFile.h"
 #import <SPCommon/SVI18N.h>
 
 @interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource>
@@ -93,7 +93,6 @@
     NSString *title5 = I18N (@"Upload Logs");
     NSString *title6 = I18N (@"Advanced setting");
 
-
     static NSString *cellId = @"cell";
 
     UITableViewCell *cell =
@@ -138,7 +137,6 @@
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         cell.textLabel.font = [UIFont systemFontOfSize:13];
         ;
-
 
         if (indexPath.row == 0)
         {
@@ -187,14 +185,30 @@
 {
     if (buttonIndex == 1)
     {
-        //如果点击上传怎样,写在这里
+        //上传日志
+        NSLog (@"上传日志");
+        //获取文件沙盒路径
+        NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
+        //获取到的documents路径
+        NSString *string1 = [paths objectAtIndex:0];
+        //图片名称
+        NSString *string2 = @"1.png.zip";
+        //要拼接的总的字符串
+        NSString *string;
+        //拼接
         /*
+                 1.stringByAppendingPathComponent:拼接的字符串之间加入一个"/"
+                 2.stringByAppending:直接拼接内容
+                 3.stringByAppendingFormat:直接拼接内容
+                 4.stringByAppendingPathExtension:拼接的字符串之间加入一个"."
+                 */
+        string = [string1 stringByAppendingPathComponent:string2];
+        //        NSLog(@"%@--------string", string);
+        NSData *data = [NSData dataWithContentsOfFile:string];
 
-
-         雨哥加代码处
-
-
-         */
+        SVUploadFile *upload = [[SVUploadFile alloc] init];
+        NSString *urlString = @"https://58.60.106.188:12210/speedpro/log?op=list&begin=0&end=50";
+        [upload uploadFileWithURL:[NSURL URLWithString:urlString] data:data];
     }
 }
 
@@ -244,7 +258,6 @@
         }
     }
 }
-
 
 //设置 tableView 的 sectionHeader蓝色 的header的有无
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
