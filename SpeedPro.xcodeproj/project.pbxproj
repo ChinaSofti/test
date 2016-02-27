@@ -90,6 +90,7 @@
 		B72AC8671C76EA4500AAC3B3 /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
 		B72AC8681C76EA4500AAC3B3 /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B732E6281C6EC365000353B9 /* SVResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B732E6271C6EC365000353B9 /* SVResultCell.m */; };
+		B7C949D11C819CD20056226A /* SVVideoFullScreenPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C949D01C819CD20056226A /* SVVideoFullScreenPlayController.m */; };
 		B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */; };
 		B7CD574A1C705C8D00668E88 /* SVCurrentResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CD57491C705C8D00668E88 /* SVCurrentResultViewCtrl.m */; };
 		B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CD57511C70C7FB00668E88 /* SVCurrentResultModel.m */; };
@@ -243,6 +244,8 @@
 		B72AC8621C76EA3D00AAC3B3 /* SPService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPService.framework; sourceTree = "<group>"; };
 		B732E6261C6EC365000353B9 /* SVResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultCell.h; sourceTree = "<group>"; };
 		B732E6271C6EC365000353B9 /* SVResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultCell.m; sourceTree = "<group>"; };
+		B7C949CF1C819CD20056226A /* SVVideoFullScreenPlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoFullScreenPlayController.h; sourceTree = "<group>"; };
+		B7C949D01C819CD20056226A /* SVVideoFullScreenPlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoFullScreenPlayController.m; sourceTree = "<group>"; };
 		B7CAB7C61C7416E100108B02 /* SVDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVDetailViewModel.h; sourceTree = "<group>"; };
 		B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDetailViewModel.m; sourceTree = "<group>"; };
 		B7CD57481C705C8D00668E88 /* SVCurrentResultViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVCurrentResultViewCtrl.h; sourceTree = "<group>"; };
@@ -519,6 +522,8 @@
 			children = (
 				56BA8FD21C561E9100886CAE /* SVTestingCtrl.h */,
 				56BA8FD31C561E9100886CAE /* SVTestingCtrl.m */,
+				B7C949CF1C819CD20056226A /* SVVideoFullScreenPlayController.h */,
+				B7C949D01C819CD20056226A /* SVVideoFullScreenPlayController.m */,
 			);
 			path = Cotroller;
 			sourceTree = "<group>";
@@ -858,6 +863,7 @@
 				561447C11C59BCE900003B9A /* SVPointView.m in Sources */,
 				B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */,
 				562C1F691C80778500A76F49 /* SVUploadFile.m in Sources */,
+				B7C949D11C819CD20056226A /* SVVideoFullScreenPlayController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1005,7 +1011,7 @@
 					"$(PROJECT_DIR)/SPUIView/ThirdPart/U-vMOS_SDK_for_iOS",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SPUIViiew;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 			};
@@ -1035,7 +1041,7 @@
 					"$(PROJECT_DIR)/SPUIView/ThirdPart/U-vMOS_SDK_for_iOS",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SPUIViiew;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 			};

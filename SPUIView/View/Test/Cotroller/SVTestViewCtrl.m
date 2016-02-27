@@ -32,26 +32,26 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSString *title6 = I18N (@"Begin Test");
-    NSString *title7 = I18N (@"Network Settings");
+    //    NSString *title6 = I18N (@"Begin Test");
+    //    NSString *title7 = I18N (@"Network Settings");
     //按钮文字和类型
-    BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
-    if (isConnectionAvailable)
-    {
-        [_testBtn setTitle:title6 forState:UIControlStateNormal];
-        //按钮点击事件
-        [_testBtn addTarget:self
-                     action:@selector (testBtnClick)
-           forControlEvents:UIControlEventTouchUpInside];
-    }
-    else
-    {
-        [_testBtn setTitle:title7 forState:UIControlStateNormal];
-        //按钮点击事件
-        [_testBtn addTarget:self
-                     action:@selector (goNetworkSetting)
-           forControlEvents:UIControlEventTouchUpInside];
-    }
+    //    BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
+    //    if (isConnectionAvailable)
+    //    {
+    //        [_testBtn setTitle:title6 forState:UIControlStateNormal];
+    //        //按钮点击事件
+    //        [_testBtn addTarget:self
+    //                     action:@selector (testBtnClick1)
+    //           forControlEvents:UIControlEventTouchUpInside];
+    //    }
+    //    else
+    //    {
+    //        [_testBtn setTitle:title7 forState:UIControlStateNormal];
+    //        //按钮点击事件
+    //        [_testBtn addTarget:self
+    //                     action:@selector (goNetworkSetting)
+    //           forControlEvents:UIControlEventTouchUpInside];
+    //    }
 }
 
 - (void)viewDidLoad

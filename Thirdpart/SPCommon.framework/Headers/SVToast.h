@@ -10,4 +10,5 @@
 
 @interface SVToast : NSObject
 
+//+ (void)showTextMEssage:(id)self;
 @end
