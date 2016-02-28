@@ -115,11 +115,12 @@
     BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
     if (isConnectionAvailable)
     {
-        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
-        if (![setting getBandwidth])
-        {
-            [self setShadowView];
-        }
+        //        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
+        //        if (![setting getBandwidth])
+        //        {
+        //            [self setShadowView];
+        //        }
+        [self setShadowView];
     }
 }
 /**
