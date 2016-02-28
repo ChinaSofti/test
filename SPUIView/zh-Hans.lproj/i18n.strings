@@ -142,6 +142,7 @@
 "简体中文" = "简体中文";
 "English" = "English";
 "Save" = "保存";
+"Success, restart the App effect" = "设置成功,重启App生效";
 
 //提示试图
 "You are using Wi-Fi" = "您正在使用wifi";

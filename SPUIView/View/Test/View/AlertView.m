@@ -156,6 +156,8 @@ static NSInteger BtnTag = 10086;
                  placeholder:nil
                         Font:15
                    fontColor:[UIColor blackColor]];
+    _mealTextField.keyboardType = UIKeyboardTypeNumberPad;
+    _mealTextField.placeholder = @"请输入您的带宽";
     //所属运营商
     UILabel *internetCompanyLabel = [CTWBViewTools
     createLabelWithFrame:CGRectMake (FITWIDTH (15), internetMealLabel.bottomY + FITWIDTH (15),
