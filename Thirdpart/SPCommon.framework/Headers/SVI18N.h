@@ -11,13 +11,6 @@
 
 @interface SVI18N : NSObject
 
-typedef enum {
-    English, //英语
-    Chinese, //汉语
-    System //系统
-} Language;
-
-
 /**
  *  单例
  *
@@ -47,9 +40,9 @@ typedef enum {
 /**
  *  设置当前语言
  *
- *  @param langugae 设置当前语言
+ *  @param language 设置当前语言
  */
-- (void)setLanguage:(NSString *)langugae;
+- (void)setLanguage:(NSString *)language;
 
 /**
  *  查询当前语言
@@ -58,8 +51,34 @@ typedef enum {
  */
 - (NSString *)getLanguage;
 
+/**
+ *  根据当前系统语言获得的NSBundle
+ *
+ *  @return NSBundle
+ */
+- (NSBundle *)getBundle;
 
-//根据key获取值
+/**
+ *  设置当前NSBundle
+ *
+ *  @param bundle NSBundle
+ */
+- (void)setBundle:(NSBundle *)bundle;
+
+/**
+ *  查询当前系统语言
+ *
+ *  @return 当前系统语言
+ */
++ (NSString *)getSystemLanguage;
+
+/**
+ *  根据key查询国际化value
+ *
+ *  @param key key
+ *
+ *  @return 国际化value
+ */
 + (NSString *)valueForKey:(NSString *)key;
 
 

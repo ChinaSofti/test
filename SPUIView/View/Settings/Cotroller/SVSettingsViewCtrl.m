@@ -14,6 +14,7 @@
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
 #import <SPCommon/SVI18N.h>
+#import <SPCommon/SVLog.h>
 
 @interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -187,28 +188,18 @@
     {
         //上传日志
         NSLog (@"上传日志");
-        //获取文件沙盒路径
-        NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
-        //获取到的documents路径
-        NSString *string1 = [paths objectAtIndex:0];
-        //图片名称
-        NSString *string2 = @"1.png.zip";
-        //要拼接的总的字符串
-        NSString *string;
-        //拼接
-        /*
-                 1.stringByAppendingPathComponent:拼接的字符串之间加入一个"/"
-                 2.stringByAppending:直接拼接内容
-                 3.stringByAppendingFormat:直接拼接内容
-                 4.stringByAppendingPathExtension:拼接的字符串之间加入一个"."
-                 */
-        string = [string1 stringByAppendingPathComponent:string2];
-        //        NSLog(@"%@--------string", string);
-        NSData *data = [NSData dataWithContentsOfFile:string];
+        SVLog *log = [SVLog alloc];
+        NSString *filepath = [log compressLogFiles];
+        SVInfo (@"upload log file:%@", filepath);
+        NSData *data = [NSData dataWithContentsOfFile:filepath];
 
         SVUploadFile *upload = [[SVUploadFile alloc] init];
         NSString *urlString = @"https://58.60.106.188:12210/speedpro/log?op=list&begin=0&end=50";
         [upload uploadFileWithURL:[NSURL URLWithString:urlString] data:data];
+
+        // 删除压缩文件
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        [fileManager removeItemAtPath:filepath error:nil];
     }
 }
 

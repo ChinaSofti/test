@@ -17,9 +17,11 @@
 
 @end
 
+static NSString *userLanaguage;
+
 @implementation SVLanguageSettingViewCtrl
 {
-    int _seletedIndex;
+    UIButton *_saveBtn;
 }
 
 - (UIImageView *)imageView
@@ -114,46 +116,45 @@
             [self buttonClicked:button];
         }
 
-        //设置初始 默认选择位置
-        //        if (button.tag == 20)
-        //        {
-        //            [self buttonClicked:button];
-        //        }
         [self.view addSubview:button];
     }
 
     //保存按钮高度
     CGFloat saveBtnH = 44;
     //保存按钮类型
-    UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     //保存按钮尺寸
-    saveBtn.frame = CGRectMake (saveBtnH, kScreenH - saveBtnH * 2, kScreenW - saveBtnH * 2, saveBtnH);
+    _saveBtn.frame = CGRectMake (saveBtnH, kScreenH - saveBtnH * 2, kScreenW - saveBtnH * 2, saveBtnH);
     //保存按钮背景颜色
-    saveBtn.backgroundColor =
+    _saveBtn.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
     //保存按钮文字和颜色
-    [saveBtn setTitle:title2 forState:UIControlStateNormal];
-    [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_saveBtn setTitle:title2 forState:UIControlStateNormal];
+    [_saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //设置居中
-    saveBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _saveBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
 
     //保存按钮点击事件
-    [saveBtn addTarget:self
-                action:@selector (saveBtnClicked:)
-      forControlEvents:UIControlEventTouchUpInside];
+    [_saveBtn addTarget:self
+                 action:@selector (saveBtnClicked:)
+       forControlEvents:UIControlEventTouchUpInside];
 
     //保存按钮圆角
-    saveBtn.layer.cornerRadius = 5;
+    _saveBtn.layer.cornerRadius = 5;
 
     //保存按钮交互
     //  saveBtn.userInteractionEnabled = YES;
 
-    [self.view addSubview:saveBtn];
+    [self.view addSubview:_saveBtn];
 }
-//语言按钮
+
+/**
+ *  保存按钮
+ *
+ *  @param button 保存按钮
+ */
 - (void)buttonClicked:(UIButton *)button
 {
-
     //按钮被点击后 右侧显示排序箭头
     UIImage *image = [UIImage imageNamed:@"ic_language_select"];
     self.imageView.frame = CGRectMake (kScreenW - 60, 17, 15, 10);
@@ -164,19 +165,17 @@
     case 0:
         //跟随系统
         NSLog (@"跟随系统");
-
-        _seletedIndex = 0;
+        userLanaguage = [SVI18N getSystemLanguage];
         break;
     case 1:
         //简体中文
         NSLog (@"简体中文");
-        _seletedIndex = 1;
-
+        userLanaguage = @"zh-Hans";
         break;
     case 2:
         // English
         NSLog (@"English");
-        _seletedIndex = 2;
+        userLanaguage = @"en-US";
         break;
 
     default:
@@ -184,24 +183,16 @@
     }
     [button addSubview:self.imageView];
 }
-//保存按钮
+
+/**
+ *  保存按钮
+ *
+ *  @param button 保存按钮
+ */
 - (void)saveBtnClicked:(UIButton *)button
 {
-    [self.navigationController popViewControllerAnimated:YES];
     SVI18N *setting = [SVI18N sharedInstance];
-    NSArray *languages = [NSLocale preferredLanguages];
-    NSString *language = [languages objectAtIndex:0];
-    if (_seletedIndex == 1)
-    {
-        language = @"zh";
-    }
-    else if (_seletedIndex == 2)
-    {
-        language = @"en";
-    }
-
-    [setting setLanguage:language];
-    NSLog (@"语言设置--保存");
+    [setting setLanguage:userLanaguage];
 }
 
 @end
