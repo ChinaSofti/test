@@ -9,12 +9,14 @@
 #import "AlertView.h"
 #import "UIView+Exten.h"
 #import <SPCommon/SVI18N.h>
+#import <SPService/SVProbeInfo.h>
 
 static NSInteger BtnTag = 10086;
 @interface AlertView ()
 {
     UIView *_bgView;
     UIButton *_typeBtn;
+    int _bandwidthTypeIndex;
 }
 @property (nonatomic, strong) UIView *imageView;
 @property (nonatomic, strong) UIView *imageView2;
@@ -74,7 +76,9 @@ static NSInteger BtnTag = 10086;
     NSString *title5 = I18N (@"Copper");
     NSString *title6 = I18N (@"Package");
     NSString *title7 = I18N (@"Carrier");
-    NSString *title8 = I18N (@"China Unicom Beijing");
+    //    NSString *title8 = I18N (@"China Unicom Beijing");
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSString *title8 = probeInfo.isp;
     NSString *title9 = I18N (@"Ignore");
     NSString *title10 = I18N (@"Save");
     //标题
@@ -254,6 +258,7 @@ static NSInteger BtnTag = 10086;
 
             [self.imageView removeFromSuperview];
             [_bgView addSubview:self.imageView];
+            _bandwidthTypeIndex = 0;
         }
         if (sender.tag == BtnTag + 1)
         {
@@ -264,6 +269,7 @@ static NSInteger BtnTag = 10086;
 
             [self.imageView removeFromSuperview];
             [_bgView addSubview:self.imageView];
+            _bandwidthTypeIndex = 1;
         }
         if (sender.tag == BtnTag + 2)
         {
@@ -274,6 +280,7 @@ static NSInteger BtnTag = 10086;
 
             [self.imageView removeFromSuperview];
             [_bgView addSubview:self.imageView];
+            _bandwidthTypeIndex = 2;
         }
     }
 }
@@ -292,6 +299,20 @@ static NSInteger BtnTag = 10086;
     if ([self.delegate respondsToSelector:@selector (alertView:saveBtnClick:)])
     {
         [self.delegate alertView:self saveBtnClick:btn];
+    }
+
+    if (_mealTextField.text)
+    {
+        NSLog (@"%@", _mealTextField.text);
+        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
+        [setting setBandwidth:_mealTextField.text];
+    }
+
+    if (_bandwidthTypeIndex > 0)
+    {
+        NSLog (@"%d", _bandwidthTypeIndex);
+        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
+        [setting setBandwidthType:[NSString stringWithFormat:@"%d", _bandwidthTypeIndex]];
     }
 }
 

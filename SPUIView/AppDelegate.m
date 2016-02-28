@@ -36,6 +36,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     {
         [self loadResouceFromServer];
     }
+
+    [NSThread sleepForTimeInterval:3.0];
+    [_window makeKeyAndVisible];
+
     return YES;
 }
 

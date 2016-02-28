@@ -50,4 +50,32 @@
  */
 - (NSString *)getScreenSize;
 
+/**
+ *  带宽类型
+ *
+ *  @param type 带宽类型
+ */
+- (void)setBandwidthType:(NSString *)type;
+
+/**
+ *  获取带宽类型
+ *
+ *  @return 带宽类型
+ */
+- (NSString *)getBandwidthType;
+
+/**
+ *  设置带宽
+ *
+ *  @param bandwidth 带宽
+ */
+- (void)setBandwidth:(NSString *)bandwidth;
+
+/**
+ *  获取带宽
+ *
+ *  @return 带宽
+ */
+- (NSString *)getBandwidth;
+
 @end

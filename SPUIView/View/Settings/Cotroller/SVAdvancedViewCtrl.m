@@ -91,7 +91,7 @@
     //设置文本框类型
     _textField.borderStyle = UITextBorderStyleRoundedRect;
     //输入键盘类型
-    _textField.keyboardType = UIKeyboardTypeDefault;
+    _textField.keyboardType = UIKeyboardTypeDecimalPad;
     [self.view addSubview:_textField];
 
 

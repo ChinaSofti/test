@@ -12,6 +12,8 @@
 #import "SVTabBarController.h"
 #import "SVTestViewCtrl.h"
 #import <SPCommon/SVI18N.h>
+#import <SPCommon/SVSystemUtil.h>
+#import <SPService/SVAdvancedSetting.h>
 
 @interface SVTabBarController () <AlertViewDelegate>
 
@@ -110,7 +112,15 @@
 {
     [super viewDidAppear:animated];
 
-    [self setShadowView];
+    BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
+    if (isConnectionAvailable)
+    {
+        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
+        if (![setting getBandwidth])
+        {
+            [self setShadowView];
+        }
+    }
 }
 /**
  *  创建阴影背景

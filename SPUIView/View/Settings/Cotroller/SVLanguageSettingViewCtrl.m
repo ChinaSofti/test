@@ -87,8 +87,10 @@ static NSString *userLanaguage;
 
     NSString *title1 = I18N (@"Auto      ");
     NSString *title2 = I18N (@"Save");
-
     NSArray *titlesArr = @[title1, @"简体中文", @"English  "];
+    SVI18N *setting = [SVI18N sharedInstance];
+    NSString *language = [setting getLanguage];
+    NSMutableArray *languageButtonArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 3; i++)
     {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (10, 74 + i * 43, kScreenW - 20, 44)];
@@ -104,21 +106,32 @@ static NSString *userLanaguage;
         [button addTarget:self
                    action:@selector (buttonClicked:)
          forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:button];
+        [languageButtonArray addObject:button];
+    }
 
-        SVI18N *setting = [SVI18N sharedInstance];
-        NSString *language = [setting getLanguage];
-        if ([language containsString:@"zh"] && button.tag == 21)
+    UIButton *selectedButton;
+    if (language)
+    {
+        if ([language containsString:@"zh"])
         {
-            // 简体中文
-            [self buttonClicked:button];
+            selectedButton = [languageButtonArray objectAtIndex:1];
         }
         else
-        { // 简体中文
-            [self buttonClicked:button];
+        {
+            selectedButton = [languageButtonArray objectAtIndex:2];
         }
-
-        [self.view addSubview:button];
     }
+    else
+    {
+        selectedButton = [languageButtonArray objectAtIndex:0];
+    }
+
+    if (selectedButton)
+    {
+        [self buttonClicked:selectedButton];
+    }
+
 
     //保存按钮高度
     CGFloat saveBtnH = 44;
@@ -142,9 +155,6 @@ static NSString *userLanaguage;
 
     //保存按钮圆角
     _saveBtn.layer.cornerRadius = 5;
-
-    //保存按钮交互
-    //  saveBtn.userInteractionEnabled = YES;
 
     [self.view addSubview:_saveBtn];
 }

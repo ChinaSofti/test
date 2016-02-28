@@ -9,16 +9,22 @@
 
 #import "SVBWSettingViewCtrl.h"
 #import <SPCommon/SVI18N.h>
+#import <SPService/SVAdvancedSetting.h>
 
 @interface SVBWSettingViewCtrl ()
 
-@property (strong, nonatomic) UIButton *button;
 @property (nonatomic, strong) UIView *imageView;
 
 
 @end
 
 @implementation SVBWSettingViewCtrl
+{
+    UITextField *_textField;
+    int _bandwidthTypeIndex;
+    NSMutableArray *bandwidthTypeButtonArray;
+}
+
 
 - (UIView *)imageView
 {
@@ -83,7 +89,9 @@
     NSString *title4 = I18N (@"Copper");
     NSString *title5 = I18N (@"Package");
     NSString *title7 = I18N (@"Carrier");
-    NSString *title8 = I18N (@"China Unicom Beijing");
+    //    NSString *title8 = I18N (@"China Unicom Beijing");
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSString *title8 = probeInfo.isp;
     NSString *title9 = I18N (@"Save");
 
 
@@ -100,42 +108,52 @@
     lableBWType.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableBWType];
 
+    SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
+    NSString *type = [setting getBandwidthType];
+    int bandwidthTypeIndex = [type intValue];
+
+    bandwidthTypeButtonArray = [[NSMutableArray alloc] init];
     //三个button
     NSArray *titleArr = @[title2, title3, title4];
+    UIButton *selectedButton = nil;
     for (int i = 0; i < 3; i++)
     {
-        _button = [[UIButton alloc] init];
-        _button.frame = CGRectMake (50 + i * (50 + 20), 35, 60, 30);
-        [_button setTitle:titleArr[i] forState:UIControlStateNormal];
+        UIButton *button = [[UIButton alloc] init];
+        [bandwidthTypeButtonArray addObject:button];
+        button.frame = CGRectMake (50 + i * (50 + 20), 35, 60, 30);
+        [button setTitle:titleArr[i] forState:UIControlStateNormal];
         // button普通状态下的字体颜色
-        [_button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 
         // button选中状态下的字体颜色
-        [_button
+        [button
         setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
              forState:UIControlStateSelected | UIControlStateHighlighted];
-        [_button
+        [button
         setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
              forState:UIControlStateSelected];
 
-        _button.titleLabel.font = [UIFont systemFontOfSize:12];
+        button.titleLabel.font = [UIFont systemFontOfSize:12];
 
-        [_button addTarget:self
-                    action:@selector (buttonClicked:)
-          forControlEvents:UIControlEventTouchUpInside];
-        _button.tag = BUTTON_TAG + i;
+        [button addTarget:self
+                   action:@selector (buttonClicked:)
+         forControlEvents:UIControlEventTouchUpInside];
+        button.tag = BUTTON_TAG + i;
+        [views addSubview:button];
         //设置初始默认选择按钮
-        if (_button.tag == 30)
+        NSLog (@"%d  %d", i, bandwidthTypeIndex);
+        if (!bandwidthTypeIndex && i == 0)
         {
-            _button.selected = YES;
-            self.imageView.frame = CGRectMake (60, 110, 60, 30);
-
-            [self.imageView removeFromSuperview];
-            [self.view addSubview:self.imageView];
+            selectedButton = button;
         }
-        [views addSubview:_button];
+
+        if (bandwidthTypeIndex && bandwidthTypeIndex == i)
+        {
+            selectedButton = button;
+        }
     }
 
+    [self buttonClicked:selectedButton];
 
     // lableBWPackage
     UILabel *lableBWPackage = [[UILabel alloc] init];
@@ -144,14 +162,14 @@
     lableBWPackage.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableBWPackage];
 
-    UITextField *textField = [[UITextField alloc] init];
-    textField.frame = CGRectMake (10, 90, kScreenW - 40, 20);
-    textField.borderStyle = UITextBorderStyleRoundedRect;
-    textField.text = @"-1.0";
-    textField.placeholder = @"Please input bandwidth";
-    textField.font = [UIFont systemFontOfSize:14];
-    textField.keyboardType = UIKeyboardTypeDefault;
-    [views addSubview:textField];
+    _textField = [[UITextField alloc] init];
+    _textField.frame = CGRectMake (10, 90, kScreenW - 40, 20);
+    _textField.borderStyle = UITextBorderStyleRoundedRect;
+    _textField.text = [setting getBandwidth];
+    _textField.placeholder = @"Please input bandwidth";
+    _textField.font = [UIFont systemFontOfSize:14];
+    _textField.keyboardType = UIKeyboardTypeNumberPad;
+    [views addSubview:_textField];
 
     UILabel *M = [[UILabel alloc] initWithFrame:CGRectMake (FITWIDTH (280), 90, 20, 20)];
     M.font = [UIFont systemFontOfSize:14];
@@ -203,13 +221,12 @@
 }
 - (void)buttonClicked:(UIButton *)button
 {
-    if (button != self.button)
+    for (UIButton *bb in bandwidthTypeButtonArray)
     {
-        self.button.selected = NO;
-        self.button = button;
+        bb.selected = NO;
     }
 
-    self.button.selected = YES;
+    button.selected = YES;
 
     switch (button.tag - BUTTON_TAG)
     {
@@ -221,7 +238,7 @@
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
-
+        _bandwidthTypeIndex = 0;
         break;
     case 1:
         //简体中文
@@ -230,7 +247,7 @@
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
-
+        _bandwidthTypeIndex = 1;
         break;
     case 2:
         // English
@@ -239,7 +256,7 @@
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
-
+        _bandwidthTypeIndex = 2;
         break;
 
     default:
@@ -249,8 +266,21 @@
 //保存按钮
 - (void)saveBtnClicked:(UIButton *)button
 {
-    [self.navigationController popViewControllerAnimated:YES];
     NSLog (@"带宽设置--保存");
+    if (_textField.text)
+    {
+        NSLog (@"%@", _textField.text);
+        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
+        [setting setBandwidth:_textField.text];
+    }
+
+    if (_bandwidthTypeIndex > 0)
+    {
+        NSLog (@"%d", _bandwidthTypeIndex);
+        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
+        [setting setBandwidthType:[NSString stringWithFormat:@"%d", _bandwidthTypeIndex]];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

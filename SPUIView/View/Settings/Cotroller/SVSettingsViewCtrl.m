@@ -88,11 +88,15 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *title1 = I18N (@"Current:");
-    NSString *title2 = I18N (@"China Unicom Beijing");
+    //    NSString *title2 = I18N (@"China Unicom Beijing");
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSString *title2 = probeInfo.isp;
     NSString *title3 = I18N (@"About");
     NSString *title4 = I18N (@"Language Setting");
     NSString *title5 = I18N (@"Upload Logs");
     NSString *title6 = I18N (@"Advanced setting");
+    NSString *title7 = I18N (@"WIFI");
+    //    int status = [SVSystemUtil currentNetworkType];
 
     static NSString *cellId = @"cell";
 
@@ -122,7 +126,7 @@
             [cell addSubview:label11];
 
             UILabel *label111 = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
-            label111.text = @"WIFI";
+            label111.text = title7;
             //设置字体和是否加粗
             label111.font = [UIFont systemFontOfSize:16];
             [cell addSubview:label111];
