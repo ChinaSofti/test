@@ -274,6 +274,9 @@
 #pragma mark - 创建视频播放View
 - (void)creatVideoView
 {
+    NSString *title1 = I18N (@"Butter times");
+    NSString *title2 = I18N (@"Bit rate");
+    NSString *title3 = I18N (@"Resolution");
     // 在全屏模式下，在_videoView上方显示测试指标
 
     _showCurrentResultInFullScreenMode = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenH, 30)];
@@ -296,7 +299,7 @@
     // 2.Buffer times 0
     UILabel *bufferTimesInFullScreenLabel = [[UILabel alloc]
     initWithFrame:CGRectMake (kScreenH / 4 + FITHEIGHT (30), FITHEIGHT (5), FITWIDTH (70), FITHEIGHT (20))];
-    [bufferTimesInFullScreenLabel setText:@"Buffer times"];
+    [bufferTimesInFullScreenLabel setText:title1];
     [bufferTimesInFullScreenLabel setTextColor:[UIColor whiteColor]];
     [bufferTimesInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:bufferTimesInFullScreenLabel];
@@ -311,7 +314,7 @@
     // 3.Bit rate 3002.23kbps
     UILabel *bitRateInFullScreenLabel = [[UILabel alloc]
     initWithFrame:CGRectMake (kScreenH / 2 + FITHEIGHT (12), FITHEIGHT (5), FITWIDTH (45), FITHEIGHT (20))];
-    [bitRateInFullScreenLabel setText:@"Bit rate"];
+    [bitRateInFullScreenLabel setText:title2];
     [bitRateInFullScreenLabel setTextColor:[UIColor whiteColor]];
     [bitRateInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:bitRateInFullScreenLabel];
@@ -325,7 +328,7 @@
     // 4. Resolution  1920 * 1080
     UILabel *resolutionInFullScreenLabel = [[UILabel alloc]
     initWithFrame:CGRectMake (3 * kScreenH / 4, FITHEIGHT (5), FITWIDTH (60), FITHEIGHT (20))];
-    [resolutionInFullScreenLabel setText:@"Resolution"];
+    [resolutionInFullScreenLabel setText:title3];
     [resolutionInFullScreenLabel setTextColor:[UIColor whiteColor]];
     [resolutionInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:resolutionInFullScreenLabel];
