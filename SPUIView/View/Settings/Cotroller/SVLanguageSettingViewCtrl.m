@@ -90,6 +90,7 @@ static int userLanguageIndex;
     int languageIndex = [setting getLanguageIndex];
     NSString *title1 = I18N (@"Auto      ");
     NSString *title2 = I18N (@"Save");
+    NSArray *titlesArr = @[title1, @"简体中文", @"English  "];
     NSMutableArray *languageButtonArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 3; i++)
     {
