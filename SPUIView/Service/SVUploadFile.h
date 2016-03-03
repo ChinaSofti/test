@@ -13,6 +13,8 @@
 
 @interface SVUploadFile : NSObject
 
+- (void)uploadFileWithURL:(NSURL *)url filePath:(NSString *)filePath;
+
 - (void)uploadFileWithURL:(NSURL *)url data:(NSData *)data;
 
 @end
