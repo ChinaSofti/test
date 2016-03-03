@@ -78,4 +78,18 @@
  */
 - (NSString *)getBandwidth;
 
+/**
+ *  语言设置的索引
+ *
+ *  @param languageIndex 语言设置的索引
+ */
+- (void)setLanguageIndex:(int)languageIndex;
+
+/**
+ *  获取语言设置的索引
+ *
+ *  @return 语言设置的索引
+ */
+- (int)getLanguageIndex;
+
 @end
