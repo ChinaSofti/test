@@ -83,12 +83,12 @@
 		56FF0E421C78492C0080487D /* SVLogsViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56FF0E3D1C78492C0080487D /* SVLogsViewCtrl.m */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B723CE561C74515600B419E3 /* starting_window.png in Resources */ = {isa = PBXBuildFile; fileRef = B723CE551C74515600B419E3 /* starting_window.png */; };
+		B72646AC1C87E3F400CB7DFF /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
+		B72646AD1C87E3F400CB7DFF /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B72646AE1C87E3F400CB7DFF /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
+		B72646AF1C87E3F400CB7DFF /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B72A1D0E1C7192B600C3141A /* speed_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = B72A1D0D1C7192B600C3141A /* speed_pro.png */; };
 		B72A1D161C71A1E300C3141A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B72A1D141C71A1E300C3141A /* icon.png */; };
-		B72AC8651C76EA4500AAC3B3 /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
-		B72AC8661C76EA4500AAC3B3 /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B72AC8671C76EA4500AAC3B3 /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
-		B72AC8681C76EA4500AAC3B3 /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B732E6281C6EC365000353B9 /* SVResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B732E6271C6EC365000353B9 /* SVResultCell.m */; };
 		B7C949D11C819CD20056226A /* SVVideoFullScreenPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7C949D01C819CD20056226A /* SVVideoFullScreenPlayController.m */; };
 		B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */; };
@@ -118,14 +118,14 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B72AC8691C76EA4500AAC3B3 /* Embed Frameworks */ = {
+		B72646AB1C87DEC200CB7DFF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B72AC8661C76EA4500AAC3B3 /* SPCommon.framework in Embed Frameworks */,
-				B72AC8681C76EA4500AAC3B3 /* SPService.framework in Embed Frameworks */,
+				B72646AD1C87E3F400CB7DFF /* SPCommon.framework in Embed Frameworks */,
+				B72646AF1C87E3F400CB7DFF /* SPService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,7 +178,6 @@
 		56665D371C71F9E100A63D44 /* SVToolModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToolModels.m; sourceTree = "<group>"; };
 		56665D391C71F9EF00A63D44 /* SVToolCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToolCells.h; sourceTree = "<group>"; };
 		56665D3A1C71F9EF00A63D44 /* SVToolCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToolCells.m; sourceTree = "<group>"; };
-		566C32481C85BFAF0038903F /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/i18n.strings"; sourceTree = "<group>"; };
 		567582221C7BF797009BEFFB /* ic_settings_mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_mobile.png; sourceTree = "<group>"; };
 		567582231C7BF797009BEFFB /* ic_settings_wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_wifi.png; sourceTree = "<group>"; };
 		568E03371C78135D00A7CD72 /* rt_detail_title_collector_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rt_detail_title_collector_img.png; sourceTree = "<group>"; };
@@ -253,6 +252,7 @@
 		B7CD57501C70C7FB00668E88 /* SVCurrentResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVCurrentResultModel.h; sourceTree = "<group>"; };
 		B7CD57511C70C7FB00668E88 /* SVCurrentResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVCurrentResultModel.m; sourceTree = "<group>"; };
 		B7F3CA491C72CA3F009B087F /* toast_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toast_icon.png; sourceTree = "<group>"; };
+		B7FEB2DB1C87DDD900A027D9 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/i18n.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,8 +260,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B72AC8651C76EA4500AAC3B3 /* SPCommon.framework in Frameworks */,
-				B72AC8671C76EA4500AAC3B3 /* SPService.framework in Frameworks */,
+				B72646AC1C87E3F400CB7DFF /* SPCommon.framework in Frameworks */,
+				B72646AE1C87E3F400CB7DFF /* SPService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,8 +686,8 @@
 				56F523DB1C4DCF7F00E6472B /* Sources */,
 				56F523DC1C4DCF7F00E6472B /* Frameworks */,
 				56F523DD1C4DCF7F00E6472B /* Resources */,
-				B72AC8691C76EA4500AAC3B3 /* Embed Frameworks */,
 				56A239E41C7D9E4D000C6341 /* Copy Files */,
+				B72646AB1C87DEC200CB7DFF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -746,7 +746,7 @@
 			knownRegions = (
 				en,
 				Base,
-				"zh-Hans-CN",
+				zh,
 			);
 			mainGroup = 56F523D61C4DCF7F00E6472B;
 			productRefGroup = 56F523E01C4DCF7F00E6472B /* Products */;
@@ -890,7 +890,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				5644354D1C5215AB009B7024 /* en */,
-				566C32481C85BFAF0038903F /* zh-Hans-CN */,
+				B7FEB2DB1C87DDD900A027D9 /* zh */,
 			);
 			name = i18n.strings;
 			sourceTree = "<group>";

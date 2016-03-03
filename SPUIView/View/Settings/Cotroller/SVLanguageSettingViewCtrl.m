@@ -11,13 +11,14 @@
 #import "SVLanguageSettingViewCtrl.h"
 #import <SPCommon/SVI18N.h>
 #import <SPCommon/SVLog.h>
+#import <SPService/SVAdvancedSetting.h>
 
 @interface SVLanguageSettingViewCtrl ()
 
 @property (nonatomic, strong) UIImageView *imageView;
 @end
 
-static NSString *userLanaguage;
+static int userLanguageIndex;
 
 @implementation SVLanguageSettingViewCtrl
 {
@@ -73,6 +74,7 @@ static NSString *userLanaguage;
 
 - (void)leftBackButtonClick
 {
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -84,11 +86,15 @@ static NSString *userLanaguage;
     views.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views];
 
+    SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
+    int languageIndex = [setting getLanguageIndex];
     NSString *title1 = I18N (@"Auto      ");
     NSString *title2 = I18N (@"Save");
     NSArray *titlesArr = @[title1, @"简体中文", @"English  "];
-    SVI18N *setting = [SVI18N sharedInstance];
-    NSString *language = [setting getLanguage];
+    //    SVI18N *setting = [SVI18N sharedInstance];
+    //    NSString *language = [setting getLanguage];
+
+
     NSMutableArray *languageButtonArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 3; i++)
     {
@@ -107,30 +113,11 @@ static NSString *userLanaguage;
          forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:button];
         [languageButtonArray addObject:button];
-    }
-
-    UIButton *selectedButton;
-    if (language)
-    {
-        if ([language containsString:@"zh"])
+        if (i == languageIndex)
         {
-            selectedButton = [languageButtonArray objectAtIndex:1];
-        }
-        else
-        {
-            selectedButton = [languageButtonArray objectAtIndex:2];
+            [self buttonClicked:button];
         }
     }
-    else
-    {
-        selectedButton = [languageButtonArray objectAtIndex:0];
-    }
-
-    if (selectedButton)
-    {
-        [self buttonClicked:selectedButton];
-    }
-
 
     //保存按钮高度
     CGFloat saveBtnH = 44;
@@ -175,17 +162,18 @@ static NSString *userLanaguage;
     case 0:
         //跟随系统
         NSLog (@"跟随系统");
-        userLanaguage = [SVI18N getSystemLanguage];
+        userLanguageIndex = 0;
         break;
     case 1:
         //简体中文
         NSLog (@"简体中文");
-        userLanaguage = @"zh-Hans";
+        userLanguageIndex = 1;
+
         break;
     case 2:
         // English
         NSLog (@"English");
-        userLanaguage = @"en-US";
+        userLanguageIndex = 2;
         break;
 
     default:
@@ -222,8 +210,25 @@ static NSString *userLanaguage;
     if (buttonIndex == 1)
     {
         //语言更换
-        SVI18N *setting = [SVI18N sharedInstance];
-        [setting setLanguage:userLanaguage];
+        SVI18N *i18n = [SVI18N sharedInstance];
+        switch (userLanguageIndex)
+        {
+        case 0:
+            [i18n setLanguage:[SVI18N getSystemLanguage]];
+            break;
+        case 1:
+            [i18n setLanguage:@"zh"];
+            break;
+        case 2:
+            [i18n setLanguage:@"en"];
+            break;
+        default:
+            break;
+        }
+
+        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
+        [setting setLanguageIndex:userLanguageIndex];
+
         SVInfo (@"%@", @"按钮被点击了");
         //退出程序
         [self exitApplication];
