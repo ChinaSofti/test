@@ -9,6 +9,7 @@
 #import "AlertView.h"
 #import "UIView+Exten.h"
 #import <SPCommon/SVI18N.h>
+#import <SPCommon/SVLog.h>
 #import <SPService/SVProbeInfo.h>
 
 static NSInteger BtnTag = 10086;
@@ -302,14 +303,14 @@ static NSInteger BtnTag = 10086;
 
     if (_mealTextField.text)
     {
-        NSLog (@"%@", _mealTextField.text);
+        SVInfo (@"%@", _mealTextField.text);
         SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
         [setting setBandwidth:_mealTextField.text];
     }
 
     if (_bandwidthTypeIndex > 0)
     {
-        NSLog (@"%d", _bandwidthTypeIndex);
+        SVInfo (@"%d", _bandwidthTypeIndex);
         SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
         [setting setBandwidthType:[NSString stringWithFormat:@"%d", _bandwidthTypeIndex]];
     }

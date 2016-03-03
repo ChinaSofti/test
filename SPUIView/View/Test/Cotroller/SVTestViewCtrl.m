@@ -5,6 +5,7 @@
 //  Created by WBapple on 16/1/20.
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
+
 #import "AlertView.h"
 #import "SVCurrentResultModel.h"
 #import "SVCurrentResultViewCtrl.h"
@@ -12,6 +13,7 @@
 #import "SVTestingCtrl.h"
 #import "SVToolCell.h"
 #import <SPCommon/SVI18N.h>
+#import <SPCommon/SVLog.h>
 #import <SPCommon/SVSystemUtil.h>
 #import <SPService/SVTestContextGetter.h>
 #define kFirstHederH 40
@@ -58,7 +60,7 @@
 {
 
     [super viewDidLoad];
-    NSLog (@"SVTestViewController");
+    SVInfo (@"SVTestViewController");
 
     // 1.自定义navigationItem.titleView
     //设置图片大小
@@ -123,7 +125,6 @@
         SVToolModel *toolModel = [SVToolModel modelWithDict:sourceA[i]];
         [sourceMA addObject:toolModel];
     }
-
     _soucreMA = sourceMA;
     // 9.把tableView添加到 view
     [self.view addSubview:_tableView];
@@ -135,9 +136,7 @@
     }
 }
 
-/**
- *tableview的方法
- **/
+#pragma mark - tableview的方法
 
 //设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -226,9 +225,7 @@
     return kCellH;
 }
 
-/**
- *开始测试按钮初始化(按钮未被选中时的状态)
- **/
+#pragma mark - 开始测试按钮初始化(按钮未被选中时的状态)
 
 - (UIButton *)testBtn
 {
@@ -347,7 +344,7 @@
     // push界面
     [self.navigationController pushViewController:testingCtrl animated:YES];
 
-    NSLog (@"testBtnClick...");
+    SVInfo (@"testBtnClick...");
 }
 
 - (void)didReceiveMemoryWarning

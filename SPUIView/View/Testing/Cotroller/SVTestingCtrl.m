@@ -10,10 +10,10 @@
 #import "SVPointView.h"
 #import "SVTestingCtrl.h"
 #import <SPCommon/SVI18N.h>
+#import <SPCommon/SVLog.h>
 #import <SPCommon/SVTimeUtil.h>
 #import <SPCommon/UUBar.h>
 #import <SPService/SVVideoTest.h>
-
 
 #define kVideoViewDefaultRect \
     CGRectMake (FITWIDTH (10), FITWIDTH (420), FITWIDTH (150), FITWIDTH (92))
@@ -72,7 +72,7 @@
 {
 
     [super viewDidLoad];
-    NSLog (@"SVTestingCtrl");
+    SVInfo (@"SVTestingCtrl");
 
     // 1.自定义navigationItem.titleView
     //设置图片大小
@@ -111,7 +111,7 @@
     self.view.backgroundColor =
     [UIColor colorWithRed:250 / 255.0 green:250 / 255.0 blue:250 / 255.0 alpha:1.0];
     //打印排序结果
-    //    NSLog (@"%@", _selectedA);
+    //    SVInfo (@"%@", _selectedA);
 
 
     //添加方法
@@ -139,10 +139,10 @@
 {
     if (buttonIndex == 1)
     {
-        NSLog (@"取消了此次测试");
+        SVInfo (@"取消了此次测试");
         [navigationController popToRootViewControllerAnimated:NO];
     }
-    NSLog (@"继续测试");
+    SVInfo (@"继续测试");
 }
 
 /**
@@ -420,9 +420,9 @@
 
     // 分辨率
     NSString *videoResolution = testResult.videoResolution;
-    NSLog (@"uvMOSSession: %f  firstBufferTime:%ld  cuttonTimes:%d  location:%@  bitrate:%f  "
-           @"videoResolution:%@",
-           uvMOSSession, firstBufferTime, cuttonTimes, location, bitrate, videoResolution);
+    SVInfo (@"uvMOSSession: %f  firstBufferTime:%ld  cuttonTimes:%d  location:%@  bitrate:%f  "
+            @"videoResolution:%@",
+            uvMOSSession, firstBufferTime, cuttonTimes, location, bitrate, videoResolution);
     dispatch_async (dispatch_get_main_queue (), ^{
       [_footerView.placeLabel setText:location];
       [_footerView.resolutionLabel setText:videoResolution];
@@ -498,7 +498,7 @@
         }
         int lastFakeBitrate = arc4random () % 100;
         float fakeBitrate = [[NSString stringWithFormat:@"%d.%d", firstFakeBitrate, lastFakeBitrate] floatValue];
-        //    NSLog (@"fake bitrate:%f", fakeBitrate);
+        //    SVInfo (@"fake bitrate:%f", fakeBitrate);
         [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fkpbs", fakeBitrate]];
 
         [_bitRateInFullScreenValue setText:[NSString stringWithFormat:@"%.2fkpbs", fakeBitrate]];
@@ -514,7 +514,7 @@
         int lastFakeUvMOSSession = arc4random () % 50;
         float fakeUvMOSSession =
         [[NSString stringWithFormat:@"%d.%d", firstFakeUvMOSSession, lastFakeUvMOSSession] floatValue];
-        //    NSLog (@"fake UvMOS:%f", fakeUvMOSSession);
+        //    SVInfo (@"fake UvMOS:%f", fakeUvMOSSession);
         [_testingView updateUvMOS:fakeUvMOSSession];
         [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", fakeUvMOSSession]];
         _resultTimes += 1;

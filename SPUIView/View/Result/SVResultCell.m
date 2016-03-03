@@ -197,8 +197,8 @@
     [timeFormater setTimeStyle:NSDateFormatterShortStyle];
     [timeFormater setDateFormat:@"HH:mm:ss"];
 
-    //    NSLog (@"date1:%@", [dataFormater stringFromDate:date]);
-    //    NSLog (@"time1:%@", [timeFormater stringFromDate:date]);
+    //    SVInfo (@"date1:%@", [dataFormater stringFromDate:date]);
+    //    SVInfo (@"time1:%@", [timeFormater stringFromDate:date]);
     self.testDate.text = [dataFormater stringFromDate:date];
     self.testTime.text = [timeFormater stringFromDate:date];
 

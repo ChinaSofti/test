@@ -10,6 +10,7 @@
 #import "SVDetailViewCtrl.h"
 #import "SVTestViewCtrl.h"
 #import <SPCommon/SVI18N.h>
+#import <SPCommon/SVLog.h>
 #import <SPCommon/SVSystemUtil.h>
 #import <SPService/SVTestContextGetter.h>
 #define kFirstHederH 40
@@ -66,7 +67,7 @@
     NSString *title2 = I18N (@"Initial buffer time");
     NSString *title3 = I18N (@"Butter times");
 
-    NSLog (@"indexPath %@", indexPath);
+    SVInfo (@"indexPath %@", indexPath);
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aCell"];
     if (cell == nil)
     {
@@ -247,7 +248,7 @@
 - (void)CellDetailClick:(UIButton *)sender
 {
     // cell被点击
-    NSLog (@"cell-------dianjile");
+    SVInfo (@"cell-------dianjile");
     //按钮点击后alloc一个界面
     SVDetailViewCtrl *detailViewCtrl = [[SVDetailViewCtrl alloc] init];
     [detailViewCtrl setTestId:currentResultModel.testId];
@@ -334,7 +335,7 @@
  */
 - (void)testBtnClick
 {
-    NSLog (@"back to testting view");
+    SVInfo (@"back to testting view");
     [navigationController popViewControllerAnimated:NO];
 }
 
@@ -343,7 +344,7 @@
  */
 - (void)backBtnClik
 {
-    NSLog (@"back to test view");
+    SVInfo (@"back to test view");
     [navigationController popToRootViewControllerAnimated:NO];
 }
 

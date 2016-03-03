@@ -7,17 +7,22 @@
 //
 
 #import "SVUploadFile.h"
+#import <SPCommon/SVLog.h>
 
 @implementation SVUploadFile
 
+//设置头
 static NSString *useragent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_1 like Mac OS X) "
                              @"AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Mobile/9B206 "
                              @"Safari/601.3.9";
 
 // 拼接字符串
-static NSString *boundaryStr = @"--"; // 分隔字符串
-static NSString *randomIDStr; // 本次上传标示字符串
-static NSString *uploadID; // 上传(php)脚本中，接收文件字段
+// 分隔字符串
+static NSString *boundaryStr = @"--";
+// 本次上传标示字符串
+static NSString *randomIDStr;
+// 上传(php)脚本中，接收文件字段
+static NSString *uploadID;
 
 - (instancetype)init
 {
@@ -38,21 +43,16 @@ static NSString *uploadID; // 上传(php)脚本中，接收文件字段
     [strM appendFormat:@"%@%@\n", boundaryStr, randomIDStr];
     [strM appendFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\n", uploadID, uploadFile];
     [strM appendFormat:@"Content-Type: %@\n\n", mimeType];
-
-    //    NSLog(@"%@---1------", strM);
     return [strM copy];
 }
 
 - (NSString *)bottomString
 {
     NSMutableString *strM = [NSMutableString string];
-
     [strM appendFormat:@"%@%@\n", boundaryStr, randomIDStr];
     [strM appendString:@"Content-Disposition: form-data; name=\"submit\"\n\n"];
     [strM appendString:@"Submit\n"];
     [strM appendFormat:@"%@%@--\n", boundaryStr, randomIDStr];
-
-    //    NSLog(@"%@------2------", strM);
     return [strM copy];
 }
 
@@ -62,7 +62,6 @@ static NSString *uploadID; // 上传(php)脚本中，接收文件字段
     // 1> 数据体
     NSString *topStr = [self topStringWithMimeType:@"image/png" uploadFile:@"头像1.png"];
     NSString *bottomStr = [self bottomString];
-
     NSMutableData *dataM = [NSMutableData data];
     [dataM appendData:[topStr dataUsingEncoding:NSUTF8StringEncoding]];
     [dataM appendData:data];
@@ -97,19 +96,19 @@ static NSString *uploadID; // 上传(php)脚本中，接收文件字段
 
             if (connectionError)
             {
-                NSLog (@"上传失败");
+                SVInfo (@"上传失败");
                 return;
             }
 
             NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog (@"%@上传成功", result);
+            SVInfo (@"%@上传成功", result);
           }];
     //获取xcode文件的绝对路径
     //    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
     //    NSUserDomainMask, YES);
 
     //    NSString* documents = [paths objectAtIndex:0];
-    //    NSLog(@"%@                  获取xcode文件的绝对路径", documents);
+    //    SVInfo(@"%@                  获取xcode文件的绝对路径", documents);
 }
 
 @end

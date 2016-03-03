@@ -14,4 +14,5 @@
 @interface SVUploadFile : NSObject
 
 - (void)uploadFileWithURL:(NSURL *)url data:(NSData *)data;
+
 @end

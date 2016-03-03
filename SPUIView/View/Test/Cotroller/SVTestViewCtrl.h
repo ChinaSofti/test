@@ -12,6 +12,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SVTestViewCtrl : UIViewController
+
 - (void)testBtnClick1;
 
 @end

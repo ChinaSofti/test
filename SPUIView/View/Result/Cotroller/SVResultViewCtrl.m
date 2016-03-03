@@ -14,6 +14,7 @@
 #import "SVSortTools.h"
 #import <SPCommon/SVDBManager.h>
 #import <SPCommon/SVI18N.h>
+#import <SPCommon/SVLog.h>
 #import <SPService/SVSummaryResultModel.h>
 
 @interface SVResultViewCtrl () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
@@ -88,7 +89,7 @@
     // 初始化数据库和表
     _db = [SVDBManager sharedInstance];
     [super viewDidLoad];
-    NSLog (@"SVResultView页面");
+    SVInfo (@"SVResultView页面");
 
     self.view.backgroundColor = [UIColor whiteColor];
 
@@ -162,7 +163,7 @@
 {
     if (buttonIndex == 1)
     {
-        NSLog (@"确定删除所有数据");
+        SVInfo (@"确定删除所有数据");
 
         //从数据库中删除
         [_db executeUpdate:@"delete from SVJunitTestTable;"];
@@ -257,7 +258,7 @@
 - (void)buttonClick:(UIButton *)button
 {
 
-    NSLog (@"SVResultView页面");
+    SVInfo (@"SVResultView页面");
 
     if (button != self.button)
     {
@@ -322,31 +323,31 @@
         {
         case 0:
             //类型
-            NSLog (@"类型--箭头向上");
+            SVInfo (@"类型--箭头向上");
             type = @"type";
             order = @"asc";
             break;
         case 1:
             //时间
-            NSLog (@"时间--箭头向上");
+            SVInfo (@"时间--箭头向上");
             type = @"testTime";
             order = @"asc";
             break;
         case 2:
             // U-vMOS
-            NSLog (@"U-vMOS--箭头向上");
+            SVInfo (@"U-vMOS--箭头向上");
             type = @"UvMOS";
             order = @"asc";
             break;
         case 3:
             //加载时间
-            NSLog (@"加载时间--箭头向上");
+            SVInfo (@"加载时间--箭头向上");
             type = @"loadTime";
             order = @"asc";
             break;
         case 4:
             //带宽
-            NSLog (@"带宽--箭头向上");
+            SVInfo (@"带宽--箭头向上");
             type = @"bandwidth";
             order = @"asc";
             break;
@@ -363,31 +364,31 @@
         {
         case 0:
             //类型
-            NSLog (@"类型--箭头向下");
+            SVInfo (@"类型--箭头向下");
             type = @"type";
             order = @"desc";
             break;
         case 1:
             //时间
-            NSLog (@"时间--箭头向下");
+            SVInfo (@"时间--箭头向下");
             type = @"testTime";
             order = @"desc";
             break;
         case 2:
             // U-vMOS
-            NSLog (@"U-vMOS--箭头向下");
+            SVInfo (@"U-vMOS--箭头向下");
             type = @"UvMOS";
             order = @"desc";
             break;
         case 3:
             //加载时间
-            NSLog (@"加载时间--箭头向下");
+            SVInfo (@"加载时间--箭头向下");
             type = @"loadTime";
             order = @"desc";
             break;
         case 4:
             //带宽
-            NSLog (@"带宽--箭头向下");
+            SVInfo (@"带宽--箭头向下");
             type = @"bandwidth";
             order = @"desc";
             break;
@@ -472,7 +473,7 @@
 - (void)CellDetailClick:(UIButton *)sender
 {
     // cell被点击
-    NSLog (@"cell-------dianjile");
+    SVInfo (@"cell-------dianjile");
     //按钮点击后alloc一个界面
     SVDetailViewCtrl *detailViewCtrl = [[SVDetailViewCtrl alloc] init];
     SVSummaryResultModel *summaryResultModel =

@@ -7,6 +7,7 @@
 //
 
 #import "CTViewTools.h"
+#import <SPCommon/SVLog.h>
 
 @implementation CTViewTools
 
@@ -41,12 +42,12 @@
         @try
         {
             int offset = 4 * ((w * round (point.y)) + round (point.x));
-            //            NSLog(@"offset: %d", offset);
+            //            SVInfo(@"offset: %d", offset);
             int alpha = data[offset];
             int red = data[offset + 1];
             int green = data[offset + 2];
             int blue = data[offset + 3];
-            //            NSLog(@"offset: %i colors: RGB A %i %i %i  %i", offset, red, green, blue,
+            //            SVInfo(@"offset: %i colors: RGB A %i %i %i  %i", offset, red, green, blue,
             //                  alpha);
             color = [UIColor colorWithRed:(red / 255.0f)
                                     green:(green / 255.0f)
@@ -55,7 +56,7 @@
         }
         @catch (NSException *e)
         {
-            NSLog (@"%@", [e reason]);
+            SVInfo (@"%@", [e reason]);
         }
         @finally
         {

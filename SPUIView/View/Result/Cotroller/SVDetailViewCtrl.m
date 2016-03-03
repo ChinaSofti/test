@@ -37,7 +37,7 @@
     [super viewDidLoad];
     //设置背景颜色
     //    self.view.backgroundColor = [UIColor redColor];
-    NSLog (@"SVDetailViewCtrl页面");
+    SVInfo (@"SVDetailViewCtrl页面");
     _db = [SVDBManager sharedInstance];
     // 1.自定义navigationItem.title
     self.navigationItem.title = title1;
@@ -228,8 +228,6 @@
     }
 
     SVDetailResultModel *detailResultModel = resultArray[0];
-    NSString *testId = detailResultModel.testId;
-    //    NSString *testType = detailResultModel.testType;
     NSString *testResult = detailResultModel.testResult;
     NSString *testContext = detailResultModel.testContext;
     NSString *probeInfo = detailResultModel.probeInfo;

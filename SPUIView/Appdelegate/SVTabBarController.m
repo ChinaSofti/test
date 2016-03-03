@@ -12,6 +12,7 @@
 #import "SVTabBarController.h"
 #import "SVTestViewCtrl.h"
 #import <SPCommon/SVI18N.h>
+#import <SPCommon/SVLog.h>
 #import <SPCommon/SVSystemUtil.h>
 #import <SPService/SVAdvancedSetting.h>
 
@@ -26,7 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog (@"SVTabbarController");
+    SVInfo (@"SVTabbarController");
     NSString *title1 = I18N (@"Testing");
     NSString *title2 = I18N (@"Result");
     NSString *title3 = I18N (@"Settings");
@@ -170,13 +171,13 @@
     switch (index)
     {
     case 0 + 10086:
-        NSLog (@"未知");
+        SVInfo (@"未知");
         break;
     case 1 + 10086:
-        NSLog (@"光纤");
+        SVInfo (@"光纤");
         break;
     case 2 + 10086:
-        NSLog (@"铜线");
+        SVInfo (@"铜线");
         break;
     default:
         break;
@@ -185,7 +186,7 @@
 //代理方法-忽略
 - (void)alertView:(AlertView *)alertView overLookBtnClick:(UIButton *)Btn
 {
-    NSLog (@"忽略");
+    SVInfo (@"忽略");
     UIView *shadowView = [[[Btn superview] superview] superview];
     [shadowView removeFromSuperview];
     alertView = nil;
@@ -193,7 +194,7 @@
 //代理方法-保存
 - (void)alertView:(AlertView *)alertView saveBtnClick:(UIButton *)Btn
 {
-    NSLog (@"保存");
+    SVInfo (@"保存");
     UIView *shadowView = [[[Btn superview] superview] superview];
     [shadowView removeFromSuperview];
     alertView = nil;

@@ -9,6 +9,7 @@
 
 #import "SVBWSettingViewCtrl.h"
 #import <SPCommon/SVI18N.h>
+#import <SPCommon/SVLog.h>
 #import <SPService/SVAdvancedSetting.h>
 
 @interface SVBWSettingViewCtrl ()
@@ -141,7 +142,7 @@
         button.tag = BUTTON_TAG + i;
         [views addSubview:button];
         //设置初始默认选择按钮
-        NSLog (@"%d  %d", i, bandwidthTypeIndex);
+        //        SVInfo (@"%d  %d", i, bandwidthTypeIndex);
         if (!bandwidthTypeIndex && i == 0)
         {
             selectedButton = button;
@@ -232,7 +233,7 @@
     {
     case 0:
         //跟随系统
-        NSLog (@"未知");
+        SVInfo (@"未知");
 
         self.imageView.frame = CGRectMake (60, 110, 60, 30);
 
@@ -242,7 +243,7 @@
         break;
     case 1:
         //简体中文
-        NSLog (@"光纤");
+        SVInfo (@"光纤");
         self.imageView.frame = CGRectMake (130, 110, 60, 30);
 
         [self.imageView removeFromSuperview];
@@ -251,7 +252,7 @@
         break;
     case 2:
         // English
-        NSLog (@"铜线");
+        SVInfo (@"铜线");
         self.imageView.frame = CGRectMake (200, 110, 60, 30);
 
         [self.imageView removeFromSuperview];
@@ -266,17 +267,17 @@
 //保存按钮
 - (void)saveBtnClicked:(UIButton *)button
 {
-    NSLog (@"带宽设置--保存");
+    SVInfo (@"带宽设置--保存");
     if (_textField.text)
     {
-        NSLog (@"%@", _textField.text);
+        SVInfo (@"%@", _textField.text);
         SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
         [setting setBandwidth:_textField.text];
     }
 
     if (_bandwidthTypeIndex > 0)
     {
-        NSLog (@"%d", _bandwidthTypeIndex);
+        SVInfo (@"%d", _bandwidthTypeIndex);
         SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
         [setting setBandwidthType:[NSString stringWithFormat:@"%d", _bandwidthTypeIndex]];
     }

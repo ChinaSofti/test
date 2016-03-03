@@ -25,7 +25,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog (@"SVSettingsView");
+    SVInfo (@"SVSettingsView");
 
     self.view.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1];
 

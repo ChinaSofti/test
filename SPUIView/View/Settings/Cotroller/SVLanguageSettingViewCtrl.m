@@ -174,17 +174,17 @@ static NSString *userLanaguage;
     {
     case 0:
         //跟随系统
-        NSLog (@"跟随系统");
+        SVInfo (@"跟随系统");
         userLanaguage = [SVI18N getSystemLanguage];
         break;
     case 1:
         //简体中文
-        NSLog (@"简体中文");
+        SVInfo (@"简体中文");
         userLanaguage = @"zh-Hans";
         break;
     case 2:
         // English
-        NSLog (@"English");
+        SVInfo (@"English");
         userLanaguage = @"en-US";
         break;
 
