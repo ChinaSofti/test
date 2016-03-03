@@ -6,8 +6,13 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
-#import "SVCurrentResultViewCtrl.h"
+//主View下的4个子View
+#import "SVFooterView.h"
+#import "SVHeaderView.h"
 #import "SVPointView.h"
+#import "SVVideoView.h"
+
+#import "SVCurrentResultViewCtrl.h"
 #import "SVTestingCtrl.h"
 #import <SPCommon/SVI18N.h>
 #import <SPCommon/SVLog.h>
@@ -15,22 +20,23 @@
 #import <SPCommon/UUBar.h>
 #import <SPService/SVVideoTest.h>
 
+
 #define kVideoViewDefaultRect \
     CGRectMake (FITWIDTH (10), FITWIDTH (420), FITWIDTH (150), FITWIDTH (92))
 
 @interface SVTestingCtrl ()
 {
     // 定义headerView
-    SVPointView *_headerView;
+    SVHeaderView *_headerView;
 
     //定义testingView
     SVPointView *_testingView;
 
     //定义视频播放View
-    SVPointView *_videoView;
+    SVVideoView *_videoView;
 
     // 定义footerView
-    SVPointView *_footerView;
+    SVFooterView *_footerView;
 
     SVVideoTest *_videoTest;
 
@@ -50,9 +56,7 @@
 
     // 是否全屏
     int _fullScreen;
-
     UIView *_showCurrentResultInFullScreenMode;
-
     UILabel *_UvMosInFullScreenValue;
     UILabel *_bufferTimesInFullScreenValue;
     UILabel *_bitRateInFullScreenValue;
@@ -112,15 +116,13 @@
     [UIColor colorWithRed:250 / 255.0 green:250 / 255.0 blue:250 / 255.0 alpha:1.0];
     //打印排序结果
     //    SVInfo (@"%@", _selectedA);
-
-
     //添加方法
     [self creatHeaderView];
     [self creatTestingView];
     [self creatFooterView];
     [self creatVideoView];
 }
-
+//退出测试按钮点击事件
 - (void)removeButtonClicked:(UIButton *)button
 {
     NSString *title1 = I18N (@"Test stopped");
@@ -240,34 +242,34 @@
 - (void)creatHeaderView
 {
     //初始化headerView
-    _headerView = [[SVPointView alloc] init];
-
+    _headerView = [[SVHeaderView alloc] init];
     //把所有Label添加到View中
-    [self.view addSubview:_headerView.uvMosBarView];
-    [self.view addSubview:_headerView.speedLabel];
-    [self.view addSubview:_headerView.speedLabel1];
-    [self.view addSubview:_headerView.bufferLabel];
-    [self.view addSubview:_headerView.uvMosNumLabel];
-    [self.view addSubview:_headerView.speedNumLabel];
-    [self.view addSubview:_headerView.bufferNumLabel];
+    [_headerView addSubview:_headerView.uvMosBarView];
+    [_headerView addSubview:_headerView.speedLabel];
+    [_headerView addSubview:_headerView.speedLabel1];
+    [_headerView addSubview:_headerView.bufferLabel];
+    [_headerView addSubview:_headerView.uvMosNumLabel];
+    [_headerView addSubview:_headerView.speedNumLabel];
+    [_headerView addSubview:_headerView.bufferNumLabel];
     //把headerView添加到中整个视图上
     [self.view addSubview:_headerView];
 }
 
-#pragma mark - 创建测试中仪表盘testingView
+#pragma mark - 创建测试中testingView
 
 - (void)creatTestingView
 {
     //初始化整个testingView
     _testingView = [[SVPointView alloc] init];
     //添加到View中
-    [self.view addSubview:_testingView.pointView];
+    [_testingView addSubview:_testingView.pointView];
+    [_testingView addSubview:_testingView.grayView];
+    [_testingView addSubview:_testingView.panelView];
+    [_testingView addSubview:_testingView.middleView];
+    [_testingView addSubview:_testingView.label1];
+    [_testingView addSubview:_testingView.label2];
     [_testingView start];
-    [self.view addSubview:_testingView.grayView];
-    [self.view addSubview:_testingView.panelView];
-    [self.view addSubview:_testingView.middleView];
-    [self.view addSubview:_testingView.label1];
-    [self.view addSubview:_testingView.label2];
+    [self.view addSubview:_testingView];
 }
 
 
@@ -277,8 +279,8 @@
     NSString *title1 = I18N (@"Butter times");
     NSString *title2 = I18N (@"Bit rate");
     NSString *title3 = I18N (@"Resolution");
-    // 在全屏模式下，在_videoView上方显示测试指标
 
+    // 在全屏模式下，在_videoView上方显示测试指标
     _showCurrentResultInFullScreenMode = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenH, 30)];
     [_showCurrentResultInFullScreenMode setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.3]];
 
@@ -340,22 +342,17 @@
     [_showCurrentResultInFullScreenMode addSubview:_resolutionInFullScreenValue];
 
     //初始化
-    _videoView = [[SVPointView alloc] initWithFrame:kVideoViewDefaultRect];
+    _videoView = [[SVVideoView alloc] initWithFrame:kVideoViewDefaultRect];
     [_videoView setBackgroundColor:[UIColor blackColor]];
     [_videoView setContentMode:UIViewContentModeScaleToFill];
     UITapGestureRecognizer *tapGesture =
     [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector (ClickVideoView:)];
-    //    tapGesture.view.frame = kVideoViewDefaultRect;
     [tapGesture setNumberOfTapsRequired:1];
     [_videoView addGestureRecognizer:tapGesture];
     [self.view addSubview:_videoView];
 }
 
-/**
- *  点击视频切换全屏和退出全屏模式
- *
- *  @param gesture UITapGestureRecognizer
- */
+//点击事件:视频切换全屏和退出全屏模式
 - (void)ClickVideoView:(UITapGestureRecognizer *)gesture
 {
     [UIView animateWithDuration:0.1
@@ -378,10 +375,10 @@
 - (void)creatFooterView
 {
     //初始化headerView
-    _footerView = [[SVPointView alloc] init];
+    _footerView = [[SVFooterView alloc] init];
 
     //把所有Label添加到headerView中
-    [self.view addSubview:_footerView.placeLabel];
+    [_footerView addSubview:_footerView.placeLabel];
     [_footerView addSubview:_footerView.resolutionLabel];
     [_footerView addSubview:_footerView.bitLabel];
     [_footerView addSubview:_footerView.placeNumLabel];
@@ -397,6 +394,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+/**********************************以下为UI数据层代码**********************************/
 - (void)updateTestResultDelegate:(SVVideoTestContext *)testContext
                       testResult:(SVVideoTestResult *)testResult
 {

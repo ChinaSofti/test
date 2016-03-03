@@ -24,69 +24,7 @@
 {
     if ([super init])
     {
-        NSString *title1 = I18N (@"Initial buffer time");
-        NSString *title2 = I18N (@"Butter times");
-        NSString *title3 = I18N (@"Video server location");
-        NSString *title4 = I18N (@"Resolution");
-        NSString *title5 = I18N (@"Bit rate");
-        // 1.HeaderView中的初始化
-
-        //设置Label
-        _uvMosBarView = [[UIView alloc]
-        initWithFrame:CGRectMake (FITWIDTH (35), FITWIDTH (100), FITWIDTH (60), FITWIDTH (20))];
-
-        _speedLabel =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_uvMosBarView.rightX + FITWIDTH (33),
-                                                        FITWIDTH (100), FITWIDTH (40), FITWIDTH (20))
-                                   withFont:19
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"0"];
-        _speedLabel1 =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_uvMosBarView.rightX + FITWIDTH (43),
-                                                        FITWIDTH (101), FITWIDTH (80), FITWIDTH (20))
-                                   withFont:10
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"ms"];
-
-
-        _bufferLabel =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_speedLabel.rightX + FITWIDTH (65),
-                                                        FITWIDTH (100), FITWIDTH (50), FITWIDTH (20))
-                                   withFont:19
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"0"];
-
-        _uvMosNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (35), _uvMosBarView.bottomY + FITWIDTH (10),
-                                         FITWIDTH (60), FITWIDTH (10))
-                    withFont:13
-              withTitleColor:RGBACOLOR (81, 81, 81, 1)
-                   withTitle:@"U-vMOS"];
-
-        _speedNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_uvMosNumLabel.rightX + FITWIDTH (20),
-                                         _uvMosBarView.bottomY + FITWIDTH (10), FITWIDTH (90), FITWIDTH (10))
-                    withFont:13
-              withTitleColor:RGBACOLOR (81, 81, 81, 1)
-                   withTitle:title1];
-
-        _bufferNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_speedNumLabel.rightX + FITWIDTH (10),
-                                         _uvMosBarView.bottomY + FITWIDTH (10), FITWIDTH (80), FITWIDTH (10))
-                    withFont:13
-              withTitleColor:RGBACOLOR (81, 81, 81, 1)
-                   withTitle:title2];
-        //所有Label居中对齐
-
-        _bufferLabel.textAlignment = NSTextAlignmentCenter;
-        _speedLabel.textAlignment = NSTextAlignmentRight;
-        _speedLabel1.textAlignment = NSTextAlignmentCenter;
-        _uvMosNumLabel.textAlignment = NSTextAlignmentCenter;
-        _speedNumLabel.textAlignment = NSTextAlignmentCenter;
-        _bufferNumLabel.textAlignment = NSTextAlignmentCenter;
-
-
-        // 2.TestingView中的初始化
+        // TestingView中的初始化
         _panelView = [[UIView alloc]
         initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -132,54 +70,6 @@
         _pointView.center = _panelView.center;
         //        _pointView.center = CGPointMake(_panelView.frame.size.width/2,
         //        _panelView.frame.size.height/2);
-
-        // 3.videoView中的初始化
-
-
-        // 4.FooterView中的初始化
-        //设置Label
-        _placeLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (425), FITWIDTH (150), FITWIDTH (20))
-                    withFont:16
-              withTitleColor:[UIColor blackColor]
-                   withTitle:@""];
-
-        _resolutionLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (230), FITWIDTH (470), FITWIDTH (80), FITWIDTH (20))
-                    withFont:10
-              withTitleColor:[UIColor blackColor]
-                   withTitle:@""];
-
-        _bitLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (230), FITWIDTH (495), FITWIDTH (80), FITWIDTH (20))
-                    withFont:10
-              withTitleColor:[UIColor blackColor]
-                   withTitle:@""];
-
-        _placeNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (445), FITWIDTH (150), FITWIDTH (20))
-                    withFont:12
-              withTitleColor:[UIColor lightGrayColor]
-                   withTitle:title3];
-
-        _resolutionNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (470), FITWIDTH (50), FITWIDTH (20))
-                    withFont:10
-              withTitleColor:[UIColor lightGrayColor]
-                   withTitle:title4];
-
-        _bitNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (495), FITWIDTH (50), FITWIDTH (20))
-                    withFont:10
-              withTitleColor:[UIColor lightGrayColor]
-                   withTitle:title5];
-        //所有Label居中对齐
-        _placeLabel.textAlignment = NSTextAlignmentLeft;
-        _bitLabel.textAlignment = NSTextAlignmentRight;
-        _resolutionLabel.textAlignment = NSTextAlignmentRight;
-        _placeNumLabel.textAlignment = NSTextAlignmentLeft;
-        _resolutionNumLabel.textAlignment = NSTextAlignmentLeft;
-        _bitNumLabel.textAlignment = NSTextAlignmentLeft;
     }
     return self;
 }

@@ -40,6 +40,9 @@
 		565DFAEF1C515BB10024FF45 /* ic_video_testing.png in Resources */ = {isa = PBXBuildFile; fileRef = 565DFAE21C515BB10024FF45 /* ic_video_testing.png */; };
 		565DFAF01C515BB10024FF45 /* ic_web_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 565DFAE31C515BB10024FF45 /* ic_web_check.png */; };
 		565DFAF11C515BB10024FF45 /* ic_web_label.png in Resources */ = {isa = PBXBuildFile; fileRef = 565DFAE41C515BB10024FF45 /* ic_web_label.png */; };
+		566589E21C88414600269F78 /* SVFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 566589DD1C88414600269F78 /* SVFooterView.m */; };
+		566589E31C88414600269F78 /* SVHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 566589DF1C88414600269F78 /* SVHeaderView.m */; };
+		566589E41C88414600269F78 /* SVVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 566589E11C88414600269F78 /* SVVideoView.m */; };
 		56665D351C71F9C400A63D44 /* SVDetailViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56665D341C71F9C400A63D44 /* SVDetailViewCtrl.m */; };
 		56665D381C71F9E100A63D44 /* SVToolModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 56665D371C71F9E100A63D44 /* SVToolModels.m */; };
 		56665D3B1C71F9EF00A63D44 /* SVToolCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 56665D3A1C71F9EF00A63D44 /* SVToolCells.m */; };
@@ -172,6 +175,12 @@
 		565DFAE31C515BB10024FF45 /* ic_web_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_web_check.png; sourceTree = "<group>"; };
 		565DFAE41C515BB10024FF45 /* ic_web_label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_web_label.png; sourceTree = "<group>"; };
 		56622C4D1C4F320A00B4A50B /* CTCommonDefine.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCommonDefine.pch; sourceTree = "<group>"; };
+		566589DC1C88414600269F78 /* SVFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVFooterView.h; sourceTree = "<group>"; };
+		566589DD1C88414600269F78 /* SVFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVFooterView.m; sourceTree = "<group>"; };
+		566589DE1C88414600269F78 /* SVHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVHeaderView.h; sourceTree = "<group>"; };
+		566589DF1C88414600269F78 /* SVHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVHeaderView.m; sourceTree = "<group>"; };
+		566589E01C88414600269F78 /* SVVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoView.h; sourceTree = "<group>"; };
+		566589E11C88414600269F78 /* SVVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoView.m; sourceTree = "<group>"; };
 		56665D331C71F9C400A63D44 /* SVDetailViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVDetailViewCtrl.h; sourceTree = "<group>"; };
 		56665D341C71F9C400A63D44 /* SVDetailViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDetailViewCtrl.m; sourceTree = "<group>"; };
 		56665D361C71F9E100A63D44 /* SVToolModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToolModels.h; sourceTree = "<group>"; };
@@ -541,6 +550,12 @@
 				561447BF1C59BCE900003B9A /* SVPointView.h */,
 				561447C01C59BCE900003B9A /* SVPointView.m */,
 				56AA747D1C7C389400BA7E51 /* SVPointView.xib */,
+				566589DC1C88414600269F78 /* SVFooterView.h */,
+				566589DD1C88414600269F78 /* SVFooterView.m */,
+				566589DE1C88414600269F78 /* SVHeaderView.h */,
+				566589DF1C88414600269F78 /* SVHeaderView.m */,
+				566589E01C88414600269F78 /* SVVideoView.h */,
+				566589E11C88414600269F78 /* SVVideoView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -838,9 +853,11 @@
 				56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */,
 				56A919181C4F4BAB00E8BB72 /* ViewController.m in Sources */,
 				B7CD574A1C705C8D00668E88 /* SVCurrentResultViewCtrl.m in Sources */,
+				566589E41C88414600269F78 /* SVVideoView.m in Sources */,
 				56FF0E401C78492C0080487D /* SVBWSettingViewCtrl.m in Sources */,
 				56665D351C71F9C400A63D44 /* SVDetailViewCtrl.m in Sources */,
 				B732E6281C6EC365000353B9 /* SVResultCell.m in Sources */,
+				566589E21C88414600269F78 /* SVFooterView.m in Sources */,
 				56FF0E411C78492C0080487D /* SVLanguageSettingViewCtrl.m in Sources */,
 				56BA8FDD1C561E9100886CAE /* SVTestingCtrl.m in Sources */,
 				B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */,
@@ -849,6 +866,7 @@
 				4DD006191C609F7A007D4D2F /* SVResultViewCtrl.m in Sources */,
 				56BA8FDA1C561E9100886CAE /* SVToolModel.m in Sources */,
 				56665D381C71F9E100A63D44 /* SVToolModels.m in Sources */,
+				566589E31C88414600269F78 /* SVHeaderView.m in Sources */,
 				56BA8FD91C561E9100886CAE /* SVTestViewCtrl.m in Sources */,
 				56FF0E3E1C78492C0080487D /* SVAboutViewCtrl.m in Sources */,
 				56AA27361C57090400FA5D0F /* CTWBViewTools.m in Sources */,
