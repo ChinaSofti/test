@@ -148,7 +148,11 @@
 "简体中文" = "简体中文";
 "English" = "English";
 "Save" = "Save";
-"Success, restart the App effect" = "Success, restart the App effect";
+
+"Warning:" = "Warning:";
+"The language switch will exit the application, restart after the entry into force, continue?" = "The language switch will exit the application, restart after the entry into force, continue?";
+"Return" = "Return";
+"Continue" = "Continue";
 
 //提示试图
 "You are using Wi-Fi" = "You are using Wi-Fi";
@@ -164,3 +168,6 @@
 "Advanced" = "Advanced";
 "Advanced setting" = "Advanced setting";
 "Screen Size:" = "Screen Size:";
+
+
+

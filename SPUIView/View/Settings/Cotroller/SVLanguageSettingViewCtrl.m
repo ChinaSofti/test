@@ -15,7 +15,6 @@
 @interface SVLanguageSettingViewCtrl ()
 
 @property (nonatomic, strong) UIImageView *imageView;
-
 @end
 
 static NSString *userLanaguage;
@@ -202,38 +201,54 @@ static NSString *userLanaguage;
  */
 - (void)saveBtnClicked:(UIButton *)button
 {
-    NSString *title1 = I18N (@"Success, restart the App effect");
-    SVI18N *setting = [SVI18N sharedInstance];
-    [setting setLanguage:userLanaguage];
-    SVInfo (@"%@", @"按钮被点击了");
+    //弹出Alart让用户选择是否进行语言切换
+    NSString *title1 = I18N (@"");
+    NSString *title2 = I18N (@"The language switch will exit the application, restart after the entry into force, continue?");
+    NSString *title3 = I18N (@"Return");
+    NSString *title4 = I18N (@"Continue");
 
-    //提示框
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    UIView *showview = [[UIView alloc] init];
-    showview.backgroundColor = [UIColor grayColor];
-    showview.frame = CGRectMake (kScreenW / 2 - FITHEIGHT (100), kScreenH / 2 + FITHEIGHT (170),
-                                 FITHEIGHT (200), FITHEIGHT (30));
-    showview.layer.cornerRadius = 19.0f;
-    showview.layer.masksToBounds = YES;
-    [window addSubview:showview];
-    UIImageView *imageView = [[UIImageView alloc]
-    initWithFrame:CGRectMake (FITHEIGHT (7), FITHEIGHT (5), FITHEIGHT (20), FITHEIGHT (20))];
-    imageView.image = [UIImage imageNamed:@"toast_icon"];
-    [showview addSubview:imageView];
-    UILabel *label = [[UILabel alloc] init];
-    label.text = title1;
-    label.font = [UIFont systemFontOfSize:12];
-    label.frame = CGRectMake (FITHEIGHT (15), FITHEIGHT (5), FITHEIGHT (180), FITHEIGHT (20));
-    label.textColor = [UIColor whiteColor];
-    label.textAlignment = 1;
-    [showview addSubview:label];
-    [UIView animateWithDuration:3.0
-    animations:^{
-      showview.alpha = 0;
-    }
-    completion:^(BOOL finished) {
-      [showview removeFromSuperview];
-    }];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title1
+                                                    message:title2
+                                                   delegate:self
+                                          cancelButtonTitle:title3
+                                          otherButtonTitles:title4, nil];
+    [alert show];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //确定
+    if (buttonIndex == 1)
+    {
+        //语言更换
+        SVI18N *setting = [SVI18N sharedInstance];
+        [setting setLanguage:userLanaguage];
+        SVInfo (@"%@", @"按钮被点击了");
+        //退出程序
+        [self exitApplication];
+    }
+}
+
+
+//退出程序方法
+- (void)exitApplication
+{
+
+    [UIView beginAnimations:@"exitApplication" context:nil];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector (animationFinished:finished:context:)];
+    [UIView commitAnimations];
+}
+
+- (void)animationFinished:(NSString *)animationID
+                 finished:(NSNumber *)finished
+                  context:(void *)context
+{
+
+    if ([animationID compare:@"exitApplication"] == 0)
+    {
+        exit (0);
+    }
+}
 @end

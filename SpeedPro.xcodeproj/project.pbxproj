@@ -161,7 +161,6 @@
 		5644354D1C5215AB009B7024 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/i18n.strings; sourceTree = "<group>"; };
 		564435751C5216AD009B7024 /* CTViewTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTViewTools.h; sourceTree = "<group>"; };
 		564435761C5216AD009B7024 /* CTViewTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTViewTools.m; sourceTree = "<group>"; };
-		564435781C52172B009B7024 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/i18n.strings"; sourceTree = "<group>"; };
 		565DFADB1C515BB10024FF45 /* ic_speed_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_speed_check.png; sourceTree = "<group>"; };
 		565DFADC1C515BB10024FF45 /* ic_speed_label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_speed_label.png; sourceTree = "<group>"; };
 		565DFADD1C515BB10024FF45 /* ic_speed_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_speed_normal.png; sourceTree = "<group>"; };
@@ -179,6 +178,7 @@
 		56665D371C71F9E100A63D44 /* SVToolModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToolModels.m; sourceTree = "<group>"; };
 		56665D391C71F9EF00A63D44 /* SVToolCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToolCells.h; sourceTree = "<group>"; };
 		56665D3A1C71F9EF00A63D44 /* SVToolCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToolCells.m; sourceTree = "<group>"; };
+		566C32481C85BFAF0038903F /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/i18n.strings"; sourceTree = "<group>"; };
 		567582221C7BF797009BEFFB /* ic_settings_mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_mobile.png; sourceTree = "<group>"; };
 		567582231C7BF797009BEFFB /* ic_settings_wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_wifi.png; sourceTree = "<group>"; };
 		568E03371C78135D00A7CD72 /* rt_detail_title_collector_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rt_detail_title_collector_img.png; sourceTree = "<group>"; };
@@ -746,7 +746,7 @@
 			knownRegions = (
 				en,
 				Base,
-				"zh-Hans",
+				"zh-Hans-CN",
 			);
 			mainGroup = 56F523D61C4DCF7F00E6472B;
 			productRefGroup = 56F523E01C4DCF7F00E6472B /* Products */;
@@ -890,7 +890,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				5644354D1C5215AB009B7024 /* en */,
-				564435781C52172B009B7024 /* zh-Hans */,
+				566C32481C85BFAF0038903F /* zh-Hans-CN */,
 			);
 			name = i18n.strings;
 			sourceTree = "<group>";
