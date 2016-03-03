@@ -203,7 +203,8 @@ static NSString *userLanaguage;
 {
     //弹出Alart让用户选择是否进行语言切换
     NSString *title1 = I18N (@"");
-    NSString *title2 = I18N (@"The language switch will exit the application, restart after the entry into force, continue?");
+    NSString *title2 = I18N (@"The language switch will exit the application, restart after the "
+                             @"entry into force, continue?");
     NSString *title3 = I18N (@"Return");
     NSString *title4 = I18N (@"Continue");
 

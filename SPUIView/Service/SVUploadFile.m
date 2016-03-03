@@ -95,6 +95,12 @@ static NSString *uploadID; // 上传(php)脚本中，接收文件字段
                       queue:[[NSOperationQueue alloc] init]
           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 
+            if (connectionError)
+            {
+                NSLog (@"上传失败");
+                return;
+            }
+
             NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog (@"%@上传成功", result);
           }];

@@ -190,20 +190,30 @@
 {
     if (buttonIndex == 1)
     {
-        //上传日志
-        NSLog (@"上传日志");
-        SVLog *log = [SVLog alloc];
-        NSString *filepath = [log compressLogFiles];
-        SVInfo (@"upload log file:%@", filepath);
-        NSData *data = [NSData dataWithContentsOfFile:filepath];
+        @try
+        {
+            //上传日志
+            SVInfo (@"开始上传日志");
+            SVLog *log = [SVLog alloc];
+            NSString *filepath = [log compressLogFiles];
+            SVInfo (@"upload log file:%@", filepath);
+            NSData *data = [NSData dataWithContentsOfFile:filepath];
 
-        SVUploadFile *upload = [[SVUploadFile alloc] init];
-        NSString *urlString = @"https://58.60.106.188:12210/speedpro/log?op=list&begin=0&end=50";
-        [upload uploadFileWithURL:[NSURL URLWithString:urlString] data:data];
+            SVUploadFile *upload = [[SVUploadFile alloc] init];
+            NSString *urlString =
+            @"https://58.60.106.188:12210/speedpro/log?op=list&begin=0&end=50";
+            [upload uploadFileWithURL:[NSURL URLWithString:urlString] data:data];
 
-        // 删除压缩文件
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        [fileManager removeItemAtPath:filepath error:nil];
+            // 删除压缩文件
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            [fileManager removeItemAtPath:filepath error:nil];
+            SVInfo (@"上传日志结束");
+        }
+        @catch (NSException *exception)
+        {
+            //上传失败
+            SVError (@"上传失败. %@", exception);
+        }
     }
 }
 
