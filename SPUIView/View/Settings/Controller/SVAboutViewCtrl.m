@@ -7,9 +7,9 @@
 //
 
 #import "SVAboutViewCtrl.h"
+#import <SPCommon/SVLog.h>
 
 @interface SVAboutViewCtrl ()
-
 @end
 
 @implementation SVAboutViewCtrl
@@ -59,14 +59,32 @@
 
 - (void)createUI
 {
+
     //添加imageView
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake (40, 100, 80, 80)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, 80, 80)];
     imageView.image = [UIImage imageNamed:@"icon"];
-    [self.view addSubview:imageView];
+    //创建手势添加的View
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake (40, 100, 80, 80)];
+    [view addSubview:imageView];
+    [self.view addSubview:view];
+
+    //添加手势
+    //单击
+    UITapGestureRecognizer *singTap = [[UITapGestureRecognizer alloc] init];
+    [singTap addTarget:self action:@selector (handleSingTap)];
+    [singTap setNumberOfTapsRequired:1];
+    [view addGestureRecognizer:singTap];
+    //双击
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] init];
+    [doubleTap addTarget:self action:@selector (handleDoubleTap)];
+    [doubleTap setNumberOfTapsRequired:2];
+    [view addGestureRecognizer:doubleTap];
+    //区分单双击
+    [singTap requireGestureRecognizerToFail:doubleTap];
 
     //添加LabSpeedPro
     UILabel *labSpeedPro = [[UILabel alloc]
-    initWithFrame:CGRectMake (CGRectGetMaxX (imageView.frame) + 20, imageView.frame.origin.y, 120, 44)];
+    initWithFrame:CGRectMake (CGRectGetMaxX (view.frame) + 20, view.frame.origin.y, 120, 44)];
     labSpeedPro.text = @"SpeedPro";
     labSpeedPro.textColor = [UIColor blackColor];
     labSpeedPro.font = [UIFont systemFontOfSize:22]; //采用系统默认文字设置大小
@@ -74,8 +92,8 @@
     [self.view addSubview:labSpeedPro];
 
     //添加LabV0.00.32
-    UILabel *labV = [[UILabel alloc] initWithFrame:CGRectMake (CGRectGetMaxX (imageView.frame) + 20,
-                                                               imageView.frame.origin.y + 45, 120, 44)];
+    UILabel *labV = [[UILabel alloc]
+    initWithFrame:CGRectMake (CGRectGetMaxX (view.frame) + 20, view.frame.origin.y + 45, 120, 44)];
     labV.text = @"V0.0.1";
     labV.textColor = [UIColor grayColor];
     labV.font = [UIFont systemFontOfSize:14];
@@ -112,6 +130,18 @@
     labAllRights.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:labAllRights];
 }
-
-
+/**
+ *  单击事件
+ */
+- (void)handleSingTap
+{
+    SVInfo (@"单击了");
+}
+/**
+ *  双击事件
+ */
+- (void)handleDoubleTap
+{
+    SVInfo (@"双击了");
+}
 @end

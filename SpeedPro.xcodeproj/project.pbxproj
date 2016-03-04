@@ -1020,6 +1020,7 @@
 					"$(PROJECT_DIR)/Thirdpart",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SPUIView/CTCommonDefine.pch";
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				INFOPLIST_FILE = SPUIView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1051,6 +1052,7 @@
 					"$(PROJECT_DIR)/Thirdpart",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SPUIView/CTCommonDefine.pch";
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				INFOPLIST_FILE = SPUIView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
