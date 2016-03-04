@@ -7,8 +7,11 @@
 //
 
 #import "SVAdvancedViewCtrl.h"
+#import "SVBandWidthCtrl.h"
 #import <SPCommon/SVI18N.h>
+#import <SPCommon/SVLog.h>
 #import <SPService/SVAdvancedSetting.h>
+
 @interface SVAdvancedViewCtrl ()
 
 @end
@@ -26,8 +29,8 @@
 
     //设置LeftBarButtonItem
     [self createLeftBarButtonItem];
-
     [self createUI];
+    [self createUIBandwidth];
 }
 
 //进去时 隐藏tabBar
@@ -73,18 +76,18 @@
     views.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views];
 
-    //屏幕尺寸
+    // label屏幕尺寸
     UILabel *lableScreenSize = [[UILabel alloc] init];
-    lableScreenSize.frame = CGRectMake (20, 84, 100, 20);
+    lableScreenSize.frame = CGRectMake (10, 10, 100, 20);
     lableScreenSize.text = title1;
     lableScreenSize.font = [UIFont systemFontOfSize:14];
-    [self.view addSubview:lableScreenSize];
+    [views addSubview:lableScreenSize];
 
     SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
 
     //文本框
     _textField = [[UITextField alloc] init];
-    _textField.frame = CGRectMake (110, 84, kScreenW - 84 - 40, 20);
+    _textField.frame = CGRectMake (100, 10, kScreenW - 125, 20);
     _textField.text = setting.getScreenSize;
     _textField.placeholder = @"请输入13英寸~100英寸的数字";
     _textField.font = [UIFont systemFontOfSize:14];
@@ -92,15 +95,85 @@
     _textField.borderStyle = UITextBorderStyleRoundedRect;
     //输入键盘类型
     _textField.keyboardType = UIKeyboardTypeDecimalPad;
-    [self.view addSubview:_textField];
+    [views addSubview:_textField];
 
-
-    //英寸
+    //单位(英寸)
     UILabel *lableInch = [[UILabel alloc] init];
-    lableInch.frame = CGRectMake (kScreenW - 45, 84, 30, 20);
+    lableInch.frame = CGRectMake (kScreenW - 55, 10, 30, 20);
     lableInch.text = title2;
     lableInch.font = [UIFont systemFontOfSize:14];
-    [self.view addSubview:lableInch];
+    [views addSubview:lableInch];
 }
-
+- (void)createUIBandwidth
+{
+    NSString *title1 = @"带宽测试服务器配置";
+    // views2
+    UIView *views2 = [[UIView alloc] init];
+    views2.frame = CGRectMake (10, 125, kScreenW - 20, 112);
+    views2.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:views2];
+    // label
+    UILabel *lableScreenSize = [[UILabel alloc] init];
+    lableScreenSize.frame = CGRectMake (10, 10, 200, 20);
+    lableScreenSize.text = title1;
+    lableScreenSize.font = [UIFont systemFontOfSize:17];
+    [views2 addSubview:lableScreenSize];
+    // labelview
+    UIView *labelview = [[UIView alloc] initWithFrame:CGRectMake (10, 40, 230, 65)];
+    //    labelview.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
+    labelview.layer.cornerRadius = 5;
+    [views2 addSubview:labelview];
+    // label1
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake (10, 5, 200, 35)];
+    label1.text = @"NANJING";
+    label1.font = [UIFont systemFontOfSize:20];
+    //    label1.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
+    label1.layer.cornerRadius = 5;
+    [labelview addSubview:label1];
+    // label2
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake (10, 40, 220, 20)];
+    label2.text = @"China Telecom JiangSu Branch";
+    label2.font = [UIFont systemFontOfSize:15];
+    //    label2.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1.0];
+    label2.layer.cornerRadius = 5;
+    [labelview addSubview:label2];
+    // button自动
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake (250, 40, 65, 65);
+    button.backgroundColor =
+    [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
+    [button setTitle:@"自动" forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:20];
+    button.titleLabel.textAlignment = NSTextAlignmentCenter;
+    button.layer.cornerRadius = 5;
+    [button addTarget:self
+               action:@selector (BtnClicked:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [views2 addSubview:button];
+    // button选择
+    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    button2.frame = CGRectMake (320, 40, 65, 65);
+    button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    [button2 setTitle:@"选择" forState:UIControlStateNormal];
+    button2.titleLabel.font = [UIFont systemFontOfSize:20];
+    button2.titleLabel.textAlignment = NSTextAlignmentCenter;
+    button2.layer.cornerRadius = 5;
+    [button2 addTarget:self
+                action:@selector (Btn2Clicked:)
+      forControlEvents:UIControlEventTouchUpInside];
+    [views2 addSubview:button2];
+}
+- (void)BtnClicked:(UIButton *)button
+{
+    SVInfo (@"自动");
+    //自动获取方法
+}
+- (void)Btn2Clicked:(UIButton *)button
+{
+    SVInfo (@"选择");
+    //跳转到带宽测试服务器列表
+    SVBandWidthCtrl *bandwidthCtrl = [[SVBandWidthCtrl alloc] init];
+    bandwidthCtrl.title = @"带宽测试服务器列表";
+    [self.navigationController pushViewController:bandwidthCtrl animated:YES];
+}
 @end

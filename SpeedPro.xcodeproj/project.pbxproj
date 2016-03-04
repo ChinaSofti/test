@@ -58,6 +58,8 @@
 		56665D381C71F9E100A63D44 /* SVToolModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 56665D371C71F9E100A63D44 /* SVToolModels.m */; };
 		567582241C7BF797009BEFFB /* ic_settings_mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 567582221C7BF797009BEFFB /* ic_settings_mobile.png */; };
 		567582251C7BF797009BEFFB /* ic_settings_wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = 567582231C7BF797009BEFFB /* ic_settings_wifi.png */; };
+		568D42B11C8991A400F2916B /* SVFAQViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 568D42B01C8991A400F2916B /* SVFAQViewCtrl.m */; };
+		568D42B41C89E20B00F2916B /* SVBandWidthCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */; };
 		568E033C1C78135D00A7CD72 /* rt_detail_title_collector_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 568E03371C78135D00A7CD72 /* rt_detail_title_collector_img.png */; };
 		568E033D1C78135D00A7CD72 /* rt_detail_title_ftp_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 568E03381C78135D00A7CD72 /* rt_detail_title_ftp_img.png */; };
 		568E033E1C78135D00A7CD72 /* rt_detail_title_video_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 568E03391C78135D00A7CD72 /* rt_detail_title_video_img.png */; };
@@ -208,6 +210,10 @@
 		56665D371C71F9E100A63D44 /* SVToolModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToolModels.m; sourceTree = "<group>"; };
 		567582221C7BF797009BEFFB /* ic_settings_mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_mobile.png; sourceTree = "<group>"; };
 		567582231C7BF797009BEFFB /* ic_settings_wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_wifi.png; sourceTree = "<group>"; };
+		568D42AF1C8991A400F2916B /* SVFAQViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVFAQViewCtrl.h; sourceTree = "<group>"; };
+		568D42B01C8991A400F2916B /* SVFAQViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVFAQViewCtrl.m; sourceTree = "<group>"; };
+		568D42B21C89E20B00F2916B /* SVBandWidthCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVBandWidthCtrl.h; sourceTree = "<group>"; };
+		568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVBandWidthCtrl.m; sourceTree = "<group>"; };
 		568E03371C78135D00A7CD72 /* rt_detail_title_collector_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rt_detail_title_collector_img.png; sourceTree = "<group>"; };
 		568E03381C78135D00A7CD72 /* rt_detail_title_ftp_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rt_detail_title_ftp_img.png; sourceTree = "<group>"; };
 		568E03391C78135D00A7CD72 /* rt_detail_title_video_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rt_detail_title_video_img.png; sourceTree = "<group>"; };
@@ -365,6 +371,10 @@
 				561A36CE1C896B5A00AC5F5E /* SVLogsViewCtrl.m */,
 				561A36CF1C896B5A00AC5F5E /* SVSettingsViewCtrl.h */,
 				561A36D01C896B5A00AC5F5E /* SVSettingsViewCtrl.m */,
+				568D42AF1C8991A400F2916B /* SVFAQViewCtrl.h */,
+				568D42B01C8991A400F2916B /* SVFAQViewCtrl.m */,
+				568D42B21C89E20B00F2916B /* SVBandWidthCtrl.h */,
+				568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */,
 			);
 			name = Controller;
 			path = SPUIView/View/Settings/Controller;
@@ -869,6 +879,7 @@
 				561A36D41C896B5A00AC5F5E /* SVLanguageSettingViewCtrl.m in Sources */,
 				56AA27361C57090400FA5D0F /* CTWBViewTools.m in Sources */,
 				56EC8C811C4F45A500EBDA6C /* SVTabBarController.m in Sources */,
+				568D42B11C8991A400F2916B /* SVFAQViewCtrl.m in Sources */,
 				561A36D21C896B5A00AC5F5E /* SVAdvancedViewCtrl.m in Sources */,
 				561A36D31C896B5A00AC5F5E /* SVBWSettingViewCtrl.m in Sources */,
 				56B5180D1C5126C700AA76F1 /* UIView+Exten.m in Sources */,
@@ -879,6 +890,7 @@
 				561A36EB1C896BD700AC5F5E /* SVVideoFullScreenPlayController.m in Sources */,
 				56A919151C4F4BAA00E8BB72 /* AppDelegate.m in Sources */,
 				56F523E41C4DCF7F00E6472B /* main.m in Sources */,
+				568D42B41C89E20B00F2916B /* SVBandWidthCtrl.m in Sources */,
 				561447C11C59BCE900003B9A /* SVPointView.m in Sources */,
 				B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */,
 			);

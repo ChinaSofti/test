@@ -9,6 +9,7 @@
 #import "SVAboutViewCtrl.h"
 #import "SVAdvancedViewCtrl.h"
 #import "SVBWSettingViewCtrl.h"
+#import "SVFAQViewCtrl.h"
 #import "SVLanguageSettingViewCtrl.h"
 #import "SVLogsViewCtrl.h"
 #import "SVSettingsViewCtrl.h"
@@ -69,7 +70,7 @@
         return 1;
     }
     else
-        return 4;
+        return 5;
 }
 
 // 设置 tableView 的行高
@@ -88,15 +89,14 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *title1 = I18N (@"Current:");
-    //    NSString *title2 = I18N (@"China Unicom Beijing");
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     NSString *title2 = probeInfo.isp;
     NSString *title3 = I18N (@"About");
+    NSString *title31 = I18N (@"FAQ");
     NSString *title4 = I18N (@"Language Setting");
     NSString *title5 = I18N (@"Upload Logs");
     NSString *title6 = I18N (@"Advanced setting");
     NSString *title7 = I18N (@"WIFI");
-    //    int status = [SVSystemUtil currentNetworkType];
 
     static NSString *cellId = @"cell";
 
@@ -149,9 +149,13 @@
         }
         if (indexPath.row == 1)
         {
-            cell.textLabel.text = title4;
+            cell.textLabel.text = title31;
         }
         if (indexPath.row == 2)
+        {
+            cell.textLabel.text = title4;
+        }
+        if (indexPath.row == 3)
         {
             cell.textLabel.text = title5;
 
@@ -163,7 +167,7 @@
              forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:button];
         }
-        if (indexPath.row == 3)
+        if (indexPath.row == 4)
         {
             cell.textLabel.text = title6;
         }
@@ -215,6 +219,7 @@
 {
     NSString *title0 = I18N (@"Bandwidth Settings");
     NSString *title3 = I18N (@"About");
+    NSString *title31 = I18N (@"FAQ");
     NSString *title4 = I18N (@"Language Setting");
     NSString *title5 = I18N (@"Upload Logs");
     NSString *title6 = I18N (@"Advanced");
@@ -235,21 +240,28 @@
             about.title = title3;
             [self.navigationController pushViewController:about animated:YES];
         }
-        //语言设置
+        // FAQ
         if (indexPath.row == 1)
+        {
+            SVFAQViewCtrl *FAQ = [[SVFAQViewCtrl alloc] init];
+            FAQ.title = title31;
+            [self.navigationController pushViewController:FAQ animated:YES];
+        }
+        //语言设置
+        if (indexPath.row == 2)
         {
             SVLanguageSettingViewCtrl *languageSetting = [[SVLanguageSettingViewCtrl alloc] init];
             languageSetting.title = title4;
             [self.navigationController pushViewController:languageSetting animated:YES];
         }
         //上传日志
-        if (indexPath.row == 2)
+        if (indexPath.row == 3)
         {
             SVLogsViewCtrl *logs = [[SVLogsViewCtrl alloc] init];
             logs.title = title5;
         }
         //高级设置
-        if (indexPath.row == 3)
+        if (indexPath.row == 4)
         {
             SVAdvancedViewCtrl *advanced = [[SVAdvancedViewCtrl alloc] init];
             advanced.title = title6;
