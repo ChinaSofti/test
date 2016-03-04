@@ -20,12 +20,9 @@ static NSString *useragent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_1 like Mac
                              @"Safari/601.3.9";
 
 // 拼接字符串
-// 分隔字符串
-static NSString *boundaryStr = @"--";
-// 本次上传标示字符串
-static NSString *randomIDStr;
-// 上传(php)脚本中，接收文件字段
-static NSString *uploadID;
+static NSString *boundaryStr = @"--"; // 分隔字符串
+static NSString *randomIDStr; // 本次上传标示字符串
+static NSString *uploadID; // 上传(php)脚本中，接收文件字段
 
 - (instancetype)init
 {
@@ -42,7 +39,6 @@ static NSString *uploadID;
 - (NSString *)topStringWithMimeType:(NSString *)mimeType uploadFile:(NSString *)uploadFile
 {
     NSMutableString *strM = [NSMutableString string];
-
     [strM appendFormat:@"%@%@\n", boundaryStr, randomIDStr];
     [strM appendFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\n", uploadID, uploadFile];
     [strM appendFormat:@"Content-Type: %@\n\n", mimeType];

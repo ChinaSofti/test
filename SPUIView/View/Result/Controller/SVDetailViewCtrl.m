@@ -324,7 +324,7 @@
         cell =
         [[SVToolCells alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-    cell.delegate = self;
+//    cell.delegate = self;
     [cell cellViewModel2:_soucreMA[indexPath.section] section:indexPath.section];
     return cell;
 }

@@ -10,12 +10,13 @@
 /**
  ***pch资源文件
  **/
-
 #ifndef CTCommonDefine_pch
 #define CTCommonDefine_pch
 
+//适配各种尺寸的屏幕(用百分比布局)
 #define kScreenW            [[UIScreen mainScreen] bounds].size.width
 #define kScreenH            [[UIScreen mainScreen] bounds].size.height
+
 #define kViewH(v)           v.frame.size.height
 #define kViewW(v)           v.frame.size.width
 #define kViewHS(v,scale)    kViewH(v) * scale;
@@ -23,9 +24,10 @@
 #define kViewY(v)           v.frame.origin.y
 #define kViewR(v)           CGRectGetMaxX(v.frame)
 #define kViewD(v)           CGRectGetMaxY(v.frame)
+//适配5/5s
 #define FITWIDTH(W)  W / 320.0 * ([UIScreen mainScreen].bounds.size.width)
 #define FITHEIGHT(H) H / 568.0 * ([UIScreen mainScreen].bounds.size.height)
-
+//设置颜色
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
 
 
@@ -34,7 +36,6 @@
 
 
 
-//#import <SPService/SPService.h>
 #import "UIView+Exten.h"
 #import "CTViewTools.h"
 #import "CTWBViewTools.h"

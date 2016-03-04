@@ -11,16 +11,13 @@
 @interface SVHeaderView : UIView
 
 // HeaderView中的属性
-// uvMos
-@property (nonatomic, strong) UIView *uvMosBarView;
-//测试速度
-@property (nonatomic, strong) UILabel *speedLabel;
-// 单位ms
-@property (nonatomic, strong) UILabel *speedLabel1;
-//首次加载时间
-@property (nonatomic, strong) UILabel *bufferLabel;
+@property (nonatomic, strong) UIView *uvMosBarView; // uvMos
+@property (nonatomic, strong) UILabel *speedLabel; //测试速度
+@property (nonatomic, strong) UILabel *speedLabel1; // 单位ms
+@property (nonatomic, strong) UILabel *bufferLabel; //首次加载时间
 //对应的值
 @property (nonatomic, strong) UILabel *uvMosNumLabel;
 @property (nonatomic, strong) UILabel *speedNumLabel;
 @property (nonatomic, strong) UILabel *bufferNumLabel;
+
 @end

@@ -7,8 +7,9 @@
 //
 
 /**
- **cell设置界面
- **/
+ *  cell设置界面
+ */
+
 #import <UIKit/UIKit.h>
 
 #define kCellH (kScreenW - 20) * 0.22
@@ -20,9 +21,6 @@
 @class SVToolCell;
 
 @protocol SVToolCellDelegate <NSObject>
-/**
- *  cell点击事件
- */
 - (void)toolCellClick:(SVToolCell *)cell;
 @end
 

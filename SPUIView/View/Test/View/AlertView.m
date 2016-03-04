@@ -157,7 +157,7 @@ static NSInteger BtnTag = 10086;
     M.text = @"M";
     //输入文本
     _mealTextField = [CTWBViewTools
-    createTextFieldWithFrame:CGRectMake (FITWIDTH (140), internetMealLabel.originY, FITWIDTH (100), FITWIDTH (20))
+    createTextFieldWithFrame:CGRectMake (FITWIDTH (80), internetMealLabel.originY, FITWIDTH (170), FITWIDTH (20))
                  placeholder:nil
                         Font:15
                    fontColor:[UIColor blackColor]];

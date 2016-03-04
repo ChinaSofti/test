@@ -6,6 +6,10 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+/**
+ *  上传日志界面
+ */
+
 #import <UIKit/UIKit.h>
 
 @interface SVLogsViewCtrl : UIViewController

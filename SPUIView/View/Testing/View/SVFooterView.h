@@ -11,13 +11,11 @@
 
 //定义FooterView中的属性
 
-// footerView参数
-// 定义视频服务位置place
-// 定义分辨率resolution
-// 定义码率(比特率bit)
-@property (nonatomic, strong) UILabel *placeLabel;
-@property (nonatomic, strong) UILabel *resolutionLabel;
-@property (nonatomic, strong) UILabel *bitLabel;
+// FooterView参数
+@property (nonatomic, strong) UILabel *placeLabel; // 定义视频服务位置place
+@property (nonatomic, strong) UILabel *resolutionLabel; // 定义分辨率resolution
+@property (nonatomic, strong) UILabel *bitLabel; // 定义码率(比特率bit)
+//对应的值
 @property (nonatomic, strong) UILabel *placeNumLabel;
 @property (nonatomic, strong) UILabel *resolutionNumLabel;
 @property (nonatomic, strong) UILabel *bitNumLabel;

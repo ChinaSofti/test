@@ -6,6 +6,10 @@
 //  Copyright © 2016 chinasofti. All rights reserved.
 //
 
+/**
+ *  当前结果页面
+ */
+
 #import "SVCurrentResultModel.h"
 #import <UIKit/UIKit.h>
 

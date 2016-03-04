@@ -10,44 +10,50 @@
 
 @implementation CTWBViewTools
 
-#pragma mark - 通用白色圆角背景
+#pragma mark - 通用白色圆角背景rounded background
 
 + (UIView *)createBackgroundViewWithFrame:(CGRect)frame cornerRadius:(CGFloat)radius
 {
+    //大小
     UIView *backgroundview = [[UIView alloc] initWithFrame:frame];
-
+    //白的背景
     backgroundview.backgroundColor = [UIColor whiteColor];
+    //圆角弧度
     backgroundview.layer.cornerRadius = radius;
+    //子视图超出部分能够现实
     backgroundview.layer.masksToBounds = YES;
 
     return backgroundview;
 }
 
-#pragma mark - Label
+#pragma mark - 标签Label
 
 + (UILabel *)createLabelWithFrame:(CGRect)frame
                          withFont:(CGFloat)font
                    withTitleColor:(UIColor *)color
                         withTitle:(NSString *)title
 {
+    //大小
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
-
+    //字体
     label.font = [UIFont systemFontOfSize:font];
+    //字体颜色
     label.textColor = color;
-
+    //内容
     label.text = title;
-
 
     return label;
 }
 
 
-#pragma mark - 输入框
+#pragma mark - 文本输入框TextFiled
+//普通的
 + (UITextField *)createTextFieldWithFrame:(CGRect)frame
                               placeholder:(NSString *)placeholder
                                      Font:(float)font
                                 fontColor:(UIColor *)color
 {
+    //大小
     UITextField *textField = [[UITextField alloc] initWithFrame:frame];
     //灰色提示框
     textField.placeholder = placeholder;
@@ -64,7 +70,49 @@
 
     return textField;
 }
+//有左右视图的
++ (UITextField *)createTextFieldWithFrame:(CGRect)frame
+                              placeholder:(NSString *)placeholder
+                                 passWord:(BOOL)YESorNO
+                                 leftView:(UIView *)leftView
+                                rightView:(UIView *)rightView
+                                     Font:(float)font
+                                fontColor:(UIColor *)color
+{
+    //大小
+    UITextField *textField = [[UITextField alloc] initWithFrame:frame];
+    //灰色提示框
+    textField.placeholder = placeholder;
+    //文字对齐方式
+    textField.textAlignment = NSTextAlignmentLeft;
+    //把密码变成显示状态时有效
+    textField.secureTextEntry = YESorNO;
+    //边框类型
+    // textField.borderStyle=UITextBorderStyleLine;
+    //键盘类型
+    //    textField.keyboardType=UIKeyboardTypeEmailAddress;
+    //关闭首字母大写
+    textField.autocapitalizationType = NO;
+    //清除按钮
+    textField.clearButtonMode = YES;
+    //左图片
+    textField.leftView = leftView;
+    //左侧视图小图标
+    textField.leftViewMode = UITextFieldViewModeAlways;
+    //右图片
+    textField.rightView = rightView;
+    //编辑状态下一直存在
+    textField.rightViewMode = UITextFieldViewModeWhileEditing;
+    //自定义键盘
+    // textField.inputView
+    //字体
+    textField.font = [UIFont systemFontOfSize:font];
+    //字体颜色
+    textField.textColor = color;
 
+    return textField;
+}
+//带有线的
 + (UITextField *)createTextFieldWithFrame:(CGRect)frame
                               placeholder:(NSString *)placeholder
                                  passWord:(BOOL)YESorNO
@@ -84,7 +132,6 @@
 
     if (lineColor)
     {
-
         //线条长
         CGFloat width = frame.size.width;
         if (linewidth)
@@ -102,71 +149,29 @@
     return textField;
 }
 
-//输入框
-+ (UITextField *)createTextFieldWithFrame:(CGRect)frame
-                              placeholder:(NSString *)placeholder
-                                 passWord:(BOOL)YESorNO
-                                 leftView:(UIView *)leftView
-                                rightView:(UIView *)rightView
-                                     Font:(float)font
-                                fontColor:(UIColor *)color
-{
-    UITextField *textField = [[UITextField alloc] initWithFrame:frame];
-    //灰色提示框
-    textField.placeholder = placeholder;
-    //文字对齐方式
-    textField.textAlignment = NSTextAlignmentLeft;
-    textField.secureTextEntry = YESorNO;
-    //边框
-    // textField.borderStyle=UITextBorderStyleLine;
-    //键盘类型
-    //    textField.keyboardType=UIKeyboardTypeEmailAddress;
-    //关闭首字母大写
-    textField.autocapitalizationType = NO;
-    //清除按钮
-    textField.clearButtonMode = YES;
-    //左图片
-    textField.leftView = leftView;
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    //右图片
-    textField.rightView = rightView;
-    //编辑状态下一直存在
-    textField.rightViewMode = UITextFieldViewModeWhileEditing;
-    //自定义键盘
-    // textField.inputView
-    //字体
-    textField.font = [UIFont systemFontOfSize:font];
-    //字体颜色
-    textField.textColor = color;
-
-    return textField;
-}
-
 //输入框左view
 + (UIView *)viewWithFrame:(CGRect)frame withImage:(UIImage *)image withTitle:(NSString *)title
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     if (title)
     {
+        //大小
         view.frame = frame;
-
+        //图片
         UIImageView *imageV = [[UIImageView alloc] initWithImage:image];
-
         [view addSubview:imageV];
 
         UILabel *label = [[UILabel alloc]
         initWithFrame:CGRectMake (imageV.rightX + 5, imageV.originY + 5, view.width - imageV.rightX - 5, 20)];
-
+        //内容
         label.text = title;
         label.font = [UIFont systemFontOfSize:17];
         label.textColor = RGBACOLOR (85, 85, 86, 1);
-
         [view addSubview:label];
     }
     else
     {
         view.frame = CGRectMake (0, 0, image.size.width + FITWIDTH (20), image.size.height);
-        //        view.frame = frame;
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         view.backgroundColor = [UIColor orangeColor];
         [view addSubview:imageView];
@@ -174,49 +179,19 @@
     return view;
 }
 
-#pragma mark - Button
+#pragma mark - 按钮Button
 
-+ (UIButton *)createBtnWithFrame:(CGRect)frame
-                       withImage:(NSString *)btnImage
-                    withImgFrame:(CGRect)imgFrame
-                       withTitle:(NSString *)title
-                  withLabelFrame:(CGRect)labelFrame
-{
-    UIButton *button = [self createBtnWithFrame:frame withImage:btnImage withTitle:title];
-
-    for (UIView *view in button.subviews)
-    {
-        if ([view isKindOfClass:[UIImageView class]])
-        {
-            view.frame = imgFrame;
-        }
-        if ([view isKindOfClass:[UILabel class]])
-        {
-            if (labelFrame.size.width)
-            {
-                view.frame = labelFrame;
-            }
-            else
-            {
-                view.frame = CGRectMake (0, imgFrame.size.height, frame.size.width,
-                                         frame.size.height - imgFrame.size.height);
-            }
-        }
-    }
-
-    return button;
-}
-
-// qq和微信登陆按钮
 + (UIButton *)createBtnWithFrame:(CGRect)frame
                        withImage:(NSString *)btnImage
                        withTitle:(NSString *)title
 {
+    //类型
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    //大小
     button.frame = frame;
-
     UIImageView *topImageV =
     [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, button.width, button.width)];
+    //图片
     topImageV.image = [UIImage imageNamed:btnImage];
 
     [button addSubview:topImageV];
@@ -234,8 +209,42 @@
 
     return button;
 }
++ (UIButton *)createBtnWithFrame:(CGRect)frame
+                       withImage:(NSString *)btnImage
+                       withTitle:(NSString *)title
+                    withImgFrame:(CGRect)imgFrame
+                  withLabelFrame:(CGRect)labelFrame
+{
+    // button的大小,图片,标题
+    UIButton *button = [self createBtnWithFrame:frame withImage:btnImage withTitle:title];
+
+    for (UIView *view in button.subviews)
+    {
+        if ([view isKindOfClass:[UIImageView class]])
+        {
+            //图片大小
+            view.frame = imgFrame;
+        }
+        if ([view isKindOfClass:[UILabel class]])
+        {
+            if (labelFrame.size.width)
+            {
+                // label大小
+                view.frame = labelFrame;
+            }
+            else
+            {
+                view.frame = CGRectMake (0, imgFrame.size.height, frame.size.width,
+                                         frame.size.height - imgFrame.size.height);
+            }
+        }
+    }
+
+    return button;
+}
 
 #pragma mark 普通button背景图片
+//高亮和不同状态
 + (UIButton *)createBtnWithFrame:(CGRect)frame
                  backgroundImage:(NSString *)backgroundImage
                hightlightedImage:(NSString *)hightlighted
@@ -251,7 +260,7 @@
     [button setTintColor:titleColor];
     return button;
 }
-
+//高亮,普通,选择三种状态
 + (UIButton *)createBtnWithFrame:(CGRect)frame
                      normalImage:(NSString *)normalImage
                    highlighImage:(NSString *)highlighImage
@@ -274,6 +283,7 @@
 
     return button;
 }
+//自定义UIBarButtonItem
 + (UIBarButtonItem *)itemWithImage:(NSString *)imageName
                      selectedImage:(NSString *)selectedImageName
                             Target:(id)target
@@ -289,8 +299,7 @@
     return [[UIBarButtonItem alloc] initWithCustomView:button];
 }
 
-
-#pragma mark 文字在图片下面
+// 文字与图片有偏移
 + (UIButton *)createBtnWithFrame:(CGRect)frame
                      normalImage:(NSString *)normalImage
                    highlighImage:(NSString *)highlighImage
@@ -351,8 +360,7 @@
     return size;
 }
 
-#pragma mark - alertControl
-#pragma mark AlertView
+#pragma mark -  AlertView
 + (UIAlertController *)alertViewWithTitle:(NSString *)title
                                   message:(NSString *)message
                                   okTitle:(NSString *)okTitle
@@ -379,6 +387,13 @@
     return alertView;
 }
 
+#pragma mark ActionSheet
++ (UIActionSheet *)actionSheet
+{
+    UIActionSheet *actionsheet = [[UIActionSheet alloc] init];
+    actionsheet.title = @"woshi actionsheet";
+    return actionsheet;
+}
 #pragma mark - 生成图片缩略图
 + (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
 {
@@ -425,6 +440,7 @@
     return newimage;
 }
 
+#pragma mark - 表情输入
 
 + (BOOL)isContainsEmoji:(NSString *)string
 {
@@ -482,7 +498,7 @@
     return isEomji;
 }
 
-#pragma mark - 取消searchbar背景色
+#pragma mark - 取消searchbar背景色/图片
 
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
 {

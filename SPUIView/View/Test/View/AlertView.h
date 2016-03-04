@@ -6,8 +6,10 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+/**
+ *  开始弹框界面
+ */
 
-//初始页面的弹框内容
 #import <UIKit/UIKit.h>
 
 @class AlertView;

@@ -26,36 +26,20 @@
 
 @interface SVTestingCtrl ()
 {
-    // 定义headerView
-    SVHeaderView *_headerView;
 
-    //定义testingView
-    SVPointView *_testingView;
-
-    //定义视频播放View
-    SVVideoView *_videoView;
-
-    // 定义footerView
-    SVFooterView *_footerView;
-
+    SVHeaderView *_headerView; // 定义headerView
+    SVPointView *_testingView; //定义testingView
+    SVVideoView *_videoView; //定义视频播放View
+    SVFooterView *_footerView; // 定义footerView
     SVVideoTest *_videoTest;
 
     NSTimer *_timer;
+    float realBitrate; // 实际真实码率
+    float realuvMOSSession; // 实际真实UvMOS值
+    int _resultTimes; // 是否时第一次上报结果
+    int _UvMOSbarResultTimes; // UvMOS柱状图 每一秒切换一次
+    int _fullScreen; // 是否全屏
 
-    // 实际真实码率
-    float realBitrate;
-
-    // 实际真实UvMOS值
-    float realuvMOSSession;
-
-    // 是否时第一次上报结果
-    int _resultTimes;
-
-    // UvMOS柱状图 每一秒切换一次
-    int _UvMOSbarResultTimes;
-
-    // 是否全屏
-    int _fullScreen;
     UIView *_showCurrentResultInFullScreenMode;
     UILabel *_UvMosInFullScreenValue;
     UILabel *_bufferTimesInFullScreenValue;

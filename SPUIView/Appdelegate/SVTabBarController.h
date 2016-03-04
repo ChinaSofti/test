@@ -9,8 +9,8 @@
 //
 
 /**
- *tabbar控制器
- **/
+ *  tabbar根控制器
+ */
 
 #import <UIKit/UIKit.h>
 

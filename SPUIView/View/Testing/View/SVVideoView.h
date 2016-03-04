@@ -10,9 +10,7 @@
 
 @interface SVVideoView : UIView
 
-//定义videoView中的属性
-@property (nonatomic, strong) UIView *vView;
-//定义videoView中的属性
-@property (nonatomic, strong) UIView *vvView;
+@property (nonatomic, strong) UIView *vView; //定义videoView中的属性
+@property (nonatomic, strong) UIView *vvView; //定义videoView中的属性
 
 @end

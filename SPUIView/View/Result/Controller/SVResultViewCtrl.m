@@ -11,7 +11,6 @@
 #import "SVDetailViewCtrl.h"
 #import "SVResultCell.h"
 #import "SVResultViewCtrl.h"
-#import "SVSortTools.h"
 #import <SPCommon/SVDBManager.h>
 #import <SPCommon/SVI18N.h>
 #import <SPCommon/SVLog.h>
@@ -25,7 +24,6 @@
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImageView *bottomImageView;
-
 @property (strong, nonatomic) UIButton *button;
 @property (strong, nonatomic) UIButton *typeButton;
 

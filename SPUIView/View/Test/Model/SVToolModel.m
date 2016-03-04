@@ -6,6 +6,10 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+/**
+ *  测试界面数据模型
+ */
+
 #import "SVToolModel.h"
 
 @implementation SVToolModel

@@ -6,6 +6,10 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+/**
+ *  自定义分类
+ */
+
 #import <UIKit/UIKit.h>
 
 @interface UIView (Exten)
