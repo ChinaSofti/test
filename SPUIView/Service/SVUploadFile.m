@@ -10,6 +10,9 @@
 #import <SPCommon/SVLog.h>
 
 @implementation SVUploadFile
+{
+    NSString *_filePath;
+}
 
 //设置头
 static NSString *useragent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_1 like Mac OS X) "
@@ -57,6 +60,15 @@ static NSString *uploadID;
 }
 
 #pragma mark - 上传文件
+- (void)uploadFileWithURL:(NSURL *)url filePath:(NSString *)filePath
+{
+    _filePath = filePath;
+    NSData *data = [NSData dataWithContentsOfFile:_filePath];
+    [self uploadFileWithURL:url data:data];
+}
+
+
+#pragma mark - 上传文件
 - (void)uploadFileWithURL:(NSURL *)url data:(NSData *)data
 {
     // 1> 数据体
@@ -68,8 +80,7 @@ static NSString *uploadID;
     [dataM appendData:[bottomStr dataUsingEncoding:NSUTF8StringEncoding]];
 
     // 1. Request
-    NSMutableURLRequest *request =
-    [NSMutableURLRequest requestWithURL:url cachePolicy:0 timeoutInterval:2.0f];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 
     // dataM出了作用域就会被释放,因此不用copy
     request.HTTPBody = dataM;
@@ -94,21 +105,23 @@ static NSString *uploadID;
                       queue:[[NSOperationQueue alloc] init]
           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 
+            if (_filePath)
+            {
+                // 删除文件
+                NSFileManager *fileManager = [NSFileManager defaultManager];
+                [fileManager removeItemAtPath:_filePath error:nil];
+                SVInfo (@"file has been deleted. file path:%@", _filePath);
+            }
+
             if (connectionError)
             {
-                SVInfo (@"上传失败");
+                SVError (@"上传失败, error:%@", connectionError);
                 return;
             }
 
             NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             SVInfo (@"%@上传成功", result);
           }];
-    //获取xcode文件的绝对路径
-    //    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-    //    NSUserDomainMask, YES);
-
-    //    NSString* documents = [paths objectAtIndex:0];
-    //    SVInfo(@"%@                  获取xcode文件的绝对路径", documents);
 }
 
 @end
