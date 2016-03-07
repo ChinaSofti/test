@@ -9,8 +9,6 @@
 #define Button_Tag 20
 
 #import "SVLanguageSettingViewCtrl.h"
-#import <SPCommon/SVI18N.h>
-#import <SPCommon/SVLog.h>
 #import <SPService/SVAdvancedSetting.h>
 
 @interface SVLanguageSettingViewCtrl ()

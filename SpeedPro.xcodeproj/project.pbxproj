@@ -38,7 +38,6 @@
 		561A36E31C896BAF00AC5F5E /* SVDetailViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36DF1C896BAF00AC5F5E /* SVDetailViewCtrl.m */; };
 		561A36E41C896BAF00AC5F5E /* SVResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E11C896BAF00AC5F5E /* SVResultViewCtrl.m */; };
 		561A36EA1C896BD700AC5F5E /* SVTestingCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E71C896BD700AC5F5E /* SVTestingCtrl.m */; };
-		561A36EB1C896BD700AC5F5E /* SVVideoFullScreenPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E91C896BD700AC5F5E /* SVVideoFullScreenPlayController.m */; };
 		563200561C7223560076A0FF /* homeindicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 563200551C7223560076A0FF /* homeindicator.png */; };
 		5644354C1C5215AB009B7024 /* i18n.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5644354E1C5215AB009B7024 /* i18n.strings */; };
 		564435771C5216AD009B7024 /* CTViewTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 564435761C5216AD009B7024 /* CTViewTools.m */; };
@@ -91,6 +90,7 @@
 		56EC8C981C4F467000EBDA6C /* tabbar_test_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C911C4F467000EBDA6C /* tabbar_test_selected.png */; };
 		56F523E41C4DCF7F00E6472B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F523E31C4DCF7F00E6472B /* main.m */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
+		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B72646AC1C87E3F400CB7DFF /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
 		B72646AD1C87E3F400CB7DFF /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B72646AE1C87E3F400CB7DFF /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
@@ -183,8 +183,6 @@
 		561A36E11C896BAF00AC5F5E /* SVResultViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultViewCtrl.m; sourceTree = "<group>"; };
 		561A36E61C896BD700AC5F5E /* SVTestingCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVTestingCtrl.h; sourceTree = "<group>"; };
 		561A36E71C896BD700AC5F5E /* SVTestingCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVTestingCtrl.m; sourceTree = "<group>"; };
-		561A36E81C896BD700AC5F5E /* SVVideoFullScreenPlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoFullScreenPlayController.h; sourceTree = "<group>"; };
-		561A36E91C896BD700AC5F5E /* SVVideoFullScreenPlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoFullScreenPlayController.m; sourceTree = "<group>"; };
 		563200551C7223560076A0FF /* homeindicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeindicator.png; sourceTree = "<group>"; };
 		5644354D1C5215AB009B7024 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/i18n.strings; sourceTree = "<group>"; };
 		564435751C5216AD009B7024 /* CTViewTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTViewTools.h; sourceTree = "<group>"; };
@@ -257,6 +255,8 @@
 		B70FF3D31C6582AA002D571B /* SpeedPro.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedPro.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70FF3D51C6582AA002D571B /* SPUIViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUIViewTests.m; sourceTree = "<group>"; };
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B71F89011C8D7E56002E8375 /* SVToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToast.h; sourceTree = "<group>"; };
+		B71F89021C8D7E56002E8375 /* SVToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToast.m; sourceTree = "<group>"; };
 		B72A1D0D1C7192B600C3141A /* speed_pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speed_pro.png; sourceTree = "<group>"; };
 		B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPCommon.framework; sourceTree = "<group>"; };
 		B72AC8621C76EA3D00AAC3B3 /* SPService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPService.framework; sourceTree = "<group>"; };
@@ -407,8 +407,6 @@
 			children = (
 				561A36E61C896BD700AC5F5E /* SVTestingCtrl.h */,
 				561A36E71C896BD700AC5F5E /* SVTestingCtrl.m */,
-				561A36E81C896BD700AC5F5E /* SVVideoFullScreenPlayController.h */,
-				561A36E91C896BD700AC5F5E /* SVVideoFullScreenPlayController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -495,6 +493,7 @@
 		56BA8FB51C561E9100886CAE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B71F89001C8D7E56002E8375 /* UIUtils */,
 				56BA8FC41C561E9100886CAE /* Test */,
 				56BA8FB61C561E9100886CAE /* Result */,
 				563479081C56348C002179BF /* Settings */,
@@ -701,6 +700,15 @@
 			path = Thirdpart;
 			sourceTree = "<group>";
 		};
+		B71F89001C8D7E56002E8375 /* UIUtils */ = {
+			isa = PBXGroup;
+			children = (
+				B71F89011C8D7E56002E8375 /* SVToast.h */,
+				B71F89021C8D7E56002E8375 /* SVToast.m */,
+			);
+			path = UIUtils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -880,6 +888,7 @@
 				56AA27361C57090400FA5D0F /* CTWBViewTools.m in Sources */,
 				56EC8C811C4F45A500EBDA6C /* SVTabBarController.m in Sources */,
 				568D42B11C8991A400F2916B /* SVFAQViewCtrl.m in Sources */,
+				B71F89031C8D7E56002E8375 /* SVToast.m in Sources */,
 				561A36D21C896B5A00AC5F5E /* SVAdvancedViewCtrl.m in Sources */,
 				561A36D31C896B5A00AC5F5E /* SVBWSettingViewCtrl.m in Sources */,
 				56B5180D1C5126C700AA76F1 /* UIView+Exten.m in Sources */,
@@ -887,7 +896,6 @@
 				561A36B91C89693F00AC5F5E /* SVUploadFile.m in Sources */,
 				561A36D61C896B5A00AC5F5E /* SVSettingsViewCtrl.m in Sources */,
 				561A36BF1C896A0C00AC5F5E /* SVResultCell.m in Sources */,
-				561A36EB1C896BD700AC5F5E /* SVVideoFullScreenPlayController.m in Sources */,
 				56A919151C4F4BAA00E8BB72 /* AppDelegate.m in Sources */,
 				56F523E41C4DCF7F00E6472B /* main.m in Sources */,
 				568D42B41C89E20B00F2916B /* SVBandWidthCtrl.m in Sources */,

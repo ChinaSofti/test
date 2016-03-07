@@ -6,8 +6,6 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 #import "SVBandWidthCtrl.h"
-#import <SPCommon/SVI18N.h>
-#import <SPCommon/SVLog.h>
 
 @interface SVBandWidthCtrl () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView *tableView;

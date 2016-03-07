@@ -166,5 +166,15 @@
 "Advanced setting" = "高级设置";
 "Screen Size:" = "  屏幕尺寸 :";
 
+"Network unreachable!" = "网络不可用";
+"Network wifi!" = "当前为WIFI网络";
+"Network WWAN!" = "当前为WWAN网络";
+"Network 2G!" = "当前为2G网络";
+"Network 3G!" = "当前为3G网络";
+"Network 4G!" = "当前为4G网络";
+
+
+
+
 
 

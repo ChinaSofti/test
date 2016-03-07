@@ -7,7 +7,6 @@
 //
 
 #import "SVHeaderView.h"
-#import <SPCommon/SVI18N.h>
 
 @implementation SVHeaderView
 

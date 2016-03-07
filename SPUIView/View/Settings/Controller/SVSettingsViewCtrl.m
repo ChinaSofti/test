@@ -14,8 +14,6 @@
 #import "SVLogsViewCtrl.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
-#import <SPCommon/SVI18N.h>
-#import <SPCommon/SVLog.h>
 
 @interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;

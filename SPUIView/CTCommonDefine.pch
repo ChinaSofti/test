@@ -45,5 +45,8 @@
 //#import "SVBackView.h"
 #import "SVTestingCtrl.h"
 #import <SPService/SPService.h>
+#import <SPCommon/SVLog.h>
+#import <SPCommon/SVI18N.h>
+
 
 #endif /* CTCommonDefine_pch */

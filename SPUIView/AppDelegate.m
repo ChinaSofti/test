@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "SVTabBarController.h"
+#import "SVToast.h"
+#import <SPCommon/RealReachability.h>
 #import <SPCommon/SVSystemUtil.h>
 #import <SPService/SVTestContextGetter.h>
 
@@ -20,16 +22,20 @@
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     [[UINavigationBar appearance] setBarTintColor:RGBACOLOR (37, 55, 64, 1)];
-    //    [UIColor colorWithRed:229 / 255.0 green:2 / 255.0 blue:229 / 255.0
-    //    alpha:1.0];
     // 1.初始化一个window
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     // 2.设置根控制器
     self.window.rootViewController = [SVTabBarController new];
     // 3.让显示并成为主窗口
     [self.window makeKeyAndVisible];
+
+    [GLobalRealReachability startNotifier];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector (networkChanged:)
+                                                 name:@"kRealReachabilityChangedNotification"
+                                               object:nil];
+
 
     BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
     if (isConnectionAvailable)
@@ -57,6 +63,57 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
     });
 }
+
+
+- (void)networkChanged:(NSNotification *)notification
+{
+    RealReachability *reachability = (RealReachability *)notification.object;
+    ReachabilityStatus status = [reachability currentReachabilityStatus];
+    NSLog (@"currentStatus:%@", @(status));
+    if (status == RealStatusNotReachable)
+    {
+        SVInfo (@"%@", @"Network unreachable!");
+        [SVToast showWithText:I18N (@"Network unreachable!")];
+    }
+
+    if (status == RealStatusViaWiFi)
+    {
+        SVInfo (@"%@", @"Network wifi! Free!");
+        [SVToast showWithText:I18N (@"Network wifi!")];
+    }
+
+    if (status == RealStatusViaWWAN)
+    {
+        SVInfo (@"%@", @"Network WWAN! In charge!");
+        [SVToast showWithText:I18N (@"Network WWAN!")];
+    }
+
+    WWANAccessType accessType = [GLobalRealReachability currentWWANtype];
+
+    if (status == RealStatusViaWWAN)
+    {
+        if (accessType == WWANType2G)
+        {
+            SVInfo (@"%@", @"RealReachabilityStatus2G");
+            [SVToast showWithText:I18N (@"Network 2G!")];
+        }
+        else if (accessType == WWANType3G)
+        {
+            SVInfo (@"%@", @"RealReachabilityStatus3G");
+            [SVToast showWithText:I18N (@"Network 3G!")];
+        }
+        else if (accessType == WWANType4G)
+        {
+            SVInfo (@"%@", @"RealReachabilityStatus4G");
+            [SVToast showWithText:I18N (@"Network 4G!")];
+        }
+        else
+        {
+            SVInfo (@"%@", @"Unknown RealReachability WWAN Status, might be iOS6");
+        }
+    }
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

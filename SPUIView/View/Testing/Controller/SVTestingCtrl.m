@@ -14,8 +14,6 @@
 
 #import "SVCurrentResultViewCtrl.h"
 #import "SVTestingCtrl.h"
-#import <SPCommon/SVI18N.h>
-#import <SPCommon/SVLog.h>
 #import <SPCommon/SVTimeUtil.h>
 #import <SPCommon/UUBar.h>
 #import <SPService/SVVideoTest.h>

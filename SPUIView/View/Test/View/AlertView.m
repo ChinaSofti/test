@@ -8,8 +8,6 @@
 
 #import "AlertView.h"
 #import "UIView+Exten.h"
-#import <SPCommon/SVI18N.h>
-#import <SPCommon/SVLog.h>
 #import <SPService/SVProbeInfo.h>
 
 static NSInteger BtnTag = 10086;

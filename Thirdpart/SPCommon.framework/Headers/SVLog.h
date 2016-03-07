@@ -127,4 +127,9 @@ functionName:(NSString *)functionName
  */
 - (NSString *)compressLogFiles;
 
+/**
+ *  清除所有日志
+ */
++ (void)clearAllLog;
+
 @end

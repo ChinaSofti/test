@@ -8,8 +8,6 @@
 #define BUTTON_TAG 30
 
 #import "SVBWSettingViewCtrl.h"
-#import <SPCommon/SVI18N.h>
-#import <SPCommon/SVLog.h>
 #import <SPService/SVAdvancedSetting.h>
 
 @interface SVBWSettingViewCtrl ()

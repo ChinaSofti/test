@@ -7,7 +7,6 @@
 //
 
 #import "SVFAQViewCtrl.h"
-#import <SPCommon/SVLog.h>
 
 @interface SVFAQViewCtrl ()
 

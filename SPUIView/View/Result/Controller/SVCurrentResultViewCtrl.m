@@ -9,8 +9,6 @@
 #import "SVCurrentResultViewCtrl.h"
 #import "SVDetailViewCtrl.h"
 #import "SVTestViewCtrl.h"
-#import <SPCommon/SVI18N.h>
-#import <SPCommon/SVLog.h>
 #import <SPCommon/SVSystemUtil.h>
 #import <SPService/SVTestContextGetter.h>
 #define kFirstHederH 40

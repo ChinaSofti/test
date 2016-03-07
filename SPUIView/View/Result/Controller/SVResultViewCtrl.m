@@ -12,8 +12,6 @@
 #import "SVResultCell.h"
 #import "SVResultViewCtrl.h"
 #import <SPCommon/SVDBManager.h>
-#import <SPCommon/SVI18N.h>
-#import <SPCommon/SVLog.h>
 #import <SPService/SVSummaryResultModel.h>
 
 @interface SVResultViewCtrl () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>

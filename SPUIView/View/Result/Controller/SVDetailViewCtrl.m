@@ -11,8 +11,6 @@
 #import "SVResultViewCtrl.h"
 #import "SVToolCells.h"
 #import <SPCommon/SVDBManager.h>
-#import <SPCommon/SVI18N.h>
-#import <SPCommon/SVLog.h>
 #import <SPService/SVDetailResultModel.h>
 #define kMargin 10
 #define kFirstHederH 40
@@ -324,7 +322,7 @@
         cell =
         [[SVToolCells alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-//    cell.delegate = self;
+    //    cell.delegate = self;
     [cell cellViewModel2:_soucreMA[indexPath.section] section:indexPath.section];
     return cell;
 }

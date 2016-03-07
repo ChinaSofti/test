@@ -7,7 +7,6 @@
 //
 
 #import "SVFooterView.h"
-#import <SPCommon/SVI18N.h>
 @implementation SVFooterView
 
 //初始化方法

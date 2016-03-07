@@ -7,7 +7,6 @@
 //
 
 #import "SVAboutViewCtrl.h"
-#import <SPCommon/SVLog.h>
 
 @interface SVAboutViewCtrl ()
 @end

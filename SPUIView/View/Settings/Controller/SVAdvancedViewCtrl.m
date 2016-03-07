@@ -7,8 +7,6 @@
 //
 #import "SVAdvancedViewCtrl.h"
 #import "SVBandWidthCtrl.h"
-#import <SPCommon/SVI18N.h>
-#import <SPCommon/SVLog.h>
 #import <SPService/SVAdvancedSetting.h>
 
 @interface SVAdvancedViewCtrl ()
