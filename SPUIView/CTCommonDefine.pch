@@ -27,6 +27,9 @@
 //适配5/5s
 #define FITWIDTH(W)  W / 320.0 * ([UIScreen mainScreen].bounds.size.width)
 #define FITHEIGHT(H) H / 568.0 * ([UIScreen mainScreen].bounds.size.height)
+//适配6/6s
+#define FITTWIDTH(W)  W / 375.0 * ([UIScreen mainScreen].bounds.size.width)
+#define FITTHEIGHT(H) H / 667.0 * ([UIScreen mainScreen].bounds.size.height)
 //设置颜色
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
 
