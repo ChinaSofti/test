@@ -24,6 +24,14 @@
     if ([super init])
     {
         // TestingView中的初始化
+        _pointView = [[UIView alloc]
+        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
+        UIImageView *imageView0 = [[UIImageView alloc] initWithFrame:CGRectZero];
+        imageView0.size = CGSizeMake (280, 280);
+        imageView0.image = [UIImage imageNamed:@"clock_pointer_blue"];
+        imageView0.center = CGPointMake (_pointView.frame.size.width / 2, _pointView.frame.size.height / 2);
+        [_pointView addSubview:imageView0];
+
         _panelView = [[UIView alloc]
         initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -65,8 +73,9 @@
         _label2.textAlignment = NSTextAlignmentCenter;
 
 
-        _pointView = [[[NSBundle mainBundle] loadNibNamed:@"SVPointView" owner:nil options:nil] lastObject];
-        _pointView.center = _panelView.center;
+        //        _pointView = [[[NSBundle mainBundle] loadNibNamed:@"SVPointView" owner:nil
+        //        options:nil] lastObject];
+        //        _pointView.center = _panelView.center;
         //        _pointView.center = CGPointMake(_panelView.frame.size.width/2,
         //        _panelView.frame.size.height/2);
     }
