@@ -23,6 +23,7 @@
 @property (nonatomic, retain) NSMutableArray *soucreMA;
 @property (nonatomic, retain) NSMutableArray *selectedMA;
 @property (nonatomic, retain) UIButton *testBtn;
+@property (nonatomic, retain) UIButton *button;
 @property (nonatomic, retain) UIView *footerView;
 
 @end
@@ -163,6 +164,7 @@
     {
 
         [self.footerView addSubview:self.testBtn];
+        [self.footerView addSubview:self.button];
         return self.footerView;
     }
     return nil;
@@ -197,7 +199,7 @@
 }
 
 #pragma mark - 开始测试按钮初始化(按钮未被选中时的状态)
-
+//有网时候的按钮
 - (UIButton *)testBtn
 {
     if (_testBtn == nil)
@@ -231,7 +233,31 @@
     }
     return _testBtn;
 }
-
+//没网时候的按钮
+- (UIButton *)button
+{
+    if (_button == nil)
+    {
+        NSString *title7 = I18N (@"Network Settings");
+        _button = [[UIButton alloc]
+        initWithFrame:CGRectMake (kMargin * 4, kLastFooterH - 40, kScreenW - kMargin * 8, 40)];
+        [_button setTitle:title7 forState:UIControlStateNormal];
+        _button.backgroundColor =
+        [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
+        _button.userInteractionEnabled = YES;
+        //按钮圆角
+        _button.layer.cornerRadius = kCornerRadius;
+        //设置居中
+        _button.titleLabel.textAlignment = NSTextAlignmentCenter;
+        //按钮文字颜色和类型
+        [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        //按钮点击事件
+        [_button addTarget:self
+                    action:@selector (goNetworkSetting)
+          forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _button;
+}
 //初始化footerView
 - (UIView *)footerView
 {
@@ -274,7 +300,6 @@
             break;
         }
     }
-    //
     if (!isInclud)
     {
         [_selectedMA addObject:[[NSNumber alloc] initWithInt:cell.bgdBtn.tag]];
@@ -296,7 +321,6 @@
 //按钮的点击事件
 - (void)testBtnClick1
 {
-
 #pragma mark - 在这里对 数组 排序
     SVCurrentResultModel *currentResultModel = [[SVCurrentResultModel alloc] init];
     UITabBarController *tabBarController = self.tabBarController;
@@ -307,7 +331,6 @@
     [testingCtrl setTabBarController:tabBarController];
     [testingCtrl setCurrentResultModel:currentResultModel];
     testingCtrl.selectedA = _selectedMA;
-
     // push界面
     [self.navigationController pushViewController:testingCtrl animated:YES];
 
@@ -327,26 +350,19 @@
  */
 - (void)networkStatusChange:(SVRealReachabilityStatus)status
 {
+    //    SVInfo (@"%ld", (long)status);
     // 网络不可用，修改按钮属性
     if (status == SV_RealStatusNotReachable)
     {
+        [_testBtn removeFromSuperview];
+        [self.footerView addSubview:_button];
         SVInfo (@"network is not available");
-        NSString *title7 = I18N (@"Network Settings");
-        [_testBtn setTitle:title7 forState:UIControlStateNormal];
-        //按钮点击事件
-        [_testBtn addTarget:self
-                     action:@selector (goNetworkSetting)
-           forControlEvents:UIControlEventTouchUpInside];
     }
     else
     {
+        [_button removeFromSuperview];
+        [self.footerView addSubview:_testBtn];
         SVInfo (@"network is available");
-        NSString *title6 = I18N (@"Begin Test");
-        [_testBtn setTitle:title6 forState:UIControlStateNormal];
-        //按钮点击事件
-        [_testBtn addTarget:self
-                     action:@selector (testBtnClick1)
-           forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
