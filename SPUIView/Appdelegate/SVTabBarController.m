@@ -112,17 +112,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
-    BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
-    if (isConnectionAvailable)
-    {
-        //        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
-        //        if (![setting getBandwidth])
-        //        {
-        //            [self setShadowView];
-        //        }
-        [self setShadowView];
-    }
 }
 /**
  *  创建阴影背景

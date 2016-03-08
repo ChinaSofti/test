@@ -12,7 +12,7 @@
 #import "SVTestViewCtrl.h"
 #import "SVTestingCtrl.h"
 #import "SVToolCell.h"
-#import <SPCommon/SVSystemUtil.h>
+
 #import <SPService/SVTestContextGetter.h>
 #define kFirstHederH 40
 #define kLastFooterH 340
@@ -28,31 +28,6 @@
 @end
 
 @implementation SVTestViewCtrl
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    //    NSString *title6 = I18N (@"Begin Test");
-    //    NSString *title7 = I18N (@"Network Settings");
-    //按钮文字和类型
-    //    BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
-    //    if (isConnectionAvailable)
-    //    {
-    //        [_testBtn setTitle:title6 forState:UIControlStateNormal];
-    //        //按钮点击事件
-    //        [_testBtn addTarget:self
-    //                     action:@selector (testBtnClick1)
-    //           forControlEvents:UIControlEventTouchUpInside];
-    //    }
-    //    else
-    //    {
-    //        [_testBtn setTitle:title7 forState:UIControlStateNormal];
-    //        //按钮点击事件
-    //        [_testBtn addTarget:self
-    //                     action:@selector (goNetworkSetting)
-    //           forControlEvents:UIControlEventTouchUpInside];
-    //    }
-}
 
 - (void)viewDidLoad
 {
@@ -127,11 +102,9 @@
     // 9.把tableView添加到 view
     [self.view addSubview:_tableView];
 
-    BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
-    if (!isConnectionAvailable)
-    {
-        // TODO liuchengyu 提示用户无网络
-    }
+    SVRealReachability *realReachability = [SVRealReachability sharedInstance];
+    [realReachability addDelegate:self];
+    [realReachability startMonitorNetworkStatus];
 }
 
 #pragma mark - tableview的方法
@@ -318,11 +291,7 @@
         [_testBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
 }
-//进入设置网络界面
-- (void)goNetworkSetting
-{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
-}
+
 
 //按钮的点击事件
 - (void)testBtnClick1
@@ -349,6 +318,42 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+/**
+ *  监听网络状态变更
+ *
+ *  @param status 网络状态
+ */
+- (void)networkStatusChange:(SVRealReachabilityStatus)status
+{
+    // 网络不可用，修改按钮属性
+    if (status == SV_RealStatusNotReachable)
+    {
+        SVInfo (@"network is not available");
+        NSString *title7 = I18N (@"Network Settings");
+        [_testBtn setTitle:title7 forState:UIControlStateNormal];
+        //按钮点击事件
+        [_testBtn addTarget:self
+                     action:@selector (goNetworkSetting)
+           forControlEvents:UIControlEventTouchUpInside];
+    }
+    else
+    {
+        SVInfo (@"network is available");
+        NSString *title6 = I18N (@"Begin Test");
+        [_testBtn setTitle:title6 forState:UIControlStateNormal];
+        //按钮点击事件
+        [_testBtn addTarget:self
+                     action:@selector (testBtnClick1)
+           forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+//进入设置网络界面
+- (void)goNetworkSetting
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
 }
 
 @end

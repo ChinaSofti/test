@@ -6,12 +6,12 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+#import <SPCommon/SVRealReachability.h>
+
 /**
  *  测试界面
  */
-#import <UIKit/UIKit.h>
-
-@interface SVTestViewCtrl : UIViewController
+@interface SVTestViewCtrl : UIViewController <SVRealReachabilityDelegate>
 
 - (void)testBtnClick1;
 

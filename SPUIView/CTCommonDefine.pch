@@ -47,6 +47,7 @@
 #import <SPService/SPService.h>
 #import <SPCommon/SVLog.h>
 #import <SPCommon/SVI18N.h>
+#import <UIKit/UIKit.h>
 
 
 #endif /* CTCommonDefine_pch */

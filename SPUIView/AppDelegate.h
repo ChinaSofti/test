@@ -6,9 +6,10 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <SPCommon/SVRealReachability.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, SVRealReachabilityDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

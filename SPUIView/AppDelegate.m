@@ -9,8 +9,6 @@
 #import "AppDelegate.h"
 #import "SVTabBarController.h"
 #import "SVToast.h"
-#import <SPCommon/RealReachability.h>
-#import <SPCommon/SVSystemUtil.h>
 #import <SPService/SVTestContextGetter.h>
 
 @interface AppDelegate ()
@@ -30,23 +28,53 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     // 3.让显示并成为主窗口
     [self.window makeKeyAndVisible];
 
-    [GLobalRealReachability startNotifier];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector (networkChanged:)
-                                                 name:@"kRealReachabilityChangedNotification"
-                                               object:nil];
-
-
-    BOOL isConnectionAvailable = [SVSystemUtil isConnectionAvailable];
-    if (isConnectionAvailable)
-    {
-        [self loadResouceFromServer];
-    }
+    SVRealReachability *realReachability = [SVRealReachability sharedInstance];
+    [realReachability addDelegate:self];
+    [realReachability startMonitorNetworkStatus];
 
     [NSThread sleepForTimeInterval:3.0];
     [_window makeKeyAndVisible];
 
     return YES;
+}
+- (void)networkStatusChange:(SVRealReachabilityStatus)status
+{
+    switch (status)
+    {
+    case SV_RealStatusNotReachable:
+        SVInfo (@"%@", @"Network unreachable!");
+        [SVToast showWithText:I18N (@"Network unreachable!")];
+        break;
+    case SV_RealStatusViaWWAN:
+        SVInfo (@"%@", @"Network WWAN! In charge!");
+        [SVToast showWithText:I18N (@"Network WWAN!")];
+        break;
+    case SV_RealStatusViaWiFi:
+        SVInfo (@"%@", @"Network wifi! Free!");
+        [SVToast showWithText:I18N (@"Network wifi!")];
+        break;
+    case SV_WWANType2G:
+        SVInfo (@"%@", @"RealReachabilityStatus2G");
+        [SVToast showWithText:I18N (@"Network 2G!")];
+        break;
+    case SV_WWANType3G:
+        SVInfo (@"%@", @"RealReachabilityStatus3G");
+        [SVToast showWithText:I18N (@"Network 3G!")];
+        break;
+    case SV_WWANType4G:
+        SVInfo (@"%@", @"RealReachabilityStatus4G");
+        [SVToast showWithText:I18N (@"Network 4G!")];
+        break;
+    default:
+        SVInfo (@"%@", @"Unknown RealReachability WWAN Status, might be iOS6");
+        break;
+    }
+
+    if (status != SV_RealStatusNotReachable)
+    {
+        // 当网络正常时，从服务器加载测试相关配置信息
+        [self loadResouceFromServer];
+    }
 }
 
 - (void)loadResouceFromServer
@@ -63,57 +91,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
     });
 }
-
-
-- (void)networkChanged:(NSNotification *)notification
-{
-    RealReachability *reachability = (RealReachability *)notification.object;
-    ReachabilityStatus status = [reachability currentReachabilityStatus];
-    NSLog (@"currentStatus:%@", @(status));
-    if (status == RealStatusNotReachable)
-    {
-        SVInfo (@"%@", @"Network unreachable!");
-        [SVToast showWithText:I18N (@"Network unreachable!")];
-    }
-
-    if (status == RealStatusViaWiFi)
-    {
-        SVInfo (@"%@", @"Network wifi! Free!");
-        [SVToast showWithText:I18N (@"Network wifi!")];
-    }
-
-    if (status == RealStatusViaWWAN)
-    {
-        SVInfo (@"%@", @"Network WWAN! In charge!");
-        [SVToast showWithText:I18N (@"Network WWAN!")];
-    }
-
-    WWANAccessType accessType = [GLobalRealReachability currentWWANtype];
-
-    if (status == RealStatusViaWWAN)
-    {
-        if (accessType == WWANType2G)
-        {
-            SVInfo (@"%@", @"RealReachabilityStatus2G");
-            [SVToast showWithText:I18N (@"Network 2G!")];
-        }
-        else if (accessType == WWANType3G)
-        {
-            SVInfo (@"%@", @"RealReachabilityStatus3G");
-            [SVToast showWithText:I18N (@"Network 3G!")];
-        }
-        else if (accessType == WWANType4G)
-        {
-            SVInfo (@"%@", @"RealReachabilityStatus4G");
-            [SVToast showWithText:I18N (@"Network 4G!")];
-        }
-        else
-        {
-            SVInfo (@"%@", @"Unknown RealReachability WWAN Status, might be iOS6");
-        }
-    }
-}
-
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
