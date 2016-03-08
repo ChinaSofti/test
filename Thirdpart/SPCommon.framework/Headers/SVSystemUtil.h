@@ -6,7 +6,6 @@
 //  Copyright © 2016 chinasofti. All rights reserved.
 //
 
-#import "Reachability.h"
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <arpa/inet.h>
@@ -20,17 +19,4 @@
  */
 + (NSString *)currentSystemLanguage;
 
-/**
- *  查询当前网络类型
- *
- *  @return 网络类型
- */
-+ (NetworkStatus)currentNetworkType;
-
-/**
- *  网络连接是否正常
- *
- *  @return true 正常
- */
-+ (BOOL)isConnectionAvailable;
 @end
