@@ -88,10 +88,10 @@
 		56EC8C971C4F467000EBDA6C /* tabbar_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C901C4F467000EBDA6C /* tabbar_test.png */; };
 		56EC8C981C4F467000EBDA6C /* tabbar_test_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C911C4F467000EBDA6C /* tabbar_test_selected.png */; };
 		56F523E41C4DCF7F00E6472B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F523E31C4DCF7F00E6472B /* main.m */; };
-		B70F664F1C8E734200A00AF2 /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71F890C1C8D83BE002E8375 /* SPService.framework */; };
-		B70F66501C8E734200A00AF2 /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B71F890C1C8D83BE002E8375 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B70F66531C8E734200A00AF2 /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71F89101C8D83BE002E8375 /* SPCommon.framework */; };
-		B70F66541C8E734200A00AF2 /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B71F89101C8D83BE002E8375 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B70F66641C8E7A7600A00AF2 /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
+		B70F66651C8E7A7600A00AF2 /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B70F66661C8E7A7600A00AF2 /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
+		B70F66671C8E7A7600A00AF2 /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B72A1D0E1C7192B600C3141A /* speed_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = B72A1D0D1C7192B600C3141A /* speed_pro.png */; };
@@ -101,20 +101,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B70F66511C8E734200A00AF2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B71F89041C8D83BE002E8375 /* SpeedPro.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = B70FF4381C662FBE002D571B;
-			remoteInfo = SPService;
-		};
-		B70F66551C8E734200A00AF2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B71F89041C8D83BE002E8375 /* SpeedPro.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = B70FF45B1C66301D002D571B;
-			remoteInfo = SPCommon;
-		};
 		B70FF3D81C6582AA002D571B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 56F523D71C4DCF7F00E6472B /* Project object */;
@@ -163,14 +149,14 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B70F66571C8E734200A00AF2 /* Embed Frameworks */ = {
+		B70F66681C8E7A7600A00AF2 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B70F66541C8E734200A00AF2 /* SPCommon.framework in Embed Frameworks */,
-				B70F66501C8E734200A00AF2 /* SPService.framework in Embed Frameworks */,
+				B70F66651C8E7A7600A00AF2 /* SPCommon.framework in Embed Frameworks */,
+				B70F66671C8E7A7600A00AF2 /* SPService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,8 +300,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B70F66531C8E734200A00AF2 /* SPCommon.framework in Frameworks */,
-				B70F664F1C8E734200A00AF2 /* SPService.framework in Frameworks */,
+				B70F66641C8E7A7600A00AF2 /* SPCommon.framework in Frameworks */,
+				B70F66661C8E7A7600A00AF2 /* SPService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,13 +758,11 @@
 				56F523DC1C4DCF7F00E6472B /* Frameworks */,
 				56F523DD1C4DCF7F00E6472B /* Resources */,
 				56A239E41C7D9E4D000C6341 /* Copy Files */,
-				B70F66571C8E734200A00AF2 /* Embed Frameworks */,
+				B70F66681C8E7A7600A00AF2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B70F66521C8E734200A00AF2 /* PBXTargetDependency */,
-				B70F66561C8E734200A00AF2 /* PBXTargetDependency */,
 			);
 			name = SpeedPro;
 			productName = SPUIView;
@@ -1005,16 +989,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B70F66521C8E734200A00AF2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SPService;
-			targetProxy = B70F66511C8E734200A00AF2 /* PBXContainerItemProxy */;
-		};
-		B70F66561C8E734200A00AF2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SPCommon;
-			targetProxy = B70F66551C8E734200A00AF2 /* PBXContainerItemProxy */;
-		};
 		B70FF3D91C6582AA002D571B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 56F523DE1C4DCF7F00E6472B /* SpeedPro */;
