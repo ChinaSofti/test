@@ -15,7 +15,7 @@
 
 #import <SPService/SVTestContextGetter.h>
 #define kFirstHederH 40
-#define kLastFooterH 340
+#define kLastFooterH 140
 
 @interface SVTestViewCtrl () <SVToolCellDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -114,7 +114,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 
-    return 1;
+    return _soucreMA.count;
 }
 
 //设置 tableView的 numberOfRowsInSection(设置每个section中有几个cell)
@@ -160,7 +160,7 @@
 //设置tableView的 sectionFooter
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 0)
+    if (section == _soucreMA.count - 1)
     {
 
         [self.footerView addSubview:self.testBtn];
@@ -184,7 +184,7 @@
 //设置 tableView的section 的Footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 0)
+    if (section == _soucreMA.count - 1)
     {
         return kLastFooterH;
     }
