@@ -8,7 +8,7 @@
 
 
 #import "SVPointView.h"
-#import "SVTestingCtrl.h"
+#import "SVVideoTestingCtrl.h"
 #import <SPCommon/UUBar.h>
 
 @interface SVPointView ()

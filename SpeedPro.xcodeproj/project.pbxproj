@@ -37,7 +37,7 @@
 		561A36E21C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36DD1C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m */; };
 		561A36E31C896BAF00AC5F5E /* SVDetailViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36DF1C896BAF00AC5F5E /* SVDetailViewCtrl.m */; };
 		561A36E41C896BAF00AC5F5E /* SVResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E11C896BAF00AC5F5E /* SVResultViewCtrl.m */; };
-		561A36EA1C896BD700AC5F5E /* SVTestingCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E71C896BD700AC5F5E /* SVTestingCtrl.m */; };
+		561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E71C896BD700AC5F5E /* SVVideoTestingCtrl.m */; };
 		563200561C7223560076A0FF /* homeindicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 563200551C7223560076A0FF /* homeindicator.png */; };
 		5644354C1C5215AB009B7024 /* i18n.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5644354E1C5215AB009B7024 /* i18n.strings */; };
 		564435771C5216AD009B7024 /* CTViewTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 564435761C5216AD009B7024 /* CTViewTools.m */; };
@@ -208,8 +208,8 @@
 		561A36DF1C896BAF00AC5F5E /* SVDetailViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDetailViewCtrl.m; sourceTree = "<group>"; };
 		561A36E01C896BAF00AC5F5E /* SVResultViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultViewCtrl.h; sourceTree = "<group>"; };
 		561A36E11C896BAF00AC5F5E /* SVResultViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultViewCtrl.m; sourceTree = "<group>"; };
-		561A36E61C896BD700AC5F5E /* SVTestingCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVTestingCtrl.h; sourceTree = "<group>"; };
-		561A36E71C896BD700AC5F5E /* SVTestingCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVTestingCtrl.m; sourceTree = "<group>"; };
+		561A36E61C896BD700AC5F5E /* SVVideoTestingCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoTestingCtrl.h; sourceTree = "<group>"; };
+		561A36E71C896BD700AC5F5E /* SVVideoTestingCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoTestingCtrl.m; sourceTree = "<group>"; };
 		563200551C7223560076A0FF /* homeindicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeindicator.png; sourceTree = "<group>"; };
 		5644354D1C5215AB009B7024 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/i18n.strings; sourceTree = "<group>"; };
 		564435751C5216AD009B7024 /* CTViewTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTViewTools.h; sourceTree = "<group>"; };
@@ -432,8 +432,8 @@
 		561A36E51C896BD700AC5F5E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				561A36E61C896BD700AC5F5E /* SVTestingCtrl.h */,
-				561A36E71C896BD700AC5F5E /* SVTestingCtrl.m */,
+				561A36E61C896BD700AC5F5E /* SVVideoTestingCtrl.h */,
+				561A36E71C896BD700AC5F5E /* SVVideoTestingCtrl.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -945,7 +945,7 @@
 				561A36E21C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m in Sources */,
 				56A919181C4F4BAB00E8BB72 /* ViewController.m in Sources */,
 				561A36C01C896A0C00AC5F5E /* SVToolCells.m in Sources */,
-				561A36EA1C896BD700AC5F5E /* SVTestingCtrl.m in Sources */,
+				561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */,
 				561A36D51C896B5A00AC5F5E /* SVLogsViewCtrl.m in Sources */,
 				561A36E41C896BAF00AC5F5E /* SVResultViewCtrl.m in Sources */,
 				561A36E31C896BAF00AC5F5E /* SVDetailViewCtrl.m in Sources */,

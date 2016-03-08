@@ -1,5 +1,5 @@
 //
-//  SVTestingCtrl.m
+//  SVResultViewCtrl.m
 //  SPUIView
 //
 //  Created by WBapple on 16/1/20.

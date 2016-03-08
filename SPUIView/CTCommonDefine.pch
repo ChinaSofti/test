@@ -1,5 +1,5 @@
 //
-//  SVTestingCtrl.m
+//  CTCommonDefine.pch
 //  SPUIView
 //
 //  Created by WBapple on 16/1/20.
@@ -43,7 +43,7 @@
 #import "CTViewTools.h"
 #import "CTWBViewTools.h"
 //#import "SVBackView.h"
-#import "SVTestingCtrl.h"
+#import "SVVideoTestingCtrl.h"
 #import <SPService/SPService.h>
 #import <SPCommon/SVLog.h>
 #import <SPCommon/SVI18N.h>

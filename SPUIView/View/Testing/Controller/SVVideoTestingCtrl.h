@@ -1,5 +1,5 @@
 //
-//  SVTestingCtrl.h
+//  SVVideoTestingCtrl.h
 //  SPUIView
 //
 //  Created by WBapple on 16/1/20.
@@ -15,7 +15,7 @@
 #import <SPService/SVVideoTest.h>
 #import <UIKit/UIKit.h>
 
-@interface SVTestingCtrl : UIViewController <SVVideoTestDelegate>
+@interface SVVideoTestingCtrl : UIViewController <SVVideoTestDelegate>
 
 @property (nonatomic, retain) NSArray *selectedA;
 

@@ -1,5 +1,5 @@
 //
-//  SVTestingCtrl.m
+//  SVVideoTestingCtrl.m
 //  SPUIView
 //
 //  Created by WBapple on 16/1/20.
@@ -13,7 +13,7 @@
 #import "SVVideoView.h"
 
 #import "SVCurrentResultViewCtrl.h"
-#import "SVTestingCtrl.h"
+#import "SVVideoTestingCtrl.h"
 #import <SPCommon/SVTimeUtil.h>
 #import <SPCommon/UUBar.h>
 #import <SPService/SVVideoTest.h>
@@ -22,7 +22,7 @@
 #define kVideoViewDefaultRect \
     CGRectMake (FITWIDTH (10), FITWIDTH (420), FITWIDTH (150), FITWIDTH (92))
 
-@interface SVTestingCtrl ()
+@interface SVVideoTestingCtrl ()
 {
 
     SVHeaderView *_headerView; // 定义headerView
@@ -50,7 +50,7 @@
 
 @end
 
-@implementation SVTestingCtrl
+@implementation SVVideoTestingCtrl
 
 @synthesize navigationController, tabBarController, currentResultModel;
 
@@ -58,7 +58,7 @@
 {
 
     [super viewDidLoad];
-    SVInfo (@"SVTestingCtrl");
+    SVInfo (@"SVVideoTestingCtrl");
 
     // 1.自定义navigationItem.titleView
     //设置图片大小

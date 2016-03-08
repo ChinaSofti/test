@@ -1,5 +1,5 @@
 //
-//  SVTestingCtrl.m
+//  SVTestViewCtrl.m
 //  SPUIView
 //
 //  Created by WBapple on 16/1/20.
@@ -10,8 +10,8 @@
 #import "SVCurrentResultModel.h"
 #import "SVCurrentResultViewCtrl.h"
 #import "SVTestViewCtrl.h"
-#import "SVTestingCtrl.h"
 #import "SVToolCell.h"
+#import "SVVideoTestingCtrl.h"
 
 #import <SPService/SVTestContextGetter.h>
 #define kFirstHederH 40
@@ -326,7 +326,7 @@
     UITabBarController *tabBarController = self.tabBarController;
     UINavigationController *navigationController = self.navigationController;
     //按钮点击后alloc一个界面
-    SVTestingCtrl *testingCtrl = [[SVTestingCtrl alloc] init];
+    SVVideoTestingCtrl *testingCtrl = [[SVVideoTestingCtrl alloc] init];
     [testingCtrl setNavigationController:navigationController];
     [testingCtrl setTabBarController:tabBarController];
     [testingCtrl setCurrentResultModel:currentResultModel];
