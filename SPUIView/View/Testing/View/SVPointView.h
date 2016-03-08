@@ -17,8 +17,6 @@
 @property (nonatomic, strong) UIView *middleView; //定义中间半圆middleView
 @property (nonatomic, strong) UILabel *label1; //定义label1
 @property (nonatomic, strong) UILabel *label2; //定义label2
-//指针转动页面用XIB页面
-- (UIView *)pointView;
 //开始转动方法
 - (void)start;
 //转动角度,速度控制
