@@ -7,12 +7,24 @@
 //
 
 #import "AppDelegate.h"
+#import <SPCommon/SVLog.h>
 #import <UIKit/UIKit.h>
 
 int main (int argc, char *argv[])
 {
     @autoreleasepool
     {
-        return UIApplicationMain (argc, argv, nil, NSStringFromClass ([AppDelegate class]));
+        int value = -1;
+        @try
+        {
+            SVInfo (@"SpeedPro start...");
+            value = UIApplicationMain (argc, argv, nil, NSStringFromClass ([AppDelegate class]));
+        }
+        @catch (NSException *exception)
+        {
+            SVError (@"SpeedPro start fail. Exception:%@", exception);
+        }
+
+        return value;
     }
 }
