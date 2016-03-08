@@ -401,9 +401,9 @@
 
     // 分辨率
     NSString *videoResolution = testResult.videoResolution;
-    SVInfo (@"uvMOSSession: %f  firstBufferTime:%ld  cuttonTimes:%d  location:%@  bitrate:%f  "
-            @"videoResolution:%@",
-            uvMOSSession, firstBufferTime, cuttonTimes, location, bitrate, videoResolution);
+    //    SVInfo (@"uvMOSSession: %f  firstBufferTime:%ld  cuttonTimes:%d  location:%@  bitrate:%f "
+    //            @"videoResolution:%@",
+    //            uvMOSSession, firstBufferTime, cuttonTimes, location, bitrate, videoResolution);
     dispatch_async (dispatch_get_main_queue (), ^{
       [_footerView.placeLabel setText:location];
       [_footerView.resolutionLabel setText:videoResolution];

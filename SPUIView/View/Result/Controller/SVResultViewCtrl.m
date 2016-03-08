@@ -64,7 +64,8 @@
     if (_tableView == nil)
     {
         // 1.创建一个 tableView
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake (0, 140, kScreenW, kScreenH - 64)
+        CGFloat tabBarH = self.tabBarController.tabBar.frame.size.height;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake (0, 140, kScreenW, kScreenH - 140 - tabBarH)
                                                   style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 

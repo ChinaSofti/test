@@ -9,9 +9,11 @@
 #import "AlertView.h"
 #import "SVCurrentResultModel.h"
 #import "SVCurrentResultViewCtrl.h"
+#import "SVSpeedTestingViewCtrl.h"
 #import "SVTestViewCtrl.h"
 #import "SVToolCell.h"
 #import "SVVideoTestingCtrl.h"
+#import "SVWebTestingViewCtrl.h"
 
 #import <SPService/SVTestContextGetter.h>
 #define kFirstHederH 40
@@ -25,8 +27,8 @@
 @property (nonatomic, retain) UIButton *testBtn;
 @property (nonatomic, retain) UIButton *button;
 @property (nonatomic, retain) UIView *footerView;
-
 @end
+
 
 @implementation SVTestViewCtrl
 
@@ -282,27 +284,28 @@
     self.testBtn.userInteractionEnabled = YES;
     //按钮文字颜色和类型
     [_testBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    //
+    //如果_selectedMA.count的值为空,添加对象
     if (!_selectedMA.count)
     {
-        [_selectedMA addObject:[[NSNumber alloc] initWithInt:cell.bgdBtn.tag]];
+        [_selectedMA addObject:[[NSNumber alloc] initWithInteger:cell.bgdBtn.tag]];
         return;
     }
-    //
-    BOOL isInclud = NO;
+    //遍历他是否存在过,如果存在过移除
+    BOOL isInclude = NO;
     for (NSNumber *nsTag in _selectedMA)
     {
         int tag = nsTag.intValue;
         if (tag == cell.bgdBtn.tag)
         {
             [_selectedMA removeObject:nsTag];
-            isInclud = YES;
+            isInclude = YES;
             break;
         }
     }
-    if (!isInclud)
+    //判断是不是空,如果是空添加(跟第一个if是一样的)
+    if (!isInclude)
     {
-        [_selectedMA addObject:[[NSNumber alloc] initWithInt:cell.bgdBtn.tag]];
+        [_selectedMA addObject:[[NSNumber alloc] initWithInteger:cell.bgdBtn.tag]];
     }
     //如果被选中的cell数为0(也是默认情况)
     if (!_selectedMA.count)
@@ -325,18 +328,37 @@
     SVCurrentResultModel *currentResultModel = [[SVCurrentResultModel alloc] init];
     UITabBarController *tabBarController = self.tabBarController;
     UINavigationController *navigationController = self.navigationController;
-    //按钮点击后alloc一个界面
-    SVVideoTestingCtrl *testingCtrl = [[SVVideoTestingCtrl alloc] init];
-    [testingCtrl setNavigationController:navigationController];
-    [testingCtrl setTabBarController:tabBarController];
-    [testingCtrl setCurrentResultModel:currentResultModel];
-    testingCtrl.selectedA = _selectedMA;
-    // push界面
-    [self.navigationController pushViewController:testingCtrl animated:YES];
+
+    if (_selectedMA.count == 1)
+    {
+        //定义一个cellIndex,来记录数组中哪一个第一个被选择的
+        NSInteger cellIndex = ((NSNumber *)(_selectedMA.firstObject)).integerValue;
+
+        if (cellIndex == 0)
+        {
+            //按钮点击后alloc一个界面
+            SVVideoTestingCtrl *videotestingCtrl = [[SVVideoTestingCtrl alloc] init];
+            [videotestingCtrl setNavigationController:navigationController];
+            [videotestingCtrl setTabBarController:tabBarController];
+            [videotestingCtrl setCurrentResultModel:currentResultModel];
+            videotestingCtrl.selectedA = _selectedMA;
+            // push界面
+            [self.navigationController pushViewController:videotestingCtrl animated:YES];
+        }
+        if (cellIndex == 1)
+        {
+            SVWebTestingViewCtrl *webtestingCtrl = [[SVWebTestingViewCtrl alloc] init];
+            [self.navigationController pushViewController:webtestingCtrl animated:YES];
+        }
+        if (cellIndex == 2)
+        {
+            SVSpeedTestingViewCtrl *speedtestingCtrl = [[SVSpeedTestingViewCtrl alloc] init];
+            [self.navigationController pushViewController:speedtestingCtrl animated:YES];
+        }
+    }
 
     SVInfo (@"testBtnClick...");
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -39,6 +39,8 @@
 		561A36E41C896BAF00AC5F5E /* SVResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E11C896BAF00AC5F5E /* SVResultViewCtrl.m */; };
 		561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E71C896BD700AC5F5E /* SVVideoTestingCtrl.m */; };
 		563200561C7223560076A0FF /* homeindicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 563200551C7223560076A0FF /* homeindicator.png */; };
+		563734851C8ED6590064DA33 /* SVWebTestingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 563734841C8ED6590064DA33 /* SVWebTestingViewCtrl.m */; };
+		563734881C8ED6730064DA33 /* SVSpeedTestingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 563734871C8ED6730064DA33 /* SVSpeedTestingViewCtrl.m */; };
 		5644354C1C5215AB009B7024 /* i18n.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5644354E1C5215AB009B7024 /* i18n.strings */; };
 		564435771C5216AD009B7024 /* CTViewTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 564435761C5216AD009B7024 /* CTViewTools.m */; };
 		565DFAE81C515BB10024FF45 /* ic_speed_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 565DFADB1C515BB10024FF45 /* ic_speed_check.png */; };
@@ -211,6 +213,10 @@
 		561A36E61C896BD700AC5F5E /* SVVideoTestingCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoTestingCtrl.h; sourceTree = "<group>"; };
 		561A36E71C896BD700AC5F5E /* SVVideoTestingCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoTestingCtrl.m; sourceTree = "<group>"; };
 		563200551C7223560076A0FF /* homeindicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeindicator.png; sourceTree = "<group>"; };
+		563734831C8ED6590064DA33 /* SVWebTestingViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebTestingViewCtrl.h; sourceTree = "<group>"; };
+		563734841C8ED6590064DA33 /* SVWebTestingViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebTestingViewCtrl.m; sourceTree = "<group>"; };
+		563734861C8ED6730064DA33 /* SVSpeedTestingViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedTestingViewCtrl.h; sourceTree = "<group>"; };
+		563734871C8ED6730064DA33 /* SVSpeedTestingViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestingViewCtrl.m; sourceTree = "<group>"; };
 		5644354D1C5215AB009B7024 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/i18n.strings; sourceTree = "<group>"; };
 		564435751C5216AD009B7024 /* CTViewTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTViewTools.h; sourceTree = "<group>"; };
 		564435761C5216AD009B7024 /* CTViewTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTViewTools.m; sourceTree = "<group>"; };
@@ -434,6 +440,10 @@
 			children = (
 				561A36E61C896BD700AC5F5E /* SVVideoTestingCtrl.h */,
 				561A36E71C896BD700AC5F5E /* SVVideoTestingCtrl.m */,
+				563734831C8ED6590064DA33 /* SVWebTestingViewCtrl.h */,
+				563734841C8ED6590064DA33 /* SVWebTestingViewCtrl.m */,
+				563734861C8ED6730064DA33 /* SVSpeedTestingViewCtrl.h */,
+				563734871C8ED6730064DA33 /* SVSpeedTestingViewCtrl.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -963,10 +973,12 @@
 				56EC8C811C4F45A500EBDA6C /* SVTabBarController.m in Sources */,
 				568D42B11C8991A400F2916B /* SVFAQViewCtrl.m in Sources */,
 				B71F89031C8D7E56002E8375 /* SVToast.m in Sources */,
+				563734851C8ED6590064DA33 /* SVWebTestingViewCtrl.m in Sources */,
 				561A36D21C896B5A00AC5F5E /* SVAdvancedViewCtrl.m in Sources */,
 				561A36D31C896B5A00AC5F5E /* SVBWSettingViewCtrl.m in Sources */,
 				56B5180D1C5126C700AA76F1 /* UIView+Exten.m in Sources */,
 				56BA8FDC1C561E9100886CAE /* SVToolCell.m in Sources */,
+				563734881C8ED6730064DA33 /* SVSpeedTestingViewCtrl.m in Sources */,
 				561A36B91C89693F00AC5F5E /* SVUploadFile.m in Sources */,
 				561A36D61C896B5A00AC5F5E /* SVSettingsViewCtrl.m in Sources */,
 				561A36BF1C896A0C00AC5F5E /* SVResultCell.m in Sources */,

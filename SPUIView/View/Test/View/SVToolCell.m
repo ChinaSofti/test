@@ -30,7 +30,7 @@
         _bgdBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
         _bgdBtn.layer.borderWidth = 1;
         [_bgdBtn addTarget:self
-                    action:@selector (bgdBtnClick:)
+                    action:@selector (bgdBtnClick1:)
           forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_bgdBtn];
 
@@ -68,7 +68,7 @@
     _bgdBtn.tag = section;
 }
 
-- (void)bgdBtnClick:(UIButton *)btn
+- (void)bgdBtnClick1:(UIButton *)btn
 {
     btn.selected = !btn.selected;
 
