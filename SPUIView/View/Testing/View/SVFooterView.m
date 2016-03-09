@@ -25,7 +25,6 @@
                     withFont:16
               withTitleColor:[UIColor blackColor]
                    withTitle:@""];
-
         _resolutionLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (230), FITWIDTH (470), FITWIDTH (80), FITWIDTH (20))
                     withFont:10
@@ -67,19 +66,51 @@
         // webtesting
         NSString *title6 = I18N (@"Test Url");
         //设置Label
-        _urlLabel2 = [CTWBViewTools
+        _urlLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (455), FITWIDTH (150), FITWIDTH (20))
                     withFont:16
               withTitleColor:[UIColor blackColor]
                    withTitle:@"www.baidu.com"];
-        _urlNumLabel2 = [CTWBViewTools
+        _urlNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (475), FITWIDTH (150), FITWIDTH (20))
                     withFont:12
               withTitleColor:[UIColor lightGrayColor]
                    withTitle:title6];
         //所有Label居中对齐
-        _urlLabel2.textAlignment = NSTextAlignmentLeft;
-        _urlNumLabel2.textAlignment = NSTextAlignmentLeft;
+        _urlLabel.textAlignment = NSTextAlignmentLeft;
+        _urlNumLabel.textAlignment = NSTextAlignmentLeft;
+
+        // speedtesting
+        NSString *title7 = I18N (@"Server Location");
+        NSString *title8 = I18N (@"Carrier");
+        //设置Label
+        _ServerLocation = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (425), FITWIDTH (150), FITWIDTH (20))
+                    withFont:16
+              withTitleColor:[UIColor blackColor]
+                   withTitle:@"北京市"];
+        _Carrier = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (FITWIDTH (230), FITWIDTH (495), FITWIDTH (80), FITWIDTH (20))
+                    withFont:10
+              withTitleColor:[UIColor blackColor]
+                   withTitle:@"Beijing"];
+
+        _ServerLocationNumLabel = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (445), FITWIDTH (150), FITWIDTH (20))
+                    withFont:12
+              withTitleColor:[UIColor lightGrayColor]
+                   withTitle:title7];
+
+        _CarrierNumLabel = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (495), FITWIDTH (50), FITWIDTH (20))
+                    withFont:10
+              withTitleColor:[UIColor lightGrayColor]
+                   withTitle:title8];
+        //所有Label居中对齐
+        _ServerLocation.textAlignment = NSTextAlignmentLeft;
+        _Carrier.textAlignment = NSTextAlignmentRight;
+        _ServerLocationNumLabel.textAlignment = NSTextAlignmentLeft;
+        _CarrierNumLabel.textAlignment = NSTextAlignmentLeft;
     }
     return self;
 }

@@ -45,7 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor redColor];
+    self.view.backgroundColor = [UIColor whiteColor];
 
     SVInfo (@"SVWebTestingCtrl");
 
@@ -250,8 +250,8 @@
     //初始化headerView
     _footerView = [[SVFooterView alloc] init];
     //把所有Label添加到headerView中
-    [_footerView addSubview:_footerView.urlLabel2];
-    [_footerView addSubview:_footerView.urlNumLabel2];
+    [_footerView addSubview:_footerView.urlLabel];
+    [_footerView addSubview:_footerView.urlNumLabel];
     //把headerView添加到中整个视图上
     [self.view addSubview:_footerView];
 }
@@ -301,7 +301,7 @@
           [_webtestingView updateUvMOS:totalTime];
 
           // 测试地址
-          [_footerView.urlLabel2 setText:testUrl];
+          [_footerView.urlLabel setText:testUrl];
       }
     });
 }

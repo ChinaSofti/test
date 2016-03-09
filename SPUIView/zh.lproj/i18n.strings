@@ -88,6 +88,7 @@
 
 
 //宽带测试
+"Speed" = "下载";
 "Speed Test" = "带宽测试";
 "Download speed" = "下载速率";
 "Upload speed" = "上传速率";

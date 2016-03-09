@@ -10,8 +10,18 @@
  *  带宽测试中界面
  */
 
+#import "SVCurrentResultModel.h"
+#import "SVWebTest.h"
 #import <UIKit/UIKit.h>
 
-@interface SVSpeedTestingViewCtrl : UIViewController
+@interface SVSpeedTestingViewCtrl : UIViewController <SVWebTestDelegate>
+
+@property (nonatomic, retain) NSArray *selectedA;
+
+@property (nonatomic, retain) UINavigationController *navigationController;
+
+@property UITabBarController *tabBarController;
+
+@property SVCurrentResultModel *currentResultModel;
 
 @end

@@ -32,4 +32,16 @@
 @property (nonatomic, strong) UILabel *ResponseNumLabel;
 @property (nonatomic, strong) UILabel *DownloadNumLabel;
 @property (nonatomic, strong) UILabel *LoadNumLabel;
+// speedtesting
+// HeaderView中的属性
+@property (nonatomic, strong) UILabel *Delay; // 时延
+@property (nonatomic, strong) UILabel *Delay1; // 单位s
+@property (nonatomic, strong) UILabel *Downloadspeed; //下载速率
+@property (nonatomic, strong) UILabel *Downloadspeed1; // 单位kbps
+@property (nonatomic, strong) UILabel *Uploadspeed; //上传速率
+@property (nonatomic, strong) UILabel *Uploadspeed1; // 单位s
+//对应的值
+@property (nonatomic, strong) UILabel *DelayNumLabel;
+@property (nonatomic, strong) UILabel *DownloadspeedNumLabel;
+@property (nonatomic, strong) UILabel *UploadspeedNumLabel;
 @end
