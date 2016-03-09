@@ -6,6 +6,10 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+/**
+ *  带宽测试中界面
+ */
+
 #import <UIKit/UIKit.h>
 
 @interface SVSpeedTestingViewCtrl : UIViewController

@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SVPointView : UIView
+
 @property (nonatomic, assign) float num; //定义随机数
 // VideoTestingView中的属性
 @property (nonatomic, strong) UIView *pointView; //定义指针View
