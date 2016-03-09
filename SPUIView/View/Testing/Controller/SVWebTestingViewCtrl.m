@@ -300,7 +300,6 @@
           [_headerView.uvMosBarView addSubview:bar];
           [_webtestingView updateUvMOS:totalTime];
 
-
           // 测试地址
           [_footerView.urlLabel2 setText:testUrl];
       }
