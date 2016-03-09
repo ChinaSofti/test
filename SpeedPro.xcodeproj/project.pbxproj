@@ -57,6 +57,7 @@
 		566589E31C88414600269F78 /* SVHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 566589DF1C88414600269F78 /* SVHeaderView.m */; };
 		566589E41C88414600269F78 /* SVVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 566589E11C88414600269F78 /* SVVideoView.m */; };
 		56665D381C71F9E100A63D44 /* SVToolModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 56665D371C71F9E100A63D44 /* SVToolModels.m */; };
+		566CB03A1C90199A001AA64D /* SVWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 566CB0391C90199A001AA64D /* SVWebView.m */; };
 		567582241C7BF797009BEFFB /* ic_settings_mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 567582221C7BF797009BEFFB /* ic_settings_mobile.png */; };
 		567582251C7BF797009BEFFB /* ic_settings_wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = 567582231C7BF797009BEFFB /* ic_settings_wifi.png */; };
 		568D42B11C8991A400F2916B /* SVFAQViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 568D42B01C8991A400F2916B /* SVFAQViewCtrl.m */; };
@@ -239,6 +240,8 @@
 		566589E11C88414600269F78 /* SVVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoView.m; sourceTree = "<group>"; };
 		56665D361C71F9E100A63D44 /* SVToolModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToolModels.h; sourceTree = "<group>"; };
 		56665D371C71F9E100A63D44 /* SVToolModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToolModels.m; sourceTree = "<group>"; };
+		566CB0381C90199A001AA64D /* SVWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebView.h; sourceTree = "<group>"; };
+		566CB0391C90199A001AA64D /* SVWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebView.m; sourceTree = "<group>"; };
 		567582221C7BF797009BEFFB /* ic_settings_mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_mobile.png; sourceTree = "<group>"; };
 		567582231C7BF797009BEFFB /* ic_settings_wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_wifi.png; sourceTree = "<group>"; };
 		568D42AF1C8991A400F2916B /* SVFAQViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVFAQViewCtrl.h; sourceTree = "<group>"; };
@@ -613,6 +616,8 @@
 				566589DF1C88414600269F78 /* SVHeaderView.m */,
 				566589E01C88414600269F78 /* SVVideoView.h */,
 				566589E11C88414600269F78 /* SVVideoView.m */,
+				566CB0381C90199A001AA64D /* SVWebView.h */,
+				566CB0391C90199A001AA64D /* SVWebView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -953,6 +958,7 @@
 			files = (
 				56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */,
 				561A36E21C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m in Sources */,
+				566CB03A1C90199A001AA64D /* SVWebView.m in Sources */,
 				56A919181C4F4BAB00E8BB72 /* ViewController.m in Sources */,
 				561A36C01C896A0C00AC5F5E /* SVToolCells.m in Sources */,
 				561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */,

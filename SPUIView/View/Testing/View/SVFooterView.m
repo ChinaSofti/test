@@ -18,6 +18,7 @@
         NSString *title4 = I18N (@"Resolution");
         NSString *title5 = I18N (@"Bit rate");
         // FooterView中的初始化
+        // videotesting
         //设置Label
         _placeLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (425), FITWIDTH (150), FITWIDTH (20))
@@ -61,6 +62,24 @@
         _placeNumLabel.textAlignment = NSTextAlignmentLeft;
         _resolutionNumLabel.textAlignment = NSTextAlignmentLeft;
         _bitNumLabel.textAlignment = NSTextAlignmentLeft;
+
+
+        // webtesting
+        NSString *title6 = I18N (@"Test Url");
+        //设置Label
+        _urlLabel2 = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (455), FITWIDTH (150), FITWIDTH (20))
+                    withFont:16
+              withTitleColor:[UIColor blackColor]
+                   withTitle:@"www.baidu.com"];
+        _urlNumLabel2 = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (475), FITWIDTH (150), FITWIDTH (20))
+                    withFont:12
+              withTitleColor:[UIColor lightGrayColor]
+                   withTitle:title6];
+        //所有Label居中对齐
+        _urlLabel2.textAlignment = NSTextAlignmentLeft;
+        _urlNumLabel2.textAlignment = NSTextAlignmentLeft;
     }
     return self;
 }

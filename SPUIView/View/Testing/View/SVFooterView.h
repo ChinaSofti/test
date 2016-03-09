@@ -10,8 +10,7 @@
 @interface SVFooterView : UIView
 
 //定义FooterView中的属性
-
-// FooterView参数
+// videotesting
 @property (nonatomic, strong) UILabel *placeLabel; // 定义视频服务位置place
 @property (nonatomic, strong) UILabel *resolutionLabel; // 定义分辨率resolution
 @property (nonatomic, strong) UILabel *bitLabel; // 定义码率(比特率bit)
@@ -20,4 +19,8 @@
 @property (nonatomic, strong) UILabel *resolutionNumLabel;
 @property (nonatomic, strong) UILabel *bitNumLabel;
 
+// webtesting
+@property (nonatomic, strong) UILabel *urlLabel2;
+//对应的值
+@property (nonatomic, strong) UILabel *urlNumLabel2;
 @end

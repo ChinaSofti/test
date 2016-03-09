@@ -8,7 +8,7 @@
 
 
 /**
- *  测试中界面
+ *  视频测试中界面
  */
 
 #import "SVCurrentResultModel.h"

@@ -23,7 +23,7 @@
 {
     if ([super init])
     {
-        // TestingView中的初始化
+        // VideoTestingView中的初始化
         _pointView = [[UIView alloc]
         initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
         UIImageView *imageView0 = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -78,6 +78,40 @@
         //        _pointView.center = _panelView.center;
         //        _pointView.center = CGPointMake(_panelView.frame.size.width/2,
         //        _panelView.frame.size.height/2);
+
+
+        // WebTestingView中的初始化
+
+        NSString *title1 = I18N (@"Load duration");
+        _panelView2 = [[UIView alloc]
+        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
+        UIImageView *imageView12 = [[UIImageView alloc] initWithFrame:CGRectZero];
+        imageView12.size = CGSizeMake (280, 280);
+        imageView12.image = [UIImage imageNamed:@"clock_web_panel"];
+        imageView12.center =
+        CGPointMake (_panelView2.frame.size.width / 2, _panelView2.frame.size.height / 2);
+        [_panelView2 addSubview:imageView12];
+
+        _label12 = [[UILabel alloc]
+        initWithFrame:CGRectMake (FITWIDTH (120), FITWIDTH (290), FITWIDTH (80), FITWIDTH (20))];
+        _label12.text = title1;
+        _label12.font = [UIFont systemFontOfSize:13.0f];
+        _label12.textAlignment = NSTextAlignmentCenter;
+
+
+        _label22 = [[UILabel alloc]
+        initWithFrame:CGRectMake (FITWIDTH (110), FITWIDTH (350), FITWIDTH (100), FITWIDTH (50))];
+        _label22.text = @"0.00";
+        _label22.textColor = RGBACOLOR (44, 166, 222, 1);
+        _label22.font = [UIFont systemFontOfSize:36.0f];
+        _label22.textAlignment = NSTextAlignmentCenter;
+
+        _label32 = [[UILabel alloc]
+        initWithFrame:CGRectMake (FITWIDTH (150), FITWIDTH (355), FITWIDTH (100), FITWIDTH (50))];
+        _label32.text = @"s";
+        _label32.textColor = RGBACOLOR (44, 166, 222, 1);
+        _label32.font = [UIFont systemFontOfSize:18.0f];
+        _label32.textAlignment = NSTextAlignmentCenter;
     }
     return self;
 }
