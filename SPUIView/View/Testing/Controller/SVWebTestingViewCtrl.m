@@ -10,13 +10,13 @@
 #import "SVFooterView.h"
 #import "SVHeaderView.h"
 #import "SVPointView.h"
+#import "SVWebTest.h"
 #import "SVWebView.h"
 
 #import "SVCurrentResultViewCtrl.h"
 #import "SVWebTestingViewCtrl.h"
 #import <SPCommon/SVTimeUtil.h>
 #import <SPCommon/UUBar.h>
-#import <SPService/SVVideoTest.h>
 
 
 #define kVideoViewDefaultRect \
@@ -27,22 +27,9 @@
 
     SVHeaderView *_headerView; // 定义headerView
     SVPointView *_webtestingView; //定义webtestingView
-    SVWebView *_webView; //定义视频播放View
+    SVWebView *_webView; //定义访问网页的View
     SVFooterView *_footerView; // 定义footerView
-    SVVideoTest *_videoTest;
-
-    NSTimer *_timer;
-    float realBitrate; // 实际真实码率
-    float realuvMOSSession; // 实际真实UvMOS值
-    int _resultTimes; // 是否时第一次上报结果
-    int _UvMOSbarResultTimes; // UvMOS柱状图 每一秒切换一次
-    int _fullScreen; // 是否全屏
-
-    UIView *_showCurrentResultInFullScreenMode;
-    UILabel *_UvMosInFullScreenValue;
-    UILabel *_bufferTimesInFullScreenValue;
-    UILabel *_bitRateInFullScreenValue;
-    UILabel *_resolutionInFullScreenValue;
+    SVWebTest *_webTest;
 }
 
 //定义gray遮挡View
@@ -149,12 +136,6 @@
         [view removeFromSuperview];
     }
 
-    realBitrate = 0.0;
-    realuvMOSSession = 0.0;
-    _resultTimes = 0;
-    _UvMOSbarResultTimes = 0;
-    _timer = nil;
-
     // 初始化结果
     currentResultModel = [[SVCurrentResultModel alloc] init];
     [currentResultModel setTestId:-1];
@@ -181,12 +162,12 @@
     [self initContext];
     // 进入页面时，开始测试
     long testId = [SVTimeUtil currentMilliSecondStamp];
-    _videoTest = [[SVVideoTest alloc] initWithView:testId showVideoView:_webView testDelegate:self];
+    _webTest = [[SVWebTest alloc] initWithView:testId showVideoView:_webView testDelegate:self];
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-      BOOL isOK = [_videoTest initTestContext];
+      BOOL isOK = [_webTest initTestContext];
       if (isOK)
       {
-          [_videoTest startTest];
+          [_webTest startTest];
       }
       else
       {
@@ -200,19 +181,12 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    //取消定时器
-    if (_timer)
-    {
-        //取消定时器
-        [_timer invalidate];
-        _timer = nil;
-    }
 
     dispatch_async (dispatch_get_main_queue (), ^{
       // 当用户离开当前页面时，停止测试
-      if (_videoTest)
+      if (_webTest)
       {
-          [_videoTest stopTest];
+          [_webTest stopTest];
 
           //移除覆盖grayView
           [_grayview removeFromSuperview];
@@ -290,69 +264,50 @@
 
 
 /**********************************以下为UI数据层代码**********************************/
-- (void)updateTestResultDelegate:(SVVideoTestContext *)testContext
-                      testResult:(SVVideoTestResult *)testResult
+- (void)updateTestResultDelegate:(SVWebTestContext *)testContext
+                      testResult:(SVWebTestResult *)testResult
 {
 
-    // UvMOS 综合得分
-    NSArray *testSamples = testResult.videoTestSamples;
-    SVVideoTestSample *testSample = testSamples[testSamples.count - 1];
-    float uvMOSSession = testSample.UvMOSSession;
+    // 响应时间
+    double responseTime = testResult.responseTime;
 
-    //首次缓冲时长
-    long firstBufferTime = testResult.firstBufferTime;
+    // 完整下载时间
+    double totalTime = testResult.totalTime;
 
-    // 卡顿次数
-    int cuttonTimes = testResult.videoCuttonTimes;
+    // 测试地址
+    NSString *testUrl = testResult.testUrl;
 
-    // 视频服务器位置
-    NSString *location = testContext.videoSegemnetLocation;
+    // 下载速度
+    double downloadSpeed = testResult.downloadSpeed;
 
-    // 视频码率
-    float bitrate = testResult.bitrate;
-
-    // 分辨率
-    NSString *videoResolution = testResult.videoResolution;
-    //    SVInfo (@"uvMOSSession: %f  firstBufferTime:%ld  cuttonTimes:%d  location:%@  bitrate:%f "
-    //            @"videoResolution:%@",
-    //            uvMOSSession, firstBufferTime, cuttonTimes, location, bitrate, videoResolution);
     dispatch_async (dispatch_get_main_queue (), ^{
-      [_footerView.placeLabel setText:location];
-      [_footerView.resolutionLabel setText:videoResolution];
-      [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fkpbs", bitrate]];
-      [_headerView.bufferLabel setText:[NSString stringWithFormat:@"%d", cuttonTimes]];
-      [_headerView.speedLabel setText:[NSString stringWithFormat:@"%ld", firstBufferTime]];
-
-      [_bufferTimesInFullScreenValue setText:[NSString stringWithFormat:@"%d", cuttonTimes]];
-      [_resolutionInFullScreenValue setText:videoResolution];
-
-      UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
-      [bar setBarValue:uvMOSSession];
-      [_headerView.uvMosBarView addSubview:bar];
-
-      [_webtestingView updateUvMOS:uvMOSSession];
-
-      realBitrate = bitrate;
-      realuvMOSSession = uvMOSSession;
 
       if (testContext.testStatus == TEST_FINISHED)
       {
-          //取消定时器
-          if (_timer)
-          {
-              //取消定时器
-              [_timer invalidate];
-              _timer = nil;
-          }
-
-
           [self initCurrentResultModel:testResult];
           [self goToCurrentResultViewCtrl];
+      }
+      else
+      {
+          // 显示头部指标
+          [_headerView.ResponseLabel setText:[NSString stringWithFormat:@"%.2f", responseTime]];
+          [_headerView.DownloadLabel setText:[NSString stringWithFormat:@"%.2f", downloadSpeed]];
+          [_headerView.LoadLabel setText:[NSString stringWithFormat:@"%.2f", totalTime]];
+
+          // 仪表盘指标
+          UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
+          [bar setBarValue:totalTime];
+          [_headerView.uvMosBarView addSubview:bar];
+          [_webtestingView updateUvMOS:totalTime];
+
+
+          // 测试地址
+          [_footerView.urlLabel2 setText:testUrl];
       }
     });
 }
 
-- (void)initCurrentResultModel:(SVVideoTestResult *)testResult
+- (void)initCurrentResultModel:(SVWebTestResult *)testResult
 {
     if (!currentResultModel)
     {
@@ -360,9 +315,9 @@
     }
 
     [currentResultModel setTestId:testResult.testId];
-    [currentResultModel setUvMOS:testResult.UvMOSSession];
-    [currentResultModel setFirstBufferTime:testResult.firstBufferTime];
-    [currentResultModel setCuttonTimes:testResult.videoCuttonTimes];
+    [currentResultModel setResponseTime:testResult.responseTime];
+    [currentResultModel setTotalTime:testResult.totalTime];
+    [currentResultModel setDownloadSpeed:testResult.downloadSpeed];
 }
 
 - (void)goToCurrentResultViewCtrl

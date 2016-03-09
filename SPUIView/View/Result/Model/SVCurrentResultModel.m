@@ -11,7 +11,7 @@
 @implementation SVCurrentResultModel
 
 
-@synthesize testId, uvMOS, firstBufferTime, cuttonTimes;
+@synthesize testId, uvMOS, firstBufferTime, cuttonTimes, responseTime, totalTime, downloadSpeed;
 
 
 @end

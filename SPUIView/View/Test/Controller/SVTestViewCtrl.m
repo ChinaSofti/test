@@ -348,6 +348,12 @@
         if (cellIndex == 1)
         {
             SVWebTestingViewCtrl *webtestingCtrl = [[SVWebTestingViewCtrl alloc] init];
+            [webtestingCtrl setNavigationController:navigationController];
+            [webtestingCtrl setTabBarController:tabBarController];
+            [webtestingCtrl setCurrentResultModel:currentResultModel];
+            webtestingCtrl.selectedA = _selectedMA;
+
+            // push界面
             [self.navigationController pushViewController:webtestingCtrl animated:YES];
         }
         if (cellIndex == 2)

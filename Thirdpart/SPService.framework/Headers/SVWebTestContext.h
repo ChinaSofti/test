@@ -10,4 +10,6 @@
 
 @interface SVWebTestContext : SVTestContext
 
+// 需要测试的url列表
+@property NSArray *urlArray;
 @end

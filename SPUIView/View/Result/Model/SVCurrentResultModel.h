@@ -19,6 +19,9 @@
 @property int cuttonTimes;
 
 // 网页测试相关指标
+@property double responseTime;
+@property double totalTime;
+@property double downloadSpeed;
 
 // 带宽测试相关指标
 

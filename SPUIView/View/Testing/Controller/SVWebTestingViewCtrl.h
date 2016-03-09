@@ -11,10 +11,10 @@
  *  网页测试中界面
  */
 #import "SVCurrentResultModel.h"
-#import <SPService/SVVideoTest.h>
+#import "SVWebTest.h"
 #import <UIKit/UIKit.h>
 
-@interface SVWebTestingViewCtrl : UIViewController <SVVideoTestDelegate>
+@interface SVWebTestingViewCtrl : UIViewController <SVWebTestDelegate>
 
 @property (nonatomic, retain) NSArray *selectedA;
 
