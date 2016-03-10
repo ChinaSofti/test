@@ -64,6 +64,13 @@
 - (void)parseContextData;
 
 /**
+ *  是否完成初始化
+ *
+ *  @return true 完成初始化
+ */
+- (BOOL)isInitSuccess;
+
+/**
  *  获取视频Context对象
  *
  *  @return 视频Context对象

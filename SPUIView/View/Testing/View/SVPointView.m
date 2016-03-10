@@ -112,6 +112,39 @@
         _label32.textColor = RGBACOLOR (44, 166, 222, 1);
         _label32.font = [UIFont systemFontOfSize:18.0f];
         _label32.textAlignment = NSTextAlignmentCenter;
+
+        // SpeedTestingView中的初始化
+
+        NSString *title2 = I18N (@"Speed");
+        _panelView3 = [[UIView alloc]
+        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
+        UIImageView *imageView13 = [[UIImageView alloc] initWithFrame:CGRectZero];
+        imageView13.size = CGSizeMake (280, 280);
+        imageView13.image = [UIImage imageNamed:@"clock_speed_panel"];
+        imageView13.center =
+        CGPointMake (_panelView3.frame.size.width / 2, _panelView3.frame.size.height / 2);
+        [_panelView3 addSubview:imageView13];
+
+        _label13 = [[UILabel alloc]
+        initWithFrame:CGRectMake (FITWIDTH (120), FITWIDTH (290), FITWIDTH (80), FITWIDTH (20))];
+        _label13.text = title2;
+        _label13.font = [UIFont systemFontOfSize:13.0f];
+        _label13.textAlignment = NSTextAlignmentCenter;
+
+
+        _label23 = [[UILabel alloc]
+        initWithFrame:CGRectMake (FITWIDTH (90), FITWIDTH (350), FITWIDTH (100), FITWIDTH (50))];
+        _label23.text = @"0.00";
+        _label23.textColor = RGBACOLOR (44, 166, 222, 1);
+        _label23.font = [UIFont systemFontOfSize:36.0f];
+        _label23.textAlignment = NSTextAlignmentCenter;
+
+        _label33 = [[UILabel alloc]
+        initWithFrame:CGRectMake (FITWIDTH (150), FITWIDTH (355), FITWIDTH (100), FITWIDTH (50))];
+        _label33.text = @"Mbps";
+        _label33.textColor = RGBACOLOR (44, 166, 222, 1);
+        _label33.font = [UIFont systemFontOfSize:18.0f];
+        _label33.textAlignment = NSTextAlignmentCenter;
     }
     return self;
 }

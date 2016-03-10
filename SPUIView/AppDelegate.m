@@ -82,12 +82,15 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       // 初始化Test Context
       SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
-      // 初始化本机IP和运营商等信息
-      [contextGetter initIPAndISP];
-      //从服务器请求Test Context Data相关信息
-      [contextGetter requestContextDataFromServer];
-      // 解析服务器返回的Test Context Data
-      [contextGetter parseContextData];
+      if (![contextGetter isInitSuccess])
+      {
+          // 初始化本机IP和运营商等信息
+          [contextGetter initIPAndISP];
+          //从服务器请求Test Context Data相关信息
+          [contextGetter requestContextDataFromServer];
+          // 解析服务器返回的Test Context Data
+          [contextGetter parseContextData];
+      }
 
     });
 }

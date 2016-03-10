@@ -360,7 +360,7 @@
     return size;
 }
 
-#pragma mark -  AlertView
+#pragma mark -  AlertController
 + (UIAlertController *)alertViewWithTitle:(NSString *)title
                                   message:(NSString *)message
                                   okTitle:(NSString *)okTitle

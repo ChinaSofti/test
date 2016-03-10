@@ -112,6 +112,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    //    [self setShadowView];
 }
 /**
  *  创建阴影背景

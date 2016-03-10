@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SVHttpsGetter : NSObject <NSURLConnectionDelegate>
+@interface SVHttpsGetter : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
 /**
  *  使用指定URL字符串进行对象初始化
