@@ -16,5 +16,13 @@
  */
 - (SVVideoInfo *)analyse;
 
+/**
+ *  修改Signarture
+ *
+ *  @param signature 旧Signarture
+ *
+ *  @return 新Signarture
+ */
+- (NSString *)modifySignarture:(NSString *)signature;
 
 @end

@@ -25,5 +25,11 @@
 // 视频码率
 @property float bitrate;
 
+// 视频帧率
+@property float frameRate;
+
+// 视频分辨率 1920 * 1080 即：videoWidth * videoHeight
+@property NSString *videoResolution;
+
 
 @end
