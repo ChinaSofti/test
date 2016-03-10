@@ -61,6 +61,8 @@
 		566CB03A1C90199A001AA64D /* SVWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 566CB0391C90199A001AA64D /* SVWebView.m */; };
 		567582241C7BF797009BEFFB /* ic_settings_mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 567582221C7BF797009BEFFB /* ic_settings_mobile.png */; };
 		567582251C7BF797009BEFFB /* ic_settings_wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = 567582231C7BF797009BEFFB /* ic_settings_wifi.png */; };
+		568B78C51C916DDC00AF4097 /* share_to_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B78C31C916DDC00AF4097 /* share_to_wechat.png */; };
+		568B78C61C916DDC00AF4097 /* share_to_wechatmoments.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B78C41C916DDC00AF4097 /* share_to_wechatmoments.png */; };
 		568D42B11C8991A400F2916B /* SVFAQViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 568D42B01C8991A400F2916B /* SVFAQViewCtrl.m */; };
 		568D42B41C89E20B00F2916B /* SVBandWidthCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */; };
 		568E033C1C78135D00A7CD72 /* rt_detail_title_collector_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 568E03371C78135D00A7CD72 /* rt_detail_title_collector_img.png */; };
@@ -221,6 +223,8 @@
 		566CB0391C90199A001AA64D /* SVWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebView.m; sourceTree = "<group>"; };
 		567582221C7BF797009BEFFB /* ic_settings_mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_mobile.png; sourceTree = "<group>"; };
 		567582231C7BF797009BEFFB /* ic_settings_wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_wifi.png; sourceTree = "<group>"; };
+		568B78C31C916DDC00AF4097 /* share_to_wechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_to_wechat.png; sourceTree = "<group>"; };
+		568B78C41C916DDC00AF4097 /* share_to_wechatmoments.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_to_wechatmoments.png; sourceTree = "<group>"; };
 		568D42AF1C8991A400F2916B /* SVFAQViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVFAQViewCtrl.h; sourceTree = "<group>"; };
 		568D42B01C8991A400F2916B /* SVFAQViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVFAQViewCtrl.m; sourceTree = "<group>"; };
 		568D42B21C89E20B00F2916B /* SVBandWidthCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVBandWidthCtrl.h; sourceTree = "<group>"; };
@@ -471,6 +475,15 @@
 			path = test;
 			sourceTree = "<group>";
 		};
+		568B78C21C916DDC00AF4097 /* share */ = {
+			isa = PBXGroup;
+			children = (
+				568B78C31C916DDC00AF4097 /* share_to_wechat.png */,
+				568B78C41C916DDC00AF4097 /* share_to_wechatmoments.png */,
+			);
+			path = share;
+			sourceTree = "<group>";
+		};
 		568E03361C78135D00A7CD72 /* detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -632,6 +645,7 @@
 				568E03411C78137C00A7CD72 /* ic_language_select.png */,
 				B7F3CA491C72CA3F009B087F /* toast_icon.png */,
 				563200551C7223560076A0FF /* homeindicator.png */,
+				568B78C21C916DDC00AF4097 /* share */,
 				56AA74701C7C36C500BA7E51 /* Testing */,
 				568E03361C78135D00A7CD72 /* detail */,
 				4DD005E61C609EDB007D4D2F /* Result */,
@@ -824,6 +838,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				568B78C51C916DDC00AF4097 /* share_to_wechat.png in Resources */,
 				4DD033911C734BB400A8CE9B /* ic_language_select.png in Resources */,
 				4DD006081C609EDB007D4D2F /* ic_web_test.png in Resources */,
 				4DD006021C609EDB007D4D2F /* ic_speed_testing.png in Resources */,
@@ -875,6 +890,7 @@
 				56AA273B1C57122500FA5D0F /* Assets.xcassets in Resources */,
 				568E033E1C78135D00A7CD72 /* rt_detail_title_video_img.png in Resources */,
 				4DD005FD1C609EDB007D4D2F /* ic_network_type_normal.png in Resources */,
+				568B78C61C916DDC00AF4097 /* share_to_wechatmoments.png in Resources */,
 				567582251C7BF797009BEFFB /* ic_settings_wifi.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
