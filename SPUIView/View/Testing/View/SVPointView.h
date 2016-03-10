@@ -21,7 +21,7 @@
 @property (nonatomic, strong) UIView *panelView2; //定义仪表盘panelView2
 @property (nonatomic, strong) UILabel *label12; //定义label12
 @property (nonatomic, strong) UILabel *label22; //定义label22
-@property (nonatomic, strong) UILabel *label32; //定义label22,单位s
+@property (nonatomic, strong) UILabel *label32; //定义label32,单位s
 //开始转动方法
 - (void)start;
 //转动角度,速度控制

@@ -15,8 +15,6 @@
 
 @interface SVCurrentResultViewCtrl : UIViewController
 
-@property (nonatomic, retain) UINavigationController *navigationController;
-
 @property SVCurrentResultModel *currentResultModel;
 
 @end

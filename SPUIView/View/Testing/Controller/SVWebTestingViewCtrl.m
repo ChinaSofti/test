@@ -40,7 +40,7 @@
 
 @implementation SVWebTestingViewCtrl
 
-@synthesize navigationController, tabBarController, currentResultModel;
+@synthesize currentResultModel;
 
 - (void)viewDidLoad
 {
@@ -113,7 +113,7 @@
     if (buttonIndex == 1)
     {
         SVInfo (@"取消了此次测试");
-        [navigationController popToRootViewControllerAnimated:NO];
+        [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
     }
     SVInfo (@"继续测试");
 }
@@ -135,13 +135,6 @@
     {
         [view removeFromSuperview];
     }
-
-    // 初始化结果
-    currentResultModel = [[SVCurrentResultModel alloc] init];
-    [currentResultModel setTestId:-1];
-    [currentResultModel setUvMOS:-1];
-    [currentResultModel setFirstBufferTime:-1];
-    [currentResultModel setCuttonTimes:-1];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -162,7 +155,7 @@
     [self initContext];
     // 进入页面时，开始测试
     long testId = [SVTimeUtil currentMilliSecondStamp];
-    _webTest = [[SVWebTest alloc] initWithView:testId showVideoView:_webView testDelegate:self];
+    _webTest = [[SVWebTest alloc] initWithView:testId showWebView:_webView testDelegate:self];
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       BOOL isOK = [_webTest initTestContext];
       if (isOK)
@@ -299,7 +292,7 @@
           [bar setBarValue:totalTime];
           [_headerView.uvMosBarView addSubview:bar];
           [_webtestingView updateUvMOS:totalTime];
-
+          [_webtestingView.label22 setText:[NSString stringWithFormat:@"%.2f", totalTime]];
 
           // 测试地址
           [_footerView.urlLabel2 setText:testUrl];
@@ -322,10 +315,24 @@
 
 - (void)goToCurrentResultViewCtrl
 {
-    SVCurrentResultViewCtrl *currentResultView = [[SVCurrentResultViewCtrl alloc] init];
-    currentResultView.currentResultModel = currentResultModel;
-    currentResultView.navigationController = navigationController;
-    [navigationController pushViewController:currentResultView animated:YES];
+    // 返回根界面
+    [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
+
+
+    // push界面
+    NSMutableArray *ctrlArray = [self.currentResultModel nextControllers];
+    if (ctrlArray)
+    {
+        id nextCtrl = ctrlArray[0];
+        if (nextCtrl)
+        {
+            [ctrlArray removeObjectAtIndex:0];
+            [[self currentResultModel] setNextControllers:ctrlArray];
+            [nextCtrl setCurrentResultModel:self.currentResultModel];
+            [[self.currentResultModel navigationController] pushViewController:nextCtrl
+                                                                      animated:YES];
+        }
+    }
 }
 
 

@@ -6,9 +6,12 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+#import "SVNetworkTrafficMonitor.h"
 #import "SVWebTest.h"
 #import <SPCommon/SVLog.h>
 #import <SPService/SPService.h>
+
+@import WebKit;
 
 @implementation SVWebTest
 {
@@ -22,6 +25,9 @@
 
     // 正在测试的url
     NSString *currentUrl;
+
+    // 当前的流量
+    double currentBytes;
 
     // 测试开始时间
     double startTime;
@@ -41,9 +47,6 @@
     // 计算下载速度的定时器
     NSTimer *caclSeedTimer;
 
-    // 当前url的连接
-    NSURLConnection *currentConn;
-
     // 每隔100毫秒推送一次结果
     id<SVWebTestDelegate> _testDelegate;
 
@@ -51,7 +54,7 @@
     TestStatus testStatus;
 
     // 显示网页的WebView
-    UIWebView *_webView;
+    WKWebView *_webView;
 }
 
 @synthesize webTestContext, webTestResultDic;
@@ -66,7 +69,7 @@
  *  @return 视频测试对象
  */
 - (id)initWithView:(long)testId
-     showVideoView:(UIView *)showWebView
+       showWebView:(UIView *)showWebView
       testDelegate:(id<SVWebTestDelegate>)testDelegate
 {
     self = [super init];
@@ -84,8 +87,9 @@
     SVInfo (@"SVWebTest testID:%ld  showVideoView:%@", testId, showWebView);
 
     // 初始化UIWebView
-    _webView = [[UIWebView alloc]
+    _webView = [[WKWebView alloc]
     initWithFrame:CGRectMake (0, 0, _showWebView.size.width, _showWebView.size.height)];
+    [_webView setNavigationDelegate:self];
     [_showWebView addSubview:_webView];
     return self;
 }
@@ -121,18 +125,13 @@
     {
         if (testStatus == TEST_TESTING)
         {
-            //            NSArray *urls = @[
-            //                @"http://www.12306.cn",
-            //                @"http://www.taobao.com",
-            //                @"http://www.youku.com",
-            //                @"http://www.tudou.com"
-            //            ];
             for (NSString *url in webTestContext.urlArray)
             {
                 // 初始化数据
                 totalTime = 0;
                 totalBytes = 0;
                 currentUrl = url;
+                currentBytes = [[SVNetworkTrafficMonitor getDataCounters] doubleValue];
 
                 // 初始化TestResult
                 currentResult = self.webTestResultDic[currentUrl];
@@ -153,19 +152,21 @@
                 NSURLRequest *request = [[NSURLRequest alloc] initWithURL:testUrl
                                                               cachePolicy:NSURLRequestReloadIgnoringCacheData
                                                           timeoutInterval:10];
-                currentConn =
-                [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
-                [currentConn scheduleInRunLoop:[NSRunLoop currentRunLoop]
-                                       forMode:NSDefaultRunLoopMode];
 
                 // 记录测试开始时间
                 startTime = [[NSDate date] timeIntervalSince1970] * 1000;
 
-                // 加载页面，再WebView中显示
+                // 加载页面，在WebView中显示
                 [_webView loadRequest:request];
 
-                // 开始连接
-                [currentConn start];
+                // 启动计算下载速度的定时器，当前时间100ms后，每隔100ms执行一次
+                caclSeedTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:0.1]
+                                                         interval:0.1
+                                                           target:self
+                                                         selector:@selector (caclSpeed:)
+                                                         userInfo:@"Calculate Speed"
+                                                          repeats:YES];
+                [[NSRunLoop currentRunLoop] addTimer:caclSeedTimer forMode:NSDefaultRunLoopMode];
 
                 // 循环直到当前url测试结束，再执行下一个测试
                 while (!finished)
@@ -175,10 +176,10 @@
                 }
 
                 // 每次测试结束等待1秒
-                [NSThread sleepForTimeInterval:1];
+                [NSThread sleepForTimeInterval:3];
 
                 // 关闭定时器和url连接
-                [self closeTimerAndConn];
+                [self closeTimer];
 
                 // 设置标志位
                 finished = NO;
@@ -233,7 +234,7 @@
         }
 
         // 关闭定时器和url连接
-        [self closeTimerAndConn];
+        [self closeTimer];
     }
     @catch (NSException *exception)
     {
@@ -243,20 +244,8 @@
     }
 }
 
-// 重定向时调用
-//- (NSURLRequest *)connection:(NSURLConnection *)connection
-//             willSendRequest:(NSURLRequest *)request
-//            redirectResponse:(NSURLResponse *)response
-//{
-//    NSLog (@"================================================");
-//    NSLog (@"will send request\n%@", [request URL]);
-//    NSLog (@"redirect response\n%@", [response URL]);
-//
-//    return request;
-//}
-
 // 接收第一个包时调用
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation
 {
     // 判断TestResult是否初始化
     if (!currentResult)
@@ -266,30 +255,14 @@
     }
 
     // 计算响应时间
-    float responseTime = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
+    float responseTime = ([[NSDate date] timeIntervalSince1970] * 1000 - startTime) / 1000;
     [currentResult setResponseTime:responseTime];
 
     SVInfo (@"%@%@;%@%f", @"Test Url:", currentUrl, @"Response Time:", responseTime);
-
-    // 启动计算下载速度的定时器，当前时间100ms后，每隔100ms执行一次
-    caclSeedTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:0.1]
-                                             interval:0.1
-                                               target:self
-                                             selector:@selector (caclSpeed:)
-                                             userInfo:@"Calculate Speed"
-                                              repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:caclSeedTimer forMode:NSDefaultRunLoopMode];
-}
-
-// 分批接收数据
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    // 记录页面下载的总大小
-    totalBytes = totalBytes + [data length];
 }
 
 // 页面加载结束时调用
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     // 判断TestResult是否初始化
     if (!currentResult)
@@ -298,11 +271,14 @@
         return;
     }
 
+    // 计算下载的大小
+    totalBytes = [[SVNetworkTrafficMonitor getDataCounters] doubleValue] - currentBytes;
+
     // 计算总时间
-    totalTime = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
+    totalTime = ([[NSDate date] timeIntervalSince1970] * 1000 - startTime) / 1000;
 
     // 计算平均下载速度
-    double avgSpeed = (totalBytes * 8 / 1024) / (totalTime / 1000);
+    double avgSpeed = (totalBytes * 8 / 1024) / totalTime;
 
     [currentResult setTotalTime:totalTime];
     [currentResult setDownloadSpeed:avgSpeed];
@@ -322,7 +298,9 @@
 }
 
 // 加载页面失败时调用
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+- (void)webView:(WKWebView *)webView
+didFailNavigation:(WKNavigation *)navigation
+        withError:(NSError *)error
 {
     if (error)
     {
@@ -341,11 +319,18 @@
         return;
     }
 
+    // 计算下载的大小
+    double downloadSize = [[SVNetworkTrafficMonitor getDataCounters] doubleValue] - currentBytes;
+
     // 加载时间
-    double costTime = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
+    double costTime = ([[NSDate date] timeIntervalSince1970] * 1000 - startTime) / 1000;
 
     // 计算平均下载速度
-    double avgSpeed = (totalBytes * 8 / 1024) / (costTime / 1000);
+    double avgSpeed = 0.0;
+    if (currentResult.responseTime > 0)
+    {
+        avgSpeed = (downloadSize * 8 / 1024) / costTime;
+    }
 
     [currentResult setTotalTime:costTime];
     [currentResult setDownloadSpeed:avgSpeed];
@@ -357,7 +342,7 @@
     [_testDelegate updateTestResultDelegate:self.webTestContext testResult:currentResult];
 
     // 如果超过10S，则任务测试结束
-    if (costTime >= 10000)
+    if (costTime >= 10)
     {
         finished = YES;
     }
@@ -378,21 +363,13 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 }
 
 // 关闭定时器和url连接
-- (void)closeTimerAndConn
+- (void)closeTimer
 {
     // 关闭定时器
     if (caclSeedTimer)
     {
         [caclSeedTimer invalidate];
         caclSeedTimer = nil;
-    }
-
-
-    // 关闭连接
-    if (currentConn)
-    {
-        [currentConn cancel];
-        currentConn = nil;
     }
 }
 

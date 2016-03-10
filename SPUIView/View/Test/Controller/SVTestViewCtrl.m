@@ -325,41 +325,56 @@
 - (void)testBtnClick1
 {
 #pragma mark - 在这里对 数组 排序
-    SVCurrentResultModel *currentResultModel = [[SVCurrentResultModel alloc] init];
     UITabBarController *tabBarController = self.tabBarController;
     UINavigationController *navigationController = self.navigationController;
+    NSMutableArray *ctrlArray = [[NSMutableArray alloc] init];
 
-    if (_selectedMA.count == 1)
+    SVCurrentResultModel *currentResultModel = [[SVCurrentResultModel alloc] init];
+    [currentResultModel setNavigationController:navigationController];
+    [currentResultModel setTabBarController:tabBarController];
+    [currentResultModel setSelectedA:_selectedMA];
+
+    for (id selected in _selectedMA)
     {
         //定义一个cellIndex,来记录数组中哪一个第一个被选择的
-        NSInteger cellIndex = ((NSNumber *)(_selectedMA.firstObject)).integerValue;
+        NSInteger cellIndex = ((NSNumber *)(selected)).integerValue;
 
         if (cellIndex == 0)
         {
             //按钮点击后alloc一个界面
             SVVideoTestingCtrl *videotestingCtrl = [[SVVideoTestingCtrl alloc] init];
-            [videotestingCtrl setNavigationController:navigationController];
-            [videotestingCtrl setTabBarController:tabBarController];
-            [videotestingCtrl setCurrentResultModel:currentResultModel];
-            videotestingCtrl.selectedA = _selectedMA;
-            // push界面
-            [self.navigationController pushViewController:videotestingCtrl animated:YES];
+
+            [currentResultModel setVideoTest:YES];
+            [ctrlArray addObject:videotestingCtrl];
         }
         if (cellIndex == 1)
         {
             SVWebTestingViewCtrl *webtestingCtrl = [[SVWebTestingViewCtrl alloc] init];
-            [webtestingCtrl setNavigationController:navigationController];
-            [webtestingCtrl setTabBarController:tabBarController];
-            [webtestingCtrl setCurrentResultModel:currentResultModel];
-            webtestingCtrl.selectedA = _selectedMA;
 
-            // push界面
-            [self.navigationController pushViewController:webtestingCtrl animated:YES];
+            [currentResultModel setWebTest:YES];
+            [ctrlArray addObject:webtestingCtrl];
         }
         if (cellIndex == 2)
         {
             SVSpeedTestingViewCtrl *speedtestingCtrl = [[SVSpeedTestingViewCtrl alloc] init];
-            [self.navigationController pushViewController:speedtestingCtrl animated:YES];
+
+            [ctrlArray addObject:speedtestingCtrl];
+        }
+    }
+
+    SVCurrentResultViewCtrl *currentResultView = [[SVCurrentResultViewCtrl alloc] init];
+    [ctrlArray addObject:currentResultView];
+
+    // push界面
+    if (ctrlArray)
+    {
+        id nextCtrl = ctrlArray[0];
+        if (nextCtrl)
+        {
+            [ctrlArray removeObjectAtIndex:0];
+            [currentResultModel setNextControllers:ctrlArray];
+            [nextCtrl setCurrentResultModel:currentResultModel];
+            [self.navigationController pushViewController:nextCtrl animated:YES];
         }
     }
 

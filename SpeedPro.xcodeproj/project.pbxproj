@@ -91,6 +91,7 @@
 		56EC8C971C4F467000EBDA6C /* tabbar_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C901C4F467000EBDA6C /* tabbar_test.png */; };
 		56EC8C981C4F467000EBDA6C /* tabbar_test_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C911C4F467000EBDA6C /* tabbar_test_selected.png */; };
 		56F523E41C4DCF7F00E6472B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F523E31C4DCF7F00E6472B /* main.m */; };
+		5B80D3921C91742700FF61DE /* SVNetworkTrafficMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B80D3911C91742700FF61DE /* SVNetworkTrafficMonitor.m */; };
 		5B85C06A1C9025E000CA8A1E /* SVWebTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0661C9025E000CA8A1E /* SVWebTest.m */; };
 		5B85C06B1C9025E000CA8A1E /* SVWebTestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0681C9025E000CA8A1E /* SVWebTestResult.m */; };
 		5B85C0751C9026C000CA8A1E /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
@@ -261,6 +262,8 @@
 		56EC8C911C4F467000EBDA6C /* tabbar_test_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_test_selected.png; sourceTree = "<group>"; };
 		56F523DF1C4DCF7F00E6472B /* SpeedPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F523E31C4DCF7F00E6472B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5B80D3901C91742700FF61DE /* SVNetworkTrafficMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVNetworkTrafficMonitor.h; sourceTree = "<group>"; };
+		5B80D3911C91742700FF61DE /* SVNetworkTrafficMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVNetworkTrafficMonitor.m; sourceTree = "<group>"; };
 		5B85C0651C9025E000CA8A1E /* SVWebTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebTest.h; sourceTree = "<group>"; };
 		5B85C0661C9025E000CA8A1E /* SVWebTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebTest.m; sourceTree = "<group>"; };
 		5B85C0671C9025E000CA8A1E /* SVWebTestResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebTestResult.h; sourceTree = "<group>"; };
@@ -329,6 +332,8 @@
 		561A36B61C89693F00AC5F5E /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				5B80D3901C91742700FF61DE /* SVNetworkTrafficMonitor.h */,
+				5B80D3911C91742700FF61DE /* SVNetworkTrafficMonitor.m */,
 				5B85C0651C9025E000CA8A1E /* SVWebTest.h */,
 				5B85C0661C9025E000CA8A1E /* SVWebTest.m */,
 				5B85C0671C9025E000CA8A1E /* SVWebTestResult.h */,
@@ -926,6 +931,7 @@
 				56F523E41C4DCF7F00E6472B /* main.m in Sources */,
 				568D42B41C89E20B00F2916B /* SVBandWidthCtrl.m in Sources */,
 				561447C11C59BCE900003B9A /* SVPointView.m in Sources */,
+				5B80D3921C91742700FF61DE /* SVNetworkTrafficMonitor.m in Sources */,
 				B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

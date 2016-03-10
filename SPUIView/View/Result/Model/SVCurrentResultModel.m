@@ -11,7 +11,8 @@
 @implementation SVCurrentResultModel
 
 
-@synthesize testId, uvMOS, firstBufferTime, cuttonTimes, responseTime, totalTime, downloadSpeed;
+@synthesize selectedA, navigationController, tabBarController, nextControllers, testId, videoTest,
+uvMOS, firstBufferTime, cuttonTimes, webTest, responseTime, totalTime, downloadSpeed;
 
 
 @end

@@ -25,7 +25,7 @@
 
 @implementation SVCurrentResultViewCtrl
 
-@synthesize navigationController, currentResultModel;
+@synthesize currentResultModel;
 
 - (void)viewDidLoad
 {
@@ -334,7 +334,7 @@
 - (void)testBtnClick
 {
     SVInfo (@"back to testting view");
-    [navigationController popViewControllerAnimated:NO];
+    [[self.currentResultModel navigationController] popViewControllerAnimated:NO];
 }
 
 /**
@@ -343,7 +343,7 @@
 - (void)backBtnClik
 {
     SVInfo (@"back to test view");
-    [navigationController popToRootViewControllerAnimated:NO];
+    [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
 }
 
 @end
