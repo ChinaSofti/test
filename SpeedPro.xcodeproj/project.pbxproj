@@ -95,15 +95,15 @@
 		56EC8C981C4F467000EBDA6C /* tabbar_test_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C911C4F467000EBDA6C /* tabbar_test_selected.png */; };
 		56F523E41C4DCF7F00E6472B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F523E31C4DCF7F00E6472B /* main.m */; };
 		5B80D3921C91742700FF61DE /* SVNetworkTrafficMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B80D3911C91742700FF61DE /* SVNetworkTrafficMonitor.m */; };
+		5B80D3931C918E5100FF61DE /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
+		5B80D3941C918E5100FF61DE /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5B80D3951C918E5100FF61DE /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
+		5B80D3961C918E5100FF61DE /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B85C06A1C9025E000CA8A1E /* SVWebTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0661C9025E000CA8A1E /* SVWebTest.m */; };
 		5B85C06B1C9025E000CA8A1E /* SVWebTestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0681C9025E000CA8A1E /* SVWebTestResult.m */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B72A1D0E1C7192B600C3141A /* speed_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = B72A1D0D1C7192B600C3141A /* speed_pro.png */; };
-		B79252811C916B4800A9F702 /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
-		B79252821C916B4800A9F702 /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B79252831C916B4800A9F702 /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
-		B79252841C916B4800A9F702 /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */; };
 		B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CD57511C70C7FB00668E88 /* SVCurrentResultModel.m */; };
 		B7F3CA4A1C72CA3F009B087F /* toast_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F3CA491C72CA3F009B087F /* toast_icon.png */; };
@@ -130,14 +130,14 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B79252801C916A2200A9F702 /* Embed Frameworks */ = {
+		5B80D3971C918E5100FF61DE /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B79252821C916B4800A9F702 /* SPCommon.framework in Embed Frameworks */,
-				B79252841C916B4800A9F702 /* SPService.framework in Embed Frameworks */,
+				5B80D3941C918E5100FF61DE /* SPCommon.framework in Embed Frameworks */,
+				5B80D3961C918E5100FF61DE /* SPService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,8 +296,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B79252811C916B4800A9F702 /* SPCommon.framework in Frameworks */,
-				B79252831C916B4800A9F702 /* SPService.framework in Frameworks */,
+				5B80D3931C918E5100FF61DE /* SPCommon.framework in Frameworks */,
+				5B80D3951C918E5100FF61DE /* SPService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,7 +766,7 @@
 				56F523DC1C4DCF7F00E6472B /* Frameworks */,
 				56F523DD1C4DCF7F00E6472B /* Resources */,
 				56A239E41C7D9E4D000C6341 /* Copy Files */,
-				B79252801C916A2200A9F702 /* Embed Frameworks */,
+				5B80D3971C918E5100FF61DE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

@@ -159,7 +159,7 @@
     [self initContext];
     // 进入页面时，开始测试
     long testId = [SVTimeUtil currentMilliSecondStamp];
-    _webTest = [[SVWebTest alloc] initWithView:testId showVideoView:_speedView testDelegate:self];
+    _webTest = [[SVWebTest alloc] initWithView:testId showWebView:_speedView testDelegate:self];
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       BOOL isOK = [_webTest initTestContext];
       if (isOK)
@@ -320,10 +320,24 @@
 
 - (void)goToCurrentResultViewCtrl
 {
-    SVCurrentResultViewCtrl *currentResultView = [[SVCurrentResultViewCtrl alloc] init];
-    currentResultView.currentResultModel = currentResultModel;
-    currentResultView.navigationController = navigationController;
-    [navigationController pushViewController:currentResultView animated:YES];
+    // 返回根界面
+    [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
+
+
+    // push界面
+    NSMutableArray *ctrlArray = [self.currentResultModel nextControllers];
+    if (ctrlArray)
+    {
+        id nextCtrl = ctrlArray[0];
+        if (nextCtrl)
+        {
+            [ctrlArray removeObjectAtIndex:0];
+            [[self currentResultModel] setNextControllers:ctrlArray];
+            [nextCtrl setCurrentResultModel:self.currentResultModel];
+            [[self.currentResultModel navigationController] pushViewController:nextCtrl
+                                                                      animated:YES];
+        }
+    }
 }
 
 
