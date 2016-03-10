@@ -92,6 +92,15 @@
         CGPointMake (_panelView2.frame.size.width / 2, _panelView2.frame.size.height / 2);
         [_panelView2 addSubview:imageView12];
 
+        _grayView2 = [[SVPointView alloc]
+        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
+        UIImageView *imageView32 = [[UIImageView alloc] initWithFrame:CGRectZero];
+        imageView32.size = CGSizeMake (280, 280);
+        imageView32.image = [UIImage imageNamed:@"clock_pointer_gray"];
+        imageView32.center =
+        CGPointMake (_panelView2.frame.size.width / 2, _panelView2.frame.size.height / 2);
+        [_grayView2 addSubview:imageView32];
+
         _label12 = [[UILabel alloc]
         initWithFrame:CGRectMake (FITWIDTH (120), FITWIDTH (290), FITWIDTH (80), FITWIDTH (20))];
         _label12.text = title1;
@@ -148,6 +157,7 @@
     }
     return self;
 }
+// video
 //开始转动方法
 - (void)start
 {
@@ -179,28 +189,44 @@
         }
         if (uvMOS >= 2.5)
         {
-            self.grayView.transform = CGAffineTransformMakeRotation (uvMOS - 2.5 / 1.2);
+            self.grayView.transform = CGAffineTransformMakeRotation (uvMOS / 1.2 - 2.5 / 1.2);
         }
         _num = uvMOS;
         _label2.text = [NSString stringWithFormat:@"%.2f", _num];
     }
 }
-//通过grayView的有无来实现表盘更新
-//- (void)updateUvMOS:(float)uvMOS
-//{
-//    self.num = uvMOS;
-//    if (self.num < M_PI * 2 / 3)
-//    {
-//        [self.grayViewSuperView insertSubview:_grayView atIndex:self.grayViewIndexInSuperView];
-//        [self.label2SuperView insertSubview:_label2 atIndex:self.label2IndexInSuperView];
-//    }
-//    if (self.num > M_PI * 2 / 3)
-//    {
-//        [_grayView removeFromSuperview];
-//    }
-//
-//    _label2.text = [NSString stringWithFormat:@"%.2f", self.num];
-//    [self rotate];
-//}
 
+// web
+//开始转动方法
+- (void)start2
+{
+
+    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector (rotate2)];
+    [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+//转动角度,速度控制
+- (void)rotate2
+{
+    //设置图片旋转速度
+    self.pointView.transform = CGAffineTransformMakeRotation (self.num / 2.4);
+}
+
+- (void)updateUvMOS2:(float)uvMOS
+{
+    _num = -1;
+    if (uvMOS != _num)
+    {
+        if (uvMOS < 5)
+        {
+            self.grayView2.transform = CGAffineTransformMakeRotation (0 / 2.4);
+        }
+        if (uvMOS >= 5)
+        {
+            self.grayView2.transform = CGAffineTransformMakeRotation (uvMOS / 2.4 - 5 / 2.4);
+        }
+        _num = uvMOS;
+        _label22.text = [NSString stringWithFormat:@"%.2f", _num];
+    }
+}
 @end

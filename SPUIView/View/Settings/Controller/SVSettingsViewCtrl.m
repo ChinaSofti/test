@@ -194,8 +194,6 @@
     NSString *title9 = I18N (@"Cancel");
     NSString *title10 = I18N (@"WeChat");
     NSString *title11 = I18N (@"WeChat Friend Circle");
-
-    //添加覆盖grayview
     //获取整个屏幕的window
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //    // 0.开始动画
@@ -252,7 +250,7 @@
     UILabel *label4 = [[UILabel alloc]
     initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (40), kScreenH / 10 + FITTHEIGHT (70), 150, 20)];
     label4.text = title11;
-//    label4.backgroundColor = [UIColor redColor];
+    //    label4.backgroundColor = [UIColor redColor];
     label4.font = [UIFont systemFontOfSize:15];
     label4.textColor = [UIColor lightGrayColor];
     label4.textAlignment = NSTextAlignmentCenter;

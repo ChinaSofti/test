@@ -33,7 +33,7 @@
 }
 
 //定义gray遮挡View
-@property (nonatomic, strong) UIView *grayview;
+@property (nonatomic, strong) UIView *gyview;
 
 
 @end
@@ -129,7 +129,7 @@
     [_footerView.bitLabel setText:title5];
     [_headerView.bufferLabel setText:@"0"];
     [_headerView.speedLabel setText:@"0"];
-    [_webtestingView updateUvMOS:0];
+    [_webtestingView updateUvMOS2:0];
 
     for (UIView *view in [_headerView.uvMosBarView subviews])
     {
@@ -143,15 +143,15 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
 
-    //添加覆盖grayview(为了防止用户在测试的过程中点击按钮)
+    //添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
     //获取整个屏幕的window
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //创建一个覆盖garyView
-    _grayview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
+    _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
     //设置透明度
-    _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    _gyview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     //添加
-    [window addSubview:_grayview];
+    [window addSubview:_gyview];
     [self initContext];
     // 进入页面时，开始测试
     long testId = [SVTimeUtil currentMilliSecondStamp];
@@ -181,8 +181,8 @@
       {
           [_webTest stopTest];
 
-          //移除覆盖grayView
-          [_grayview removeFromSuperview];
+          //移除覆盖gyView
+          [_gyview removeFromSuperview];
       }
     });
 }
@@ -215,13 +215,13 @@
     _webtestingView = [[SVPointView alloc] init];
     //添加到View中
     [_webtestingView addSubview:_webtestingView.pointView];
-    [_webtestingView addSubview:_webtestingView.grayView];
+    [_webtestingView addSubview:_webtestingView.grayView2];
     [_webtestingView addSubview:_webtestingView.panelView2];
     [_webtestingView addSubview:_webtestingView.middleView];
     [_webtestingView addSubview:_webtestingView.label12];
     [_webtestingView addSubview:_webtestingView.label22];
     [_webtestingView addSubview:_webtestingView.label32];
-    [_webtestingView start];
+    [_webtestingView start2];
     [self.view addSubview:_webtestingView];
 }
 
@@ -291,7 +291,7 @@
           UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
           [bar setBarValue:totalTime];
           [_headerView.uvMosBarView addSubview:bar];
-          [_webtestingView updateUvMOS:totalTime];
+          [_webtestingView updateUvMOS2:totalTime];
           [_webtestingView.label22 setText:[NSString stringWithFormat:@"%.2f", totalTime]];
 
           // 测试地址
