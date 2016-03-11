@@ -24,4 +24,6 @@
 
 @property SVCurrentResultModel *currentResultModel;
 
+- (id)initWithResultModel:(SVCurrentResultModel *)resultModel;
+
 @end

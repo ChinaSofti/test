@@ -10,10 +10,8 @@
 #import "SVFooterView.h"
 #import "SVHeaderView.h"
 #import "SVPointView.h"
-#import "SVVideoView.h"
-
-#import "SVCurrentResultViewCtrl.h"
 #import "SVVideoTestingCtrl.h"
+#import "SVVideoView.h"
 #import <SPCommon/SVTimeUtil.h>
 #import <SPCommon/UUBar.h>
 #import <SPService/SVVideoTest.h>
@@ -53,6 +51,20 @@
 @implementation SVVideoTestingCtrl
 
 @synthesize currentResultModel;
+
+
+- (id)initWithResultModel:(SVCurrentResultModel *)resultModel
+{
+    self = [super init];
+    if (!self)
+    {
+        return nil;
+    }
+
+    currentResultModel = resultModel;
+    return self;
+}
+
 
 - (void)viewDidLoad
 {
@@ -447,12 +459,6 @@
 
 - (void)initCurrentResultModel:(SVVideoTestResult *)testResult
 {
-    if (!currentResultModel)
-    {
-        currentResultModel = [[SVCurrentResultModel alloc] init];
-    }
-
-    [currentResultModel setTestId:testResult.testId];
     [currentResultModel setUvMOS:testResult.UvMOSSession];
     [currentResultModel setFirstBufferTime:testResult.firstBufferTime];
     [currentResultModel setCuttonTimes:testResult.videoCuttonTimes];
@@ -515,21 +521,8 @@
     // 返回根界面
     [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
 
-
     // push界面
-    NSMutableArray *ctrlArray = [self.currentResultModel nextControllers];
-    if (ctrlArray)
-    {
-        id nextCtrl = ctrlArray[0];
-        if (nextCtrl)
-        {
-            [ctrlArray removeObjectAtIndex:0];
-            [[self currentResultModel] setNextControllers:ctrlArray];
-            [nextCtrl setCurrentResultModel:self.currentResultModel];
-            [[self.currentResultModel navigationController] pushViewController:nextCtrl
-                                                                      animated:YES];
-        }
-    }
+    [currentResultModel pushNextCtrl];
 }
 
 /**

@@ -40,6 +40,19 @@
 
 @synthesize navigationController, tabBarController, currentResultModel;
 
+
+- (id)initWithResultModel:(SVCurrentResultModel *)resultModel
+{
+    self = [super init];
+    if (!self)
+    {
+        return nil;
+    }
+
+    currentResultModel = resultModel;
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -307,12 +320,6 @@
 
 - (void)initCurrentResultModel:(SVWebTestResult *)testResult
 {
-    if (!currentResultModel)
-    {
-        currentResultModel = [[SVCurrentResultModel alloc] init];
-    }
-
-    [currentResultModel setTestId:testResult.testId];
     [currentResultModel setResponseTime:testResult.responseTime];
     [currentResultModel setTotalTime:testResult.totalTime];
     [currentResultModel setDownloadSpeed:testResult.downloadSpeed];
@@ -323,21 +330,8 @@
     // 返回根界面
     [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
 
-
     // push界面
-    NSMutableArray *ctrlArray = [self.currentResultModel nextControllers];
-    if (ctrlArray)
-    {
-        id nextCtrl = ctrlArray[0];
-        if (nextCtrl)
-        {
-            [ctrlArray removeObjectAtIndex:0];
-            [[self currentResultModel] setNextControllers:ctrlArray];
-            [nextCtrl setCurrentResultModel:self.currentResultModel];
-            [[self.currentResultModel navigationController] pushViewController:nextCtrl
-                                                                      animated:YES];
-        }
-    }
+    [currentResultModel pushNextCtrl];
 }
 
 

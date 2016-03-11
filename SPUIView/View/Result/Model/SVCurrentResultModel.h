@@ -14,7 +14,6 @@
 @property (nonatomic, retain) NSArray *selectedA;
 @property (nonatomic, retain) UINavigationController *navigationController;
 @property UITabBarController *tabBarController;
-@property NSMutableArray *nextControllers;
 
 // 测试例 ID， 标示唯一
 @property long testId;
@@ -31,6 +30,12 @@
 @property double totalTime;
 @property double downloadSpeed;
 
+
+- (id)init;
 // 带宽测试相关指标
+
+- (void)pushNextCtrl;
+
+- (void)addCtrl:(UIViewController *)ctrl;
 
 @end
