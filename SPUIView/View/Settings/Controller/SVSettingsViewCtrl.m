@@ -14,15 +14,57 @@
 #import "SVLogsViewCtrl.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
+#import <SPCommon/SVRealReachability.h>
 
-@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource>
+@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, SVRealReachabilityDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *grey;
 @property (nonatomic, strong) UIWindow *window;
 @end
 
 @implementation SVSettingsViewCtrl
+{
+    UITableViewCell *_photocell;
+    UIImageView *_imageView;
+    UILabel *_label;
+}
+- (void)networkStatusChange:(SVRealReachabilityStatus)status
+{
+    if (_imageView)
+    {
+        [_imageView removeFromSuperview];
+    }
+    if (_label) {
+        [_label removeFromSuperview];
+    }
 
+    if (status == SV_RealStatusViaWiFi)
+    {
+        UIImage *image1 = [UIImage imageNamed:@"ic_settings_wifi"];
+        _imageView = [[UIImageView alloc] initWithImage:image1];
+        _imageView.frame = CGRectMake (10, 10, 60, 60);
+        [_photocell addSubview:_imageView];
+        
+        _label = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
+        _label.font = [UIFont systemFontOfSize:16];
+        _label.text = @"WiFi";
+        [_photocell addSubview:_label];
+        
+    }
+    else
+    {
+        UIImage *image2 = [UIImage imageNamed:@"ic_settings_mobile"];
+        _imageView = [[UIImageView alloc] initWithImage:image2];
+        _imageView.frame = CGRectMake (10, 10, 60, 60);
+        [_photocell addSubview:_imageView];
+        
+        NSString *title7 = I18N (@"Mobile network");
+        _label = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
+        _label.font = [UIFont systemFontOfSize:16];
+        _label.text = title7;
+        [_photocell addSubview:_label];
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -97,7 +139,6 @@
     NSString *title4 = I18N (@"Language Setting");
     NSString *title5 = I18N (@"Upload Logs");
     NSString *title6 = I18N (@"Advanced setting");
-    NSString *title7 = I18N (@"WIFI");
 
     static NSString *cellId = @"cell";
 
@@ -120,6 +161,8 @@
             imageView1.frame = CGRectMake (10, 10, 60, 60);
             [cell addSubview:imageView1];
 
+            _photocell = cell;
+
             UILabel *label11 = [[UILabel alloc] initWithFrame:CGRectMake (100, 15, 70, 20)];
             label11.text = title1;
             //设置字体和是否加粗
@@ -127,10 +170,11 @@
             [cell addSubview:label11];
 
             UILabel *label111 = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
-            label111.text = title7;
             //设置字体和是否加粗
             label111.font = [UIFont systemFontOfSize:16];
+            label111.text = @"WiFi";
             [cell addSubview:label111];
+            _photocell = cell;
 
             UILabel *label22 = [[UILabel alloc] initWithFrame:CGRectMake (100, 45, 160, 20)];
             label22.text = title2;
