@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SVTabBarController.h"
 #import "SVToast.h"
+#import <SPService/SVSpeedTestServers.h>
 #import <SPService/SVTestContextGetter.h>
 
 @interface AppDelegate ()
@@ -80,6 +81,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 - (void)loadResouceFromServer
 {
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+      SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+
       // 初始化Test Context
       SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
       if (![contextGetter isInitSuccess])

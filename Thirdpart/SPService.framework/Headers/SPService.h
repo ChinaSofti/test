@@ -28,6 +28,7 @@ FOUNDATION_EXPORT const unsigned char SPServiceVersionString[];
 #import "SVLogUploader.h"
 #import "SVProbeInfo.h"
 #import "SVRc4.h"
+#import "SVSpeedTestServers.h"
 #import "SVSummaryResultModel.h"
 #import "SVTestContext.h"
 #import "SVTestContextGetter.h"
