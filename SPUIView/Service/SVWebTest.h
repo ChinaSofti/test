@@ -22,7 +22,7 @@
 @interface SVWebTest : NSObject <WKNavigationDelegate>
 
 // 测试结果
-@property NSDictionary<NSString *, SVWebTestResult *> *webTestResultDic;
+@property NSMutableDictionary *webTestResultDic;
 
 // 测试上下文
 @property SVWebTestContext *webTestContext;

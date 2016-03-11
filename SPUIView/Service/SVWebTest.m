@@ -8,6 +8,7 @@
 
 #import "SVNetworkTrafficMonitor.h"
 #import "SVWebTest.h"
+#import <SPCommon/SVDBManager.h>
 #import <SPCommon/SVLog.h>
 #import <SPService/SPService.h>
 
@@ -108,6 +109,9 @@
             SVError (@"webTest[testId=%ld] fail. there is no test context", _testId);
             return NO;
         }
+
+        // 初始化结果字典
+        self.webTestResultDic = [[NSMutableDictionary alloc] init];
         return YES;
     }
     @catch (NSException *exception)
@@ -134,7 +138,7 @@
                 currentBytes = [[SVNetworkTrafficMonitor getDataCounters] doubleValue];
 
                 // 初始化TestResult
-                currentResult = self.webTestResultDic[currentUrl];
+                currentResult = [self.webTestResultDic objectForKey:currentUrl];
                 if (!currentResult)
                 {
                     currentResult = [[SVWebTestResult alloc] init];
@@ -194,23 +198,11 @@
             testStatus = TEST_FINISHED;
             webTestContext.testStatus = testStatus;
 
-            // 计算平均值
-            double sumResponseTime = 0.0;
-            double sumTotalTime = 0.0;
-            double sumDownloadSpeed = 0.0;
-            for (SVWebTestResult *result in [self.webTestResultDic allValues])
-            {
-                sumResponseTime += [result responseTime];
-                sumTotalTime += [result totalTime];
-                sumDownloadSpeed += [result downloadSpeed];
-            }
-            NSUInteger count = [self.webTestResultDic count];
-            [currentResult setResponseTime:(sumResponseTime / count)];
-            [currentResult setTotalTime:(sumTotalTime / count)];
-            [currentResult setDownloadSpeed:(sumDownloadSpeed / count)];
+            // 推送最后一次结果
+            [self pushLastResult];
 
-            // 将平均后的结果推送给前台
-            [_testDelegate updateTestResultDelegate:self.webTestContext testResult:currentResult];
+            // 持久化详细结果
+            [self persistSVDetailResultModel];
         }
     }
     @catch (NSException *exception)
@@ -362,6 +354,28 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
 }
 
+// 推送最后一次结果
+- (void)pushLastResult
+{
+    // 计算平均值
+    double sumResponseTime = 0.0;
+    double sumTotalTime = 0.0;
+    double sumDownloadSpeed = 0.0;
+    for (SVWebTestResult *result in [self.webTestResultDic allValues])
+    {
+        sumResponseTime += [result responseTime];
+        sumTotalTime += [result totalTime];
+        sumDownloadSpeed += [result downloadSpeed];
+    }
+    NSUInteger count = [self.webTestResultDic count];
+    [currentResult setResponseTime:(sumResponseTime / count)];
+    [currentResult setTotalTime:(sumTotalTime / count)];
+    [currentResult setDownloadSpeed:(sumDownloadSpeed / count)];
+
+    // 将平均后的结果推送给前台
+    [_testDelegate updateTestResultDelegate:self.webTestContext testResult:currentResult];
+}
+
 // 关闭定时器和url连接
 - (void)closeTimer
 {
@@ -370,6 +384,98 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     {
         [caclSeedTimer invalidate];
         caclSeedTimer = nil;
+    }
+}
+
+/**
+ *  持久化结果明细
+ */
+- (void)persistSVDetailResultModel
+{
+    SVDBManager *db = [SVDBManager sharedInstance];
+
+    // 如果表不存在，则创建表
+    [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVDetailResultModel(ID integer PRIMARY KEY "
+                      @"AUTOINCREMENT, testId integer, testType integer, testResult text, "
+                      @"testContext text, probeInfo text);"];
+
+    NSString *insertSVDetailResultModelSQL =
+    [NSString stringWithFormat:@"INSERT INTO "
+                               @"SVDetailResultModel (testId,testType,testResult, testContext, "
+                               @"probeInfo) VALUES(%ld, %d, "
+                               @"'%@', '%@', '%@');",
+                               _testId, WEB, [self testResultToJsonString],
+                               [self testContextToJsonString], [self testProbeInfo]];
+
+    // 插入结果明细
+    [db executeUpdate:insertSVDetailResultModelSQL];
+}
+
+// probeInfo转换成json字符串
+- (NSString *)testProbeInfo
+{
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    SVInfo (@"SVProbeInfo ip:%@   isp:%@", probeInfo.ip, probeInfo.isp);
+    [dictionary setObject:!probeInfo.ip ? @"" : probeInfo.ip forKey:@"ip"];
+    [dictionary setObject:!probeInfo.isp ? @"" : probeInfo.isp forKey:@"isp"];
+
+    return [self dictionaryToJsonString:dictionary];
+}
+
+// 测试结果转换成json字符串
+- (NSString *)testResultToJsonString
+{
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    for (NSString *testUrl in [self.webTestResultDic allKeys])
+    {
+        SVWebTestResult *result = [self.webTestResultDic objectForKey:testUrl];
+        NSMutableDictionary *currenDic = [[NSMutableDictionary alloc] init];
+        [currenDic setObject:[[NSNumber alloc] initWithLong:result.testTime] forKey:@"testTime"];
+        [currenDic setObject:result.testUrl forKey:@"testUrl"];
+        [currenDic setObject:[[NSNumber alloc] initWithDouble:result.responseTime]
+                      forKey:@"responseTime"];
+        [currenDic setObject:[[NSNumber alloc] initWithDouble:result.totalTime]
+                      forKey:@"totalTime"];
+        [currenDic setObject:[[NSNumber alloc] initWithDouble:result.downloadSpeed]
+                      forKey:@"downloadSpeed"];
+        NSString *resultStr = [self dictionaryToJsonString:currenDic];
+
+        [dictionary setObject:resultStr forKey:testUrl];
+    }
+
+    return [self dictionaryToJsonString:dictionary];
+}
+
+
+// 将testContext转换为json字符串
+- (NSString *)testContextToJsonString
+{
+    NSArray *_urlArray = [self.webTestContext urlArray];
+    if (_urlArray)
+    {
+        NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+        [dictionary setObject:[self.webTestContext urlArray] forKey:@"urlArray"];
+
+        return [self dictionaryToJsonString:dictionary];
+    }
+    return @"";
+}
+
+// 将字典转换成json字符串
+- (NSString *)dictionaryToJsonString:(NSMutableDictionary *)dictionary
+{
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
+    if (error)
+    {
+        SVError (@"%@", error);
+        return @"";
+    }
+    else
+    {
+        NSString *resultJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        return resultJson;
     }
 }
 

@@ -15,6 +15,7 @@
 #import "SVVideoTestingCtrl.h"
 #import "SVWebTestingViewCtrl.h"
 
+#import <SPCommon/SVTimeUtil.h>
 #import <SPService/SVTestContextGetter.h>
 #define kFirstHederH 40
 #define kLastFooterH 140
@@ -328,11 +329,14 @@
     UITabBarController *tabBarController = self.tabBarController;
     UINavigationController *navigationController = self.navigationController;
     NSMutableArray *ctrlArray = [[NSMutableArray alloc] init];
+    long testId = [SVTimeUtil currentMilliSecondStamp];
 
     SVCurrentResultModel *currentResultModel = [[SVCurrentResultModel alloc] init];
     [currentResultModel setNavigationController:navigationController];
     [currentResultModel setTabBarController:tabBarController];
     [currentResultModel setSelectedA:_selectedMA];
+    [currentResultModel setTestId:testId];
+    
 
     for (id selected in _selectedMA)
     {
