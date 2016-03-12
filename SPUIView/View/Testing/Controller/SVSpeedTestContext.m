@@ -21,9 +21,11 @@
     }
 
     self.downloadUrl =
-    [NSURL URLWithString:@"http://bj3.unicomtest.com:80/speedtest/random4000x4000.jpg"];
-    self.uploadUrl = [NSURL URLWithString:@"http://bj3.unicomtest.com:80/speedtest/upload.php"];
-    self.delayUrl = [NSURL URLWithString:@"http://bj3.unicomtest.com:80/speedtest/latency.txt"];
+    [NSURL URLWithString:@"http://speedtest1.sh.chinamobile.com:80/speedtest/random4000x4000.jpg"];
+    self.uploadUrl =
+    [NSURL URLWithString:@"http://speedtest1.sh.chinamobile.com:80/speedtest/upload.php"];
+    self.delayUrl =
+    [NSURL URLWithString:@"http://speedtest1.sh.chinamobile.com:80/speedtest/latency.txt"];
     return self;
 }
 

@@ -358,6 +358,7 @@
         {
             SVSpeedTestingViewCtrl *speedtestingCtrl =
             [[SVSpeedTestingViewCtrl alloc] initWithResultModel:currentResultModel];
+            [currentResultModel setSpeedTest:YES];
             [currentResultModel addCtrl:speedtestingCtrl];
         }
     }

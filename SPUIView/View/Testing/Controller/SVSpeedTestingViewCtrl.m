@@ -144,13 +144,6 @@
     {
         [view removeFromSuperview];
     }
-
-    // 初始化结果
-    currentResultModel = [[SVCurrentResultModel alloc] init];
-    [currentResultModel setTestId:-1];
-    [currentResultModel setUvMOS:-1];
-    [currentResultModel setFirstBufferTime:-1];
-    [currentResultModel setCuttonTimes:-1];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -320,11 +313,6 @@
 
 - (void)initCurrentResultModel:(SVSpeedTestResult *)testResult
 {
-    if (!currentResultModel)
-    {
-        currentResultModel = [[SVCurrentResultModel alloc] init];
-    }
-
     currentResultModel.stDelay = testResult.delay;
     currentResultModel.stDownloadSpeed = testResult.downloadSpeed;
     currentResultModel.stUploadSpeed = testResult.uploadSpeed;

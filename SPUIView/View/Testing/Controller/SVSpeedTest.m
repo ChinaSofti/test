@@ -8,6 +8,7 @@
 
 #import "SVSpeedTest.h"
 #import "SVSpeedTestInfo.h"
+#import <SPCommon/SVDBManager.h>
 #import <SPCommon/SVLog.h>
 #import <SPService/SVIPAndISPGetter.h>
 
@@ -124,10 +125,11 @@ double _beginTime;
     _testStatus = TEST_TESTING;
     [self startUploadTest];
 
-    // TODO yzy 结果入库
-
     // 推送最终结果
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
+
+    // 结果入库
+    [self persistSVDetailResultModel];
 
     usleep (500000);
     _testContext.testStatus = TEST_FINISHED;
@@ -476,6 +478,117 @@ void sample (BOOL isUpload)
     _testResult.isSummeryResult = YES;
 
     SVInfo (@"avg speed = %f, len = %ld", speedAvg, len);
+}
+
+/**
+ *  持久化结果明细
+ */
+- (void)persistSVDetailResultModel
+{
+    SVDBManager *db = [SVDBManager sharedInstance];
+
+    // 如果表不存在，则创建表
+    [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVDetailResultModel(ID integer PRIMARY KEY "
+                      @"AUTOINCREMENT, testId integer, testType integer, testResult text, "
+                      @"testContext text, probeInfo text);"];
+
+    NSString *insertSVDetailResultModelSQL =
+    [NSString stringWithFormat:@"INSERT INTO "
+                               @"SVDetailResultModel (testId,testType,testResult, testContext, "
+                               @"probeInfo) VALUES(%ld, %d, "
+                               @"'%@', '%@', '%@');",
+                               _testId, BANDWIDTH, [self testResultToJsonString],
+                               [self testContextToJsonString], [self testProbeInfo]];
+
+    // 插入结果明细
+    [db executeUpdate:insertSVDetailResultModelSQL];
+}
+
+
+// 测试结果转换成json字符串
+- (NSString *)testResultToJsonString
+{
+
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+
+    [dic setObject:[[NSNumber alloc] initWithLong:_testResult.testTime] forKey:@"testTime"];
+    [dic setObject:[[NSNumber alloc] initWithDouble:_testResult.delay] forKey:@"delay"];
+    [dic setObject:[[NSNumber alloc] initWithDouble:_testResult.downloadSpeed]
+            forKey:@"downloadSpeed"];
+    [dic setObject:[[NSNumber alloc] initWithDouble:_testResult.uploadSpeed] forKey:@"uploadSpeed"];
+    [dic setObject:_testResult.ipAddress forKey:@"ipAddress"];
+
+    if (_testResult.isp)
+    {
+        if (_testResult.isp.city)
+        {
+            [dic setObject:_testResult.isp.city forKey:@"location"];
+        }
+        if (_testResult.isp.isp)
+        {
+            [dic setObject:_testResult.isp.isp forKey:@"isp"];
+        }
+    }
+
+    NSString *json = [self dictionaryToJsonString:dic];
+
+    SVInfo (@"testResultToJsonString:  %@", json);
+
+    return json;
+}
+
+// probeInfo转换成json字符串
+- (NSString *)testProbeInfo
+{
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    SVInfo (@"SVProbeInfo ip:%@   isp:%@", probeInfo.ip, probeInfo.isp);
+    [dictionary setObject:!probeInfo.ip ? @"" : probeInfo.ip forKey:@"ip"];
+    [dictionary setObject:!probeInfo.isp ? @"" : probeInfo.isp forKey:@"isp"];
+    [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
+                   forKey:@"netWorkType"];
+    [dictionary setObject:!probeInfo.signedBandwidth ? @"" : probeInfo.signedBandwidth
+                   forKey:@"signedBandwidth"];
+
+    NSString *json = [self dictionaryToJsonString:dictionary];
+
+    SVInfo (@"testProbeInfo:  %@", json);
+
+    return json;
+}
+
+// 将testContext转换为json字符串
+- (NSString *)testContextToJsonString
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+
+
+    [dic setObject:[_testContext.delayUrl absoluteString] forKey:@"delayUrl"];
+    [dic setObject:[_testContext.downloadUrl absoluteString] forKey:@"downloadUrl"];
+    [dic setObject:[_testContext.uploadUrl absoluteString] forKey:@"uploadUrl"];
+
+    NSString *json = [self dictionaryToJsonString:dic];
+
+    SVInfo (@"testContextToJsonString:  %@", json);
+
+    return json;
+}
+
+// 将字典转换成json字符串
+- (NSString *)dictionaryToJsonString:(NSMutableDictionary *)dictionary
+{
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
+    if (error)
+    {
+        SVError (@"%@", error);
+        return @"";
+    }
+    else
+    {
+        NSString *resultJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        return resultJson;
+    }
 }
 
 void sort (double *a, int n)
