@@ -40,6 +40,18 @@
 
 @synthesize navigationController, tabBarController, currentResultModel;
 
+- (id)initWithResultModel:(SVCurrentResultModel *)resultModel
+{
+    self = [super init];
+    if (!self)
+    {
+        return nil;
+    }
+    
+    currentResultModel = resultModel;
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -220,13 +232,13 @@
     _speedtestingView = [[SVPointView alloc] init];
     //添加到View中
     [_speedtestingView addSubview:_speedtestingView.pointView];
-    [_speedtestingView addSubview:_speedtestingView.grayView];
+    [_speedtestingView addSubview:_speedtestingView.grayView3];
     [_speedtestingView addSubview:_speedtestingView.panelView3];
     [_speedtestingView addSubview:_speedtestingView.middleView];
     [_speedtestingView addSubview:_speedtestingView.label13];
     [_speedtestingView addSubview:_speedtestingView.label23];
     [_speedtestingView addSubview:_speedtestingView.label33];
-    [_speedtestingView start];
+    [_speedtestingView start3];
     [self.view addSubview:_speedtestingView];
 }
 
@@ -316,10 +328,11 @@
 
 - (void)goToCurrentResultViewCtrl
 {
-    SVCurrentResultViewCtrl *currentResultView = [[SVCurrentResultViewCtrl alloc] init];
-    currentResultView.currentResultModel = currentResultModel;
-    currentResultView.navigationController = navigationController;
-    [navigationController pushViewController:currentResultView animated:YES];
+    // 返回根界面
+    [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
+    
+    // push界面
+    [currentResultModel pushNextCtrl];
 }
 
 
