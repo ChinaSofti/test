@@ -57,12 +57,12 @@ struct sockaddr_in addr;
 double _beginTime;
 
 /**
- *  初始化网页测试对象，初始化必须放在UI主线程中进行
+ *  初始化带宽测试对象，初始化必须放在UI主线程中进行
  *
  *  @param testId        测试ID
  *  @param showVideoView UIView 用于显示网页
  *
- *  @return 视频测试对象
+ *  @return 带宽测试对象
  */
 - (id)initWithView:(long)testId
      showSpeedView:(UIView *)showSpeedView
@@ -147,7 +147,7 @@ double _beginTime;
         int ret = pthread_create (&tids[i], NULL, (void *)download, i);
         if (ret != 0)
         {
-            SVInfo (@"thread create error, tid = %lld", tids[i]);
+            SVInfo (@"startDownloadTest thread create error, tid = %lld", tids[i]);
         }
     }
 
@@ -171,7 +171,7 @@ double _beginTime;
         int ret = pthread_create (&tids[i], NULL, (void *)upload, i);
         if (ret != 0)
         {
-            SVInfo (@"thread create error, tid = %lld", tids[i]);
+            SVInfo (@"startUploadTest thread create error, tid = %lld", tids[i]);
         }
     }
 
@@ -193,7 +193,7 @@ double _beginTime;
     int ret = pthread_create (&tid, NULL, (void *)delayTest, 0);
     if (ret != 0)
     {
-        SVInfo (@"delay test thread create error, tid = %lld", tid);
+        SVInfo (@"startDelayTest thread create error, tid = %lld", tid);
     }
 
     return YES;
@@ -210,7 +210,7 @@ void download (int i)
                      @"Simulator; U; CPU iPhone OS 6 like Mac OS X; en-us) AppleWebKit/532.9 "
                      @"(KHTML, like Gecko) Mobile/8B117\r\n\r\n",
                      @"GET", _speedTestInfo.downloadPath, @"*/*", _speedTestInfo.host, @"Close"];
-    SVInfo (@"request %@", request);
+    SVInfo (@"download request %@", request);
 
     _beginTime = [[NSDate date] timeIntervalSince1970];
 
@@ -220,7 +220,7 @@ void download (int i)
         int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
         if (-1 == ret)
         {
-            SVInfo (@"connect error, ret = %d", ret);
+            SVInfo (@"download connect error, ret = %d", ret);
             usleep (RECONNECT_WAIT_TIME);
             continue;
         }
@@ -236,7 +236,11 @@ void download (int i)
         {
             _downloadSize += len;
         }
+
+        close (fd);
     }
+
+    SVInfo (@"download over, downloadSize = %ld", _downloadSize);
 }
 
 void upload (int i)
@@ -249,7 +253,7 @@ void upload (int i)
     int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
     if (-1 == ret)
     {
-        SVInfo (@"connect error, ret = %d", ret);
+        SVInfo (@"upload connect error, ret = %d", ret);
         return;
     }
 
@@ -265,7 +269,7 @@ void upload (int i)
     NSString *fileRequest =
     [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"file.jpg\"\r\n", BUNDORY];
 
-    SVInfo (@"request %@, fileReqesult %@", request, fileRequest);
+    SVInfo (@"upload request %@, fileReqesult %@", request, fileRequest);
 
     char *buff = (char *)malloc (UPLOAD_BUFFER_SIZE * sizeof (char));
     memset (buff, '\0', UPLOAD_BUFFER_SIZE);
@@ -273,18 +277,13 @@ void upload (int i)
     long len = write (fd, [request UTF8String], [request length] + 1);
     len = write (fd, [fileRequest UTF8String], [fileRequest length] + 1);
 
-    int count = 0;
     _beginTime = [[NSDate date] timeIntervalSince1970];
     while (_testStatus == TEST_TESTING && (len = send (fd, buff, UPLOAD_BUFFER_SIZE, 0)) > 0)
     {
         _uploadSize += len;
-        if (count % 1000 == 0)
-        {
-            SVInfo (@"Thread-%d, uploadSize = %ld", i, _uploadSize);
-        }
-        count++;
     }
 
+    close (fd);
 
     SVInfo (@"upload over, uploadSize = %ld", _uploadSize);
 }
@@ -302,7 +301,7 @@ void delayTest (int i)
                      @"(KHTML, like Gecko) Mobile/8B117\r\n\r\n",
                      @"GET", _speedTestInfo.delayPath, @"*/*", _speedTestInfo.host, @"Close"];
 
-    SVInfo (@"request %@", request);
+    SVInfo (@"delayTest request %@", request);
 
     char *buff = (char *)malloc (DELAY_BUFFER_SIZE * sizeof (char));
     memset (buff, '\0', DELAY_BUFFER_SIZE);
@@ -321,7 +320,7 @@ void delayTest (int i)
         }
 
         long len = write (fd, [request UTF8String], [request length] + 1);
-        SVInfo (@"delay test write len = %ld", len);
+        SVInfo (@"delayTest write len = %ld", len);
         double startTime = [[NSDate date] timeIntervalSince1970] * 1000;
         len = read (fd, buff, DELAY_BUFFER_SIZE);
         double delay = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
@@ -333,12 +332,12 @@ void delayTest (int i)
 
         close (fd);
 
-        SVInfo (@"delay test read len = %ld, delay = %f", len, delay);
+        SVInfo (@"delayTest read len = %ld, delay = %f", len, delay);
     }
 
     _testResult.delay = minDelay;
 
-    SVInfo (@"minDelay = %fms", minDelay);
+    SVInfo (@"delayTest over, minDelay = %fms", minDelay);
 }
 
 void sample (BOOL isUpload)
@@ -358,7 +357,6 @@ void sample (BOOL isUpload)
     double speedAvg = 0.0;
 
     int count = 0;
-
 
     while (count++ <= SAMPLE_COUNT)
     {
@@ -441,7 +439,7 @@ void sample (BOOL isUpload)
     double currentTime = [[NSDate date] timeIntervalSince1970];
     speedAvg = *size * 8.0 / (currentTime - _beginTime) / 1000000;
 
-    SVInfo (@"totalSize = %ld, costTime = %f", *size, (currentTime - _beginTime));
+    SVInfo (@"sample, totalSize = %ld, costTime = %f", *size, (currentTime - _beginTime));
 
     // 所有50个采样点，排序，去除最小30%和最大10%的采样点，再取平均值
     long len = sizeof (_speedsAll) / sizeof (_speedsAll[0]);
@@ -459,7 +457,7 @@ void sample (BOOL isUpload)
         }
 
         double avg = speedSum / (endIndex - startIndex);
-        SVInfo (@"avg = %f, speedAvg = %f", avg, speedAvg);
+        SVInfo (@"sample, avg = %f, speedAvg = %f", avg, speedAvg);
         if (avg > speedAvg)
         {
             speedAvg = avg;
@@ -477,7 +475,7 @@ void sample (BOOL isUpload)
 
     _testResult.isSummeryResult = YES;
 
-    SVInfo (@"avg speed = %f, len = %ld", speedAvg, len);
+    SVInfo (@"sample over, isUpload = %d, avg speed = %f, len = %ld", isUpload, speedAvg, len);
 }
 
 /**
@@ -633,7 +631,8 @@ void sort (double *a, int n)
     info.port = [_testContext.downloadUrl port];
     NSString *ip = [self getIPWithHostName:info.host];
     info.ip = ip;
-    SVInfo (@"host:%@, ip: %@", info.host, ip);
+
+    SVInfo (@"analyse, host:%@, ip: %@", info.host, ip);
 
     return info;
 }
