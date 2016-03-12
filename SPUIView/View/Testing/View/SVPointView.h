@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UILabel *label22; //定义label22
 @property (nonatomic, strong) UILabel *label32; //定义label32,单位s
 // SpeedTestingView中的属性
+@property (nonatomic, strong) UIView *grayView3; //定义gray遮挡View2
 @property (nonatomic, strong) UIView *panelView3; //定义仪表盘panelView3
 @property (nonatomic, strong) UILabel *label13; //定义label13
 @property (nonatomic, strong) UILabel *label23; //定义label23
@@ -43,4 +44,8 @@
 //开始转动方法
 - (void)start2;
 - (void)updateUvMOS2:(float)uvMOS;
+// speed
+//开始转动方法
+- (void)start3;
+- (void)updateUvMOS3:(float)uvMOS;
 @end

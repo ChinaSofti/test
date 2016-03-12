@@ -133,6 +133,16 @@
         imageView13.center =
         CGPointMake (_panelView3.frame.size.width / 2, _panelView3.frame.size.height / 2);
         [_panelView3 addSubview:imageView13];
+        
+        _grayView3 = [[SVPointView alloc]
+                      initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
+        UIImageView *imageView33 = [[UIImageView alloc] initWithFrame:CGRectZero];
+        imageView33.size = CGSizeMake (280, 280);
+        imageView33.image = [UIImage imageNamed:@"clock_pointer_gray"];
+        imageView33.center =
+        CGPointMake (_panelView3.frame.size.width / 2, _panelView3.frame.size.height / 2);
+        [_grayView3 addSubview:imageView33];
+
 
         _label13 = [[UILabel alloc]
         initWithFrame:CGRectMake (FITWIDTH (120), FITWIDTH (290), FITWIDTH (80), FITWIDTH (20))];
@@ -227,6 +237,47 @@
         }
         _num = uvMOS;
         _label22.text = [NSString stringWithFormat:@"%.2f", _num];
+    }
+}
+
+//speed
+//开始转动方法
+- (void)start3
+{
+    
+    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector (rotate3)];
+    [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+//转动角度,速度控制
+- (void)rotate3
+{
+        if (_num < 5)
+        {
+            self.pointView.transform = CGAffineTransformMakeRotation (0 / 24);
+        }
+        if (_num >= 5)
+        {
+            self.pointView.transform = CGAffineTransformMakeRotation (_num / 24 - 50 / 24);
+    }
+
+}
+
+- (void)updateUvMOS3:(float)uvMOS
+{
+    _num = -1;
+    if (uvMOS != _num)
+    {
+        if (uvMOS < 5)
+        {
+            self.grayView2.transform = CGAffineTransformMakeRotation (0 / 24);
+        }
+        if (uvMOS >= 5)
+        {
+            self.grayView2.transform = CGAffineTransformMakeRotation (uvMOS / 24 - 50 / 24);
+        }
+        _num = uvMOS;
+        _label23.text = [NSString stringWithFormat:@"%.2f", _num];
     }
 }
 @end
