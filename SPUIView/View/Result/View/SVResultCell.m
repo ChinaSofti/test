@@ -12,6 +12,7 @@
 #define CornerRadius 5
 
 #import "SVResultCell.h"
+#import <SPCommon/SVTimeUtil.h>
 #import <SPService/SVSummaryResultModel.h>
 
 @interface SVResultCell ()
@@ -172,39 +173,69 @@
     // Configure the view for the selected state
 }
 
-- (void)setResultModel:(SVSummaryResultModel *)resultModel
+- (void)setResultModel:(SVSummaryResultModel *)_resultModel
 {
     // WIFI 0  Mobile 1
-    if ([resultModel.type isEqualToString:@"0"])
+    if ([_resultModel.type isEqualToString:@"0"])
     {
         self.imgViewType.image = [UIImage imageNamed:@"ic_network_type_wifi"];
     }
-    else if ([resultModel.type isEqualToString:@"1"])
+    else if ([_resultModel.type isEqualToString:@"1"])
     {
         self.imgViewType.image = [UIImage imageNamed:@"ic_network_type_mobile"];
     }
 
-    NSString *testTime = resultModel.testTime;
-    NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:([testTime longLongValue] / 1000)];
-
-    NSDateFormatter *dataFormater = [[NSDateFormatter alloc] init];
-    [dataFormater setDateStyle:NSDateFormatterMediumStyle];
-    [dataFormater setTimeStyle:NSDateFormatterShortStyle];
-    [dataFormater setDateFormat:@"MM/dd"];
-
-    NSDateFormatter *timeFormater = [[NSDateFormatter alloc] init];
-    [timeFormater setDateStyle:NSDateFormatterMediumStyle];
-    [timeFormater setTimeStyle:NSDateFormatterShortStyle];
-    [timeFormater setDateFormat:@"HH:mm:ss"];
+    NSString *testTime = _resultModel.testTime;
+    //    NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:([testTime longLongValue] /
+    //    1000)];
+    //
+    //    NSDateFormatter *dataFormater = [[NSDateFormatter alloc] init];
+    //    [dataFormater setDateStyle:NSDateFormatterMediumStyle];
+    //    [dataFormater setTimeStyle:NSDateFormatterShortStyle];
+    //    [dataFormater setDateFormat:@"MM/dd"];
+    //
+    //    NSDateFormatter *timeFormater = [[NSDateFormatter alloc] init];
+    //    [timeFormater setDateStyle:NSDateFormatterMediumStyle];
+    //    [timeFormater setTimeStyle:NSDateFormatterShortStyle];
+    //    [timeFormater setDateFormat:@"HH:mm:ss"];
 
     //    SVInfo (@"date1:%@", [dataFormater stringFromDate:date]);
     //    SVInfo (@"time1:%@", [timeFormater stringFromDate:date]);
-    self.testDate.text = [dataFormater stringFromDate:date];
-    self.testTime.text = [timeFormater stringFromDate:date];
+    self.testDate.text =
+    [SVTimeUtil formatDateByMilliSecond:[testTime longLongValue] / 1000 formatStr:@"MM/dd"];
+    self.testTime.text =
+    [SVTimeUtil formatDateByMilliSecond:[testTime longLongValue] / 1000 formatStr:@"HH:mm:ss"];
 
-    self.videoMOS.text = [NSString stringWithFormat:@"%.2fms", [resultModel.UvMOS floatValue]];
-    self.loadTime.text = [NSString stringWithFormat:@"%@ms", resultModel.loadTime];
-    self.bandWidth.text = [NSString stringWithFormat:@"%@kbps", resultModel.bandwidth];
+    // 显示指标值，-1的显示--
+    float uvmos = [_resultModel.UvMOS floatValue];
+    if (uvmos == -1.0f)
+    {
+        self.videoMOS.text = @"--";
+    }
+    else
+    {
+        self.videoMOS.text = [NSString stringWithFormat:@"%.2f", uvmos];
+    }
+
+    double totalTime = [_resultModel.loadTime doubleValue];
+    if (totalTime == -1.0f)
+    {
+        self.loadTime.text = @"--";
+    }
+    else
+    {
+        self.loadTime.text = [NSString stringWithFormat:@"%.2fs", totalTime];
+    }
+
+    double bandWidth = [_resultModel.bandwidth doubleValue];
+    if (bandWidth == -1.0f)
+    {
+        self.bandWidth.text = @"--";
+    }
+    else
+    {
+        self.bandWidth.text = [NSString stringWithFormat:@"%.2fKbps", bandWidth];
+    }
 }
 
 @end

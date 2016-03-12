@@ -304,6 +304,10 @@ static NSInteger BtnTag = 10086;
         SVInfo (@"%@", _mealTextField.text);
         SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
         [setting setBandwidth:_mealTextField.text];
+
+        // 更新probeInfo的内容
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        [probeInfo setSignedBandwidth:_mealTextField.text];
     }
 
     if (_bandwidthTypeIndex > 0)
