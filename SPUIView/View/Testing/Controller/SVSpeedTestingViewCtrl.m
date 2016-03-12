@@ -324,6 +324,21 @@
     {
         currentResultModel = [[SVCurrentResultModel alloc] init];
     }
+
+    currentResultModel.stDelay = testResult.delay;
+    currentResultModel.stDownloadSpeed = testResult.downloadSpeed;
+    currentResultModel.stUploadSpeed = testResult.uploadSpeed;
+    if (testResult.isp)
+    {
+        if (testResult.isp.isp)
+        {
+            currentResultModel.stIsp = testResult.isp.isp;
+        }
+        if (testResult.isp.city)
+        {
+            currentResultModel.stLocation = testResult.isp.city;
+        }
+    }
 }
 
 - (void)goToCurrentResultViewCtrl

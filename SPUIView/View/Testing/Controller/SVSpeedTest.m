@@ -129,6 +129,10 @@ double _beginTime;
     // 推送最终结果
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 
+    usleep (500000);
+    _testContext.testStatus = TEST_FINISHED;
+    [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
+
     return TRUE;
 }
 

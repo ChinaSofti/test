@@ -30,9 +30,16 @@
 @property double totalTime;
 @property double downloadSpeed;
 
+// 带宽测试相关指标
+@property BOOL speedTest;
+@property double stDelay;
+@property double stDownloadSpeed;
+@property double stUploadSpeed;
+@property NSString *stLocation;
+@property NSString *stIsp;
+
 
 - (id)init;
-// 带宽测试相关指标
 
 - (void)pushNextCtrl;
 
