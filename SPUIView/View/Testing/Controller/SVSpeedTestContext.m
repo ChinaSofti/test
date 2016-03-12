@@ -6,6 +6,7 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+#import "SPService/SVSpeedTestServers.h"
 #import "SVSpeedTestContext.h"
 
 @implementation SVSpeedTestContext
@@ -20,12 +21,6 @@
         return nil;
     }
 
-    self.downloadUrl =
-    [NSURL URLWithString:@"http://speedtest1.sh.chinamobile.com:80/speedtest/random4000x4000.jpg"];
-    self.uploadUrl =
-    [NSURL URLWithString:@"http://speedtest1.sh.chinamobile.com:80/speedtest/upload.php"];
-    self.delayUrl =
-    [NSURL URLWithString:@"http://speedtest1.sh.chinamobile.com:80/speedtest/latency.txt"];
     return self;
 }
 
