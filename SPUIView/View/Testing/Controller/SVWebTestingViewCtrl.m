@@ -164,8 +164,9 @@
     [window addSubview:_gyview];
     [self initContext];
     // 进入页面时，开始测试
-    long testId = [SVTimeUtil currentMilliSecondStamp];
-    _webTest = [[SVWebTest alloc] initWithView:testId showWebView:_webView testDelegate:self];
+    _webTest = [[SVWebTest alloc] initWithView:self.currentResultModel.testId
+                                   showWebView:_webView
+                                  testDelegate:self];
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       BOOL isOK = [_webTest initTestContext];
       if (isOK)

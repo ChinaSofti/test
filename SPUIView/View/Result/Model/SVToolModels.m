@@ -15,8 +15,8 @@
     if ([super init])
     {
 
-        _title = dict[@"title"];
-        _title2 = dict[@"title2"];
+        _key = dict[@"key"];
+        _value = dict[@"value"];
     }
     return self;
 }

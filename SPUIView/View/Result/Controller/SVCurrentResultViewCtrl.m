@@ -54,7 +54,7 @@
     _bgdBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _bgdBtn.layer.borderWidth = 1;
     [_bgdBtn addTarget:self
-                action:@selector (CellDetailClick:)
+                action:@selector (CellVideoDetailClick:)
       forControlEvents:UIControlEventTouchUpInside];
 
     // 2.
@@ -64,7 +64,7 @@
     _bgdBtn2.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _bgdBtn2.layer.borderWidth = 1;
     [_bgdBtn2 addTarget:self
-                 action:@selector (CellDetailClick:)
+                 action:@selector (CellWebDetailClick:)
        forControlEvents:UIControlEventTouchUpInside];
 
     if (_resultModel.videoTest == YES)
@@ -414,20 +414,52 @@
 }
 
 /**
+ *进入视频测试结果详情界面
+ **/
+
+- (void)CellVideoDetailClick:(UIButton *)sender
+{
+    [self CellDetailClick:sender testType:@"0"];
+}
+
+/**
  *cell的点击事件进入详情界面
  **/
 
-- (void)CellDetailClick:(UIButton *)sender
+- (void)CellWebDetailClick:(UIButton *)sender
+{
+    [self CellDetailClick:sender testType:@"1"];
+}
+
+/**
+ *cell的点击事件进入详情界面
+ **/
+
+- (void)CellSpeedDetailClick:(UIButton *)sender
+{
+    [self CellDetailClick:sender testType:@"2"];
+}
+
+/**
+ *cell的点击事件进入详情界面
+ **/
+
+- (void)CellDetailClick:(UIButton *)sender testType:(NSString *)testType
 {
     // cell被点击
     SVInfo (@"cell-------dianjile");
+
     //按钮点击后alloc一个界面
     SVDetailViewCtrl *detailViewCtrl = [[SVDetailViewCtrl alloc] init];
     [detailViewCtrl setTestId:_resultModel.testId];
+    [detailViewCtrl setTestType:testType];
+
     //隐藏hidesBottomBarWhenPushed
     self.hidesBottomBarWhenPushed = YES;
+
     // push界面
     [self.navigationController pushViewController:detailViewCtrl animated:YES];
+
     //返回时显示hidesBottomBarWhenPushed
     self.hidesBottomBarWhenPushed = NO;
 }

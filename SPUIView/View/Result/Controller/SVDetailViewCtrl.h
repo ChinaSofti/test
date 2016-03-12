@@ -14,5 +14,6 @@
 
 @interface SVDetailViewCtrl : UIViewController
 @property long testId; // 测试ID
+@property NSString *testType; // 测试类型：0=video,1=web,2=speed
 
 @end

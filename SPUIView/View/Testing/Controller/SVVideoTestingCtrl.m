@@ -183,9 +183,9 @@
     [window addSubview:_gyview];
     [self initContext];
     // 进入页面时，开始测试
-    long testId = [SVTimeUtil currentMilliSecondStamp];
-    _videoTest =
-    [[SVVideoTest alloc] initWithView:testId showVideoView:_videoView testDelegate:self];
+    _videoTest = [[SVVideoTest alloc] initWithView:self.currentResultModel.testId
+                                     showVideoView:_videoView
+                                      testDelegate:self];
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       BOOL isOK = [_videoTest initTestContext];
       if (isOK)

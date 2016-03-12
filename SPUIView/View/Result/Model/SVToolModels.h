@@ -10,8 +10,8 @@
 
 @interface SVToolModels : NSObject
 
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *title2;
+@property (nonatomic, copy) NSString *key;
+@property (nonatomic, copy) NSString *value;
 
 
 + (instancetype)modelWithDict:(NSDictionary *)dict;

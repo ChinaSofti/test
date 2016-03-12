@@ -11,6 +11,7 @@
 #import "SVResultViewCtrl.h"
 #import "SVToolCells.h"
 #import <SPCommon/SVDBManager.h>
+#import <SPCommon/SVTimeUtil.h>
 #import <SPService/SVDetailResultModel.h>
 #define kMargin 10
 #define kFirstHederH 40
@@ -27,7 +28,7 @@
     SVDBManager *_db;
 }
 
-@synthesize testId;
+@synthesize testId, testType;
 
 - (void)viewDidLoad
 {
@@ -96,192 +97,293 @@
 
     [super viewDidAppear:animated];
     SVDetailViewModel *viewModel = [self defaultDetailViewModel];
+    _soucreMA = [NSMutableArray array];
     [self queryResult:viewModel];
-    //三.添加
-    // 6.定义数组展示图片
-    _selectedMA = [NSMutableArray array];
 
+    // 定义数组展示图片
+    _selectedMA = [[NSMutableArray alloc] init];
 
-    NSString *title1 = I18N (@"U-vMOS Score");
-    NSString *title2 = I18N (@"      Video View score");
-    NSString *title3 = I18N (@"      Video quality score");
-    NSString *title4 = I18N (@"      Interaction score");
-    NSString *title5 = I18N (@"Initial buffer time");
-    NSString *title6 = I18N (@"Buffer time");
-    NSString *title7 = I18N (@"Butter times");
-    NSString *title8 = I18N (@"Download speed");
-    NSString *title9 = I18N (@"Bit rate");
-    NSString *title10 = I18N (@"Frame rate");
-    NSString *title11 = I18N (@"Resolution");
-    NSString *title12 = I18N (@"Screen size");
-    NSString *title13 = I18N (@"Video URL");
-    NSString *title14 = I18N (@"Video server location");
-    NSString *title15 = I18N (@"Carrier");
-    NSString *title16 = I18N (@"Carriers");
-    NSString *title17 = I18N (@"Bandwidth package");
-    NSString *title18 = I18N (@"unknown");
-    NSString *title19 = I18N (@"Network type");
-    NSString *title20 = I18N (@"Inch");
-
-    NSArray *sourceA = @[
-        @{
-            @"title": title1,
-            @"title2": [self formatFloatValue:viewModel.UvMOSSession],
-        },
-        @{
-            @"title": title2,
-            @"title2": [self formatFloatValue:viewModel.sViewSession],
-        },
-        @{
-            @"title": title3,
-            @"title2": [self formatFloatValue:viewModel.sQualitySession],
-        },
-        @{
-            @"title": title4,
-            @"title2": [self formatFloatValue:viewModel.sInteractionSession],
-        },
-        @{
-            @"title": title5,
-            @"title2": [self formatValue1:viewModel.firstBufferTime unit:@"ms"],
-        },
-        @{
-            @"title": title6,
-            @"title2": [self formatValue1:viewModel.videoCuttonTotalTime unit:@"ms"],
-        },
-        @{ @"title": title7,
-           @"title2": [self formatValue:viewModel.videoCuttonTimes] },
-        @{
-            @"title": title8,
-            @"title2": [self formatValue2:viewModel.downloadSpeed unit:@"kbps"],
-
-        },
-        @{
-            @"title": title9,
-            @"title2": [self formatValue2:viewModel.bitrate unit:@"kbps"],
-        },
-        @{
-            @"title": title10,
-            @"title2": [self formatValue2:viewModel.frameRate unit:@"Fps"],
-        },
-        @{
-            @"title": title11,
-            @"title2": [self formatValue:viewModel.videoResolution],
-        },
-        @{
-            @"title": title12,
-            @"title2": [self formatValue1:viewModel.screenSize unit:title20],
-        },
-        @{
-            @"title": title13,
-            @"title2": [self formatValue:viewModel.videoSegementURLString],
-        },
-        @{
-            @"title": title14,
-            @"title2": [self formatValue:viewModel.videoSegemnetLocation],
-        },
-
-        @{
-            @"title": title15,
-            @"title2": [self formatValue:viewModel.videoSegemnetISP],
-        },
-
-        @{
-            @"title": title16,
-            @"title2": [self formatValue:viewModel.isp],
-        },
-        @{ @"title": title17,
-           @"title2": title18 },
-        @{ @"title": title19,
-           @"title2": @"WIFI" },
-        //        @{ @"title": @"测试时间",
-        //           @"title2": @"2016年02月16日 09:15:10" },
-        //        @{
-        //            @"title": @"信号强度",
-        //            @"title2": @"-104"
-        //                       @"dBm"
-        //        },
-
-    ];
-    NSMutableArray *sourceMA = [NSMutableArray array];
-    for (int i = 0; i < sourceA.count; i++)
-    {
-        SVToolModels *toolModel = [SVToolModels modelWithDict:sourceA[i]];
-        [sourceMA addObject:toolModel];
-    }
-
-    _soucreMA = sourceMA;
-    // 7.把tableView添加到 view
-
+    // 把tableView添加到 view
     [_tableView reloadData];
 }
 
 - (void)queryResult:(SVDetailViewModel *)viewModel
 {
-    NSString *sql =
-    [NSString stringWithFormat:@"select * from SVDetailResultModel where testId=%ld;", testId];
+    // 拼写sql
+    NSMutableString *sql =
+    [NSMutableString stringWithFormat:@"select * from SVDetailResultModel where testId=%ld", testId];
+    if (self.testType)
+    {
+        [sql appendFormat:@" and testType=%d", [self.testType intValue]];
+    }
+
+    // 查询结果，如果结果为空则返回
     NSArray *resultArray = [_db executeQuery:[SVDetailResultModel class] SQL:sql];
     if (!resultArray || resultArray.count == 0)
     {
         return;
     }
 
-    SVDetailResultModel *detailResultModel = resultArray[0];
-    NSString *testResult = detailResultModel.testResult;
-    NSString *testContext = detailResultModel.testContext;
-    NSString *probeInfo = detailResultModel.probeInfo;
+    // 同一次测试的probeInfo应该还是一样的，所以只记录一次即可
+    id probeInfoJson;
 
-    NSError *error;
-    id testResultJson = [NSJSONSerialization JSONObjectWithData:[testResult dataUsingEncoding:NSUTF8StringEncoding]
-                                                        options:0
-                                                          error:&error];
-    if (error)
+    // 遍历详细结果，生成对应的section和cell
+    for (SVDetailResultModel *detailResultModel in resultArray)
     {
-        SVError (@"%@", error);
-        return;
+        // 得到详细结果中各个字段的值
+        NSString *_testType = detailResultModel.testType;
+        NSString *testResult = detailResultModel.testResult;
+        NSString *testContext = detailResultModel.testContext;
+        NSString *probeInfo = detailResultModel.probeInfo;
+
+        // 将json字符串转换成字典
+        NSError *error;
+        id testResultJson = [NSJSONSerialization JSONObjectWithData:[testResult dataUsingEncoding:NSUTF8StringEncoding]
+                                                            options:0
+                                                              error:&error];
+        if (error)
+        {
+            SVError (@"%@", error);
+            return;
+        }
+
+        id testContextJson =
+        [NSJSONSerialization JSONObjectWithData:[testContext dataUsingEncoding:NSUTF8StringEncoding]
+                                        options:0
+                                          error:&error];
+        if (error)
+        {
+            SVError (@"%@", error);
+            return;
+        }
+
+        if (!probeInfoJson)
+        {
+            probeInfoJson = [NSJSONSerialization JSONObjectWithData:[probeInfo dataUsingEncoding:NSUTF8StringEncoding]
+                                                            options:0
+                                                              error:&error];
+            if (error)
+            {
+                SVError (@"%@", error);
+                return;
+            }
+        }
+
+        // 根据测试类型生成对应的UIView，0=video,1=web,2=speed
+        if ([_testType isEqual:@"0"])
+        {
+            [self createViedeoResultDetailView:testResultJson contextJson:testContextJson];
+        }
+        if ([_testType isEqual:@"1"])
+        {
+            [self createWebResultDetailView:testResultJson contextJson:testContextJson];
+        }
     }
 
-    id testContextJson = [NSJSONSerialization JSONObjectWithData:[testContext dataUsingEncoding:NSUTF8StringEncoding]
-                                                         options:0
-                                                           error:&error];
-    if (error)
+    // 生成采集器信息的header
+    [_soucreMA
+    addObject:[[SVToolCells alloc] initTitleCellWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:@"titleCell"
+                                                    title:I18N (@"Collector Information")
+                                                imageName:@"rt_detail_title_collector_img"]];
+
+    NSString *valueStr;
+
+    // 生成采集器各个指标对应的UIView
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Carriers"),
+                   @"value": [self formatValue:[probeInfoJson valueForKey:@"isp"]]
+               }]];
+
+    // 宽带套餐
+    NSString *bandWidth = [probeInfoJson valueForKey:@"signedBandwidth"];
+    if (!bandWidth || [bandWidth isEqualToString:@""])
     {
-        SVError (@"%@", error);
-        return;
+        valueStr = I18N (@"unknown");
     }
-
-    id probeInfoJson = [NSJSONSerialization JSONObjectWithData:[probeInfo dataUsingEncoding:NSUTF8StringEncoding]
-                                                       options:0
-                                                         error:&error];
-    if (error)
+    else
     {
-        SVError (@"%@", error);
-        return;
+        valueStr = [NSString stringWithFormat:@"%@M", bandWidth];
     }
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Bandwidth package"),
+                   @"value": valueStr
+               }]];
 
-    viewModel.sViewSession = [testResultJson valueForKey:@"sViewSession"];
-    viewModel.sQualitySession = [testResultJson valueForKey:@"sQualitySession"];
-    viewModel.sInteractionSession = [testResultJson valueForKey:@"sInteractionSession"];
-    viewModel.UvMOSSession = [testResultJson valueForKey:@"UvMOSSession"];
-    viewModel.firstBufferTime = [testResultJson valueForKey:@"firstBufferTime"];
-    viewModel.videoCuttonTimes = [testResultJson valueForKey:@"videoCuttonTimes"];
-    viewModel.videoCuttonTotalTime = [testResultJson valueForKey:@"videoCuttonTotalTime"];
-    viewModel.downloadSpeed = [testResultJson valueForKey:@"downloadSpeed"];
-    viewModel.bitrate = [testResultJson valueForKey:@"bitrate"];
-    viewModel.frameRate = [testResultJson valueForKey:@"frameRate"];
-    viewModel.videoResolution = [testResultJson valueForKey:@"videoResolution"];
-    viewModel.screenSize = [testResultJson valueForKey:@"screenSize"];
+    // 网络类型
+    int networkType = [[probeInfoJson valueForKey:@"networkType"] intValue];
+    switch (networkType)
+    {
+    case 0:
+        valueStr = @"WIFI";
+        break;
+    case 1:
+        valueStr = @"MOBILE";
+        break;
+    default:
+        valueStr = I18N (@"unknown");
+        break;
+    }
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Network type"),
+                   @"value": valueStr
+               }]];
 
-    viewModel.videoSegemnetISP = [testContextJson valueForKey:@"videoSegemnetISP"];
-    viewModel.videoSegemnetLocation = [testContextJson valueForKey:@"videoSegemnetLocation"];
-    viewModel.videoSegementURLString = [testContextJson valueForKey:@"videoURL"];
-
-    viewModel.isp = [probeInfoJson valueForKey:@"isp"];
-    viewModel.location = [probeInfoJson valueForKey:@"location"];
-    viewModel.networkType = [probeInfoJson valueForKey:@"networkType"];
-    viewModel.singnal = [probeInfoJson valueForKey:@"singnal"];
-    //    viewModel.testTime = testId;
+    // 测试时间
+    [_soucreMA
+    addObject:[SVToolModels modelWithDict:@{
+        @"key": I18N (@"Test time"),
+        @"value":
+        [SVTimeUtil formatDateByMilliSecond:(self.testId / 1000) formatStr:@"yyyy-MM-dd HH:mm:ss"]
+    }]];
 }
 
+// 生成视频测试展示详细结果需要的UIView
+- (void)createViedeoResultDetailView:(id)testResultJson contextJson:(id)testContextJson
+{
+    // 生成header
+    [_soucreMA addObject:[[SVToolCells alloc] initTitleCellWithStyle:UITableViewCellStyleDefault
+                                                     reuseIdentifier:@"titleCell"
+                                                               title:I18N (@"Video Test")
+                                                           imageName:@"rt_detail_title_video_img"]];
+
+    // 生成各个指标对应的UIView
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"U-vMOS Score"),
+                   @"value": [self formatFloatValue:[testResultJson valueForKey:@"UvMOSSession"]]
+               }]];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"      Video View score"),
+                   @"value": [self formatFloatValue:[testResultJson valueForKey:@"sViewSession"]]
+               }]];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"      Video quality score"),
+                   @"value": [self formatFloatValue:[testResultJson valueForKey:@"sQualitySession"]]
+               }]];
+    [_soucreMA
+    addObject:[SVToolModels modelWithDict:@{
+        @"key": I18N (@"      Interaction score"),
+        @"value": [self formatFloatValue:[testResultJson valueForKey:@"sInteractionSession"]]
+    }]];
+    [_soucreMA
+    addObject:[SVToolModels modelWithDict:@{
+        @"key": I18N (@"Initial buffer time"),
+        @"value": [self formatIntValue:[testResultJson valueForKey:@"firstBufferTime"] unit:@"ms"]
+    }]];
+    [_soucreMA
+    addObject:[SVToolModels modelWithDict:@{
+        @"key": I18N (@"Buffer time"),
+        @"value":
+        [self formatIntValue:[testResultJson valueForKey:@"videoCuttonTotalTime"] unit:@"ms"]
+    }]];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Butter times"),
+                   @"value": [self formatValue:[testResultJson valueForKey:@"videoCuttonTimes"]]
+               }]];
+    [_soucreMA
+    addObject:[SVToolModels modelWithDict:@{
+        @"key": I18N (@"Download speed"),
+        @"value": [self formatFloatValue:[testResultJson valueForKey:@"downloadSpeed"] unit:@"Kbps"]
+    }]];
+
+    [_soucreMA
+    addObject:[SVToolModels modelWithDict:@{
+        @"key": I18N (@"Bit rate"),
+        @"value": [self formatFloatValue:[testResultJson valueForKey:@"bitrate"] unit:@"Kbps"]
+    }]];
+    [_soucreMA
+    addObject:[SVToolModels modelWithDict:@{
+        @"key": I18N (@"Frame rate"),
+        @"value": [self formatFloatValue:[testResultJson valueForKey:@"frameRate"] unit:@"Fps"]
+    }]];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Resolution"),
+                   @"value": [self formatValue:[testResultJson valueForKey:@"videoResolution"]]
+               }]];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Screen size"),
+                   @"value": [self formatIntValue:[testResultJson valueForKey:@"screenSize"]
+                                             unit:I18N (@"Inch")]
+               }]];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Video URL"),
+                   @"value": [self formatValue:[testContextJson valueForKey:@"videoURL"]]
+               }]];
+    [_soucreMA
+    addObject:[SVToolModels modelWithDict:@{
+        @"key": I18N (@"Video server location"),
+        @"value": [self formatValue:[testContextJson valueForKey:@"videoSegemnetLocation"]]
+    }]];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Carrier"),
+                   @"value": [self formatValue:[testContextJson valueForKey:@"videoSegemnetISP"]]
+               }]];
+}
+
+// 生成网页测试展示详细结果需要的UIView
+- (void)createWebResultDetailView:(id)testResultJson contextJson:(id)testContextJson
+{
+    // 生成header
+    [_soucreMA addObject:[[SVToolCells alloc] initTitleCellWithStyle:UITableViewCellStyleDefault
+                                                     reuseIdentifier:@"titleCell"
+                                                               title:I18N (@"Web Test")
+                                                           imageName:@"rt_detail_title_web_img"]];
+
+    for (NSString *url in [testResultJson allKeys])
+    {
+        // 将json字符串转换成字典
+        NSError *error;
+        id currentResultJson = [NSJSONSerialization
+        JSONObjectWithData:[[testResultJson objectForKey:url] dataUsingEncoding:NSUTF8StringEncoding]
+                   options:0
+                     error:&error];
+        if (error)
+        {
+            SVError (@"%@", error);
+            continue;
+        }
+
+        // 生成testUrl对应的UIView
+        [_soucreMA addObject:[[SVToolCells alloc] initUrlCellWithStyle:UITableViewCellStyleDefault
+                                                       reuseIdentifier:@"urlCell"
+                                                               testUrl:url]];
+
+        // 生成各个指标对应的UIView
+        [_soucreMA
+        addObject:[SVToolModels modelWithDict:@{
+            @"key": I18N (@"Response Time"),
+            @"value": [self formatFloatValue:[currentResultJson valueForKey:@"resonseTime"]]
+        }]];
+        [_soucreMA
+        addObject:[SVToolModels modelWithDict:@{
+            @"key": I18N (@"Load duration"),
+            @"value": [self formatFloatValue:[currentResultJson valueForKey:@"totalTime"]]
+        }]];
+        [_soucreMA
+        addObject:[SVToolModels modelWithDict:@{
+            @"key": I18N (@"Download"),
+            @"value": [self formatFloatValue:[currentResultJson valueForKey:@"downloadSpeed"]]
+        }]];
+    }
+}
+
+// 初始化testUrl的UIView
+- (UIView *)createTestUrlView:(NSString *)testUrl
+{
+    // 初始化UIView
+    UIView *testUrlView = [[UIView alloc] init];
+
+    // 设置title
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (kMargin, -2, kScreenW - kMargin, 40)];
+    label.text = testUrl;
+    label.font = [UIFont systemFontOfSize:12.0f];
+    label.textAlignment = NSTextAlignmentCenter;
+    [testUrlView addSubview:label];
+
+    return testUrlView;
+}
+
+// 默认的model
 - (SVDetailViewModel *)defaultDetailViewModel
 {
     SVDetailViewModel *viewModel = [[SVDetailViewModel alloc] init];
@@ -292,29 +394,44 @@
     return viewModel;
 }
 
-//方法:
-
 //设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.soucreMA.count;
 }
+
 //设置 tableView的 numberOfRowsInSection(设置每个section中有几个cell)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
 }
+
 //设置cell的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    id currentObj = _soucreMA[indexPath.section];
+    if ([currentObj isKindOfClass:[SVToolCells class]] &&
+        [[currentObj reuseIdentifier] isEqualToString:@"titleCell"])
+    {
+        return 35;
+    }
     return kScreenH * 0.07;
 }
-//设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
 
+//设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // 获取model中的当前对象
+    id currentObj = _soucreMA[indexPath.section];
 
+    // 标题cell
+    if ([currentObj isKindOfClass:[SVToolCells class]])
+    {
+        return currentObj;
+    }
+
+    // 指标cell
     static NSString *cellId = @"cell";
     SVToolCells *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil)
@@ -322,61 +439,20 @@
         cell =
         [[SVToolCells alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-    //    cell.delegate = self;
-    [cell cellViewModel2:_soucreMA[indexPath.section] section:indexPath.section];
+
+    if ([currentObj isKindOfClass:[SVToolModels class]])
+    {
+        [cell cellViewModelByToolModel:currentObj Section:indexPath.section];
+    }
     return cell;
 }
 
 //设置 tableView的section 的Header的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0 || section == 15)
-    {
-        return 35;
-    }
-    else
-    {
-        return 0.01;
-    }
+    return 0.01;
 }
-//设置 tableView 的 sectionHeader蓝色 的header的有无
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    NSString *title1 = I18N (@"Video Test");
-    NSString *title2 = I18N (@"Collector Information");
-    if (section == 0)
-    {
 
-        UIView *bgdView = [[UIView alloc] init];
-        UIImage *image = [UIImage imageNamed:@"rt_detail_title_video_img"];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        imageView.frame = CGRectMake (18, 10, 17, 17);
-        [bgdView addSubview:imageView];
-
-        UILabel *label =
-        [[UILabel alloc] initWithFrame:CGRectMake (kMargin + 33, -2, kScreenW - kMargin, kFirstHederH)];
-        label.text = title1;
-        label.font = [UIFont systemFontOfSize:12.0f];
-        [bgdView addSubview:label];
-        return bgdView;
-    }
-    if (section == 15)
-    {
-        UIView *bgdView = [[UIView alloc] init];
-        UIImage *image = [UIImage imageNamed:@"rt_detail_title_collector_img"];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        imageView.frame = CGRectMake (18, 10, 17, 17);
-        [bgdView addSubview:imageView];
-
-        UILabel *label =
-        [[UILabel alloc] initWithFrame:CGRectMake (kMargin + 33, -2, kScreenW - kMargin, kFirstHederH)];
-        label.text = title2;
-        label.font = [UIFont systemFontOfSize:12.0f];
-        [bgdView addSubview:label];
-        return bgdView;
-    }
-    return nil;
-}
 //设置 tableView的section 的Footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -414,12 +490,12 @@
     return [NSString stringWithFormat:@"%@ ", value];
 }
 //输出整形的数值,无小数+单位
-- (NSString *)formatValue1:(NSString *)value unit:(NSString *)unit
+- (NSString *)formatIntValue:(NSString *)value unit:(NSString *)unit
 {
     return [NSString stringWithFormat:@"%.0f%@ ", [value floatValue], unit];
 }
 //输出浮点型的数值,保留2位小数+单位
-- (NSString *)formatValue2:(NSString *)value unit:(NSString *)unit
+- (NSString *)formatFloatValue:(NSString *)value unit:(NSString *)unit
 {
     return [NSString stringWithFormat:@"%.2f%@ ", [value floatValue], unit];
 }

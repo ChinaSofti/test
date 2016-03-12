@@ -28,9 +28,19 @@
 
 @interface SVToolCells : UITableViewCell
 
-@property (nonatomic, retain) UIButton *bgdBtn;
 @property (nonatomic, assign) id<SVToolCellsDelegate> delegate;
 
-- (void)cellViewModel2:(SVToolModels *)model section:(NSInteger)section;
+// 初始化title的cell
+- (instancetype)initTitleCellWithStyle:(UITableViewCellStyle)style
+                       reuseIdentifier:(NSString *)reuseIdentifier
+                                 title:(NSString *)title
+                             imageName:(NSString *)imageName;
+
+// 初始化testUrl的cell
+- (instancetype)initUrlCellWithStyle:(UITableViewCellStyle)style
+                     reuseIdentifier:(NSString *)reuseIdentifier
+                             testUrl:(NSString *)testUrl;
+
+- (void)cellViewModelByToolModel:(SVToolModels *)model Section:(NSInteger)section;
 
 @end

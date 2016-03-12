@@ -40,36 +40,45 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 }
 - (void)networkStatusChange:(SVRealReachabilityStatus)status
 {
+    NSString *networkType;
     switch (status)
     {
     case SV_RealStatusNotReachable:
         SVInfo (@"%@", @"Network unreachable!");
         [SVToast showWithText:I18N (@"Network unreachable!")];
+        networkType = @"0";
         break;
     case SV_RealStatusViaWWAN:
         SVInfo (@"%@", @"Network WWAN! In charge!");
         [SVToast showWithText:I18N (@"Network WWAN!")];
+        networkType = @"1";
         break;
     case SV_RealStatusViaWiFi:
         SVInfo (@"%@", @"Network wifi! Free!");
         [SVToast showWithText:I18N (@"Network wifi!")];
+        networkType = @"0";
         break;
     case SV_WWANType2G:
         SVInfo (@"%@", @"RealReachabilityStatus2G");
         [SVToast showWithText:I18N (@"Network 2G!")];
+        networkType = @"1";
         break;
     case SV_WWANType3G:
         SVInfo (@"%@", @"RealReachabilityStatus3G");
         [SVToast showWithText:I18N (@"Network 3G!")];
+        networkType = @"1";
         break;
     case SV_WWANType4G:
         SVInfo (@"%@", @"RealReachabilityStatus4G");
         [SVToast showWithText:I18N (@"Network 4G!")];
+        networkType = @"1";
         break;
     default:
         SVInfo (@"%@", @"Unknown RealReachability WWAN Status, might be iOS6");
+        networkType = @"0";
         break;
     }
+    [[SVProbeInfo sharedInstance] setNetworkType:networkType];
 
     if (status != SV_RealStatusNotReachable)
     {
