@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <SPService/SPService.h>
 
+@import WebKit;
+
 @protocol SVWebTestDelegate <NSObject>
 
 @required
@@ -17,10 +19,10 @@
 
 @end
 
-@interface SVWebTest : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+@interface SVWebTest : NSObject <WKNavigationDelegate>
 
 // 测试结果
-@property NSDictionary<NSString *, SVWebTestResult *> *webTestResultDic;
+@property NSMutableDictionary *webTestResultDic;
 
 // 测试上下文
 @property SVWebTestContext *webTestContext;
@@ -34,7 +36,7 @@
  *  @return 视频测试对象
  */
 - (id)initWithView:(long)testId
-     showVideoView:(UIView *)showWebView
+       showWebView:(UIView *)showWebView
       testDelegate:(id<SVWebTestDelegate>)testDelegate;
 
 // 初始化测试数据

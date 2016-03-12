@@ -14,13 +14,57 @@
 #import "SVLogsViewCtrl.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
+#import <SPCommon/SVRealReachability.h>
 
-@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource>
+@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, SVRealReachabilityDelegate>
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *grey;
+@property (nonatomic, strong) UIWindow *window;
 @end
 
 @implementation SVSettingsViewCtrl
+{
+    UITableViewCell *_photocell;
+    UIImageView *_imageView;
+    UILabel *_label;
+}
+- (void)networkStatusChange:(SVRealReachabilityStatus)status
+{
+    if (_imageView)
+    {
+        [_imageView removeFromSuperview];
+    }
+    if (_label) {
+        [_label removeFromSuperview];
+    }
 
+    if (status == SV_RealStatusViaWiFi)
+    {
+        UIImage *image1 = [UIImage imageNamed:@"ic_settings_wifi"];
+        _imageView = [[UIImageView alloc] initWithImage:image1];
+        _imageView.frame = CGRectMake (10, 10, 60, 60);
+        [_photocell addSubview:_imageView];
+        
+        _label = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
+        _label.font = [UIFont systemFontOfSize:16];
+        _label.text = @"WiFi";
+        [_photocell addSubview:_label];
+        
+    }
+    else
+    {
+        UIImage *image2 = [UIImage imageNamed:@"ic_settings_mobile"];
+        _imageView = [[UIImageView alloc] initWithImage:image2];
+        _imageView.frame = CGRectMake (10, 10, 60, 60);
+        [_photocell addSubview:_imageView];
+        
+        NSString *title7 = I18N (@"Mobile network");
+        _label = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
+        _label.font = [UIFont systemFontOfSize:16];
+        _label.text = title7;
+        [_photocell addSubview:_label];
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,7 +112,7 @@
         return 1;
     }
     else
-        return 5;
+        return 6;
 }
 
 // 设置 tableView 的行高
@@ -89,12 +133,12 @@
     NSString *title1 = I18N (@"Current:");
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     NSString *title2 = probeInfo.isp;
+    NSString *title21 = I18N (@"Share");
     NSString *title3 = I18N (@"About");
     NSString *title31 = I18N (@"FAQ");
     NSString *title4 = I18N (@"Language Setting");
     NSString *title5 = I18N (@"Upload Logs");
     NSString *title6 = I18N (@"Advanced setting");
-    NSString *title7 = I18N (@"WIFI");
 
     static NSString *cellId = @"cell";
 
@@ -117,6 +161,8 @@
             imageView1.frame = CGRectMake (10, 10, 60, 60);
             [cell addSubview:imageView1];
 
+            _photocell = cell;
+
             UILabel *label11 = [[UILabel alloc] initWithFrame:CGRectMake (100, 15, 70, 20)];
             label11.text = title1;
             //设置字体和是否加粗
@@ -124,10 +170,11 @@
             [cell addSubview:label11];
 
             UILabel *label111 = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
-            label111.text = title7;
             //设置字体和是否加粗
             label111.font = [UIFont systemFontOfSize:16];
+            label111.text = @"WiFi";
             [cell addSubview:label111];
+            _photocell = cell;
 
             UILabel *label22 = [[UILabel alloc] initWithFrame:CGRectMake (100, 45, 160, 20)];
             label22.text = title2;
@@ -143,17 +190,28 @@
 
         if (indexPath.row == 0)
         {
-            cell.textLabel.text = title3;
+            cell.textLabel.text = title21;
+            //添加分享的点击事件
+            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, 40)];
+            //                        button.backgroundColor = [UIColor redColor];
+            [button addTarget:self
+                       action:@selector (ShareClicked:)
+             forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:button];
         }
         if (indexPath.row == 1)
         {
-            cell.textLabel.text = title31;
+            cell.textLabel.text = title3;
         }
         if (indexPath.row == 2)
         {
-            cell.textLabel.text = title4;
+            cell.textLabel.text = title31;
         }
         if (indexPath.row == 3)
+        {
+            cell.textLabel.text = title4;
+        }
+        if (indexPath.row == 4)
         {
             cell.textLabel.text = title5;
 
@@ -161,19 +219,122 @@
             UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, 40)];
             //            button.backgroundColor = [UIColor redColor];
             [button addTarget:self
-                       action:@selector (removeButtonClicked:)
+                       action:@selector (UploadClicked:)
              forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:button];
         }
-        if (indexPath.row == 4)
+        if (indexPath.row == 5)
         {
             cell.textLabel.text = title6;
         }
     }
     return cell;
 }
+//分享的点击事件
+- (void)ShareClicked:(UIButton *)button
+
+{
+    NSString *title8 = I18N (@"Share on");
+    NSString *title9 = I18N (@"Cancel");
+    NSString *title10 = I18N (@"WeChat");
+    NSString *title11 = I18N (@"WeChat Friend Circle");
+    //获取整个屏幕的window
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    //    // 0.开始动画
+    //    [UIView beginAnimations:nil context:nil];
+    //    // 0.1设置动画时间
+    //    [UIView setAnimationDuration:6.0];
+    //创建一个覆盖garyView
+
+    _grey = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
+    _grey.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.3];
+    //创建一个分享到sharetoview
+    UIView *sharetoview = [[UIView alloc]
+    initWithFrame:CGRectMake (0, kScreenH - FITTHEIGHT (200), kScreenW, FITTHEIGHT (200))];
+    sharetoview.backgroundColor = [UIColor whiteColor];
+    //创建一个分享到label
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH / 10)];
+    //    label.centerX = sharetoview.centerX;
+    //    label.centerY = sharetoview.centerY/2;
+    //    label.width = sharetoview.width/4;
+    //    label.height = sharetoview.height/4;
+    //    label.backgroundColor = [UIColor redColor];
+    label.text = title8;
+    label.font = [UIFont systemFontOfSize:18];
+    label.textColor = [UIColor blackColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    //创建一个显示取消的label2
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake (0, 15, kScreenW, kScreenH / 2)];
+    label2.text = title9;
+    label2.font = [UIFont systemFontOfSize:15];
+    label2.textColor = [UIColor colorWithRed:0.179 green:0.625 blue:1.000 alpha:1.000];
+    label2.textAlignment = NSTextAlignmentCenter;
+    //创建2个分享按钮
+    UIButton *button1 = [[UIButton alloc]
+    initWithFrame:CGRectMake (kScreenW / 2 - FITTHEIGHT (80) - 35, kScreenH - FITTHEIGHT (140), 70, 70)];
+    [button1 setImage:[UIImage imageNamed:@"share_to_wechat"] forState:UIControlStateNormal];
+    [button1 addTarget:self
+                action:@selector (Button1Click)
+      forControlEvents:UIControlEventTouchUpInside];
+    UIButton *button2 = [[UIButton alloc]
+    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (80), kScreenH - FITTHEIGHT (140), 70, 70)];
+    [button2 setImage:[UIImage imageNamed:@"share_to_wechatmoments"] forState:UIControlStateNormal];
+    [button2 addTarget:self
+                action:@selector (Button2Click)
+      forControlEvents:UIControlEventTouchUpInside];
+    //添加2个label
+    //创建一个显示微信的label3
+    UILabel *label3 = [[UILabel alloc]
+    initWithFrame:CGRectMake (kScreenW / 2 - FITTHEIGHT (90) - 40, kScreenH / 10 + FITTHEIGHT (70), 100, 20)];
+    label3.text = title10;
+    label3.font = [UIFont systemFontOfSize:15];
+    label3.textColor = [UIColor lightGrayColor];
+    label3.textAlignment = NSTextAlignmentCenter;
+    //创建一个显示微信朋友圈的label4
+    UILabel *label4 = [[UILabel alloc]
+    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (40), kScreenH / 10 + FITTHEIGHT (70), 150, 20)];
+    label4.text = title11;
+    //    label4.backgroundColor = [UIColor redColor];
+    label4.font = [UIFont systemFontOfSize:15];
+    label4.textColor = [UIColor lightGrayColor];
+    label4.textAlignment = NSTextAlignmentCenter;
+
+    //创建取消button
+    UIButton *button3 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
+    [button3 addTarget:self
+                action:@selector (Button3Click)
+      forControlEvents:UIControlEventTouchUpInside];
+
+
+    //添加
+    [sharetoview addSubview:label];
+    [sharetoview addSubview:label2];
+    [sharetoview addSubview:label3];
+    [sharetoview addSubview:label4];
+    [_grey addSubview:sharetoview];
+    [window addSubview:_grey];
+    [_grey addSubview:button3];
+    [_grey addSubview:button1];
+    [_grey addSubview:button2];
+    //    // 0.2提交动画
+    //    [UIView commitAnimations];
+}
+//微信群组的分享方法实现
+- (void)Button1Click
+{
+}
+//微信朋友圈的分享方法实现
+- (void)Button2Click
+{
+}
+//取消方法实现
+- (void)Button3Click
+{
+    NSLog (@"取消");
+    [_grey removeFromSuperview];
+}
 //上传日志按钮的点击事件
-- (void)removeButtonClicked:(UIButton *)button
+- (void)UploadClicked:(UIButton *)button
 
 {
     NSString *title1 = I18N (@"Upload Logs");
@@ -231,35 +392,40 @@
 
     if (indexPath.section == 1)
     {
-        //关于
+        //分享
         if (indexPath.row == 0)
+        {
+            //            UIView *share = [[UIView alloc] init];
+        }
+        //关于
+        if (indexPath.row == 1)
         {
             SVAboutViewCtrl *about = [[SVAboutViewCtrl alloc] init];
             about.title = title3;
             [self.navigationController pushViewController:about animated:YES];
         }
         // FAQ
-        if (indexPath.row == 1)
+        if (indexPath.row == 2)
         {
             SVFAQViewCtrl *FAQ = [[SVFAQViewCtrl alloc] init];
             FAQ.title = title31;
             [self.navigationController pushViewController:FAQ animated:YES];
         }
         //语言设置
-        if (indexPath.row == 2)
+        if (indexPath.row == 3)
         {
             SVLanguageSettingViewCtrl *languageSetting = [[SVLanguageSettingViewCtrl alloc] init];
             languageSetting.title = title4;
             [self.navigationController pushViewController:languageSetting animated:YES];
         }
         //上传日志
-        if (indexPath.row == 3)
+        if (indexPath.row == 4)
         {
             SVLogsViewCtrl *logs = [[SVLogsViewCtrl alloc] init];
             logs.title = title5;
         }
         //高级设置
-        if (indexPath.row == 4)
+        if (indexPath.row == 5)
         {
             SVAdvancedViewCtrl *advanced = [[SVAdvancedViewCtrl alloc] init];
             advanced.title = title6;
@@ -300,22 +466,7 @@
 //设置 tableView的section 的Footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 4)
-    {
-        //添加按钮:开始测试
-        //创建一个switch并添加
-        UISwitch *abcd = [[UISwitch alloc] initWithFrame:CGRectMake (265, 6, 0, 0)];
-        //改变switch的位置
-        //                abcd = [[UISwitch alloc]initWithFrame:CGRectMakeF(265,
-        //                6, 0, 0)];
-        //改变switch的状态
-        abcd.on = YES;
-        //添加
-        //        [cell.contentView addSubview:abcd];
-        return 10;
-    }
-    else
-        return 10;
+    return 10;
 }
 
 - (void)didReceiveMemoryWarning

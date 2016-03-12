@@ -17,11 +17,9 @@
 
 @interface SVVideoTestingCtrl : UIViewController <SVVideoTestDelegate>
 
-@property (nonatomic, retain) NSArray *selectedA;
-
-@property (nonatomic, retain) UINavigationController *navigationController;
-
-@property UITabBarController *tabBarController;
-
 @property SVCurrentResultModel *currentResultModel;
+
+
+- (id)initWithResultModel:(SVCurrentResultModel *)resultModel;
+
 @end

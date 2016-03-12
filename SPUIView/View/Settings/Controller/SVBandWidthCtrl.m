@@ -6,6 +6,7 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 #import "SVBandWidthCtrl.h"
+#import <SPService/SVSpeedTestServers.h>
 
 @interface SVBandWidthCtrl () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -169,6 +170,8 @@
 //进去时 隐藏tabBar
 - (void)viewWillAppear:(BOOL)animated
 {
+    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+    NSArray *array = [servers getAllServer];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"HideTabBar" object:nil];
 }
 //出来时 显示tabBar

@@ -102,7 +102,7 @@
                                                         FITWIDTH (101), FITWIDTH (20), FITWIDTH (20))
                                    withFont:10
                              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"kpps"];
+                                  withTitle:@"kbps"];
 
         _LoadLabel =
         [CTWBViewTools createLabelWithFrame:CGRectMake (_DownloadLabel.rightX + FITWIDTH (15),

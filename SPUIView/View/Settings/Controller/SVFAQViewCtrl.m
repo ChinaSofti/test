@@ -55,16 +55,8 @@
 
 - (void)createUI
 {
-    self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    // label
-    UILabel *label = [CTWBViewTools createLabelWithFrame:CGRectMake (10, 72, 200, 20)
-                                                withFont:15
-                                          withTitleColor:[UIColor blackColor]
-                                               withTitle:@"123"];
-    [self.view addSubview:label];
-    // webview
-    UIWebView *webview = [[UIWebView alloc] initWithFrame:CGRectMake (0, 95, kScreenW, kScreenH - 95)];
-    NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];
+    UIWebView *webview = [[UIWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
+    NSURL *url = [NSURL URLWithString:@"http://58.60.106.185:12210/faq-ios.html"];
     [webview loadRequest:[NSURLRequest requestWithURL:url]];
     [self.view addSubview:webview];
 }

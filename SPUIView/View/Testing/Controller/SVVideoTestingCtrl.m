@@ -10,10 +10,8 @@
 #import "SVFooterView.h"
 #import "SVHeaderView.h"
 #import "SVPointView.h"
-#import "SVVideoView.h"
-
-#import "SVCurrentResultViewCtrl.h"
 #import "SVVideoTestingCtrl.h"
+#import "SVVideoView.h"
 #import <SPCommon/SVTimeUtil.h>
 #import <SPCommon/UUBar.h>
 #import <SPService/SVVideoTest.h>
@@ -46,13 +44,27 @@
 }
 
 //定义gray遮挡View
-@property (nonatomic, strong) UIView *grayview;
+@property (nonatomic, strong) UIView *gyview;
 
 @end
 
 @implementation SVVideoTestingCtrl
 
-@synthesize navigationController, tabBarController, currentResultModel;
+@synthesize currentResultModel;
+
+
+- (id)initWithResultModel:(SVCurrentResultModel *)resultModel
+{
+    self = [super init];
+    if (!self)
+    {
+        return nil;
+    }
+
+    currentResultModel = resultModel;
+    return self;
+}
+
 
 - (void)viewDidLoad
 {
@@ -124,7 +136,7 @@
     if (buttonIndex == 1)
     {
         SVInfo (@"取消了此次测试");
-        [navigationController popToRootViewControllerAnimated:NO];
+        [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
     }
     SVInfo (@"继续测试");
 }
@@ -152,13 +164,6 @@
     _resultTimes = 0;
     _UvMOSbarResultTimes = 0;
     _timer = nil;
-
-    // 初始化结果
-    currentResultModel = [[SVCurrentResultModel alloc] init];
-    [currentResultModel setTestId:-1];
-    [currentResultModel setUvMOS:-1];
-    [currentResultModel setFirstBufferTime:-1];
-    [currentResultModel setCuttonTimes:-1];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -167,15 +172,15 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
 
-    //添加覆盖grayview(为了防止用户在测试的过程中点击按钮)
+    //添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
     //获取整个屏幕的window
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //创建一个覆盖garyView
-    _grayview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
+    _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
     //设置透明度
-    _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    _gyview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     //添加
-    [window addSubview:_grayview];
+    [window addSubview:_gyview];
     [self initContext];
     // 进入页面时，开始测试
     long testId = [SVTimeUtil currentMilliSecondStamp];
@@ -213,8 +218,8 @@
       {
           [_videoTest stopTest];
 
-          //移除覆盖grayView
-          [_grayview removeFromSuperview];
+          //移除覆盖gyView
+          [_gyview removeFromSuperview];
       }
     });
 }
@@ -454,12 +459,6 @@
 
 - (void)initCurrentResultModel:(SVVideoTestResult *)testResult
 {
-    if (!currentResultModel)
-    {
-        currentResultModel = [[SVCurrentResultModel alloc] init];
-    }
-
-    [currentResultModel setTestId:testResult.testId];
     [currentResultModel setUvMOS:testResult.UvMOSSession];
     [currentResultModel setFirstBufferTime:testResult.firstBufferTime];
     [currentResultModel setCuttonTimes:testResult.videoCuttonTimes];
@@ -518,10 +517,12 @@
 {
     // 如果视频在全屏模式，则退出全屏模式
     [self exitFullScreenMode];
-    SVCurrentResultViewCtrl *currentResultView = [[SVCurrentResultViewCtrl alloc] init];
-    currentResultView.currentResultModel = currentResultModel;
-    currentResultView.navigationController = navigationController;
-    [navigationController pushViewController:currentResultView animated:YES];
+
+    // 返回根界面
+    [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
+
+    // push界面
+    [currentResultModel pushNextCtrl];
 }
 
 /**

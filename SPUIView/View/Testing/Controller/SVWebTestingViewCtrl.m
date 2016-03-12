@@ -11,10 +11,8 @@
 #import "SVHeaderView.h"
 #import "SVPointView.h"
 #import "SVWebTest.h"
-#import "SVWebView.h"
-
-#import "SVCurrentResultViewCtrl.h"
 #import "SVWebTestingViewCtrl.h"
+#import "SVWebView.h"
 #import <SPCommon/SVTimeUtil.h>
 #import <SPCommon/UUBar.h>
 
@@ -33,14 +31,26 @@
 }
 
 //定义gray遮挡View
-@property (nonatomic, strong) UIView *grayview;
+@property (nonatomic, strong) UIView *gyview;
 
 
 @end
 
 @implementation SVWebTestingViewCtrl
 
-@synthesize navigationController, tabBarController, currentResultModel;
+@synthesize currentResultModel;
+
+- (id)initWithResultModel:(SVCurrentResultModel *)resultModel
+{
+    self = [super init];
+    if (!self)
+    {
+        return nil;
+    }
+
+    currentResultModel = resultModel;
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -113,7 +123,7 @@
     if (buttonIndex == 1)
     {
         SVInfo (@"取消了此次测试");
-        [navigationController popToRootViewControllerAnimated:NO];
+        [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
     }
     SVInfo (@"继续测试");
 }
@@ -129,19 +139,12 @@
     [_footerView.bitLabel setText:title5];
     [_headerView.bufferLabel setText:@"0"];
     [_headerView.speedLabel setText:@"0"];
-    [_webtestingView updateUvMOS:0];
+    [_webtestingView updateUvMOS2:0];
 
     for (UIView *view in [_headerView.uvMosBarView subviews])
     {
         [view removeFromSuperview];
     }
-
-    // 初始化结果
-    currentResultModel = [[SVCurrentResultModel alloc] init];
-    [currentResultModel setTestId:-1];
-    [currentResultModel setUvMOS:-1];
-    [currentResultModel setFirstBufferTime:-1];
-    [currentResultModel setCuttonTimes:-1];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -150,19 +153,19 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
 
-    //添加覆盖grayview(为了防止用户在测试的过程中点击按钮)
+    //添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
     //获取整个屏幕的window
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //创建一个覆盖garyView
-    _grayview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
+    _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
     //设置透明度
-    _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    _gyview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     //添加
-    [window addSubview:_grayview];
+    [window addSubview:_gyview];
     [self initContext];
     // 进入页面时，开始测试
     long testId = [SVTimeUtil currentMilliSecondStamp];
-    _webTest = [[SVWebTest alloc] initWithView:testId showVideoView:_webView testDelegate:self];
+    _webTest = [[SVWebTest alloc] initWithView:testId showWebView:_webView testDelegate:self];
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       BOOL isOK = [_webTest initTestContext];
       if (isOK)
@@ -188,8 +191,8 @@
       {
           [_webTest stopTest];
 
-          //移除覆盖grayView
-          [_grayview removeFromSuperview];
+          //移除覆盖gyView
+          [_gyview removeFromSuperview];
       }
     });
 }
@@ -222,13 +225,13 @@
     _webtestingView = [[SVPointView alloc] init];
     //添加到View中
     [_webtestingView addSubview:_webtestingView.pointView];
-    [_webtestingView addSubview:_webtestingView.grayView];
+    [_webtestingView addSubview:_webtestingView.grayView2];
     [_webtestingView addSubview:_webtestingView.panelView2];
     [_webtestingView addSubview:_webtestingView.middleView];
     [_webtestingView addSubview:_webtestingView.label12];
     [_webtestingView addSubview:_webtestingView.label22];
     [_webtestingView addSubview:_webtestingView.label32];
-    [_webtestingView start];
+    [_webtestingView start2];
     [self.view addSubview:_webtestingView];
 }
 
@@ -298,7 +301,8 @@
           UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
           [bar setBarValue:totalTime];
           [_headerView.uvMosBarView addSubview:bar];
-          [_webtestingView updateUvMOS:totalTime];
+          [_webtestingView updateUvMOS2:totalTime];
+          [_webtestingView.label22 setText:[NSString stringWithFormat:@"%.2f", totalTime]];
 
           // 测试地址
           [_footerView.urlLabel setText:testUrl];
@@ -308,12 +312,6 @@
 
 - (void)initCurrentResultModel:(SVWebTestResult *)testResult
 {
-    if (!currentResultModel)
-    {
-        currentResultModel = [[SVCurrentResultModel alloc] init];
-    }
-
-    [currentResultModel setTestId:testResult.testId];
     [currentResultModel setResponseTime:testResult.responseTime];
     [currentResultModel setTotalTime:testResult.totalTime];
     [currentResultModel setDownloadSpeed:testResult.downloadSpeed];
@@ -321,10 +319,10 @@
 
 - (void)goToCurrentResultViewCtrl
 {
-    SVCurrentResultViewCtrl *currentResultView = [[SVCurrentResultViewCtrl alloc] init];
-    currentResultView.currentResultModel = currentResultModel;
-    currentResultView.navigationController = navigationController;
-    [navigationController pushViewController:currentResultView animated:YES];
+    // 返回根界面
+    [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
+    // push界面
+    [currentResultModel pushNextCtrl];
 }
 
 

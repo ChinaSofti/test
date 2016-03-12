@@ -18,27 +18,29 @@
 @property (nonatomic, strong) UILabel *label1; //定义label1
 @property (nonatomic, strong) UILabel *label2; //定义label2
 // WebTestingView中的属性
+@property (nonatomic, strong) UIView *grayView2; //定义gray遮挡View2
 @property (nonatomic, strong) UIView *panelView2; //定义仪表盘panelView2
 @property (nonatomic, strong) UILabel *label12; //定义label12
 @property (nonatomic, strong) UILabel *label22; //定义label22
-@property (nonatomic, strong) UILabel *label32; //定义label22,单位s
-
+@property (nonatomic, strong) UILabel *label32; //定义label32,单位s
 // SpeedTestingView中的属性
 @property (nonatomic, strong) UIView *panelView3; //定义仪表盘panelView3
 @property (nonatomic, strong) UILabel *label13; //定义label13
 @property (nonatomic, strong) UILabel *label23; //定义label23
 @property (nonatomic, strong) UILabel *label33; //定义label23,单位Mbps
+
+
+// video
 //开始转动方法
 - (void)start;
-//转动角度,速度控制
-//- (void)rotate;
-//每5s产生一个随机数
-//- (void)suijishu;
 /**
  *  更新仪表盘UvMOS值
  *
  *  @param uvMOS uvMOS值
  */
 - (void)updateUvMOS:(float)uvMOS;
-
+// web
+//开始转动方法
+- (void)start2;
+- (void)updateUvMOS2:(float)uvMOS;
 @end

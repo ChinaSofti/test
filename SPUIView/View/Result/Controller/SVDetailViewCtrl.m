@@ -273,7 +273,7 @@
 
     viewModel.videoSegemnetISP = [testContextJson valueForKey:@"videoSegemnetISP"];
     viewModel.videoSegemnetLocation = [testContextJson valueForKey:@"videoSegemnetLocation"];
-    viewModel.videoSegementURLString = [testContextJson valueForKey:@"videoSegementURLString"];
+    viewModel.videoSegementURLString = [testContextJson valueForKey:@"videoURL"];
 
     viewModel.isp = [probeInfoJson valueForKey:@"isp"];
     viewModel.location = [probeInfoJson valueForKey:@"location"];

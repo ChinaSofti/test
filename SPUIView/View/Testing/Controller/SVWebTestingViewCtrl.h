@@ -16,12 +16,8 @@
 
 @interface SVWebTestingViewCtrl : UIViewController <SVWebTestDelegate>
 
-@property (nonatomic, retain) NSArray *selectedA;
-
-@property (nonatomic, retain) UINavigationController *navigationController;
-
-@property UITabBarController *tabBarController;
-
 @property SVCurrentResultModel *currentResultModel;
+
+- (id)initWithResultModel:(SVCurrentResultModel *)resultModel;
 
 @end

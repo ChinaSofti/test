@@ -14,7 +14,7 @@
 #import "SVToolCell.h"
 #import "SVVideoTestingCtrl.h"
 #import "SVWebTestingViewCtrl.h"
-
+#import <SPCommon/SVTimeUtil.h>
 #import <SPService/SVTestContextGetter.h>
 #define kFirstHederH 40
 #define kLastFooterH 140
@@ -325,44 +325,48 @@
 - (void)testBtnClick1
 {
 #pragma mark - 在这里对 数组 排序
-    SVCurrentResultModel *currentResultModel = [[SVCurrentResultModel alloc] init];
     UITabBarController *tabBarController = self.tabBarController;
     UINavigationController *navigationController = self.navigationController;
 
-    if (_selectedMA.count == 1)
+    SVCurrentResultModel *currentResultModel = [[SVCurrentResultModel alloc] init];
+    [currentResultModel setTestId:[SVTimeUtil currentMilliSecondStamp]];
+    [currentResultModel setNavigationController:navigationController];
+    [currentResultModel setTabBarController:tabBarController];
+    [currentResultModel setSelectedA:_selectedMA];
+
+    for (id selected in _selectedMA)
     {
         //定义一个cellIndex,来记录数组中哪一个第一个被选择的
-        NSInteger cellIndex = ((NSNumber *)(_selectedMA.firstObject)).integerValue;
+        NSInteger cellIndex = ((NSNumber *)(selected)).integerValue;
 
         if (cellIndex == 0)
         {
             //按钮点击后alloc一个界面
-            SVVideoTestingCtrl *videotestingCtrl = [[SVVideoTestingCtrl alloc] init];
-            [videotestingCtrl setNavigationController:navigationController];
-            [videotestingCtrl setTabBarController:tabBarController];
-            [videotestingCtrl setCurrentResultModel:currentResultModel];
-            videotestingCtrl.selectedA = _selectedMA;
-            // push界面
-            [self.navigationController pushViewController:videotestingCtrl animated:YES];
+            SVVideoTestingCtrl *videotestingCtrl =
+            [[SVVideoTestingCtrl alloc] initWithResultModel:currentResultModel];
+            [currentResultModel setVideoTest:YES];
+            [currentResultModel addCtrl:videotestingCtrl];
         }
         if (cellIndex == 1)
         {
-            SVWebTestingViewCtrl *webtestingCtrl = [[SVWebTestingViewCtrl alloc] init];
-            [webtestingCtrl setNavigationController:navigationController];
-            [webtestingCtrl setTabBarController:tabBarController];
-            [webtestingCtrl setCurrentResultModel:currentResultModel];
-            webtestingCtrl.selectedA = _selectedMA;
-
-            // push界面
-            [self.navigationController pushViewController:webtestingCtrl animated:YES];
+            SVWebTestingViewCtrl *webtestingCtrl =
+            [[SVWebTestingViewCtrl alloc] initWithResultModel:currentResultModel];
+            [currentResultModel setWebTest:YES];
+            [currentResultModel addCtrl:webtestingCtrl];
         }
         if (cellIndex == 2)
         {
-            SVSpeedTestingViewCtrl *speedtestingCtrl = [[SVSpeedTestingViewCtrl alloc] init];
-            [self.navigationController pushViewController:speedtestingCtrl animated:YES];
+            SVSpeedTestingViewCtrl *speedtestingCtrl =
+            [[SVSpeedTestingViewCtrl alloc] initWithResultModel:currentResultModel];
+            [currentResultModel addCtrl:speedtestingCtrl];
         }
     }
 
+    SVCurrentResultViewCtrl *currentResultView =
+    [[SVCurrentResultViewCtrl alloc] initWithResultModel:currentResultModel];
+    [currentResultModel addCtrl:currentResultView];
+
+    [currentResultModel pushNextCtrl];
     SVInfo (@"testBtnClick...");
 }
 - (void)didReceiveMemoryWarning
