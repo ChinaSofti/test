@@ -252,13 +252,29 @@
 //转动角度,速度控制
 - (void)rotate3
 {
-        if (_num < 5)
-        {
-            self.pointView.transform = CGAffineTransformMakeRotation (0 / 24);
-        }
-        if (_num >= 5)
-        {
-            self.pointView.transform = CGAffineTransformMakeRotation (_num / 24 - 50 / 24);
+    if (_num < 3)//0-8
+    {
+        self.pointView.transform = CGAffineTransformMakeRotation (self.num * 0.52);
+    }
+    if (_num >=3 && _num < 5)//0-13
+    {
+        self.pointView.transform = CGAffineTransformMakeRotation ( 0.26*(self.num - 3)+ 1.56);
+    }
+    if (_num >= 5 && _num < 10)//0-25
+    {
+        self.pointView.transform = CGAffineTransformMakeRotation ( 0.104*(self.num -5) + 2.08);
+    }
+    if (_num >= 10 && _num < 20)//0-40
+    {
+        self.pointView.transform = CGAffineTransformMakeRotation ( 0.052*(self.num - 10)+ 2.6);
+    }
+    if (_num >= 20 && _num < 50)//0-80
+    {
+        self.pointView.transform = CGAffineTransformMakeRotation (0.017*(self.num - 20)+ 3.12);
+    }
+    if (_num >= 50 && _num < 100)//0-100
+    {
+        self.pointView.transform = CGAffineTransformMakeRotation (0.0108*(self.num - 50)+ 3.62);
     }
 
 }
@@ -268,13 +284,25 @@
     _num = -1;
     if (uvMOS != _num)
     {
-        if (uvMOS < 5)
+        if (uvMOS < 5)//0-8
         {
-            self.grayView2.transform = CGAffineTransformMakeRotation (0 / 24);
+            self.grayView3.transform = CGAffineTransformMakeRotation (0);
         }
-        if (uvMOS >= 5)
+        if (uvMOS >= 5 && uvMOS < 10)//0-25
         {
-            self.grayView2.transform = CGAffineTransformMakeRotation (uvMOS / 24 - 50 / 24);
+            self.grayView3.transform = CGAffineTransformMakeRotation ( 0.104*(uvMOS -5));
+        }
+        if (uvMOS >= 10 && uvMOS < 20)//0-40
+        {
+            self.grayView3.transform = CGAffineTransformMakeRotation ( 0.052*(uvMOS - 10));
+        }
+        if (uvMOS >= 20 && uvMOS < 50)//0-80
+        {
+            self.grayView3.transform = CGAffineTransformMakeRotation (0.017*(uvMOS - 20));
+        }
+        if (uvMOS >= 50 && uvMOS < 100)//0-100
+        {
+            self.grayView3.transform = CGAffineTransformMakeRotation (0.0108*(uvMOS - 50));
         }
         _num = uvMOS;
         _label23.text = [NSString stringWithFormat:@"%.2f", _num];

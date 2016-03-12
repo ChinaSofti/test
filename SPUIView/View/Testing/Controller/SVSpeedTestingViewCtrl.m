@@ -144,6 +144,13 @@
     {
         [view removeFromSuperview];
     }
+
+    // 初始化结果
+    currentResultModel = [[SVCurrentResultModel alloc] init];
+    [currentResultModel setTestId:-1];
+    [currentResultModel setUvMOS:-1];
+    [currentResultModel setFirstBufferTime:-1];
+    [currentResultModel setCuttonTimes:-1];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -225,13 +232,13 @@
     _speedtestingView = [[SVPointView alloc] init];
     //添加到View中
     [_speedtestingView addSubview:_speedtestingView.pointView];
-    [_speedtestingView addSubview:_speedtestingView.grayView];
+    [_speedtestingView addSubview:_speedtestingView.grayView3];
     [_speedtestingView addSubview:_speedtestingView.panelView3];
     [_speedtestingView addSubview:_speedtestingView.middleView];
     [_speedtestingView addSubview:_speedtestingView.label13];
     [_speedtestingView addSubview:_speedtestingView.label23];
     [_speedtestingView addSubview:_speedtestingView.label33];
-    [_speedtestingView start];
+    [_speedtestingView start3];
     [self.view addSubview:_speedtestingView];
 }
 
@@ -313,19 +320,9 @@
 
 - (void)initCurrentResultModel:(SVSpeedTestResult *)testResult
 {
-    currentResultModel.stDelay = testResult.delay;
-    currentResultModel.stDownloadSpeed = testResult.downloadSpeed;
-    currentResultModel.stUploadSpeed = testResult.uploadSpeed;
-    if (testResult.isp)
+    if (!currentResultModel)
     {
-        if (testResult.isp.isp)
-        {
-            currentResultModel.stIsp = testResult.isp.isp;
-        }
-        if (testResult.isp.city)
-        {
-            currentResultModel.stLocation = testResult.isp.city;
-        }
+        currentResultModel = [[SVCurrentResultModel alloc] init];
     }
 }
 
@@ -333,7 +330,7 @@
 {
     // 返回根界面
     [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
-
+    
     // push界面
     [currentResultModel pushNextCtrl];
 }
