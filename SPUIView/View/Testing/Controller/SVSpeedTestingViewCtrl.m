@@ -11,7 +11,7 @@
 #import "SVHeaderView.h"
 #import "SVPointView.h"
 #import "SVSpeedView.h"
-#import "SVWebTest.h"
+
 
 #import "SVCurrentResultViewCtrl.h"
 #import "SVSpeedTestingViewCtrl.h"
@@ -28,7 +28,7 @@
     SVPointView *_speedtestingView; //定义speedtestingView
     SVSpeedView *_speedView; //定义访问网页的View
     SVFooterView *_footerView; // 定义footerView
-    SVWebTest *_webTest;
+    SVSpeedTest *_speedTest;
 }
 
 //定义gray遮挡View
@@ -159,12 +159,13 @@
     [self initContext];
     // 进入页面时，开始测试
     long testId = [SVTimeUtil currentMilliSecondStamp];
-    _webTest = [[SVWebTest alloc] initWithView:testId showVideoView:_speedView testDelegate:self];
+    _speedTest = [[SVSpeedTest alloc] initWithView:testId showSpeedView:nil testDelegate:self];
+
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-      BOOL isOK = [_webTest initTestContext];
+      BOOL isOK = [_speedTest initTestContext];
       if (isOK)
       {
-          [_webTest startTest];
+          [_speedTest startTest];
       }
       else
       {
@@ -180,15 +181,15 @@
 {
 
     dispatch_async (dispatch_get_main_queue (), ^{
-      // 当用户离开当前页面时，停止测试
-      if (_webTest)
-      {
-          [_webTest stopTest];
-
-          //移除覆盖grayView
-          [_grayview removeFromSuperview];
-      }
-    });
+                    // 当用户离开当前页面时，停止测试
+                    //      if (_speedTest)
+                    //      {
+                    //          [_speedTest stopTest];
+                    //
+                    //          //移除覆盖grayView
+                    //          [_grayview removeFromSuperview];
+                    //      }
+                    });
 }
 
 #pragma mark - 创建头headerView
@@ -263,22 +264,9 @@
 
 
 /**********************************以下为UI数据层代码**********************************/
-- (void)updateTestResultDelegate:(SVWebTestContext *)testContext
-                      testResult:(SVWebTestResult *)testResult
+- (void)updateTestResultDelegate:(SVSpeedTestContext *)testContext
+                      testResult:(SVSpeedTestResult *)testResult
 {
-
-    // 响应时间
-    double responseTime = testResult.responseTime;
-
-    // 完整下载时间
-    double totalTime = testResult.totalTime;
-
-    // 测试地址
-    NSString *testUrl = testResult.testUrl;
-
-    // 下载速度
-    double downloadSpeed = testResult.downloadSpeed;
-
     dispatch_async (dispatch_get_main_queue (), ^{
 
       if (testContext.testStatus == TEST_FINISHED)
@@ -289,33 +277,41 @@
       else
       {
           // 显示头部指标
-          [_headerView.ResponseLabel setText:[NSString stringWithFormat:@"%.2f", responseTime]];
-          [_headerView.DownloadLabel setText:[NSString stringWithFormat:@"%.2f", downloadSpeed]];
-          [_headerView.LoadLabel setText:[NSString stringWithFormat:@"%.2f", totalTime]];
+          [_headerView.Delay setText:[NSString stringWithFormat:@"%.2f", testResult.delay]];
+          [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.downloadSpeed]];
+          [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.uploadSpeed]];
 
-          // 仪表盘指标
+          double speed = testResult.isUpload || testResult.isSummeryResult ? testResult.uploadSpeed :
+                                                                             testResult.downloadSpeed;
+          //仪表盘指标
           UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
-          [bar setBarValue:totalTime];
+          [bar setBarValue:speed];
           [_headerView.uvMosBarView addSubview:bar];
-          [_speedtestingView updateUvMOS:totalTime];
+          [_speedtestingView updateUvMOS:speed];
+          [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
 
-          // 测试地址
-          [_footerView.urlLabel setText:testUrl];
+          // 服务器归属地和运营商
+          if (testResult.isp)
+          {
+              if (testResult.isp.isp)
+              {
+                  _footerView.Carrier.text = testResult.isp.isp;
+              }
+              if (testResult.isp.city)
+              {
+                  _footerView.ServerLocation.text = testResult.isp.city;
+              }
+          }
       }
     });
 }
 
-- (void)initCurrentResultModel:(SVWebTestResult *)testResult
+- (void)initCurrentResultModel:(SVSpeedTestResult *)testResult
 {
     if (!currentResultModel)
     {
         currentResultModel = [[SVCurrentResultModel alloc] init];
     }
-
-    [currentResultModel setTestId:testResult.testId];
-    [currentResultModel setResponseTime:testResult.responseTime];
-    [currentResultModel setTotalTime:testResult.totalTime];
-    [currentResultModel setDownloadSpeed:testResult.downloadSpeed];
 }
 
 - (void)goToCurrentResultViewCtrl
