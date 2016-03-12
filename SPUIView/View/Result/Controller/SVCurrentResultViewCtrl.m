@@ -44,8 +44,8 @@
     NSString *title1 = I18N (@"Fail");
     NSString *title2 = I18N (@"Initial buffer time");
     NSString *title3 = I18N (@"Butter times");
-    NSString *title4 = I18N (@"Web Test");
-    NSString *title5 = I18N (@"Response Time");
+    NSString *title4 = I18N (@"Response Time");
+    NSString *title5 = I18N (@"Load duration");
     NSString *title6 = I18N (@"Download");
     // 1.
     UIButton *_bgdBtn = [UIButton buttonWithType:UIButtonTypeCustom];

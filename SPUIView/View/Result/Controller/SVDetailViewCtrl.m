@@ -352,17 +352,18 @@
         [_soucreMA
         addObject:[SVToolModels modelWithDict:@{
             @"key": I18N (@"Response Time"),
-            @"value": [self formatFloatValue:[currentResultJson valueForKey:@"resonseTime"]]
+            @"value":
+            [self formatFloatValue:[currentResultJson valueForKey:@"responseTime"] unit:@"s"]
         }]];
         [_soucreMA
         addObject:[SVToolModels modelWithDict:@{
             @"key": I18N (@"Load duration"),
-            @"value": [self formatFloatValue:[currentResultJson valueForKey:@"totalTime"]]
+            @"value": [self formatFloatValue:[currentResultJson valueForKey:@"totalTime"] unit:@"s"]
         }]];
         [_soucreMA
         addObject:[SVToolModels modelWithDict:@{
             @"key": I18N (@"Download"),
-            @"value": [self formatFloatValue:[currentResultJson valueForKey:@"downloadSpeed"]]
+            @"value": [self formatFloatValue:[currentResultJson valueForKey:@"downloadSpeed"]  unit:@"Kbps"]
         }]];
     }
 }

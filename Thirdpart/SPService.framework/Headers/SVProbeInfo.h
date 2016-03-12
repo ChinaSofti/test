@@ -23,9 +23,9 @@ typedef enum _NetworkType {
 @property NSString *ip;
 @property NSString *isp;
 @property NSString *location;
-@property int signedBandwidth;
-@property int networkType;
-@property int singnal;
+@property NSString *signedBandwidth;
+@property NSString *networkType;
+@property NSString *singnal;
 
 
 /**
