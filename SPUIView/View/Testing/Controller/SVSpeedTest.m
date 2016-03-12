@@ -53,7 +53,7 @@ SVSpeedTestContext *_testContext;
 
 struct sockaddr_in addr;
 
-double startTime;
+double _beginTime;
 
 /**
  *  初始化网页测试对象，初始化必须放在UI主线程中进行
@@ -206,6 +206,8 @@ void download (int i)
                      @"GET", _speedTestInfo.downloadPath, @"*/*", _speedTestInfo.host, @"Close"];
     SVInfo (@"request %@", request);
 
+    _beginTime = [[NSDate date] timeIntervalSince1970];
+
     while (_testStatus == TEST_TESTING)
     {
         int fd = socket (AF_INET, SOCK_STREAM, 0);
@@ -224,7 +226,6 @@ void download (int i)
         memset (buff, '\0', DOWNLOAD_BUFFER_SIZE);
 
         len = 0;
-        startTime = [[NSDate date] timeIntervalSince1970];
         while (_testStatus == TEST_TESTING && (len = read (fd, buff, DOWNLOAD_BUFFER_SIZE)) > 0)
         {
             _downloadSize += len;
@@ -267,7 +268,7 @@ void upload (int i)
     len = write (fd, [fileRequest UTF8String], [fileRequest length] + 1);
 
     int count = 0;
-    startTime = [[NSDate date] timeIntervalSince1970];
+    _beginTime = [[NSDate date] timeIntervalSince1970];
     while (_testStatus == TEST_TESTING && (len = send (fd, buff, UPLOAD_BUFFER_SIZE, 0)) > 0)
     {
         _uploadSize += len;
@@ -431,7 +432,10 @@ void sample (BOOL isUpload)
     //        speedAvg = speedSum / validSpeedCount;
     //    }
 
-    speedAvg = *size * 8.0 / ([[NSDate date] timeIntervalSince1970] - startTime) / 1000000;
+    double currentTime = [[NSDate date] timeIntervalSince1970];
+    speedAvg = *size * 8.0 / (currentTime - _beginTime) / 1000000;
+
+    SVInfo (@"totalSize = %ld, costTime = %f", *size, (currentTime - _beginTime));
 
     // 所有50个采样点，排序，去除最小30%和最大10%的采样点，再取平均值
     long len = sizeof (_speedsAll) / sizeof (_speedsAll[0]);

@@ -40,6 +40,18 @@
 
 @synthesize navigationController, tabBarController, currentResultModel;
 
+- (id)initWithResultModel:(SVCurrentResultModel *)resultModel
+{
+    self = [super init];
+    if (!self)
+    {
+        return nil;
+    }
+
+    currentResultModel = resultModel;
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -316,10 +328,11 @@
 
 - (void)goToCurrentResultViewCtrl
 {
-    SVCurrentResultViewCtrl *currentResultView = [[SVCurrentResultViewCtrl alloc] init];
-    currentResultView.currentResultModel = currentResultModel;
-    currentResultView.navigationController = navigationController;
-    [navigationController pushViewController:currentResultView animated:YES];
+    // 返回根界面
+    [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
+
+    // push界面
+    [currentResultModel pushNextCtrl];
 }
 
 
