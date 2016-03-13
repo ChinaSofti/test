@@ -90,6 +90,9 @@ double _beginTime;
     _testResult = [[SVSpeedTestResult alloc] init];
     _speedTestInfo = [[SVSpeedTestInfo alloc] init];
 
+    _downloadSize = 0;
+    _uploadSize = 0;
+
     // 获取带宽测试地址
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
     SVSpeedTestServer *server = [servers getDefaultServer];

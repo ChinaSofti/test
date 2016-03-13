@@ -144,13 +144,6 @@
     {
         [view removeFromSuperview];
     }
-
-    // 初始化结果
-    currentResultModel = [[SVCurrentResultModel alloc] init];
-    [currentResultModel setTestId:-1];
-    [currentResultModel setUvMOS:-1];
-    [currentResultModel setFirstBufferTime:-1];
-    [currentResultModel setCuttonTimes:-1];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -320,9 +313,19 @@
 
 - (void)initCurrentResultModel:(SVSpeedTestResult *)testResult
 {
-    if (!currentResultModel)
+    currentResultModel.stDelay = testResult.delay;
+    currentResultModel.stDownloadSpeed = testResult.downloadSpeed;
+    currentResultModel.stUploadSpeed = testResult.uploadSpeed;
+    if (testResult.isp)
     {
-        currentResultModel = [[SVCurrentResultModel alloc] init];
+        if (testResult.isp.isp)
+        {
+            currentResultModel.stIsp = testResult.isp.isp;
+        }
+        if (testResult.isp.city)
+        {
+            currentResultModel.stLocation = testResult.isp.city;
+        }
     }
 }
 
@@ -330,7 +333,7 @@
 {
     // 返回根界面
     [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
-    
+
     // push界面
     [currentResultModel pushNextCtrl];
 }
