@@ -6,6 +6,7 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+#import "SVResultPush.h"
 #import "SVSpeedTest.h"
 #import "SVSpeedTestInfo.h"
 #import <SPCommon/SVDBManager.h>
@@ -38,6 +39,8 @@ id<SVSpeedTestDelegate> _testDelegate;
 
 // 测试状态
 TestStatus _testStatus;
+
+TestStatus _internalTestStatus;
 
 SVSpeedTestInfo *_speedTestInfo;
 
@@ -85,6 +88,7 @@ double _beginTime;
 - (BOOL)initTestContext
 {
     _testStatus = TEST_TESTING;
+    _internalTestStatus = TEST_TESTING;
 
     _testContext = [[SVSpeedTestContext alloc] init];
     _testResult = [[SVSpeedTestResult alloc] init];
@@ -138,14 +142,14 @@ double _beginTime;
     _testResult.isp = [SVIPAndISPGetter queryIPDetail:_speedTestInfo.ip];
 
     // 启动下载测试
-    _testStatus = TEST_TESTING;
+    _internalTestStatus = TEST_TESTING;
     [self startDownloadTest];
 
     // 推送最终结果
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 
     // 启动上传测试
-    _testStatus = TEST_TESTING;
+    _internalTestStatus = TEST_TESTING;
     [self startUploadTest];
 
     // 推送最终结果
@@ -156,7 +160,11 @@ double _beginTime;
 
     usleep (2000000);
     _testContext.testStatus = TEST_FINISHED;
+    _internalTestStatus = TEST_FINISHED;
+
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
+
+    [[SVResultPush alloc] initWithURLNSString:nil testId:[[NSNumber alloc] initWithLong:_testId]];
 
     return TRUE;
 }
@@ -237,7 +245,7 @@ void download (int i)
 
     _beginTime = [[NSDate date] timeIntervalSince1970];
 
-    while (_testStatus == TEST_TESTING)
+    while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING)
     {
         int fd = socket (AF_INET, SOCK_STREAM, 0);
         int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
@@ -301,7 +309,8 @@ void upload (int i)
     len = write (fd, [fileRequest UTF8String], [fileRequest length] + 1);
 
     _beginTime = [[NSDate date] timeIntervalSince1970];
-    while (_testStatus == TEST_TESTING && (len = send (fd, buff, UPLOAD_BUFFER_SIZE, 0)) > 0)
+    while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING &&
+           (len = send (fd, buff, UPLOAD_BUFFER_SIZE, 0)) > 0)
     {
         _uploadSize += len;
     }
@@ -429,6 +438,7 @@ void sample (BOOL isUpload)
     }
 
     _testStatus = TEST_FINISHED;
+    _internalTestStatus = TEST_FINISHED;
 
     // 采样结束，计算平均速度
     // speedSum = 0.0;

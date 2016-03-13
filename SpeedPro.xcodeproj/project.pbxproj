@@ -111,6 +111,7 @@
 		F61921CB1C92680F00C680E5 /* SVSpeedTestContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F61921CA1C92680F00C680E5 /* SVSpeedTestContext.m */; };
 		F61921CE1C92681E00C680E5 /* SVSpeedTestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F61921CD1C92681E00C680E5 /* SVSpeedTestResult.m */; };
 		F61921D11C926BA900C680E5 /* SVSpeedTestInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F61921D01C926BA900C680E5 /* SVSpeedTestInfo.m */; };
+		F69C9C981C95332B00D89B87 /* SVResultPush.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C9C971C95332B00D89B87 /* SVResultPush.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -301,6 +302,8 @@
 		F61921CD1C92681E00C680E5 /* SVSpeedTestResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestResult.m; sourceTree = "<group>"; };
 		F61921CF1C926BA900C680E5 /* SVSpeedTestInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedTestInfo.h; sourceTree = "<group>"; };
 		F61921D01C926BA900C680E5 /* SVSpeedTestInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestInfo.m; sourceTree = "<group>"; };
+		F69C9C961C95332B00D89B87 /* SVResultPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultPush.h; sourceTree = "<group>"; };
+		F69C9C971C95332B00D89B87 /* SVResultPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultPush.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +362,8 @@
 				5B85C0681C9025E000CA8A1E /* SVWebTestResult.m */,
 				561A36B71C89693F00AC5F5E /* SVUploadFile.h */,
 				561A36B81C89693F00AC5F5E /* SVUploadFile.m */,
+				F69C9C961C95332B00D89B87 /* SVResultPush.h */,
+				F69C9C971C95332B00D89B87 /* SVResultPush.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -963,6 +968,7 @@
 				563734851C8ED6590064DA33 /* SVWebTestingViewCtrl.m in Sources */,
 				561A36D21C896B5A00AC5F5E /* SVAdvancedViewCtrl.m in Sources */,
 				561A36D31C896B5A00AC5F5E /* SVBWSettingViewCtrl.m in Sources */,
+				F69C9C981C95332B00D89B87 /* SVResultPush.m in Sources */,
 				56B5180D1C5126C700AA76F1 /* UIView+Exten.m in Sources */,
 				56BA8FDC1C561E9100886CAE /* SVToolCell.m in Sources */,
 				5627689D1C907D760048D867 /* SVSpeedView.m in Sources */,

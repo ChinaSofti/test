@@ -57,6 +57,7 @@
     NSString *_uploadSpeedTitle;
 }
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
     // 刷新视频

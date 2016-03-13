@@ -163,8 +163,9 @@
     [window addSubview:_grayview];
     [self initContext];
     // 进入页面时，开始测试
-    long testId = [SVTimeUtil currentMilliSecondStamp];
-    _speedTest = [[SVSpeedTest alloc] initWithView:testId showSpeedView:nil testDelegate:self];
+    _speedTest = [[SVSpeedTest alloc] initWithView:self.currentResultModel.testId
+                                     showSpeedView:nil
+                                      testDelegate:self];
 
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       BOOL isOK = [_speedTest initTestContext];
@@ -186,15 +187,15 @@
 {
 
     dispatch_async (dispatch_get_main_queue (), ^{
-                    // 当用户离开当前页面时，停止测试
-                    //      if (_speedTest)
-                    //      {
-                    //          [_speedTest stopTest];
-                    //
-                    //          //移除覆盖grayView
-                    //          [_grayview removeFromSuperview];
-                    //      }
-                    });
+      // 当用户离开当前页面时，停止测试
+      if (_speedTest)
+      {
+          [_speedTest stopTest];
+
+          //移除覆盖grayView
+          [_grayview removeFromSuperview];
+      }
+    });
 }
 
 #pragma mark - 创建头headerView
