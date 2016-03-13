@@ -47,6 +47,11 @@
     NSString *title4 = I18N (@"Response Time");
     NSString *title5 = I18N (@"Load duration");
     NSString *title6 = I18N (@"Download");
+
+    NSString *delayTitle = I18N (@"Delay");
+    NSString *downloadSpeedTitle = I18N (@"Download speed");
+    NSString *uploadSpeedTitle = I18N (@"Upload speed");
+
     // 1.
     UIButton *_bgdBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _bgdBtn.frame = CGRectMake (kMargin, 0, kScreenW - 2 * kMargin, kCellH);
@@ -67,6 +72,16 @@
                  action:@selector (CellWebDetailClick:)
        forControlEvents:UIControlEventTouchUpInside];
 
+    // 3.
+    UIButton *_bgdBtn3 = [UIButton buttonWithType:UIButtonTypeCustom];
+    _bgdBtn3.frame = CGRectMake (kMargin, 0, kScreenW - 2 * kMargin, kCellH);
+    _bgdBtn3.layer.cornerRadius = kCornerRadius * 2;
+    _bgdBtn3.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _bgdBtn3.layer.borderWidth = 1;
+    [_bgdBtn3 addTarget:self
+                 action:@selector (CellWebDetailClick:)
+       forControlEvents:UIControlEventTouchUpInside];
+
     if (_resultModel.videoTest == YES)
     {
         [_buttons addObject:_bgdBtn];
@@ -74,6 +89,10 @@
     if (_resultModel.webTest == YES)
     {
         [_buttons addObject:_bgdBtn2];
+    }
+    if (_resultModel.speedTest == YES)
+    {
+        [_buttons addObject:_bgdBtn3];
     }
 
 
@@ -302,6 +321,149 @@
         [_bgdBtn2 addSubview:DownloadLabelValue];
         [_bgdBtn2 addSubview:DownloadLabelValue1];
         [_bgdBtn2 addSubview:DownloadLabel];
+    }
+
+    // 带宽测试
+    if (_resultModel.speedTest == YES)
+    {
+        CGFloat imgViewWAndH3 = kViewH (_bgdBtn3) - 3 * kViewX (_bgdBtn3);
+        UIImageView *_imgView3 = [[UIImageView alloc]
+        initWithFrame:CGRectMake (kMargin * 2, (kCellH - imgViewWAndH3) * 0.5, imgViewWAndH3, imgViewWAndH3)];
+        _imgView3.image = [UIImage imageNamed:@"ic_speed_label"];
+        [_bgdBtn3 addSubview:_imgView3];
+
+        UIImageView *_rightImgView3 =
+        [[UIImageView alloc] initWithFrame:CGRectMake (kViewW (_bgdBtn3) - imgViewWAndH3 - kMargin,
+                                                       kViewY (_imgView3), imgViewWAndH3, imgViewWAndH3)];
+        [_bgdBtn3 addSubview:_rightImgView3];
+
+
+        // 时延
+        UILabel *delayLabelValue =
+        [[UILabel alloc] initWithFrame:CGRectMake (kViewR (_imgView3), kViewY (_imgView3) - FITWIDTH (10),
+                                                   FITWIDTH (50), imgViewWAndH3)];
+        if (!_resultModel.stDelay || _resultModel.stDelay <= 0)
+        {
+            [delayLabelValue setText:title1];
+        }
+        else
+        {
+            [delayLabelValue setText:[NSString stringWithFormat:@"%.0f", _resultModel.stDelay]];
+        }
+
+        [delayLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
+        [delayLabelValue setTextAlignment:NSTextAlignmentRight];
+        [delayLabelValue setTextColor:[UIColor orangeColor]];
+
+        UILabel *delayLabelUnit = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (delayLabelValue), kViewY (_imgView3) + FITWIDTH (3),
+                                  FITWIDTH (20), FITWIDTH (20))];
+        [delayLabelUnit setText:@"ms"];
+        [delayLabelUnit setFont:[UIFont systemFontOfSize:10]];
+        [delayLabelUnit setTextAlignment:NSTextAlignmentCenter];
+        [delayLabelUnit setTextColor:[UIColor orangeColor]];
+
+        UILabel *delayLabelTitle = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (_imgView3) + FITHEIGHT (15),
+                                  kViewY (_imgView3) + FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
+        [delayLabelTitle setText:delayTitle];
+        [delayLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
+        [delayLabelTitle setTextAlignment:NSTextAlignmentCenter];
+
+
+        [_bgdBtn3 addSubview:delayLabelValue];
+
+        if (_resultModel.stDelay && _resultModel.stDelay > 0)
+        {
+            [_bgdBtn3 addSubview:delayLabelUnit];
+        }
+
+        [_bgdBtn3 addSubview:delayLabelTitle];
+
+        // 下载速度
+        UILabel *downloadLabelValue = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (delayLabelValue) + FITWIDTH (20),
+                                  kViewY (_imgView3) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
+        if (!_resultModel.stDownloadSpeed || _resultModel.stDownloadSpeed <= 0)
+        {
+            [downloadLabelValue setText:title1];
+        }
+        else
+        {
+            [downloadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.stDownloadSpeed]];
+        }
+
+        [downloadLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
+        [downloadLabelValue setTextAlignment:NSTextAlignmentRight];
+        [downloadLabelValue setTextColor:[UIColor orangeColor]];
+
+        UILabel *downloadLabelUnit = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (downloadLabelValue), kViewY (_imgView3) + FITWIDTH (3),
+                                  FITWIDTH (30), FITWIDTH (20))];
+        [downloadLabelUnit setText:@"Mbps"];
+        [downloadLabelUnit setFont:[UIFont systemFontOfSize:10]];
+        [downloadLabelUnit setTextAlignment:NSTextAlignmentCenter];
+        [downloadLabelUnit setTextColor:[UIColor orangeColor]];
+
+        UILabel *downloadLabelTitle = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (delayLabelTitle), kViewY (_imgView3) + FITWIDTH (10),
+                                  FITWIDTH (85), imgViewWAndH3)];
+        [downloadLabelTitle setText:downloadSpeedTitle];
+        [downloadLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
+        [downloadLabelTitle setTextAlignment:NSTextAlignmentCenter];
+
+        [_bgdBtn3 addSubview:downloadLabelValue];
+
+        if (_resultModel.stDownloadSpeed && _resultModel.stDownloadSpeed > 0)
+        {
+            [_bgdBtn3 addSubview:downloadLabelUnit];
+        }
+
+        [_bgdBtn3 addSubview:downloadLabelTitle];
+
+
+        // 上传速度
+        UILabel *uploadLabelValue = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (downloadLabelValue) + FITWIDTH (40),
+                                  kViewY (_imgView3) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
+
+        if (!_resultModel.stUploadSpeed || _resultModel.stUploadSpeed <= 0)
+        {
+            [uploadLabelValue setText:title1];
+        }
+        else
+        {
+            [uploadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.stUploadSpeed]];
+        }
+
+        [uploadLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
+        [uploadLabelValue setTextAlignment:NSTextAlignmentRight];
+        [uploadLabelValue setTextColor:[UIColor orangeColor]];
+
+        UILabel *uploadLabelUnit = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (uploadLabelValue), kViewY (_imgView3) + FITWIDTH (3),
+                                  FITWIDTH (30), FITWIDTH (20))];
+
+        [uploadLabelUnit setText:@"Mbps"];
+        [uploadLabelUnit setFont:[UIFont systemFontOfSize:10]];
+        [uploadLabelUnit setTextAlignment:NSTextAlignmentCenter];
+        [uploadLabelUnit setTextColor:[UIColor orangeColor]];
+
+        UILabel *uploadLabelTitle = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (downloadLabelTitle), kViewY (_imgView3) + FITWIDTH (10),
+                                  FITWIDTH (85), imgViewWAndH3)];
+        [uploadLabelTitle setText:uploadSpeedTitle];
+        [uploadLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
+        [uploadLabelTitle setTextAlignment:NSTextAlignmentCenter];
+
+        [_bgdBtn3 addSubview:uploadLabelValue];
+
+        if (_resultModel.stUploadSpeed && _resultModel.stUploadSpeed > 0)
+        {
+            [_bgdBtn3 addSubview:uploadLabelUnit];
+        }
+
+        [_bgdBtn3 addSubview:uploadLabelTitle];
     }
 }
 

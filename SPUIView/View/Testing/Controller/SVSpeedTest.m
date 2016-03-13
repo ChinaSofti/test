@@ -11,6 +11,7 @@
 #import <SPCommon/SVDBManager.h>
 #import <SPCommon/SVLog.h>
 #import <SPService/SVIPAndISPGetter.h>
+#import <SPService/SVSpeedTestServers.h>
 
 #import <arpa/inet.h>
 #import <netdb.h>
@@ -89,6 +90,25 @@ double _beginTime;
     _testResult = [[SVSpeedTestResult alloc] init];
     _speedTestInfo = [[SVSpeedTestInfo alloc] init];
 
+    // 获取带宽测试地址
+    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+    SVSpeedTestServer *server = [servers getDefaultServer];
+    NSURL *url = [NSURL URLWithString:server.serverURL];
+    NSString *host = [url host];
+    NSNumber *port = [url port];
+
+    _testContext.downloadUrl =
+    [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", host, port,
+                                                    @"/speedtest/random4000x4000.jpg"]];
+
+    _testContext.uploadUrl =
+    [NSURL URLWithString:[NSString
+                         stringWithFormat:@"http://%@:%@%@", host, port, @"/speedtest/upload.php"]];
+
+    _testContext.delayUrl =
+    [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", host, port,
+                                                    @"/speedtest/latency.txt"]];
+
     return TRUE;
 }
 
@@ -131,7 +151,7 @@ double _beginTime;
     // 结果入库
     [self persistSVDetailResultModel];
 
-    usleep (500000);
+    usleep (1000000);
     _testContext.testStatus = TEST_FINISHED;
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 
