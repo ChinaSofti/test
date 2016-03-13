@@ -16,6 +16,8 @@
 @implementation SVAdvancedViewCtrl
 {
     UITextField *_textField;
+    UIButton *_button;
+    UIButton *_button2;
 }
 
 - (void)viewDidLoad
@@ -103,6 +105,12 @@
 }
 - (void)createUIBandwidth
 {
+    //获取默认值
+    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+    SVSpeedTestServer *object = [servers getDefaultServer];
+    //取数组里的值
+    SVSpeedTestServer * defaultvalue = object;
+    
     NSString *title1 = @"带宽测试服务器配置";
     // views2
     UIView *views2 = [[UIView alloc] init];
@@ -125,56 +133,61 @@
     // label1
     UILabel *label1 = [[UILabel alloc]
     initWithFrame:CGRectMake (FITTHEIGHT (10), FITTHEIGHT (10), FITTHEIGHT (200), FITTHEIGHT (20))];
-    label1.text = @"NANJING";
-    label1.font = [UIFont systemFontOfSize:16];
+    label1.text = defaultvalue.name;
+    label1.font = [UIFont systemFontOfSize:14];
     //        label1.backgroundColor = [UIColor redColor];
     label1.layer.cornerRadius = 5;
     [labelview addSubview:label1];
     // label2
     UILabel *label2 = [[UILabel alloc]
     initWithFrame:CGRectMake (FITTHEIGHT (10), FITTHEIGHT (40), FITTHEIGHT (215), FITTHEIGHT (20))];
-    label2.text = @"China Telecom JiangSu Branch";
-    label2.font = [UIFont systemFontOfSize:13];
+    label2.text = defaultvalue.sponsor;
+    label2.font = [UIFont systemFontOfSize:11];
     //        label2.backgroundColor = [UIColor redColor];
     label2.layer.cornerRadius = 5;
     [labelview addSubview:label2];
     // button自动
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake (FITTHEIGHT (215), FITTHEIGHT (37), FITTHEIGHT (60), FITTHEIGHT (45));
-    button.backgroundColor =
-    [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
-    [button setTitle:@"自动" forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont systemFontOfSize:15];
-    button.titleLabel.textAlignment = NSTextAlignmentCenter;
-    button.layer.cornerRadius = 5;
-    [button addTarget:self
+    _button = [UIButton buttonWithType:UIButtonTypeCustom];
+    _button.frame = CGRectMake (FITTHEIGHT (215), FITTHEIGHT (27), FITTHEIGHT (60), FITTHEIGHT (45));
+    _button.backgroundColor = [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
+    //设置文字
+    [_button setTitle:@"自动" forState:UIControlStateNormal];
+    _button.titleLabel.font = [UIFont systemFontOfSize:15];
+    _button.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _button.layer.cornerRadius = 5;
+    [_button addTarget:self
                action:@selector (BtnClicked:)
      forControlEvents:UIControlEventTouchUpInside];
-    [views2 addSubview:button];
+    [views2 addSubview:_button];
     // button选择
-    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    button2.frame = CGRectMake (FITTHEIGHT (285), FITTHEIGHT (37), FITTHEIGHT (60), FITTHEIGHT (45));
-    button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    [button2 setTitle:@"选择" forState:UIControlStateNormal];
-    button2.titleLabel.font = [UIFont systemFontOfSize:15];
-    button2.titleLabel.textAlignment = NSTextAlignmentCenter;
-    button2.layer.cornerRadius = 5;
-    [button2 addTarget:self
+    _button2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    _button2.frame = CGRectMake (FITTHEIGHT (285), FITTHEIGHT (27), FITTHEIGHT (60), FITTHEIGHT (45));
+    _button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    [_button2 setTitle:@"选择" forState:UIControlStateNormal];
+    _button2.titleLabel.font = [UIFont systemFontOfSize:15];
+    _button2.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _button2.layer.cornerRadius = 5;
+    [_button2 addTarget:self
                 action:@selector (Btn2Clicked:)
       forControlEvents:UIControlEventTouchUpInside];
-    [views2 addSubview:button2];
+    [views2 addSubview:_button2];
 }
 - (void)BtnClicked:(UIButton *)button
 {
     SVInfo (@"自动");
     //自动获取方法
+    [self createUIBandwidth];
+    _button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    _button.backgroundColor = [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
 }
-- (void)Btn2Clicked:(UIButton *)button
+- (void)Btn2Clicked:(UIButton *)button2
 {
     SVInfo (@"选择");
     //跳转到带宽测试服务器列表
     SVBandWidthCtrl *bandwidthCtrl = [[SVBandWidthCtrl alloc] init];
     bandwidthCtrl.title = @"带宽测试服务器列表";
     [self.navigationController pushViewController:bandwidthCtrl animated:YES];
+    _button.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    _button2.backgroundColor = [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
 }
 @end

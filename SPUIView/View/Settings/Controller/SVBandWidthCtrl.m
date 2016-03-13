@@ -9,11 +9,15 @@
 #import <SPService/SVSpeedTestServers.h>
 
 @interface SVBandWidthCtrl () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
+{
+    //列表内容数组
+    NSArray *_array;
+}
 @property (nonatomic, strong) UITableView *tableView;
-
 @end
 
 @implementation SVBandWidthCtrl
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -54,7 +58,7 @@
 //设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 20;
+    return _array.count;
 }
 //设置 tableView的 numberOfRowsInSection(设置每个section中有几个cell)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -80,45 +84,43 @@
 
     //取消cell 被点中的效果
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    //取数组里的值
+    SVSpeedTestServer * server = _array[indexPath.section];
 
     //设置每个cell的内容
     if (indexPath.row == 0)
     {
         UILabel *label1 = [[UILabel alloc]
         initWithFrame:CGRectMake (FITTHEIGHT (5), FITTHEIGHT (5), FITTHEIGHT (150), FITTHEIGHT (20))];
-        label1.text = @"NANJING";
+        label1.text = server.name;
         //设置字体和是否加粗
-        label1.font = [UIFont systemFontOfSize:16];
-        //            label1.backgroundColor = [UIColor redColor];
+        label1.font = [UIFont systemFontOfSize:14];
         [cell addSubview:label1];
 
         UILabel *label2 = [[UILabel alloc]
         initWithFrame:CGRectMake (FITTHEIGHT (285), FITTHEIGHT (8), FITTHEIGHT (50), FITTHEIGHT (20))];
         label2.text = @"1.0";
         //设置字体和是否加粗
-        label2.font = [UIFont systemFontOfSize:16];
+        label2.font = [UIFont systemFontOfSize:14];
         label2.textAlignment = NSTextAlignmentRight;
-        //            label2.backgroundColor = [UIColor redColor];
         [cell addSubview:label2];
 
         UILabel *label3 = [[UILabel alloc]
         initWithFrame:CGRectMake (FITTHEIGHT (5), FITTHEIGHT (25), FITTHEIGHT (75), FITTHEIGHT (20))];
         label3.text = @"Hosted by:";
-        label3.font = [UIFont systemFontOfSize:13];
-        //            label3.backgroundColor = [UIColor redColor];
+        label3.font = [UIFont systemFontOfSize:11];
         [cell addSubview:label3];
 
         UILabel *label4 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITTHEIGHT (85), FITTHEIGHT (25), FITTHEIGHT (240), FITTHEIGHT (20))];
-        label4.text = @"China Telecom JiangSu Branch";
-        label4.font = [UIFont systemFontOfSize:13];
-        //            label4.backgroundColor= [UIColor redColor];
+        initWithFrame:CGRectMake (FITTHEIGHT (65), FITTHEIGHT (25), FITTHEIGHT (240), FITTHEIGHT (20))];
+        label4.text = server.sponsor;
+        label4.font = [UIFont systemFontOfSize:11];
         [cell addSubview:label4];
 
         UILabel *label5 = [[UILabel alloc]
         initWithFrame:CGRectMake (FITTHEIGHT (320), FITTHEIGHT (25), FITTHEIGHT (20), FITTHEIGHT (20))];
         label5.text = @"km";
-        label5.font = [UIFont systemFontOfSize:13];
+        label5.font = [UIFont systemFontOfSize:11];
         [cell addSubview:label5];
         //添加点击事件
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, FITTHEIGHT (50))];
@@ -132,21 +134,12 @@
 - (void)CellClicked:(UIButton *)button
 
 {
-    //    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-    //                                                             delegate:self
-    //                                                    cancelButtonTitle:@"取消"
-    //                                               destructiveButtonTitle:@"破坏性按钮"
-    //                                                    otherButtonTitles:@"Fackbook",
-    //                                                    @"新浪微博", nil];
-    //    //类型
-    //    /*
-    //     UIActionSheetStyleAutomatic。自动样式。 //     UIActionSheetStyleDefault。默认样式。
-    //     UIActionSheetStyleBlackTranslucent。半透明样式。
-    //     UIActionSheetStyleBlackOpaque。透明样式。
-    //     */
-    //    actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
-    //    [actionSheet showInView:self.view];
 
+    //获取section的点击第几个section
+    UITableViewCell *cell = (UITableViewCell *)[button superview];//获取cell
+    NSIndexPath *indexPathAll = [_tableView indexPathForCell:cell];//获取cell对应的section
+    NSLog(@"indexPath:--------%@",indexPathAll);
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 //#pragma mark-- 实现UIActionSheetDelegate //- (void)actionSheet:(UIActionSheet *)actionSheet
@@ -171,7 +164,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    NSArray *array = [servers getAllServer];
+    _array = [servers getAllServer];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"HideTabBar" object:nil];
 }
 //出来时 显示tabBar
