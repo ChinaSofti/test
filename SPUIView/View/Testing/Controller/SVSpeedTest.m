@@ -151,7 +151,7 @@ double _beginTime;
     // 结果入库
     [self persistSVDetailResultModel];
 
-    usleep (1000000);
+    usleep (2000000);
     _testContext.testStatus = TEST_FINISHED;
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 

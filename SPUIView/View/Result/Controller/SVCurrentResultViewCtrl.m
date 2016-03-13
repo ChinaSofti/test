@@ -339,9 +339,9 @@
 
 
         // 时延
-        UILabel *delayLabelValue =
-        [[UILabel alloc] initWithFrame:CGRectMake (kViewR (_imgView3), kViewY (_imgView3) - FITWIDTH (10),
-                                                   FITWIDTH (50), imgViewWAndH3)];
+        UILabel *delayLabelValue = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (_imgView3) - FITWIDTH (10),
+                                  kViewY (_imgView3) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
         if (!_resultModel.stDelay || _resultModel.stDelay <= 0)
         {
             [delayLabelValue setText:title1];
