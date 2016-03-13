@@ -122,7 +122,7 @@
     if (buttonIndex == 1)
     {
         SVInfo (@"取消了此次测试");
-        [navigationController popToRootViewControllerAnimated:NO];
+        [currentResultModel.navigationController popToRootViewControllerAnimated:NO];
     }
     SVInfo (@"继续测试");
 }
@@ -184,17 +184,16 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-
     dispatch_async (dispatch_get_main_queue (), ^{
-                    // 当用户离开当前页面时，停止测试
-                    //      if (_speedTest)
-                    //      {
-                    //          [_speedTest stopTest];
-                    //
-                    //          //移除覆盖grayView
-                    //          [_grayview removeFromSuperview];
-                    //      }
-                    });
+      //      当用户离开当前页面时，停止测试
+      if (_speedTest)
+      {
+          [_speedTest stopTest];
+
+          //移除覆盖grayView
+          [_grayview removeFromSuperview];
+      }
+    });
 }
 
 #pragma mark - 创建头headerView
@@ -332,9 +331,6 @@
 
 - (void)goToCurrentResultViewCtrl
 {
-    // 返回根界面
-    [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
-
     // push界面
     [currentResultModel pushNextCtrl];
 }
