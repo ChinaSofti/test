@@ -229,13 +229,21 @@
                    @"value": valueStr
                }]];
 
-    // 测试时间
-    [_soucreMA
-    addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Test time"),
-        @"value":
-        [SVTimeUtil formatDateByMilliSecond:(self.testId / 1000) formatStr:@"yyyy-MM-dd HH:mm:ss"]
-    }]];
+    //     测试时间
+    //    [_soucreMA
+    //    addObject:[SVToolModels modelWithDict:@{
+    //        @"key": I18N (@"Test time"),
+    //        @"value":
+    //        [SVTimeUtil formatDateByMilliSecond:(self.testId / 1000) formatStr:@"yyyy-MM-dd
+    //        HH:mm:ss"]
+    //    }]];
+
+    NSString *timeString =
+    [SVTimeUtil formatDateByMilliSecond:(self.testId / 1000) formatStr:@"yyyy-MM-dd HH:mm:ss"];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Test time"),
+                   @"value": timeString
+               }]];
 }
 
 // 生成视频测试展示详细结果需要的UIView
@@ -363,7 +371,8 @@
         [_soucreMA
         addObject:[SVToolModels modelWithDict:@{
             @"key": I18N (@"Download"),
-            @"value": [self formatFloatValue:[currentResultJson valueForKey:@"downloadSpeed"]  unit:@"Kbps"]
+            @"value":
+            [self formatFloatValue:[currentResultJson valueForKey:@"downloadSpeed"] unit:@"Kbps"]
         }]];
     }
 }

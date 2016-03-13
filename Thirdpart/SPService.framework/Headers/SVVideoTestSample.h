@@ -34,4 +34,7 @@
 // 采样周期内，卡顿总时长
 @property int stallingTotalTime;
 
+// 开始缓冲时间
+@property long videoStartPlayTime;
+
 @end

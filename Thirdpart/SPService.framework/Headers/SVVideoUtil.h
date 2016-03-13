@@ -18,6 +18,11 @@
  */
 + (CGSize)getScreenSize;
 
-+ (CGFloat)getScreenScale;
+/**
+ *  获取屏幕分辨率
+ *
+ *  @return 屏幕分辨率
+ */
++ (CGSize)getScreenScale;
 
 @end
