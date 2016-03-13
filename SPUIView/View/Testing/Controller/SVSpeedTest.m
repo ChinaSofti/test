@@ -662,16 +662,26 @@ void sort (double *a, int n)
 
 - (NSString *)getIPWithHostName:(const NSString *)hostName
 {
+    NSString *strIPAddress = @"0.0.0.0";
+
+    if (!hostName)
+    {
+        return strIPAddress;
+    }
+
     const char *hostN = [hostName UTF8String];
     struct hostent *phot;
 
-    @try
+    if (!hostN)
     {
-        phot = gethostbyname (hostN);
+        return strIPAddress;
     }
-    @catch (NSException *exception)
+
+    phot = gethostbyname (hostN);
+
+    if (!phot || !phot->h_addr_list)
     {
-        return nil;
+        return strIPAddress;
     }
 
     struct in_addr ip_addr;
@@ -680,7 +690,8 @@ void sort (double *a, int n)
     char ip[20] = { 0 };
     inet_ntop (AF_INET, &ip_addr, ip, sizeof (ip));
 
-    NSString *strIPAddress = [NSString stringWithUTF8String:ip];
+    strIPAddress = [NSString stringWithUTF8String:ip];
+
     return strIPAddress;
 }
 
