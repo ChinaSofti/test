@@ -34,7 +34,6 @@ FOUNDATION_EXPORT const unsigned char SPServiceVersionString[];
 #import "SVTestContextGetter.h"
 #import "SVTestResult.h"
 #import "SVUvMOSCalculator.h"
-#import "SVUvMOSVideoResolutionGetter.h"
 #import "SVVideoAnalyser.h"
 #import "SVVideoAnalyserFactory.h"
 #import "SVVideoAnalyser_youku.h"

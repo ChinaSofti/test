@@ -45,7 +45,7 @@
  *
  *  @param server SpeedTestServer的URL
  */
-- (void)setDefaultServerURL:(SVSpeedTestServer *)server;
+- (void)setDefaultServer:(SVSpeedTestServer *)server;
 
 /**
  *  设置缺省SpeedTestServer

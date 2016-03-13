@@ -411,12 +411,14 @@ void sample (BOOL isUpload)
 
         // 组装100ms结果并推送给前台,此结果用来刷新表盘，不入库
         _curTestResult.testTime = time;
+        _curTestResult.isSecResult = NO;
 
         // 计算秒极结果，用于绘制线图
         if (count != 0 && count % STEP == 0)
         {
             speed = speedSum / STEP;
             speedSum = 0.0;
+            _curTestResult.isSecResult = YES;
             SVInfo (@"sample speed = %f", speed);
         }
 

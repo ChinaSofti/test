@@ -517,10 +517,6 @@
 {
     // 如果视频在全屏模式，则退出全屏模式
     [self exitFullScreenMode];
-
-    // 返回根界面
-    [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
-
     // push界面
     [currentResultModel pushNextCtrl];
 }

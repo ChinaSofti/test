@@ -54,7 +54,7 @@ firstBufferTime, cuttonTimes, webTest, responseTime, totalTime, downloadSpeed;
 - (void)pushNextCtrl
 {
     // push界面
-    if (_ctrlArray)
+    if (_ctrlArray && _ctrlArray.count > 0)
     {
         // 从数组中取出controller
         id nextCtrl = _ctrlArray[0];
@@ -66,6 +66,8 @@ firstBufferTime, cuttonTimes, webTest, responseTime, totalTime, downloadSpeed;
             // 将已经推送的controller放入数组
             [_completeCtrlArray addObject:nextCtrl];
 
+            // 返回根界面
+            [self.navigationController popToRootViewControllerAnimated:NO];
             [self.navigationController pushViewController:nextCtrl animated:NO];
         }
     }

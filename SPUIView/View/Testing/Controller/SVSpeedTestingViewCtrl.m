@@ -13,13 +13,14 @@
 #import "SVSpeedView.h"
 
 
+#import "SVChart.h"
 #import "SVCurrentResultViewCtrl.h"
 #import "SVSpeedTestingViewCtrl.h"
 #import <SPCommon/SVTimeUtil.h>
 #import <SPCommon/UUBar.h>
 
 #define kVideoViewDefaultRect \
-    CGRectMake (FITWIDTH (10), FITWIDTH (420), FITWIDTH (150), FITWIDTH (92))
+    CGRectMake (FITWIDTH (10), FITWIDTH (425), FITWIDTH (150), FITWIDTH (90))
 
 @interface SVSpeedTestingViewCtrl ()
 {
@@ -29,10 +30,13 @@
     SVSpeedView *_speedView; //定义访问网页的View
     SVFooterView *_footerView; // 定义footerView
     SVSpeedTest *_speedTest;
+    SVChart *_chart;
+    BOOL uploadFirstResult;
+    BOOL downloadFirstResult;
 }
 
-//定义gray遮挡View
-@property (nonatomic, strong) UIView *grayview;
+//定义gy遮挡View
+@property (nonatomic, strong) UIView *gyview;
 
 @end
 
@@ -122,7 +126,7 @@
     if (buttonIndex == 1)
     {
         SVInfo (@"取消了此次测试");
-        [navigationController popToRootViewControllerAnimated:NO];
+        [currentResultModel.navigationController popToRootViewControllerAnimated:NO];
     }
     SVInfo (@"继续测试");
 }
@@ -138,7 +142,7 @@
     [_footerView.bitLabel setText:title5];
     [_headerView.bufferLabel setText:@"0"];
     [_headerView.speedLabel setText:@"0"];
-    [_speedtestingView updateUvMOS:0];
+    [_speedtestingView updateUvMOS3:0];
 
     for (UIView *view in [_headerView.uvMosBarView subviews])
     {
@@ -152,15 +156,15 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
 
-    //添加覆盖grayview(为了防止用户在测试的过程中点击按钮)
+    //添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
     //获取整个屏幕的window
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //创建一个覆盖garyView
-    _grayview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
+    _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
     //设置透明度
-    _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    _gyview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     //添加
-    [window addSubview:_grayview];
+    [window addSubview:_gyview];
     [self initContext];
     // 进入页面时，开始测试
     _speedTest = [[SVSpeedTest alloc] initWithView:self.currentResultModel.testId
@@ -185,15 +189,31 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    for (UIView *subView in _speedView.subviews)
+    {
+        [subView removeFromSuperview];
+    }
+
+    uploadFirstResult = false;
+    downloadFirstResult = false;
 
     dispatch_async (dispatch_get_main_queue (), ^{
+<<<<<<< HEAD
       // 当用户离开当前页面时，停止测试
+=======
+      //                     当用户离开当前页面时，停止测试
+>>>>>>> bbf37fcffdc71922055eb4b4d5317f311726cb04
       if (_speedTest)
       {
           [_speedTest stopTest];
 
+<<<<<<< HEAD
           //移除覆盖grayView
           [_grayview removeFromSuperview];
+=======
+          //移除覆盖gyView
+          [_gyview removeFromSuperview];
+>>>>>>> bbf37fcffdc71922055eb4b4d5317f311726cb04
       }
     });
 }
@@ -218,7 +238,7 @@
     [self.view addSubview:_headerView];
 }
 
-#pragma mark - 创建测试中webtestingView
+#pragma mark - 创建测试中speedtestingView
 
 - (void)creatSpeedTestingView
 {
@@ -237,12 +257,14 @@
 }
 
 
-#pragma mark - 创建WebView
+#pragma mark - 创建speedView
 - (void)creatSpeedView
 {
     //初始化
     _speedView = [[SVSpeedView alloc] initWithFrame:kVideoViewDefaultRect];
-    [_speedView setBackgroundColor:[UIColor blackColor]];
+    [_speedView setBackgroundColor:[UIColor whiteColor]];
+    _speedView.layer.borderWidth = 0.5;
+    _speedView.layer.borderColor = [[UIColor grayColor] CGColor];
     //    [_webView setContentMode:UIViewContentModeScaleToFill];
     [self.view addSubview:_speedView];
 }
@@ -293,8 +315,42 @@
           UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
           [bar setBarValue:speed];
           [_headerView.uvMosBarView addSubview:bar];
-          [_speedtestingView updateUvMOS:speed];
+          [_speedtestingView updateUvMOS3:speed];
           [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
+
+          if (testResult.isSecResult)
+          {
+              if (testResult.isUpload)
+              {
+                  if (!uploadFirstResult)
+                  {
+                      if (_chart)
+                      {
+                          [_chart removeFromSuperview];
+                      }
+
+                      _chart = [[SVChart alloc] initWithView:_speedView];
+                      uploadFirstResult = true;
+                  }
+              }
+              else
+              {
+                  if (!downloadFirstResult)
+                  {
+                      if (_chart)
+                      {
+                          [_chart removeFromSuperview];
+                      }
+
+                      _chart = [[SVChart alloc] initWithView:_speedView];
+                      downloadFirstResult = true;
+                  }
+              }
+
+              // 线图数据秒级
+              [_chart addValue:speed];
+              SVInfo (@"isSecResult:%.2f", speed);
+          }
 
           // 服务器归属地和运营商
           if (testResult.isp)
@@ -333,9 +389,6 @@
 
 - (void)goToCurrentResultViewCtrl
 {
-    // 返回根界面
-    [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
-
     // push界面
     [currentResultModel pushNextCtrl];
 }

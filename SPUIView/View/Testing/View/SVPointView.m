@@ -277,6 +277,22 @@
         self.pointView.transform = CGAffineTransformMakeRotation (0.0108*(self.num - 50)+ 3.62);
     }
 
+    //0
+    //    self.pointView.transform = CGAffineTransformMakeRotation (0);
+    //1
+    //    self.pointView.transform = CGAffineTransformMakeRotation (0.52);
+    //3
+    //    self.pointView.transform = CGAffineTransformMakeRotation (1.56);
+    // 5
+    //    self.pointView.transform = CGAffineTransformMakeRotation (2.08);   (l5-l3)/(5-3) *(self -3) + M= 0.26*(sel -3)+M//3-5
+    //10
+    //    self.pointView.transform = CGAffineTransformMakeRotation (2.6);
+    //20
+    //    self.pointView.transform = CGAffineTransformMakeRotation (3.12);
+    //50
+    //    self.pointView.transform = CGAffineTransformMakeRotation (3.62);
+    //100
+    //    self.pointView.transform = CGAffineTransformMakeRotation (4.16);
 }
 
 - (void)updateUvMOS3:(float)uvMOS
@@ -294,15 +310,15 @@
         }
         if (uvMOS >= 10 && uvMOS < 20)//0-40
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation ( 0.052*(uvMOS - 10));
+            self.grayView3.transform = CGAffineTransformMakeRotation ( 0.052*(uvMOS - 10)+0.52);
         }
         if (uvMOS >= 20 && uvMOS < 50)//0-80
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation (0.017*(uvMOS - 20));
+            self.grayView3.transform = CGAffineTransformMakeRotation (0.017*(uvMOS - 20) +0.52*2);
         }
         if (uvMOS >= 50 && uvMOS < 100)//0-100
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation (0.0108*(uvMOS - 50));
+            self.grayView3.transform = CGAffineTransformMakeRotation (0.0108*(uvMOS - 50) +0.52 *3);
         }
         _num = uvMOS;
         _label23.text = [NSString stringWithFormat:@"%.2f", _num];

@@ -5,6 +5,14 @@
 extern "C" {
 #endif
 
+
+typedef enum _UvMOSMediaType {
+    // 点播类型
+    MEDIA_TYPE_VOD = 0,
+    // 直播类型
+    MEDIA_TYPE_LIVE = 1
+} UvMOSMediaType;
+
 /**
  * 内容提供商枚举值，无法确定时默认为FFMPEG
  */
@@ -21,19 +29,6 @@ typedef enum _UvMOSContentProvider {
 } UvMOSContentProvider;
 
 /**
- * 视频/屏幕分辨率枚举值，暂不支持非标准分辨率
- */
-typedef enum _UvMOSVideoResolution {
-    RESOLUTION_360P = 0, // 分辨率360P, 480*360
-    RESOLUTION_480P = 1, // 分辨率480P, 640*480
-    RESOLUTION_720P = 2, // 分辨率720P, 1280*720
-    RESOLUTION_1080P = 3, // 分辨率720P, 1920*1080
-    RESOLUTION_2K = 4, // 分辨率2K, 2560×1440
-    RESOLUTION_4K = 5, // 分辨率4K, 3840×2160
-    RESOLUTION_UNKNOW = 6 // 分辨率无法获取，视频分辨率无法获取时，将无法进行UvMOS计算，屏幕分辨率无法获取时，将忽略其影响
-} UvMOSVideoResolution;
-
-/**
  * 视频编码格式枚举值，无法确定时默认为H264
  */
 typedef enum _UvMOSVideoCodec {
@@ -45,64 +40,101 @@ typedef enum _UvMOSVideoCodec {
     VIDEO_CODEC_OTHER = 5 // 其他视频编码格式，当前版本暂时不支持
 } UvMOSVideoCodec;
 
+typedef enum _UvMOSPlayStatus {
+    // 画面正常
+    STATUS_PLAYING = 0,
+    // 视频正在进行初始化缓冲
+    STATUS_INIT_BUFFERING = 1,
+    // 视频初始化缓冲结束
+    STATUS_BUFFERING_END = 2,
+    // 视频画面开始出现损伤
+    STATUS_IMPAIR_START = 3,
+    // 视频画面持续损伤中
+    STATUS_IMPAIRING = 4,
+    // 视频画面损伤结束，恢复正常
+    STATUS_IMPAIR_END = 5
+} UvMOSPlayStatus;
+
 /**
  * UvMOS错误码
  */
-#ifndef _UVMOS_OUTER_API_ERROR_CODE_
-#define _UVMOS_OUTER_API_ERROR_CODE_
-typedef enum _UvMOSErrorCode {
+typedef enum _UvMOSReturnCode {
     SUCCESS = 0,
     INVAILD_PARAMS = -1,
     OUT_OF_MEMORY = -2,
     UVMOS_ENGINE_FAILED = -3,
     INVAILD_SERVICE_ID = -4,
     ANALYSIS_DATA_FAILED = -5
-} UvMOSErrorCode;
-#endif
+} UvMOSReturnCode;
+
 
 /**
  * 媒体基础信息
  */
 typedef struct _UvMOSMediaInfo
 {
+    UvMOSMediaType eMediaType;
     UvMOSContentProvider eContentProvider; // 内容提供商，取值详见枚举类型UvMOSContentProvider
-
-    UvMOSVideoResolution eVideoResolution; // 视频分辩率，取值详见枚举类型UvMOSVideoResolution
-    // --需要考虑分辨率自适应
-    unsigned int iFrameRate; // 视频帧率
-    unsigned int iAvgBitrate; // 媒体文件平均码率，单位kbps --媒体文件整体码率
+    unsigned int iVideoResolutionWidth; // 视频宽度
+    unsigned int iVideoResolutionHeigth; // 视频高度
     UvMOSVideoCodec eVideoCodec; // 视频编码格式，取值详见枚举类型UvMOSVideoCodec
+    double fScreenSize; // 屏幕尺寸，单位英寸，输入为0时，屏幕映射默认为42寸TV
+    unsigned int iScreenResolutionWidth; // 屏幕分辨率宽度
+    unsigned int iScreenResolutionHeight; // 屏幕分辨率高度
 
-    float fScreenSize; // 屏幕尺寸，单位英寸，输入为0时，屏幕映射默认为42寸TV
-    UvMOSVideoResolution eScreenResolution; // 屏幕分辩率，取值详见枚举类型UvMOSVideoResolution
 } UvMOSMediaInfo;
 
 /**
  * VOD采样周期信息
  */
-typedef struct _UvMOSVODPeriodInfo
+typedef struct _UvMOSSegementInfo
 {
-    unsigned int iPeriodLength; // 采样周期时长，单位秒(s)，建议按照观看时间反馈，近似可以按照内容的实际时间反馈
+    //    unsigned int iPeriodLength; //
+    //    采样周期时长，单位秒(s)，建议按照观看时间反馈，近似可以按照内容的实际时间反馈
+    //
+    //    unsigned int iInitBufferLatency; //
+    //    初始缓冲时长，单位毫秒(ms)，采样周期内初始缓冲事件未完成，或采样周期内没有初始缓冲事件时，输入为0
+    //
+    //    unsigned int iAvgVideoBitrate; //
+    //    支持VBR特性时，采样周期内视频文件平均码率，单位kbps，无法获得时，输入为0
+    //    unsigned int iAvgKeyFrameSize; //
+    //    支持VBR特性时，采样周期内I帧平均大小，单位字节，无法获得时，输入为0
+    //
+    //    unsigned int iStallingFrequency; // 采样周期内，卡顿次数
+    //    unsigned int iStallingDuration; // 采样周期内，平均卡顿时长，单位毫秒(ms)
+    //    unsigned int iStallingInterval; // 采样周期内，平均卡顿间隔，单位毫秒(ms)
+    unsigned int iTimeStamp; // 视频片段截止时间戳，已视频开始加载时为开始时间点，单位毫秒
+    UvMOSPlayStatus ePlayStatus; // 当前时间点视频播放状态
+    double iVideoFrameRate; // 视频帧率，采用VFR时，输入视频片段内平均帧率
+    unsigned int iAvgVideoBitrate; // 视频平均码率，单位Kbps， 采用VBR时，输入视频片段内平均码率
+    unsigned int iAvgKeyFrameSize; // 采用VBR时，输入视频片段内I帧平均大小，单位子节（Byte），否则输入为0
+    unsigned int iImpairmentDegree; // 视频片段内，画面损伤程度百分比（％）卡顿时间为100%，花屏时为［1%，
+    // 99%］，其他情况为0%
 
-    unsigned int iInitBufferLatency; // 初始缓冲时长，单位毫秒(ms)，采样周期内初始缓冲事件未完成，或采样周期内没有初始缓冲事件时，输入为0
+} UvMOSSegmentInfo;
 
-    unsigned int iAvgVideoBitrate; // 支持VBR特性时，采样周期内视频文件平均码率，单位kbps，无法获得时，输入为0
-    unsigned int iAvgKeyFrameSize; // 支持VBR特性时，采样周期内I帧平均大小，单位字节，无法获得时，输入为0
-
-    unsigned int iStallingFrequency; // 采样周期内，卡顿次数
-    unsigned int iStallingDuration; // 采样周期内，平均卡顿时长，单位毫秒(ms)
-    unsigned int iStallingInterval; // 采样周期内，平均卡顿间隔，单位毫秒(ms)
-} UvMOSVODPeriodInfo;
+typedef struct _UvMOSStatisticsInfo
+{
+    unsigned int iVideoPlayDuration; // 视频可播放时长，单位秒（s）,不包含初始化缓冲时间和画面卡顿时间
+    unsigned int iInitBufferLatency; // 初始化缓冲时长，单位毫秒（ms），包括初始加载（点播），频道切换（直播）
+    double iVideoFrameRate; // 视频帧率，采用VFR时，输入视频片段内平均帧率
+    unsigned int iAvgVideoBitrate; // 视频平均码率，单位Kbps，采用VBR时，输入视频片段内平均码率
+    unsigned int iAvgKeyFrameSize; // 采用VBR时，输入视频片段内I帧平均大小，单位子节（Byte），否则输入为0
+    unsigned int iImpairmentFrequency; // 视频播放期间，画面损伤次数，包括卡顿，花屏
+    unsigned int iImpairmentDuration; // 视频播放期间，画面损伤总时长，单位毫秒（ms）
+    unsigned int iImpairmentDegree; // 画面损伤奇迹，平均损伤程度百分比（％），卡顿时为100%，卡顿时间为100%，花屏时为［1%，
+    // 99%］，其他情况为0%
+} UvMOSStatisticsInfo;
 
 /**
  * UvMOS计算结果
  */
 typedef struct _UvMOSResult
 {
-    double sQualityPeriod; // 视频质量周期分数（1－5）
-    double sInteractionPeriod; // 交互体验周期分数（1－5）
-    double sViewPeriod; // 观看体验周期分数（1－5）
-    double uvmosPeriod; // 视频播放周期UvMOS得分（1－5）
+    double sQualityInstant; // 视频质量周期分数（1－5）
+    double sInteractionInstant; // 交互体验周期分数（1－5）
+    double sViewInstant; // 观看体验周期分数（1－5）
+    double uvmosInstant; // 视频播放周期UvMOS得分（1－5）
 
     double sQualitySession; // 视频质量会话分数（1－5）
     double sInteractionSession; // 交互体验会话分数（1－5）
@@ -117,7 +149,18 @@ typedef struct _UvMOSResult
  *
  * @Return 成功返回服务ID，失败返回 -1
  */
-int registerUvMOSService (UvMOSMediaInfo *pMediaInfo);
+#ifdef _WIN32
+__declspec(dllexport) int __stdcall registerUvMOSService (UvMOSMediaInfo *pMediaInfo, void **hServiceHandle);
+#else
+int registerUvMOSService (UvMOSMediaInfo *pMediaInfo, void **hServiceHandle);
+#endif
+
+#ifdef _WIN32
+__declspec(dllexport) int __stdcall resetMediaInfo (void *hServiceHandle, UvMOSMediaInfo *pMediaInfo);
+#else
+int resetMediaInfo (void *hServiceHandle, UvMOSMediaInfo *pMediaInfo);
+#endif
+
 
 /**
  * DLL导出方法，根据指定的服务ID，注销UvMOS服务
@@ -126,20 +169,38 @@ int registerUvMOSService (UvMOSMediaInfo *pMediaInfo);
  *
  * @Return 成功返回0，失败返回 -1
  */
-int unregisterUvMOSService (int iServiceId);
+#ifdef _WIN32
+__declspec(dllexport) int __stdcall unregisterUvMOSService (void *hServiceHandle);
+#else
+int unregisterUvMOSService (void *hServiceHandle);
+#endif
 
-/**
- * DLL导出方法，根据服务ID和VOD采样信息，计算UvMOS得分
- *
- * @Param iServiceId 输入参数，服务ID
- * @Param pVODPeriodInfo 输入参数，VOD采样信息
- * @Param pUvMOSResult 输出参数，返回UvMOS计算结果
- *
- * @Return 成功返回0，失败返回-1
- */
-int calculateUvMOSVODPeriod (int iServiceId, UvMOSVODPeriodInfo *pVODPeriodInfo, UvMOSResult *pUvMOSResult);
+
+#ifdef _WIN32
+__declspec(dllexport) int __stdcall calculateUvMOSSegment (void *hServiceHandle,
+                                                           UvMOSSegmentInfo *pSegmentInfo,
+                                                           UvMOSResult *pUvMOSResult);
+#else
+
+int calculateUvMOSSegment (void *hServiceHandle, UvMOSSegmentInfo *pSegmentInfo, UvMOSResult *pUvMOSResult);
+#endif
+
+#ifdef _WIN32
+__declspec(dllexport) int __stdcall calculateUvMOSNetworkPlan (UvMOSMediaInfo *pMediaInfo,
+                                                               UvMOSStatisticsInfo *pStatisticsInfo,
+                                                               UvMOSResult *pUvMOSResult);
+#else
+int calculateUvMOSNetworkPlan (UvMOSMediaInfo *pMediaInfo, UvMOSStatisticsInfo *pStatisticsInfo, UvMOSResult *pUvMOSResult);
+#endif
+
+#ifdef _WIN32
+__declspec(dllexport) char *__stdcall getSDKCurVersion ();
+#else
+char *getSDKCurVersion ();
+#endif
 
 #ifdef __cplusplus
 }
 #endif
+
 #endif
