@@ -205,7 +205,7 @@
     _bgdBtn3.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _bgdBtn3.layer.borderWidth = 1;
     [_bgdBtn3 addTarget:self
-                 action:@selector (CellWebDetailClick:)
+                 action:@selector (CellSpeedDetailClick:)
        forControlEvents:UIControlEventTouchUpInside];
 
     if (_resultModel.videoTest == YES)
