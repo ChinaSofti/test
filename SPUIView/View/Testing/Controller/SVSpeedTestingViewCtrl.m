@@ -31,8 +31,8 @@
     SVSpeedTest *_speedTest;
 }
 
-//定义gray遮挡View
-@property (nonatomic, strong) UIView *grayview;
+//定义gy遮挡View
+@property (nonatomic, strong) UIView *gyview;
 
 @end
 
@@ -138,7 +138,7 @@
     [_footerView.bitLabel setText:title5];
     [_headerView.bufferLabel setText:@"0"];
     [_headerView.speedLabel setText:@"0"];
-    [_speedtestingView updateUvMOS:0];
+    [_speedtestingView updateUvMOS3:0];
 
     for (UIView *view in [_headerView.uvMosBarView subviews])
     {
@@ -152,15 +152,15 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
 
-    //添加覆盖grayview(为了防止用户在测试的过程中点击按钮)
+    //添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
     //获取整个屏幕的window
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //创建一个覆盖garyView
-    _grayview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
+    _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
     //设置透明度
-    _grayview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    _gyview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     //添加
-    [window addSubview:_grayview];
+    [window addSubview:_gyview];
     [self initContext];
     // 进入页面时，开始测试
     long testId = [SVTimeUtil currentMilliSecondStamp];
@@ -184,16 +184,17 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    dispatch_async (dispatch_get_main_queue (), ^{
-      //      当用户离开当前页面时，停止测试
-      if (_speedTest)
-      {
-          [_speedTest stopTest];
 
-          //移除覆盖grayView
-          [_grayview removeFromSuperview];
-      }
-    });
+    dispatch_async (dispatch_get_main_queue (), ^{
+//                     当用户离开当前页面时，停止测试
+                          if (_speedTest)
+                          {
+                              [_speedTest stopTest];
+                    
+                              //移除覆盖gyView
+                              [_gyview removeFromSuperview];
+                          }
+                    });
 }
 
 #pragma mark - 创建头headerView
@@ -216,7 +217,7 @@
     [self.view addSubview:_headerView];
 }
 
-#pragma mark - 创建测试中webtestingView
+#pragma mark - 创建测试中speedtestingView
 
 - (void)creatSpeedTestingView
 {
@@ -235,13 +236,12 @@
 }
 
 
-#pragma mark - 创建WebView
+#pragma mark - 创建speedView
 - (void)creatSpeedView
 {
     //初始化
     _speedView = [[SVSpeedView alloc] initWithFrame:kVideoViewDefaultRect];
-    [_speedView setBackgroundColor:[UIColor blackColor]];
-    //    [_webView setContentMode:UIViewContentModeScaleToFill];
+    [_speedView setBackgroundColor:[UIColor colorWithWhite:0.5 alpha:0.2]];
     [self.view addSubview:_speedView];
 }
 
@@ -291,7 +291,7 @@
           UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
           [bar setBarValue:speed];
           [_headerView.uvMosBarView addSubview:bar];
-          [_speedtestingView updateUvMOS:speed];
+          [_speedtestingView updateUvMOS3:speed];
           [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
 
           // 服务器归属地和运营商

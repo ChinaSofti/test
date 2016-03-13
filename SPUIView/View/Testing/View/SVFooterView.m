@@ -90,11 +90,10 @@
               withTitleColor:[UIColor blackColor]
                    withTitle:@"北京市"];
         _Carrier = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (230), FITWIDTH (495), FITWIDTH (80), FITWIDTH (20))
+        createLabelWithFrame:CGRectMake (FITWIDTH (215), FITWIDTH (495), FITWIDTH (100), FITWIDTH (20))
                     withFont:10
               withTitleColor:[UIColor blackColor]
                    withTitle:@"Beijing"];
-
         _ServerLocationNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (445), FITWIDTH (150), FITWIDTH (20))
                     withFont:12
@@ -108,7 +107,7 @@
                    withTitle:title8];
         //所有Label居中对齐
         _ServerLocation.textAlignment = NSTextAlignmentLeft;
-        _Carrier.textAlignment = NSTextAlignmentRight;
+        _Carrier.textAlignment = NSTextAlignmentCenter;
         _ServerLocationNumLabel.textAlignment = NSTextAlignmentLeft;
         _CarrierNumLabel.textAlignment = NSTextAlignmentLeft;
     }
