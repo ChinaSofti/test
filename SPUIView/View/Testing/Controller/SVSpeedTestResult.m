@@ -9,5 +9,6 @@
 #import "SVSpeedTestResult.h"
 
 @implementation SVSpeedTestResult
-@synthesize testId, testTime, ipAddress, isp, delay, uploadSpeed, downloadSpeed, isUpload, isSummeryResult;
+@synthesize testId, testTime, ipAddress, isp, delay, uploadSpeed, downloadSpeed, isUpload,
+isSummeryResult, isSecResult;
 @end

@@ -36,4 +36,8 @@
 // false:每次采样的结果
 @property BOOL isSummeryResult;
 
+// true:秒级结果
+// false:非秒级结果
+@property BOOL isSecResult;
+
 @end

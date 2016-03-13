@@ -100,10 +100,12 @@
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B72A1D0E1C7192B600C3141A /* speed_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = B72A1D0D1C7192B600C3141A /* speed_pro.png */; };
-		B79252FD1C92B17F00A9F702 /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
-		B79252FE1C92B17F00A9F702 /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B79252FF1C92B17F00A9F702 /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
-		B79253001C92B17F00A9F702 /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B77D21F11C957904006BE281 /* SVChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21EE1C957904006BE281 /* SVChart.m */; };
+		B77D21F21C957904006BE281 /* SVLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21F01C957904006BE281 /* SVLineChart.m */; };
+		B77D21F51C958657006BE281 /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
+		B77D21F61C958657006BE281 /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B77D21F71C958657006BE281 /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
+		B77D21F81C958657006BE281 /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */; };
 		B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CD57511C70C7FB00668E88 /* SVCurrentResultModel.m */; };
 		B7F3CA4A1C72CA3F009B087F /* toast_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F3CA491C72CA3F009B087F /* toast_icon.png */; };
@@ -134,14 +136,14 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B79252FC1C929E2D00A9F702 /* Embed Frameworks */ = {
+		B743CFE11C9517E100E18410 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B79252FE1C92B17F00A9F702 /* SPCommon.framework in Embed Frameworks */,
-				B79253001C92B17F00A9F702 /* SPService.framework in Embed Frameworks */,
+				B77D21F61C958657006BE281 /* SPCommon.framework in Embed Frameworks */,
+				B77D21F81C958657006BE281 /* SPService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,6 +289,10 @@
 		B72A1D0D1C7192B600C3141A /* speed_pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speed_pro.png; sourceTree = "<group>"; };
 		B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPCommon.framework; sourceTree = "<group>"; };
 		B72AC8621C76EA3D00AAC3B3 /* SPService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPService.framework; sourceTree = "<group>"; };
+		B77D21ED1C957904006BE281 /* SVChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVChart.h; sourceTree = "<group>"; };
+		B77D21EE1C957904006BE281 /* SVChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVChart.m; sourceTree = "<group>"; };
+		B77D21EF1C957904006BE281 /* SVLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVLineChart.h; sourceTree = "<group>"; };
+		B77D21F01C957904006BE281 /* SVLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVLineChart.m; sourceTree = "<group>"; };
 		B7CAB7C61C7416E100108B02 /* SVDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVDetailViewModel.h; sourceTree = "<group>"; };
 		B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDetailViewModel.m; sourceTree = "<group>"; };
 		B7CD57501C70C7FB00668E88 /* SVCurrentResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVCurrentResultModel.h; sourceTree = "<group>"; };
@@ -308,8 +314,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B79252FD1C92B17F00A9F702 /* SPCommon.framework in Frameworks */,
-				B79252FF1C92B17F00A9F702 /* SPService.framework in Frameworks */,
+				B77D21F51C958657006BE281 /* SPCommon.framework in Frameworks */,
+				B77D21F71C958657006BE281 /* SPService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,6 +775,10 @@
 		B71F89001C8D7E56002E8375 /* UIUtils */ = {
 			isa = PBXGroup;
 			children = (
+				B77D21ED1C957904006BE281 /* SVChart.h */,
+				B77D21EE1C957904006BE281 /* SVChart.m */,
+				B77D21EF1C957904006BE281 /* SVLineChart.h */,
+				B77D21F01C957904006BE281 /* SVLineChart.m */,
 				B71F89011C8D7E56002E8375 /* SVToast.h */,
 				B71F89021C8D7E56002E8375 /* SVToast.m */,
 			);
@@ -786,7 +796,7 @@
 				56F523DC1C4DCF7F00E6472B /* Frameworks */,
 				56F523DD1C4DCF7F00E6472B /* Resources */,
 				56A239E41C7D9E4D000C6341 /* Copy Files */,
-				B79252FC1C929E2D00A9F702 /* Embed Frameworks */,
+				B743CFE11C9517E100E18410 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -830,7 +840,7 @@
 				TargetAttributes = {
 					56F523DE1C4DCF7F00E6472B = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = DGQ9BHE78D;
+						DevelopmentTeam = YB96TFSDV6;
 					};
 					B70FF3D21C6582AA002D571B = {
 						CreatedOnToolsVersion = 7.2;
@@ -939,6 +949,7 @@
 				F61921CB1C92680F00C680E5 /* SVSpeedTestContext.m in Sources */,
 				566CB03A1C90199A001AA64D /* SVWebView.m in Sources */,
 				F61921CE1C92681E00C680E5 /* SVSpeedTestResult.m in Sources */,
+				B77D21F11C957904006BE281 /* SVChart.m in Sources */,
 				56A919181C4F4BAB00E8BB72 /* ViewController.m in Sources */,
 				561A36C01C896A0C00AC5F5E /* SVToolCells.m in Sources */,
 				561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */,
@@ -974,6 +985,7 @@
 				56A919151C4F4BAA00E8BB72 /* AppDelegate.m in Sources */,
 				F61921D11C926BA900C680E5 /* SVSpeedTestInfo.m in Sources */,
 				56F523E41C4DCF7F00E6472B /* main.m in Sources */,
+				B77D21F21C957904006BE281 /* SVLineChart.m in Sources */,
 				568D42B41C89E20B00F2916B /* SVBandWidthCtrl.m in Sources */,
 				561447C11C59BCE900003B9A /* SVPointView.m in Sources */,
 				5B80D3921C91742700FF61DE /* SVNetworkTrafficMonitor.m in Sources */,
@@ -1124,7 +1136,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SPUIViiew;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SP;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 			};
@@ -1152,7 +1164,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SPUIViiew;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SP;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 			};

@@ -13,13 +13,14 @@
 #import "SVSpeedView.h"
 
 
+#import "SVChart.h"
 #import "SVCurrentResultViewCtrl.h"
 #import "SVSpeedTestingViewCtrl.h"
 #import <SPCommon/SVTimeUtil.h>
 #import <SPCommon/UUBar.h>
 
 #define kVideoViewDefaultRect \
-    CGRectMake (FITWIDTH (10), FITWIDTH (420), FITWIDTH (150), FITWIDTH (92))
+    CGRectMake (FITWIDTH (10), FITWIDTH (425), FITWIDTH (150), FITWIDTH (90))
 
 @interface SVSpeedTestingViewCtrl ()
 {
@@ -29,6 +30,9 @@
     SVSpeedView *_speedView; //定义访问网页的View
     SVFooterView *_footerView; // 定义footerView
     SVSpeedTest *_speedTest;
+    SVChart *_chart;
+    BOOL uploadFirstResult;
+    BOOL downloadFirstResult;
 }
 
 //定义gray遮挡View
@@ -184,6 +188,14 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    for (UIView *subView in _speedView.subviews)
+    {
+        [subView removeFromSuperview];
+    }
+
+    uploadFirstResult = false;
+    downloadFirstResult = false;
+
     dispatch_async (dispatch_get_main_queue (), ^{
       //      当用户离开当前页面时，停止测试
       if (_speedTest)
@@ -240,7 +252,9 @@
 {
     //初始化
     _speedView = [[SVSpeedView alloc] initWithFrame:kVideoViewDefaultRect];
-    [_speedView setBackgroundColor:[UIColor blackColor]];
+    [_speedView setBackgroundColor:[UIColor whiteColor]];
+    _speedView.layer.borderWidth = 0.5;
+    _speedView.layer.borderColor = [[UIColor grayColor] CGColor];
     //    [_webView setContentMode:UIViewContentModeScaleToFill];
     [self.view addSubview:_speedView];
 }
@@ -293,6 +307,40 @@
           [_headerView.uvMosBarView addSubview:bar];
           [_speedtestingView updateUvMOS:speed];
           [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
+
+          if (testResult.isSecResult)
+          {
+              if (testResult.isUpload)
+              {
+                  if (!uploadFirstResult)
+                  {
+                      if (_chart)
+                      {
+                          [_chart removeFromSuperview];
+                      }
+
+                      _chart = [[SVChart alloc] initWithView:_speedView];
+                      uploadFirstResult = true;
+                  }
+              }
+              else
+              {
+                  if (!downloadFirstResult)
+                  {
+                      if (_chart)
+                      {
+                          [_chart removeFromSuperview];
+                      }
+
+                      _chart = [[SVChart alloc] initWithView:_speedView];
+                      downloadFirstResult = true;
+                  }
+              }
+
+              // 线图数据秒级
+              [_chart addValue:speed];
+              SVInfo (@"isSecResult:%.2f", speed);
+          }
 
           // 服务器归属地和运营商
           if (testResult.isp)
