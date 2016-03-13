@@ -198,22 +198,14 @@
     downloadFirstResult = false;
 
     dispatch_async (dispatch_get_main_queue (), ^{
-<<<<<<< HEAD
+
       // 当用户离开当前页面时，停止测试
-=======
-      //                     当用户离开当前页面时，停止测试
->>>>>>> bbf37fcffdc71922055eb4b4d5317f311726cb04
       if (_speedTest)
       {
           [_speedTest stopTest];
 
-<<<<<<< HEAD
-          //移除覆盖grayView
-          [_grayview removeFromSuperview];
-=======
           //移除覆盖gyView
           [_gyview removeFromSuperview];
->>>>>>> bbf37fcffdc71922055eb4b4d5317f311726cb04
       }
     });
 }
