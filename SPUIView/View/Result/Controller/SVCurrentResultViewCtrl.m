@@ -382,7 +382,7 @@
 
         // 完全加载时间
         _LoadLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_ResponseLabelValue) + FITWIDTH (40),
+        initWithFrame:CGRectMake (kViewR (_ResponseLabelValue) + FITWIDTH (20),
                                   kViewY (_imgView2) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH2)];
         if (!_resultModel.totalTime || _resultModel.totalTime < 0)
         {
@@ -397,7 +397,7 @@
         [_LoadLabelValue setTextColor:[UIColor orangeColor]];
 
         UILabel *LoadLabelValue1 = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_ResponseLabelValue) + FITHEIGHT (87),
+        initWithFrame:CGRectMake (kViewR (_ResponseLabelValue) + FITHEIGHT (67),
                                   kViewY (_imgView2) + FITWIDTH (3), FITWIDTH (20), FITWIDTH (20))];
         [LoadLabelValue1 setText:@"s"];
         [LoadLabelValue1 setFont:[UIFont systemFontOfSize:10]];
@@ -405,8 +405,8 @@
         [LoadLabelValue1 setTextColor:[UIColor orangeColor]];
 
         UILabel *LoadLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (ResponseLabel), kViewY (_imgView2) + FITWIDTH (10),
-                                  FITWIDTH (100), imgViewWAndH2)];
+        initWithFrame:CGRectMake (kViewR (ResponseLabel) - FITWIDTH (20),
+                                  kViewY (_imgView2) + FITWIDTH (10), FITWIDTH (100), imgViewWAndH2)];
         [LoadLabel setText:_title5];
         [LoadLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [LoadLabel setTextAlignment:NSTextAlignmentCenter];
@@ -432,7 +432,8 @@
         [_DownloadLabelValue setTextColor:[UIColor orangeColor]];
 
         UILabel *DownloadLabelValue1 = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (LoadLabel) + FITHEIGHT (37),kViewY (_imgView2)+FITHEIGHT(3), FITWIDTH (20), FITWIDTH (20))];
+        initWithFrame:CGRectMake (kViewR (LoadLabel) + FITHEIGHT (37),
+                                  kViewY (_imgView2) + FITHEIGHT (3), FITWIDTH (20), FITWIDTH (20))];
         [DownloadLabelValue1 setText:@"kbps"];
         [DownloadLabelValue1 setFont:[UIFont systemFontOfSize:10]];
         [DownloadLabelValue1 setTextAlignment:NSTextAlignmentCenter];
@@ -467,7 +468,7 @@
 
         // 时延
         _dtDelayLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_imgView3),
+        initWithFrame:CGRectMake (kViewR (_imgView3) - FITWIDTH (10),
                                   kViewY (_imgView3) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
         if (!_resultModel.stDelay || _resultModel.stDelay <= 0)
         {
@@ -483,12 +484,13 @@
         [_dtDelayLabelValue setTextColor:[UIColor orangeColor]];
 
         UILabel *delayLabelUnit = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_dtDelayLabelValue) , kViewY (_imgView3) + FITWIDTH (3),
+        initWithFrame:CGRectMake (kViewR (_dtDelayLabelValue), kViewY (_imgView3) + FITWIDTH (3),
                                   FITWIDTH (20), FITWIDTH (20))];
         [delayLabelUnit setText:@"ms"];
         [delayLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [delayLabelUnit setTextAlignment:NSTextAlignmentCenter];
         [delayLabelUnit setTextColor:[UIColor orangeColor]];
+
 
         UILabel *delayLabelTitle = [[UILabel alloc]
         initWithFrame:CGRectMake (kViewR (_imgView3) + FITHEIGHT (15),
@@ -526,8 +528,8 @@
         [_dtDownloadLabelValue setTextColor:[UIColor orangeColor]];
 
         UILabel *downloadLabelUnit = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_dtDownloadLabelValue) -FITWIDTH(2), kViewY (_imgView3) + FITWIDTH (3),
-                                  FITWIDTH (30), FITWIDTH (20))];
+        initWithFrame:CGRectMake (kViewR (_dtDownloadLabelValue) - FITWIDTH (2),
+                                  kViewY (_imgView3) + FITWIDTH (3), FITWIDTH (30), FITWIDTH (20))];
         [downloadLabelUnit setText:@"Mbps"];
         [downloadLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [downloadLabelUnit setTextAlignment:NSTextAlignmentCenter];
@@ -535,8 +537,8 @@
 
         //下载速度四个字
         UILabel *downloadLabelTitle = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (delayLabelTitle) +FITWIDTH(5) , kViewY (_imgView3) + FITWIDTH (10),
-                                  FITWIDTH (85), imgViewWAndH3)];
+        initWithFrame:CGRectMake (kViewR (delayLabelTitle) + FITWIDTH (5),
+                                  kViewY (_imgView3) + FITWIDTH (10), FITWIDTH (85), imgViewWAndH3)];
         [downloadLabelTitle setText:_downloadSpeedTitle];
         [downloadLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [downloadLabelTitle setTextAlignment:NSTextAlignmentCenter];
@@ -570,8 +572,8 @@
         [_dtUploadLabelValue setTextColor:[UIColor orangeColor]];
 
         UILabel *uploadLabelUnit = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_dtUploadLabelValue) + FITWIDTH(1), kViewY (_imgView3) + FITWIDTH (3),
-                                  FITWIDTH (30), FITWIDTH (20))];
+        initWithFrame:CGRectMake (kViewR (_dtUploadLabelValue) + FITWIDTH (1),
+                                  kViewY (_imgView3) + FITWIDTH (3), FITWIDTH (30), FITWIDTH (20))];
 
         [uploadLabelUnit setText:@"Mbps"];
         [uploadLabelUnit setFont:[UIFont systemFontOfSize:10]];
@@ -579,8 +581,8 @@
         [uploadLabelUnit setTextColor:[UIColor orangeColor]];
 
         UILabel *uploadLabelTitle = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (downloadLabelTitle) -FITWIDTH(5), kViewY (_imgView3) + FITWIDTH (10),
-                                  FITWIDTH (85), imgViewWAndH3)];
+        initWithFrame:CGRectMake (kViewR (downloadLabelTitle) - FITWIDTH (5),
+                                  kViewY (_imgView3) + FITWIDTH (10), FITWIDTH (85), imgViewWAndH3)];
         [uploadLabelTitle setText:_uploadSpeedTitle];
         [uploadLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [uploadLabelTitle setTextAlignment:NSTextAlignmentCenter];
