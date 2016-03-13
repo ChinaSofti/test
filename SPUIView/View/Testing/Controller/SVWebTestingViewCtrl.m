@@ -243,7 +243,6 @@
     //初始化
     _webView = [[SVWebView alloc] initWithFrame:kVideoViewDefaultRect];
     [_webView setBackgroundColor:[UIColor blackColor]];
-    //    [_webView setContentMode:UIViewContentModeScaleToFill];
     [self.view addSubview:_webView];
 }
 

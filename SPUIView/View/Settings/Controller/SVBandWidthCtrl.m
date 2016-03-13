@@ -139,7 +139,9 @@
     UITableViewCell *cell = (UITableViewCell *)[button superview];//获取cell
     NSIndexPath *indexPathAll = [_tableView indexPathForCell:cell];//获取cell对应的section
     NSLog(@"indexPath:--------%@",indexPathAll);
-    
+    SVSpeedTestServer *server = [_array objectAtIndex:indexPathAll.section];
+    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+    [servers setDefaultServer:server];
     [self.navigationController popViewControllerAnimated:YES];
 }
 //#pragma mark-- 实现UIActionSheetDelegate //- (void)actionSheet:(UIActionSheet *)actionSheet
