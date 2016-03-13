@@ -320,8 +320,6 @@
 
 - (void)goToCurrentResultViewCtrl
 {
-    // 返回根界面
-    [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
     // push界面
     [currentResultModel pushNextCtrl];
 }
