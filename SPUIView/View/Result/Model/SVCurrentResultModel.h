@@ -45,4 +45,7 @@
 
 - (void)addCtrl:(UIViewController *)ctrl;
 
+// 将已经推送完成的controller重新放入待推送的controller数组，并将已经推送完成的controller数组清空
+- (void)copyCompleteCtrlToCtrlArray;
+
 @end

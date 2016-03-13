@@ -9,7 +9,9 @@
 #import "SVCurrentResultViewCtrl.h"
 #import "SVDetailViewCtrl.h"
 #import "SVTestViewCtrl.h"
+#import <SPCommon/SVDBManager.h>
 #import <SPCommon/SVSystemUtil.h>
+#import <SPCommon/SVTimeUtil.h>
 #import <SPService/SVTestContextGetter.h>
 #define kFirstHederH 40
 #define kLastFooterH 140
@@ -24,6 +26,17 @@
 {
     NSMutableArray *_buttons;
     UITableView *_tableView;
+    BOOL isSave;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    // 持久化测试结果
+    if (!isSave)
+    {
+        [self persistSVSummaryResultModel];
+        isSave = YES;
+    }
 }
 
 - (id)initWithResultModel:(SVCurrentResultModel *)resultModel
@@ -36,6 +49,7 @@
 
     _resultModel = resultModel;
     _buttons = [[NSMutableArray alloc] init];
+    isSave = NO;
     return self;
 }
 
@@ -339,9 +353,9 @@
 
 
         // 时延
-        UILabel *delayLabelValue =
-        [[UILabel alloc] initWithFrame:CGRectMake (kViewR (_imgView3), kViewY (_imgView3) - FITWIDTH (10),
-                                                   FITWIDTH (50), imgViewWAndH3)];
+        UILabel *delayLabelValue = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (_imgView3) - FITWIDTH (10),
+                                  kViewY (_imgView3) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
         if (!_resultModel.stDelay || _resultModel.stDelay <= 0)
         {
             [delayLabelValue setText:title1];
@@ -487,6 +501,28 @@
 
     // 表格重绘
     [_tableView reloadData];
+}
+
+/**
+ *  持久化汇总结果
+ */
+- (void)persistSVSummaryResultModel
+{
+    // 结果持久化
+    SVDBManager *db = [SVDBManager sharedInstance];
+    // 如果表不存在，则创建表
+    [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVSummaryResultModel(ID integer PRIMARY KEY "
+                      @"AUTOINCREMENT, testId integer, type integer, testTime integer, UvMOS "
+                      @"real, loadTime integer, bandwidth real);"];
+
+    NSString *insertSVSummaryResultModelSQL =
+    [NSString stringWithFormat:@"INSERT INTO "
+                               @"SVSummaryResultModel(testId,type,testTime,UvMOS,loadTime,"
+                               @"bandwidth)VALUES(%ld, 0, %ld, %lf, %lf, %lf);",
+                               _resultModel.testId, _resultModel.testId, _resultModel.uvMOS,
+                               _resultModel.totalTime, _resultModel.stDownloadSpeed];
+    // 插入汇总结果
+    [db executeUpdate:insertSVSummaryResultModelSQL];
 }
 
 //设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
@@ -702,7 +738,19 @@
 - (void)testBtnClick
 {
     SVInfo (@"back to testting view");
-    [[_resultModel navigationController] popViewControllerAnimated:NO];
+    [[_resultModel navigationController] popToRootViewControllerAnimated:NO];
+
+    // 将已经推送完成的controller重新放入待推送的controller数组
+    [_resultModel copyCompleteCtrlToCtrlArray];
+
+    // 每次重新测试需要将testId重置一下
+    [_resultModel setTestId:[SVTimeUtil currentMilliSecondStamp]];
+
+    // 将结果保存标志位设置为no
+    isSave = NO;
+
+    // 重新测试
+    [_resultModel pushNextCtrl];
 }
 
 /**

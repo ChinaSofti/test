@@ -271,6 +271,10 @@
         SVInfo (@"%@", _textField.text);
         SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
         [setting setBandwidth:_textField.text];
+
+        // 更新probeInfo的内容
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        [probeInfo setSignedBandwidth:_textField.text];
     }
 
     if (_bandwidthTypeIndex > 0)
