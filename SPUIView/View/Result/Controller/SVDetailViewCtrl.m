@@ -178,6 +178,10 @@
         {
             [self createWebResultDetailView:testResultJson contextJson:testContextJson];
         }
+        if ([_testType isEqual:@"2"])
+        {
+            [self createSpeedTestResultDetailView:testResultJson contextJson:testContextJson];
+        }
     }
 
     // 生成采集器信息的header
@@ -328,7 +332,7 @@
                }]];
 }
 
-// 生成网页测试展示详细结果需要的UIView
+// 生成带宽测试展示详细结果需要的UIView
 - (void)createWebResultDetailView:(id)testResultJson contextJson:(id)testContextJson
 {
     // 生成header
@@ -392,6 +396,42 @@
 
     return testUrlView;
 }
+
+// 生成网页测试展示详细结果需要的UIView
+- (void)createSpeedTestResultDetailView:(id)testResultJson contextJson:(id)testContextJson
+{
+    // 生成header
+    [_soucreMA addObject:[[SVToolCells alloc] initTitleCellWithStyle:UITableViewCellStyleDefault
+                                                     reuseIdentifier:@"titleCell"
+                                                               title:I18N (@"Speed Test")
+                                                           imageName:@"rt_detail_title_ftp_img"]];
+
+    // 生成各个指标对应的UIView
+    [_soucreMA
+    addObject:[SVToolModels modelWithDict:@{
+        @"key": I18N (@"Download speed"),
+        @"value": [self formatFloatValue:[testResultJson valueForKey:@"downloadSpeed"] unit:@"Mbps"]
+    }]];
+    [_soucreMA
+    addObject:[SVToolModels modelWithDict:@{
+        @"key": I18N (@"Upload speed"),
+        @"value": [self formatFloatValue:[testResultJson valueForKey:@"uploadSpeed"] unit:@"Mbps"]
+    }]];
+    [_soucreMA
+    addObject:[SVToolModels modelWithDict:@{
+        @"key": I18N (@"Delay"),
+        @"value": [self formatFloatValue:[testResultJson valueForKey:@"delay"] unit:@"ms"]
+    }]];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Server Location"),
+                   @"value": [testResultJson valueForKey:@"location"]
+               }]];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Carrier"),
+                   @"value": [testResultJson valueForKey:@"isp"]
+               }]];
+}
+
 
 // 默认的model
 - (SVDetailViewModel *)defaultDetailViewModel

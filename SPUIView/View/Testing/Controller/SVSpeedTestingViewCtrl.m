@@ -313,6 +313,7 @@
 
 - (void)initCurrentResultModel:(SVSpeedTestResult *)testResult
 {
+    currentResultModel.testId = testResult.testId;
     currentResultModel.stDelay = testResult.delay;
     currentResultModel.stDownloadSpeed = testResult.downloadSpeed;
     currentResultModel.stUploadSpeed = testResult.uploadSpeed;
