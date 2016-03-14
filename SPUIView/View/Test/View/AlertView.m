@@ -8,7 +8,7 @@
 
 #import "AlertView.h"
 #import "UIView+Exten.h"
-#import <SPService/SVProbeInfo.h>
+#import <SPService/SVIPAndISPGetter.h>
 
 static NSInteger BtnTag = 10086;
 @interface AlertView ()
@@ -76,8 +76,8 @@ static NSInteger BtnTag = 10086;
     NSString *title6 = I18N (@"Package");
     NSString *title7 = I18N (@"Carrier");
     //    NSString *title8 = I18N (@"China Unicom Beijing");
-    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    NSString *title8 = probeInfo.isp;
+    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    NSString *title8 = ipAndISP.isp;
     NSString *title9 = I18N (@"Ignore");
     NSString *title10 = I18N (@"Save");
     //标题

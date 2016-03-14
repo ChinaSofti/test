@@ -181,5 +181,8 @@
 "Mobile network" ="移动网络";
 "WIFI" = "WIFI";
 
-
+"Video Test Duration:" = "视频测试持续时间:";
+"Speed Test Server Config" = "带宽测试服务器配置";
+"auto" = "自动";
+"select" = "选择";
 

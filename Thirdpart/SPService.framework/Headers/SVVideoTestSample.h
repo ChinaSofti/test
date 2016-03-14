@@ -36,5 +36,7 @@
 
 // 开始缓冲时间
 @property long videoStartPlayTime;
+// 总卡顿时间
+@property long videoTotalCuttonTime;
 
 @end

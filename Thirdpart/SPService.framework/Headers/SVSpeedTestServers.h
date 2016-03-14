@@ -14,6 +14,11 @@
     NSMutableArray *_queue;
 }
 
+@property NSString *clientIP;
+@property NSString *isp;
+@property NSString *lat;
+@property NSString *lon;
+
 /**
  *  单例
  *
@@ -61,5 +66,10 @@
  *  @return 所有SpeedTest Server
  */
 - (NSArray *)getAllServer;
+
+/**
+ *  初始化所有SpeedTestServer
+ */
+- (void)initSpeedTestServer;
 
 @end

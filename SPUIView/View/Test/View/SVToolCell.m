@@ -66,6 +66,7 @@
     _titleLabel.text = model.title;
     _rightImgView.image = [UIImage imageNamed:model.rightImg_normal];
     _bgdBtn.tag = section;
+    [_bgdBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)bgdBtnClick1:(UIButton *)btn

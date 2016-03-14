@@ -420,12 +420,12 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 {
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-    SVInfo (@"SVProbeInfo ip:%@   isp:%@", probeInfo.ip, probeInfo.isp);
+    //    SVInfo (@"SVProbeInfo ip:%@   isp:%@", probeInfo.ip, probeInfo.isp);
     [dictionary setObject:!probeInfo.ip ? @"" : probeInfo.ip forKey:@"ip"];
-    [dictionary setObject:!probeInfo.isp ? @"" : probeInfo.isp forKey:@"isp"];
+    //    [dictionary setObject:!probeInfo.isp ? @"" : probeInfo.isp forKey:@"isp"];
     [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
                    forKey:@"netWorkType"];
-    [dictionary setObject:!probeInfo.signedBandwidth ? @"" : probeInfo.signedBandwidth
+    [dictionary setObject:![probeInfo getBandwidth] ? @"" : [probeInfo getBandwidth]
                    forKey:@"signedBandwidth"];
 
     return [self dictionaryToJsonString:dictionary];

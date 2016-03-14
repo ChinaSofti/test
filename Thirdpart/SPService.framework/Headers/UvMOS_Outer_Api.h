@@ -108,7 +108,7 @@ typedef struct _UvMOSSegementInfo
     double iVideoFrameRate; // 视频帧率，采用VFR时，输入视频片段内平均帧率
     unsigned int iAvgVideoBitrate; // 视频平均码率，单位Kbps， 采用VBR时，输入视频片段内平均码率
     unsigned int iAvgKeyFrameSize; // 采用VBR时，输入视频片段内I帧平均大小，单位子节（Byte），否则输入为0
-    unsigned int iImpairmentDegree; // 视频片段内，画面损伤程度百分比（％）卡顿时间为100%，花屏时为［1%，
+    unsigned int iImpairmentDegree; // 视频片段内，画面损伤程度百分比（％）卡顿时为100%，花屏时为［1%，
     // 99%］，其他情况为0%
 
 } UvMOSSegmentInfo;

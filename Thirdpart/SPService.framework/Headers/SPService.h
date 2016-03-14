@@ -18,7 +18,6 @@ FOUNDATION_EXPORT const unsigned char SPServiceVersionString[];
 // #import <SPService/PublicHeader.h>
 
 
-#import "SVAdvancedSetting.h"
 #import "SVBandwidthTestContext.h"
 #import "SVContentProviderGetter.h"
 #import "SVDecode64.h"

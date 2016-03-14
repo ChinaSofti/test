@@ -15,6 +15,7 @@
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
 #import <SPCommon/SVRealReachability.h>
+#import <SPService/SVIPAndISPGetter.h>
 
 @interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, SVRealReachabilityDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -131,8 +132,8 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *title1 = I18N (@"Current:");
-    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    NSString *title2 = probeInfo.isp;
+    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    NSString *title2 = ipAndISP.isp;
     NSString *title21 = I18N (@"Share");
     NSString *title3 = I18N (@"About");
     //    NSString *title31 = I18N (@"FAQ");

@@ -261,7 +261,8 @@ void download (int i)
         memset (buff, '\0', DOWNLOAD_BUFFER_SIZE);
 
         len = 0;
-        while (_testStatus == TEST_TESTING && (len = read (fd, buff, DOWNLOAD_BUFFER_SIZE)) > 0)
+        while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING &&
+               (len = read (fd, buff, DOWNLOAD_BUFFER_SIZE)) > 0)
         {
             _downloadSize += len;
         }
@@ -572,12 +573,14 @@ void sample (BOOL isUpload)
 {
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-    SVInfo (@"SVProbeInfo ip:%@   isp:%@", probeInfo.ip, probeInfo.isp);
+
+    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    //    SVInfo (@"SVProbeInfo ip:%@   isp:%@", probeInfo.ip, probeInfo.isp);
     [dictionary setObject:!probeInfo.ip ? @"" : probeInfo.ip forKey:@"ip"];
-    [dictionary setObject:!probeInfo.isp ? @"" : probeInfo.isp forKey:@"isp"];
+    [dictionary setObject:!ipAndISP.isp ? @"" : ipAndISP.isp forKey:@"isp"];
     [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
                    forKey:@"netWorkType"];
-    [dictionary setObject:!probeInfo.signedBandwidth ? @"" : probeInfo.signedBandwidth
+    [dictionary setObject:![probeInfo getBandwidth] ? @"" : [probeInfo getBandwidth]
                    forKey:@"signedBandwidth"];
 
     NSString *json = [self dictionaryToJsonString:dictionary];

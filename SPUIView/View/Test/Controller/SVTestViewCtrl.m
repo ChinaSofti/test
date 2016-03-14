@@ -324,6 +324,9 @@
 //按钮的点击事件
 - (void)testBtnClick1
 {
+    [_selectedMA sortUsingComparator:^NSComparisonResult (__strong id obj1, __strong id obj2) {
+      return [obj1 intValue] > [obj2 intValue];
+    }];
 #pragma mark - 在这里对 数组 排序
     UITabBarController *tabBarController = self.tabBarController;
     UINavigationController *navigationController = self.navigationController;

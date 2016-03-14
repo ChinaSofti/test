@@ -10,8 +10,8 @@
 #import "SVResultPush.h"
 #import <SPCommon/SVDBManager.h>
 #import <SPCommon/SVHttpsGetter.h>
-#import <SPService/SVAdvancedSetting.h>
 #import <SPService/SVIPAndISPGetter.h>
+#import <SPService/SVProbeInfo.h>
 
 @implementation SVResultPush
 
@@ -95,7 +95,7 @@ NSArray *_emptyArr;
     // 1.1 location
 
     SVIPAndISP *isp = [SVIPAndISPGetter getIPAndISP];
-    SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
 
     NSMutableDictionary *locationDic = [[NSMutableDictionary alloc] init];
     [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
@@ -131,7 +131,7 @@ NSArray *_emptyArr;
     NSString *phoneVersion = [[UIDevice currentDevice] systemVersion];
 
     // 手机型号: iPhone
-    NSString *phoneModel = [[UIDevice currentDevice] model];
+    //    NSString *phoneModel = [[UIDevice currentDevice] model];
 
     // UUID
     NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
@@ -143,11 +143,14 @@ NSArray *_emptyArr;
     [paramDic setObject:[self ispFilter:isp str:isp.query] forKey:@"mobileip"];
     [paramDic setObject:mobilename forKey:@"mobilename"];
     [paramDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"operatorname"];
-    [paramDic setObject:@"WIFI" forKey:@"operatornw"];
-
+    [paramDic setObject:!probeInfo.networkType ? @"" : probeInfo.networkType forKey:@"operatornw"];
     NSMutableDictionary *collectorResultsDic = [[NSMutableDictionary alloc] init];
-    [collectorResultsDic setObject:[setting getBandwidth] forKey:@"bandWidth"];
-    [collectorResultsDic setObject:@1 forKey:@"bandwidthType"];
+    NSString *bw = [probeInfo getBandwidth];
+    NSNumber *bwNumber = [NSNumber numberWithInt:[bw intValue]];
+    [collectorResultsDic setObject:!bw ? @0 : bwNumber forKey:@"bandWidth"];
+    NSString *bandwidthType = [probeInfo getBandwidthType];
+    NSNumber *bandwidthTypeNumber = [NSNumber numberWithInt:[bandwidthType intValue]];
+    [collectorResultsDic setObject:bandwidthTypeNumber forKey:@"bandwidthType"];
     [collectorResultsDic setObject:@"SUCCESS" forKey:@"completions"];
     [collectorResultsDic setObject:@0 forKey:@"id"];
     [collectorResultsDic setObject:locationDic forKey:@"location"];
@@ -168,11 +171,13 @@ NSArray *_emptyArr;
     // 2.1 location
     //[testResultJson valueForKey:@"downloadSpeed"];
 
+    SVDetailResultModel *model = [_speedResultArray objectAtIndex:0];
+    NSString *testResult = model.testResult;
     NSError *error;
-    id speedTestResultJson = [NSJSONSerialization
-    JSONObjectWithData:[[[_speedResultArray objectAtIndex:0] testResult] dataUsingEncoding:NSUTF8StringEncoding]
-               options:0
-                 error:&error];
+    id speedTestResultJson =
+    [NSJSONSerialization JSONObjectWithData:[testResult dataUsingEncoding:NSUTF8StringEncoding]
+                                    options:0
+                                      error:&error];
 
     NSMutableDictionary *locationDic = [[NSMutableDictionary alloc] init];
     [locationDic setObject:@"" forKey:@"as"];
@@ -247,20 +252,22 @@ NSArray *_emptyArr;
     // 3.1 location
 
     NSError *error;
+    SVDetailResultModel *model = [_videoResultArray objectAtIndex:0];
+    NSString *testResultString = model.testResult;
+    id videoTestResultJson =
+    [NSJSONSerialization JSONObjectWithData:[testResultString dataUsingEncoding:NSUTF8StringEncoding]
+                                    options:0
+                                      error:&error];
 
-    id videoTestResultJson = [NSJSONSerialization
-    JSONObjectWithData:[[[_videoResultArray objectAtIndex:0] testResult] dataUsingEncoding:NSUTF8StringEncoding]
-               options:0
-                 error:&error];
 
-
-    id videoTestContextJson = [NSJSONSerialization
-    JSONObjectWithData:[[[_videoResultArray objectAtIndex:0] testContext] dataUsingEncoding:NSUTF8StringEncoding]
-               options:0
-                 error:&error];
+    NSString *testContextString = model.testContext;
+    id videoTestContextJson =
+    [NSJSONSerialization JSONObjectWithData:[testContextString dataUsingEncoding:NSUTF8StringEncoding]
+                                    options:0
+                                      error:&error];
 
     NSMutableDictionary *vtLocationDic = [[NSMutableDictionary alloc] init];
-    SVIPAndISP *videoIsp = [SVIPAndISPGetter getIPAndISP];
+    //    SVIPAndISP *videoIsp = [SVIPAndISPGetter getIPAndISP];
     [vtLocationDic setObject:@"" forKey:@"as"];
     [vtLocationDic setObject:@"" forKey:@"carrier"];
     [vtLocationDic setObject:@"" forKey:@"city"];
@@ -492,7 +499,7 @@ NSArray *_emptyArr;
 
     SVInfo (@"json = %@", [self dictionaryToJsonString:dic]);
 
-    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:dic options:nil error:nil];
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
 
     //    if (dic)
     //    {

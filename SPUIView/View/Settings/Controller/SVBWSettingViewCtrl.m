@@ -8,6 +8,7 @@
 #define BUTTON_TAG 30
 
 #import "SVBWSettingViewCtrl.h"
+#import <SPService/SVIPAndISPGetter.h>
 #import <SPService/SVProbeInfo.h>
 
 @interface SVBWSettingViewCtrl ()
@@ -89,8 +90,9 @@
     NSString *title5 = I18N (@"Package");
     NSString *title7 = I18N (@"Carrier");
     //    NSString *title8 = I18N (@"China Unicom Beijing");
-    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    NSString *title8 = probeInfo.isp;
+    //    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    NSString *title8 = ipAndISP.isp;
     NSString *title9 = I18N (@"Save");
 
 
@@ -107,6 +109,7 @@
     lableBWType.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableBWType];
 
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     NSString *type = [probeInfo getBandwidthType];
     int bandwidthTypeIndex = [type intValue];
 
@@ -273,7 +276,7 @@
 
         // 更新probeInfo的内容
         SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-        [probeInfo setSignedBandwidth:_textField.text];
+        [probeInfo setBandwidth:_textField.text];
     }
 
     if (_bandwidthTypeIndex > 0)
