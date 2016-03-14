@@ -143,26 +143,35 @@ double _beginTime;
 
     // 启动下载测试
     _internalTestStatus = TEST_TESTING;
-    [self startDownloadTest];
+    if (_testStatus == TEST_TESTING)
+    {
+        [self startDownloadTest];
+    }
 
     // 推送最终结果
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 
     // 启动上传测试
     _internalTestStatus = TEST_TESTING;
-    [self startUploadTest];
+    if (_testStatus == TEST_TESTING)
+    {
+        [self startUploadTest];
+    }
 
-    // 推送最终结果
-    [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
+    if (_testStatus == TEST_TESTING)
+    {
+        // 推送最终结果
+        [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 
-    // 结果入库
-    [self persistSVDetailResultModel];
+        // 结果入库
+        [self persistSVDetailResultModel];
 
-    usleep (2000000);
-    _testContext.testStatus = TEST_FINISHED;
-    _internalTestStatus = TEST_FINISHED;
+        usleep (2000000);
+        _testContext.testStatus = TEST_FINISHED;
+        _internalTestStatus = TEST_FINISHED;
 
-    [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
+        [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
+    }
 
     return TRUE;
 }
@@ -651,6 +660,9 @@ void sort (double *a, int n)
 - (BOOL)stopTest
 {
     _testStatus = TEST_FINISHED;
+    _internalTestStatus = TEST_FINISHED;
+
+    SVInfo (@"stop speed test!!!!");
 
     return TRUE;
 }
