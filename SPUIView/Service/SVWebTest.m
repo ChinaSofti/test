@@ -422,7 +422,8 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
     //    SVInfo (@"SVProbeInfo ip:%@   isp:%@", probeInfo.ip, probeInfo.isp);
     [dictionary setObject:!probeInfo.ip ? @"" : probeInfo.ip forKey:@"ip"];
-    //    [dictionary setObject:!probeInfo.isp ? @"" : probeInfo.isp forKey:@"isp"];
+    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    [dictionary setObject:!ipAndISP.isp ? @"" : ipAndISP.isp forKey:@"isp"];
     [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
                    forKey:@"netWorkType"];
     [dictionary setObject:![probeInfo getBandwidth] ? @"" : [probeInfo getBandwidth]
