@@ -10,6 +10,7 @@
 #import "SVResultPush.h"
 #import <SPCommon/SVDBManager.h>
 #import <SPCommon/SVHttpsGetter.h>
+#import <SPService/SVAdvancedSetting.h>
 #import <SPService/SVIPAndISPGetter.h>
 
 @implementation SVResultPush
@@ -23,11 +24,15 @@ NSString *_urlString = @"https://58.60.106.188:12210/speedpro/results";
 BOOL finished;
 
 long _svTestId;
+NSNumber *_svTestTime;
+
 
 SVDBManager *_db;
 NSArray *_videoResultArray;
 NSArray *_webResultArray;
 NSArray *_speedResultArray;
+
+NSArray *_emptyArr;
 
 - (void)queryResult
 {
@@ -59,6 +64,11 @@ NSArray *_speedResultArray;
     _svTestId = [testId longValue];
     _db = [SVDBManager sharedInstance];
 
+    _emptyArr = [[NSArray alloc] init];
+
+    // TODO yzy 测试时间
+    _svTestTime = [[NSNumber alloc] initWithLong:(long)([[NSDate date] timeIntervalSince1970] * 1000)];
+
     [self queryResult];
 
     //_urlString = urlString;
@@ -77,37 +87,13 @@ NSArray *_speedResultArray;
     return str;
 }
 
-- (id)initWithURL:(NSURL *)url
+- (NSMutableDictionary *)genCollectorResultsDic
 {
-    self = [super init];
-    if (!self)
-    {
-        return nil;
-    }
-
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url
-                                                                cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                                            timeoutInterval:10];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-
-    // 3.设置请求体
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-
-    NSArray *emptyArr = [[NSArray alloc] init];
-    NSNumber *testTime = [[NSNumber alloc] initWithLong:(long)([[NSDate date] timeIntervalSince1970] * 1000)]; //[[NSNumber alloc] initWithLong:_resultModel.testId];
-    ;
-    //  @{
-    //        @"collectorResults": @{},
-    //        @"speedTestResults": @"{}",
-    //        @"videoTestResults": @"{}",
-    //        @"webTestResults": @"{}"
-    //    };
-
     // 1. collectorResults
     // 1.1 location
 
     SVIPAndISP *isp = [SVIPAndISPGetter getIPAndISP];
+    SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
 
     NSMutableDictionary *locationDic = [[NSMutableDictionary alloc] init];
     [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
@@ -116,14 +102,14 @@ NSArray *_speedResultArray;
     [locationDic setObject:[self ispFilter:isp str:isp.country] forKey:@"country"];
     [locationDic setObject:[self ispFilter:isp str:isp.countryCode] forKey:@"countryCode"];
     [locationDic setObject:@"" forKey:@"district"];
-    [locationDic setObject:@"" forKey:@"ip"];
+    [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"ip"];
     [locationDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"isp"];
     [locationDic setObject:[self ispFilter:isp str:isp.lat] forKey:@"lat"];
     [locationDic setObject:[self ispFilter:isp str:isp.lon] forKey:@"lon"];
     [locationDic setObject:@"" forKey:@"message"];
     [locationDic setObject:[self ispFilter:isp str:isp.org] forKey:@"org"];
     [locationDic setObject:@"" forKey:@"province"];
-    [locationDic setObject:@"" forKey:@"query"];
+    [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"query"];
     [locationDic setObject:[self ispFilter:isp str:isp.region] forKey:@"region"];
     [locationDic setObject:[self ispFilter:isp str:isp.regionName] forKey:@"regionName"];
     [locationDic setObject:@"success" forKey:@"status"];
@@ -132,16 +118,33 @@ NSArray *_speedResultArray;
 
     // 1.2 param
     NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] init];
+
+    // 手机别名: iPhone Simulator
+    NSString *userPhoneName = [[UIDevice currentDevice] name];
+
+    // 设备名称: iPhone OS
+    NSString *deviceName = [[UIDevice currentDevice] systemName];
+
+    // 手机系统版本: 9.2
+    NSString *phoneVersion = [[UIDevice currentDevice] systemVersion];
+
+    // 手机型号: iPhone
+    NSString *phoneModel = [[UIDevice currentDevice] model];
+
+    // UUID
+    NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+
+    NSString *mobilename = [NSString stringWithFormat:@"%@ %@ %@", userPhoneName, deviceName, phoneVersion];
+
     [paramDic setObject:@0 forKey:@"cellid"];
-    [paramDic setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString]
-                 forKey:@"mobileid"];
-    [paramDic setObject:@"" forKey:@"mobileip"];
-    [paramDic setObject:[[UIDevice currentDevice] model] forKey:@"mobilename"];
+    [paramDic setObject:uuid forKey:@"mobileid"];
+    [paramDic setObject:[self ispFilter:isp str:isp.query] forKey:@"mobileip"];
+    [paramDic setObject:mobilename forKey:@"mobilename"];
     [paramDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"operatorname"];
     [paramDic setObject:@"WIFI" forKey:@"operatornw"];
 
     NSMutableDictionary *collectorResultsDic = [[NSMutableDictionary alloc] init];
-    [collectorResultsDic setObject:@0 forKey:@"bandWidth"];
+    [collectorResultsDic setObject:[setting getBandwidth] forKey:@"bandWidth"];
     [collectorResultsDic setObject:@1 forKey:@"bandwidthType"];
     [collectorResultsDic setObject:@"SUCCESS" forKey:@"completions"];
     [collectorResultsDic setObject:@0 forKey:@"id"];
@@ -152,8 +155,13 @@ NSArray *_speedResultArray;
     [collectorResultsDic setObject:@0 forKey:@"signalStrength"];
     [collectorResultsDic setObject:@0 forKey:@"SNR"];
     [collectorResultsDic setObject:@0 forKey:@"testId"];
-    [collectorResultsDic setObject:testTime forKey:@"testTime"];
+    [collectorResultsDic setObject:_svTestTime forKey:@"testTime"];
 
+    return collectorResultsDic;
+}
+
+- (NSMutableDictionary *)genSpeedTestResultsDic
+{
     // 2. speedTestResults
     // 2.1 location
     //[testResultJson valueForKey:@"downloadSpeed"];
@@ -164,7 +172,7 @@ NSArray *_speedResultArray;
                options:0
                  error:&error];
 
-    NSMutableDictionary *stLocationDic = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *locationDic = [[NSMutableDictionary alloc] init];
     [locationDic setObject:@"" forKey:@"as"];
     [locationDic setObject:@"" forKey:@"carrier"];
     [locationDic setObject:@"" forKey:@"city"];
@@ -215,9 +223,9 @@ NSArray *_speedResultArray;
     [speedTestResultsDic setObject:delay forKey:@"delay"];
     [speedTestResultsDic setObject:downAverageDic forKey:@"downAverage"]; // TODO yzy
     [speedTestResultsDic setObject:@"SUCCESS" forKey:@"downCompletions"];
-    [speedTestResultsDic setObject:emptyArr forKey:@"downSample"];
+    [speedTestResultsDic setObject:_emptyArr forKey:@"downSample"];
     [speedTestResultsDic setObject:@0 forKey:@"id"];
-    [speedTestResultsDic setObject:stLocationDic forKey:@"location"];
+    [speedTestResultsDic setObject:locationDic forKey:@"location"];
     [speedTestResultsDic setObject:@0.0 forKey:@"maxDownloadSpeed"];
     [speedTestResultsDic setObject:@0.0 forKey:@"maxUploadSpeed"];
     [speedTestResultsDic setObject:@0.0 forKey:@"minDownloadSpeed"];
@@ -226,11 +234,18 @@ NSArray *_speedResultArray;
     [speedTestResultsDic setObject:@0 forKey:@"testId"];
     [speedTestResultsDic setObject:upAverageDic forKey:@"upAverage"];
     [speedTestResultsDic setObject:@"SUCCESS" forKey:@"upCompletions"];
-    [speedTestResultsDic setObject:emptyArr forKey:@"upSample"];
+    [speedTestResultsDic setObject:_emptyArr forKey:@"upSample"];
 
+    return speedTestResultsDic;
+}
 
+- (NSMutableDictionary *)genVideoTestResultsDic
+{
     // 3. videoTestResults
     // 3.1 location
+
+    NSError *error;
+
     id videoTestResultJson = [NSJSONSerialization
     JSONObjectWithData:[[[_videoResultArray objectAtIndex:0] testResult] dataUsingEncoding:NSUTF8StringEncoding]
                options:0
@@ -343,8 +358,8 @@ NSArray *_speedResultArray;
     [videoTestResultsDic setObject:vtLocationDic forKey:@"location"];
     [videoTestResultsDic setObject:mediaInputDic forKey:@"mediaInput"];
     [videoTestResultsDic setObject:ottTestParamsDic forKey:@"ottTestParams"];
-    [videoTestResultsDic setObject:emptyArr forKey:@"resultList"];
-    [videoTestResultsDic setObject:testTime forKey:@"sampleTime"];
+    [videoTestResultsDic setObject:_emptyArr forKey:@"resultList"];
+    [videoTestResultsDic setObject:_svTestTime forKey:@"sampleTime"];
     [videoTestResultsDic setObject:@0 forKey:@"samplingTimes"];
     [videoTestResultsDic setObject:@0 forKey:@"startTime"];
     [videoTestResultsDic setObject:@0 forKey:@"testId"];
@@ -353,50 +368,134 @@ NSArray *_speedResultArray;
     [videoTestResultsDic setObject:@0 forKey:@"totalPlayingByteNumber"];
     [videoTestResultsDic setObject:uvMOSScoreDic forKey:@"uvMOSScore"];
 
+    return videoTestResultsDic;
+}
+
+
+- (NSMutableDictionary *)genWebTestResultsDic
+{
+
     // 4. webTestResults
     // 4.1 urlTestResList
 
-    //    NSMutableArray *urlTestResList = [NSMutableArray arrayWithCapacity:5];
-    //
-    //    NSMutableDictionary *urlTestResDic = [[NSMutableDictionary alloc] init];
-    //    [urlTestResDic setObject:@1124235 forKey:@"downloadSize"];
-    //    [urlTestResDic setObject:@-1.0 forKey:@"downSpeed"];
-    //    [urlTestResDic setObject:@0 forKey:@"iconId"];
-    //    [urlTestResDic setObject:@-1 forKey:@"loadingTime"];
-    //    [urlTestResDic setObject:@100 forKey:@"progress"];
-    //    [urlTestResDic setObject:@-1 forKey:@"responseTime"];
-    //    [urlTestResDic setObject:@true forKey:@"responseTimeFinish"];
-    //    [urlTestResDic setObject:@0 forKey:@"startLoadingUrlCount"];
-    //    [urlTestResDic setObject:@-1 forKey:@"status"];
-    //    [urlTestResDic setObject:@"http://www.yahoo.com" forKey:@"url"];
-    //    [urlTestResList addObject:urlTestResDic];
-    //
-    //    NSMutableDictionary *webTestResultsDic = [[NSMutableDictionary alloc] init];
-    //    [webTestResultsDic setObject:@"SUCCESS" forKey:@"completions"];
-    //    [webTestResultsDic setObject:@1931.1074 forKey:@"downloadSpeed"];
-    //    [webTestResultsDic setObject:@0 forKey:@"id"];
-    //    [webTestResultsDic setObject:@1537 forKey:@"openDuration"];
-    //    [webTestResultsDic setObject:@"SUCCESS" forKey:@"resFlag"];
-    //    [webTestResultsDic setObject:@798 forKey:@"responseTime"];
-    //    [webTestResultsDic setObject:@0 forKey:@"resStatus"];
-    //    [webTestResultsDic setObject:@0 forKey:@"sampleTime"];
-    //    [webTestResultsDic setObject:@0 forKey:@"testId"];
-    //    [webTestResultsDic setObject:urlTestResList forKey:@"urlTestResList"];
+    NSMutableArray *urlTestResList = [NSMutableArray arrayWithCapacity:5];
 
-    [dic setObject:collectorResultsDic forKey:@"collectorResults"];
-    [dic setObject:speedTestResultsDic forKey:@"speedTestResults"];
-    [dic setObject:videoTestResultsDic forKey:@"videoTestResults"];
-    //[dic setObject:webTestResultsDic forKey:@"webTestResults"];
+    NSMutableDictionary *urlTestResDic = [[NSMutableDictionary alloc] init];
+    [urlTestResDic setObject:@1124235 forKey:@"downloadSize"];
+    [urlTestResDic setObject:@-1.0 forKey:@"downSpeed"];
+    [urlTestResDic setObject:@0 forKey:@"iconId"];
+    [urlTestResDic setObject:@-1 forKey:@"loadingTime"];
+    [urlTestResDic setObject:@100 forKey:@"progress"];
+    [urlTestResDic setObject:@-1 forKey:@"responseTime"];
+    [urlTestResDic setObject:@true forKey:@"responseTimeFinish"];
+    [urlTestResDic setObject:@0 forKey:@"startLoadingUrlCount"];
+    [urlTestResDic setObject:@-1 forKey:@"status"];
+    [urlTestResDic setObject:@"http://www.yahoo.com" forKey:@"url"];
+    [urlTestResList addObject:urlTestResDic];
+
+    NSMutableDictionary *webTestResultsDic = [[NSMutableDictionary alloc] init];
+    [webTestResultsDic setObject:@"SUCCESS" forKey:@"completions"];
+    [webTestResultsDic setObject:@1931.1074 forKey:@"downloadSpeed"];
+    [webTestResultsDic setObject:@0 forKey:@"id"];
+    [webTestResultsDic setObject:@1537 forKey:@"openDuration"];
+    [webTestResultsDic setObject:@"SUCCESS" forKey:@"resFlag"];
+    [webTestResultsDic setObject:@798 forKey:@"responseTime"];
+    [webTestResultsDic setObject:@0 forKey:@"resStatus"];
+    [webTestResultsDic setObject:@0 forKey:@"sampleTime"];
+    [webTestResultsDic setObject:@0 forKey:@"testId"];
+    [webTestResultsDic setObject:urlTestResList forKey:@"urlTestResList"];
+
+    return webTestResultsDic;
+}
+
+- (id)initWithURL:(NSURL *)url
+{
+    self = [super init];
+    if (!self)
+    {
+        return nil;
+    }
+
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url
+                                                                cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                            timeoutInterval:10];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+    // 3.设置请求体
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+
+
+    NSMutableDictionary *collectorResultsDic;
+    NSMutableDictionary *speedTestResultsDic;
+    NSMutableDictionary *videoTestResultsDic;
+    NSMutableDictionary *webTestResultsDic;
+
+    @try
+    {
+        collectorResultsDic = [self genCollectorResultsDic];
+    }
+    @catch (NSException *e)
+    {
+        SVError (@"genCollectorResultsDic error! %@", e);
+    }
+
+    @try
+    {
+        speedTestResultsDic = [self genSpeedTestResultsDic];
+    }
+    @catch (NSException *e)
+    {
+        SVError (@"genSpeedTestResultsDic error! %@", e);
+    }
+
+    @try
+    {
+        videoTestResultsDic = [self genVideoTestResultsDic];
+    }
+    @catch (NSException *e)
+    {
+        SVError (@"genCollectorResultsDic error! %@", e);
+    }
+
+    @try
+    {
+        webTestResultsDic = [self genWebTestResultsDic];
+    }
+    @catch (NSException *e)
+    {
+        SVError (@"genCollectorResultsDic error! %@", e);
+    }
+
+    if (collectorResultsDic)
+    {
+        [dic setObject:collectorResultsDic forKey:@"collectorResults"];
+
+        if (speedTestResultsDic)
+        {
+            [dic setObject:speedTestResultsDic forKey:@"speedTestResults"];
+        }
+
+        if (videoTestResultsDic)
+        {
+            [dic setObject:videoTestResultsDic forKey:@"videoTestResults"];
+        }
+
+        if (webTestResultsDic)
+        {
+            [dic setObject:webTestResultsDic forKey:@"webTestResults"];
+        }
+    }
+
 
     SVInfo (@"json = %@", [self dictionaryToJsonString:dic]);
 
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:nil error:nil];
-    request.HTTPBody = data;
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:dic options:nil error:nil];
 
-    //    if (dic)
-    //    {
-    //        return nil;
-    //    }
+    if (dic)
+    {
+        return nil;
+    }
     // 连接服务器发送请求
     [NSURLConnection
     sendAsynchronousRequest:request
