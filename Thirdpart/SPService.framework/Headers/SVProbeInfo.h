@@ -11,9 +11,7 @@
 @interface SVProbeInfo : NSObject
 
 @property NSString *ip;
-@property NSString *isp;
 @property NSString *location;
-@property NSString *signedBandwidth;
 @property NSString *networkType;
 @property NSString *singnal;
 

@@ -302,8 +302,8 @@
     _tableView.separatorColor = [UIColor colorWithWhite:0.8 alpha:0.3];
     // 6.设置tableView不可上下拖动
     _tableView.bounces = NO;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    //    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //    self.automaticallyAdjustsScrollViewInsets = NO;
     //三.添加
     // 7.把tableView添加到 view
     [self.view addSubview:_tableView];
