@@ -42,6 +42,8 @@
 
 @implementation SVSpeedTestingViewCtrl
 
+double _preSpeed = 0.0;
+
 @synthesize navigationController, tabBarController, currentResultModel;
 
 - (id)initWithResultModel:(SVCurrentResultModel *)resultModel
@@ -51,7 +53,7 @@
     {
         return nil;
     }
-
+    _preSpeed = 0.0;
     currentResultModel = resultModel;
     return self;
 }
@@ -167,8 +169,9 @@
     [window addSubview:_gyview];
     [self initContext];
     // 进入页面时，开始测试
-    long testId = [SVTimeUtil currentMilliSecondStamp];
-    _speedTest = [[SVSpeedTest alloc] initWithView:testId showSpeedView:nil testDelegate:self];
+    _speedTest = [[SVSpeedTest alloc] initWithView:self.currentResultModel.testId
+                                     showSpeedView:nil
+                                      testDelegate:self];
 
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       BOOL isOK = [_speedTest initTestContext];
@@ -197,7 +200,8 @@
     downloadFirstResult = false;
 
     dispatch_async (dispatch_get_main_queue (), ^{
-      //                     当用户离开当前页面时，停止测试
+
+      // 当用户离开当前页面时，停止测试
       if (_speedTest)
       {
           [_speedTest stopTest];
@@ -280,7 +284,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+// 随机数 范围在[from,to）
+- (int)getRandomNumber:(int)from to:(int)to
+{
+    return (int)(from + (arc4random () % (to - from + 1)));
+}
 /**********************************以下为UI数据层代码**********************************/
 - (void)updateTestResultDelegate:(SVSpeedTestContext *)testContext
                       testResult:(SVSpeedTestResult *)testResult
@@ -303,6 +311,12 @@
                                                                              testResult.downloadSpeed;
           //仪表盘指标
           UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
+
+          if (!testResult.isSecResult && _preSpeed > 0)
+          {
+              speed = _preSpeed + [self getRandomNumber:100 to:200] * 1.0 / 1000;
+          }
+
           [bar setBarValue:speed];
           [_headerView.uvMosBarView addSubview:bar];
           [_speedtestingView updateUvMOS3:speed];
@@ -310,6 +324,7 @@
 
           if (testResult.isSecResult)
           {
+              _preSpeed = speed;
               if (testResult.isUpload)
               {
                   if (!uploadFirstResult)

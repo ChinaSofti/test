@@ -422,14 +422,25 @@
         @"key": I18N (@"Delay"),
         @"value": [self formatFloatValue:[testResultJson valueForKey:@"delay"] unit:@"ms"]
     }]];
+
+
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Server Location"),
-                   @"value": [testResultJson valueForKey:@"location"]
+                   @"value": [self stringFilter:[testResultJson valueForKey:@"location"]]
                }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Carrier"),
-                   @"value": [testResultJson valueForKey:@"isp"]
+                   @"value": [self stringFilter:[testResultJson valueForKey:@"isp"]]
                }]];
+}
+
+- (NSString *)stringFilter:(NSString *)str
+{
+    if (!str)
+    {
+        return @"";
+    }
+    return str;
 }
 
 

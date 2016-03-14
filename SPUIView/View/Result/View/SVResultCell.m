@@ -234,7 +234,7 @@
     }
     else
     {
-        self.bandWidth.text = [NSString stringWithFormat:@"%.2fKbps", bandWidth];
+        self.bandWidth.text = [NSString stringWithFormat:@"%.2fMbps", bandWidth];
     }
 }
 
