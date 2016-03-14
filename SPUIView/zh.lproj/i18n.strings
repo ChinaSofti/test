@@ -166,6 +166,10 @@
 "Advanced" = "高级设置";
 "Advanced setting" = "高级设置";
 "Screen Size:" = "  屏幕尺寸 :";
+"Auto" = "自动";
+"Select" = "选择";
+"Bandwidth test server configuration" = "带宽测试服务器配置";
+"Please enter the number of 13~100" = "请输入13~100的数字";
 
 "Network unreachable!" = "网络不可用";
 "Network wifi!" = "当前为WIFI网络";

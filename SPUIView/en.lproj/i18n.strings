@@ -71,7 +71,7 @@
 "      Interaction score" = "      Interaction score";
 "Initial buffer time" = "Initial buffer time";
 "Buffer time" = "Buffer time";
-"Butter times" = "Butter times";
+"Butter times" = "Buffer times";
 "Download speed" = "Download speed";
 "Bit rate" = "Bit rate";
 "Frame rate" = "Frame rat";
@@ -170,6 +170,10 @@
 "Advanced setting" = "Advanced setting";
 "Screen Size:" = "Screen Size:";
 
+"Auto" = "Auto";
+"Select" = "Select";
+"Bandwidth test server configuration" = "Bandwidth test server configuration";
+"Please enter the number of 13~100" = "Please enter the number of 13~100";
 
 "Network unreachable!" = "Network unreachable!";
 "Network wifi!" = "Network wifi!";

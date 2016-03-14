@@ -103,7 +103,7 @@
     _textField = [[UITextField alloc] init];
     _textField.frame = CGRectMake (100, 10, kScreenW - 125, 20);
     _textField.text = setting.getScreenSize;
-    _textField.placeholder = @"请输入13英寸~100英寸的数字";
+    _textField.placeholder = I18N (@"Please enter the number of 13~100");
     _textField.font = [UIFont systemFontOfSize:14];
     //设置文本框类型
     _textField.borderStyle = UITextBorderStyleRoundedRect;
@@ -126,7 +126,7 @@
     //取数组里的值
     _defaultvalue = object;
 
-    NSString *title1 = @"带宽测试服务器配置";
+    NSString *title1 = I18N (@"Bandwidth test server configuration");
     // views2
     UIView *views2 = [[UIView alloc] init];
     views2.frame =
@@ -167,7 +167,7 @@
     _button.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
     //设置文字
-    [_button setTitle:@"自动" forState:UIControlStateNormal];
+    [_button setTitle:I18N (@"Auto") forState:UIControlStateNormal];
     _button.titleLabel.font = [UIFont systemFontOfSize:15];
     _button.titleLabel.textAlignment = NSTextAlignmentCenter;
     _button.layer.cornerRadius = 5;
@@ -179,7 +179,7 @@
     _button2 = [UIButton buttonWithType:UIButtonTypeCustom];
     _button2.frame = CGRectMake (FITTHEIGHT (285), FITTHEIGHT (27), FITTHEIGHT (60), FITTHEIGHT (45));
     _button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    [_button2 setTitle:@"选择" forState:UIControlStateNormal];
+    [_button2 setTitle:I18N (@"Select") forState:UIControlStateNormal];
     _button2.titleLabel.font = [UIFont systemFontOfSize:15];
     _button2.titleLabel.textAlignment = NSTextAlignmentCenter;
     _button2.layer.cornerRadius = 5;
@@ -212,7 +212,7 @@
     SVInfo (@"选择");
     //跳转到带宽测试服务器列表
     SVBandWidthCtrl *bandwidthCtrl = [[SVBandWidthCtrl alloc] init];
-    bandwidthCtrl.title = @"带宽测试服务器列表";
+    bandwidthCtrl.title = I18N (@"Bandwidth test server configuration");
     [self.navigationController pushViewController:bandwidthCtrl animated:YES];
 }
 @end
