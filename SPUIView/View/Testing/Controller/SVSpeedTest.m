@@ -21,14 +21,14 @@
 #import <sys/socket.h>
 
 const int RECONNECT_WAIT_TIME = 500 * 1000;
-const int STEP = 10;
+const int STEP = 5;
 const int DELAY_TEST_COUTN = 5;
 const int DELAY_BUFFER_SIZE = 1024;
 const int DOWNLOAD_BUFFER_SIZE = 512 * 1024;
 const int UPLOAD_BUFFER_SIZE = 16 * 1024;
 const int THREAD_NUM = 2;
-const int SAMPLE_INTERVAL = 100 * 1000;
-const int SAMPLE_COUNT = 100;
+const int SAMPLE_INTERVAL = 200 * 1000;
+const int SAMPLE_COUNT = 50;
 const NSString *BUNDORY = @"---------------------------7db1c523809b2";
 
 @implementation SVSpeedTest
@@ -261,7 +261,7 @@ void download (int i)
         int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
         if (-1 == ret)
         {
-            SVInfo (@"download connect error, ret = %d", ret);
+            SVInfo (@"download connect error, fd = ret = %d", fd, ret);
             usleep (RECONNECT_WAIT_TIME);
             continue;
         }
@@ -277,8 +277,12 @@ void download (int i)
             _downloadSize += len;
         }
 
-        close (fd);
+        ret = close (fd);
+        SVInfo (@"download close socket, fd = %d, ret = %d", fd, ret);
     }
+
+    free (buff);
+    buff = NULL;
 
     SVInfo (@"download over, downloadSize = %ld", _downloadSize);
 }
@@ -313,7 +317,7 @@ void upload (int i)
         int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
         if (-1 == ret)
         {
-            SVInfo (@"upload connect error, ret = %d", ret);
+            SVInfo (@"upload connect error, fd = %d, ret = %d", fd, ret);
             usleep (RECONNECT_WAIT_TIME);
             continue;
         }
@@ -327,9 +331,12 @@ void upload (int i)
             _uploadSize += len;
         }
 
-        close (fd);
+        ret = close (fd);
+        SVInfo (@"upload close socket, fd = %d, ret = %d", fd, ret);
     }
 
+    free (buff);
+    buff = NULL;
 
     SVInfo (@"upload over, uploadSize = %ld", _uploadSize);
 }
@@ -360,9 +367,9 @@ void delayTest (int i)
         int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
         if (-1 == ret)
         {
-            SVInfo (@"delayTest connect error, ret = %d", ret);
+            SVInfo (@"delayTest connect error, fd = %d, ret = %d", fd, ret);
             usleep (RECONNECT_WAIT_TIME);
-            return;
+            continue;
         }
 
         long len = write (fd, [request UTF8String], [request length] + 1);
@@ -376,12 +383,15 @@ void delayTest (int i)
             minDelay = delay;
         }
 
-        close (fd);
+        ret = close (fd);
 
-        SVInfo (@"delayTest read len = %ld, delay = %f", len, delay);
+        SVInfo (@"delayTest close socket, fd = %d, ret = %d", fd, ret);
     }
 
     _testResult.delay = minDelay;
+
+    free (buff);
+    buff = NULL;
 
     SVInfo (@"delayTest over, minDelay = %fms", minDelay);
 }

@@ -314,7 +314,7 @@ double _preSpeed = 0.0;
 
           if (!testResult.isSecResult && _preSpeed > 0)
           {
-              speed = _preSpeed + [self getRandomNumber:100 to:200] * 1.0 / 1000;
+              speed = _preSpeed + [self getRandomNumber:-200 to:200] * 1.0 / 1000;
           }
 
           [bar setBarValue:speed];
