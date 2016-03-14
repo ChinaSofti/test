@@ -8,6 +8,7 @@
 
 #import "SVCurrentResultViewCtrl.h"
 #import "SVDetailViewCtrl.h"
+#import "SVResultPush.h"
 #import "SVTestViewCtrl.h"
 #import <SPCommon/SVDBManager.h>
 #import <SPCommon/SVSystemUtil.h>
@@ -148,6 +149,11 @@
     if (!isSave)
     {
         [self persistSVSummaryResultModel];
+        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+          [[SVResultPush alloc] initWithURLNSString:nil
+                                             testId:[[NSNumber alloc] initWithLong:_resultModel.testId]];
+        });
+
         isSave = YES;
     }
 }

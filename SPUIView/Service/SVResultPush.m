@@ -36,6 +36,8 @@ NSArray *_emptyArr;
 
 - (void)queryResult
 {
+    sleep (2);
+
     // 拼写sql // 测试类型：0=video,1=web,2=speed
     NSMutableString *vsql = [NSMutableString
     stringWithFormat:@"select * from SVDetailResultModel where testId=%ld and testType=0", _svTestId];

@@ -165,8 +165,6 @@ double _beginTime;
 
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 
-    [[SVResultPush alloc] initWithURLNSString:nil testId:[[NSNumber alloc] initWithLong:_testId]];
-
     return TRUE;
 }
 
