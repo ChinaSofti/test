@@ -66,9 +66,9 @@
 //视频测试
 "Video Test" = "Video Test";
 "U-vMOS Score" = "U-vMOS Score";
-"      Video View score" = "      Video View score";
-"      Video quality score" = "      Video quality score";
-"      Interaction score" = "      Interaction score";
+"      Video View score" = "      Video sView score";
+"      Video quality score" = "      Video sQuality score";
+"      Interaction score" = "      sInteraction score";
 "Initial buffer time" = "Initial buffer time";
 "Buffer time" = "Buffer time";
 "Butter times" = "Buffer times";
