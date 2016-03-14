@@ -20,7 +20,7 @@
 #import <pthread.h>
 #import <sys/socket.h>
 
-const int RECONNECT_WAIT_TIME = 250 * 1000;
+const int RECONNECT_WAIT_TIME = 500 * 1000;
 const int STEP = 10;
 const int DELAY_TEST_COUTN = 5;
 const int DELAY_BUFFER_SIZE = 1024;
@@ -305,6 +305,7 @@ void upload (int i)
         if (-1 == ret)
         {
             SVInfo (@"upload connect error, ret = %d", ret);
+            usleep (RECONNECT_WAIT_TIME);
             continue;
         }
 
