@@ -9,7 +9,7 @@
 #define Button_Tag 20
 
 #import "SVLanguageSettingViewCtrl.h"
-#import <SPService/SVAdvancedSetting.h>
+#import <SPService/SVProbeInfo.h>
 
 @interface SVLanguageSettingViewCtrl ()
 
@@ -84,8 +84,8 @@ static int userLanguageIndex;
     views.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views];
 
-    SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
-    int languageIndex = [setting getLanguageIndex];
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    int languageIndex = [probeInfo getLanguageIndex];
     NSString *title1 = I18N (@"Auto      ");
     NSString *title2 = I18N (@"Save");
     NSArray *titlesArr = @[title1, @"简体中文", @"English  "];
@@ -219,8 +219,8 @@ static int userLanguageIndex;
             break;
         }
 
-        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
-        [setting setLanguageIndex:userLanguageIndex];
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        [probeInfo setLanguageIndex:userLanguageIndex];
 
         SVInfo (@"%@", @"按钮被点击了");
         //退出程序

@@ -41,6 +41,9 @@
     UILabel *_bufferTimesInFullScreenValue;
     UILabel *_bitRateInFullScreenValue;
     UILabel *_resolutionInFullScreenValue;
+
+    // 每个U-vMOS值对应的时长
+    int _per_uvmos_bar_need_time;
 }
 
 //定义gray遮挡View
@@ -186,6 +189,11 @@
     _videoTest = [[SVVideoTest alloc] initWithView:self.currentResultModel.testId
                                      showVideoView:_videoView
                                       testDelegate:self];
+
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    int _videoPlayTime = [probeInfo getVideoPlayTime];
+    // 视频总时长 除以 20个U-vMOS柱子 获得每个柱子需要的时长，单位秒。再乘以10，将单位转换为100毫秒
+    _per_uvmos_bar_need_time = (_videoPlayTime / 20) * 10;
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       BOOL isOK = [_videoTest initTestContext];
       if (isOK)
@@ -412,7 +420,7 @@
     dispatch_async (dispatch_get_main_queue (), ^{
       [_footerView.placeLabel setText:location];
       [_footerView.resolutionLabel setText:videoResolution];
-      [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fkpbs", bitrate]];
+      [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fKbps", bitrate]];
       [_headerView.bufferLabel setText:[NSString stringWithFormat:@"%d", cuttonTimes]];
       [_headerView.speedLabel setText:[NSString stringWithFormat:@"%ld", firstBufferTime]];
 
@@ -479,9 +487,8 @@
         int lastFakeBitrate = arc4random () % 100;
         float fakeBitrate = [[NSString stringWithFormat:@"%d.%d", firstFakeBitrate, lastFakeBitrate] floatValue];
         //    SVInfo (@"fake bitrate:%f", fakeBitrate);
-        [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fkpbs", fakeBitrate]];
-
-        [_bitRateInFullScreenValue setText:[NSString stringWithFormat:@"%.2fkpbs", fakeBitrate]];
+        [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fKbps", fakeBitrate]];
+        [_bitRateInFullScreenValue setText:[NSString stringWithFormat:@"%.2fKbps", fakeBitrate]];
     }
 
     if (realuvMOSSession > 0)
@@ -498,7 +505,7 @@
         [_testingView updateUvMOS:fakeUvMOSSession];
         [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", fakeUvMOSSession]];
         _resultTimes += 1;
-        if (_resultTimes % 10 == 0)
+        if (_resultTimes % _per_uvmos_bar_need_time == 0)
         {
             _UvMOSbarResultTimes += 1;
             if (_UvMOSbarResultTimes < 20)

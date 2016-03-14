@@ -8,7 +8,7 @@
 #define BUTTON_TAG 30
 
 #import "SVBWSettingViewCtrl.h"
-#import <SPService/SVAdvancedSetting.h>
+#import <SPService/SVProbeInfo.h>
 
 @interface SVBWSettingViewCtrl ()
 
@@ -107,8 +107,7 @@
     lableBWType.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableBWType];
 
-    SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
-    NSString *type = [setting getBandwidthType];
+    NSString *type = [probeInfo getBandwidthType];
     int bandwidthTypeIndex = [type intValue];
 
     bandwidthTypeButtonArray = [[NSMutableArray alloc] init];
@@ -164,7 +163,7 @@
     _textField = [[UITextField alloc] init];
     _textField.frame = CGRectMake (10, 90, kScreenW - 40, 20);
     _textField.borderStyle = UITextBorderStyleRoundedRect;
-    _textField.text = [setting getBandwidth];
+    _textField.text = [probeInfo getBandwidth];
     _textField.placeholder = @"Please input bandwidth";
     _textField.font = [UIFont systemFontOfSize:14];
     _textField.keyboardType = UIKeyboardTypeNumberPad;
@@ -266,11 +265,11 @@
 - (void)saveBtnClicked:(UIButton *)button
 {
     SVInfo (@"带宽设置--保存");
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     if (_textField.text)
     {
         SVInfo (@"%@", _textField.text);
-        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
-        [setting setBandwidth:_textField.text];
+        [probeInfo setBandwidth:_textField.text];
 
         // 更新probeInfo的内容
         SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
@@ -280,8 +279,7 @@
     if (_bandwidthTypeIndex > 0)
     {
         SVInfo (@"%d", _bandwidthTypeIndex);
-        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
-        [setting setBandwidthType:[NSString stringWithFormat:@"%d", _bandwidthTypeIndex]];
+        [probeInfo setBandwidthType:[NSString stringWithFormat:@"%d", _bandwidthTypeIndex]];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -14,7 +14,7 @@
 #import <SPCommon/SVI18N.h>
 #import <SPCommon/SVLog.h>
 #import <SPCommon/SVSystemUtil.h>
-#import <SPService/SVAdvancedSetting.h>
+
 
 @interface SVTabBarController () <AlertViewDelegate>
 

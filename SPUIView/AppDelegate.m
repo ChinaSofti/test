@@ -40,45 +40,47 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 }
 - (void)networkStatusChange:(SVRealReachabilityStatus)status
 {
-    NSString *networkType;
+    NSString *wifiTitle = I18N (@"WIFI");
+    NSString *mobileNetwork = I18N (@"Mobile network");
+    NSString *networkUnreachable = I18N (@"Network unreachable!");
+
     switch (status)
     {
     case SV_RealStatusNotReachable:
         SVInfo (@"%@", @"Network unreachable!");
-        [SVToast showWithText:I18N (@"Network unreachable!")];
-        networkType = @"0";
+        [SVToast showWithText:networkUnreachable];
+        [[SVProbeInfo sharedInstance] setNetworkType:networkUnreachable];
         break;
     case SV_RealStatusViaWWAN:
         SVInfo (@"%@", @"Network WWAN! In charge!");
         [SVToast showWithText:I18N (@"Network WWAN!")];
-        networkType = @"1";
+        [[SVProbeInfo sharedInstance] setNetworkType:mobileNetwork];
         break;
     case SV_RealStatusViaWiFi:
         SVInfo (@"%@", @"Network wifi! Free!");
         [SVToast showWithText:I18N (@"Network wifi!")];
-        networkType = @"0";
+        [[SVProbeInfo sharedInstance] setNetworkType:wifiTitle];
         break;
     case SV_WWANType2G:
         SVInfo (@"%@", @"RealReachabilityStatus2G");
         [SVToast showWithText:I18N (@"Network 2G!")];
-        networkType = @"1";
+        [[SVProbeInfo sharedInstance] setNetworkType:mobileNetwork];
         break;
     case SV_WWANType3G:
         SVInfo (@"%@", @"RealReachabilityStatus3G");
         [SVToast showWithText:I18N (@"Network 3G!")];
-        networkType = @"1";
+        [[SVProbeInfo sharedInstance] setNetworkType:mobileNetwork];
         break;
     case SV_WWANType4G:
         SVInfo (@"%@", @"RealReachabilityStatus4G");
         [SVToast showWithText:I18N (@"Network 4G!")];
-        networkType = @"1";
+        [[SVProbeInfo sharedInstance] setNetworkType:mobileNetwork];
         break;
     default:
         SVInfo (@"%@", @"Unknown RealReachability WWAN Status, might be iOS6");
-        networkType = @"0";
+        [[SVProbeInfo sharedInstance] setNetworkType:wifiTitle];
         break;
     }
-    [[SVProbeInfo sharedInstance] setNetworkType:networkType];
 
     if (status != SV_RealStatusNotReachable)
     {
@@ -92,6 +94,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
       SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+      [servers initSpeedTestServer];
 
       // 初始化Test Context
       SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];

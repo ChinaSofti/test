@@ -7,7 +7,6 @@
 //
 #import "SVAdvancedViewCtrl.h"
 #import "SVBandWidthCtrl.h"
-#import <SPService/SVAdvancedSetting.h>
 
 @interface SVAdvancedViewCtrl ()
 
@@ -22,8 +21,7 @@
     NSString *_sponsor;
     UILabel *_label1;
     UILabel *_label2;
-    SVSpeedTestServer * _defaultvalue;
-
+    SVSpeedTestServer *_defaultvalue;
 }
 
 - (void)viewDidLoad
@@ -42,9 +40,9 @@
 {
     //取点击的cell的值
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-   SVSpeedTestServer *server =  [servers getDefaultServer];
+    SVSpeedTestServer *server = [servers getDefaultServer];
     _name = server.name;
-    _sponsor= server.sponsor;
+    _sponsor = server.sponsor;
     [self createUIBandwidth];
     _label1.text = _name;
     _label2.text = _sponsor;
@@ -73,8 +71,8 @@
 
 - (void)leftBackButtonClick
 {
-    SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
-    [setting setScreenSize:[_textField.text floatValue]];
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    [probeInfo setScreenSize:[_textField.text floatValue]];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -95,12 +93,11 @@
     lableScreenSize.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableScreenSize];
 
-    SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
-
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     //文本框
     _textField = [[UITextField alloc] init];
     _textField.frame = CGRectMake (100, 10, kScreenW - 125, 20);
-    _textField.text = setting.getScreenSize;
+    _textField.text = probeInfo.getScreenSize;
     _textField.placeholder = @"请输入13英寸~100英寸的数字";
     _textField.font = [UIFont systemFontOfSize:14];
     //设置文本框类型
@@ -122,8 +119,8 @@
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
     SVSpeedTestServer *object = [servers getDefaultServer];
     //取数组里的值
-     _defaultvalue = object;
-    
+    _defaultvalue = object;
+
     NSString *title1 = @"带宽测试服务器配置";
     // views2
     UIView *views2 = [[UIView alloc] init];
@@ -162,15 +159,16 @@
     // button自动
     _button = [UIButton buttonWithType:UIButtonTypeCustom];
     _button.frame = CGRectMake (FITTHEIGHT (215), FITTHEIGHT (27), FITTHEIGHT (60), FITTHEIGHT (45));
-    _button.backgroundColor = [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
+    _button.backgroundColor =
+    [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
     //设置文字
     [_button setTitle:@"自动" forState:UIControlStateNormal];
     _button.titleLabel.font = [UIFont systemFontOfSize:15];
     _button.titleLabel.textAlignment = NSTextAlignmentCenter;
     _button.layer.cornerRadius = 5;
     [_button addTarget:self
-               action:@selector (BtnClicked:)
-     forControlEvents:UIControlEventTouchUpInside];
+                action:@selector (BtnClicked:)
+      forControlEvents:UIControlEventTouchUpInside];
     [views2 addSubview:_button];
     // button选择
     _button2 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -181,9 +179,9 @@
     _button2.titleLabel.textAlignment = NSTextAlignmentCenter;
     _button2.layer.cornerRadius = 5;
     [_button2 addTarget:self
-     
-                action:@selector (Btn2Clicked:)
-      forControlEvents:UIControlEventTouchUpInside];
+
+                 action:@selector (Btn2Clicked:)
+       forControlEvents:UIControlEventTouchUpInside];
     [views2 addSubview:_button2];
 }
 - (void)BtnClicked:(UIButton *)button
@@ -192,16 +190,18 @@
     //自动获取方法(取数组里的第一个值)
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
     NSArray *array = [servers getAllServer];
-    if (array && array.count > 0) {
+    if (array && array.count > 0)
+    {
         SVSpeedTestServer *defaultvalue0 = array[0];
         _label1.text = defaultvalue0.name;
         _label2.text = defaultvalue0.sponsor;
-        NSLog(@"%@",defaultvalue0.name);
+        NSLog (@"%@", defaultvalue0.name);
         [servers setDefaultServer:defaultvalue0];
     }
-    
+
     _button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    _button.backgroundColor = [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
+    _button.backgroundColor =
+    [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
 }
 - (void)Btn2Clicked:(UIButton *)button2
 {
@@ -211,6 +211,7 @@
     bandwidthCtrl.title = @"带宽测试服务器列表";
     [self.navigationController pushViewController:bandwidthCtrl animated:YES];
     _button.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    _button2.backgroundColor = [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
+    _button2.backgroundColor =
+    [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
 }
 @end

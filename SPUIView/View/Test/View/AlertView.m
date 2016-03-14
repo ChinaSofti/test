@@ -299,22 +299,17 @@ static NSInteger BtnTag = 10086;
         [self.delegate alertView:self saveBtnClick:btn];
     }
 
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     if (_mealTextField.text)
     {
         SVInfo (@"%@", _mealTextField.text);
-        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
-        [setting setBandwidth:_mealTextField.text];
-
-        // 更新probeInfo的内容
-        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-        [probeInfo setSignedBandwidth:_mealTextField.text];
+        [probeInfo setBandwidth:_mealTextField.text];
     }
 
     if (_bandwidthTypeIndex > 0)
     {
         SVInfo (@"%d", _bandwidthTypeIndex);
-        SVAdvancedSetting *setting = [SVAdvancedSetting sharedInstance];
-        [setting setBandwidthType:[NSString stringWithFormat:@"%d", _bandwidthTypeIndex]];
+        [probeInfo setBandwidthType:[NSString stringWithFormat:@"%d", _bandwidthTypeIndex]];
     }
 }
 
