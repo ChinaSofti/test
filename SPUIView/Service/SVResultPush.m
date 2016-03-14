@@ -473,7 +473,7 @@ NSArray *_emptyArr;
     }
     @catch (NSException *e)
     {
-        SVError (@"genCollectorResultsDic error! %@", e);
+        SVError (@"genWebTestResultsDic error! %@", e);
     }
 
     if (collectorResultsDic)
