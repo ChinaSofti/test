@@ -149,7 +149,6 @@ double _beginTime;
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 
     // 启动上传测试
-    _testStatus = TEST_TESTING;
     _internalTestStatus = TEST_TESTING;
     [self startUploadTest];
 
@@ -389,7 +388,7 @@ void sample (BOOL isUpload)
 
     int count = 0;
 
-    while (count++ <= SAMPLE_COUNT)
+    while (count++ <= SAMPLE_COUNT && _testStatus == TEST_TESTING)
     {
         usleep (SAMPLE_INTERVAL);
 
@@ -438,7 +437,6 @@ void sample (BOOL isUpload)
         [_testDelegate updateTestResultDelegate:_testContext testResult:_curTestResult];
     }
 
-    _testStatus = TEST_FINISHED;
     _internalTestStatus = TEST_FINISHED;
 
     // 采样结束，计算平均速度
