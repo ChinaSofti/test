@@ -34,7 +34,8 @@
     {
         [_imageView removeFromSuperview];
     }
-    if (_label) {
+    if (_label)
+    {
         [_label removeFromSuperview];
     }
 
@@ -44,12 +45,11 @@
         _imageView = [[UIImageView alloc] initWithImage:image1];
         _imageView.frame = CGRectMake (10, 10, 60, 60);
         [_photocell addSubview:_imageView];
-        
+
         _label = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
         _label.font = [UIFont systemFontOfSize:16];
         _label.text = @"WiFi";
         [_photocell addSubview:_label];
-        
     }
     else
     {
@@ -57,7 +57,7 @@
         _imageView = [[UIImageView alloc] initWithImage:image2];
         _imageView.frame = CGRectMake (10, 10, 60, 60);
         [_photocell addSubview:_imageView];
-        
+
         NSString *title7 = I18N (@"Mobile network");
         _label = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
         _label.font = [UIFont systemFontOfSize:16];
@@ -112,7 +112,7 @@
         return 1;
     }
     else
-        return 6;
+        return 5;
 }
 
 // 设置 tableView 的行高
@@ -135,7 +135,7 @@
     NSString *title2 = probeInfo.isp;
     NSString *title21 = I18N (@"Share");
     NSString *title3 = I18N (@"About");
-    NSString *title31 = I18N (@"FAQ");
+    //    NSString *title31 = I18N (@"FAQ");
     NSString *title4 = I18N (@"Language Setting");
     NSString *title5 = I18N (@"Upload Logs");
     NSString *title6 = I18N (@"Advanced setting");
@@ -203,15 +203,15 @@
         {
             cell.textLabel.text = title3;
         }
+        //        if (indexPath.row == 2)
+        //        {
+        //            cell.textLabel.text = title31;
+        //        }
         if (indexPath.row == 2)
-        {
-            cell.textLabel.text = title31;
-        }
-        if (indexPath.row == 3)
         {
             cell.textLabel.text = title4;
         }
-        if (indexPath.row == 4)
+        if (indexPath.row == 3)
         {
             cell.textLabel.text = title5;
 
@@ -223,7 +223,7 @@
              forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:button];
         }
-        if (indexPath.row == 5)
+        if (indexPath.row == 4)
         {
             cell.textLabel.text = title6;
         }
@@ -378,7 +378,7 @@
 {
     NSString *title0 = I18N (@"Bandwidth Settings");
     NSString *title3 = I18N (@"About");
-    NSString *title31 = I18N (@"FAQ");
+    //    NSString *title31 = I18N (@"FAQ");
     NSString *title4 = I18N (@"Language Setting");
     NSString *title5 = I18N (@"Upload Logs");
     NSString *title6 = I18N (@"Advanced");
@@ -404,28 +404,28 @@
             about.title = title3;
             [self.navigationController pushViewController:about animated:YES];
         }
-        // FAQ
-        if (indexPath.row == 2)
-        {
-            SVFAQViewCtrl *FAQ = [[SVFAQViewCtrl alloc] init];
-            FAQ.title = title31;
-            [self.navigationController pushViewController:FAQ animated:YES];
-        }
+        //        // FAQ
+        //        if (indexPath.row == 2)
+        //        {
+        //            SVFAQViewCtrl *FAQ = [[SVFAQViewCtrl alloc] init];
+        //            FAQ.title = title31;
+        //            [self.navigationController pushViewController:FAQ animated:YES];
+        //        }
         //语言设置
-        if (indexPath.row == 3)
+        if (indexPath.row == 2)
         {
             SVLanguageSettingViewCtrl *languageSetting = [[SVLanguageSettingViewCtrl alloc] init];
             languageSetting.title = title4;
             [self.navigationController pushViewController:languageSetting animated:YES];
         }
         //上传日志
-        if (indexPath.row == 4)
+        if (indexPath.row == 3)
         {
             SVLogsViewCtrl *logs = [[SVLogsViewCtrl alloc] init];
             logs.title = title5;
         }
         //高级设置
-        if (indexPath.row == 5)
+        if (indexPath.row == 4)
         {
             SVAdvancedViewCtrl *advanced = [[SVAdvancedViewCtrl alloc] init];
             advanced.title = title6;
