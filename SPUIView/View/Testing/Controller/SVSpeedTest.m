@@ -149,6 +149,7 @@ double _beginTime;
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 
     // 启动上传测试
+    _testStatus = TEST_TESTING;
     _internalTestStatus = TEST_TESTING;
     [self startUploadTest];
 
