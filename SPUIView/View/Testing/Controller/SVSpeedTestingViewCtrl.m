@@ -42,6 +42,8 @@
 
 @implementation SVSpeedTestingViewCtrl
 
+double _preSpeed = 0.0;
+
 @synthesize navigationController, tabBarController, currentResultModel;
 
 - (id)initWithResultModel:(SVCurrentResultModel *)resultModel
@@ -51,7 +53,7 @@
     {
         return nil;
     }
-
+    _preSpeed = 0.0;
     currentResultModel = resultModel;
     return self;
 }
@@ -282,7 +284,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+// 随机数 范围在[from,to）
+- (int)getRandomNumber:(int)from to:(int)to
+{
+    return (int)(from + (arc4random () % (to - from + 1)));
+}
 /**********************************以下为UI数据层代码**********************************/
 - (void)updateTestResultDelegate:(SVSpeedTestContext *)testContext
                       testResult:(SVSpeedTestResult *)testResult
@@ -305,6 +311,12 @@
                                                                              testResult.downloadSpeed;
           //仪表盘指标
           UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
+
+          if (!testResult.isSecResult && _preSpeed > 0)
+          {
+              speed = _preSpeed + [self getRandomNumber:100 to:200] * 1.0 / 1000;
+          }
+
           [bar setBarValue:speed];
           [_headerView.uvMosBarView addSubview:bar];
           [_speedtestingView updateUvMOS3:speed];
@@ -312,6 +324,7 @@
 
           if (testResult.isSecResult)
           {
+              _preSpeed = speed;
               if (testResult.isUpload)
               {
                   if (!uploadFirstResult)
