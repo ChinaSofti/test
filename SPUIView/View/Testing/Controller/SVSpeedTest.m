@@ -241,6 +241,9 @@ void download (int i)
                      @"GET", _speedTestInfo.downloadPath, @"*/*", _speedTestInfo.host, @"Close"];
     SVInfo (@"download request %@", request);
 
+    char *buff = (char *)malloc (DOWNLOAD_BUFFER_SIZE * sizeof (char));
+    memset (buff, '\0', DOWNLOAD_BUFFER_SIZE);
+
     _beginTime = [[NSDate date] timeIntervalSince1970];
 
     while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING)
@@ -257,8 +260,6 @@ void download (int i)
         long len = write (fd, [request UTF8String], [request length] + 1);
         SVInfo (@"download write len = %ld", len);
 
-        char *buff = (char *)malloc (DOWNLOAD_BUFFER_SIZE * sizeof (char));
-        memset (buff, '\0', DOWNLOAD_BUFFER_SIZE);
 
         len = 0;
         while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING &&
@@ -278,15 +279,6 @@ void upload (int i)
 
     SVInfo (@"Upload-Thread-%d start\n", i);
 
-    int fd = socket (AF_INET, SOCK_STREAM, 0);
-
-    int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
-    if (-1 == ret)
-    {
-        SVInfo (@"upload connect error, ret = %d", ret);
-        return;
-    }
-
     NSString *request = [NSString
     stringWithFormat:@"%@ %@ HTTP/1.1\r\nAccept: %@\r\nHost: %@\r\nConnection: "
                      @"%@\r\nAccept-Charset: utf-8\r\nAccept-Encoding:gzip, deflate, sdch "
@@ -304,17 +296,30 @@ void upload (int i)
     char *buff = (char *)malloc (UPLOAD_BUFFER_SIZE * sizeof (char));
     memset (buff, '\0', UPLOAD_BUFFER_SIZE);
 
-    long len = write (fd, [request UTF8String], [request length] + 1);
-    len = write (fd, [fileRequest UTF8String], [fileRequest length] + 1);
-
     _beginTime = [[NSDate date] timeIntervalSince1970];
-    while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING &&
-           (len = send (fd, buff, UPLOAD_BUFFER_SIZE, 0)) > 0)
+    while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING)
     {
-        _uploadSize += len;
+        int fd = socket (AF_INET, SOCK_STREAM, 0);
+
+        int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
+        if (-1 == ret)
+        {
+            SVInfo (@"upload connect error, ret = %d", ret);
+            continue;
+        }
+
+        long len = write (fd, [request UTF8String], [request length] + 1);
+        len = write (fd, [fileRequest UTF8String], [fileRequest length] + 1);
+
+        while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING &&
+               (len = send (fd, buff, UPLOAD_BUFFER_SIZE, 0)) > 0)
+        {
+            _uploadSize += len;
+        }
+
+        close (fd);
     }
 
-    close (fd);
 
     SVInfo (@"upload over, uploadSize = %ld", _uploadSize);
 }
