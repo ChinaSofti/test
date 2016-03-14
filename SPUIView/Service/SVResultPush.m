@@ -383,38 +383,121 @@ NSArray *_emptyArr;
 
 - (NSMutableDictionary *)genWebTestResultsDic
 {
+    // 将结果的json字符串转换成对象
+    NSError *error;
+    SVDetailResultModel *model = [_webResultArray objectAtIndex:0];
+    NSString *testResultString = model.testResult;
+    id webTestResultJson =
+    [NSJSONSerialization JSONObjectWithData:[testResultString dataUsingEncoding:NSUTF8StringEncoding]
+                                    options:0
+                                      error:&error];
 
-    // 4. webTestResults
-    // 4.1 urlTestResList
+    // 解析明细结果
+    NSMutableDictionary *totalResultDic = [[NSMutableDictionary alloc] init];
+    NSMutableArray *detailResultArray = [[NSMutableArray alloc] init];
+    double sumResponseTime = 0.0;
+    double sumDownloadSize = 0.0;
+    double sumLoadTime = 0.0;
+    double sumSpeed = 0.0;
+    int sucessCount = 0;
+    for (NSString *url in [webTestResultJson allKeys])
+    {
+        // 将json字符串转换成字典
+        NSError *error;
+        id currentResultJson = [NSJSONSerialization
+        JSONObjectWithData:[[webTestResultJson objectForKey:url] dataUsingEncoding:NSUTF8StringEncoding]
+                   options:0
+                     error:&error];
+        if (error)
+        {
+            SVError (@"%@", error);
+            continue;
+        }
 
-    //    NSMutableArray *urlTestResList = [NSMutableArray arrayWithCapacity:5];
-    //
-    //    NSMutableDictionary *urlTestResDic = [[NSMutableDictionary alloc] init];
-    //    [urlTestResDic setObject:@1124235 forKey:@"downloadSize"];
-    //    [urlTestResDic setObject:@-1.0 forKey:@"downSpeed"];
-    //    [urlTestResDic setObject:@0 forKey:@"iconId"];
-    //    [urlTestResDic setObject:@-1 forKey:@"loadingTime"];
-    //    [urlTestResDic setObject:@100 forKey:@"progress"];
-    //    [urlTestResDic setObject:@-1 forKey:@"responseTime"];
-    //    [urlTestResDic setObject:@true forKey:@"responseTimeFinish"];
-    //    [urlTestResDic setObject:@0 forKey:@"startLoadingUrlCount"];
-    //    [urlTestResDic setObject:@-1 forKey:@"status"];
-    //    [urlTestResDic setObject:@"http://www.yahoo.com" forKey:@"url"];
-    //    [urlTestResList addObject:urlTestResDic];
-    //
-    //    NSMutableDictionary *webTestResultsDic = [[NSMutableDictionary alloc] init];
-    //    [webTestResultsDic setObject:@"SUCCESS" forKey:@"completions"];
-    //    [webTestResultsDic setObject:@1931.1074 forKey:@"downloadSpeed"];
-    //    [webTestResultsDic setObject:@0 forKey:@"id"];
-    //    [webTestResultsDic setObject:@1537 forKey:@"openDuration"];
-    //    [webTestResultsDic setObject:@"SUCCESS" forKey:@"resFlag"];
-    //    [webTestResultsDic setObject:@798 forKey:@"responseTime"];
-    //    [webTestResultsDic setObject:@0 forKey:@"resStatus"];
-    //    [webTestResultsDic setObject:@0 forKey:@"sampleTime"];
-    //    [webTestResultsDic setObject:@0 forKey:@"testId"];
-    //    [webTestResultsDic setObject:urlTestResList forKey:@"urlTestResList"];
 
-    return nil;
+        NSMutableDictionary *currentDic = [[NSMutableDictionary alloc] init];
+
+        // 页面加载大小
+        NSNumber *downloadSize = [self string2num:[currentResultJson valueForKey:@"downloadSize"]];
+        [currentDic setObject:downloadSize forKey:@"downloadSize"];
+
+        // 下载速度
+        NSNumber *downloadSpeed =
+        [self string2num:[currentResultJson valueForKey:@"downloadSpeed"]];
+        [currentDic setObject:downloadSpeed forKey:@"downSpeed"];
+
+        [currentDic setObject:[[NSNumber alloc] initWithInt:0] forKey:@"iconId"];
+
+        // 完整下载时间
+        NSNumber *totalTime = [self string2num:[currentResultJson valueForKey:@"totalTime"]];
+        [currentDic setObject:[[NSNumber alloc] initWithDouble:[totalTime doubleValue] * 1000]
+                       forKey:@"loadingTime"];
+
+        [currentDic setObject:[[NSNumber alloc] initWithInt:100] forKey:@"progress"];
+
+        // 响应时间
+        NSNumber *responseTime = [self string2num:[currentResultJson valueForKey:@"responseTime"]];
+        [currentDic setObject:[[NSNumber alloc] initWithDouble:[responseTime doubleValue] * 1000]
+                       forKey:@"responseTime"];
+
+        [currentDic setObject:[[NSNumber alloc] initWithInt:0] forKey:@"startLoadingUrlCount"];
+
+        //判断是否测试成功
+        if ([responseTime doubleValue] > 0 && [totalTime doubleValue] < 10)
+        {
+            [currentDic setObject:@YES forKey:@"responseTimeFinish"];
+            [currentDic setObject:[[NSNumber alloc] initWithInt:0] forKey:@"status"];
+
+            // 成功的数据记录下来，用于计算平均值
+            sumDownloadSize += [downloadSize doubleValue];
+            sumSpeed += [downloadSpeed doubleValue];
+            sumLoadTime += [totalTime doubleValue];
+            sumResponseTime += [responseTime doubleValue];
+            sucessCount += 1;
+        }
+        else
+        {
+            [currentDic setObject:@NO forKey:@"responseTimeFinish"];
+            [currentDic setObject:[[NSNumber alloc] initWithInt:-1] forKey:@"status"];
+        }
+
+        // 测试地址
+        [currentDic setObject:url forKey:@"url"];
+
+        [detailResultArray addObject:currentDic];
+    }
+
+    [totalResultDic setObject:[[NSNumber alloc] initWithLong:[model.ID longLongValue]]
+                       forKey:@"testId"];
+    [totalResultDic setObject:[[NSNumber alloc] initWithLong:[model.testId longLongValue]]
+                       forKey:@"testId"];
+    [totalResultDic setObject:[[NSNumber alloc] initWithInt:0] forKey:@"sampleTime"];
+
+    // 只要有一个成功，就算成功
+    if (sucessCount > 0)
+    {
+        [totalResultDic setObject:@"SUCCESS" forKey:@"completions"];
+        [totalResultDic setObject:@"SUCCESS" forKey:@"resFlag"];
+        [totalResultDic setObject:[[NSNumber alloc] initWithInt:0] forKey:@"resStatus"];
+        [totalResultDic setObject:[[NSNumber alloc] initWithDouble:(sumSpeed / sucessCount)]
+                           forKey:@"downloadSpeed"];
+        [totalResultDic setObject:[[NSNumber alloc] initWithDouble:((sumLoadTime * 1000) / sucessCount)]
+                           forKey:@"openDuration"];
+        [totalResultDic setObject:[[NSNumber alloc] initWithDouble:((sumResponseTime * 1000) / sucessCount)]
+                           forKey:@"responseTime"];
+    }
+    else
+    {
+        [totalResultDic setObject:@"FAILED" forKey:@"completions"];
+        [totalResultDic setObject:@"FAILED" forKey:@"resFlag"];
+        [totalResultDic setObject:[[NSNumber alloc] initWithInt:-1] forKey:@"resStatus"];
+        [totalResultDic setObject:[[NSNumber alloc] initWithInt:-1] forKey:@"downloadSpeed"];
+        [totalResultDic setObject:[[NSNumber alloc] initWithInt:-1] forKey:@"openDuration"];
+        [totalResultDic setObject:[[NSNumber alloc] initWithInt:-1] forKey:@"responseTime"];
+    }
+    [totalResultDic setObject:detailResultArray forKey:@"urlTestResList"];
+
+    return totalResultDic;
 }
 
 - (id)initWithURL:(NSURL *)url
@@ -464,7 +547,7 @@ NSArray *_emptyArr;
     }
     @catch (NSException *e)
     {
-        SVError (@"genCollectorResultsDic error! %@", e);
+        SVError (@"genVideoTestResultsDic error! %@", e);
     }
 
     @try
