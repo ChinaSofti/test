@@ -378,34 +378,34 @@ NSArray *_emptyArr;
     // 4. webTestResults
     // 4.1 urlTestResList
 
-    NSMutableArray *urlTestResList = [NSMutableArray arrayWithCapacity:5];
+    //    NSMutableArray *urlTestResList = [NSMutableArray arrayWithCapacity:5];
+    //
+    //    NSMutableDictionary *urlTestResDic = [[NSMutableDictionary alloc] init];
+    //    [urlTestResDic setObject:@1124235 forKey:@"downloadSize"];
+    //    [urlTestResDic setObject:@-1.0 forKey:@"downSpeed"];
+    //    [urlTestResDic setObject:@0 forKey:@"iconId"];
+    //    [urlTestResDic setObject:@-1 forKey:@"loadingTime"];
+    //    [urlTestResDic setObject:@100 forKey:@"progress"];
+    //    [urlTestResDic setObject:@-1 forKey:@"responseTime"];
+    //    [urlTestResDic setObject:@true forKey:@"responseTimeFinish"];
+    //    [urlTestResDic setObject:@0 forKey:@"startLoadingUrlCount"];
+    //    [urlTestResDic setObject:@-1 forKey:@"status"];
+    //    [urlTestResDic setObject:@"http://www.yahoo.com" forKey:@"url"];
+    //    [urlTestResList addObject:urlTestResDic];
+    //
+    //    NSMutableDictionary *webTestResultsDic = [[NSMutableDictionary alloc] init];
+    //    [webTestResultsDic setObject:@"SUCCESS" forKey:@"completions"];
+    //    [webTestResultsDic setObject:@1931.1074 forKey:@"downloadSpeed"];
+    //    [webTestResultsDic setObject:@0 forKey:@"id"];
+    //    [webTestResultsDic setObject:@1537 forKey:@"openDuration"];
+    //    [webTestResultsDic setObject:@"SUCCESS" forKey:@"resFlag"];
+    //    [webTestResultsDic setObject:@798 forKey:@"responseTime"];
+    //    [webTestResultsDic setObject:@0 forKey:@"resStatus"];
+    //    [webTestResultsDic setObject:@0 forKey:@"sampleTime"];
+    //    [webTestResultsDic setObject:@0 forKey:@"testId"];
+    //    [webTestResultsDic setObject:urlTestResList forKey:@"urlTestResList"];
 
-    NSMutableDictionary *urlTestResDic = [[NSMutableDictionary alloc] init];
-    [urlTestResDic setObject:@1124235 forKey:@"downloadSize"];
-    [urlTestResDic setObject:@-1.0 forKey:@"downSpeed"];
-    [urlTestResDic setObject:@0 forKey:@"iconId"];
-    [urlTestResDic setObject:@-1 forKey:@"loadingTime"];
-    [urlTestResDic setObject:@100 forKey:@"progress"];
-    [urlTestResDic setObject:@-1 forKey:@"responseTime"];
-    [urlTestResDic setObject:@true forKey:@"responseTimeFinish"];
-    [urlTestResDic setObject:@0 forKey:@"startLoadingUrlCount"];
-    [urlTestResDic setObject:@-1 forKey:@"status"];
-    [urlTestResDic setObject:@"http://www.yahoo.com" forKey:@"url"];
-    [urlTestResList addObject:urlTestResDic];
-
-    NSMutableDictionary *webTestResultsDic = [[NSMutableDictionary alloc] init];
-    [webTestResultsDic setObject:@"SUCCESS" forKey:@"completions"];
-    [webTestResultsDic setObject:@1931.1074 forKey:@"downloadSpeed"];
-    [webTestResultsDic setObject:@0 forKey:@"id"];
-    [webTestResultsDic setObject:@1537 forKey:@"openDuration"];
-    [webTestResultsDic setObject:@"SUCCESS" forKey:@"resFlag"];
-    [webTestResultsDic setObject:@798 forKey:@"responseTime"];
-    [webTestResultsDic setObject:@0 forKey:@"resStatus"];
-    [webTestResultsDic setObject:@0 forKey:@"sampleTime"];
-    [webTestResultsDic setObject:@0 forKey:@"testId"];
-    [webTestResultsDic setObject:urlTestResList forKey:@"urlTestResList"];
-
-    return webTestResultsDic;
+    return nil;
 }
 
 - (id)initWithURL:(NSURL *)url
@@ -492,10 +492,10 @@ NSArray *_emptyArr;
 
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:dic options:nil error:nil];
 
-    if (dic)
-    {
-        return nil;
-    }
+    //    if (dic)
+    //    {
+    //        return nil;
+    //    }
     // 连接服务器发送请求
     [NSURLConnection
     sendAsynchronousRequest:request
