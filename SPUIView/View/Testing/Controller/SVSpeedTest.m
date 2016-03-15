@@ -388,7 +388,7 @@ void delayTest (int i)
         SVInfo (@"delayTest close socket, fd = %d, ret = %d", fd, ret);
     }
 
-    _testResult.delay = minDelay;
+    _testResult.delay = minDelay == DBL_MAX ? 0.0 : minDelay;
 
     free (buff);
     buff = NULL;
