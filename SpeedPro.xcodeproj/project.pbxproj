@@ -447,9 +447,9 @@
 				561A36DC1C896BAF00AC5F5E /* SVCurrentResultViewCtrl.h */,
 				561A36DD1C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m */,
 				561A36DE1C896BAF00AC5F5E /* SVDetailViewCtrl.h */,
+				561A36E11C896BAF00AC5F5E /* SVResultViewCtrl.m */,
 				561A36DF1C896BAF00AC5F5E /* SVDetailViewCtrl.m */,
 				561A36E01C896BAF00AC5F5E /* SVResultViewCtrl.h */,
-				561A36E11C896BAF00AC5F5E /* SVResultViewCtrl.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

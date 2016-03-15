@@ -103,8 +103,7 @@
     textField.rightView = rightView;
     //编辑状态下一直存在
     textField.rightViewMode = UITextFieldViewModeWhileEditing;
-    //自定义键盘
-    // textField.inputView
+
     //字体
     textField.font = [UIFont systemFontOfSize:font];
     //字体颜色

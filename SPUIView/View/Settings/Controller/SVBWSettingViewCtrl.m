@@ -121,11 +121,11 @@
     {
         UIButton *button = [[UIButton alloc] init];
         [bandwidthTypeButtonArray addObject:button];
-        button.frame = CGRectMake (50 + i * (50 + 20), 35, 60, 30);
+        button.frame = CGRectMake (FITTWIDTH (80) + i * (FITTWIDTH (50) + FITTWIDTH (20)), 35,
+                                   FITTWIDTH (60), FITTWIDTH (30));
         [button setTitle:titleArr[i] forState:UIControlStateNormal];
         // button普通状态下的字体颜色
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
         // button选中状态下的字体颜色
         [button
         setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
@@ -164,12 +164,19 @@
     [views addSubview:lableBWPackage];
 
     _textField = [[UITextField alloc] init];
+    //大小
     _textField.frame = CGRectMake (10, 90, kScreenW - 40, 20);
-    _textField.borderStyle = UITextBorderStyleRoundedRect;
+    //文字
     _textField.text = [probeInfo getBandwidth];
-    _textField.placeholder = @"Please input bandwidth";
     _textField.font = [UIFont systemFontOfSize:14];
+    //边框
+    _textField.borderStyle = UITextBorderStyleRoundedRect;
+    //灰色提示框
+    _textField.placeholder = @"Please input bandwidth";
+    //键盘类型
     _textField.keyboardType = UIKeyboardTypeNumberPad;
+
+    //添加
     [views addSubview:_textField];
 
     UILabel *M = [[UILabel alloc] initWithFrame:CGRectMake (FITWIDTH (280), 90, 20, 20)];
@@ -220,6 +227,14 @@
 
     [self.view addSubview:saveBtn];
 }
+//退出键盘的方法
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (![_textField isExclusiveTouch])
+    {
+        [_textField resignFirstResponder];
+    }
+}
 - (void)buttonClicked:(UIButton *)button
 {
     for (UIButton *bb in bandwidthTypeButtonArray)
@@ -235,7 +250,7 @@
         //跟随系统
         SVInfo (@"未知");
 
-        self.imageView.frame = CGRectMake (60, 110, 60, 30);
+        self.imageView.frame = CGRectMake (FITTWIDTH (90), 110, FITTWIDTH (60), FITTWIDTH (30));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
@@ -244,7 +259,7 @@
     case 1:
         //简体中文
         SVInfo (@"光纤");
-        self.imageView.frame = CGRectMake (130, 110, 60, 30);
+        self.imageView.frame = CGRectMake (FITTWIDTH (160), 110, FITTWIDTH (60), FITTWIDTH (30));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
@@ -253,7 +268,7 @@
     case 2:
         // English
         SVInfo (@"铜线");
-        self.imageView.frame = CGRectMake (200, 110, 60, 30);
+        self.imageView.frame = CGRectMake (FITTWIDTH (230), 110, FITTWIDTH (60), FITTWIDTH (30));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
