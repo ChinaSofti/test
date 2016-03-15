@@ -9,6 +9,7 @@
 #import "SVVideoTestContext.h"
 #import "SVVideoTestResult.h"
 #import "SVVideoTestSample.h"
+#import "UvMOS_Outer_Api.h"
 #import <Foundation/Foundation.h>
 
 @interface SVUvMOSCalculator : NSObject
@@ -32,6 +33,8 @@
  *  @param testSample SVVideoTestSample
  */
 - (void)calculateTestSample:(SVVideoTestSample *)testSample;
+
+- (void)calculateUvMOS:(UvMOSPlayStatus)status;
 
 - (void)unRegisteService;
 @end

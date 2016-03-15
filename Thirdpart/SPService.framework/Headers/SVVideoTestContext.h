@@ -27,7 +27,7 @@
 @property int videoSegementSize;
 // 视频分片时长
 @property long videoSegementDuration;
-// 视频分片码率
+// 视频分片码率 (单位：Kbps)
 @property float videoSegementBitrate;
 // 视频分片IP
 @property NSString *videoSegementIP;
