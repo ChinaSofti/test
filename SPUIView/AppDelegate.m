@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SVTabBarController.h"
 #import "SVToast.h"
+#import <SPService/SVProbeInfo.h>
 #import <SPService/SVSpeedTestServers.h>
 #import <SPService/SVTestContextGetter.h>
 
@@ -32,6 +33,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     SVRealReachability *realReachability = [SVRealReachability sharedInstance];
     [realReachability addDelegate:self];
     [realReachability startMonitorNetworkStatus];
+
 
     [NSThread sleepForTimeInterval:3.0];
     [_window makeKeyAndVisible];

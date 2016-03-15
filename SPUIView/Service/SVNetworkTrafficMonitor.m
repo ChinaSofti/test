@@ -36,7 +36,7 @@
         while (cursor != NULL)
         {
             name = [NSString stringWithFormat:@"%s", cursor->ifa_name];
-            NSLog (@"ifa_name %s == %@\n", cursor->ifa_name, name);
+            //            NSLog (@"ifa_name %s == %@\n", cursor->ifa_name, name);
             // names of interfaces: en0 is WiFi ,pdp_ip0 is WWAN
             if (cursor->ifa_addr->sa_family == AF_LINK)
             {

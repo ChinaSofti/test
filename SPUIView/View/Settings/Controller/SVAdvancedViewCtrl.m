@@ -138,12 +138,19 @@
     lableScreenSize.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableScreenSize];
 
+    NSString *l = @"60s";
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    int videoPlayTime = [probeInfo getVideoPlayTime];
+    if (videoPlayTime != 60)
+    {
+        l = [NSString stringWithFormat:@"%dmin", videoPlayTime / 60];
+    }
 
     //按钮
     //初始化
     _timebutton = [[UIButton alloc] initWithFrame:CGRectMake (161, 8, kScreenW - 202, 28)];
     //设置文字
-    [_timebutton setTitle:@"60s" forState:UIControlStateNormal];
+    [_timebutton setTitle:l forState:UIControlStateNormal];
 
     //文字颜色
     [_timebutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
