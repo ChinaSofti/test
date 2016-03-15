@@ -269,7 +269,6 @@ void download (int i)
         long len = write (fd, [request UTF8String], [request length] + 1);
         SVInfo (@"download write len = %ld", len);
 
-
         len = 0;
         while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING &&
                (len = read (fd, buff, DOWNLOAD_BUFFER_SIZE)) > 0)
@@ -360,7 +359,7 @@ void delayTest (int i)
     memset (buff, '\0', DELAY_BUFFER_SIZE);
 
     double minDelay = DBL_MAX;
-    for (int i = 0; i < DELAY_TEST_COUTN; i++)
+    for (int i = 0; _testStatus == TEST_TESTING && i < DELAY_TEST_COUTN; i++)
     {
         int fd = socket (AF_INET, SOCK_STREAM, 0);
 
@@ -393,7 +392,7 @@ void delayTest (int i)
     free (buff);
     buff = NULL;
 
-    SVInfo (@"delayTest over, minDelay = %fms", minDelay);
+    SVInfo (@"delayTest over, delay = %fms", _testResult.delay);
 }
 
 void sample (BOOL isUpload)
