@@ -127,83 +127,94 @@
 {
     @try
     {
-        if (testStatus == TEST_TESTING)
+        for (NSString *url in webTestContext.urlArray)
         {
-            for (NSString *url in webTestContext.urlArray)
+            if (testStatus != TEST_TESTING)
             {
-                // 初始化数据
-                totalTime = 0;
-                totalBytes = 0;
-                currentUrl = url;
-                currentBytes = [[SVNetworkTrafficMonitor getDataCounters] doubleValue];
-
-                // 初始化TestResult
-                currentResult = [self.webTestResultDic objectForKey:currentUrl];
-                if (!currentResult)
-                {
-                    currentResult = [[SVWebTestResult alloc] init];
-                    [currentResult setTestId:_testId];
-                    [currentResult setTestTime:_testId];
-                    [currentResult setTestUrl:currentUrl];
-                }
-
-                SVInfo (@"%@%@", @"Start Web Test！ Test Url:", currentUrl);
-
-                // 测试的url
-                NSURL *testUrl = [[NSURL alloc] initWithString:currentUrl];
-
-                // 通过NSURLConnection加载页面，用于计算各种指标
-                NSURLRequest *request = [[NSURLRequest alloc] initWithURL:testUrl
-                                                              cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                                          timeoutInterval:10];
-
-                // 记录测试开始时间
-                startTime = [[NSDate date] timeIntervalSince1970] * 1000;
-
-                // 加载页面，在WebView中显示
-                [_webView loadRequest:request];
-
-                // 启动计算下载速度的定时器，当前时间100ms后，每隔100ms执行一次
-                caclSeedTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:0.1]
-                                                         interval:0.1
-                                                           target:self
-                                                         selector:@selector (caclSpeed:)
-                                                         userInfo:@"Calculate Speed"
-                                                          repeats:YES];
-                [[NSRunLoop currentRunLoop] addTimer:caclSeedTimer forMode:NSDefaultRunLoopMode];
-
-                // 循环直到当前url测试结束，再执行下一个测试
-                while (!finished)
-                {
-                    NSDate *interval = [NSDate dateWithTimeIntervalSinceNow:0.01];
-                    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:interval];
-                }
-
-                // 每次测试结束等待1秒
-                [NSThread sleepForTimeInterval:3];
-
-                // 关闭定时器和url连接
-                [self closeTimer];
-
-                // 设置标志位
-                finished = NO;
+                return NO;
             }
 
-            // 移除UIWebView
-            dispatch_async (dispatch_get_main_queue (), ^{
-              [_webView removeFromSuperview];
-            });
+            // 初始化数据
+            totalTime = 0;
+            totalBytes = 0;
+            currentUrl = url;
+            currentBytes = [[SVNetworkTrafficMonitor getDataCounters] doubleValue];
 
-            // 设置测试状态
-            testStatus = TEST_FINISHED;
-            webTestContext.testStatus = testStatus;
+            // 初始化TestResult
+            currentResult = [self.webTestResultDic objectForKey:currentUrl];
+            if (!currentResult)
+            {
+                currentResult = [[SVWebTestResult alloc] init];
+                [currentResult setTestId:_testId];
+                [currentResult setTestTime:_testId];
+                [currentResult setTestUrl:currentUrl];
+            }
 
-            // 推送最后一次结果
-            [self pushLastResult];
+            SVInfo (@"%@%@", @"Start Web Test！ Test Url:", currentUrl);
 
-            // 持久化详细结果
-            [self persistSVDetailResultModel];
+            // 测试的url
+            NSURL *testUrl = [[NSURL alloc] initWithString:currentUrl];
+
+            // 通过NSURLConnection加载页面，用于计算各种指标
+            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:testUrl
+                                                          cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                      timeoutInterval:10];
+
+            // 记录测试开始时间
+            startTime = [[NSDate date] timeIntervalSince1970] * 1000;
+
+            // 加载页面，在WebView中显示
+            [_webView loadRequest:request];
+
+            // 启动计算下载速度的定时器，当前时间100ms后，每隔100ms执行一次
+            caclSeedTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:0.1]
+                                                     interval:0.1
+                                                       target:self
+                                                     selector:@selector (caclSpeed:)
+                                                     userInfo:@"Calculate Speed"
+                                                      repeats:YES];
+            [[NSRunLoop currentRunLoop] addTimer:caclSeedTimer forMode:NSDefaultRunLoopMode];
+
+            // 循环直到当前url测试结束，再执行下一个测试
+            while (!finished)
+            {
+                if (testStatus == TEST_FINISHED)
+                {
+                    // 关闭定时器和url连接
+                    [self closeTimer];
+
+                    // 设置标志位
+                    finished = NO;
+                    return NO;
+                }
+                NSDate *interval = [NSDate dateWithTimeIntervalSinceNow:0.01];
+                [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:interval];
+            }
+
+            // 每次测试结束等待1秒
+            [NSThread sleepForTimeInterval:3];
+
+            // 关闭定时器和url连接
+            [self closeTimer];
+
+            // 设置标志位
+            finished = NO;
         }
+
+        // 移除UIWebView
+        dispatch_async (dispatch_get_main_queue (), ^{
+          [_webView removeFromSuperview];
+        });
+
+        // 设置测试状态
+        testStatus = TEST_FINISHED;
+        webTestContext.testStatus = testStatus;
+
+        // 推送最后一次结果
+        [self pushLastResult];
+
+        // 持久化详细结果
+        [self persistSVDetailResultModel];
     }
     @catch (NSException *exception)
     {
@@ -250,6 +261,12 @@
         sumDownloadSpeed += [result downloadSpeed];
     }
     NSUInteger count = [self.webTestResultDic count];
+
+    // 最后一次结果需要重新初始化结果，避免覆盖原来数据
+    currentResult = [[SVWebTestResult alloc] init];
+    [currentResult setTestId:_testId];
+    [currentResult setTestTime:_testId];
+    [currentResult setTestUrl:currentUrl];
     if (count > 0)
     {
         [currentResult setResponseTime:(sumResponseTime / count)];
@@ -352,6 +369,7 @@ didFailNavigation:(WKNavigation *)navigation
 
     [currentResult setTotalTime:costTime];
     [currentResult setDownloadSpeed:avgSpeed];
+    [currentResult setDownloadSize:downloadSize];
 
     SVInfo (@"%@%@;%@%f;%@%f", @"Test Url:", currentUrl, @"Current Cost Time:", costTime,
             @"Current Dowanload Speed:", avgSpeed);
@@ -363,6 +381,9 @@ didFailNavigation:(WKNavigation *)navigation
     if (costTime >= 10)
     {
         finished = YES;
+
+        // 将结果放入字典
+        [self.webTestResultDic setValue:currentResult forKey:currentUrl];
     }
 }
 
@@ -422,6 +443,7 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
     //    SVInfo (@"SVProbeInfo ip:%@   isp:%@", probeInfo.ip, probeInfo.isp);
     [dictionary setObject:!probeInfo.ip ? @"" : probeInfo.ip forKey:@"ip"];
+    //    [dictionary setObject:!probeInfo.isp ? @"" : probeInfo.isp forKey:@"isp"];
     SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
     [dictionary setObject:!ipAndISP.isp ? @"" : ipAndISP.isp forKey:@"isp"];
     [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
@@ -448,6 +470,8 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
                       forKey:@"totalTime"];
         [currenDic setObject:[[NSNumber alloc] initWithDouble:result.downloadSpeed]
                       forKey:@"downloadSpeed"];
+        [currenDic setObject:[[NSNumber alloc] initWithDouble:result.downloadSize]
+                      forKey:@"downloadSize"];
         NSString *resultStr = [self dictionaryToJsonString:currenDic];
 
         [dictionary setObject:resultStr forKey:testUrl];

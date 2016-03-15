@@ -16,6 +16,9 @@
 // 测试的url
 @property NSString *testUrl;
 
+// 下载大小
+@property double downloadSize;
+
 // 响应时间
 @property double responseTime;
 
