@@ -159,6 +159,9 @@
 "You are using Wi-Fi" = "You are using Wi-Fi";
 "You are using the mobile phone network." = "You are using the mobile phone network.";
 
+// 上传结果告警
+"Upload the test result failed, continue?" = "Upload the test result failed, continue?";
+
 
 //上传日志
 "Upload Logs" = "Upload Logs";

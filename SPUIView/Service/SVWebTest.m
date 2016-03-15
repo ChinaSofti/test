@@ -122,11 +122,48 @@
     }
 }
 
+// 根据归属地，获取默认的url
+- (void)getUrlArray
+{
+    NSArray *urlArray = webTestContext.urlArray;
+    if (urlArray != nil && [urlArray count] > 0)
+    {
+        return;
+    }
+
+    // 如果没有获取到url，使用默认的数据
+    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+    NSString *localIP = servers.clientIP;
+    SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:localIP];
+    if (ipAndISP)
+    {
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        [probeInfo setIp:ipAndISP.query];
+        NSString *countryCode = ipAndISP.countryCode;
+        if (countryCode && [countryCode isEqualToString:@"CN"])
+        {
+            urlArray = @[
+                @"https://www.taobao.com/",
+                @"http://m.hao123.com/?vit=h123&from=3w123",
+                @"http://m.jd.com/",
+                @"http://m.sohu.com/"
+            ];
+        }
+        else
+        {
+            urlArray =
+            @[@"http://www.yahoo.com", @"http://www.facebook.com", @"http://www.google.com"];
+        }
+    }
+    [webTestContext setUrlArray:urlArray];
+}
+
 // 开始测试
 - (BOOL)startTest
 {
     @try
     {
+        [self getUrlArray];
         for (NSString *url in webTestContext.urlArray)
         {
             if (testStatus != TEST_TESTING)

@@ -13,6 +13,12 @@
 #import <SPService/SVIPAndISPGetter.h>
 #import <SPService/SVProbeInfo.h>
 
+@interface SVResultPush ()
+
+@property (strong) SVResultPush *currPush;
+
+@end
+
 @implementation SVResultPush
 
 SVCurrentResultModel *_resultModel;
@@ -33,6 +39,9 @@ NSArray *_webResultArray;
 NSArray *_speedResultArray;
 
 NSArray *_emptyArr;
+
+NSMutableURLRequest *request;
+int failCount;
 
 - (void)queryResult
 {
@@ -488,9 +497,9 @@ NSArray *_emptyArr;
     }
     else
     {
-        [totalResultDic setObject:@"FAILED" forKey:@"completions"];
-        [totalResultDic setObject:@"FAILED" forKey:@"resFlag"];
-        [totalResultDic setObject:[[NSNumber alloc] initWithInt:-1] forKey:@"resStatus"];
+        [totalResultDic setObject:@"FAILURE" forKey:@"completions"];
+        [totalResultDic setObject:@"FAILURE" forKey:@"resFlag"];
+        [totalResultDic setObject:[[NSNumber alloc] initWithInt:0] forKey:@"resStatus"];
         [totalResultDic setObject:[[NSNumber alloc] initWithInt:-1] forKey:@"downloadSpeed"];
         [totalResultDic setObject:[[NSNumber alloc] initWithInt:-1] forKey:@"openDuration"];
         [totalResultDic setObject:[[NSNumber alloc] initWithInt:-1] forKey:@"responseTime"];
@@ -502,15 +511,15 @@ NSArray *_emptyArr;
 
 - (id)initWithURL:(NSURL *)url
 {
-    self = [super init];
-    if (!self)
+    _currPush = [super init];
+    if (!_currPush)
     {
         return nil;
     }
 
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url
-                                                                cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                                            timeoutInterval:10];
+    request = [[NSMutableURLRequest alloc] initWithURL:url
+                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                       timeoutInterval:10];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
@@ -525,7 +534,7 @@ NSArray *_emptyArr;
 
     @try
     {
-        collectorResultsDic = [self genCollectorResultsDic];
+        collectorResultsDic = [_currPush genCollectorResultsDic];
     }
     @catch (NSException *e)
     {
@@ -534,7 +543,7 @@ NSArray *_emptyArr;
 
     @try
     {
-        speedTestResultsDic = [self genSpeedTestResultsDic];
+        speedTestResultsDic = [_currPush genSpeedTestResultsDic];
     }
     @catch (NSException *e)
     {
@@ -543,7 +552,7 @@ NSArray *_emptyArr;
 
     @try
     {
-        videoTestResultsDic = [self genVideoTestResultsDic];
+        videoTestResultsDic = [_currPush genVideoTestResultsDic];
     }
     @catch (NSException *e)
     {
@@ -552,7 +561,7 @@ NSArray *_emptyArr;
 
     @try
     {
-        webTestResultsDic = [self genWebTestResultsDic];
+        webTestResultsDic = [_currPush genWebTestResultsDic];
     }
     @catch (NSException *e)
     {
@@ -580,7 +589,7 @@ NSArray *_emptyArr;
     }
 
 
-    SVInfo (@"json = %@", [self dictionaryToJsonString:dic]);
+    SVInfo (@"json = %@", [_currPush dictionaryToJsonString:dic]);
 
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
 
@@ -589,22 +598,79 @@ NSArray *_emptyArr;
     //        return nil;
     //    }
     // 连接服务器发送请求
+    failCount = 0;
+    [_currPush sendResultByRequest];
+
+    return _currPush;
+}
+
+// 发送保存数据的请求
+- (void)sendResultByRequest
+{
     [NSURLConnection
     sendAsynchronousRequest:request
                       queue:[[NSOperationQueue alloc] init]
           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 
-            if (connectionError)
+            // 发送失败时继续请求
+            if (connectionError && failCount < 3)
             {
                 SVError (@"result push error:%@", connectionError);
+                failCount++;
+                [_currPush sendResultByRequest];
+                return;
+            }
+
+            // 请求失败重试3次，然后弹出提示框
+            if (failCount >= 3)
+            {
+                //                dispatch_async (dispatch_get_main_queue (), ^{
+                //                  [_currPush showAlertView];
+                //                });
+                SVInfo (@"result push failed！");
                 return;
             }
 
             NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             SVInfo (@"result push success %@", result);
           }];
+}
 
-    return self;
+// 初始化弹出框并显示
+- (void)showAlertView
+{
+    UIAlertView *warningView =
+    [[UIAlertView alloc] initWithTitle:@""
+                               message:I18N (@"Upload the test result failed, continue?")
+                              delegate:_currPush
+                     cancelButtonTitle:I18N (@"Cancel")
+                     otherButtonTitles:I18N (@"Continue"), nil];
+    [warningView setTag:100];
+
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:warningView];
+    [warningView show];
+}
+
+// 点击按钮时间
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    // 判断是否是需要处理的alertView
+    if (alertView.tag != 100)
+    {
+        return;
+    }
+
+    // 继续按钮的index是1
+    if (buttonIndex == 1)
+    {
+        // 点击继续时，将failCount重置，然后继续发送请求
+        failCount = 0;
+        [_currPush sendResultByRequest];
+
+        // 让alertView消失
+        [alertView dismissWithClickedButtonIndex:0 animated:NO];
+    }
 }
 
 - (NSNumber *)string2num:(NSString *)str

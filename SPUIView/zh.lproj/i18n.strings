@@ -155,6 +155,9 @@
 "You are using Wi-Fi" = "您正在使用wifi";
 "You are using the mobile phone network." = "您正在使用手机移动网络";
 
+// 上传结果告警
+"Upload the test result failed, continue?" = "上传测试结果失败,是否继续?";
+
 
 //上传日志
 "Upload Logs"="上传日志";

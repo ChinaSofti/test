@@ -7,9 +7,10 @@
 //
 
 #import "SVCurrentResultModel.h"
+#import "SVWarningView.h"
 #import <Foundation/Foundation.h>
 
-@interface SVResultPush : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+@interface SVResultPush : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate, UIAlertViewDelegate>
 
 - (id)initWithURLNSString:(NSString *)urlString testId:(NSNumber *)testId;
 
