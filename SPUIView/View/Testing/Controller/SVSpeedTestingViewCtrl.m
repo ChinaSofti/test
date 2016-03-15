@@ -307,18 +307,13 @@ double _preSpeed = 0.0;
           [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.downloadSpeed]];
           [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.uploadSpeed]];
 
-          double speed = testResult.isUpload || testResult.isSummeryResult ? testResult.uploadSpeed :
-                                                                             testResult.downloadSpeed;
-          //仪表盘指标
-          UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
+          double speed = testResult.isUpload ? testResult.uploadSpeed : testResult.downloadSpeed;
 
-          if (!testResult.isSecResult && _preSpeed > 0)
+          if (!testResult.isSecResult)
           {
-              speed = _preSpeed + [self getRandomNumber:-200 to:200] * 1.0 / 1000;
+              speed = _preSpeed + [self getRandomNumber:-_preSpeed to:_preSpeed] * 1.0 / 100;
           }
 
-          [bar setBarValue:speed];
-          [_headerView.uvMosBarView addSubview:bar];
           [_speedtestingView updateUvMOS3:speed];
           [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
 

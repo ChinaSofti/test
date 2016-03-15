@@ -166,7 +166,7 @@ double _beginTime;
         // 结果入库
         [self persistSVDetailResultModel];
 
-        usleep (2000000);
+        sleep (2);
         _testContext.testStatus = TEST_FINISHED;
         _internalTestStatus = TEST_FINISHED;
 
@@ -175,7 +175,6 @@ double _beginTime;
 
     return TRUE;
 }
-
 
 - (BOOL)startDownloadTest
 {
