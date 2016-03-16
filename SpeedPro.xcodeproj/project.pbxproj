@@ -94,6 +94,10 @@
 		56EC8C971C4F467000EBDA6C /* tabbar_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C901C4F467000EBDA6C /* tabbar_test.png */; };
 		56EC8C981C4F467000EBDA6C /* tabbar_test_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C911C4F467000EBDA6C /* tabbar_test_selected.png */; };
 		56F523E41C4DCF7F00E6472B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F523E31C4DCF7F00E6472B /* main.m */; };
+		5B0E3FCE1C9803FC00F249B7 /* starting_window640.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B0E3FCB1C9803FC00F249B7 /* starting_window640.png */; };
+		5B0E3FCF1C9803FC00F249B7 /* starting_window750.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B0E3FCC1C9803FC00F249B7 /* starting_window750.png */; };
+		5B0E3FD01C9803FC00F249B7 /* starting_window1242.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B0E3FCD1C9803FC00F249B7 /* starting_window1242.png */; };
+		5B2FA8F11C984C9E0018D699 /* SVWarningView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FA8F01C984C9E0018D699 /* SVWarningView.m */; };
 		5B80D3921C91742700FF61DE /* SVNetworkTrafficMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B80D3911C91742700FF61DE /* SVNetworkTrafficMonitor.m */; };
 		5B85C06A1C9025E000CA8A1E /* SVWebTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0661C9025E000CA8A1E /* SVWebTest.m */; };
 		5B85C06B1C9025E000CA8A1E /* SVWebTestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0681C9025E000CA8A1E /* SVWebTestResult.m */; };
@@ -276,6 +280,11 @@
 		56EC8C911C4F467000EBDA6C /* tabbar_test_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_test_selected.png; sourceTree = "<group>"; };
 		56F523DF1C4DCF7F00E6472B /* SpeedPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F523E31C4DCF7F00E6472B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5B0E3FCB1C9803FC00F249B7 /* starting_window640.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starting_window640.png; sourceTree = "<group>"; };
+		5B0E3FCC1C9803FC00F249B7 /* starting_window750.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starting_window750.png; sourceTree = "<group>"; };
+		5B0E3FCD1C9803FC00F249B7 /* starting_window1242.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starting_window1242.png; sourceTree = "<group>"; };
+		5B2FA8EF1C984C9E0018D699 /* SVWarningView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWarningView.h; sourceTree = "<group>"; };
+		5B2FA8F01C984C9E0018D699 /* SVWarningView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWarningView.m; sourceTree = "<group>"; };
 		5B80D3901C91742700FF61DE /* SVNetworkTrafficMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVNetworkTrafficMonitor.h; sourceTree = "<group>"; };
 		5B80D3911C91742700FF61DE /* SVNetworkTrafficMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVNetworkTrafficMonitor.m; sourceTree = "<group>"; };
 		5B85C0651C9025E000CA8A1E /* SVWebTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebTest.h; sourceTree = "<group>"; };
@@ -370,6 +379,8 @@
 				561A36B81C89693F00AC5F5E /* SVUploadFile.m */,
 				F69C9C961C95332B00D89B87 /* SVResultPush.h */,
 				F69C9C971C95332B00D89B87 /* SVResultPush.m */,
+				5B2FA8EF1C984C9E0018D699 /* SVWarningView.h */,
+				5B2FA8F01C984C9E0018D699 /* SVWarningView.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -489,6 +500,9 @@
 		565DFAD61C515BB10024FF45 /* LaunchImage */ = {
 			isa = PBXGroup;
 			children = (
+				5B0E3FCB1C9803FC00F249B7 /* starting_window640.png */,
+				5B0E3FCC1C9803FC00F249B7 /* starting_window750.png */,
+				5B0E3FCD1C9803FC00F249B7 /* starting_window1242.png */,
 				B72A1D0D1C7192B600C3141A /* speed_pro.png */,
 			);
 			path = LaunchImage;
@@ -894,6 +908,7 @@
 				56EC8C951C4F467000EBDA6C /* tabbar_settings.png in Resources */,
 				4DD006051C609EDB007D4D2F /* ic_video_normal.png in Resources */,
 				568E033F1C78135D00A7CD72 /* rt_detail_title_web_img.png in Resources */,
+				5B0E3FCF1C9803FC00F249B7 /* starting_window750.png in Resources */,
 				565DFAF11C515BB10024FF45 /* ic_web_label.png in Resources */,
 				4DD006071C609EDB007D4D2F /* ic_web_normal.png in Resources */,
 				568E033C1C78135D00A7CD72 /* rt_detail_title_collector_img.png in Resources */,
@@ -902,11 +917,13 @@
 				565DFAEE1C515BB10024FF45 /* ic_video_normal.png in Resources */,
 				4DD006031C609EDB007D4D2F /* ic_start_time.png in Resources */,
 				568E033D1C78135D00A7CD72 /* rt_detail_title_ftp_img.png in Resources */,
+				5B0E3FD01C9803FC00F249B7 /* starting_window1242.png in Resources */,
 				563200561C7223560076A0FF /* homeindicator.png in Resources */,
 				4DD005FB1C609EDB007D4D2F /* ic_network_type.png in Resources */,
 				4DD006041C609EDB007D4D2F /* ic_start_time_normal.png in Resources */,
 				4DD005FA1C609EDB007D4D2F /* ic_clear.png in Resources */,
 				4DD005FC1C609EDB007D4D2F /* ic_network_type_mobile.png in Resources */,
+				5B0E3FCE1C9803FC00F249B7 /* starting_window640.png in Resources */,
 				56AA74771C7C36C500BA7E51 /* clock_middle.png in Resources */,
 				565DFAE91C515BB10024FF45 /* ic_speed_label.png in Resources */,
 				565DFAEC1C515BB10024FF45 /* ic_video_check.png in Resources */,
@@ -949,6 +966,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B2FA8F11C984C9E0018D699 /* SVWarningView.m in Sources */,
 				56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */,
 				561A36E21C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m in Sources */,
 				F61921CB1C92680F00C680E5 /* SVSpeedTestContext.m in Sources */,
@@ -1134,6 +1152,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/SPUIView/ThirdPart",
 					"$(PROJECT_DIR)/Thirdpart",
+					"$(PROJECT_DIR)/SPUIView/Resoruces/LaunchImage/工作",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SPUIView/CTCommonDefine.pch";
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1162,6 +1181,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/SPUIView/ThirdPart",
 					"$(PROJECT_DIR)/Thirdpart",
+					"$(PROJECT_DIR)/SPUIView/Resoruces/LaunchImage/工作",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SPUIView/CTCommonDefine.pch";
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

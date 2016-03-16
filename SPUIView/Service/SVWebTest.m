@@ -218,7 +218,7 @@
                 if (testStatus == TEST_FINISHED)
                 {
                     // 关闭定时器和url连接
-                    [self closeTimer];
+                    [self closeTimerAndConn];
 
                     // 设置标志位
                     finished = NO;
@@ -232,7 +232,7 @@
             [NSThread sleepForTimeInterval:3];
 
             // 关闭定时器和url连接
-            [self closeTimer];
+            [self closeTimerAndConn];
 
             // 设置标志位
             finished = NO;
@@ -274,7 +274,7 @@
         }
 
         // 关闭定时器和url连接
-        [self closeTimer];
+        [self closeTimerAndConn];
     }
     @catch (NSException *exception)
     {
@@ -291,25 +291,30 @@
     double sumResponseTime = 0.0;
     double sumTotalTime = 0.0;
     double sumDownloadSpeed = 0.0;
+    int count = 0;
     for (SVWebTestResult *result in [self.webTestResultDic allValues])
     {
+        // 超时的数据不加入计算
+        if ([result totalTime] >= 10)
+        {
+            continue;
+        }
         sumResponseTime += [result responseTime];
         sumTotalTime += [result totalTime];
         sumDownloadSpeed += [result downloadSpeed];
+        count++;
     }
-    NSUInteger count = [self.webTestResultDic count];
 
     // 最后一次结果需要重新初始化结果，避免覆盖原来数据
     currentResult = [[SVWebTestResult alloc] init];
     [currentResult setTestId:_testId];
     [currentResult setTestTime:_testId];
     [currentResult setTestUrl:currentUrl];
-    if (count > 0)
-    {
-        [currentResult setResponseTime:(sumResponseTime / count)];
-        [currentResult setTotalTime:(sumTotalTime / count)];
-        [currentResult setDownloadSpeed:(sumDownloadSpeed / count)];
-    }
+
+    // 如果都失败则值设为-1
+    [currentResult setResponseTime:count > 0 ? (sumResponseTime / count) : -1];
+    [currentResult setTotalTime:count > 0 ? (sumTotalTime / count) : -1];
+    [currentResult setDownloadSpeed:count > 0 ? (sumDownloadSpeed / count) : -1];
 
     // 将平均后的结果推送给前台
     [_testDelegate updateTestResultDelegate:self.webTestContext testResult:currentResult];
@@ -439,13 +444,19 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 }
 
 // 关闭定时器和url连接
-- (void)closeTimer
+- (void)closeTimerAndConn
 {
     // 关闭定时器
     if (caclSeedTimer)
     {
         [caclSeedTimer invalidate];
         caclSeedTimer = nil;
+    }
+
+    // 关闭连接
+    if (_webView)
+    {
+        [_webView stopLoading];
     }
 }
 

@@ -226,7 +226,6 @@
     {
         self.loadTime.text = [NSString stringWithFormat:@"%.2fs", totalTime];
     }
-
     double bandWidth = [_resultModel.bandwidth doubleValue];
     if (bandWidth == -1.0f)
     {

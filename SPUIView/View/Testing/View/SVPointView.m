@@ -133,9 +133,9 @@
         imageView13.center =
         CGPointMake (_panelView3.frame.size.width / 2, _panelView3.frame.size.height / 2);
         [_panelView3 addSubview:imageView13];
-        
+
         _grayView3 = [[SVPointView alloc]
-                      initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
+        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
         UIImageView *imageView33 = [[UIImageView alloc] initWithFrame:CGRectZero];
         imageView33.size = CGSizeMake (280, 280);
         imageView33.image = [UIImage imageNamed:@"clock_pointer_gray"];
@@ -240,11 +240,11 @@
     }
 }
 
-//speed
+// speed
 //开始转动方法
 - (void)start3
 {
-    
+
     CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector (rotate3)];
     [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
@@ -252,46 +252,47 @@
 //转动角度,速度控制
 - (void)rotate3
 {
-    if (_num < 3)//0-8
+    if (_num < 3) // 0-8
     {
         self.pointView.transform = CGAffineTransformMakeRotation (self.num * 0.52);
     }
-    if (_num >=3 && _num < 5)//0-13
+    if (_num >= 3 && _num < 5) // 0-13
     {
-        self.pointView.transform = CGAffineTransformMakeRotation ( 0.26*(self.num - 3)+ 1.56);
+        self.pointView.transform = CGAffineTransformMakeRotation (0.26 * (self.num - 3) + 1.56);
     }
-    if (_num >= 5 && _num < 10)//0-25
+    if (_num >= 5 && _num < 10) // 0-25
     {
-        self.pointView.transform = CGAffineTransformMakeRotation ( 0.104*(self.num -5) + 2.08);
+        self.pointView.transform = CGAffineTransformMakeRotation (0.104 * (self.num - 5) + 2.08);
     }
-    if (_num >= 10 && _num < 20)//0-40
+    if (_num >= 10 && _num < 20) // 0-40
     {
-        self.pointView.transform = CGAffineTransformMakeRotation ( 0.052*(self.num - 10)+ 2.6);
+        self.pointView.transform = CGAffineTransformMakeRotation (0.052 * (self.num - 10) + 2.6);
     }
-    if (_num >= 20 && _num < 50)//0-80
+    if (_num >= 20 && _num < 50) // 0-80
     {
-        self.pointView.transform = CGAffineTransformMakeRotation (0.017*(self.num - 20)+ 3.12);
+        self.pointView.transform = CGAffineTransformMakeRotation (0.017 * (self.num - 20) + 3.12);
     }
-    if (_num >= 50 && _num < 100)//0-100
+    if (_num >= 50 && _num < 100) // 0-100
     {
-        self.pointView.transform = CGAffineTransformMakeRotation (0.0108*(self.num - 50)+ 3.62);
+        self.pointView.transform = CGAffineTransformMakeRotation (0.0108 * (self.num - 50) + 3.62);
     }
 
-    //0
+    // 0
     //    self.pointView.transform = CGAffineTransformMakeRotation (0);
-    //1
+    // 1
     //    self.pointView.transform = CGAffineTransformMakeRotation (0.52);
-    //3
+    // 3
     //    self.pointView.transform = CGAffineTransformMakeRotation (1.56);
     // 5
-    //    self.pointView.transform = CGAffineTransformMakeRotation (2.08);   (l5-l3)/(5-3) *(self -3) + M= 0.26*(sel -3)+M//3-5
-    //10
+    //    self.pointView.transform = CGAffineTransformMakeRotation (2.08);   (l5-l3)/(5-3) *(self
+    //    -3) + M= 0.26*(sel -3)+M//3-5
+    // 10
     //    self.pointView.transform = CGAffineTransformMakeRotation (2.6);
-    //20
+    // 20
     //    self.pointView.transform = CGAffineTransformMakeRotation (3.12);
-    //50
+    // 50
     //    self.pointView.transform = CGAffineTransformMakeRotation (3.62);
-    //100
+    // 100
     //    self.pointView.transform = CGAffineTransformMakeRotation (4.16);
 }
 
@@ -300,25 +301,25 @@
     _num = -1;
     if (uvMOS != _num)
     {
-        if (uvMOS < 5)//0-8
+        if (uvMOS < 5) // 0-8
         {
             self.grayView3.transform = CGAffineTransformMakeRotation (0);
         }
-        if (uvMOS >= 5 && uvMOS < 10)//0-25
+        if (uvMOS >= 5 && uvMOS < 10) // 0-25
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation ( 0.104*(uvMOS -5));
+            self.grayView3.transform = CGAffineTransformMakeRotation (0.104 * (uvMOS - 5));
         }
-        if (uvMOS >= 10 && uvMOS < 20)//0-40
+        if (uvMOS >= 10 && uvMOS < 20) // 0-40
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation ( 0.052*(uvMOS - 10)+0.52);
+            self.grayView3.transform = CGAffineTransformMakeRotation (0.052 * (uvMOS - 10) + 0.52);
         }
-        if (uvMOS >= 20 && uvMOS < 50)//0-80
+        if (uvMOS >= 20 && uvMOS < 50) // 0-80
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation (0.017*(uvMOS - 20) +0.52*2);
+            self.grayView3.transform = CGAffineTransformMakeRotation (0.017 * (uvMOS - 20) + 0.52 * 2);
         }
-        if (uvMOS >= 50 && uvMOS < 100)//0-100
+        if (uvMOS >= 50 && uvMOS < 100) // 0-100
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation (0.0108*(uvMOS - 50) +0.52 *3);
+            self.grayView3.transform = CGAffineTransformMakeRotation (0.0108 * (uvMOS - 50) + 0.52 * 3);
         }
         _num = uvMOS;
         _label23.text = [NSString stringWithFormat:@"%.2f", _num];

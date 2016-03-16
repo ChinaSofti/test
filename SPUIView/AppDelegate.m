@@ -34,12 +34,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [realReachability addDelegate:self];
     [realReachability startMonitorNetworkStatus];
 
-
-    [NSThread sleepForTimeInterval:3.0];
-    [_window makeKeyAndVisible];
-
     return YES;
 }
+
 - (void)networkStatusChange:(SVRealReachabilityStatus)status
 {
     NSString *wifiTitle = I18N (@"WIFI");

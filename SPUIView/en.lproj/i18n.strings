@@ -86,6 +86,7 @@
 "Response Time"="Response Time";
 "Load duration"="Load duration";
 "Download"="Download";
+"Timeout"="Timeout";
 
 
 //宽带测试

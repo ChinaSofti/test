@@ -157,7 +157,7 @@
     //获取整个屏幕的window
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //创建一个覆盖garyView
-    _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
+    _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 200, kScreenW, 200)];
     //设置透明度
     _gyview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     //添加

@@ -85,6 +85,7 @@
 "Response Time"="响应时间";
 "Load duration"="完全加载时间";
 "Download"="下载速率";
+"Timeout" = "超时";
 
 
 //宽带测试

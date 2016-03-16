@@ -24,6 +24,13 @@
 
 @implementation SVTabBarController
 
+{
+    UIImageView *imageView;
+    UIProgressView *progressView;
+    NSTimer *progressTimer;
+    float progressVlaue;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -43,7 +50,62 @@
     [self addChildViewController:settingsCtrl imageName:@"tabbar_settings" title:title3];
     //添加通知的监听
     [self addNotificataion];
+
+    // 设置启动图片
+    UIImage *image = [UIImage imageNamed:@"starting_window1242.png"];
+    imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.frame = [UIScreen mainScreen].bounds;
+    [self.view addSubview:imageView];
+
+    // 设置进度条
+    CGRect rect = [UIScreen mainScreen].bounds;
+    progressView = [[UIProgressView alloc]
+    initWithFrame:CGRectMake (rect.size.width * 0.1, rect.size.height / 2, rect.size.width * 0.8, 10)];
+
+    [progressView setProgressViewStyle:UIProgressViewStyleDefault];
+    [self.view addSubview:progressView];
+
+    // 启动计算下载速度的定时器，当前时间100ms后，每隔100ms执行一次
+    progressVlaue = 0.0;
+    progressTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:0.01]
+                                             interval:0.5
+                                               target:self
+                                             selector:@selector (changeProgress:)
+                                             userInfo:@"Calculate Speed"
+                                              repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:progressTimer forMode:NSDefaultRunLoopMode];
 }
+
+- (void)changeProgress:(NSTimer *)timer
+{
+    if (progressVlaue == 1)
+    {
+        [progressTimer invalidate];
+        progressTimer = nil;
+
+        [NSThread sleepForTimeInterval:1];
+        [progressView removeFromSuperview];
+        [imageView removeFromSuperview];
+
+        [self setShadowView];
+
+        return;
+    }
+
+    SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
+    if (![contextGetter isInitSuccess] && progressVlaue <= 0.8)
+    {
+        progressVlaue += 0.1;
+        [progressView setProgress:progressVlaue animated:YES];
+    }
+    else
+    {
+        progressVlaue = 1;
+        [progressView setProgress:progressVlaue animated:YES];
+    }
+}
+
+
 - (void)addNotificataion
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -112,7 +174,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self setShadowView];
 }
 /**
  *  创建阴影背景

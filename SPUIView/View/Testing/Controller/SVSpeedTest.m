@@ -48,7 +48,7 @@ long _downloadSize = 0;
 
 long _uploadSize = 0;
 
-double _speedsAll[100];
+double _speedsAll[SAMPLE_COUNT];
 
 SVSpeedTestResult *_testResult;
 

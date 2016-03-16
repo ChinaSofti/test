@@ -360,24 +360,33 @@
                                                        reuseIdentifier:@"urlCell"
                                                                testUrl:url]];
 
+        // 判断加载时间是否超过10S，如果超过则显示超时
+        NSString *loadTime = [currentResultJson valueForKey:@"totalTime"];
+        NSString *responseTimeValue = I18N (@"Timeout");
+        NSString *loadTimeVlaue = I18N (@"Timeout");
+        NSString *downloadSpeedVlaue = I18N (@"Timeout");
+        if ([loadTime doubleValue] < 10)
+        {
+            responseTimeValue =
+            [self formatFloatValue:[currentResultJson valueForKey:@"responseTime"] unit:@"s"];
+            loadTimeVlaue =
+            [self formatFloatValue:[currentResultJson valueForKey:@"totalTime"] unit:@"s"];
+            downloadSpeedVlaue =
+            [self formatFloatValue:[currentResultJson valueForKey:@"downloadSpeed"] unit:@"Kbps"];
+        }
         // 生成各个指标对应的UIView
-        [_soucreMA
-        addObject:[SVToolModels modelWithDict:@{
-            @"key": I18N (@"Response Time"),
-            @"value":
-            [self formatFloatValue:[currentResultJson valueForKey:@"responseTime"] unit:@"s"]
-        }]];
-        [_soucreMA
-        addObject:[SVToolModels modelWithDict:@{
-            @"key": I18N (@"Load duration"),
-            @"value": [self formatFloatValue:[currentResultJson valueForKey:@"totalTime"] unit:@"s"]
-        }]];
-        [_soucreMA
-        addObject:[SVToolModels modelWithDict:@{
-            @"key": I18N (@"Download"),
-            @"value":
-            [self formatFloatValue:[currentResultJson valueForKey:@"downloadSpeed"] unit:@"Kbps"]
-        }]];
+        [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                       @"key": I18N (@"Response Time"),
+                       @"value": responseTimeValue
+                   }]];
+        [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                       @"key": I18N (@"Load duration"),
+                       @"value": loadTimeVlaue
+                   }]];
+        [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                       @"key": I18N (@"Download"),
+                       @"value": downloadSpeedVlaue
+                   }]];
     }
 }
 
