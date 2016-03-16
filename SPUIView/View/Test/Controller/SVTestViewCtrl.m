@@ -131,10 +131,10 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"cell";
-
     SVToolCell *cell =
     [[SVToolCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-
+    //取消cell的点击效果
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     [cell cellViewModel:_soucreMA[indexPath.section] section:indexPath.section];
     return cell;

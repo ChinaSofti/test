@@ -196,8 +196,8 @@
     //编辑界面
     //一.创建一个 tableView
     // 1.style:Grouped化合的,分组的
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake (170, 163, kScreenW - 202, 240)
-                                              style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake (170, 163, kScreenW - 190, 200)
+                                              style:UITableViewStylePlain];
     // 2.设置背景颜色
     _tableView.backgroundColor = [UIColor redColor];
     _tableView.backgroundColor =
@@ -209,8 +209,6 @@
     _tableView.separatorColor = [UIColor colorWithWhite:0.8 alpha:0.3];
     // 6.设置tableView不可上下拖动
     _tableView.bounces = NO;
-    //    self.edgesForExtendedLayout = UIRectEdgeNone;
-    //    self.automaticallyAdjustsScrollViewInsets = NO;
     //三.添加
     // 7.把tableView添加到 view
     [self.view addSubview:_tableView];

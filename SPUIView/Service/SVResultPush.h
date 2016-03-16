@@ -7,7 +7,7 @@
 //
 
 #import "SVCurrentResultModel.h"
-#import "SVWarningView.h"
+//#import "SVWarningView.h"
 #import <Foundation/Foundation.h>
 
 @interface SVResultPush : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate, UIAlertViewDelegate>
