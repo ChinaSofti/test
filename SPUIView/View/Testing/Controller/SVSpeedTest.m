@@ -7,6 +7,7 @@
 //
 
 #import "SVResultPush.h"
+#import "SVSpeedServerDelay.h"
 #import "SVSpeedTest.h"
 #import "SVSpeedTestInfo.h"
 #import <SPCommon/SVDBManager.h>
@@ -97,10 +98,55 @@ double _beginTime;
     _downloadSize = 0;
     _uploadSize = 0;
 
+    double starttime = [[NSDate date] timeIntervalSince1970] * 1000;
     // 获取带宽测试地址
+    [self getSpeedTestUrl];
+    NSLog (@"################%.2f############", [[NSDate date] timeIntervalSince1970] * 1000 - starttime);
+
+    return TRUE;
+}
+
+// 获取带宽测试的测试地址
+- (void)getSpeedTestUrl
+{
+    // 获取所有的带宽测试服务器
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    SVSpeedTestServer *server = [servers getDefaultServer];
-    NSURL *url = [NSURL URLWithString:server.serverURL];
+    NSArray *serverArray = [servers getAllServer];
+
+    // 遍历前五个服务器，得到时延最小的一个
+    NSMutableArray *serverUrlArray = [[NSMutableArray alloc] init];
+    long size = [serverArray count] < 5 ? [serverArray count] : 5;
+    for (int i = 0; i < size; i++)
+    {
+        SVSpeedTestServer *server = serverArray[i];
+        NSURL *url = [NSURL URLWithString:server.serverURL];
+
+        // 在线程中计算时延
+        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+          SVSpeedServerDelay *serverDelay = [[SVSpeedServerDelay alloc] init];
+          [serverDelay getserverDelay:url];
+
+          // 等待时延测试结束
+          while (!serverDelay.finished)
+          {
+              NSDate *interval = [NSDate dateWithTimeIntervalSinceNow:0.005];
+              [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:interval];
+          }
+          [serverUrlArray addObject:url];
+        });
+    }
+
+    // 需要等待五个服务器的时延都计算出来
+    while ([serverUrlArray count] == 0)
+    {
+        NSDate *interval = [NSDate dateWithTimeIntervalSinceNow:0.005];
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:interval];
+    }
+
+    // 初始化默认服务器地址
+    NSURL *url = serverUrlArray[0];
+
+    // 获取测试地址
     NSString *host = [url host];
     NSNumber *port = [url port];
 
@@ -115,13 +161,14 @@ double _beginTime;
     _testContext.delayUrl =
     [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", host, port,
                                                     @"/speedtest/latency.txt"]];
-
-    return TRUE;
 }
 
 // 开始测试
 - (BOOL)startTest
 {
+    // 设置屏幕不会休眠
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+
     _testResult.testId = _testId;
     _testResult.testTime = [[NSDate date] timeIntervalSince1970] * 1000;
 
@@ -172,6 +219,9 @@ double _beginTime;
 
         [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
     }
+
+    // 取消屏幕不会休眠的设置
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
 
     return TRUE;
 }
@@ -669,6 +719,9 @@ void sort (double *a, int n)
 {
     _testStatus = TEST_FINISHED;
     _internalTestStatus = TEST_FINISHED;
+
+    // 取消屏幕不会休眠的设置
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
 
     SVInfo (@"stop speed test!!!!");
 

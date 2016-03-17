@@ -134,9 +134,7 @@
 - (void)initContext
 {
     NSString *title5 = I18N (@"Loading...");
-    [_footerView.placeLabel setText:title5];
-    [_footerView.resolutionLabel setText:title5];
-    [_footerView.bitLabel setText:title5];
+    [_footerView.urlLabel setText:title5];
     [_headerView.bufferLabel setText:@"0"];
     [_headerView.speedLabel setText:@"0"];
     [_webtestingView updateUvMOS2:0];

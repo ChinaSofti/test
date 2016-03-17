@@ -88,12 +88,12 @@
         createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (425), FITWIDTH (150), FITWIDTH (20))
                     withFont:16
               withTitleColor:[UIColor blackColor]
-                   withTitle:@"北京市"];
+                   withTitle:@""];
         _Carrier = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (215), FITWIDTH (495), FITWIDTH (100), FITWIDTH (20))
                     withFont:10
               withTitleColor:[UIColor blackColor]
-                   withTitle:@"Beijing"];
+                   withTitle:@""];
         _ServerLocationNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (170), FITWIDTH (445), FITWIDTH (150), FITWIDTH (20))
                     withFont:12

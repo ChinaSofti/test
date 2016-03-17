@@ -139,9 +139,8 @@ double _preSpeed = 0.0;
 - (void)initContext
 {
     NSString *title5 = I18N (@"Loading...");
-    [_footerView.placeLabel setText:title5];
-    [_footerView.resolutionLabel setText:title5];
-    [_footerView.bitLabel setText:title5];
+    [_footerView.ServerLocation setText:title5];
+    [_footerView.Carrier setText:title5];
     [_headerView.bufferLabel setText:@"0"];
     [_headerView.speedLabel setText:@"0"];
     [_speedtestingView updateUvMOS3:0];

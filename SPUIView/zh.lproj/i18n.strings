@@ -52,7 +52,7 @@
 "Result List"="结果列表";
 "Type"="类型";
 "Time"="时间";
-"Load Time"="加载时间";
+"Load Time"="完全加载时间";
 "Bandwidth"="带宽";
 //删除 提示视图
 "Prompt"="提示";

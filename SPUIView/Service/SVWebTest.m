@@ -163,7 +163,13 @@
 {
     @try
     {
+        // 获取要测试的url
         [self getUrlArray];
+
+        // 设置屏幕不会休眠
+        [UIApplication sharedApplication].idleTimerDisabled = YES;
+
+        // 开始测试
         for (NSString *url in webTestContext.urlArray)
         {
             if (testStatus != TEST_TESTING)
@@ -275,6 +281,9 @@
 
         // 关闭定时器和url连接
         [self closeTimerAndConn];
+
+        // 取消屏幕不会休眠的设置
+        [UIApplication sharedApplication].idleTimerDisabled = NO;
     }
     @catch (NSException *exception)
     {
@@ -315,6 +324,9 @@
     [currentResult setResponseTime:count > 0 ? (sumResponseTime / count) : -1];
     [currentResult setTotalTime:count > 0 ? (sumTotalTime / count) : -1];
     [currentResult setDownloadSpeed:count > 0 ? (sumDownloadSpeed / count) : -1];
+
+    // 取消屏幕不会休眠的设置
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
 
     // 将平均后的结果推送给前台
     [_testDelegate updateTestResultDelegate:self.webTestContext testResult:currentResult];

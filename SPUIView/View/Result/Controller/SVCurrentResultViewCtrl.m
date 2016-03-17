@@ -431,7 +431,7 @@
         // 完全加载时间(单位)
         _loadLabelUnit = [[UILabel alloc]
         initWithFrame:CGRectMake (kViewR (_loadLabelValue), kViewY (_imgView2) + FITWIDTH (3),
-                                  FITWIDTH (30), FITWIDTH (20))];
+                                  FITWIDTH (20), FITWIDTH (20))];
         [_loadLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_loadLabelUnit setTextAlignment:NSTextAlignmentLeft];
         [_loadLabelUnit setTextColor:[UIColor orangeColor]];
@@ -451,7 +451,7 @@
         // 完全加载时间(标题)
         UILabel *loadLabel = [[UILabel alloc]
         initWithFrame:CGRectMake (kViewR (responseLabel) + FITWIDTH (5),
-                                  kViewY (_imgView2) + FITWIDTH (10), FITWIDTH (80), imgViewWAndH2)];
+                                  kViewY (_imgView2) + FITWIDTH (10), FITWIDTH (70), imgViewWAndH2)];
         [loadLabel setText:_title5];
         [loadLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [loadLabel setTextAlignment:NSTextAlignmentCenter];
@@ -462,8 +462,8 @@
 
         // 下载速率(值)
         _downloadLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_loadLabelUnit), kViewY (_imgView2) - FITWIDTH (10),
-                                  FITWIDTH (50), imgViewWAndH2)];
+        initWithFrame:CGRectMake (kViewR (_loadLabelUnit) + FITHEIGHT (5),
+                                  kViewY (_imgView2) - FITWIDTH (10), FITWIDTH (65), imgViewWAndH2)];
         [_downloadLabelValue setFont:[UIFont boldSystemFontOfSize:16]];
         [_downloadLabelValue setTextAlignment:NSTextAlignmentRight];
         [_downloadLabelValue setTextColor:[UIColor orangeColor]];
@@ -491,7 +491,7 @@
         // 下载速率(标题)
         UILabel *downloadLabel = [[UILabel alloc]
         initWithFrame:CGRectMake (kViewR (loadLabel) + FITHEIGHT (5),
-                                  kViewY (_imgView2) + FITWIDTH (10), FITWIDTH (70), imgViewWAndH2)];
+                                  kViewY (_imgView2) + FITWIDTH (10), FITWIDTH (90), imgViewWAndH2)];
         [downloadLabel setText:_title6];
         [downloadLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [downloadLabel setTextAlignment:NSTextAlignmentCenter];
