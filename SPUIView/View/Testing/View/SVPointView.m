@@ -109,7 +109,7 @@
 
 
         _label22 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (110), FITWIDTH (350), FITWIDTH (100), FITWIDTH (50))];
+        initWithFrame:CGRectMake (FITWIDTH (110), FITWIDTH (350), FITWIDTH (120), FITWIDTH (50))];
         _label22.text = @"0.00";
         _label22.textColor = RGBACOLOR (44, 166, 222, 1);
         _label22.font = [UIFont systemFontOfSize:36.0f];

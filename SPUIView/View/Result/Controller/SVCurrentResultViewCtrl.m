@@ -34,16 +34,24 @@
     UILabel *_uvMosLabelValue;
     UILabel *_firstBufferTimeLabelValue;
     UILabel *_cuttonTimesLabelValue;
+    UILabel *_firstBufferTimeLabelUnit;
 
     // 网页
     UILabel *_responseLabelValue;
     UILabel *_loadLabelValue;
     UILabel *_downloadLabelValue;
+    UILabel *_responseLabelUnit;
+    UILabel *_loadLabelUnit;
+    UILabel *_downloadLabelUnit;
+
 
     // 带宽
     UILabel *_dtDelayLabelValue;
     UILabel *_dtDownloadLabelValue;
     UILabel *_dtUploadLabelValue;
+    UILabel *_dtDelayLabelUnit;
+    UILabel *_dtDownloadLabelUnit;
+    UILabel *_dtUploadLabelUnit;
 
 
     NSString *_title1;
@@ -52,7 +60,6 @@
     NSString *_title4;
     NSString *_title5;
     NSString *_title6;
-    NSString *_timeoutTitle;
 
     NSString *_delayTitle;
     NSString *_downloadSpeedTitle;
@@ -72,13 +79,15 @@
         [_uvMosLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.uvMOS]];
     }
 
-    if (_resultModel.firstBufferTime == -1)
+    if (!_resultModel.firstBufferTime || _resultModel.firstBufferTime == -1)
     {
         [_firstBufferTimeLabelValue setText:_title1];
+        [_firstBufferTimeLabelUnit setText:@""];
     }
     else
     {
         [_firstBufferTimeLabelValue setText:[NSString stringWithFormat:@"%d", _resultModel.firstBufferTime]];
+        [_firstBufferTimeLabelUnit setText:@"ms"];
     }
 
     if (_resultModel.cuttonTimes == -1)
@@ -93,57 +102,69 @@
     // 刷新网页
     if (!_resultModel.responseTime || _resultModel.responseTime < 0)
     {
-        [_responseLabelValue setText:_timeoutTitle];
+        [_responseLabelValue setText:_title1];
+        [_responseLabelUnit setText:@""];
     }
     else
     {
         [_responseLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.responseTime]];
+        [_responseLabelUnit setText:@"s"];
     }
 
     if (!_resultModel.totalTime || _resultModel.totalTime < 0)
     {
-        [_loadLabelValue setText:_timeoutTitle];
+        [_loadLabelValue setText:_title1];
+        [_loadLabelUnit setText:@""];
     }
     else
     {
         [_loadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.totalTime]];
+        [_loadLabelUnit setText:@"s"];
     }
 
     if (!_resultModel.downloadSpeed || _resultModel.downloadSpeed < 0)
     {
-        [_downloadLabelValue setText:_timeoutTitle];
+        [_downloadLabelValue setText:_title1];
+        [_downloadLabelUnit setText:@""];
     }
     else
     {
         [_downloadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.downloadSpeed]];
+        [_downloadLabelUnit setText:@"kbps"];
     }
 
     // 刷新带宽
     if (!_resultModel.stDelay || _resultModel.stDelay <= 0)
     {
         [_dtDelayLabelValue setText:_title1];
+        [_dtDelayLabelUnit setText:@""];
     }
     else
     {
         [_dtDelayLabelValue setText:[NSString stringWithFormat:@"%.0f", _resultModel.stDelay]];
+        [_dtDelayLabelUnit setText:@"ms"];
     }
 
     if (!_resultModel.stDownloadSpeed || _resultModel.stDownloadSpeed <= 0)
     {
         [_dtDownloadLabelValue setText:_title1];
+        [_dtDownloadLabelUnit setText:@""];
     }
     else
     {
         [_dtDownloadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.stDownloadSpeed]];
+        [_dtDownloadLabelUnit setText:@"Mbps"];
     }
 
     if (!_resultModel.stUploadSpeed || _resultModel.stUploadSpeed <= 0)
     {
         [_dtUploadLabelValue setText:_title1];
+        [_dtUploadLabelUnit setText:@""];
     }
     else
     {
         [_dtUploadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.stUploadSpeed]];
+        [_dtUploadLabelUnit setText:@"Mbps"];
     }
 
     // 持久化测试结果
@@ -181,7 +202,6 @@
     _title4 = I18N (@"Response Time");
     _title5 = I18N (@"Load duration");
     _title6 = I18N (@"Download");
-    _timeoutTitle = I18N (@"Timeout");
 
     _delayTitle = I18N (@"Delay");
     _downloadSpeedTitle = I18N (@"Download speed");
@@ -245,10 +265,13 @@
                                                        kViewY (_imgView), imgViewWAndH, imgViewWAndH)];
         [_bgdBtn addSubview:_rightImgView];
 
-        // U-vMOS 值
+        // U-vMOS(值)
         _uvMosLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_imgView) + FITHEIGHT (15),
-                                  kViewY (_imgView) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH)];
+        initWithFrame:CGRectMake (kViewR (_imgView) + FITHEIGHT (10),
+                                  kViewY (_imgView) - FITWIDTH (10), FITWIDTH (70), imgViewWAndH)];
+        [_uvMosLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
+        [_uvMosLabelValue setTextAlignment:NSTextAlignmentCenter];
+        [_uvMosLabelValue setTextColor:[UIColor orangeColor]];
         if (!_resultModel.uvMOS || _resultModel.uvMOS == -1)
         {
             [_uvMosLabelValue setText:_title1];
@@ -258,61 +281,63 @@
             [_uvMosLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.uvMOS]];
         }
 
-        [_uvMosLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
-        [_uvMosLabelValue setTextAlignment:NSTextAlignmentCenter];
-        [_uvMosLabelValue setTextColor:[UIColor orangeColor]];
-
+        // U-vMOS(标题)
         UILabel *uvMosLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_imgView) + FITHEIGHT (15),
-                                  kViewY (_imgView) + FITWIDTH (10), FITWIDTH (50), imgViewWAndH)];
+        initWithFrame:CGRectMake (kViewR (_imgView) + FITHEIGHT (10),
+                                  kViewY (_imgView) + FITWIDTH (10), FITWIDTH (70), imgViewWAndH)];
         [uvMosLabel setText:@"U-vMOS"];
         [uvMosLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [uvMosLabel setTextAlignment:NSTextAlignmentCenter];
         [_bgdBtn addSubview:_uvMosLabelValue];
         [_bgdBtn addSubview:uvMosLabel];
 
-        // 首次缓冲时间
+        // 首次缓冲时间(值)
         _firstBufferTimeLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_uvMosLabelValue) + FITWIDTH (10),
+        initWithFrame:CGRectMake (kViewR (_uvMosLabelValue) + FITWIDTH (5),
                                   kViewY (_imgView) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH)];
-        if (!_resultModel.firstBufferTime || _resultModel.firstBufferTime == -1)
-        {
-            [_firstBufferTimeLabelValue setText:_title1];
-        }
-        else
-        {
-            [_firstBufferTimeLabelValue setText:[NSString stringWithFormat:@"%d", _resultModel.firstBufferTime]];
-        }
         [_firstBufferTimeLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_firstBufferTimeLabelValue setTextAlignment:NSTextAlignmentRight];
         [_firstBufferTimeLabelValue setTextColor:[UIColor orangeColor]];
 
-        UILabel *firstBufferTimeLabelUnit = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_uvMosLabelValue) + FITHEIGHT (57),
-                                  kViewY (_imgView) + FITWIDTH (3), FITWIDTH (20), FITWIDTH (20))];
-        [firstBufferTimeLabelUnit setText:@"ms"];
-        [firstBufferTimeLabelUnit setFont:[UIFont systemFontOfSize:10]];
-        [firstBufferTimeLabelUnit setTextAlignment:NSTextAlignmentCenter];
-        [firstBufferTimeLabelUnit setTextColor:[UIColor orangeColor]];
+        // 首次缓冲时间(单位)
+        _firstBufferTimeLabelUnit = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (_firstBufferTimeLabelValue),
+                                  kViewY (_imgView) + FITWIDTH (3), FITWIDTH (30), FITWIDTH (20))];
+        [_firstBufferTimeLabelUnit setFont:[UIFont systemFontOfSize:10]];
+        [_firstBufferTimeLabelUnit setTextAlignment:NSTextAlignmentLeft];
+        [_firstBufferTimeLabelUnit setTextColor:[UIColor orangeColor]];
 
-        UILabel *firstBufferTimeLabel =
-        [[UILabel alloc] initWithFrame:CGRectMake (kViewR (uvMosLabel), kViewY (_imgView) + FITWIDTH (10),
-                                                   FITWIDTH (100), imgViewWAndH)];
+        // 赋值
+        if (!_resultModel.firstBufferTime || _resultModel.firstBufferTime == -1)
+        {
+            [_firstBufferTimeLabelValue setText:_title1];
+            [_firstBufferTimeLabelUnit setText:@""];
+        }
+        else
+        {
+            [_firstBufferTimeLabelValue setText:[NSString stringWithFormat:@"%d", _resultModel.firstBufferTime]];
+            [_firstBufferTimeLabelUnit setText:@"ms"];
+        }
+
+        // 首次缓冲时间(标题)
+        UILabel *firstBufferTimeLabel = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (uvMosLabel) + FITWIDTH (5),
+                                  kViewY (_imgView) + FITWIDTH (10), FITWIDTH (80), imgViewWAndH)];
         [firstBufferTimeLabel setText:_title2];
         [firstBufferTimeLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [firstBufferTimeLabel setTextAlignment:NSTextAlignmentCenter];
 
         [_bgdBtn addSubview:_firstBufferTimeLabelValue];
-        if (_resultModel.firstBufferTime && _resultModel.firstBufferTime >= 0)
-        {
-            [_bgdBtn addSubview:firstBufferTimeLabelUnit];
-        }
+        [_bgdBtn addSubview:_firstBufferTimeLabelUnit];
         [_bgdBtn addSubview:firstBufferTimeLabel];
 
-        // 卡顿次数
+        // 卡顿次数(值)
         _cuttonTimesLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_firstBufferTimeLabelValue) + FITHEIGHT (45),
-                                  kViewY (_imgView) - FITWIDTH (10), FITWIDTH (60), imgViewWAndH)];
+        initWithFrame:CGRectMake (kViewR (_firstBufferTimeLabelUnit) + FITHEIGHT (5),
+                                  kViewY (_imgView) - FITWIDTH (10), FITWIDTH (70), imgViewWAndH)];
+        [_cuttonTimesLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
+        [_cuttonTimesLabelValue setTextAlignment:NSTextAlignmentCenter];
+        [_cuttonTimesLabelValue setTextColor:[UIColor orangeColor]];
         if (!_resultModel.cuttonTimes || _resultModel.cuttonTimes == -1)
         {
             [_cuttonTimesLabelValue setText:_title1];
@@ -321,17 +346,15 @@
         {
             [_cuttonTimesLabelValue setText:[NSString stringWithFormat:@"%d", _resultModel.cuttonTimes]];
         }
-        [_cuttonTimesLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
-        [_cuttonTimesLabelValue setTextAlignment:NSTextAlignmentCenter];
-        [_cuttonTimesLabelValue setTextColor:[UIColor orangeColor]];
 
+        // 卡顿次数(标题)
         UILabel *cuttonTimesLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (firstBufferTimeLabel) - FITHEIGHT (15),
-                                  kViewY (_imgView) + FITWIDTH (10), FITWIDTH (100), imgViewWAndH)];
+        initWithFrame:CGRectMake (kViewR (firstBufferTimeLabel) + FITWIDTH (5),
+                                  kViewY (_imgView) + FITWIDTH (10), FITWIDTH (70), imgViewWAndH)];
         [cuttonTimesLabel setText:_title3];
-
         [cuttonTimesLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [cuttonTimesLabel setTextAlignment:NSTextAlignmentCenter];
+
         [_bgdBtn addSubview:_cuttonTimesLabelValue];
         [_bgdBtn addSubview:cuttonTimesLabel];
     }
@@ -357,118 +380,124 @@
                                                        kViewY (_imgView2), imgViewWAndH2, imgViewWAndH2)];
         [_bgdBtn2 addSubview:_rightImgView2];
 
-        // 响应时间
+        // 响应时间(值)
         _responseLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_imgView2) + FITHEIGHT (6),
-                                  kViewY (_imgView2) - FITWIDTH (10), FITWIDTH (60), imgViewWAndH2)];
-        if (!_resultModel.responseTime || _resultModel.responseTime < 0)
-        {
-            [_responseLabelValue setText:_timeoutTitle];
-        }
-        else
-        {
-            [_responseLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.responseTime]];
-        }
-
+        initWithFrame:CGRectMake (kViewR (_imgView2) + FITHEIGHT (10),
+                                  kViewY (_imgView2) - FITWIDTH (10), FITWIDTH (40), imgViewWAndH2)];
         [_responseLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_responseLabelValue setTextAlignment:NSTextAlignmentRight];
         [_responseLabelValue setTextColor:[UIColor orangeColor]];
 
-        UILabel *responseLabelUnit = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_responseLabelValue) - FITWIDTH (8),
-                                  kViewY (_imgView2) + FITWIDTH (3), FITWIDTH (20), FITWIDTH (20))];
-        [responseLabelUnit setText:@"s"];
-        [responseLabelUnit setFont:[UIFont systemFontOfSize:10]];
-        [responseLabelUnit setTextAlignment:NSTextAlignmentCenter];
-        [responseLabelUnit setTextColor:[UIColor orangeColor]];
+        // 响应时间(单位)
+        _responseLabelUnit = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (_responseLabelValue), kViewY (_imgView2) + FITWIDTH (3),
+                                  FITWIDTH (30), FITWIDTH (20))];
+        [_responseLabelUnit setFont:[UIFont systemFontOfSize:10]];
+        [_responseLabelUnit setTextAlignment:NSTextAlignmentLeft];
+        [_responseLabelUnit setTextColor:[UIColor orangeColor]];
 
-        UILabel *responseLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_imgView2) + FITHEIGHT (2),
-                                  kViewY (_imgView2) + FITWIDTH (10), FITWIDTH (80), imgViewWAndH2)];
-        [responseLabel setText:_title4];
-        [responseLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
-        [responseLabel setTextAlignment:NSTextAlignmentCenter];
-        [_bgdBtn2 addSubview:_responseLabelValue];
-        if (_resultModel.responseTime && _resultModel.responseTime >= 0)
+        // 赋值
+        if (!_resultModel.responseTime || _resultModel.responseTime < 0)
         {
-            [_bgdBtn2 addSubview:responseLabelUnit];
-        }
-        [_bgdBtn2 addSubview:responseLabel];
-
-        // 完全加载时间
-        _loadLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_responseLabelValue) + FITWIDTH (10),
-                                  kViewY (_imgView2) - FITWIDTH (10), FITWIDTH (60), imgViewWAndH2)];
-        if (!_resultModel.totalTime || _resultModel.totalTime < 0)
-        {
-            [_loadLabelValue setText:_timeoutTitle];
+            [_responseLabelValue setText:_title1];
+            [_responseLabelUnit setText:@""];
         }
         else
         {
-            [_loadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.totalTime]];
+            [_responseLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.responseTime]];
+            [_responseLabelUnit setText:@"s"];
         }
+
+        // 响应时间(标题)
+        UILabel *responseLabel = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (_imgView2) + FITHEIGHT (10),
+                                  kViewY (_imgView2) + FITWIDTH (10), FITWIDTH (70), imgViewWAndH2)];
+        [responseLabel setText:_title4];
+        [responseLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
+        [responseLabel setTextAlignment:NSTextAlignmentCenter];
+
+        [_bgdBtn2 addSubview:_responseLabelValue];
+        [_bgdBtn2 addSubview:_responseLabelUnit];
+        [_bgdBtn2 addSubview:responseLabel];
+
+        // 完全加载时间(值)
+        _loadLabelValue = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (_responseLabelUnit) + FITWIDTH (5),
+                                  kViewY (_imgView2) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH2)];
         [_loadLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_loadLabelValue setTextAlignment:NSTextAlignmentRight];
         [_loadLabelValue setTextColor:[UIColor orangeColor]];
 
-        UILabel *loadLabelUnit = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_responseLabelValue) + FITHEIGHT (57),
-                                  kViewY (_imgView2) + FITWIDTH (3), FITWIDTH (20), FITWIDTH (20))];
-        [loadLabelUnit setText:@"s"];
-        [loadLabelUnit setFont:[UIFont systemFontOfSize:10]];
-        [loadLabelUnit setTextAlignment:NSTextAlignmentCenter];
-        [loadLabelUnit setTextColor:[UIColor orangeColor]];
+        // 完全加载时间(单位)
+        _loadLabelUnit = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (_loadLabelValue), kViewY (_imgView2) + FITWIDTH (3),
+                                  FITWIDTH (30), FITWIDTH (20))];
+        [_loadLabelUnit setFont:[UIFont systemFontOfSize:10]];
+        [_loadLabelUnit setTextAlignment:NSTextAlignmentLeft];
+        [_loadLabelUnit setTextColor:[UIColor orangeColor]];
 
+        // 赋值
+        if (!_resultModel.totalTime || _resultModel.totalTime < 0)
+        {
+            [_loadLabelValue setText:_title1];
+            [_loadLabelUnit setText:@""];
+        }
+        else
+        {
+            [_loadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.totalTime]];
+            [_loadLabelUnit setText:@"s"];
+        }
+
+        // 完全加载时间(标题)
         UILabel *loadLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (responseLabel) - FITWIDTH (20),
+        initWithFrame:CGRectMake (kViewR (responseLabel) + FITWIDTH (5),
                                   kViewY (_imgView2) + FITWIDTH (10), FITWIDTH (80), imgViewWAndH2)];
         [loadLabel setText:_title5];
         [loadLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [loadLabel setTextAlignment:NSTextAlignmentCenter];
 
         [_bgdBtn2 addSubview:_loadLabelValue];
-        if (_resultModel.totalTime && _resultModel.totalTime >= 0)
-        {
-            [_bgdBtn2 addSubview:loadLabelUnit];
-        }
+        [_bgdBtn2 addSubview:_loadLabelUnit];
         [_bgdBtn2 addSubview:loadLabel];
 
-        // 下载速率
+        // 下载速率(值)
         _downloadLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_loadLabelValue) + FITHEIGHT (10),
-                                  kViewY (_imgView2) - FITWIDTH (10), FITWIDTH (60), imgViewWAndH2)];
-        if (!_resultModel.downloadSpeed || _resultModel.downloadSpeed < 0)
-        {
-            [_downloadLabelValue setText:_title1];
-        }
-        else
-        {
-            [_downloadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.downloadSpeed]];
-        }
+        initWithFrame:CGRectMake (kViewR (_loadLabelUnit), kViewY (_imgView2) - FITWIDTH (10),
+                                  FITWIDTH (50), imgViewWAndH2)];
         [_downloadLabelValue setFont:[UIFont boldSystemFontOfSize:16]];
         [_downloadLabelValue setTextAlignment:NSTextAlignmentRight];
         [_downloadLabelValue setTextColor:[UIColor orangeColor]];
 
-        UILabel *downloadLabelUnit = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (loadLabel) + FITHEIGHT (27),
-                                  kViewY (_imgView2) + FITHEIGHT (3), FITWIDTH (20), FITWIDTH (20))];
-        [downloadLabelUnit setText:@"kbps"];
-        [downloadLabelUnit setFont:[UIFont systemFontOfSize:10]];
-        [downloadLabelUnit setTextAlignment:NSTextAlignmentCenter];
-        [downloadLabelUnit setTextColor:[UIColor orangeColor]];
+        // 下载速率(单位)
+        _downloadLabelUnit = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (_downloadLabelValue), kViewY (_imgView2) + FITHEIGHT (3),
+                                  FITWIDTH (25), FITWIDTH (20))];
+        [_downloadLabelUnit setFont:[UIFont systemFontOfSize:10]];
+        [_downloadLabelUnit setTextAlignment:NSTextAlignmentLeft];
+        [_downloadLabelUnit setTextColor:[UIColor orangeColor]];
 
+        // 赋值
+        if (!_resultModel.downloadSpeed || _resultModel.downloadSpeed < 0)
+        {
+            [_downloadLabelValue setText:_title1];
+            [_downloadLabelUnit setText:@""];
+        }
+        else
+        {
+            [_downloadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.downloadSpeed]];
+            [_downloadLabelUnit setText:@"kbps"];
+        }
+
+        // 下载速率(标题)
         UILabel *downloadLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (loadLabel) - FITHEIGHT (25),
-                                  kViewY (_imgView2) + FITWIDTH (10), FITWIDTH (80), imgViewWAndH2)];
+        initWithFrame:CGRectMake (kViewR (loadLabel) + FITHEIGHT (5),
+                                  kViewY (_imgView2) + FITWIDTH (10), FITWIDTH (70), imgViewWAndH2)];
         [downloadLabel setText:_title6];
-
         [downloadLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [downloadLabel setTextAlignment:NSTextAlignmentCenter];
+
         [_bgdBtn2 addSubview:_downloadLabelValue];
-        if (_resultModel.downloadSpeed && _resultModel.downloadSpeed >= 0)
-        {
-            [_bgdBtn2 addSubview:downloadLabelUnit];
-        }
+        [_bgdBtn2 addSubview:_downloadLabelUnit];
         [_bgdBtn2 addSubview:downloadLabel];
     }
 
@@ -487,134 +516,124 @@
         [_bgdBtn3 addSubview:_rightImgView3];
 
 
-        // 时延
+        // 时延(值)
         _dtDelayLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_imgView3) - FITWIDTH (10),
-                                  kViewY (_imgView3) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
-        if (!_resultModel.stDelay || _resultModel.stDelay <= 0)
-        {
-            [_dtDelayLabelValue setText:_title1];
-        }
-        else
-        {
-            [_dtDelayLabelValue setText:[NSString stringWithFormat:@"%.0f", _resultModel.stDelay]];
-        }
-
+        initWithFrame:CGRectMake (kViewR (_imgView3) + FITWIDTH (10),
+                                  kViewY (_imgView3) - FITWIDTH (10), FITWIDTH (40), imgViewWAndH3)];
         [_dtDelayLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_dtDelayLabelValue setTextAlignment:NSTextAlignmentRight];
         [_dtDelayLabelValue setTextColor:[UIColor orangeColor]];
 
-        UILabel *delayLabelUnit = [[UILabel alloc]
+        // 时延(单位)
+        _dtDelayLabelUnit = [[UILabel alloc]
         initWithFrame:CGRectMake (kViewR (_dtDelayLabelValue), kViewY (_imgView3) + FITWIDTH (3),
-                                  FITWIDTH (20), FITWIDTH (20))];
-        [delayLabelUnit setText:@"ms"];
-        [delayLabelUnit setFont:[UIFont systemFontOfSize:10]];
-        [delayLabelUnit setTextAlignment:NSTextAlignmentCenter];
-        [delayLabelUnit setTextColor:[UIColor orangeColor]];
+                                  FITWIDTH (30), FITWIDTH (20))];
+        [_dtDelayLabelUnit setFont:[UIFont systemFontOfSize:10]];
+        [_dtDelayLabelUnit setTextAlignment:NSTextAlignmentLeft];
+        [_dtDelayLabelUnit setTextColor:[UIColor orangeColor]];
 
+        // 赋值
+        if (!_resultModel.stDelay || _resultModel.stDelay <= 0)
+        {
+            [_dtDelayLabelValue setText:_title1];
+            [_dtDelayLabelUnit setText:@""];
+        }
+        else
+        {
+            [_dtDelayLabelValue setText:[NSString stringWithFormat:@"%.0f", _resultModel.stDelay]];
+            [_dtDelayLabelUnit setText:@"ms"];
+        }
 
+        // 时延(标题)
         UILabel *delayLabelTitle = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_imgView3) + FITHEIGHT (15),
-                                  kViewY (_imgView3) + FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
+        initWithFrame:CGRectMake (kViewR (_imgView3) + FITHEIGHT (10),
+                                  kViewY (_imgView3) + FITWIDTH (10), FITWIDTH (70), imgViewWAndH3)];
         [delayLabelTitle setText:_delayTitle];
         [delayLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [delayLabelTitle setTextAlignment:NSTextAlignmentCenter];
 
-
         [_bgdBtn3 addSubview:_dtDelayLabelValue];
-
-        if (_resultModel.stDelay && _resultModel.stDelay > 0)
-        {
-            [_bgdBtn3 addSubview:delayLabelUnit];
-        }
-
+        [_bgdBtn3 addSubview:_dtDelayLabelUnit];
         [_bgdBtn3 addSubview:delayLabelTitle];
 
-        // 下载速度
+        // 下载速度(值)
         _dtDownloadLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_dtDelayLabelValue) + FITWIDTH (27),
+        initWithFrame:CGRectMake (kViewR (_dtDelayLabelUnit) + FITWIDTH (5),
                                   kViewY (_imgView3) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
-        if (!_resultModel.stDownloadSpeed || _resultModel.stDownloadSpeed <= 0)
-        {
-            [_dtDownloadLabelValue setText:_title1];
-        }
-        else
-        {
-            [_dtDownloadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.stDownloadSpeed]];
-        }
-
-        //单位
         [_dtDownloadLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_dtDownloadLabelValue setTextAlignment:NSTextAlignmentRight];
         [_dtDownloadLabelValue setTextColor:[UIColor orangeColor]];
 
-        UILabel *downloadLabelUnit = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_dtDownloadLabelValue) - FITWIDTH (2),
-                                  kViewY (_imgView3) + FITWIDTH (3), FITWIDTH (30), FITWIDTH (20))];
-        [downloadLabelUnit setText:@"Mbps"];
-        [downloadLabelUnit setFont:[UIFont systemFontOfSize:10]];
-        [downloadLabelUnit setTextAlignment:NSTextAlignmentCenter];
-        [downloadLabelUnit setTextColor:[UIColor orangeColor]];
+        // 下载速度(单位)
+        _dtDownloadLabelUnit = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (_dtDownloadLabelValue), kViewY (_imgView3) + FITWIDTH (3),
+                                  FITWIDTH (30), FITWIDTH (20))];
+        [_dtDownloadLabelUnit setFont:[UIFont systemFontOfSize:10]];
+        [_dtDownloadLabelUnit setTextAlignment:NSTextAlignmentLeft];
+        [_dtDownloadLabelUnit setTextColor:[UIColor orangeColor]];
 
-        //下载速度四个字
+        // 赋值
+        if (!_resultModel.stDownloadSpeed || _resultModel.stDownloadSpeed <= 0)
+        {
+            [_dtDownloadLabelValue setText:_title1];
+            [_dtDownloadLabelUnit setText:@""];
+        }
+        else
+        {
+            [_dtDownloadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.stDownloadSpeed]];
+            [_dtDownloadLabelUnit setText:@"Mbps"];
+        }
+
+        //下载速度(标题)
         UILabel *downloadLabelTitle = [[UILabel alloc]
         initWithFrame:CGRectMake (kViewR (delayLabelTitle) + FITWIDTH (5),
-                                  kViewY (_imgView3) + FITWIDTH (10), FITWIDTH (85), imgViewWAndH3)];
+                                  kViewY (_imgView3) + FITWIDTH (10), FITWIDTH (80), imgViewWAndH3)];
         [downloadLabelTitle setText:_downloadSpeedTitle];
         [downloadLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [downloadLabelTitle setTextAlignment:NSTextAlignmentCenter];
 
         [_bgdBtn3 addSubview:_dtDownloadLabelValue];
-
-        if (_resultModel.stDownloadSpeed && _resultModel.stDownloadSpeed > 0)
-        {
-            [_bgdBtn3 addSubview:downloadLabelUnit];
-        }
-
+        [_bgdBtn3 addSubview:_dtDownloadLabelUnit];
         [_bgdBtn3 addSubview:downloadLabelTitle];
 
-
-        // 上传速度
+        // 上传速度(值)
         _dtUploadLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_dtDownloadLabelValue) + FITWIDTH (28),
-                                  kViewY (_imgView3) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
-
-        if (!_resultModel.stUploadSpeed || _resultModel.stUploadSpeed <= 0)
-        {
-            [_dtUploadLabelValue setText:_title1];
-        }
-        else
-        {
-            [_dtUploadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.stUploadSpeed]];
-        }
-
+        initWithFrame:CGRectMake (kViewR (_dtDownloadLabelUnit), kViewY (_imgView3) - FITWIDTH (10),
+                                  FITWIDTH (50), imgViewWAndH3)];
         [_dtUploadLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_dtUploadLabelValue setTextAlignment:NSTextAlignmentRight];
         [_dtUploadLabelValue setTextColor:[UIColor orangeColor]];
 
-        UILabel *uploadLabelUnit = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_dtUploadLabelValue) + FITWIDTH (1),
-                                  kViewY (_imgView3) + FITWIDTH (3), FITWIDTH (30), FITWIDTH (20))];
+        // 上传速度(单位)
+        _dtUploadLabelUnit = [[UILabel alloc]
+        initWithFrame:CGRectMake (kViewR (_dtUploadLabelValue), kViewY (_imgView3) + FITWIDTH (3),
+                                  FITWIDTH (25), FITWIDTH (20))];
+        [_dtUploadLabelUnit setFont:[UIFont systemFontOfSize:10]];
+        [_dtUploadLabelUnit setTextAlignment:NSTextAlignmentLeft];
+        [_dtUploadLabelUnit setTextColor:[UIColor orangeColor]];
 
-        [uploadLabelUnit setText:@"Mbps"];
-        [uploadLabelUnit setFont:[UIFont systemFontOfSize:10]];
-        [uploadLabelUnit setTextAlignment:NSTextAlignmentCenter];
-        [uploadLabelUnit setTextColor:[UIColor orangeColor]];
+        // 赋值
+        if (!_resultModel.stUploadSpeed || _resultModel.stUploadSpeed <= 0)
+        {
+            [_dtUploadLabelValue setText:_title1];
+            [_dtUploadLabelUnit setText:@""];
+        }
+        else
+        {
+            [_dtUploadLabelValue setText:[NSString stringWithFormat:@"%.2f", _resultModel.stUploadSpeed]];
+            [_dtUploadLabelUnit setText:@"Mbps"];
+        }
 
+        // 上传速度(标题)
         UILabel *uploadLabelTitle = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (downloadLabelTitle) - FITWIDTH (5),
-                                  kViewY (_imgView3) + FITWIDTH (10), FITWIDTH (85), imgViewWAndH3)];
+        initWithFrame:CGRectMake (kViewR (downloadLabelTitle) + FITWIDTH (5),
+                                  kViewY (_imgView3) + FITWIDTH (10), FITWIDTH (70), imgViewWAndH3)];
         [uploadLabelTitle setText:_uploadSpeedTitle];
         [uploadLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [uploadLabelTitle setTextAlignment:NSTextAlignmentCenter];
 
         [_bgdBtn3 addSubview:_dtUploadLabelValue];
-
-        if (_resultModel.stUploadSpeed && _resultModel.stUploadSpeed > 0)
-        {
-            [_bgdBtn3 addSubview:uploadLabelUnit];
-        }
-
+        [_bgdBtn3 addSubview:_dtUploadLabelUnit];
         [_bgdBtn3 addSubview:uploadLabelTitle];
     }
 }

@@ -285,12 +285,16 @@
 
     dispatch_async (dispatch_get_main_queue (), ^{
 
+      // 测试完成跳转到
       if (testContext.testStatus == TEST_FINISHED)
       {
           [self initCurrentResultModel:testResult];
           [self goToCurrentResultViewCtrl];
+          return;
       }
-      else
+
+      // 成功的时候显示指标值
+      if (totalTime < 10)
       {
           // 显示头部指标
           [_headerView.ResponseLabel setText:[NSString stringWithFormat:@"%.2f", responseTime]];
@@ -298,15 +302,31 @@
           [_headerView.LoadLabel setText:[NSString stringWithFormat:@"%.2f", totalTime]];
 
           // 仪表盘指标
-          UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
-          [bar setBarValue:totalTime];
-          [_headerView.uvMosBarView addSubview:bar];
           [_webtestingView updateUvMOS2:totalTime];
           [_webtestingView.label22 setText:[NSString stringWithFormat:@"%.2f", totalTime]];
 
           // 测试地址
           [_footerView.urlLabel setText:testUrl];
+          return;
       }
+
+      // 失败的情况显示超时
+      // 显示头部指标
+      [_headerView.ResponseLabel setText:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]];
+      [_headerView.DownloadLabel setText:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]];
+      [_headerView.LoadLabel setText:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]];
+      [_headerView.ResponseLabel1 setText:@""];
+      [_headerView.DownloadLabel1 setText:@""];
+      [_headerView.LoadLabel1 setText:@""];
+
+      // 仪表盘指标
+      [_webtestingView updateUvMOS2:0];
+      [_webtestingView.label22 setText:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]];
+      [_webtestingView.label32 setText:@""];
+
+      // 测试地址
+      [_footerView.urlLabel setText:testUrl];
+      return;
     });
 }
 
