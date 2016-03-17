@@ -25,16 +25,23 @@
 - (id)initWithTestContextAndResult:(SVVideoTestContext *)testContext
                         testResult:(SVVideoTestResult *)testResult;
 
-- (void)registeService;
+//- (void)registeService;
 
 /**
- *  计算样本的UvMOS
+ *  开始卡顿和卡顿结束
  *
- *  @param testSample SVVideoTestSample
+ *  @param status     卡顿状态
+ *  @param iTimeStamp 从开始播放视频到现在
  */
-- (void)calculateTestSample:(SVVideoTestSample *)testSample;
+- (void)update:(UvMOSPlayStatus)status time:(int)iTimeStamp;
 
-- (void)calculateUvMOS:(UvMOSPlayStatus)status;
+/**
+ *  计算视频样本的U-vMOS值
+ *
+ *  @param sample     测试视频样本
+ *  @param iTimeStamp 从开始播放视频到现在
+ */
+- (void)calculateUvMOS:(SVVideoTestSample *)sample time:(int)iTimeStamp;
 
 - (void)unRegisteService;
 @end
