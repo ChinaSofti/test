@@ -169,6 +169,10 @@
 "Upload logs" = "Upload logs";
 "Are you sure Upload logs" = "Are you sure Upload logs";
 "Upload logs start" = "Upload logs start";
+//上传成功与失败提示框
+"Uploading" = "Uploading";
+"Upload Success" = "Upload Success";
+"Upload Failed" = "Upload Failed";
 //高级设置
 "Advanced" = "Advanced";
 "Advanced setting" = "Advanced setting";

@@ -18,8 +18,10 @@
 #import <SPService/SVIPAndISPGetter.h>
 //微信分享
 #import "WXApi.h"
+//上传日志提示
+#import "SVToast.h"
 
-@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, SVRealReachabilityDelegate,WXApiDelegate>
+@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, SVRealReachabilityDelegate, WXApiDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *grey;
 @property (nonatomic, strong) UIWindow *window;
@@ -334,21 +336,21 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
     sendReq.bText = NO; //不使用文本信息
     sendReq.scene = 0; // 0 = 好友列表 1 = 朋友圈 2 = 收藏
-    
+
     //创建分享内容对象
     WXMediaMessage *urlMessage = [WXMediaMessage message];
     urlMessage.title = kLinkTitle; //分享标题
     urlMessage.description = kLinkDescription; //分享描述
     [urlMessage setThumbImage:[UIImage imageNamed:@"testImg"]]; //分享图片,使用SDK的setThumbImage方法可压缩图片大小
-    
+
     //创建多媒体对象
     WXWebpageObject *webObj = [WXWebpageObject object];
     webObj.webpageUrl = kLinkURL; //分享链接
-    
+
     //完成发送对象实例
     urlMessage.mediaObject = webObj;
     sendReq.message = urlMessage;
-    
+
     //发送分享信息
     [WXApi sendReq:sendReq];
 }
@@ -359,21 +361,21 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
     sendReq.bText = NO; //不使用文本信息
     sendReq.scene = 1; // 0 = 好友列表 1 = 朋友圈 2 = 收藏
-    
+
     //创建分享内容对象
     WXMediaMessage *urlMessage = [WXMediaMessage message];
     urlMessage.title = kLinkTitle; //分享标题
     urlMessage.description = kLinkDescription; //分享描述
     [urlMessage setThumbImage:[UIImage imageNamed:@"testImg"]]; //分享图片,使用SDK的setThumbImage方法可压缩图片大小
-    
+
     //创建多媒体对象
     WXWebpageObject *webObj = [WXWebpageObject object];
     webObj.webpageUrl = kLinkURL; //分享链接
-    
+
     //完成发送对象实例
     urlMessage.mediaObject = webObj;
     sendReq.message = urlMessage;
-    
+
     //发送分享信息
     [WXApi sendReq:sendReq];
 }
@@ -404,27 +406,38 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 {
     if (buttonIndex == 1)
     {
-        @try
-        {
-            //上传日志
-            SVInfo (@"开始上传日志");
-            SVLog *log = [SVLog alloc];
-            NSString *filePath = [log compressLogFiles];
-            SVInfo (@"upload log file:%@", filePath);
-
-            SVUploadFile *upload = [[SVUploadFile alloc] init];
-            NSString *urlString =
-            @"https://58.60.106.188:12210/speedpro/log?op=list&begin=0&end=50";
-            [upload uploadFileWithURL:[NSURL URLWithString:urlString] filePath:filePath];
-        }
-        @catch (NSException *exception)
-        {
-            //上传失败
-            SVError (@"上传失败. %@", exception);
-        }
+        //上传日志
+        SVInfo (@"开始上传日志");
+        [self performSelector:@selector (delayMethod1) withObject:nil afterDelay:0.5f];
+        [self performSelector:@selector (delayMethod) withObject:nil afterDelay:5.0f];
     }
 }
-
+- (void)delayMethod1
+{
+    NSString *title1 = I18N (@"Uploading");
+    [SVToast showWithText:title1];
+}
+//上传成功与失败判断
+- (void)delayMethod
+{
+    NSString *title2 = I18N (@"Upload Success");
+    NSString *title3 = I18N (@"Upload Failed");
+    @try
+    {
+        SVLog *log = [SVLog alloc];
+        NSString *filePath = [log compressLogFiles];
+        SVInfo (@"upload log file:%@", filePath);
+        SVUploadFile *upload = [[SVUploadFile alloc] init];
+        NSString *urlString = @"https://58.60.106.188:12210/speedpro/log?op=list&begin=0&end=50";
+        [upload uploadFileWithURL:[NSURL URLWithString:urlString] filePath:filePath];
+        [SVToast showWithText:title2];
+    }
+    @catch (NSException *exception)
+    {
+        SVError (@"上传失败. %@", exception);
+        [SVToast showWithText:title3];
+    }
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *title0 = I18N (@"Bandwidth Settings");
