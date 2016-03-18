@@ -36,6 +36,9 @@
 // 视频分片所属运营商
 @property NSString *videoSegemnetISP;
 
+// 视频播放时长
+@property int videoPlayDuration;
+
 
 /**
  *  设置URLs字符串
