@@ -47,14 +47,14 @@
 
         _uvMosNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (35), _uvMosBarView.bottomY + FITWIDTH (10),
-                                         FITWIDTH (60), FITWIDTH (10))
+                                         FITWIDTH (45), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:@"U-vMOS"];
 
         _speedNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_uvMosNumLabel.rightX + FITWIDTH (20),
-                                         _uvMosBarView.bottomY + FITWIDTH (10), FITWIDTH (90), FITWIDTH (10))
+                                         _uvMosBarView.bottomY + FITWIDTH (10), FITWIDTH (100), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title1];
@@ -99,7 +99,7 @@
                                   withTitle:@"N/A"];
         _DownloadLabel1 =
         [CTWBViewTools createLabelWithFrame:CGRectMake (_ResponseLabel.rightX + FITWIDTH (95),
-                                                        FITWIDTH (101), FITWIDTH (20), FITWIDTH (20))
+                                                        FITWIDTH (101), FITWIDTH (30), FITWIDTH (20))
                                    withFont:10
                              withTitleColor:RGBACOLOR (250, 180, 86, 1)
                                   withTitle:@"kbps"];
@@ -119,7 +119,7 @@
 
         _ResponseNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (35), _ResponseLabel.bottomY + FITWIDTH (10),
-                                         FITWIDTH (80), FITWIDTH (10))
+                                         FITWIDTH (100), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title3];
@@ -191,7 +191,7 @@
                                   withTitle:@"Mbps"];
 
         _DelayNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (35), _Delay.bottomY + FITWIDTH (10), FITWIDTH (80), FITWIDTH (10))
+        createLabelWithFrame:CGRectMake (FITWIDTH (35), _Delay.bottomY + FITWIDTH (10), FITWIDTH (70), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title6];

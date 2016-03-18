@@ -21,11 +21,13 @@
 
 // webtesting
 @property (nonatomic, strong) UILabel *urlLabel; //测试网址
+@property (nonatomic, strong) UIView *abc;
 //对应的值
 @property (nonatomic, strong) UILabel *urlNumLabel;
 // speedtesting
 @property (nonatomic, strong) UILabel *ServerLocation; //测试服务器位置
 @property (nonatomic, strong) UILabel *Carrier; //所属运营商
+@property (nonatomic, strong) UIView *abcd;
 //对应的值
 @property (nonatomic, strong) UILabel *ServerLocationNumLabel;
 @property (nonatomic, strong) UILabel *CarrierNumLabel;

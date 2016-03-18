@@ -251,7 +251,7 @@
     }
 
 
-    //视屏测试
+    //视频测试
     if (_resultModel.videoTest == YES)
     {
         CGFloat imgViewWAndH = _bgdBtn.height - 3 * _bgdBtn.originX;
@@ -286,7 +286,7 @@
         initWithFrame:CGRectMake (_imgView.rightX + FITHEIGHT (10),
                                   _imgView.originY + FITWIDTH (10), FITWIDTH (70), imgViewWAndH)];
         [uvMosLabel setText:@"U-vMOS"];
-        [uvMosLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
+        [uvMosLabel setFont:[UIFont systemFontOfSize:10]];
         [uvMosLabel setTextAlignment:NSTextAlignmentCenter];
         [uvMosLabel setTextColor:RGBACOLOR (254, 172, 70, 1)];
         [_bgdBtn addSubview:_uvMosLabelValue];
@@ -414,7 +414,7 @@
         // 响应时间(标题)
         UILabel *responseLabel = [[UILabel alloc]
         initWithFrame:CGRectMake (_imgView2.rightX + FITHEIGHT (10),
-                                 _imgView2.originY + FITWIDTH (10), FITWIDTH (70), imgViewWAndH2)];
+                                  _imgView2.originY + FITWIDTH (10), FITWIDTH (70), imgViewWAndH2)];
         [responseLabel setText:_title4];
         [responseLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [responseLabel setTextAlignment:NSTextAlignmentCenter];
@@ -467,7 +467,7 @@
 
         // 下载速率(值)
         _downloadLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (_loadLabelUnit.rightX + FITHEIGHT (5),
+        initWithFrame:CGRectMake (_loadLabelUnit.rightX - FITHEIGHT (5),
                                   _imgView2.originY - FITWIDTH (10), FITWIDTH (65), imgViewWAndH2)];
         [_downloadLabelValue setFont:[UIFont boldSystemFontOfSize:16]];
         [_downloadLabelValue setTextAlignment:NSTextAlignmentRight];
@@ -553,9 +553,9 @@
         // 时延(标题)
         UILabel *delayLabelTitle = [[UILabel alloc]
         initWithFrame:CGRectMake (_imgView3.rightX + FITHEIGHT (10),
-                                  _imgView3.originY + FITWIDTH (10), FITWIDTH (70), imgViewWAndH3)];
+                                  _imgView3.originY + FITWIDTH (10), FITWIDTH (60), imgViewWAndH3)];
         [delayLabelTitle setText:_delayTitle];
-        [delayLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
+        [delayLabelTitle setFont:[UIFont systemFontOfSize:10]];
         [delayLabelTitle setTextAlignment:NSTextAlignmentCenter];
         [delayLabelTitle setTextColor:RGBACOLOR (252, 96, 69, 1)];
 

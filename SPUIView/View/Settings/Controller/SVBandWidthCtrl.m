@@ -85,7 +85,7 @@
     //取消cell 被点中的效果
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //取数组里的值
-    SVSpeedTestServer * server = _array[indexPath.section];
+    SVSpeedTestServer *server = _array[indexPath.section];
 
     //设置每个cell的内容
     if (indexPath.row == 0)
@@ -112,7 +112,7 @@
         [cell addSubview:label3];
 
         UILabel *label4 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITTHEIGHT (65), FITTHEIGHT (25), FITTHEIGHT (240), FITTHEIGHT (20))];
+        initWithFrame:CGRectMake (label3.rightX, FITTHEIGHT (25), FITTHEIGHT (240), FITTHEIGHT (20))];
         label4.text = server.sponsor;
         label4.font = [UIFont systemFontOfSize:11];
         [cell addSubview:label4];
@@ -136,9 +136,9 @@
 {
 
     //获取section的点击第几个section
-    UITableViewCell *cell = (UITableViewCell *)[button superview];//获取cell
-    NSIndexPath *indexPathAll = [_tableView indexPathForCell:cell];//获取cell对应的section
-    NSLog(@"indexPath:--------%@",indexPathAll);
+    UITableViewCell *cell = (UITableViewCell *)[button superview]; //获取cell
+    NSIndexPath *indexPathAll = [_tableView indexPathForCell:cell]; //获取cell对应的section
+    NSLog (@"indexPath:--------%@", indexPathAll);
     SVSpeedTestServer *server = [_array objectAtIndex:indexPathAll.section];
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
     [servers setDefaultServer:server];

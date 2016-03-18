@@ -271,6 +271,7 @@ double _preSpeed = 0.0;
     //把所有Label添加到headerView中
     [_footerView addSubview:_footerView.ServerLocation];
     [_footerView addSubview:_footerView.Carrier];
+    [_footerView addSubview:_footerView.abcd];
     [_footerView addSubview:_footerView.ServerLocationNumLabel];
     [_footerView addSubview:_footerView.CarrierNumLabel];
     //把headerView添加到中整个视图上

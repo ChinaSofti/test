@@ -109,14 +109,14 @@
 
 
         _label22 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (110), FITWIDTH (350), FITWIDTH (120), FITWIDTH (50))];
+        initWithFrame:CGRectMake (FITWIDTH (110), FITWIDTH (350), FITWIDTH (80), FITWIDTH (50))];
         _label22.text = @"0.00";
         _label22.textColor = RGBACOLOR (44, 166, 222, 1);
         _label22.font = [UIFont systemFontOfSize:36.0f];
         _label22.textAlignment = NSTextAlignmentCenter;
 
         _label32 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (150), FITWIDTH (355), FITWIDTH (100), FITWIDTH (50))];
+        initWithFrame:CGRectMake (_label22.rightX, FITWIDTH (355), FITWIDTH (10), FITWIDTH (50))];
         _label32.text = @"s";
         _label32.textColor = RGBACOLOR (44, 166, 222, 1);
         _label32.font = [UIFont systemFontOfSize:18.0f];
@@ -152,14 +152,14 @@
 
 
         _label23 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (90), FITWIDTH (350), FITWIDTH (100), FITWIDTH (50))];
+        initWithFrame:CGRectMake (FITWIDTH (110), FITWIDTH (350), FITWIDTH (80), FITWIDTH (50))];
         _label23.text = @"0.00";
         _label23.textColor = RGBACOLOR (44, 166, 222, 1);
         _label23.font = [UIFont systemFontOfSize:36.0f];
         _label23.textAlignment = NSTextAlignmentCenter;
 
         _label33 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (150), FITWIDTH (355), FITWIDTH (100), FITWIDTH (50))];
+        initWithFrame:CGRectMake (_label23.rightX, FITWIDTH (355), FITWIDTH (30), FITWIDTH (50))];
         _label33.text = @"Mbps";
         _label33.textColor = RGBACOLOR (44, 166, 222, 1);
         _label33.font = [UIFont systemFontOfSize:18.0f];

@@ -253,6 +253,7 @@
     //把所有Label添加到headerView中
     [_footerView addSubview:_footerView.urlLabel];
     [_footerView addSubview:_footerView.urlNumLabel];
+    [_footerView addSubview:_footerView.abc];
     //把headerView添加到中整个视图上
     [self.view addSubview:_footerView];
 }

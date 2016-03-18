@@ -295,16 +295,15 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     //添加2个label
     //创建一个显示微信的label3
     UILabel *label3 = [[UILabel alloc]
-    initWithFrame:CGRectMake (kScreenW / 2 - FITTHEIGHT (90) - 40, kScreenH / 10 + FITTHEIGHT (70), 100, 20)];
+    initWithFrame:CGRectMake (kScreenW / 2 - FITTHEIGHT (90) - 15, kScreenH / 10 + FITTHEIGHT (70), 50, 20)];
     label3.text = title10;
     label3.font = [UIFont systemFontOfSize:15];
     label3.textColor = [UIColor lightGrayColor];
     label3.textAlignment = NSTextAlignmentCenter;
     //创建一个显示微信朋友圈的label4
     UILabel *label4 = [[UILabel alloc]
-    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (40), kScreenH / 10 + FITTHEIGHT (70), 150, 20)];
+    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (40), kScreenH / 10 + FITTHEIGHT (70), 130, 20)];
     label4.text = title11;
-    //    label4.backgroundColor = [UIColor redColor];
     label4.font = [UIFont systemFontOfSize:15];
     label4.textColor = [UIColor lightGrayColor];
     label4.textAlignment = NSTextAlignmentCenter;

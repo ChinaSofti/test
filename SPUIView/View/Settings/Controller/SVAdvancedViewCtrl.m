@@ -138,7 +138,7 @@
     [self.view addSubview:views];
     // label屏幕尺寸
     UILabel *lableScreenSize = [[UILabel alloc] init];
-    lableScreenSize.frame = CGRectMake (10, 10, 130, 20);
+    lableScreenSize.frame = CGRectMake (10, 10, FITWIDTH (140), 20);
     lableScreenSize.text = title3;
     lableScreenSize.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableScreenSize];
