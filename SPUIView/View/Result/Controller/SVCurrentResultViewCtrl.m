@@ -271,7 +271,7 @@
                                   kViewY (_imgView) - FITWIDTH (10), FITWIDTH (70), imgViewWAndH)];
         [_uvMosLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_uvMosLabelValue setTextAlignment:NSTextAlignmentCenter];
-        [_uvMosLabelValue setTextColor:[UIColor orangeColor]];
+        [_uvMosLabelValue setTextColor:RGBACOLOR (254, 172, 70, 1)];
         if (!_resultModel.uvMOS || _resultModel.uvMOS == -1)
         {
             [_uvMosLabelValue setText:_title1];
@@ -288,6 +288,7 @@
         [uvMosLabel setText:@"U-vMOS"];
         [uvMosLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [uvMosLabel setTextAlignment:NSTextAlignmentCenter];
+        [uvMosLabel setTextColor:RGBACOLOR (254, 172, 70, 1)];
         [_bgdBtn addSubview:_uvMosLabelValue];
         [_bgdBtn addSubview:uvMosLabel];
 
@@ -297,7 +298,7 @@
                                   kViewY (_imgView) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH)];
         [_firstBufferTimeLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_firstBufferTimeLabelValue setTextAlignment:NSTextAlignmentRight];
-        [_firstBufferTimeLabelValue setTextColor:[UIColor orangeColor]];
+        [_firstBufferTimeLabelValue setTextColor:RGBACOLOR (254, 172, 70, 1)];
 
         // 首次缓冲时间(单位)
         _firstBufferTimeLabelUnit = [[UILabel alloc]
@@ -305,7 +306,7 @@
                                   kViewY (_imgView) + FITWIDTH (3), FITWIDTH (30), FITWIDTH (20))];
         [_firstBufferTimeLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_firstBufferTimeLabelUnit setTextAlignment:NSTextAlignmentLeft];
-        [_firstBufferTimeLabelUnit setTextColor:[UIColor orangeColor]];
+        [_firstBufferTimeLabelUnit setTextColor:RGBACOLOR (254, 172, 70, 1)];
 
         // 赋值
         if (!_resultModel.firstBufferTime || _resultModel.firstBufferTime == -1)
@@ -326,6 +327,7 @@
         [firstBufferTimeLabel setText:_title2];
         [firstBufferTimeLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [firstBufferTimeLabel setTextAlignment:NSTextAlignmentCenter];
+        [firstBufferTimeLabel setTextColor:RGBACOLOR (254, 172, 70, 1)];
 
         [_bgdBtn addSubview:_firstBufferTimeLabelValue];
         [_bgdBtn addSubview:_firstBufferTimeLabelUnit];
@@ -337,7 +339,7 @@
                                   kViewY (_imgView) - FITWIDTH (10), FITWIDTH (70), imgViewWAndH)];
         [_cuttonTimesLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_cuttonTimesLabelValue setTextAlignment:NSTextAlignmentCenter];
-        [_cuttonTimesLabelValue setTextColor:[UIColor orangeColor]];
+        [_cuttonTimesLabelValue setTextColor:RGBACOLOR (254, 172, 70, 1)];
         if (!_resultModel.cuttonTimes || _resultModel.cuttonTimes == -1)
         {
             [_cuttonTimesLabelValue setText:_title1];
@@ -353,6 +355,7 @@
                                   kViewY (_imgView) + FITWIDTH (10), FITWIDTH (70), imgViewWAndH)];
         [cuttonTimesLabel setText:_title3];
         [cuttonTimesLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
+        [cuttonTimesLabel setTextColor:RGBACOLOR (254, 172, 70, 1)];
         [cuttonTimesLabel setTextAlignment:NSTextAlignmentCenter];
 
         [_bgdBtn addSubview:_cuttonTimesLabelValue];
@@ -386,7 +389,7 @@
                                   kViewY (_imgView2) - FITWIDTH (10), FITWIDTH (40), imgViewWAndH2)];
         [_responseLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_responseLabelValue setTextAlignment:NSTextAlignmentRight];
-        [_responseLabelValue setTextColor:[UIColor orangeColor]];
+        [_responseLabelValue setTextColor:RGBACOLOR (56, 198, 149, 1)];
 
         // 响应时间(单位)
         _responseLabelUnit = [[UILabel alloc]
@@ -394,7 +397,7 @@
                                   FITWIDTH (30), FITWIDTH (20))];
         [_responseLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_responseLabelUnit setTextAlignment:NSTextAlignmentLeft];
-        [_responseLabelUnit setTextColor:[UIColor orangeColor]];
+        [_responseLabelUnit setTextColor:RGBACOLOR (56, 198, 149, 1)];
 
         // 赋值
         if (!_resultModel.responseTime || _resultModel.responseTime < 0)
@@ -415,6 +418,7 @@
         [responseLabel setText:_title4];
         [responseLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [responseLabel setTextAlignment:NSTextAlignmentCenter];
+        [responseLabel setTextColor:RGBACOLOR (56, 198, 149, 1)];
 
         [_bgdBtn2 addSubview:_responseLabelValue];
         [_bgdBtn2 addSubview:_responseLabelUnit];
@@ -426,7 +430,7 @@
                                   kViewY (_imgView2) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH2)];
         [_loadLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_loadLabelValue setTextAlignment:NSTextAlignmentRight];
-        [_loadLabelValue setTextColor:[UIColor orangeColor]];
+        [_loadLabelValue setTextColor:RGBACOLOR (56, 198, 149, 1)];
 
         // 完全加载时间(单位)
         _loadLabelUnit = [[UILabel alloc]
@@ -434,7 +438,7 @@
                                   FITWIDTH (20), FITWIDTH (20))];
         [_loadLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_loadLabelUnit setTextAlignment:NSTextAlignmentLeft];
-        [_loadLabelUnit setTextColor:[UIColor orangeColor]];
+        [_loadLabelUnit setTextColor:RGBACOLOR (56, 198, 149, 1)];
 
         // 赋值
         if (!_resultModel.totalTime || _resultModel.totalTime < 0)
@@ -455,6 +459,7 @@
         [loadLabel setText:_title5];
         [loadLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [loadLabel setTextAlignment:NSTextAlignmentCenter];
+        [loadLabel setTextColor:RGBACOLOR (56, 198, 149, 1)];
 
         [_bgdBtn2 addSubview:_loadLabelValue];
         [_bgdBtn2 addSubview:_loadLabelUnit];
@@ -466,7 +471,7 @@
                                   kViewY (_imgView2) - FITWIDTH (10), FITWIDTH (65), imgViewWAndH2)];
         [_downloadLabelValue setFont:[UIFont boldSystemFontOfSize:16]];
         [_downloadLabelValue setTextAlignment:NSTextAlignmentRight];
-        [_downloadLabelValue setTextColor:[UIColor orangeColor]];
+        [_downloadLabelValue setTextColor:RGBACOLOR (56, 198, 149, 1)];
 
         // 下载速率(单位)
         _downloadLabelUnit = [[UILabel alloc]
@@ -474,7 +479,7 @@
                                   FITWIDTH (25), FITWIDTH (20))];
         [_downloadLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_downloadLabelUnit setTextAlignment:NSTextAlignmentLeft];
-        [_downloadLabelUnit setTextColor:[UIColor orangeColor]];
+        [_downloadLabelUnit setTextColor:RGBACOLOR (56, 198, 149, 1)];
 
         // 赋值
         if (!_resultModel.downloadSpeed || _resultModel.downloadSpeed < 0)
@@ -495,6 +500,7 @@
         [downloadLabel setText:_title6];
         [downloadLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [downloadLabel setTextAlignment:NSTextAlignmentCenter];
+        [downloadLabel setTextColor:RGBACOLOR (56, 198, 149, 1)];
 
         [_bgdBtn2 addSubview:_downloadLabelValue];
         [_bgdBtn2 addSubview:_downloadLabelUnit];
@@ -522,7 +528,7 @@
                                   kViewY (_imgView3) - FITWIDTH (10), FITWIDTH (40), imgViewWAndH3)];
         [_dtDelayLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_dtDelayLabelValue setTextAlignment:NSTextAlignmentRight];
-        [_dtDelayLabelValue setTextColor:[UIColor orangeColor]];
+        [_dtDelayLabelValue setTextColor:RGBACOLOR (252, 96, 69, 1)];
 
         // 时延(单位)
         _dtDelayLabelUnit = [[UILabel alloc]
@@ -530,7 +536,7 @@
                                   FITWIDTH (30), FITWIDTH (20))];
         [_dtDelayLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_dtDelayLabelUnit setTextAlignment:NSTextAlignmentLeft];
-        [_dtDelayLabelUnit setTextColor:[UIColor orangeColor]];
+        [_dtDelayLabelUnit setTextColor:RGBACOLOR (252, 96, 69, 1)];
 
         // 赋值
         if (!_resultModel.stDelay || _resultModel.stDelay <= 0)
@@ -551,6 +557,7 @@
         [delayLabelTitle setText:_delayTitle];
         [delayLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [delayLabelTitle setTextAlignment:NSTextAlignmentCenter];
+        [delayLabelTitle setTextColor:RGBACOLOR (252, 96, 69, 1)];
 
         [_bgdBtn3 addSubview:_dtDelayLabelValue];
         [_bgdBtn3 addSubview:_dtDelayLabelUnit];
@@ -562,7 +569,7 @@
                                   kViewY (_imgView3) - FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
         [_dtDownloadLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_dtDownloadLabelValue setTextAlignment:NSTextAlignmentRight];
-        [_dtDownloadLabelValue setTextColor:[UIColor orangeColor]];
+        [_dtDownloadLabelValue setTextColor:RGBACOLOR (252, 96, 69, 1)];
 
         // 下载速度(单位)
         _dtDownloadLabelUnit = [[UILabel alloc]
@@ -570,7 +577,7 @@
                                   FITWIDTH (30), FITWIDTH (20))];
         [_dtDownloadLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_dtDownloadLabelUnit setTextAlignment:NSTextAlignmentLeft];
-        [_dtDownloadLabelUnit setTextColor:[UIColor orangeColor]];
+        [_dtDownloadLabelUnit setTextColor:RGBACOLOR (252, 96, 69, 1)];
 
         // 赋值
         if (!_resultModel.stDownloadSpeed || _resultModel.stDownloadSpeed <= 0)
@@ -591,6 +598,7 @@
         [downloadLabelTitle setText:_downloadSpeedTitle];
         [downloadLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [downloadLabelTitle setTextAlignment:NSTextAlignmentCenter];
+        [downloadLabelTitle setTextColor:RGBACOLOR (252, 96, 69, 1)];
 
         [_bgdBtn3 addSubview:_dtDownloadLabelValue];
         [_bgdBtn3 addSubview:_dtDownloadLabelUnit];
@@ -602,7 +610,7 @@
                                   FITWIDTH (50), imgViewWAndH3)];
         [_dtUploadLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_dtUploadLabelValue setTextAlignment:NSTextAlignmentRight];
-        [_dtUploadLabelValue setTextColor:[UIColor orangeColor]];
+        [_dtUploadLabelValue setTextColor:RGBACOLOR (252, 96, 69, 1)];
 
         // 上传速度(单位)
         _dtUploadLabelUnit = [[UILabel alloc]
@@ -610,7 +618,7 @@
                                   FITWIDTH (25), FITWIDTH (20))];
         [_dtUploadLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_dtUploadLabelUnit setTextAlignment:NSTextAlignmentLeft];
-        [_dtUploadLabelUnit setTextColor:[UIColor orangeColor]];
+        [_dtUploadLabelUnit setTextColor:RGBACOLOR (252, 96, 69, 1)];
 
         // 赋值
         if (!_resultModel.stUploadSpeed || _resultModel.stUploadSpeed <= 0)
@@ -631,6 +639,7 @@
         [uploadLabelTitle setText:_uploadSpeedTitle];
         [uploadLabelTitle setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [uploadLabelTitle setTextAlignment:NSTextAlignmentCenter];
+        [uploadLabelTitle setTextColor:RGBACOLOR (252, 96, 69, 1)];
 
         [_bgdBtn3 addSubview:_dtUploadLabelValue];
         [_bgdBtn3 addSubview:_dtUploadLabelUnit];
