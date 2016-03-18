@@ -16,19 +16,26 @@
 #import "SVUploadFile.h"
 #import <SPCommon/SVRealReachability.h>
 #import <SPService/SVIPAndISPGetter.h>
+//微信分享
+#import "WXApi.h"
 
-@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, SVRealReachabilityDelegate>
+@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, SVRealReachabilityDelegate,WXApiDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *grey;
 @property (nonatomic, strong) UIWindow *window;
 @end
 
 @implementation SVSettingsViewCtrl
+
 {
     UITableViewCell *_photocell;
     UIImageView *_imageView;
     UILabel *_label;
 }
+static NSString *kLinkURL = @"http://58.60.106.185:12210";
+static NSString *kLinkTagName = @"WECHAT_TAG_JUMP_SHOWRANK";
+static NSString *kLinkTitle = @"SpeedPro";
+static NSString *kLinkDescription = @"福利来了,大家注意了";
 - (void)networkStatusChange:(SVRealReachabilityStatus)status
 {
     if (_imageView)
@@ -323,11 +330,54 @@
 //微信群组的分享方法实现
 - (void)Button1Click
 {
+    //创建发送对象实例
+    SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+    sendReq.bText = NO; //不使用文本信息
+    sendReq.scene = 0; // 0 = 好友列表 1 = 朋友圈 2 = 收藏
+    
+    //创建分享内容对象
+    WXMediaMessage *urlMessage = [WXMediaMessage message];
+    urlMessage.title = kLinkTitle; //分享标题
+    urlMessage.description = kLinkDescription; //分享描述
+    [urlMessage setThumbImage:[UIImage imageNamed:@"testImg"]]; //分享图片,使用SDK的setThumbImage方法可压缩图片大小
+    
+    //创建多媒体对象
+    WXWebpageObject *webObj = [WXWebpageObject object];
+    webObj.webpageUrl = kLinkURL; //分享链接
+    
+    //完成发送对象实例
+    urlMessage.mediaObject = webObj;
+    sendReq.message = urlMessage;
+    
+    //发送分享信息
+    [WXApi sendReq:sendReq];
 }
 //微信朋友圈的分享方法实现
 - (void)Button2Click
 {
+    //创建发送对象实例
+    SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+    sendReq.bText = NO; //不使用文本信息
+    sendReq.scene = 1; // 0 = 好友列表 1 = 朋友圈 2 = 收藏
+    
+    //创建分享内容对象
+    WXMediaMessage *urlMessage = [WXMediaMessage message];
+    urlMessage.title = kLinkTitle; //分享标题
+    urlMessage.description = kLinkDescription; //分享描述
+    [urlMessage setThumbImage:[UIImage imageNamed:@"testImg"]]; //分享图片,使用SDK的setThumbImage方法可压缩图片大小
+    
+    //创建多媒体对象
+    WXWebpageObject *webObj = [WXWebpageObject object];
+    webObj.webpageUrl = kLinkURL; //分享链接
+    
+    //完成发送对象实例
+    urlMessage.mediaObject = webObj;
+    sendReq.message = urlMessage;
+    
+    //发送分享信息
+    [WXApi sendReq:sendReq];
 }
+
 //取消方法实现
 - (void)Button3Click
 {
