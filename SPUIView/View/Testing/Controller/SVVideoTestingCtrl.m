@@ -574,16 +574,4 @@
     return YES;
 }
 
-
-// New Autorotation support.
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskLandscape;
-}
-
 @end
