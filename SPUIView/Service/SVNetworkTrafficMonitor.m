@@ -45,16 +45,20 @@
                     networkStatisc = (const struct if_data *)cursor->ifa_data;
                     WiFiSent += networkStatisc->ifi_obytes;
                     WiFiReceived += networkStatisc->ifi_ibytes;
-                    NSLog (@"WiFiSent %d ==%d", WiFiSent, networkStatisc->ifi_obytes);
-                    NSLog (@"WiFiReceived %d ==%d", WiFiReceived, networkStatisc->ifi_ibytes);
+                    //                    NSLog (@"WiFiSent %d ==%d", WiFiSent,
+                    //                    networkStatisc->ifi_obytes);
+                    //                    NSLog (@"WiFiReceived %d ==%d", WiFiReceived,
+                    //                    networkStatisc->ifi_ibytes);
                 }
                 if ([name hasPrefix:@"pdp_ip"])
                 {
                     networkStatisc = (const struct if_data *)cursor->ifa_data;
                     WWANSent += networkStatisc->ifi_obytes;
                     WWANReceived += networkStatisc->ifi_ibytes;
-                    NSLog (@"WWANSent %d ==%d", WWANSent, networkStatisc->ifi_obytes);
-                    NSLog (@"WWANReceived %d ==%d", WWANReceived, networkStatisc->ifi_ibytes);
+                    //                    NSLog (@"WWANSent %d ==%d", WWANSent,
+                    //                    networkStatisc->ifi_obytes);
+                    //                    NSLog (@"WWANReceived %d ==%d", WWANReceived,
+                    //                    networkStatisc->ifi_ibytes);
                 }
             }
             cursor = cursor->ifa_next;
