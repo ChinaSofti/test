@@ -171,7 +171,7 @@
                              withTitleColor:RGBACOLOR (250, 180, 86, 1)
                                   withTitle:@"N/A"];
         _Downloadspeed1 =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_Delay.rightX + FITWIDTH (80),
+        [CTWBViewTools createLabelWithFrame:CGRectMake (_Delay.rightX + FITWIDTH (83),
                                                         FITWIDTH (101), FITWIDTH (30), FITWIDTH (20))
                                    withFont:10
                              withTitleColor:RGBACOLOR (250, 180, 86, 1)

@@ -16,27 +16,14 @@ static NSInteger BtnTag = 10086;
     UIView *_bgView;
     UIButton *_typeBtn;
     int _bandwidthTypeIndex;
+    NSMutableArray * _typeBtnArray;
 }
-@property (nonatomic, strong) UIView *imageView;
 @property (nonatomic, strong) UIView *imageView2;
 
 @end
 
 @implementation AlertView
-//按钮边框
-- (UIView *)imageView
-{
-    if (_imageView == nil)
-    {
-        _imageView = [[UIView alloc] init];
-        _imageView.layer.borderWidth = 1;
-        _imageView.layer.borderColor =
-        [[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1] CGColor];
-        _imageView.layer.masksToBounds = YES;
-        _imageView.layer.cornerRadius = 5;
-    }
-    return _imageView;
-}
+
 - (UIView *)imageView2
 {
     if (_imageView2 == nil)
@@ -51,10 +38,12 @@ static NSInteger BtnTag = 10086;
 }
 - (instancetype)initWithFrame:(CGRect)frame bgColor:(UIColor *)color
 {
+    
     self = [super initWithFrame:frame];
     if (self)
     {
 
+        _typeBtnArray = [NSMutableArray array];
         _bgView = [[UIView alloc] initWithFrame:CGRectMake (0, 0, frame.size.width, frame.size.height)];
         _bgView.backgroundColor = color;
         _bgView.layer.cornerRadius = 5;
@@ -99,16 +88,18 @@ static NSInteger BtnTag = 10086;
         //初始化
         _typeBtn = [[UIButton alloc]
         initWithFrame:CGRectMake (FITWIDTH (84) + FITWIDTH (60) * i, internetTypeLabel.originY,
-                                  FITWIDTH (60), FITWIDTH (20))];
+                                  FITWIDTH (60), FITWIDTH (30))];
+        [_typeBtnArray addObject:_typeBtn];
         [_typeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_typeBtn
         setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
              forState:UIControlStateSelected];
         [_typeBtn setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor whiteColor]
-                                                              size:CGSizeMake (FITWIDTH (35), FITWIDTH (20))]
+                                                              size:CGSizeMake (FITWIDTH (35), FITWIDTH (30))]
                             forState:UIControlStateSelected];
         _typeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-
+        
+        
         _typeBtn.tag = BtnTag + i;
 
         if (_typeBtn.tag == 0 + BtnTag)
@@ -128,12 +119,15 @@ static NSInteger BtnTag = 10086;
                      action:@selector (selectBtn:)
            forControlEvents:UIControlEventTouchUpInside];
 
+        _typeBtn.layer.borderWidth = 1;
+        _typeBtn.layer.borderColor = [[UIColor clearColor] CGColor];
+        _typeBtn.layer.cornerRadius = 5;
+        
         if (_typeBtn.tag == 10086)
         {
             _typeBtn.selected = YES;
-            self.imageView.frame = CGRectMake (FITWIDTH (83), FITWIDTH (45), FITHEIGHT (61), FITHEIGHT (30));
-            [_bgView addSubview:self.imageView];
-        }
+            _typeBtn.layer.borderColor =
+            [[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1] CGColor];        }
         [_bgView addSubview:_typeBtn];
     }
     //宽带套餐
@@ -252,35 +246,31 @@ static NSInteger BtnTag = 10086;
             btnTwo.selected = NO;
             btnThree.selected = NO;
 
-            self.imageView.frame = CGRectMake (FITWIDTH (83), FITWIDTH (45), FITHEIGHT (61), FITHEIGHT (30));
-
-            [self.imageView removeFromSuperview];
-            [_bgView addSubview:self.imageView];
             _bandwidthTypeIndex = 0;
         }
         if (sender.tag == BtnTag + 1)
         {
             btnOne.selected = NO;
             btnThree.selected = NO;
-            self.imageView.frame =
-            CGRectMake (FITWIDTH (83) + FITHEIGHT (60), FITWIDTH (45), FITHEIGHT (61), FITHEIGHT (30));
-
-            [self.imageView removeFromSuperview];
-            [_bgView addSubview:self.imageView];
             _bandwidthTypeIndex = 1;
         }
         if (sender.tag == BtnTag + 2)
         {
             btnOne.selected = NO;
             btnTwo.selected = NO;
-            self.imageView.frame =
-            CGRectMake (FITWIDTH (83) + FITHEIGHT (120), FITWIDTH (45), FITHEIGHT (61), FITHEIGHT (30));
-
-            [self.imageView removeFromSuperview];
-            [_bgView addSubview:self.imageView];
             _bandwidthTypeIndex = 2;
         }
     }
+    
+    for (UIButton * typeBtn in _typeBtnArray) {
+        if (sender == typeBtn) {
+            typeBtn.layer.borderColor =
+            [[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1] CGColor];
+        } else {
+            typeBtn.layer.borderColor = [[UIColor clearColor] CGColor];
+        }
+    }
+    
 }
 
 //忽略按钮
