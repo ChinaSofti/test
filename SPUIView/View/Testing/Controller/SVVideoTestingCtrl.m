@@ -18,7 +18,7 @@
 
 
 #define kVideoViewDefaultRect \
-    CGRectMake (FITWIDTH (10), FITWIDTH (420), FITWIDTH (150), FITWIDTH (92))
+    CGRectMake (FITWIDTH (10), FITTHEIGHT (500), FITTWIDTH (172.8), FITTHEIGHT (97.2))
 
 @interface SVVideoTestingCtrl ()
 {
@@ -541,7 +541,6 @@
     CGAffineTransform at = CGAffineTransformMakeRotation (0);
     [_videoView setTransform:at];
     _videoView.frame = kVideoViewDefaultRect;
-
     // 退出全屏模式时，隐藏_videoView上方显示测试指标
     [_showCurrentResultInFullScreenMode removeFromSuperview];
 }
@@ -557,16 +556,14 @@
     self.navigationController.navigationBar.hidden = YES;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
-    CGSize videoViewSize = _videoView.frame.size;
-    _videoView.origin =
-    CGPointMake ((kScreenW - videoViewSize.width) / 2, (kScreenH - videoViewSize.height) / 2);
+    _videoView.center = CGPointMake (kScreenW / 2, kScreenH / 2);
 
     CGAffineTransform at = CGAffineTransformMakeRotation (M_PI / 2);
     at = CGAffineTransformTranslate (at, 0, 0);
     [_videoView setTransform:at];
+
     _videoView.frame = CGRectMake (0, 0, kScreenW, kScreenH);
-
-
+    // kScreenW:414.000000    kScreenH:736.000000
     // 在全屏模式下，在_videoView上方显示测试指标
     [_videoView addSubview:_showCurrentResultInFullScreenMode];
     [_videoView setNeedsDisplay];
@@ -575,6 +572,18 @@
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
+}
+
+
+// New Autorotation support.
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscape;
 }
 
 @end
