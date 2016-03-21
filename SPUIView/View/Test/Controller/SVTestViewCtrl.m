@@ -107,7 +107,6 @@
 
     SVRealReachability *realReachability = [SVRealReachability sharedInstance];
     [realReachability addDelegate:self];
-    [realReachability startMonitorNetworkStatus];
 }
 
 #pragma mark - tableview的方法

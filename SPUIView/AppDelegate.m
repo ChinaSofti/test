@@ -29,7 +29,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [[UINavigationBar appearance] setBarTintColor:RGBACOLOR (37, 55, 64, 1)];
     [[UILabel appearance] setAdjustsFontSizeToFitWidth:YES];
     [[[UIButton appearance] titleLabel] setAdjustsFontSizeToFitWidth:YES];
-    
+
     // 1.初始化一个window
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     // 2.设置根控制器
@@ -39,11 +39,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
     SVRealReachability *realReachability = [SVRealReachability sharedInstance];
     [realReachability addDelegate:self];
-    [realReachability startMonitorNetworkStatus];
 
     return YES;
 }
-
 
 
 - (void)networkStatusChange:(SVRealReachabilityStatus)status
