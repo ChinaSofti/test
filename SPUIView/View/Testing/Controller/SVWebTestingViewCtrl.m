@@ -135,8 +135,9 @@
 {
     NSString *title5 = I18N (@"Loading...");
     [_footerView.urlLabel setText:title5];
-    [_headerView.bufferLabel setText:@"0"];
-    [_headerView.speedLabel setText:@"0"];
+    [_headerView.ResponseLabel setText:@"0"];
+    [_headerView.LoadLabel setText:@"0"];
+    [_headerView.DownloadLabel setText:@"0"];
     [_webtestingView updateUvMOS2:0];
 
     for (UIView *view in [_headerView.uvMosBarView subviews])

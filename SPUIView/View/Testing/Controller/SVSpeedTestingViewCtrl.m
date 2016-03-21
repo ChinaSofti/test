@@ -141,8 +141,9 @@ double _preSpeed = 0.0;
     NSString *title5 = I18N (@"Loading...");
     [_footerView.ServerLocation setText:title5];
     [_footerView.Carrier setText:title5];
-    [_headerView.bufferLabel setText:@"0"];
-    [_headerView.speedLabel setText:@"0"];
+    [_headerView.Delay setText:@"0"];
+    [_headerView.Downloadspeed setText:@"0"];
+    [_headerView.Uploadspeed setText:@"0"];
     [_speedtestingView updateUvMOS3:0];
 
     for (UIView *view in [_headerView.uvMosBarView subviews])
