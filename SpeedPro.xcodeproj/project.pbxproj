@@ -116,6 +116,7 @@
 		B748CE3F1C9FF97F00FD388C /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B748CE401C9FF97F00FD388C /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
 		B748CE411C9FF97F00FD388C /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B748CE451CA0166900FD388C /* SVGetDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE441CA0166900FD388C /* SVGetDistance.m */; };
 		B77D21F11C957904006BE281 /* SVChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21EE1C957904006BE281 /* SVChart.m */; };
 		B77D21F21C957904006BE281 /* SVLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21F01C957904006BE281 /* SVLineChart.m */; };
 		B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */; };
@@ -320,6 +321,8 @@
 		B72AC8621C76EA3D00AAC3B3 /* SPService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SPService.framework; sourceTree = "<group>"; };
 		B748CE231C9FF62C00FD388C /* SVTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVTextField.h; sourceTree = "<group>"; };
 		B748CE241C9FF62C00FD388C /* SVTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVTextField.m; sourceTree = "<group>"; };
+		B748CE431CA0166900FD388C /* SVGetDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGetDistance.h; sourceTree = "<group>"; };
+		B748CE441CA0166900FD388C /* SVGetDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGetDistance.m; sourceTree = "<group>"; };
 		B77D21ED1C957904006BE281 /* SVChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVChart.h; sourceTree = "<group>"; };
 		B77D21EE1C957904006BE281 /* SVChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVChart.m; sourceTree = "<group>"; };
 		B77D21EF1C957904006BE281 /* SVLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVLineChart.h; sourceTree = "<group>"; };
@@ -840,6 +843,8 @@
 				B71F89021C8D7E56002E8375 /* SVToast.m */,
 				B748CE231C9FF62C00FD388C /* SVTextField.h */,
 				B748CE241C9FF62C00FD388C /* SVTextField.m */,
+				B748CE431CA0166900FD388C /* SVGetDistance.h */,
+				B748CE441CA0166900FD388C /* SVGetDistance.m */,
 			);
 			path = UIUtils;
 			sourceTree = "<group>";
@@ -1008,6 +1013,7 @@
 			files = (
 				5B2FA8F11C984C9E0018D699 /* SVWarningView.m in Sources */,
 				B748CE251C9FF62C00FD388C /* SVTextField.m in Sources */,
+				B748CE451CA0166900FD388C /* SVGetDistance.m in Sources */,
 				56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */,
 				561A36E21C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m in Sources */,
 				F61921CB1C92680F00C680E5 /* SVSpeedTestContext.m in Sources */,
