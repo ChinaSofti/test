@@ -138,7 +138,7 @@
     [self.view addSubview:views];
     // label屏幕尺寸
     UILabel *lableScreenSize = [[UILabel alloc] init];
-    lableScreenSize.frame = CGRectMake (10, 10, 130, 20);
+    lableScreenSize.frame = CGRectMake (10, 10, FITWIDTH (140), 20);
     lableScreenSize.text = title3;
     lableScreenSize.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableScreenSize];
@@ -196,10 +196,10 @@
     //编辑界面
     //一.创建一个 tableView
     // 1.style:Grouped化合的,分组的
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake (170, 163, kScreenW - 190, 200)
-                                              style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc]
+    initWithFrame:CGRectMake (170, FITTHEIGHT (168), kScreenW - 190, FITTHEIGHT (250))
+            style:UITableViewStylePlain];
     // 2.设置背景颜色
-    _tableView.backgroundColor = [UIColor redColor];
     _tableView.backgroundColor =
     [UIColor colorWithRed:247 / 255.0 green:247 / 255.0 blue:247 / 255.0 alpha:1];
     //*4.设置代理

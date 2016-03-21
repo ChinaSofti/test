@@ -35,7 +35,7 @@
         _imageView.layer.borderColor =
         [[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1] CGColor];
         _imageView.layer.masksToBounds = YES;
-        _imageView.layer.cornerRadius = 8;
+        _imageView.layer.cornerRadius = 5;
     }
     return _imageView;
 }
@@ -250,7 +250,7 @@
         //跟随系统
         SVInfo (@"未知");
 
-        self.imageView.frame = CGRectMake (FITTWIDTH (90), 110, FITTWIDTH (60), FITTWIDTH (30));
+        self.imageView.frame = CGRectMake (FITTWIDTH (87), 110, FITTWIDTH (66), FITTWIDTH (30));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];

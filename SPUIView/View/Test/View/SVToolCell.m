@@ -34,20 +34,20 @@
           forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_bgdBtn];
 
-        CGFloat imgViewWAndH = kViewH (_bgdBtn) - 3 * kViewX (_bgdBtn);
+        CGFloat imgViewWAndH = _bgdBtn.height - 3 * _bgdBtn.originX;
 
         _imgView = [[UIImageView alloc]
         initWithFrame:CGRectMake (kMargin * 2, (kCellH - imgViewWAndH) * 0.5, imgViewWAndH, imgViewWAndH)];
         [_bgdBtn addSubview:_imgView];
 
         _rightImgView =
-        [[UIImageView alloc] initWithFrame:CGRectMake (kViewW (_bgdBtn) - imgViewWAndH - kMargin,
-                                                       kViewY (_imgView), imgViewWAndH, imgViewWAndH)];
+        [[UIImageView alloc] initWithFrame:CGRectMake (_bgdBtn.width - imgViewWAndH - kMargin,
+                                                       _imgView.originY, imgViewWAndH, imgViewWAndH)];
         [_bgdBtn addSubview:_rightImgView];
 
         _titleLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (kViewR (_imgView) + 30, kViewY (_imgView),
-                                  kViewX (_rightImgView) - kViewR (_imgView) - 30, imgViewWAndH)];
+        initWithFrame:CGRectMake (_imgView.rightX + 30, _imgView.originY,
+                                  _rightImgView.originX - _imgView.rightX - 30, imgViewWAndH)];
         //初始化透明度
         _bgdBtn.alpha = 0.5;
         [_bgdBtn addSubview:_titleLabel];

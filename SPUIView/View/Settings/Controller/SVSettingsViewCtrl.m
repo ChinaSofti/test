@@ -16,19 +16,28 @@
 #import "SVUploadFile.h"
 #import <SPCommon/SVRealReachability.h>
 #import <SPService/SVIPAndISPGetter.h>
+//微信分享
+#import "WXApi.h"
+//上传日志提示
+#import "SVToast.h"
 
-@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, SVRealReachabilityDelegate>
+@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, SVRealReachabilityDelegate, WXApiDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *grey;
 @property (nonatomic, strong) UIWindow *window;
 @end
 
 @implementation SVSettingsViewCtrl
+
 {
     UITableViewCell *_photocell;
     UIImageView *_imageView;
     UILabel *_label;
 }
+static NSString *kLinkURL = @"http://58.60.106.185:12210";
+static NSString *kLinkTagName = @"WECHAT_TAG_JUMP_SHOWRANK";
+static NSString *kLinkTitle = @"SpeedPro";
+static NSString *kLinkDescription = @"福利来了,大家注意了";
 - (void)networkStatusChange:(SVRealReachabilityStatus)status
 {
     if (_imageView)
@@ -286,16 +295,15 @@
     //添加2个label
     //创建一个显示微信的label3
     UILabel *label3 = [[UILabel alloc]
-    initWithFrame:CGRectMake (kScreenW / 2 - FITTHEIGHT (90) - 40, kScreenH / 10 + FITTHEIGHT (70), 100, 20)];
+    initWithFrame:CGRectMake (kScreenW / 2 - FITTHEIGHT (90) - 15, kScreenH / 10 + FITTHEIGHT (70), 50, 20)];
     label3.text = title10;
     label3.font = [UIFont systemFontOfSize:15];
     label3.textColor = [UIColor lightGrayColor];
     label3.textAlignment = NSTextAlignmentCenter;
     //创建一个显示微信朋友圈的label4
     UILabel *label4 = [[UILabel alloc]
-    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (40), kScreenH / 10 + FITTHEIGHT (70), 150, 20)];
+    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (40), kScreenH / 10 + FITTHEIGHT (70), 130, 20)];
     label4.text = title11;
-    //    label4.backgroundColor = [UIColor redColor];
     label4.font = [UIFont systemFontOfSize:15];
     label4.textColor = [UIColor lightGrayColor];
     label4.textAlignment = NSTextAlignmentCenter;
@@ -323,11 +331,54 @@
 //微信群组的分享方法实现
 - (void)Button1Click
 {
+    //创建发送对象实例
+    SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+    sendReq.bText = NO; //不使用文本信息
+    sendReq.scene = 0; // 0 = 好友列表 1 = 朋友圈 2 = 收藏
+
+    //创建分享内容对象
+    WXMediaMessage *urlMessage = [WXMediaMessage message];
+    urlMessage.title = kLinkTitle; //分享标题
+    urlMessage.description = kLinkDescription; //分享描述
+    [urlMessage setThumbImage:[UIImage imageNamed:@"testImg"]]; //分享图片,使用SDK的setThumbImage方法可压缩图片大小
+
+    //创建多媒体对象
+    WXWebpageObject *webObj = [WXWebpageObject object];
+    webObj.webpageUrl = kLinkURL; //分享链接
+
+    //完成发送对象实例
+    urlMessage.mediaObject = webObj;
+    sendReq.message = urlMessage;
+
+    //发送分享信息
+    [WXApi sendReq:sendReq];
 }
 //微信朋友圈的分享方法实现
 - (void)Button2Click
 {
+    //创建发送对象实例
+    SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+    sendReq.bText = NO; //不使用文本信息
+    sendReq.scene = 1; // 0 = 好友列表 1 = 朋友圈 2 = 收藏
+
+    //创建分享内容对象
+    WXMediaMessage *urlMessage = [WXMediaMessage message];
+    urlMessage.title = kLinkTitle; //分享标题
+    urlMessage.description = kLinkDescription; //分享描述
+    [urlMessage setThumbImage:[UIImage imageNamed:@"testImg"]]; //分享图片,使用SDK的setThumbImage方法可压缩图片大小
+
+    //创建多媒体对象
+    WXWebpageObject *webObj = [WXWebpageObject object];
+    webObj.webpageUrl = kLinkURL; //分享链接
+
+    //完成发送对象实例
+    urlMessage.mediaObject = webObj;
+    sendReq.message = urlMessage;
+
+    //发送分享信息
+    [WXApi sendReq:sendReq];
 }
+
 //取消方法实现
 - (void)Button3Click
 {
@@ -354,27 +405,38 @@
 {
     if (buttonIndex == 1)
     {
-        @try
-        {
-            //上传日志
-            SVInfo (@"开始上传日志");
-            SVLog *log = [SVLog alloc];
-            NSString *filePath = [log compressLogFiles];
-            SVInfo (@"upload log file:%@", filePath);
-
-            SVUploadFile *upload = [[SVUploadFile alloc] init];
-            NSString *urlString =
-            @"https://58.60.106.188:12210/speedpro/log?op=list&begin=0&end=50";
-            [upload uploadFileWithURL:[NSURL URLWithString:urlString] filePath:filePath];
-        }
-        @catch (NSException *exception)
-        {
-            //上传失败
-            SVError (@"上传失败. %@", exception);
-        }
+        //上传日志
+        SVInfo (@"开始上传日志");
+        [self performSelector:@selector (delayMethod1) withObject:nil afterDelay:0.5f];
+        [self performSelector:@selector (delayMethod) withObject:nil afterDelay:5.0f];
     }
 }
-
+- (void)delayMethod1
+{
+    NSString *title1 = I18N (@"Uploading");
+    [SVToast showWithText:title1];
+}
+//上传成功与失败判断
+- (void)delayMethod
+{
+    NSString *title2 = I18N (@"Upload Success");
+    NSString *title3 = I18N (@"Upload Failed");
+    @try
+    {
+        SVLog *log = [SVLog alloc];
+        NSString *filePath = [log compressLogFiles];
+        SVInfo (@"upload log file:%@", filePath);
+        SVUploadFile *upload = [[SVUploadFile alloc] init];
+        NSString *urlString = @"https://58.60.106.188:12210/speedpro/log?op=list&begin=0&end=50";
+        [upload uploadFileWithURL:[NSURL URLWithString:urlString] filePath:filePath];
+        [SVToast showWithText:title2];
+    }
+    @catch (NSException *exception)
+    {
+        SVError (@"上传失败. %@", exception);
+        [SVToast showWithText:title3];
+    }
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *title0 = I18N (@"Bandwidth Settings");

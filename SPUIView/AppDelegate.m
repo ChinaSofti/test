@@ -12,8 +12,9 @@
 #import <SPService/SVProbeInfo.h>
 #import <SPService/SVSpeedTestServers.h>
 #import <SPService/SVTestContextGetter.h>
-
-@interface AppDelegate ()
+//微信分享
+#import "WXApi.h"
+@interface AppDelegate () <WXApiDelegate>
 
 @end
 
@@ -22,7 +23,13 @@
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //微信分享api注册
+    [WXApi registerApp:@"wx2cce736067ee4a2d"];
+
     [[UINavigationBar appearance] setBarTintColor:RGBACOLOR (37, 55, 64, 1)];
+    [[UILabel appearance] setAdjustsFontSizeToFitWidth:YES];
+    [[[UIButton appearance] titleLabel] setAdjustsFontSizeToFitWidth:YES];
+    
     // 1.初始化一个window
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     // 2.设置根控制器
@@ -36,6 +43,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
     return YES;
 }
+
+
 
 - (void)networkStatusChange:(SVRealReachabilityStatus)status
 {

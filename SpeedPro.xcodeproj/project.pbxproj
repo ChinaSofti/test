@@ -86,6 +86,12 @@
 		56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCD1C561E9100886CAE /* AlertView.m */; };
 		56BA8FDC1C561E9100886CAE /* SVToolCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCF1C561E9100886CAE /* SVToolCell.m */; };
 		56BB06481C897048005EE173 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 56BB06471C897048005EE173 /* icon.png */; };
+		56CAFFBD1C9BFBB800210081 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFB91C9BFBB800210081 /* libWeChatSDK.a */; };
+		56CAFFBF1C9BFBDB00210081 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFBE1C9BFBDB00210081 /* libc++.tbd */; };
+		56CAFFC11C9BFBEB00210081 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFC01C9BFBEB00210081 /* CoreTelephony.framework */; };
+		56CAFFC31C9BFBFC00210081 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */; };
+		56CAFFC51C9BFC0800210081 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFC41C9BFC0800210081 /* libz.tbd */; };
+		56CAFFC71C9BFC2100210081 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFC61C9BFC2100210081 /* SystemConfiguration.framework */; };
 		56EC8C811C4F45A500EBDA6C /* SVTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56EC8C601C4F45A500EBDA6C /* SVTabBarController.m */; };
 		56EC8C931C4F467000EBDA6C /* tabbar_result.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C8C1C4F467000EBDA6C /* tabbar_result.png */; };
 		56EC8C941C4F467000EBDA6C /* tabbar_result_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 56EC8C8D1C4F467000EBDA6C /* tabbar_result_selected.png */; };
@@ -271,6 +277,15 @@
 		56BA8FCE1C561E9100886CAE /* SVToolCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToolCell.h; sourceTree = "<group>"; };
 		56BA8FCF1C561E9100886CAE /* SVToolCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToolCell.m; sourceTree = "<group>"; };
 		56BB06471C897048005EE173 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		56CAFFB91C9BFBB800210081 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		56CAFFBA1C9BFBB800210081 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		56CAFFBB1C9BFBB800210081 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		56CAFFBC1C9BFBB800210081 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		56CAFFBE1C9BFBDB00210081 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		56CAFFC01C9BFBEB00210081 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		56CAFFC41C9BFC0800210081 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		56CAFFC61C9BFC2100210081 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		56EC8C5F1C4F45A500EBDA6C /* SVTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVTabBarController.h; sourceTree = "<group>"; };
 		56EC8C601C4F45A500EBDA6C /* SVTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVTabBarController.m; sourceTree = "<group>"; };
 		56EC8C8C1C4F467000EBDA6C /* tabbar_result.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_result.png; sourceTree = "<group>"; };
@@ -329,8 +344,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56CAFFC71C9BFC2100210081 /* SystemConfiguration.framework in Frameworks */,
+				56CAFFC51C9BFC0800210081 /* libz.tbd in Frameworks */,
+				56CAFFC31C9BFBFC00210081 /* libsqlite3.0.tbd in Frameworks */,
+				56CAFFC11C9BFBEB00210081 /* CoreTelephony.framework in Frameworks */,
+				56CAFFBF1C9BFBDB00210081 /* libc++.tbd in Frameworks */,
 				B77D21F51C958657006BE281 /* SPCommon.framework in Frameworks */,
 				B77D21F71C958657006BE281 /* SPService.framework in Frameworks */,
+				56CAFFBD1C9BFBB800210081 /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,6 +700,10 @@
 		56EC8C581C4F45A500EBDA6C /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				56CAFFB91C9BFBB800210081 /* libWeChatSDK.a */,
+				56CAFFBA1C9BFBB800210081 /* WechatAuthSDK.h */,
+				56CAFFBB1C9BFBB800210081 /* WXApi.h */,
+				56CAFFBC1C9BFBB800210081 /* WXApiObject.h */,
 				56A9190F1C4F4BAA00E8BB72 /* AppDelegate.h */,
 				56A919101C4F4BAA00E8BB72 /* AppDelegate.m */,
 				56AA27391C57122500FA5D0F /* Assets.xcassets */,
@@ -738,6 +763,11 @@
 		56F523D61C4DCF7F00E6472B = {
 			isa = PBXGroup;
 			children = (
+				56CAFFC61C9BFC2100210081 /* SystemConfiguration.framework */,
+				56CAFFC41C9BFC0800210081 /* libz.tbd */,
+				56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */,
+				56CAFFC01C9BFBEB00210081 /* CoreTelephony.framework */,
+				56CAFFBE1C9BFBDB00210081 /* libc++.tbd */,
 				56F523E01C4DCF7F00E6472B /* Products */,
 				56F523E11C4DCF7F00E6472B /* SPUIView */,
 				B70FF3D41C6582AA002D571B /* SPUIViewTests */,
@@ -1165,7 +1195,10 @@
 				INFOPLIST_FILE = SPUIView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SPUIView/Appdelegate",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SP;
 				PRODUCT_NAME = SpeedPro;
@@ -1194,7 +1227,10 @@
 				INFOPLIST_FILE = SPUIView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SPUIView/Appdelegate",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SP;
 				PRODUCT_NAME = SpeedPro;

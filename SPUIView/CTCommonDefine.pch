@@ -13,41 +13,23 @@
 #ifndef CTCommonDefine_pch
 #define CTCommonDefine_pch
 
-//适配各种尺寸的屏幕(用百分比布局)
+//宏定义
 #define kScreenW            [[UIScreen mainScreen] bounds].size.width
 #define kScreenH            [[UIScreen mainScreen] bounds].size.height
-
-#define kViewH(v)           v.frame.size.height
-#define kViewW(v)           v.frame.size.width
-#define kViewHS(v,scale)    kViewH(v) * scale;
-#define kViewX(v)           v.frame.origin.x
-#define kViewY(v)           v.frame.origin.y
-#define kViewR(v)           CGRectGetMaxX(v.frame)
-#define kViewD(v)           CGRectGetMaxY(v.frame)
-//适配5/5s
 #define FITWIDTH(W)  W / 320.0 * ([UIScreen mainScreen].bounds.size.width)
 #define FITHEIGHT(H) H / 568.0 * ([UIScreen mainScreen].bounds.size.height)
-//适配6/6s
 #define FITTWIDTH(W)  W / 375.0 * ([UIScreen mainScreen].bounds.size.width)
 #define FITTHEIGHT(H) H / 667.0 * ([UIScreen mainScreen].bounds.size.height)
-//设置颜色
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
 
-
-
-
-
-
-
+//宏头
 #import "UIView+Exten.h"
 #import "CTViewTools.h"
 #import "CTWBViewTools.h"
-//#import "SVBackView.h"
 #import "SVVideoTestingCtrl.h"
 #import <SPService/SPService.h>
 #import <SPCommon/SVLog.h>
 #import <SPCommon/SVI18N.h>
 #import <UIKit/UIKit.h>
-
 
 #endif /* CTCommonDefine_pch */

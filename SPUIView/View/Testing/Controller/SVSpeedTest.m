@@ -7,7 +7,6 @@
 //
 
 #import "SVResultPush.h"
-#import "SVSpeedServerDelay.h"
 #import "SVSpeedTest.h"
 #import "SVSpeedTestInfo.h"
 #import <SPCommon/SVDBManager.h>
@@ -98,69 +97,7 @@ double _beginTime;
     _downloadSize = 0;
     _uploadSize = 0;
 
-    double starttime = [[NSDate date] timeIntervalSince1970] * 1000;
-    // 获取带宽测试地址
-    [self getSpeedTestUrl];
-    NSLog (@"################%.2f############", [[NSDate date] timeIntervalSince1970] * 1000 - starttime);
-
     return TRUE;
-}
-
-// 获取带宽测试的测试地址
-- (void)getSpeedTestUrl
-{
-    // 获取所有的带宽测试服务器
-    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    NSArray *serverArray = [servers getAllServer];
-
-    // 遍历前五个服务器，得到时延最小的一个
-    NSMutableArray *serverUrlArray = [[NSMutableArray alloc] init];
-    long size = [serverArray count] < 5 ? [serverArray count] : 5;
-    for (int i = 0; i < size; i++)
-    {
-        SVSpeedTestServer *server = serverArray[i];
-        NSURL *url = [NSURL URLWithString:server.serverURL];
-
-        // 在线程中计算时延
-        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-          SVSpeedServerDelay *serverDelay = [[SVSpeedServerDelay alloc] init];
-          [serverDelay getserverDelay:url];
-
-          // 等待时延测试结束
-          while (!serverDelay.finished)
-          {
-              NSDate *interval = [NSDate dateWithTimeIntervalSinceNow:0.005];
-              [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:interval];
-          }
-          [serverUrlArray addObject:url];
-        });
-    }
-
-    // 需要等待五个服务器的时延都计算出来
-    while ([serverUrlArray count] == 0)
-    {
-        NSDate *interval = [NSDate dateWithTimeIntervalSinceNow:0.005];
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:interval];
-    }
-
-    // 初始化默认服务器地址
-    NSURL *url = serverUrlArray[0];
-
-    // 获取测试地址
-    NSString *host = [url host];
-    NSNumber *port = [url port];
-
-    _testContext.downloadUrl =
-    [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", host, port,
-                                                    @"/speedtest/random4000x4000.jpg"]];
-
-    _testContext.uploadUrl =
-    [NSURL URLWithString:[NSString
-                         stringWithFormat:@"http://%@:%@%@", host, port, @"/speedtest/upload.php"]];
-
-    _testContext.delayUrl =
-    [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", host, port,
-                                                    @"/speedtest/latency.txt"]];
 }
 
 // 开始测试
@@ -171,6 +108,10 @@ double _beginTime;
 
     _testResult.testId = _testId;
     _testResult.testTime = [[NSDate date] timeIntervalSince1970] * 1000;
+    _testResult.delay = 0;
+
+    // 启动时延测试
+    [self startDelayTest];
 
     // 解析域名
     _speedTestInfo = [self analyse];
@@ -182,11 +123,10 @@ double _beginTime;
     addr.sin_port = htons ([_speedTestInfo.port intValue]);
     addr.sin_addr.s_addr = inet_addr ([_speedTestInfo.ip UTF8String]);
 
-    // 启动时延测试
-    [self startDelayTest];
-
     // 查询服务器归属地
     _testResult.isp = [SVIPAndISPGetter queryIPDetail:_speedTestInfo.ip];
+
+    [NSThread sleepForTimeInterval:1];
 
     // 启动下载测试
     _internalTestStatus = TEST_TESTING;
@@ -197,6 +137,8 @@ double _beginTime;
 
     // 推送最终结果
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
+
+    [NSThread sleepForTimeInterval:1];
 
     // 启动上传测试
     _internalTestStatus = TEST_TESTING;
@@ -213,10 +155,10 @@ double _beginTime;
         // 结果入库
         [self persistSVDetailResultModel];
 
-        sleep (2);
+        // 等待2秒后推送给页面
+        [NSThread sleepForTimeInterval:2];
         _testContext.testStatus = TEST_FINISHED;
         _internalTestStatus = TEST_FINISHED;
-
         [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
     }
 
@@ -226,69 +168,70 @@ double _beginTime;
     return TRUE;
 }
 
+// 启动两个显示同时跑下载测试，并且通过定时器来计算下载速度
 - (BOOL)startDownloadTest
 {
-    pthread_t tids[THREAD_NUM];
-    for (int i = 0; i < THREAD_NUM; i++)
+    @try
     {
-        int ret = pthread_create (&tids[i], NULL, (void *)download, i);
-        if (ret != 0)
+        // 启动两个线程
+        for (int i = 0; i < THREAD_NUM; i++)
         {
-            SVInfo (@"startDownloadTest thread create error, tid = %lld", tids[i]);
+            dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+              [self download];
+            });
         }
+
+        // 下载测试需要测试10秒
+        [self sample:false];
     }
-
-    pthread_t spTid;
-    pthread_create (&spTid, NULL, (void *)sample, false);
-
-    for (int i = 0; i < THREAD_NUM; i++)
+    @catch (NSException *exception)
     {
-        pthread_join (tids[i], NULL);
+        SVError (@"startDownloadTest thread create error, cause:%@", exception);
+        return NO;
     }
-    pthread_join (spTid, NULL);
-
     return YES;
 }
 
 - (BOOL)startUploadTest
 {
-    pthread_t tids[THREAD_NUM];
-    for (int i = 0; i < THREAD_NUM; i++)
+    @try
     {
-        int ret = pthread_create (&tids[i], NULL, (void *)upload, i);
-        if (ret != 0)
+        // 启动两个线程
+        for (int i = 0; i < THREAD_NUM; i++)
         {
-            SVInfo (@"startUploadTest thread create error, tid = %lld", tids[i]);
+            dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+              [self upload];
+            });
         }
+
+        // 上传测试需要测试10秒
+        [self sample:true];
     }
-
-    pthread_t spTid;
-    pthread_create (&spTid, NULL, (void *)sample, true);
-
-    for (int i = 0; i < THREAD_NUM; i++)
+    @catch (NSException *exception)
     {
-        pthread_join (tids[i], NULL);
+        SVError (@"startUploadTest thread create error, cause:%@", exception);
+        return NO;
     }
-    pthread_join (spTid, NULL);
-
-    return YES;
 }
 
+// 启动线程来执行时延测试
 - (BOOL)startDelayTest
 {
-    pthread_t tid;
-    int ret = pthread_create (&tid, NULL, (void *)delayTest, 0);
-    if (ret != 0)
+    @try
     {
-        SVInfo (@"startDelayTest thread create error, tid = %lld", tid);
+        [self delayTest];
     }
-
+    @catch (NSException *exception)
+    {
+        SVError (@"startDelayTest thread create error, cause:%@", exception);
+        return NO;
+    }
     return YES;
 }
 
-void download (int i)
+- (void)download
 {
-    SVInfo (@"Download-Thread-%d start\n", i);
+    SVInfo (@"Download-Thread start\n");
 
     NSString *request = [NSString
     stringWithFormat:@"%@ %@ HTTP/1.1\r\nAccept: %@\r\nHost: %@\r\nConnection: "
@@ -310,8 +253,8 @@ void download (int i)
         int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
         if (-1 == ret)
         {
-            SVInfo (@"download connect error, fd = ret = %d", fd, ret);
-            usleep (RECONNECT_WAIT_TIME);
+            SVInfo (@"download connect error, fd =%d ret = %d", fd, ret);
+            [NSThread sleepForTimeInterval:RECONNECT_WAIT_TIME];
             continue;
         }
 
@@ -335,10 +278,10 @@ void download (int i)
     SVInfo (@"download over, downloadSize = %ld", _downloadSize);
 }
 
-void upload (int i)
+- (void)upload
 {
 
-    SVInfo (@"Upload-Thread-%d start\n", i);
+    SVInfo (@"Upload-Thread start\n");
 
     NSString *request = [NSString
     stringWithFormat:@"%@ %@ HTTP/1.1\r\nAccept: %@\r\nHost: %@\r\nConnection: "
@@ -366,7 +309,7 @@ void upload (int i)
         if (-1 == ret)
         {
             SVInfo (@"upload connect error, fd = %d, ret = %d", fd, ret);
-            usleep (RECONNECT_WAIT_TIME);
+            [NSThread sleepForTimeInterval:RECONNECT_WAIT_TIME];
             continue;
         }
 
@@ -390,61 +333,103 @@ void upload (int i)
 }
 
 
-void delayTest (int i)
+// 时延测试
+- (void)delayTest
 {
-    SVInfo (@"DelayTest-Thread-%d start\n", i);
+    SVInfo (@"DelayTest-Thread start");
 
-    NSString *request = [NSString
-    stringWithFormat:@"%@ %@ HTTP/1.1\r\nAccept: %@\r\nHost: %@\r\nConnection: "
-                     @"%@\r\nAccept-Encoding:gzip, deflate, sdch "
-                     @"\r\nAccept-Language:zh-CN,zh;q=0.8\r\nUser-Agent:Mozilla/5.0 (iPhone "
-                     @"Simulator; U; CPU iPhone OS 6 like Mac OS X; en-us) AppleWebKit/532.9 "
-                     @"(KHTML, like Gecko) Mobile/8B117\r\n\r\n",
-                     @"GET", _speedTestInfo.delayPath, @"*/*", _speedTestInfo.host, @"Close"];
+    // 获取所有的带宽测试服务器
+    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+    NSArray *serverArray = [servers getAllServer];
+    NSMutableDictionary *serverUrlDic = [[NSMutableDictionary alloc] init];
 
-    SVInfo (@"delayTest request %@", request);
-
-    char *buff = (char *)malloc (DELAY_BUFFER_SIZE * sizeof (char));
-    memset (buff, '\0', DELAY_BUFFER_SIZE);
-
-    double minDelay = DBL_MAX;
-    for (int i = 0; _testStatus == TEST_TESTING && i < DELAY_TEST_COUTN; i++)
+    // 在线程中遍历前五个服务器，得到时延最小的一个
+    long size = [serverArray count] < 5 ? [serverArray count] : 5;
+    for (int i = 0; i < size; i++)
     {
-        int fd = socket (AF_INET, SOCK_STREAM, 0);
+        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+          SVSpeedTestServer *server = serverArray[i];
+          NSURL *url = [NSURL URLWithString:server.serverURL];
 
-        int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
-        if (-1 == ret)
-        {
-            SVInfo (@"delayTest connect error, fd = %d, ret = %d", fd, ret);
-            usleep (RECONNECT_WAIT_TIME);
-            continue;
-        }
+          char *buff = (char *)malloc (DELAY_BUFFER_SIZE * sizeof (char));
+          memset (buff, '\0', DELAY_BUFFER_SIZE);
 
-        long len = write (fd, [request UTF8String], [request length] + 1);
-        SVInfo (@"delayTest write len = %ld", len);
-        double startTime = [[NSDate date] timeIntervalSince1970] * 1000;
-        len = read (fd, buff, DELAY_BUFFER_SIZE);
-        double delay = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
+          NSString *request = [NSString
+          stringWithFormat:@"%@ %@ HTTP/1.1\r\nAccept: %@\r\nHost: %@\r\nConnection: "
+                           @"%@\r\nAccept-Encoding:gzip, deflate, sdch "
+                           @"\r\nAccept-Language:zh-CN,zh;q=0.8\r\nUser-Agent:Mozilla/5.0 (iPhone "
+                           @"Simulator; U; CPU iPhone OS 6 like Mac OS X; en-us) AppleWebKit/532.9 "
+                           @"(KHTML, like Gecko) Mobile/8B117\r\n\r\n",
+                           @"GET", url.path, @"*/*", url.host, @"Close"];
 
-        if (delay < minDelay)
-        {
-            minDelay = delay;
-        }
+          SVInfo (@"delayTest request %@", request);
+          struct sockaddr_in currentAddr;
+          memset (&currentAddr, 0, sizeof (currentAddr));
+          currentAddr.sin_len = sizeof (currentAddr);
+          currentAddr.sin_family = AF_INET;
+          currentAddr.sin_addr.s_addr = INADDR_ANY;
+          currentAddr.sin_port = htons ([url.port intValue]);
+          currentAddr.sin_addr.s_addr = inet_addr ([[self getIPWithHostName:url.host] UTF8String]);
 
-        ret = close (fd);
+          int fd = socket (AF_INET, SOCK_STREAM, 0);
+          int ret = connect (fd, (struct sockaddr *)&currentAddr, sizeof (struct sockaddr));
+          if (-1 == ret)
+          {
+              SVInfo (@"delayTest connect error, fd = %d, ret = %d", fd, ret);
+              return;
+          }
 
-        SVInfo (@"delayTest close socket, fd = %d, ret = %d", fd, ret);
+          long len = write (fd, [request UTF8String], [request length] + 1);
+          SVInfo (@"delayTest write len = %ld", len);
+          double startTime = [[NSDate date] timeIntervalSince1970] * 1000;
+          len = read (fd, buff, DELAY_BUFFER_SIZE);
+          double delay = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
+
+          @synchronized (serverUrlDic)
+          {
+              [serverUrlDic setObject:[[NSNumber alloc] initWithDouble:delay] forKey:url];
+          };
+
+          ret = close (fd);
+          free (buff);
+          buff = NULL;
+          SVInfo (@"delayTest close socket, fd = %d, ret = %d", fd, ret);
+        });
     }
 
-    _testResult.delay = minDelay == DBL_MAX ? 0.0 : minDelay;
+    // 需要等待五个服务器的时延都计算出来,或10秒超时
+    int count = 0;
+    while ([serverUrlDic count] == 0 && count < 10)
+    {
+        count++;
+        [NSThread sleepForTimeInterval:1];
+    }
 
-    free (buff);
-    buff = NULL;
-
+    _testResult.delay = [[serverUrlDic allValues][0] doubleValue];
     SVInfo (@"delayTest over, delay = %fms", _testResult.delay);
+
+    // 初始化默认服务器地址
+    NSURL *url = [serverUrlDic allKeys][0];
+
+    // 获取测试地址
+    NSString *host = [url host];
+    NSNumber *port = [url port];
+
+    _testContext.downloadUrl =
+    [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", host, port,
+                                                    @"/speedtest/random4000x4000.jpg"]];
+
+    _testContext.uploadUrl =
+    [NSURL URLWithString:[NSString
+                         stringWithFormat:@"http://%@:%@%@", host, port, @"/speedtest/upload.php"]];
+
+    _testContext.delayUrl =
+    [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", host, port,
+                                                    @"/speedtest/latency.txt"]];
 }
 
-void sample (BOOL isUpload)
+
+- (void)sample:(BOOL)isUpload
 {
     _curTestResult = [[SVSpeedTestResult alloc] init];
     _curTestResult.testId = _testId;
@@ -464,8 +449,6 @@ void sample (BOOL isUpload)
 
     while (count++ <= SAMPLE_COUNT && _testStatus == TEST_TESTING)
     {
-        usleep (SAMPLE_INTERVAL);
-
         time = [[NSDate date] timeIntervalSince1970];
         if (time <= preTime)
         {
@@ -509,38 +492,12 @@ void sample (BOOL isUpload)
 
         // 推送
         [_testDelegate updateTestResultDelegate:_testContext testResult:_curTestResult];
+
+        // 每隔200毫秒执行一次
+        [NSThread sleepForTimeInterval:0.2];
     }
 
     _internalTestStatus = TEST_FINISHED;
-
-    // 采样结束，计算平均速度
-    // speedSum = 0.0;
-    //    long len = sizeof (_speeds) / sizeof (_speeds[0]);
-    //    BOOL flag = false;
-    //    int validSpeedCount = 0;
-    //    for (int i = 0; i < len; i++)
-    //    {
-    //        if (_speeds[i] > 0.001)
-    //        {
-    //            // 从第一个速度大于0.001的采样点开始
-    //            flag = true;
-    //        }
-    //
-    //        if (flag)
-    //        {
-    //            speedSum += _speeds[i];
-    //            validSpeedCount++;
-    //        }
-    //    }
-    //
-    //    if (validSpeedCount < 1)
-    //    {
-    //        speedAvg = 0;
-    //    }
-    //    else
-    //    {
-    //        speedAvg = speedSum / validSpeedCount;
-    //    }
 
     double currentTime = [[NSDate date] timeIntervalSince1970];
     speedAvg = *size * 8.0 / (currentTime - _beginTime) / 1000000;
@@ -668,10 +625,28 @@ void sample (BOOL isUpload)
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
 
+    NSString *delayUrl = @"";
+    NSString *downloadUrl = @"";
+    NSString *uploadUrl = @"";
 
-    [dic setObject:[_testContext.delayUrl absoluteString] forKey:@"delayUrl"];
-    [dic setObject:[_testContext.downloadUrl absoluteString] forKey:@"downloadUrl"];
-    [dic setObject:[_testContext.uploadUrl absoluteString] forKey:@"uploadUrl"];
+    if (_testContext.delayUrl)
+    {
+        delayUrl = [_testContext.delayUrl absoluteString];
+    }
+
+    if (_testContext.downloadUrl)
+    {
+        downloadUrl = [_testContext.downloadUrl absoluteString];
+    }
+
+    if (_testContext.uploadUrl)
+    {
+        uploadUrl = [_testContext.uploadUrl absoluteString];
+    }
+
+    [dic setObject:delayUrl forKey:@"delayUrl"];
+    [dic setObject:downloadUrl forKey:@"downloadUrl"];
+    [dic setObject:uploadUrl forKey:@"uploadUrl"];
 
     NSString *json = [self dictionaryToJsonString:dic];
 
@@ -714,6 +689,7 @@ void sort (double *a, int n)
         }
     }
 }
+
 // 停止测试
 - (BOOL)stopTest
 {
