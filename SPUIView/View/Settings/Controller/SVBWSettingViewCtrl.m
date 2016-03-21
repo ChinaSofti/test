@@ -8,6 +8,7 @@
 #define BUTTON_TAG 30
 
 #import "SVBWSettingViewCtrl.h"
+#import "SVTextField.h"
 #import <SPService/SVIPAndISPGetter.h>
 #import <SPService/SVProbeInfo.h>
 
@@ -20,7 +21,7 @@
 
 @implementation SVBWSettingViewCtrl
 {
-    UITextField *_textField;
+    SVTextField *_textField;
     int _bandwidthTypeIndex;
     NSMutableArray *bandwidthTypeButtonArray;
 }
@@ -163,7 +164,7 @@
     lableBWPackage.font = [UIFont systemFontOfSize:14];
     [views addSubview:lableBWPackage];
 
-    _textField = [[UITextField alloc] init];
+    _textField = [[SVTextField alloc] init];
     //大小
     _textField.frame = CGRectMake (10, 90, kScreenW - 40, 20);
     //文字
@@ -175,6 +176,7 @@
     _textField.placeholder = @"Please input bandwidth";
     //键盘类型
     _textField.keyboardType = UIKeyboardTypeNumberPad;
+    [_textField setCharacterLength:6];
 
     //添加
     [views addSubview:_textField];

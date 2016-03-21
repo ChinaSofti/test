@@ -16,7 +16,7 @@ static NSInteger BtnTag = 10086;
     UIView *_bgView;
     UIButton *_typeBtn;
     int _bandwidthTypeIndex;
-    NSMutableArray * _typeBtnArray;
+    NSMutableArray *_typeBtnArray;
 }
 @property (nonatomic, strong) UIView *imageView2;
 
@@ -38,7 +38,7 @@ static NSInteger BtnTag = 10086;
 }
 - (instancetype)initWithFrame:(CGRect)frame bgColor:(UIColor *)color
 {
-    
+
     self = [super initWithFrame:frame];
     if (self)
     {
@@ -98,8 +98,8 @@ static NSInteger BtnTag = 10086;
                                                               size:CGSizeMake (FITWIDTH (35), FITWIDTH (30))]
                             forState:UIControlStateSelected];
         _typeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        
-        
+
+
         _typeBtn.tag = BtnTag + i;
 
         if (_typeBtn.tag == 0 + BtnTag)
@@ -122,12 +122,13 @@ static NSInteger BtnTag = 10086;
         _typeBtn.layer.borderWidth = 1;
         _typeBtn.layer.borderColor = [[UIColor clearColor] CGColor];
         _typeBtn.layer.cornerRadius = 5;
-        
+
         if (_typeBtn.tag == 10086)
         {
             _typeBtn.selected = YES;
             _typeBtn.layer.borderColor =
-            [[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1] CGColor];        }
+            [[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1] CGColor];
+        }
         [_bgView addSubview:_typeBtn];
     }
     //宽带套餐
@@ -152,7 +153,8 @@ static NSInteger BtnTag = 10086;
     createTextFieldWithFrame:CGRectMake (FITWIDTH (80), internetMealLabel.originY, FITWIDTH (170), FITWIDTH (20))
                  placeholder:nil
                         Font:15
-                   fontColor:[UIColor blackColor]];
+                   fontColor:[UIColor blackColor]
+             characterLength:6];
     _mealTextField.keyboardType = UIKeyboardTypeNumberPad;
     //所属运营商
     UILabel *internetCompanyLabel = [CTWBViewTools
@@ -261,16 +263,19 @@ static NSInteger BtnTag = 10086;
             _bandwidthTypeIndex = 2;
         }
     }
-    
-    for (UIButton * typeBtn in _typeBtnArray) {
-        if (sender == typeBtn) {
+
+    for (UIButton *typeBtn in _typeBtnArray)
+    {
+        if (sender == typeBtn)
+        {
             typeBtn.layer.borderColor =
             [[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1] CGColor];
-        } else {
+        }
+        else
+        {
             typeBtn.layer.borderColor = [[UIColor clearColor] CGColor];
         }
     }
-    
 }
 
 //忽略按钮

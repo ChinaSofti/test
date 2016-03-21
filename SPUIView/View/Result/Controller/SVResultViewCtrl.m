@@ -163,7 +163,10 @@
         SVInfo (@"确定删除所有数据");
 
         //从数据库中删除
-        [_db executeUpdate:@"delete from SVJunitTestTable;"];
+        [_db executeUpdate:@"delete from SVSummaryResultModel;"];
+
+        //从数据库中删除
+        [_db executeUpdate:@"delete from SVDetailResultModel;"];
 
         //从UI上删除
         [_dataSource removeAllObjects];
