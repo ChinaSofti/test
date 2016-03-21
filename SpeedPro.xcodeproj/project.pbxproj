@@ -31,7 +31,6 @@
 		561A36D21C896B5A00AC5F5E /* SVAdvancedViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36C81C896B5A00AC5F5E /* SVAdvancedViewCtrl.m */; };
 		561A36D31C896B5A00AC5F5E /* SVBWSettingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36CA1C896B5A00AC5F5E /* SVBWSettingViewCtrl.m */; };
 		561A36D41C896B5A00AC5F5E /* SVLanguageSettingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36CC1C896B5A00AC5F5E /* SVLanguageSettingViewCtrl.m */; };
-		561A36D51C896B5A00AC5F5E /* SVLogsViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36CE1C896B5A00AC5F5E /* SVLogsViewCtrl.m */; };
 		561A36D61C896B5A00AC5F5E /* SVSettingsViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36D01C896B5A00AC5F5E /* SVSettingsViewCtrl.m */; };
 		561A36DA1C896B7E00AC5F5E /* SVTestViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36D91C896B7E00AC5F5E /* SVTestViewCtrl.m */; };
 		561A36E21C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36DD1C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m */; };
@@ -197,8 +196,6 @@
 		561A36CA1C896B5A00AC5F5E /* SVBWSettingViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVBWSettingViewCtrl.m; sourceTree = "<group>"; };
 		561A36CB1C896B5A00AC5F5E /* SVLanguageSettingViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVLanguageSettingViewCtrl.h; sourceTree = "<group>"; };
 		561A36CC1C896B5A00AC5F5E /* SVLanguageSettingViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVLanguageSettingViewCtrl.m; sourceTree = "<group>"; };
-		561A36CD1C896B5A00AC5F5E /* SVLogsViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVLogsViewCtrl.h; sourceTree = "<group>"; };
-		561A36CE1C896B5A00AC5F5E /* SVLogsViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVLogsViewCtrl.m; sourceTree = "<group>"; };
 		561A36CF1C896B5A00AC5F5E /* SVSettingsViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSettingsViewCtrl.h; sourceTree = "<group>"; };
 		561A36D01C896B5A00AC5F5E /* SVSettingsViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSettingsViewCtrl.m; sourceTree = "<group>"; };
 		561A36D81C896B7E00AC5F5E /* SVTestViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVTestViewCtrl.h; sourceTree = "<group>"; };
@@ -460,8 +457,6 @@
 				561A36CA1C896B5A00AC5F5E /* SVBWSettingViewCtrl.m */,
 				561A36CB1C896B5A00AC5F5E /* SVLanguageSettingViewCtrl.h */,
 				561A36CC1C896B5A00AC5F5E /* SVLanguageSettingViewCtrl.m */,
-				561A36CD1C896B5A00AC5F5E /* SVLogsViewCtrl.h */,
-				561A36CE1C896B5A00AC5F5E /* SVLogsViewCtrl.m */,
 				561A36CF1C896B5A00AC5F5E /* SVSettingsViewCtrl.h */,
 				561A36D01C896B5A00AC5F5E /* SVSettingsViewCtrl.m */,
 				568D42AF1C8991A400F2916B /* SVFAQViewCtrl.h */,
@@ -1023,7 +1018,6 @@
 				56A919181C4F4BAB00E8BB72 /* ViewController.m in Sources */,
 				561A36C01C896A0C00AC5F5E /* SVToolCells.m in Sources */,
 				561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */,
-				561A36D51C896B5A00AC5F5E /* SVLogsViewCtrl.m in Sources */,
 				561A36E41C896BAF00AC5F5E /* SVResultViewCtrl.m in Sources */,
 				561A36E31C896BAF00AC5F5E /* SVDetailViewCtrl.m in Sources */,
 				561A36DA1C896B7E00AC5F5E /* SVTestViewCtrl.m in Sources */,

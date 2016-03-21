@@ -11,7 +11,6 @@
 #import "SVBWSettingViewCtrl.h"
 #import "SVFAQViewCtrl.h"
 #import "SVLanguageSettingViewCtrl.h"
-#import "SVLogsViewCtrl.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
 #import <SPCommon/SVRealReachability.h>
@@ -415,8 +414,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 //上传成功与失败判断
 - (void)delayMethod
 {
-    NSString *title2 = I18N (@"Upload Success");
-    NSString *title3 = I18N (@"Upload Failed");
+
     @try
     {
         SVLog *log = [SVLog alloc];
@@ -425,11 +423,12 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
         SVUploadFile *upload = [[SVUploadFile alloc] init];
         NSString *urlString = @"https://58.60.106.188:12210/speedpro/log?op=list&begin=0&end=50";
         [upload uploadFileWithURL:[NSURL URLWithString:urlString] filePath:filePath];
-        [SVToast showWithText:title2];
     }
     @catch (NSException *exception)
     {
         SVError (@"上传失败. %@", exception);
+
+        NSString *title3 = I18N (@"Upload Failed");
         [SVToast showWithText:title3];
     }
 }
@@ -477,12 +476,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
             languageSetting.title = title4;
             [self.navigationController pushViewController:languageSetting animated:YES];
         }
-        //上传日志
-        if (indexPath.row == 3)
-        {
-            SVLogsViewCtrl *logs = [[SVLogsViewCtrl alloc] init];
-            logs.title = title5;
-        }
+
         //高级设置
         if (indexPath.row == 4)
         {
