@@ -14,9 +14,9 @@
 {
     if ([super init])
     {
-        NSString *title3 = I18N (@"Video server location");
+        NSString *title3 = I18N (@"Video Server Location");
         NSString *title4 = I18N (@"Resolution");
-        NSString *title5 = I18N (@"Bit rate");
+        NSString *title5 = I18N (@"Bit Rate");
         // FooterView中的初始化
         // videotesting
         //设置Label
@@ -93,11 +93,7 @@
                     withFont:16
               withTitleColor:[UIColor blackColor]
                    withTitle:@""];
-        _Carrier = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (215), FITWIDTH (495), FITWIDTH (300), FITWIDTH (20))
-                    withFont:10
-              withTitleColor:[UIColor blackColor]
-                   withTitle:@""];
+
         _abcd =
         [[UIView alloc] initWithFrame:CGRectMake (kScreenW - 20, FITWIDTH (495), 20, FITWIDTH (20))];
         _abcd.backgroundColor =
@@ -114,6 +110,12 @@
                     withFont:10
               withTitleColor:[UIColor lightGrayColor]
                    withTitle:title8];
+        _Carrier = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (_CarrierNumLabel.originX + _CarrierNumLabel.width + 10,
+                                         FITWIDTH (495), FITWIDTH (300), FITWIDTH (20))
+                    withFont:10
+              withTitleColor:[UIColor blackColor]
+                   withTitle:@""];
         //所有Label居中对齐
         _ServerLocation.textAlignment = NSTextAlignmentLeft;
         _Carrier.textAlignment = NSTextAlignmentLeft;

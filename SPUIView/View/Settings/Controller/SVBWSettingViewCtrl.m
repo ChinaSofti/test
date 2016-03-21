@@ -85,7 +85,7 @@
 - (void)createUI
 {
     NSString *title1 = I18N (@"Type");
-    NSString *title2 = I18N (@"unknown");
+    NSString *title2 = I18N (@"Unknown");
     NSString *title3 = I18N (@"Fiber");
     NSString *title4 = I18N (@"Copper");
     NSString *title5 = I18N (@"Package");

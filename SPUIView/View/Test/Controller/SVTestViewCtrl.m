@@ -214,7 +214,7 @@
         //按钮背景颜色
         _testBtn.backgroundColor =
         [UIColor colorWithRed:229 / 255.0 green:229 / 255.0 blue:229 / 255.0 alpha:1.0];
-        NSString *title5 = I18N (@"Begin Test");
+        NSString *title5 = I18N (@"Start Test");
         [_testBtn setTitle:title5 forState:UIControlStateNormal];
         //按钮点击事件
         [_testBtn addTarget:self

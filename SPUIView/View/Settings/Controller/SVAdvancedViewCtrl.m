@@ -86,7 +86,7 @@
 - (void)createScreenSizeUI
 {
     NSString *title1 = I18N (@"Screen Size:");
-    NSString *title2 = I18N (@"Inch");
+    NSString *title2 = I18N (@"inch");
     // views
     UIView *views = [[UIView alloc] init];
     views.frame = CGRectMake (FITTHEIGHT (10), FITTHEIGHT (74), kScreenW - FITTHEIGHT (20), FITTHEIGHT (44));

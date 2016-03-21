@@ -87,8 +87,11 @@ static int userLanguageIndex;
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     int languageIndex = [probeInfo getLanguageIndex];
     NSString *title1 = I18N (@"Auto      ");
+    NSString *title22 = I18N (@"                 Simplified Chinese");
+    NSString *title3 = I18N (@"English");
+
     NSString *title2 = I18N (@"Save");
-    NSArray *titlesArr = @[title1, @"简体中文", @"English  "];
+    NSArray *titlesArr = @[title1, title22, title3];
     NSMutableArray *languageButtonArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 3; i++)
     {

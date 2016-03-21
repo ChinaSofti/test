@@ -15,7 +15,7 @@
 
 //退出程序视图
 "Press Back Key again to exit the program" = "Press Back Key again to exit the program";
-"Testing" = "Testing";
+"Test" = "Test";
 
 //主测试界面
 "Select Test Item"="Select Test Item";
@@ -24,13 +24,14 @@
 "Speed Test"="Speed Test";
 "NetWork disconnection,unable to test" = "NetWork disconnection,unable to test";
 "Network Settings" = "Network Settings";
-"Begin Test"="Begin Test";
+"Start Test"="Start Test";
 
 //视频测试
 "Loading..." = "Loading...";
 "Fail" = "Fail";
 "Inch" = "Inch";
-"U-vMos"="U-vMos";
+"inch" = "inch";
+"U-vMOS"="U-vMOS";
 "U-vMOS"="U-vMOS";
 
 //网页测试
@@ -47,7 +48,7 @@
 "Test Again"="Test Again";
 
 //结果界面
-"Result" = "Result";
+"Results" = "Results";
 "Result List"="Result List";
 "Type"="Type";
 "Time"="Time";
@@ -66,19 +67,19 @@
 //视频测试
 "Video Test" = "Video Test";
 "U-vMOS Score" = "U-vMOS Score";
-"      Video View score" = "      Video sView score";
-"      Video quality score" = "      Video sQuality score";
-"      Interaction score" = "      sInteraction score";
-"Initial buffer time" = "Initial buffer time";
+"      sView Score" = "      sView Score";
+"      sQuality Score" = "      sQuality Score";
+"      sInteraction Score" = "      sInteraction Score";
+"Initial Buffer Time" = "Initial Buffer Time";
 "Buffer time" = "Buffer time";
-"Butter times" = "Buffer times";
-"Download speed" = "Download speed";
-"Bit rate" = "Bit rate";
-"Frame rate" = "Frame rat";
+"Stalling Times" = "Stalling Times";
+"Download Speed" = "Download Speed";
+"Bit Rate" = "Bit Rate";
+"Frame Rate" = "Frame Rate";
 "Resolution" = "Resolution";
 "Screen size" = "Screen size";
 "Video URL" = "Video URL";
-"Video server location" = "Video server location";
+"Video Server Location" = "Video Server Location";
 "Carrier" = "Carrier";
 "Video Play Duration" = "Video Play Duration";
 
@@ -93,14 +94,14 @@
 //宽带测试
 "Speed" = "Speed";
 "Speed Test" = "Speed Test";
-"Download speed" = "Download speed";
+"Download Speed" = "Download Speed";
 "Upload speed" = "Upload speed";
 "Delay" = "Delay";
 "Server Location" = "Server Location";
 "Collector Information"="Collector Information";
 "Bandwidth package"="Bandwidth package";
 "Network type"="Network type";
-"unknown" = "unknown";
+"Unknown" = "Unknown";
 "Test time"="Test time";
 "Signaling strength"="Signaling strength";
 
@@ -108,7 +109,7 @@
 "Share on"="Share on";
 "Sina Weibo"="Sina Weibo";
 "WeChat"="WeChat";
-"WeChat Friend Circle"="WeChat Friend Circle";
+"Moments"="Moments";
 "Email"="Email";
 "Cancel"="Cancel";
 
@@ -117,8 +118,7 @@
 //设置界面
 "Settings"="Settings";
 "Setting" = "Setting";
-"Current connection"="Current connection";
-"Curren:"="Current:";
+"Current Connection:"="Current Connection:";
 "Carrier" = "Carrier";
 "Carriers"="Carriers";
 "bandwidth type"="bandwidth type";
@@ -146,9 +146,9 @@
 "FAQ"="FAQ";
 
 //语言设置
-"Language Setting"="Language Setting";
+"Language Settings"="Language Settings";
 "Auto      " = "Auto      ";
-"简体中文" = "简体中文";
+"                 Simplified Chinese" = "                 Simplified Chinese";
 "English" = "English";
 "Save" = "Save";
 
@@ -168,7 +168,7 @@
 //上传日志
 "Upload Logs" = "Upload Logs";
 "Upload logs" = "Upload logs";
-"Are you sure Upload logs" = "Are you sure Upload logs";
+"Do you want to upload logs?" = "Do you want to upload logs?";
 "Upload logs start" = "Upload logs start";
 //上传成功与失败提示框
 "Uploading" = "Uploading";
@@ -176,7 +176,7 @@
 "Upload Failed" = "Upload Failed";
 //高级设置
 "Advanced" = "Advanced";
-"Advanced setting" = "Advanced setting";
+"Advanced Settings" = "Advanced Settings";
 "Screen Size:" = "Screen Size:";
 
 "Auto" = "Auto";

@@ -55,7 +55,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
         return;
     }
 
-    NSString *title1 = I18N (@"Current:");
+    NSString *title1 = I18N (@"Current Connection:");
     SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
     NSString *title2 = ipAndISP.isp;
     SVRealReachability *realReachablity = [SVRealReachability sharedInstance];
@@ -72,25 +72,26 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     imageView1.frame = CGRectMake (10, 10, 60, 60);
     [_networkcell addSubview:imageView1];
 
-    UILabel *label11 = [[UILabel alloc] initWithFrame:CGRectMake (100, 15, 70, 20)];
+    UILabel *label11 = [[UILabel alloc] initWithFrame:CGRectMake (80, 15, 130, 20)];
     label11.text = title1;
     //设置字体和是否加粗
     label11.font = [UIFont systemFontOfSize:16];
     [_networkcell addSubview:label11];
 
-    UILabel *label111 = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 200, 20)];
+    UILabel *label111 =
+    [[UILabel alloc] initWithFrame:CGRectMake (label11.originX + label11.width, 15, 200, 20)];
 
-    label111.text = I18N (@"Mobile network");
+    label111.text = I18N (@"Mobile Network");
     if (status == SV_RealStatusViaWiFi)
     {
         label111.text = I18N (@"WiFi");
     }
 
     //设置字体和是否加粗
-    label111.font = [UIFont systemFontOfSize:16];
+    label111.font = [UIFont systemFontOfSize:12];
     [_networkcell addSubview:label111];
 
-    UILabel *label22 = [[UILabel alloc] initWithFrame:CGRectMake (100, 45, 160, 20)];
+    UILabel *label22 = [[UILabel alloc] initWithFrame:CGRectMake (80, 45, 160, 20)];
     label22.text = title2;
     label22.font = [UIFont systemFontOfSize:13];
     [_networkcell addSubview:label22];
@@ -164,9 +165,9 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     NSString *title21 = I18N (@"Share");
     NSString *title3 = I18N (@"About");
     //    NSString *title31 = I18N (@"FAQ");
-    NSString *title4 = I18N (@"Language Setting");
+    NSString *title4 = I18N (@"Language Settings");
     NSString *title5 = I18N (@"Upload Logs");
-    NSString *title6 = I18N (@"Advanced setting");
+    NSString *title6 = I18N (@"Advanced Settings");
 
     static NSString *cellId = @"cell";
 
@@ -242,7 +243,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     NSString *title8 = I18N (@"Share on");
     NSString *title9 = I18N (@"Cancel");
     NSString *title10 = I18N (@"WeChat");
-    NSString *title11 = I18N (@"WeChat Friend Circle");
+    NSString *title11 = I18N (@"Moments");
     //获取整个屏幕的window
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //    // 0.开始动画
@@ -297,7 +298,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     label3.textAlignment = NSTextAlignmentCenter;
     //创建一个显示微信朋友圈的label4
     UILabel *label4 = [[UILabel alloc]
-    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (40), kScreenH / 10 + FITTHEIGHT (70), 130, 20)];
+    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (45), kScreenH / 10 + FITTHEIGHT (70), 130, 20)];
     label4.text = title11;
     label4.font = [UIFont systemFontOfSize:15];
     label4.textColor = [UIColor lightGrayColor];
@@ -385,7 +386,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 
 {
     NSString *title1 = I18N (@"Upload Logs");
-    NSString *title2 = I18N (@"Are you sure Upload logs");
+    NSString *title2 = I18N (@"Do you want to upload logs?");
     NSString *title3 = I18N (@"No");
     NSString *title4 = I18N (@"Yes");
 
@@ -437,9 +438,9 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     NSString *title0 = I18N (@"Bandwidth Settings");
     NSString *title3 = I18N (@"About");
     //    NSString *title31 = I18N (@"FAQ");
-    NSString *title4 = I18N (@"Language Setting");
+    NSString *title4 = I18N (@"Language Settings");
     NSString *title5 = I18N (@"Upload Logs");
-    NSString *title6 = I18N (@"Advanced");
+    NSString *title6 = I18N (@"Advanced Settings");
     //当前连接
     if (indexPath.section == 0)
     {

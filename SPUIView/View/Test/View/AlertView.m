@@ -59,7 +59,7 @@ static NSInteger BtnTag = 10086;
 {
     NSString *title1 = I18N (@"Setting Bandwidth Information");
     NSString *title2 = I18N (@"Type ");
-    NSString *title3 = I18N (@"unknown");
+    NSString *title3 = I18N (@"Unknown");
     NSString *title4 = I18N (@"Fiber");
     NSString *title5 = I18N (@"Copper");
     NSString *title6 = I18N (@"Package");
