@@ -763,11 +763,6 @@
 		56F523D61C4DCF7F00E6472B = {
 			isa = PBXGroup;
 			children = (
-				56CAFFC61C9BFC2100210081 /* SystemConfiguration.framework */,
-				56CAFFC41C9BFC0800210081 /* libz.tbd */,
-				56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */,
-				56CAFFC01C9BFBEB00210081 /* CoreTelephony.framework */,
-				56CAFFBE1C9BFBDB00210081 /* libc++.tbd */,
 				56F523E01C4DCF7F00E6472B /* Products */,
 				56F523E11C4DCF7F00E6472B /* SPUIView */,
 				B70FF3D41C6582AA002D571B /* SPUIViewTests */,
@@ -820,6 +815,11 @@
 		B71E7C4F1C743DA200DF1AA4 /* Thirdpart */ = {
 			isa = PBXGroup;
 			children = (
+				56CAFFC61C9BFC2100210081 /* SystemConfiguration.framework */,
+				56CAFFC41C9BFC0800210081 /* libz.tbd */,
+				56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */,
+				56CAFFC01C9BFBEB00210081 /* CoreTelephony.framework */,
+				56CAFFBE1C9BFBDB00210081 /* libc++.tbd */,
 				B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */,
 				B72AC8621C76EA3D00AAC3B3 /* SPService.framework */,
 			);
