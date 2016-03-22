@@ -65,15 +65,13 @@
     [progressView setProgressViewStyle:UIProgressViewStyleDefault];
     [self.view addSubview:progressView];
 
-    // 启动计算下载速度的定时器，当前时间100ms后，每隔500ms执行一次
+    // 启动计算下载速度的定时器，当前时间100ms后，每隔1s执行一次
     progressVlaue = 0.0;
-    progressTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:0.01]
-                                             interval:0.5
-                                               target:self
-                                             selector:@selector (changeProgress:)
-                                             userInfo:@"Progress"
-                                              repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:progressTimer forMode:NSDefaultRunLoopMode];
+    progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                                                     target:self
+                                                   selector:@selector (changeProgress)
+                                                   userInfo:@"Progress"
+                                                    repeats:YES];
 }
 
 // 根据屏幕大小和语言选择图片
@@ -103,10 +101,10 @@
 }
 
 // 改变进度条进度
-- (void)changeProgress:(NSTimer *)timer
+- (void)changeProgress
 {
     // 进度值为1，说明进度条已经满了
-    if (progressVlaue == 1)
+    if (progressVlaue >= 1)
     {
         // 取消定时器
         [progressTimer invalidate];
@@ -123,15 +121,15 @@
 
     // 根据测试数据是否加载完成来显示进度条的进度，当进度条走到80%时，会一直等待知道加载完成
     SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
-    if (![contextGetter isInitSuccess] && progressVlaue <= 0.8)
+    if (![contextGetter isInitSuccess])
     {
-        progressVlaue += 0.1;
-        [progressView setProgress:progressVlaue animated:YES];
+        progressVlaue += 0.05;
+        [progressView setProgress:progressVlaue];
     }
     else
     {
         progressVlaue = 1;
-        [progressView setProgress:progressVlaue animated:YES];
+        [progressView setProgress:progressVlaue];
     }
 }
 

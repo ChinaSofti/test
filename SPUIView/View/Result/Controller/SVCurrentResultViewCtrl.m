@@ -386,7 +386,7 @@
         // 响应时间(值)
         _responseLabelValue = [[UILabel alloc]
         initWithFrame:CGRectMake (_imgView2.rightX + FITHEIGHT (10),
-                                  _imgView2.originY - FITWIDTH (10), FITWIDTH (40), imgViewWAndH2)];
+                                  _imgView2.originY - FITWIDTH (10), FITWIDTH (46), imgViewWAndH2)];
         [_responseLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_responseLabelValue setTextAlignment:NSTextAlignmentRight];
         [_responseLabelValue setTextColor:RGBACOLOR (56, 198, 149, 1)];
@@ -394,7 +394,7 @@
         // 响应时间(单位)
         _responseLabelUnit = [[UILabel alloc]
         initWithFrame:CGRectMake (_responseLabelValue.rightX, _imgView2.originY + FITWIDTH (3),
-                                  FITWIDTH (30), FITWIDTH (20))];
+                                  FITWIDTH (24), FITWIDTH (20))];
         [_responseLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_responseLabelUnit setTextAlignment:NSTextAlignmentLeft];
         [_responseLabelUnit setTextColor:RGBACOLOR (56, 198, 149, 1)];
@@ -427,7 +427,7 @@
         // 完全加载时间(值)
         _loadLabelValue = [[UILabel alloc]
         initWithFrame:CGRectMake (_responseLabelUnit.rightX + FITWIDTH (5),
-                                  _imgView2.originY - FITWIDTH (10), FITWIDTH (50), imgViewWAndH2)];
+                                  _imgView2.originY - FITWIDTH (10), FITWIDTH (48), imgViewWAndH2)];
         [_loadLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_loadLabelValue setTextAlignment:NSTextAlignmentRight];
         [_loadLabelValue setTextColor:RGBACOLOR (56, 198, 149, 1)];
@@ -435,7 +435,7 @@
         // 完全加载时间(单位)
         _loadLabelUnit = [[UILabel alloc]
         initWithFrame:CGRectMake (_loadLabelValue.rightX, _imgView2.originY + FITWIDTH (3),
-                                  FITWIDTH (20), FITWIDTH (20))];
+                                  FITWIDTH (32), FITWIDTH (20))];
         [_loadLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_loadLabelUnit setTextAlignment:NSTextAlignmentLeft];
         [_loadLabelUnit setTextColor:RGBACOLOR (56, 198, 149, 1)];
@@ -455,7 +455,7 @@
         // 完全加载时间(标题)
         UILabel *loadLabel = [[UILabel alloc]
         initWithFrame:CGRectMake (responseLabel.rightX + FITWIDTH (5),
-                                  _imgView2.originY + FITWIDTH (10), FITWIDTH (70), imgViewWAndH2)];
+                                  _imgView2.originY + FITWIDTH (10), FITWIDTH (80), imgViewWAndH2)];
         [loadLabel setText:_title5];
         [loadLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
         [loadLabel setTextAlignment:NSTextAlignmentCenter];
@@ -467,8 +467,8 @@
 
         // 下载速率(值)
         _downloadLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (_loadLabelUnit.rightX - FITHEIGHT (5),
-                                  _imgView2.originY - FITWIDTH (10), FITWIDTH (65), imgViewWAndH2)];
+        initWithFrame:CGRectMake (_loadLabelUnit.rightX - FITWIDTH (5),
+                                  _imgView2.originY - FITWIDTH (10), FITWIDTH (60), imgViewWAndH2)];
         [_downloadLabelValue setFont:[UIFont boldSystemFontOfSize:16]];
         [_downloadLabelValue setTextAlignment:NSTextAlignmentRight];
         [_downloadLabelValue setTextColor:RGBACOLOR (56, 198, 149, 1)];
@@ -495,7 +495,7 @@
 
         // 下载速率(标题)
         UILabel *downloadLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (loadLabel.rightX + FITHEIGHT (5),
+        initWithFrame:CGRectMake (loadLabel.rightX - FITHEIGHT (5),
                                   _imgView2.originY + FITWIDTH (10), FITWIDTH (90), imgViewWAndH2)];
         [downloadLabel setText:_title6];
         [downloadLabel setFont:[UIFont systemFontOfSize:valueLableFontSize]];
@@ -525,7 +525,7 @@
         // 时延(值)
         _dtDelayLabelValue = [[UILabel alloc]
         initWithFrame:CGRectMake (_imgView3.rightX + FITWIDTH (10),
-                                  _imgView3.originY - FITWIDTH (10), FITWIDTH (40), imgViewWAndH3)];
+                                  _imgView3.originY - FITWIDTH (10), FITWIDTH (35), imgViewWAndH3)];
         [_dtDelayLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_dtDelayLabelValue setTextAlignment:NSTextAlignmentRight];
         [_dtDelayLabelValue setTextColor:RGBACOLOR (252, 96, 69, 1)];
@@ -533,7 +533,7 @@
         // 时延(单位)
         _dtDelayLabelUnit = [[UILabel alloc]
         initWithFrame:CGRectMake (_dtDelayLabelValue.rightX, _imgView3.originY + FITWIDTH (3),
-                                  FITWIDTH (30), FITWIDTH (20))];
+                                  FITWIDTH (35), FITWIDTH (20))];
         [_dtDelayLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_dtDelayLabelUnit setTextAlignment:NSTextAlignmentLeft];
         [_dtDelayLabelUnit setTextColor:RGBACOLOR (252, 96, 69, 1)];
@@ -553,7 +553,7 @@
         // 时延(标题)
         UILabel *delayLabelTitle = [[UILabel alloc]
         initWithFrame:CGRectMake (_imgView3.rightX + FITHEIGHT (10),
-                                  _imgView3.originY + FITWIDTH (10), FITWIDTH (60), imgViewWAndH3)];
+                                  _imgView3.originY + FITWIDTH (10), FITWIDTH (70), imgViewWAndH3)];
         [delayLabelTitle setText:_delayTitle];
         [delayLabelTitle setFont:[UIFont systemFontOfSize:10]];
         [delayLabelTitle setTextAlignment:NSTextAlignmentCenter];
@@ -566,7 +566,7 @@
         // 下载速度(值)
         _dtDownloadLabelValue = [[UILabel alloc]
         initWithFrame:CGRectMake (_dtDelayLabelUnit.rightX + FITWIDTH (5),
-                                  _imgView3.originY - FITWIDTH (10), FITWIDTH (50), imgViewWAndH3)];
+                                  _imgView3.originY - FITWIDTH (10), FITWIDTH (48), imgViewWAndH3)];
         [_dtDownloadLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_dtDownloadLabelValue setTextAlignment:NSTextAlignmentRight];
         [_dtDownloadLabelValue setTextColor:RGBACOLOR (252, 96, 69, 1)];
@@ -574,7 +574,7 @@
         // 下载速度(单位)
         _dtDownloadLabelUnit = [[UILabel alloc]
         initWithFrame:CGRectMake (_dtDownloadLabelValue.rightX, _imgView3.originY + FITWIDTH (3),
-                                  FITWIDTH (30), FITWIDTH (20))];
+                                  FITWIDTH (32), FITWIDTH (20))];
         [_dtDownloadLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_dtDownloadLabelUnit setTextAlignment:NSTextAlignmentLeft];
         [_dtDownloadLabelUnit setTextColor:RGBACOLOR (252, 96, 69, 1)];
@@ -606,8 +606,8 @@
 
         // 上传速度(值)
         _dtUploadLabelValue = [[UILabel alloc]
-        initWithFrame:CGRectMake (_dtDownloadLabelUnit.rightX, _imgView3.originY - FITWIDTH (10),
-                                  FITWIDTH (50), imgViewWAndH3)];
+        initWithFrame:CGRectMake (_dtDownloadLabelUnit.rightX + FITWIDTH (5),
+                                  _imgView3.originY - FITWIDTH (10), FITWIDTH (42), imgViewWAndH3)];
         [_dtUploadLabelValue setFont:[UIFont boldSystemFontOfSize:valueFontSize]];
         [_dtUploadLabelValue setTextAlignment:NSTextAlignmentRight];
         [_dtUploadLabelValue setTextColor:RGBACOLOR (252, 96, 69, 1)];
@@ -615,7 +615,7 @@
         // 上传速度(单位)
         _dtUploadLabelUnit = [[UILabel alloc]
         initWithFrame:CGRectMake (_dtUploadLabelValue.rightX, _imgView3.originY + FITWIDTH (3),
-                                  FITWIDTH (25), FITWIDTH (20))];
+                                  FITWIDTH (28), FITWIDTH (20))];
         [_dtUploadLabelUnit setFont:[UIFont systemFontOfSize:10]];
         [_dtUploadLabelUnit setTextAlignment:NSTextAlignmentLeft];
         [_dtUploadLabelUnit setTextColor:RGBACOLOR (252, 96, 69, 1)];

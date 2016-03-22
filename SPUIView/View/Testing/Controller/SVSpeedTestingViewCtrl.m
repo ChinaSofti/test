@@ -305,8 +305,6 @@ double _preSpeed = 0.0;
       {
           // 显示头部指标
           [_headerView.Delay setText:[NSString stringWithFormat:@"%.2f", testResult.delay]];
-          [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.downloadSpeed]];
-          [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.uploadSpeed]];
 
           double speed = testResult.isUpload ? testResult.uploadSpeed : testResult.downloadSpeed;
 
@@ -317,6 +315,15 @@ double _preSpeed = 0.0;
 
           [_speedtestingView updateUvMOS3:speed];
           [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
+          if (testResult.isUpload)
+          {
+              [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+          }
+          else
+          {
+              [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+          }
+
 
           if (testResult.isSecResult)
           {

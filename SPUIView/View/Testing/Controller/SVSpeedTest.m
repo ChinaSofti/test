@@ -343,17 +343,25 @@ double _beginTime;
     NSArray *serverArray = [servers getAllServer];
     NSMutableDictionary *serverUrlDic = [[NSMutableDictionary alloc] init];
 
+    // 记录测试完成的个数
+    NSMutableArray *sucessArray = [[NSMutableArray alloc] init];
+
     // 在线程中遍历前五个服务器，得到时延最小的一个
     long size = [serverArray count] < 5 ? [serverArray count] : 5;
     for (int i = 0; i < size; i++)
     {
         dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+          // 如果用户选择的是自动则去五个url测试,取时延最小的;否则使用用户选择的服务器测试五次
           SVSpeedTestServer *server = serverArray[i];
-          NSURL *url = [NSURL URLWithString:server.serverURL];
+          if (![servers isAuto])
+          {
+              server = [servers getDefaultServer];
+          }
 
+          // 初始化参数
+          NSURL *url = [NSURL URLWithString:server.serverURL];
           char *buff = (char *)malloc (DELAY_BUFFER_SIZE * sizeof (char));
           memset (buff, '\0', DELAY_BUFFER_SIZE);
-
           NSString *request = [NSString
           stringWithFormat:@"%@ %@ HTTP/1.1\r\nAccept: %@\r\nHost: %@\r\nConnection: "
                            @"%@\r\nAccept-Encoding:gzip, deflate, sdch "
@@ -361,8 +369,9 @@ double _beginTime;
                            @"Simulator; U; CPU iPhone OS 6 like Mac OS X; en-us) AppleWebKit/532.9 "
                            @"(KHTML, like Gecko) Mobile/8B117\r\n\r\n",
                            @"GET", url.path, @"*/*", url.host, @"Close"];
-
           SVInfo (@"delayTest request %@", request);
+
+          // 建立socket连接
           struct sockaddr_in currentAddr;
           memset (&currentAddr, 0, sizeof (currentAddr));
           currentAddr.sin_len = sizeof (currentAddr);
@@ -370,7 +379,6 @@ double _beginTime;
           currentAddr.sin_addr.s_addr = INADDR_ANY;
           currentAddr.sin_port = htons ([url.port intValue]);
           currentAddr.sin_addr.s_addr = inet_addr ([[self getIPWithHostName:url.host] UTF8String]);
-
           int fd = socket (AF_INET, SOCK_STREAM, 0);
           int ret = connect (fd, (struct sockaddr *)&currentAddr, sizeof (struct sockaddr));
           if (-1 == ret)
@@ -379,37 +387,55 @@ double _beginTime;
               return;
           }
 
+          // 计算时延
           long len = write (fd, [request UTF8String], [request length] + 1);
           SVInfo (@"delayTest write len = %ld", len);
           double startTime = [[NSDate date] timeIntervalSince1970] * 1000;
           len = read (fd, buff, DELAY_BUFFER_SIZE);
           double delay = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
 
+          // 取时延最小的
           @synchronized (serverUrlDic)
           {
-              [serverUrlDic setObject:[[NSNumber alloc] initWithDouble:delay] forKey:url];
+              NSNumber *preDelay = [serverUrlDic objectForKey:url];
+              if (!preDelay || preDelay.doubleValue > delay)
+              {
+                  [serverUrlDic setObject:[[NSNumber alloc] initWithDouble:delay] forKey:url];
+              }
           };
 
           ret = close (fd);
           free (buff);
           buff = NULL;
+
+          // 测试完成
+          @synchronized (sucessArray)
+          {
+              [sucessArray addObject:@"yes"];
+          };
           SVInfo (@"delayTest close socket, fd = %d, ret = %d", fd, ret);
         });
     }
 
     // 需要等待五个服务器的时延都计算出来,或10秒超时
     int count = 0;
-    while ([serverUrlDic count] == 0 && count < 10)
+    while ([sucessArray count] < size && count < 5)
     {
         count++;
         [NSThread sleepForTimeInterval:1];
     }
 
-    _testResult.delay = [[serverUrlDic allValues][0] doubleValue];
+    // 按时延排序
+    NSArray *sortedArray = [serverUrlDic.allKeys
+    sortedArrayUsingComparator:^NSComparisonResult (__strong id obj1, __strong id obj2) {
+      return [[serverUrlDic objectForKey:obj1] intValue] > [[serverUrlDic objectForKey:obj2] intValue];
+    }];
+
+    _testResult.delay = [[serverUrlDic objectForKey:sortedArray[0]] doubleValue];
     SVInfo (@"delayTest over, delay = %fms", _testResult.delay);
 
     // 初始化默认服务器地址
-    NSURL *url = [serverUrlDic allKeys][0];
+    NSURL *url = sortedArray[0];
 
     // 获取测试地址
     NSString *host = [url host];

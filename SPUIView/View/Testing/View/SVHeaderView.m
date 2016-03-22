@@ -81,69 +81,64 @@
         NSString *title5 = I18N (@"Load duration");
         //设置Label
         _ResponseLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (25), FITWIDTH (100), FITWIDTH (60), FITWIDTH (20))
+        createLabelWithFrame:CGRectMake (FITWIDTH (35), FITWIDTH (100), FITWIDTH (50), FITWIDTH (20))
                     withFont:16
               withTitleColor:RGBACOLOR (250, 180, 86, 1)
                    withTitle:@"N/A"];
-        _ResponseLabel1 =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_ResponseLabel.rightX - FITHEIGHT (5),
-                                                        FITWIDTH (101), FITWIDTH (20), FITWIDTH (20))
-                                   withFont:10
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"s"];
-        _DownloadLabel =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_ResponseLabel.rightX + FITWIDTH (23),
-                                                        FITWIDTH (100), FITWIDTH (70), FITWIDTH (20))
-                                   withFont:16
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"N/A"];
-        _DownloadLabel1 =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_ResponseLabel.rightX + FITWIDTH (95),
-                                                        FITWIDTH (101), FITWIDTH (30), FITWIDTH (20))
-                                   withFont:10
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"kbps"];
+        _ResponseLabel1 = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (_ResponseLabel.rightX, FITWIDTH (100), FITWIDTH (30), FITWIDTH (20))
+                    withFont:10
+              withTitleColor:RGBACOLOR (250, 180, 86, 1)
+                   withTitle:@"s"];
+        _DownloadLabel = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (_ResponseLabel1.rightX, FITWIDTH (100), FITWIDTH (65), FITWIDTH (20))
+                    withFont:16
+              withTitleColor:RGBACOLOR (250, 180, 86, 1)
+                   withTitle:@"N/A"];
+        _DownloadLabel1 = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (_DownloadLabel.rightX, FITWIDTH (100), FITWIDTH (35), FITWIDTH (20))
+                    withFont:10
+              withTitleColor:RGBACOLOR (250, 180, 86, 1)
+                   withTitle:@"kbps"];
 
-        _LoadLabel =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_DownloadLabel.rightX + FITWIDTH (5),
-                                                        FITWIDTH (100), FITWIDTH (70), FITWIDTH (20))
-                                   withFont:16
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"N/A"];
-        _LoadLabel1 =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_ResponseLabel.rightX + FITWIDTH (163),
-                                                        FITWIDTH (101), FITWIDTH (20), FITWIDTH (20))
-                                   withFont:10
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"s"];
+        _LoadLabel = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (_DownloadLabel1.rightX, FITWIDTH (100), FITWIDTH (58), FITWIDTH (20))
+                    withFont:16
+              withTitleColor:RGBACOLOR (250, 180, 86, 1)
+                   withTitle:@"N/A"];
+        _LoadLabel1 = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (_LoadLabel.rightX, FITWIDTH (100), FITWIDTH (32), FITWIDTH (20))
+                    withFont:10
+              withTitleColor:RGBACOLOR (250, 180, 86, 1)
+                   withTitle:@"s"];
 
         _ResponseNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (35), _ResponseLabel.bottomY + FITWIDTH (10),
-                                         FITWIDTH (100), FITWIDTH (10))
+                                         FITWIDTH (80), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title3];
 
         _DownloadNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_ResponseNumLabel.rightX, _ResponseLabel.bottomY + FITWIDTH (10),
-                                         FITWIDTH (90), FITWIDTH (10))
+                                         FITWIDTH (100), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title4];
 
         _LoadNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_DownloadNumLabel.rightX, _ResponseLabel.bottomY + FITWIDTH (10),
-                                         FITWIDTH (80), FITWIDTH (10))
+                                         FITWIDTH (90), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title5];
         //所有Label居中对齐
         _ResponseLabel.textAlignment = NSTextAlignmentRight;
-        _ResponseLabel1.textAlignment = NSTextAlignmentCenter;
+        _ResponseLabel1.textAlignment = NSTextAlignmentLeft;
         _DownloadLabel.textAlignment = NSTextAlignmentRight;
-        _DownloadLabel1.textAlignment = NSTextAlignmentCenter;
+        _DownloadLabel1.textAlignment = NSTextAlignmentLeft;
         _LoadLabel.textAlignment = NSTextAlignmentRight;
-        _LoadLabel1.textAlignment = NSTextAlignmentCenter;
+        _LoadLabel1.textAlignment = NSTextAlignmentLeft;
 
         _ResponseNumLabel.textAlignment = NSTextAlignmentCenter;
         _DownloadNumLabel.textAlignment = NSTextAlignmentCenter;
@@ -155,67 +150,63 @@
         NSString *title8 = I18N (@"Upload speed");
         //设置Label
         _Delay = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (25), FITWIDTH (100), FITWIDTH (60), FITWIDTH (20))
+        createLabelWithFrame:CGRectMake (FITWIDTH (30), FITWIDTH (100), FITWIDTH (50), FITWIDTH (20))
                     withFont:16
               withTitleColor:RGBACOLOR (250, 180, 86, 1)
                    withTitle:@"N/A"];
         _Delay1 = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_Delay.rightX, FITWIDTH (101), FITWIDTH (20), FITWIDTH (20))
+        createLabelWithFrame:CGRectMake (_Delay.rightX, FITWIDTH (100), FITWIDTH (30), FITWIDTH (20))
                     withFont:10
               withTitleColor:RGBACOLOR (250, 180, 86, 1)
                    withTitle:@"ms"];
-        _Downloadspeed =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_Delay.rightX + FITWIDTH (13),
-                                                        FITWIDTH (100), FITWIDTH (70), FITWIDTH (20))
-                                   withFont:16
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"N/A"];
-        _Downloadspeed1 =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_Delay.rightX + FITWIDTH (83),
-                                                        FITWIDTH (101), FITWIDTH (30), FITWIDTH (20))
-                                   withFont:10
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"Mbps"];
+        _Downloadspeed = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (_Delay1.rightX, FITWIDTH (100), FITWIDTH (58), FITWIDTH (20))
+                    withFont:16
+              withTitleColor:RGBACOLOR (250, 180, 86, 1)
+                   withTitle:@"N/A"];
+        _Downloadspeed1 = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (_Downloadspeed.rightX, FITWIDTH (100), FITWIDTH (42), FITWIDTH (20))
+                    withFont:10
+              withTitleColor:RGBACOLOR (250, 180, 86, 1)
+                   withTitle:@"Mbps"];
 
-        _Uploadspeed =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_Downloadspeed.rightX + FITWIDTH (10),
-                                                        FITWIDTH (100), FITWIDTH (70), FITWIDTH (20))
-                                   withFont:16
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"N/A"];
-        _Uploadspeed1 =
-        [CTWBViewTools createLabelWithFrame:CGRectMake (_Delay.rightX + FITWIDTH (163),
-                                                        FITWIDTH (101), FITWIDTH (30), FITWIDTH (20))
-                                   withFont:10
-                             withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                                  withTitle:@"Mbps"];
+        _Uploadspeed = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (_Downloadspeed1.rightX, FITWIDTH (100), FITWIDTH (52), FITWIDTH (20))
+                    withFont:16
+              withTitleColor:RGBACOLOR (250, 180, 86, 1)
+                   withTitle:@"N/A"];
+        _Uploadspeed1 = [CTWBViewTools
+        createLabelWithFrame:CGRectMake (_Uploadspeed.rightX, FITWIDTH (101), FITWIDTH (38), FITWIDTH (20))
+                    withFont:10
+              withTitleColor:RGBACOLOR (250, 180, 86, 1)
+                   withTitle:@"Mbps"];
 
         _DelayNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (35), _Delay.bottomY + FITWIDTH (10), FITWIDTH (70), FITWIDTH (10))
+        createLabelWithFrame:CGRectMake (FITWIDTH (30), _Delay.bottomY + FITWIDTH (10), FITWIDTH (80), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title6];
 
         _DownloadspeedNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_DelayNumLabel.rightX, _Delay.bottomY + FITWIDTH (10),
-                                         FITWIDTH (90), FITWIDTH (10))
+                                         FITWIDTH (100), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title7];
 
         _UploadspeedNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_DownloadspeedNumLabel.rightX,
-                                         _Delay.bottomY + FITWIDTH (10), FITWIDTH (80), FITWIDTH (10))
+                                         _Delay.bottomY + FITWIDTH (10), FITWIDTH (90), FITWIDTH (10))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title8];
         //所有Label居中对齐
         _Delay.textAlignment = NSTextAlignmentRight;
-        _Delay1.textAlignment = NSTextAlignmentCenter;
+        _Delay1.textAlignment = NSTextAlignmentLeft;
         _Downloadspeed.textAlignment = NSTextAlignmentRight;
-        _Downloadspeed1.textAlignment = NSTextAlignmentCenter;
+        _Downloadspeed1.textAlignment = NSTextAlignmentLeft;
         _Uploadspeed.textAlignment = NSTextAlignmentRight;
-        _Uploadspeed1.textAlignment = NSTextAlignmentCenter;
+        _Uploadspeed1.textAlignment = NSTextAlignmentLeft;
 
         _DelayNumLabel.textAlignment = NSTextAlignmentCenter;
         _DownloadspeedNumLabel.textAlignment = NSTextAlignmentCenter;

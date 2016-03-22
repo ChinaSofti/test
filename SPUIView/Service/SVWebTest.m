@@ -466,7 +466,7 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     }
 
     // 关闭连接
-    if (_webView)
+    if (_webView && _webView.isLoading)
     {
         [_webView stopLoading];
     }

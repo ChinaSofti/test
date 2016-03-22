@@ -142,6 +142,7 @@
     SVSpeedTestServer *server = [_array objectAtIndex:indexPathAll.section];
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
     [servers setDefaultServer:server];
+    [servers setAuto:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
 //#pragma mark-- 实现UIActionSheetDelegate //- (void)actionSheet:(UIActionSheet *)actionSheet

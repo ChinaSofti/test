@@ -36,6 +36,7 @@
     [self createLeftBarButtonItem];
     [self createScreenSizeUI];
     [self createVideotimeUI];
+    [self createBandwidthUI];
 }
 
 //进去时 隐藏tabBar
@@ -46,10 +47,19 @@
     SVSpeedTestServer *server = [servers getDefaultServer];
     _name = server.name;
     _sponsor = server.sponsor;
-    [self createBandwidthUI];
-    _button.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    _button2.backgroundColor =
-    [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
+
+    if ([servers isAuto])
+    {
+        _button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+        _button.backgroundColor =
+        [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
+    }
+    else
+    {
+        _button.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+        _button2.backgroundColor =
+        [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
+    }
     _label1.text = _name;
     _label2.text = _sponsor;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"HideTabBar" object:nil];
@@ -392,11 +402,13 @@
     //        label2.backgroundColor = [UIColor redColor];
     _label2.layer.cornerRadius = 5;
     [labelview addSubview:_label2];
+
     // button自动
     _button = [UIButton buttonWithType:UIButtonTypeCustom];
     _button.frame = CGRectMake (FITTHEIGHT (215), FITTHEIGHT (27), FITTHEIGHT (60), FITTHEIGHT (45));
     _button.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
+
     //设置文字
     [_button setTitle:title5 forState:UIControlStateNormal];
     _button.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -406,6 +418,7 @@
                 action:@selector (BtnClicked:)
       forControlEvents:UIControlEventTouchUpInside];
     [views3 addSubview:_button];
+
     // button选择
     _button2 = [UIButton buttonWithType:UIButtonTypeCustom];
     _button2.frame = CGRectMake (FITTHEIGHT (285), FITTHEIGHT (27), FITTHEIGHT (60), FITTHEIGHT (45));
@@ -435,6 +448,7 @@
         NSLog (@"%@", defaultvalue0.name);
         [servers setDefaultServer:defaultvalue0];
     }
+    [servers setAuto:YES];
     _button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     _button.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
@@ -443,6 +457,10 @@
 - (void)Btn2Clicked:(UIButton *)button2
 {
     SVInfo (@"选择");
+    _button.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+    _button2.backgroundColor =
+    [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
+
     //跳转到带宽测试服务器列表
     SVBandWidthCtrl *bandwidthCtrl = [[SVBandWidthCtrl alloc] init];
     bandwidthCtrl.title = I18N (@"Bandwidth test server configuration");
