@@ -123,8 +123,7 @@
         _label32.textAlignment = NSTextAlignmentCenter;
 
         // SpeedTestingView中的初始化
-
-        NSString *title2 = I18N (@"Speed");
+        NSString *title2 = I18N (@"Download");
         _panelView3 = [[UIView alloc]
         initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
         UIImageView *imageView13 = [[UIImageView alloc] initWithFrame:CGRectZero];

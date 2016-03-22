@@ -294,6 +294,8 @@ double _preSpeed = 0.0;
 - (void)updateTestResultDelegate:(SVSpeedTestContext *)testContext
                       testResult:(SVSpeedTestResult *)testResult
 {
+    NSString *title21 = I18N (@"Upload");
+    NSString *title22 = I18N (@"Download");
     dispatch_async (dispatch_get_main_queue (), ^{
 
       if (testContext.testStatus == TEST_FINISHED)
@@ -305,6 +307,8 @@ double _preSpeed = 0.0;
       {
           // 显示头部指标
           [_headerView.Delay setText:[NSString stringWithFormat:@"%.2f", testResult.delay]];
+          [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.downloadSpeed]];
+          [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.uploadSpeed]];
 
           double speed = testResult.isUpload ? testResult.uploadSpeed : testResult.downloadSpeed;
 
@@ -339,6 +343,7 @@ double _preSpeed = 0.0;
 
                       _chart = [[SVChart alloc] initWithView:_speedView];
                       uploadFirstResult = true;
+                      _speedtestingView.label13.text = title21;
                   }
               }
               else
@@ -352,6 +357,7 @@ double _preSpeed = 0.0;
 
                       _chart = [[SVChart alloc] initWithView:_speedView];
                       downloadFirstResult = true;
+                      _speedtestingView.label13.text = title22;
                   }
               }
 

@@ -59,6 +59,19 @@
  */
 - (SVSpeedTestServer *)getDefaultServer;
 
+/**
+ *  设置是否是自动模式
+ *
+ *  @param isAuto 是否是自动模式
+ */
+- (void)setAuto:(BOOL)isAuto;
+
+/**
+ *  是否是自动模式
+ *
+ *  @return 是否是自动模式
+ */
+- (BOOL)isAuto;
 
 /**
  *  获取所有SpeedTest Server

@@ -47,21 +47,21 @@
 
         _uvMosNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (35), _uvMosBarView.bottomY + FITWIDTH (10),
-                                         FITWIDTH (45), FITWIDTH (10))
+                                         FITWIDTH (45), FITWIDTH (20))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:@"U-vMOS"];
 
         _speedNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_uvMosNumLabel.rightX + FITWIDTH (20),
-                                         _uvMosBarView.bottomY + FITWIDTH (10), FITWIDTH (100), FITWIDTH (10))
+                                         _uvMosBarView.bottomY + FITWIDTH (10), FITWIDTH (100), FITWIDTH (20))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title1];
 
         _bufferNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_speedNumLabel.rightX + FITWIDTH (10),
-                                         _uvMosBarView.bottomY + FITWIDTH (10), FITWIDTH (80), FITWIDTH (10))
+                                         _uvMosBarView.bottomY + FITWIDTH (10), FITWIDTH (80), FITWIDTH (20))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title2];
@@ -114,21 +114,21 @@
 
         _ResponseNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (FITWIDTH (35), _ResponseLabel.bottomY + FITWIDTH (10),
-                                         FITWIDTH (80), FITWIDTH (10))
+                                         FITWIDTH (95), FITWIDTH (20))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title3];
 
         _DownloadNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_ResponseNumLabel.rightX, _ResponseLabel.bottomY + FITWIDTH (10),
-                                         FITWIDTH (100), FITWIDTH (10))
+                                         FITWIDTH (95), FITWIDTH (20))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title4];
 
         _LoadNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_DownloadNumLabel.rightX, _ResponseLabel.bottomY + FITWIDTH (10),
-                                         FITWIDTH (90), FITWIDTH (10))
+                                         FITWIDTH (95), FITWIDTH (20))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title5];
@@ -182,21 +182,21 @@
                    withTitle:@"Mbps"];
 
         _DelayNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (30), _Delay.bottomY + FITWIDTH (10), FITWIDTH (80), FITWIDTH (10))
+        createLabelWithFrame:CGRectMake (FITWIDTH (30), _Delay.bottomY + FITWIDTH (10), FITWIDTH (80), FITWIDTH (20))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title6];
 
         _DownloadspeedNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_DelayNumLabel.rightX, _Delay.bottomY + FITWIDTH (10),
-                                         FITWIDTH (100), FITWIDTH (10))
+                                         FITWIDTH (100), FITWIDTH (20))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title7];
 
         _UploadspeedNumLabel = [CTWBViewTools
         createLabelWithFrame:CGRectMake (_DownloadspeedNumLabel.rightX,
-                                         _Delay.bottomY + FITWIDTH (10), FITWIDTH (90), FITWIDTH (10))
+                                         _Delay.bottomY + FITWIDTH (10), FITWIDTH (90), FITWIDTH (20))
                     withFont:13
               withTitleColor:RGBACOLOR (81, 81, 81, 1)
                    withTitle:title8];

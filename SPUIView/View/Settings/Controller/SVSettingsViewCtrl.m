@@ -439,7 +439,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     NSString *title3 = I18N (@"About");
     //    NSString *title31 = I18N (@"FAQ");
     NSString *title4 = I18N (@"Language Settings");
-    NSString *title5 = I18N (@"Upload Logs");
+    //    NSString *title5 = I18N (@"Upload Logs");
     NSString *title6 = I18N (@"Advanced Settings");
     //当前连接
     if (indexPath.section == 0)
