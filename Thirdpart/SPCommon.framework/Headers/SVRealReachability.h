@@ -69,8 +69,10 @@ typedef NS_ENUM (NSInteger, SVRealReachabilityStatus) {
 - (void)removeDelegate:(id<SVRealReachabilityDelegate>)delegate;
 
 /**
- *  开始监听网络状态
+ *  获取网络实时状态
+ *
+ *  @return 网络实时状态
  */
-- (void)startMonitorNetworkStatus;
+- (SVRealReachabilityStatus)getNetworkStatus;
 
 @end

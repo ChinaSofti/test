@@ -7,6 +7,7 @@
 //
 
 #import "CTWBViewTools.h"
+#import "SVTextField.h"
 
 @implementation CTWBViewTools
 
@@ -48,13 +49,15 @@
 
 #pragma mark - 文本输入框TextFiled
 //普通的
-+ (UITextField *)createTextFieldWithFrame:(CGRect)frame
++ (SVTextField *)createTextFieldWithFrame:(CGRect)frame
                               placeholder:(NSString *)placeholder
                                      Font:(float)font
                                 fontColor:(UIColor *)color
+                          characterLength:(int)characterLength
 {
+
     //大小
-    UITextField *textField = [[UITextField alloc] initWithFrame:frame];
+    SVTextField *textField = [[SVTextField alloc] initWithFrame:frame];
     //灰色提示框
     textField.placeholder = placeholder;
     //文字对齐方式
@@ -68,6 +71,7 @@
     //字体颜色
     textField.textColor = color;
 
+    [textField setCharacterLength:characterLength];
     return textField;
 }
 //有左右视图的

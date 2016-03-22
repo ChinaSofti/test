@@ -7,6 +7,7 @@
 //
 #import "SVAdvancedViewCtrl.h"
 #import "SVBandWidthCtrl.h"
+#import "SVTextField.h"
 #import <SPService/SVProbeInfo.h>
 
 @interface SVAdvancedViewCtrl () <UITableViewDelegate, UITableViewDataSource>
@@ -15,7 +16,7 @@
 
 @implementation SVAdvancedViewCtrl
 {
-    UITextField *_textField;
+    SVTextField *_textField;
     UIButton *_button;
     UIButton *_button2;
     NSString *_name;
@@ -95,7 +96,7 @@
 - (void)createScreenSizeUI
 {
     NSString *title1 = I18N (@"Screen Size:");
-    NSString *title2 = I18N (@"Inch");
+    NSString *title2 = I18N (@"inch");
     // views
     UIView *views = [[UIView alloc] init];
     views.frame = CGRectMake (FITTHEIGHT (10), FITTHEIGHT (74), kScreenW - FITTHEIGHT (20), FITTHEIGHT (44));
@@ -111,7 +112,7 @@
 
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     //文本框
-    _textField = [[UITextField alloc] init];
+    _textField = [[SVTextField alloc] init];
     _textField.frame = CGRectMake (100, 10, kScreenW - 125, 20);
     _textField.text = probeInfo.getScreenSize;
     _textField.placeholder = I18N (@"Please enter the number of 13~100");
@@ -120,6 +121,7 @@
     _textField.borderStyle = UITextBorderStyleRoundedRect;
     //输入键盘类型
     _textField.keyboardType = UIKeyboardTypeDecimalPad;
+    [_textField setCharacterLength:7];
     [views addSubview:_textField];
     //单位(英寸)
     UILabel *lableInch = [[UILabel alloc] init];

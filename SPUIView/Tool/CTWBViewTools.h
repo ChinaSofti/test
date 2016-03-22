@@ -24,7 +24,10 @@
 + (UITextField *)createTextFieldWithFrame:(CGRect)frame
                               placeholder:(NSString *)placeholder
                                      Font:(float)font
-                                fontColor:(UIColor *)color;
+                                fontColor:(UIColor *)color
+                          characterLength:(int)characterLength;
+
+
 + (UITextField *)createTextFieldWithFrame:(CGRect)frame
                               placeholder:(NSString *)placeholder
                                  passWord:(BOOL)YESorNO

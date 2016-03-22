@@ -60,7 +60,7 @@
 
         _label1 = [[UILabel alloc]
         initWithFrame:CGRectMake (FITWIDTH (130), FITWIDTH (290), FITWIDTH (60), FITWIDTH (20))];
-        _label1.text = @"U-vMos";
+        _label1.text = @"U-vMOS";
         _label1.font = [UIFont systemFontOfSize:13.0f];
         _label1.textAlignment = NSTextAlignmentCenter;
 

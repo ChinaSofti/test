@@ -11,7 +11,6 @@
 #import "SVBWSettingViewCtrl.h"
 #import "SVFAQViewCtrl.h"
 #import "SVLanguageSettingViewCtrl.h"
-#import "SVLogsViewCtrl.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
 #import <SPCommon/SVRealReachability.h>
@@ -21,60 +20,83 @@
 //上传日志提示
 #import "SVToast.h"
 
-@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, SVRealReachabilityDelegate, WXApiDelegate>
+@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, WXApiDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *grey;
 @property (nonatomic, strong) UIWindow *window;
 @end
 
 @implementation SVSettingsViewCtrl
-
 {
-    UITableViewCell *_photocell;
-    UIImageView *_imageView;
-    UILabel *_label;
+    UITableViewCell *_networkcell;
 }
+
 static NSString *kLinkURL = @"http://58.60.106.185:12210";
 static NSString *kLinkTagName = @"WECHAT_TAG_JUMP_SHOWRANK";
 static NSString *kLinkTitle = @"SpeedPro";
 static NSString *kLinkDescription = @"福利来了,大家注意了";
-- (void)networkStatusChange:(SVRealReachabilityStatus)status
+
+- (void)viewWillAppear:(BOOL)animated
 {
-    if (_imageView)
+    [super viewWillAppear:animated];
+    NSArray *array = [_networkcell subviews];
+    for (UIView *view in array)
     {
-        [_imageView removeFromSuperview];
+        [view removeFromSuperview];
     }
-    if (_label)
+    NSLog (@"---------viewWillAppear--------");
+    [self setNetworkImageAndType];
+}
+
+- (void)setNetworkImageAndType
+{
+    if (!_networkcell)
     {
-        [_label removeFromSuperview];
+        return;
     }
 
+    NSString *title1 = I18N (@"Current Connection:");
+    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    NSString *title2 = ipAndISP.isp;
+    SVRealReachability *realReachablity = [SVRealReachability sharedInstance];
+    SVRealReachabilityStatus status = [realReachablity getNetworkStatus];
+
+
+    UIImage *image1 = [UIImage imageNamed:@"ic_settings_mobile"];
     if (status == SV_RealStatusViaWiFi)
     {
-        UIImage *image1 = [UIImage imageNamed:@"ic_settings_wifi"];
-        _imageView = [[UIImageView alloc] initWithImage:image1];
-        _imageView.frame = CGRectMake (10, 10, 60, 60);
-        [_photocell addSubview:_imageView];
-
-        _label = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
-        _label.font = [UIFont systemFontOfSize:16];
-        _label.text = @"WiFi";
-        [_photocell addSubview:_label];
+        image1 = [UIImage imageNamed:@"ic_settings_wifi"];
     }
-    else
+
+    UIImageView *imageView1 = [[UIImageView alloc] initWithImage:image1];
+    imageView1.frame = CGRectMake (10, 10, 60, 60);
+    [_networkcell addSubview:imageView1];
+
+    UILabel *label11 = [[UILabel alloc] initWithFrame:CGRectMake (80, 15, 130, 20)];
+    label11.text = title1;
+    //设置字体和是否加粗
+    label11.font = [UIFont systemFontOfSize:16];
+    [_networkcell addSubview:label11];
+
+    UILabel *label111 =
+    [[UILabel alloc] initWithFrame:CGRectMake (label11.originX + label11.width, 15, 200, 20)];
+
+    label111.text = I18N (@"Mobile Network");
+    if (status == SV_RealStatusViaWiFi)
     {
-        UIImage *image2 = [UIImage imageNamed:@"ic_settings_mobile"];
-        _imageView = [[UIImageView alloc] initWithImage:image2];
-        _imageView.frame = CGRectMake (10, 10, 60, 60);
-        [_photocell addSubview:_imageView];
-
-        NSString *title7 = I18N (@"Mobile network");
-        _label = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
-        _label.font = [UIFont systemFontOfSize:16];
-        _label.text = title7;
-        [_photocell addSubview:_label];
+        label111.text = I18N (@"WiFi");
     }
+
+    //设置字体和是否加粗
+    label111.font = [UIFont systemFontOfSize:12];
+    [_networkcell addSubview:label111];
+
+    UILabel *label22 = [[UILabel alloc] initWithFrame:CGRectMake (80, 45, 160, 20)];
+    label22.text = title2;
+    label22.font = [UIFont systemFontOfSize:13];
+    [_networkcell addSubview:label22];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -140,15 +162,12 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title1 = I18N (@"Current:");
-    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
-    NSString *title2 = ipAndISP.isp;
     NSString *title21 = I18N (@"Share");
     NSString *title3 = I18N (@"About");
     //    NSString *title31 = I18N (@"FAQ");
-    NSString *title4 = I18N (@"Language Setting");
+    NSString *title4 = I18N (@"Language Settings");
     NSString *title5 = I18N (@"Upload Logs");
-    NSString *title6 = I18N (@"Advanced setting");
+    NSString *title6 = I18N (@"Advanced Settings");
 
     static NSString *cellId = @"cell";
 
@@ -161,42 +180,19 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     //设置每个cell的内容
     if (indexPath.section == 0)
     {
-
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 
         if (indexPath.row == 0)
         {
-            UIImage *image1 = [UIImage imageNamed:@"ic_settings_wifi"];
-            UIImageView *imageView1 = [[UIImageView alloc] initWithImage:image1];
-            imageView1.frame = CGRectMake (10, 10, 60, 60);
-            [cell addSubview:imageView1];
-
-            _photocell = cell;
-
-            UILabel *label11 = [[UILabel alloc] initWithFrame:CGRectMake (100, 15, 70, 20)];
-            label11.text = title1;
-            //设置字体和是否加粗
-            label11.font = [UIFont systemFontOfSize:16];
-            [cell addSubview:label11];
-
-            UILabel *label111 = [[UILabel alloc] initWithFrame:CGRectMake (170, 15, 50, 20)];
-            //设置字体和是否加粗
-            label111.font = [UIFont systemFontOfSize:16];
-            label111.text = @"WiFi";
-            [cell addSubview:label111];
-            _photocell = cell;
-
-            UILabel *label22 = [[UILabel alloc] initWithFrame:CGRectMake (100, 45, 160, 20)];
-            label22.text = title2;
-            label22.font = [UIFont systemFontOfSize:13];
-            [cell addSubview:label22];
+            NSLog (@"---------celll--------");
+            _networkcell = cell;
+            [self setNetworkImageAndType];
         }
     }
     else
     {
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         cell.textLabel.font = [UIFont systemFontOfSize:13];
-        ;
 
         if (indexPath.row == 0)
         {
@@ -247,7 +243,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     NSString *title8 = I18N (@"Share on");
     NSString *title9 = I18N (@"Cancel");
     NSString *title10 = I18N (@"WeChat");
-    NSString *title11 = I18N (@"WeChat Friend Circle");
+    NSString *title11 = I18N (@"Moments");
     //获取整个屏幕的window
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //    // 0.开始动画
@@ -302,7 +298,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     label3.textAlignment = NSTextAlignmentCenter;
     //创建一个显示微信朋友圈的label4
     UILabel *label4 = [[UILabel alloc]
-    initWithFrame:CGRectMake (kScreenW / 2 - 20 + FITTHEIGHT (40), kScreenH / 10 + FITTHEIGHT (70), 130, 20)];
+    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (45), kScreenH / 10 + FITTHEIGHT (70), 130, 20)];
     label4.text = title11;
     label4.font = [UIFont systemFontOfSize:15];
     label4.textColor = [UIColor lightGrayColor];
@@ -390,7 +386,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 
 {
     NSString *title1 = I18N (@"Upload Logs");
-    NSString *title2 = I18N (@"Are you sure Upload logs");
+    NSString *title2 = I18N (@"Do you want to upload logs?");
     NSString *title3 = I18N (@"No");
     NSString *title4 = I18N (@"Yes");
 
@@ -419,8 +415,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 //上传成功与失败判断
 - (void)delayMethod
 {
-    NSString *title2 = I18N (@"Upload Success");
-    NSString *title3 = I18N (@"Upload Failed");
+
     @try
     {
         SVLog *log = [SVLog alloc];
@@ -429,11 +424,12 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
         SVUploadFile *upload = [[SVUploadFile alloc] init];
         NSString *urlString = @"https://58.60.106.188:12210/speedpro/log?op=list&begin=0&end=50";
         [upload uploadFileWithURL:[NSURL URLWithString:urlString] filePath:filePath];
-        [SVToast showWithText:title2];
     }
     @catch (NSException *exception)
     {
         SVError (@"上传失败. %@", exception);
+
+        NSString *title3 = I18N (@"Upload Failed");
         [SVToast showWithText:title3];
     }
 }
@@ -442,9 +438,9 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     NSString *title0 = I18N (@"Bandwidth Settings");
     NSString *title3 = I18N (@"About");
     //    NSString *title31 = I18N (@"FAQ");
-    NSString *title4 = I18N (@"Language Setting");
+    NSString *title4 = I18N (@"Language Settings");
     NSString *title5 = I18N (@"Upload Logs");
-    NSString *title6 = I18N (@"Advanced");
+    NSString *title6 = I18N (@"Advanced Settings");
     //当前连接
     if (indexPath.section == 0)
     {
@@ -481,12 +477,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
             languageSetting.title = title4;
             [self.navigationController pushViewController:languageSetting animated:YES];
         }
-        //上传日志
-        if (indexPath.row == 3)
-        {
-            SVLogsViewCtrl *logs = [[SVLogsViewCtrl alloc] init];
-            logs.title = title5;
-        }
+
         //高级设置
         if (indexPath.row == 4)
         {

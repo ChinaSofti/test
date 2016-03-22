@@ -6,12 +6,14 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 #import "SVBandWidthCtrl.h"
+#import "SVGetDistance.h"
 #import <SPService/SVSpeedTestServers.h>
 
 @interface SVBandWidthCtrl () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 {
     //列表内容数组
     NSArray *_array;
+    SVIPAndISP *_ipAndISP;
 }
 @property (nonatomic, strong) UITableView *tableView;
 @end
@@ -52,6 +54,8 @@
     //三.添加
     // 7.把tableView添加到 view
     [self.view addSubview:_tableView];
+
+    _ipAndISP = [SVIPAndISPGetter getIPAndISP];
 }
 
 //方法:
@@ -86,7 +90,6 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //取数组里的值
     SVSpeedTestServer *server = _array[indexPath.section];
-
     //设置每个cell的内容
     if (indexPath.row == 0)
     {
@@ -97,9 +100,23 @@
         label1.font = [UIFont systemFontOfSize:14];
         [cell addSubview:label1];
 
+        double distance = 0.0;
+        if (_ipAndISP)
+        {
+            if (_ipAndISP.lat && _ipAndISP.lon)
+            {
+                double lat1 = [_ipAndISP.lat doubleValue];
+                double lon1 = [_ipAndISP.lon doubleValue];
+                double lat2 = server.lat;
+                double lon2 = server.lon;
+                distance = [SVGetDistance getDistance:lat1 lon:lon1 lat2:lat2 lon2:lon2];
+            }
+        }
+
+
         UILabel *label2 = [[UILabel alloc]
         initWithFrame:CGRectMake (FITTHEIGHT (285), FITTHEIGHT (8), FITTHEIGHT (50), FITTHEIGHT (20))];
-        label2.text = @"1.0";
+        label2.text = [NSString stringWithFormat:@"%.2f", distance];
         //设置字体和是否加粗
         label2.font = [UIFont systemFontOfSize:14];
         label2.textAlignment = NSTextAlignmentRight;

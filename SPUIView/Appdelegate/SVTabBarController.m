@@ -35,8 +35,8 @@
 {
     [super viewDidLoad];
     SVInfo (@"SVTabbarController");
-    NSString *title1 = I18N (@"Testing");
-    NSString *title2 = I18N (@"Result");
+    NSString *title1 = I18N (@"Test");
+    NSString *title2 = I18N (@"Results");
     NSString *title3 = I18N (@"Settings");
 
     //测试

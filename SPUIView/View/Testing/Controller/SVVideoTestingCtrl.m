@@ -272,7 +272,7 @@
 - (void)creatVideoView
 {
     NSString *title1 = I18N (@"Butter times");
-    NSString *title2 = I18N (@"Bit rate");
+    NSString *title2 = I18N (@"Bit Rate");
     NSString *title3 = I18N (@"Resolution");
 
     // 在全屏模式下，在_videoView上方显示测试指标
@@ -308,14 +308,14 @@
     [_bufferTimesInFullScreenValue setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:_bufferTimesInFullScreenValue];
 
-    // 3.Bit rate 3002.23kbps
+    // 3.Bit Rate 3002.23kbps
     UILabel *bitRateInFullScreenLabel = [[UILabel alloc]
     initWithFrame:CGRectMake (kScreenH / 2 + FITHEIGHT (12), FITHEIGHT (5), FITWIDTH (45), FITHEIGHT (20))];
     [bitRateInFullScreenLabel setText:title2];
     [bitRateInFullScreenLabel setTextColor:[UIColor whiteColor]];
     [bitRateInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
     [_showCurrentResultInFullScreenMode addSubview:bitRateInFullScreenLabel];
-    // 3.5 Bit rate 值
+    // 3.5 Bit Rate 值
     _bitRateInFullScreenValue =
     [[UILabel alloc] initWithFrame:CGRectMake (bitRateInFullScreenLabel.rightX + FITHEIGHT (2),
                                                FITHEIGHT (5), FITWIDTH (80), FITHEIGHT (20))];

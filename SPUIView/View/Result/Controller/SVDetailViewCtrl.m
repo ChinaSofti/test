@@ -203,7 +203,7 @@
     NSString *bandWidth = [probeInfoJson valueForKey:@"signedBandwidth"];
     if (!bandWidth || [bandWidth isEqualToString:@""])
     {
-        valueStr = I18N (@"unknown");
+        valueStr = I18N (@"Unknown");
     }
     else
     {
@@ -225,7 +225,7 @@
         valueStr = @"MOBILE";
         break;
     default:
-        valueStr = I18N (@"unknown");
+        valueStr = I18N (@"Unknown");
         break;
     }
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
@@ -265,47 +265,47 @@
                    @"value": [self formatFloatValue:[testResultJson valueForKey:@"UvMOSSession"]]
                }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                   @"key": I18N (@"      Video View score"),
+                   @"key": I18N (@"      sView Score"),
                    @"value": [self formatFloatValue:[testResultJson valueForKey:@"sViewSession"]]
                }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                   @"key": I18N (@"      Video quality score"),
+                   @"key": I18N (@"      sQuality Score"),
                    @"value": [self formatFloatValue:[testResultJson valueForKey:@"sQualitySession"]]
                }]];
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"      Interaction score"),
+        @"key": I18N (@"      sInteraction Score"),
         @"value": [self formatFloatValue:[testResultJson valueForKey:@"sInteractionSession"]]
     }]];
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Initial buffer time"),
+        @"key": I18N (@"Initial Buffer Time"),
         @"value": [self formatIntValue:[testResultJson valueForKey:@"firstBufferTime"] unit:@"ms"]
     }]];
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Buffer time"),
+        @"key": I18N (@"Stalling Duration"),
         @"value":
         [self formatIntValue:[testResultJson valueForKey:@"videoCuttonTotalTime"] unit:@"ms"]
     }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                   @"key": I18N (@"Butter times"),
+                   @"key": I18N (@"Stalling Times"),
                    @"value": [self formatValue:[testResultJson valueForKey:@"videoCuttonTimes"]]
                }]];
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Download speed"),
+        @"key": I18N (@"Download Speed"),
         @"value": [self formatFloatValue:[testResultJson valueForKey:@"downloadSpeed"] unit:@"Kbps"]
     }]];
 
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Bit rate"),
+        @"key": I18N (@"Bit Rate"),
         @"value": [self formatFloatValue:[testResultJson valueForKey:@"bitrate"] unit:@"Kbps"]
     }]];
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Frame rate"),
+        @"key": I18N (@"Frame Rate"),
         @"value": [self formatFloatValue:[testResultJson valueForKey:@"frameRate"] unit:@"Fps"]
     }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
@@ -315,7 +315,7 @@
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Screen size"),
                    @"value": [self formatIntValue:[testResultJson valueForKey:@"screenSize"]
-                                             unit:I18N (@"Inch")]
+                                             unit:I18N (@"inch")]
                }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Video URL"),
@@ -323,7 +323,7 @@
                }]];
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Video server location"),
+        @"key": I18N (@"Video Server Location"),
         @"value": [self formatValue:[testContextJson valueForKey:@"videoSegemnetLocation"]]
     }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
@@ -403,7 +403,7 @@
                        @"value": loadTimeVlaue
                    }]];
         [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                       @"key": I18N (@"Download"),
+                       @"key": I18N (@"Download Speed"),
                        @"value": downloadSpeedVlaue
                    }]];
     }
@@ -437,7 +437,7 @@
     // 生成各个指标对应的UIView
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Download speed"),
+        @"key": I18N (@"Download Speed"),
         @"value": [self formatFloatValue:[testResultJson valueForKey:@"downloadSpeed"] unit:@"Mbps"]
     }]];
     [_soucreMA

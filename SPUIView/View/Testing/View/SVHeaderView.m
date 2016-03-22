@@ -15,8 +15,8 @@
 {
     if ([super init])
     {
-        NSString *title1 = I18N (@"Initial buffer time");
-        NSString *title2 = I18N (@"Butter times");
+        NSString *title1 = I18N (@"Initial Buffer Time");
+        NSString *title2 = I18N (@"Stalling Times");
         // HeaderView中的初始化
 
         // videotesting
@@ -77,7 +77,7 @@
 
         // webtesting
         NSString *title3 = I18N (@"Response Time");
-        NSString *title4 = I18N (@"Download");
+        NSString *title4 = I18N (@"Download Speed");
         NSString *title5 = I18N (@"Load duration");
         //设置Label
         _ResponseLabel = [CTWBViewTools
@@ -146,7 +146,7 @@
 
         // speedtesting
         NSString *title6 = I18N (@"Delay");
-        NSString *title7 = I18N (@"Download speed");
+        NSString *title7 = I18N (@"Download Speed");
         NSString *title8 = I18N (@"Upload speed");
         //设置Label
         _Delay = [CTWBViewTools

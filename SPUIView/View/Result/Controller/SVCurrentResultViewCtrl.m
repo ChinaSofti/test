@@ -197,14 +197,14 @@
 - (void)initButtons
 {
     _title1 = I18N (@"Fail");
-    _title2 = I18N (@"Initial buffer time");
+    _title2 = I18N (@"Initial Buffer Time");
     _title3 = I18N (@"Butter times");
     _title4 = I18N (@"Response Time");
     _title5 = I18N (@"Load duration");
-    _title6 = I18N (@"Download");
+    _title6 = I18N (@"Download Speed");
 
     _delayTitle = I18N (@"Delay");
-    _downloadSpeedTitle = I18N (@"Download speed");
+    _downloadSpeedTitle = I18N (@"Download Speed");
     _uploadSpeedTitle = I18N (@"Upload speed");
 
     // 1.
@@ -370,7 +370,7 @@
         "Web Test"="网页测试";
         "Response Time"="响应时间";
         "Load duration"="完全加载时间";
-        "Download"="下载速率";
+        "Download Speed"="下载速率";
          */
         CGFloat imgViewWAndH2 = _bgdBtn2.height - 3 * _bgdBtn2.originX;
         UIImageView *_imgView2 = [[UIImageView alloc]
