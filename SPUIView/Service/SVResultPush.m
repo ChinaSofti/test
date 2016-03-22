@@ -131,26 +131,28 @@ int failCount;
     NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] init];
 
     // 手机别名: iPhone Simulator
-    NSString *userPhoneName = [[UIDevice currentDevice] name];
+    //    NSString *userPhoneName = [[UIDevice currentDevice] name];
 
     // 设备名称: iPhone OS
     NSString *deviceName = [[UIDevice currentDevice] systemName];
 
     // 手机系统版本: 9.2
-    NSString *phoneVersion = [[UIDevice currentDevice] systemVersion];
+    //    NSString *phoneVersion = [[UIDevice currentDevice] systemVersion];
 
     // 手机型号: iPhone
     //    NSString *phoneModel = [[UIDevice currentDevice] model];
 
     // UUID
-    NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    //    NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 
-    NSString *mobilename = [NSString stringWithFormat:@"%@ %@ %@", userPhoneName, deviceName, phoneVersion];
+    //    NSString *mobilename = [NSString stringWithFormat:@"%@ %@ %@", userPhoneName, deviceName,
+    //    phoneVersion];
 
     [paramDic setObject:@0 forKey:@"cellid"];
-    [paramDic setObject:uuid forKey:@"mobileid"];
-    [paramDic setObject:[self ispFilter:isp str:isp.query] forKey:@"mobileip"];
-    [paramDic setObject:mobilename forKey:@"mobilename"];
+    [paramDic setObject:@"xxxxxxxxxxxxxxxxxxxxxxxxxxx" forKey:@"mobileid"];
+    [paramDic setObject:[self hideIp:[self ispFilter:isp str:isp.query]] forKey:@"mobileip"];
+    [paramDic setObject:deviceName forKey:@"mobilename"];
+    //    [paramDic setObject:mobilename forKey:@"mobilename"];
     [paramDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"operatorname"];
     [paramDic setObject:!probeInfo.networkType ? @"" : probeInfo.networkType forKey:@"operatornw"];
     NSMutableDictionary *collectorResultsDic = [[NSMutableDictionary alloc] init];
@@ -172,6 +174,17 @@ int failCount;
     [collectorResultsDic setObject:_svTestTime forKey:@"testTime"];
 
     return collectorResultsDic;
+}
+
+- (NSString *)hideIp:(NSString *)ip
+{
+    NSString *mobileIp = ip;
+    if ([mobileIp containsString:@"."])
+    {
+        NSArray *array = [mobileIp componentsSeparatedByString:@"."];
+        mobileIp = [NSString stringWithFormat:@"%@.%@.%@.xxx", array[0], array[1], array[2]];
+    }
+    return mobileIp;
 }
 
 - (NSMutableDictionary *)genSpeedTestResultsDic

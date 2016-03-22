@@ -484,7 +484,7 @@
         {
             firstFakeBitrate = 0;
         }
-        int lastFakeBitrate = arc4random () % 100;
+        int lastFakeBitrate = arc4random () % 50;
         float fakeBitrate = [[NSString stringWithFormat:@"%d.%d", firstFakeBitrate, lastFakeBitrate] floatValue];
         //    SVInfo (@"fake bitrate:%f", fakeBitrate);
         [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fKbps", fakeBitrate]];
@@ -498,7 +498,7 @@
         {
             firstFakeUvMOSSession = 0;
         }
-        int lastFakeUvMOSSession = arc4random () % 50;
+        int lastFakeUvMOSSession = arc4random () % 10;
         float fakeUvMOSSession =
         [[NSString stringWithFormat:@"%d.%d", firstFakeUvMOSSession, lastFakeUvMOSSession] floatValue];
         //    SVInfo (@"fake UvMOS:%f", fakeUvMOSSession);
