@@ -72,6 +72,7 @@
 "      sInteraction Score" = "      sInteraction Score";
 "Initial Buffer Time" = "Initial Buffer Time";
 "Buffer time" = "Buffer time";
+"Stalling Duration" = "Stalling Duration";
 "Stalling Times" = "Stalling Times";
 "Download Speed" = "Download Speed";
 "Bit Rate" = "Bit Rate";
