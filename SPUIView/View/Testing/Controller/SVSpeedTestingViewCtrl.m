@@ -298,86 +298,98 @@ double _preSpeed = 0.0;
     NSString *title22 = I18N (@"Download");
     dispatch_async (dispatch_get_main_queue (), ^{
 
+      // 如果测试结束，则初始化测试结果，并跳转到当前结果页面
       if (testContext.testStatus == TEST_FINISHED)
       {
           [self initCurrentResultModel:testResult];
           [self goToCurrentResultViewCtrl];
+          return;
       }
-      else
+
+      // 服务器归属地和运营商
+      if (testResult.isp)
       {
-          // 显示头部指标
-          [_headerView.Delay setText:[NSString stringWithFormat:@"%.2f", testResult.delay]];
-          [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.downloadSpeed]];
-          [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.uploadSpeed]];
-
-          double speed = testResult.isUpload ? testResult.uploadSpeed : testResult.downloadSpeed;
-
-          if (!testResult.isSecResult)
+          if (testResult.isp.isp)
           {
-              speed = _preSpeed + [self getRandomNumber:-_preSpeed to:_preSpeed] * 1.0 / 100;
+              _footerView.Carrier.text = testResult.isp.isp;
           }
+          if (testResult.isp.city)
+          {
+              _footerView.ServerLocation.text = testResult.isp.city;
+          }
+      }
 
-          [_speedtestingView updateUvMOS3:speed];
-          [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
+      // 显示头部指标
+      [_headerView.Delay setText:[NSString stringWithFormat:@"%.2f", testResult.delay]];
+
+      // 如果是汇总结果，直接使用
+      if (testResult.isSummeryResult)
+      {
           if (testResult.isUpload)
           {
-              [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+              [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.uploadSpeed]];
           }
           else
           {
-              [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+              [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.downloadSpeed]];
           }
+          return;
+      }
 
+      // 如果是测试中结果，则需要计算，并显示线图
+      double speed = testResult.isUpload ? testResult.uploadSpeed : testResult.downloadSpeed;
+      if (!testResult.isSecResult)
+      {
+          speed = _preSpeed + [self getRandomNumber:-_preSpeed to:_preSpeed] * 1.0 / 100;
+      }
 
-          if (testResult.isSecResult)
+      [_speedtestingView updateUvMOS3:speed];
+      [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
+      if (testResult.isUpload)
+      {
+          [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+      }
+      else
+      {
+          [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+      }
+
+      // 计算线图数据
+      if (testResult.isSecResult)
+      {
+          _preSpeed = speed;
+          if (testResult.isUpload)
           {
-              _preSpeed = speed;
-              if (testResult.isUpload)
+              if (!uploadFirstResult)
               {
-                  if (!uploadFirstResult)
+                  if (_chart)
                   {
-                      if (_chart)
-                      {
-                          [_chart removeFromSuperview];
-                      }
-
-                      _chart = [[SVChart alloc] initWithView:_speedView];
-                      uploadFirstResult = true;
-                      _speedtestingView.label13.text = title21;
+                      [_chart removeFromSuperview];
                   }
-              }
-              else
-              {
-                  if (!downloadFirstResult)
-                  {
-                      if (_chart)
-                      {
-                          [_chart removeFromSuperview];
-                      }
 
-                      _chart = [[SVChart alloc] initWithView:_speedView];
-                      downloadFirstResult = true;
-                      _speedtestingView.label13.text = title22;
-                  }
+                  _chart = [[SVChart alloc] initWithView:_speedView];
+                  uploadFirstResult = true;
+                  _speedtestingView.label13.text = title21;
               }
-
-              // 线图数据秒级
-              [_chart addValue:speed];
-              SVInfo (@"isSecResult:%.2f", speed);
           }
-
-          // 服务器归属地和运营商
-          if (testResult.isp)
+          else
           {
-              if (testResult.isp.isp)
+              if (!downloadFirstResult)
               {
-                  _footerView.Carrier.text = testResult.isp.isp;
-              }
-              if (testResult.isp.city)
-              {
-                  _footerView.ServerLocation.text = testResult.isp.city;
+                  if (_chart)
+                  {
+                      [_chart removeFromSuperview];
+                  }
+
+                  _chart = [[SVChart alloc] initWithView:_speedView];
+                  downloadFirstResult = true;
+                  _speedtestingView.label13.text = title22;
               }
           }
+
+          // 线图数据秒级
+          [_chart addValue:speed];
+          SVInfo (@"isSecResult:%.2f", speed);
       }
     });
 }
