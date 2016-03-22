@@ -96,6 +96,8 @@
 "Speed Test" = "Speed Test";
 "Download Speed" = "Download Speed";
 "Upload speed" = "Upload speed";
+"Download" = "Download";
+"Upload" = "Upload";
 "Delay" = "Delay";
 "Server Location" = "Server Location";
 "Collector Information"="Collector Information";

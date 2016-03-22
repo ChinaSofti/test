@@ -92,10 +92,11 @@
 
 
 //宽带测试
-"Speed" = "速度";
 "Speed Test" = "带宽测试";
 "Download Speed" = "下载速率";
 "Upload speed" = "上传速率";
+"Download" = "下载";
+"Upload" = "上传";
 "Delay" = "时延";
 "Server Location" = "测试服务器地址";
 "Carrier" = "所属运营商";
