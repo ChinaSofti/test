@@ -311,45 +311,44 @@ double _preSpeed = 0.0;
       // 服务器归属地和运营商
       if (testResult.isp)
       {
-          // 服务器归属地和运营商
-          if (testResult.isp)
+          if (testResult.isp.isp)
           {
-              if (testResult.isp.isp)
-              {
-                  _footerView.Carrier.text = testResult.isp.isp;
-              }
-              if (testResult.isp.city)
-              {
-                  _footerView.ServerLocation.text = testResult.isp.city;
-              }
+              _footerView.Carrier.text = testResult.isp.isp;
           }
-
-          // 显示头部指标
-          [_headerView.Delay setText:[NSString stringWithFormat:@"%.2f", testResult.delay]];
-
-          // 如果是汇总结果，直接使用
-          double speed = testResult.isUpload ? testResult.uploadSpeed : testResult.downloadSpeed;
-
-          // 如果是测试中结果，则需要计算，并显示线图
-          if (!testResult.isSummeryResult)
+          if (testResult.isp.city)
           {
-              if (!testResult.isSecResult)
-              {
-                  speed = _preSpeed + [self getRandomNumber:-_preSpeed to:_preSpeed] * 1.0 / 100;
-              }
+              _footerView.ServerLocation.text = testResult.isp.city;
           }
+      }
 
-          [_speedtestingView updateUvMOS3:speed];
-          [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
+      // 显示头部指标
+      [_headerView.Delay setText:[NSString stringWithFormat:@"%.2f", testResult.delay]];
+
+      // 如果是汇总结果，直接使用
+      double speed = testResult.isUpload ? testResult.uploadSpeed : testResult.downloadSpeed;
+
+      // 如果是测试中结果，则需要计算，并显示线图
+      if (!testResult.isSummeryResult && !testResult.isSecResult)
+      {
+          speed = _preSpeed + [self getRandomNumber:-_preSpeed to:_preSpeed] * 1.0 / 100;
+      }
+
+      [_speedtestingView updateUvMOS3:speed];
+      [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
+      if (testResult.isUpload)
+      {
+          [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+      }
+      else
+      {
+          [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+      }
+
+      // 计算线图数据
+      if (testResult.isSecResult)
+      {
+          _preSpeed = speed;
           if (testResult.isUpload)
-          {
-              [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
-          }
-          else
-          {
-              [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
-          }
-          if (testResult.isSecResult)
           {
               if (!uploadFirstResult)
               {
@@ -377,6 +376,10 @@ double _preSpeed = 0.0;
                   _speedtestingView.label13.text = title22;
               }
           }
+
+          // 线图数据秒级
+          [_chart addValue:speed];
+          SVInfo (@"isSecResult:%.2f", speed);
       }
     });
 }
