@@ -112,8 +112,8 @@ double _beginTime;
     // 启动时延测试
     [self startDelayTest];
 
-    // 等待1秒
-    [NSThread sleepForTimeInterval:1];
+    // 推送时延结果
+    [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 
     // 启动下载测试
     _internalTestStatus = TEST_TESTING;
@@ -124,8 +124,6 @@ double _beginTime;
 
     // 推送最终结果
     [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
-
-    [NSThread sleepForTimeInterval:1];
 
     // 启动上传测试
     _internalTestStatus = TEST_TESTING;

@@ -143,6 +143,7 @@ double _preSpeed = 0.0;
     [_headerView.Downloadspeed setText:@"0"];
     [_headerView.Uploadspeed setText:@"0"];
     [_speedtestingView updateUvMOS3:0];
+    [_speedtestingView.label13 setText:@""];
 
     for (UIView *view in [_headerView.uvMosBarView subviews])
     {
@@ -338,10 +339,12 @@ double _preSpeed = 0.0;
       if (testResult.isUpload)
       {
           [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+          _speedtestingView.label13.text = title21;
       }
       else
       {
           [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+          _speedtestingView.label13.text = title22;
       }
 
       // 计算线图数据
@@ -359,7 +362,6 @@ double _preSpeed = 0.0;
 
                   _chart = [[SVChart alloc] initWithView:_speedView];
                   uploadFirstResult = true;
-                  _speedtestingView.label13.text = title21;
               }
           }
           else
@@ -373,7 +375,6 @@ double _preSpeed = 0.0;
 
                   _chart = [[SVChart alloc] initWithView:_speedView];
                   downloadFirstResult = true;
-                  _speedtestingView.label13.text = title22;
               }
           }
 
