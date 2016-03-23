@@ -7,6 +7,7 @@
 //
 
 #import "SVResultPush.h"
+#import "SVSpeedDelayTest.h"
 #import "SVSpeedTest.h"
 #import "SVSpeedTestInfo.h"
 #import <SPCommon/SVDBManager.h>
@@ -22,7 +23,6 @@
 const int RECONNECT_WAIT_TIME = 500 * 1000;
 const int STEP = 5;
 const int DELAY_TEST_COUTN = 5;
-const int DELAY_BUFFER_SIZE = 1024;
 const int DOWNLOAD_BUFFER_SIZE = 512 * 1024;
 const int UPLOAD_BUFFER_SIZE = 16 * 1024;
 const int THREAD_NUM = 2;
@@ -112,19 +112,7 @@ double _beginTime;
     // 启动时延测试
     [self startDelayTest];
 
-    // 解析域名
-    _speedTestInfo = [self analyse];
-    _testResult.ipAddress = _speedTestInfo.ip;
-    memset (&addr, 0, sizeof (addr));
-    addr.sin_len = sizeof (addr);
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = INADDR_ANY;
-    addr.sin_port = htons ([_speedTestInfo.port intValue]);
-    addr.sin_addr.s_addr = inet_addr ([_speedTestInfo.ip UTF8String]);
-
-    // 查询服务器归属地
-    _testResult.isp = [SVIPAndISPGetter queryIPDetail:_speedTestInfo.ip];
-
+    // 等待1秒
     [NSThread sleepForTimeInterval:1];
 
     // 启动下载测试
@@ -340,103 +328,94 @@ double _beginTime;
     // 获取所有的带宽测试服务器
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
     NSArray *serverArray = [servers getAllServer];
-    NSMutableDictionary *serverUrlDic = [[NSMutableDictionary alloc] init];
 
-    // 记录测试完成的个数
-    NSMutableArray *sucessArray = [[NSMutableArray alloc] init];
-
-    // 在线程中遍历前五个服务器，得到时延最小的一个
+    // 在线程中遍历前五个服务器，初始化测试实例
+    NSMutableArray *delayTestArray = [[NSMutableArray alloc] init];
     long size = [serverArray count] < 5 ? [serverArray count] : 5;
-    for (int i = 0; i < size; i++)
+    for (int i = 0; _testStatus == TEST_TESTING && i < size; i++)
     {
+        // 如果用户选择的是自动则取五个url测试,取时延最小的;否则使用用户选择的服务器测试五次
+        SVSpeedTestServer *server = serverArray[i];
+        if (![servers isAuto])
+        {
+            server = [servers getDefaultServer];
+        }
+
+        // 如果server为nil，则执行下一个
+        if (!server)
+        {
+            continue;
+        }
+
+        // 初始化测试实例
+        SVSpeedDelayTest *delayTest = [[SVSpeedDelayTest alloc] initTestServer:server];
+
+        // 将测试实例放到数组中
+        [delayTestArray addObject:delayTest];
+
+        // 启动线程开始测试
         dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-          // 如果用户选择的是自动则去五个url测试,取时延最小的;否则使用用户选择的服务器测试五次
-          SVSpeedTestServer *server = serverArray[i];
-          if (![servers isAuto])
-          {
-              server = [servers getDefaultServer];
-          }
-
-          // 初始化参数
-          NSURL *url = [NSURL URLWithString:server.serverURL];
-          char *buff = (char *)malloc (DELAY_BUFFER_SIZE * sizeof (char));
-          memset (buff, '\0', DELAY_BUFFER_SIZE);
-          NSString *request = [NSString
-          stringWithFormat:@"%@ %@ HTTP/1.1\r\nAccept: %@\r\nHost: %@\r\nConnection: "
-                           @"%@\r\nAccept-Encoding:gzip, deflate, sdch "
-                           @"\r\nAccept-Language:zh-CN,zh;q=0.8\r\nUser-Agent:Mozilla/5.0 (iPhone "
-                           @"Simulator; U; CPU iPhone OS 6 like Mac OS X; en-us) AppleWebKit/532.9 "
-                           @"(KHTML, like Gecko) Mobile/8B117\r\n\r\n",
-                           @"GET", url.path, @"*/*", url.host, @"Close"];
-          SVInfo (@"delayTest request %@", request);
-
-          // 建立socket连接
-          struct sockaddr_in currentAddr;
-          memset (&currentAddr, 0, sizeof (currentAddr));
-          currentAddr.sin_len = sizeof (currentAddr);
-          currentAddr.sin_family = AF_INET;
-          currentAddr.sin_addr.s_addr = INADDR_ANY;
-          currentAddr.sin_port = htons ([url.port intValue]);
-          currentAddr.sin_addr.s_addr = inet_addr ([[self getIPWithHostName:url.host] UTF8String]);
-          int fd = socket (AF_INET, SOCK_STREAM, 0);
-          int ret = connect (fd, (struct sockaddr *)&currentAddr, sizeof (struct sockaddr));
-          if (-1 == ret)
-          {
-              free (buff);
-              buff = NULL;
-              SVInfo (@"delayTest connect error, fd = %d, ret = %d", fd, ret);
-              return;
-          }
-
-          // 计算时延
-          long len = write (fd, [request UTF8String], [request length] + 1);
-          SVInfo (@"delayTest write len = %ld", len);
-          double startTime = [[NSDate date] timeIntervalSince1970] * 1000;
-          read (fd, buff, DELAY_BUFFER_SIZE);
-          double delay = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
-
-          // 取时延最小的
-          @synchronized (serverUrlDic)
-          {
-              NSNumber *preDelay = [serverUrlDic objectForKey:url];
-              if (!preDelay || preDelay.doubleValue > delay)
-              {
-                  [serverUrlDic setObject:[[NSNumber alloc] initWithDouble:delay] forKey:url];
-              }
-          };
-
-          ret = close (fd);
-          free (buff);
-          buff = NULL;
-
-          // 测试完成
-          @synchronized (sucessArray)
-          {
-              [sucessArray addObject:@"yes"];
-          };
-          SVInfo (@"delayTest close socket, fd = %d, ret = %d", fd, ret);
+          [delayTest startTest];
         });
     }
 
-    // 需要等待五个服务器的时延都计算出来,或10秒超时
-    int count = 0;
-    while ([sucessArray count] < size && count < 5)
+    // 需要等待五个服务器的时延都计算出来,或5秒超时
+    int sucessCount = 0;
+    double beginTime = [[NSDate date] timeIntervalSince1970];
+    while (sucessCount < size && ([[NSDate date] timeIntervalSince1970] - beginTime) < 5)
     {
-        count++;
+        // 统计测试完成的个数
+        sucessCount = 0;
+        for (SVSpeedDelayTest *test in delayTestArray)
+        {
+            if (test.finished)
+            {
+                sucessCount++;
+            }
+        }
+
+        // 等待1秒
         [NSThread sleepForTimeInterval:1];
     }
 
-    // 按时延排序
-    NSArray *sortedArray = [serverUrlDic.allKeys
-    sortedArrayUsingComparator:^NSComparisonResult (__strong id obj1, __strong id obj2) {
-      return [[serverUrlDic objectForKey:obj1] intValue] > [[serverUrlDic objectForKey:obj2] intValue];
+    // 时延测试结束后的操作
+    [self doAfterDelayTest:delayTestArray];
+}
+
+/**
+ * 时延测试结束后需要做的处理
+ * @param testArray 时延测试对象
+ */
+- (void)doAfterDelayTest:(NSMutableArray *)testArray
+{
+
+    // 按时延排序,测试失败的排在最后
+    NSArray *sortedArray =
+    [testArray sortedArrayUsingComparator:^NSComparisonResult (__strong id obj1, __strong id obj2) {
+      if ([obj1 delay] == 0 && [obj2 delay] > 0)
+      {
+          return YES;
+      }
+      if ([obj1 delay] > 0 && [obj2 delay] == 0)
+      {
+          return NO;
+      }
+      return [obj1 delay] > [obj2 delay];
     }];
 
-    _testResult.delay = [[serverUrlDic objectForKey:sortedArray[0]] doubleValue];
+    // 获取时延最小的
+    _testResult.delay = [sortedArray[0] delay];
     SVInfo (@"delayTest over, delay = %fms", _testResult.delay);
 
     // 初始化默认服务器地址
-    NSURL *url = sortedArray[0];
+    SVSpeedTestServer *server = [sortedArray[0] testServer];
+    NSURL *url = [NSURL URLWithString:server.serverURL];
+
+    // 查询服务器归属地
+    SVIPAndISP *isp = [[SVIPAndISP alloc] init];
+    [isp setIsp:server.sponsor];
+    [isp setCity:server.name];
+    _testResult.isp = isp;
 
     // 获取测试地址
     NSString *host = [url host];
@@ -453,6 +432,22 @@ double _beginTime;
     _testContext.delayUrl =
     [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", host, port,
                                                     @"/speedtest/latency.txt"]];
+
+    // 解析域名
+    _speedTestInfo = [self analyse];
+    NSString *ip = [sortedArray[0] getIPWithHostName:_speedTestInfo.host];
+    _speedTestInfo.ip = ip;
+    SVInfo (@"analyse, host:%@, ip: %@", _speedTestInfo.host, ip);
+
+    _testResult.ipAddress = _speedTestInfo.ip;
+
+    // 初始化socket连接的参数
+    memset (&addr, 0, sizeof (addr));
+    addr.sin_len = sizeof (addr);
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = INADDR_ANY;
+    addr.sin_port = htons ([_speedTestInfo.port intValue]);
+    addr.sin_addr.s_addr = inet_addr ([_speedTestInfo.ip UTF8String]);
 }
 
 
@@ -476,6 +471,9 @@ double _beginTime;
 
     while (count++ < SAMPLE_COUNT && _testStatus == TEST_TESTING)
     {
+        // 每隔200毫秒执行一次
+        [NSThread sleepForTimeInterval:0.2];
+
         time = [[NSDate date] timeIntervalSince1970];
         if (time <= preTime)
         {
@@ -519,9 +517,6 @@ double _beginTime;
 
         // 推送
         [_testDelegate updateTestResultDelegate:_testContext testResult:_curTestResult];
-
-        // 每隔200毫秒执行一次
-        [NSThread sleepForTimeInterval:0.2];
     }
 
     _internalTestStatus = TEST_FINISHED;
@@ -553,6 +548,8 @@ double _beginTime;
             speedAvg = avg;
         }
     }
+
+    [_testResult setIsUpload:isUpload];
 
     if (isUpload)
     {
@@ -742,47 +739,8 @@ void sort (double *a, int n)
 
     info.host = [_testContext.downloadUrl host];
     info.port = [_testContext.downloadUrl port];
-    NSString *ip = [self getIPWithHostName:info.host];
-    info.ip = ip;
-
-    SVInfo (@"analyse, host:%@, ip: %@", info.host, ip);
 
     return info;
-}
-
-- (NSString *)getIPWithHostName:(const NSString *)hostName
-{
-    NSString *strIPAddress = @"0.0.0.0";
-
-    if (!hostName)
-    {
-        return strIPAddress;
-    }
-
-    const char *hostN = [hostName UTF8String];
-    struct hostent *phot;
-
-    if (!hostN)
-    {
-        return strIPAddress;
-    }
-
-    phot = gethostbyname (hostN);
-
-    if (!phot || !phot->h_addr_list)
-    {
-        return strIPAddress;
-    }
-
-    struct in_addr ip_addr;
-
-    memcpy (&ip_addr, phot->h_addr_list[0], 4);
-    char ip[20] = { 0 };
-    inet_ntop (AF_INET, &ip_addr, ip, sizeof (ip));
-
-    strIPAddress = [NSString stringWithUTF8String:ip];
-
-    return strIPAddress;
 }
 
 @end

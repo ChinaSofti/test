@@ -14,7 +14,7 @@
 "Ignore" = "Ignore";
 
 //退出程序视图
-"Press Back Key again to exit the program" = "Press Back Key again to exit the program";
+"Press Back Key again to exit the program" = "Press back key again to exit the program";
 "Test" = "Test";
 
 //主测试界面
@@ -22,7 +22,7 @@
 "Video Test"="Video Test";
 "Web Test"="Web Test";
 "Speed Test"="Speed Test";
-"NetWork disconnection,unable to test" = "NetWork disconnection,unable to test";
+"NetWork disconnection,unable to test" = "NetWork disconnection,Unable to test";
 "Network Settings" = "Network Settings";
 "Start Test"="Start Test";
 
@@ -35,7 +35,7 @@
 "U-vMOS"="U-vMOS";
 
 //网页测试
-"response"="response";
+"response"="Response";
 "Test Url"="Test Url";
 
 //带宽测试
@@ -43,7 +43,7 @@
 "upload"="Upload";
 
 //退出的试图
-"Test stopped"="Test stopped";
+"Test stopped"="Test Stopped";
 "Are you sure you want to exit the test"="Are you sure you want to exit the test";
 "Test Again"="Test Again";
 
@@ -57,7 +57,7 @@
 "Bandwidth"="Bandwidth";
 //删除 提示视图
 "Prompt"="Prompt";
-"Clear all test results"="Clear all test results";
+"Clear all test results"="Clear All Test Results";
 "No"="No";
 "Yes"="Yes";
 
@@ -71,14 +71,14 @@
 "      sQuality Score" = "      sQuality Score";
 "      sInteraction Score" = "      sInteraction Score";
 "Initial Buffer Time" = "Initial Buffer Time";
-"Buffer time" = "Buffer time";
+"Buffer time" = "Buffer Time";
 "Stalling Duration" = "Stalling Duration";
 "Stalling Times" = "Stalling Times";
 "Download Speed" = "Download Speed";
 "Bit Rate" = "Bit Rate";
 "Frame Rate" = "Frame Rate";
 "Resolution" = "Resolution";
-"Screen size" = "Screen size";
+"Screen size" = "Screen Size";
 "Video URL" = "Video URL";
 "Video Server Location" = "Video Server Location";
 "Carrier" = "Carrier";
@@ -96,20 +96,20 @@
 "Speed" = "Speed";
 "Speed Test" = "Speed Test";
 "Download Speed" = "Download Speed";
-"Upload speed" = "Upload speed";
+"Upload speed" = "Upload Speed";
 "Download" = "Download";
 "Upload" = "Upload";
 "Delay" = "Delay";
 "Server Location" = "Server Location";
 "Collector Information"="Collector Information";
-"Bandwidth package"="Bandwidth package";
-"Network type"="Network type";
+"Bandwidth package"="Bandwidth Package";
+"Network type"="Network Type";
 "Unknown" = "Unknown";
-"Test time"="Test time";
-"Signaling strength"="Signaling strength";
+"Test time"="Test Time";
+"Signaling strength"="Signaling Strength";
 
 //分享提示视图
-"Share on"="Share on";
+"Share on"="Share On";
 "Sina Weibo"="Sina Weibo";
 "WeChat"="WeChat";
 "Moments"="Moments";
@@ -124,15 +124,15 @@
 "Current Connection:"="Current Connection:";
 "Carrier" = "Carrier";
 "Carriers"="Carriers";
-"bandwidth type"="bandwidth type";
-"bandwidth packages"="bandwidth packages";
+"bandwidth type"="Bandwidth Type";
+"bandwidth packages"="Bandwidth Packages";
 "China Unicom Beijing" = "China Unicom Beijing";
 "Bandwidth Settings" = "Bandwidth Settings";
 "Type" = "Type";
 "Fiber" = "Fiber";
 "Copper" = "Copper";
 "Package" = "Package";
-"Version upgrade" = "Version upgrade";
+"Version upgrade" = "Version Upgrade";
 "Feedback" = "Feedback";
 
 //反馈
@@ -165,14 +165,14 @@
 "You are using the mobile phone network." = "You are using the mobile phone network.";
 
 // 上传结果告警
-"Upload the test result failed, continue?" = "Upload the test result failed, continue?";
+"Upload the test result failed, continue?" = "Upload the test result failed, Continue?";
 
 
 //上传日志
 "Upload Logs" = "Upload Logs";
-"Upload logs" = "Upload logs";
+"Upload logs" = "Upload Logs";
 "Do you want to upload logs?" = "Do you want to upload logs?";
-"Upload logs start" = "Upload logs start";
+"Upload logs start" = "Upload Logs Start";
 //上传成功与失败提示框
 "Uploading" = "Uploading";
 "Upload Success" = "Upload Success";
@@ -187,18 +187,18 @@
 "Bandwidth test server configuration" = "Bandwidth test server configuration";
 "Please enter the number of 13~100" = "Please enter the number of 13~100";
 
-"Network unreachable!" = "Network unreachable!";
-"Network wifi!" = "Network wifi!";
+"Network unreachable!" = "Network Unreachable!";
+"Network wifi!" = "Network Wi-Fi!";
 "Network WWAN!" = "Network WWAN!";
 "Network 2G!" = "Network 2G!";
 "Network 3G!" = "Network 3G!";
 "Network 4G!" = "Network 4G!";
 
-"Mobile network" ="Mobile network";
-"WIFI" = "WIFI";
+"Mobile network" ="Mobile Network";
+"WIFI" = "Wi-Fi";
 
 
 "Video Test Duration:" = "Video Test Duration:";
 "Speed Test Server Config" = "Speed Test Server Config";
-"auto" = "auto";
-"select" = "select";
+"auto" = "Auto";
+"select" = "Select";

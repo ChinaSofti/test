@@ -107,6 +107,7 @@
 		5B85C06A1C9025E000CA8A1E /* SVWebTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0661C9025E000CA8A1E /* SVWebTest.m */; };
 		5B85C06B1C9025E000CA8A1E /* SVWebTestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0681C9025E000CA8A1E /* SVWebTestResult.m */; };
 		5BC2D65A1C9AA8E800253264 /* SVSpeedServerDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC2D6591C9AA8E800253264 /* SVSpeedServerDelay.m */; };
+		5BDB915B1CA130A500B1E9D2 /* SVSpeedDelayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB915A1CA130A500B1E9D2 /* SVSpeedDelayTest.m */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B72A1D0E1C7192B600C3141A /* speed_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = B72A1D0D1C7192B600C3141A /* speed_pro.png */; };
@@ -308,6 +309,8 @@
 		5B85C0681C9025E000CA8A1E /* SVWebTestResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebTestResult.m; sourceTree = "<group>"; };
 		5BC2D6581C9AA8E800253264 /* SVSpeedServerDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedServerDelay.h; sourceTree = "<group>"; };
 		5BC2D6591C9AA8E800253264 /* SVSpeedServerDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedServerDelay.m; sourceTree = "<group>"; };
+		5BDB91591CA130A500B1E9D2 /* SVSpeedDelayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedDelayTest.h; sourceTree = "<group>"; };
+		5BDB915A1CA130A500B1E9D2 /* SVSpeedDelayTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedDelayTest.m; sourceTree = "<group>"; };
 		B70FF3D31C6582AA002D571B /* SpeedPro.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedPro.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70FF3D51C6582AA002D571B /* SPUIViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUIViewTests.m; sourceTree = "<group>"; };
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -509,6 +512,8 @@
 				F61921CD1C92681E00C680E5 /* SVSpeedTestResult.m */,
 				5BC2D6581C9AA8E800253264 /* SVSpeedServerDelay.h */,
 				5BC2D6591C9AA8E800253264 /* SVSpeedServerDelay.m */,
+				5BDB91591CA130A500B1E9D2 /* SVSpeedDelayTest.h */,
+				5BDB915A1CA130A500B1E9D2 /* SVSpeedDelayTest.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1052,6 +1057,7 @@
 				F61921D11C926BA900C680E5 /* SVSpeedTestInfo.m in Sources */,
 				56F523E41C4DCF7F00E6472B /* main.m in Sources */,
 				B77D21F21C957904006BE281 /* SVLineChart.m in Sources */,
+				5BDB915B1CA130A500B1E9D2 /* SVSpeedDelayTest.m in Sources */,
 				568D42B41C89E20B00F2916B /* SVBandWidthCtrl.m in Sources */,
 				561447C11C59BCE900003B9A /* SVPointView.m in Sources */,
 				5B80D3921C91742700FF61DE /* SVNetworkTrafficMonitor.m in Sources */,

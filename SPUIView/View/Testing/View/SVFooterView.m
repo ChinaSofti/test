@@ -112,8 +112,8 @@
               withTitleColor:[UIColor lightGrayColor]
                    withTitle:title8];
         _Carrier = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_CarrierNumLabel.originX + _CarrierNumLabel.width + 10,
-                                         FITWIDTH (495), FITWIDTH (300), FITWIDTH (20))
+        createLabelWithFrame:CGRectMake (_CarrierNumLabel.originX + _CarrierNumLabel.width,
+                                         FITWIDTH (495), FITWIDTH (310), FITWIDTH (20))
                     withFont:10
               withTitleColor:[UIColor blackColor]
                    withTitle:@""];
