@@ -298,7 +298,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     label3.textAlignment = NSTextAlignmentCenter;
     //创建一个显示微信朋友圈的label4
     UILabel *label4 = [[UILabel alloc]
-    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (45), kScreenH / 10 + FITTHEIGHT (70), 130, 20)];
+    initWithFrame:CGRectMake (kScreenW / 2 - 20 + FITTHEIGHT (40), kScreenH / 10 + FITTHEIGHT (70), 130, 20)];
     label4.text = title11;
     label4.font = [UIFont systemFontOfSize:15];
     label4.textColor = [UIColor lightGrayColor];
