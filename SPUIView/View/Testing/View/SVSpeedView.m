@@ -12,7 +12,9 @@
 //初始化方法
 - (instancetype)init
 {
-    if ([super init])
+    self = [super init];
+
+    if (self)
     {
         // speedView中的初始化
     }

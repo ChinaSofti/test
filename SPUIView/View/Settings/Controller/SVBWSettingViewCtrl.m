@@ -54,11 +54,15 @@
 //进去时 隐藏tabBar
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"HideTabBar" object:nil];
 }
 //出来时 显示tabBar
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowTabBar" object:nil];
 }
 

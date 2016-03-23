@@ -10,7 +10,6 @@
 #import "SVSpeedTest.h"
 #import "SVSpeedTestInfo.h"
 #import <SPCommon/SVDBManager.h>
-#import <SPCommon/SVLog.h>
 #import <SPService/SVIPAndISPGetter.h>
 #import <SPService/SVSpeedTestServers.h>
 
@@ -261,7 +260,6 @@ double _beginTime;
         long len = write (fd, [request UTF8String], [request length] + 1);
         SVInfo (@"download write len = %ld", len);
 
-        len = 0;
         while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING &&
                (len = read (fd, buff, DOWNLOAD_BUFFER_SIZE)) > 0)
         {
@@ -313,9 +311,10 @@ double _beginTime;
             continue;
         }
 
-        long len = write (fd, [request UTF8String], [request length] + 1);
-        len = write (fd, [fileRequest UTF8String], [fileRequest length] + 1);
+        write (fd, [request UTF8String], [request length] + 1);
+        write (fd, [fileRequest UTF8String], [fileRequest length] + 1);
 
+        long len;
         while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING &&
                (len = send (fd, buff, UPLOAD_BUFFER_SIZE, 0)) > 0)
         {
@@ -383,6 +382,8 @@ double _beginTime;
           int ret = connect (fd, (struct sockaddr *)&currentAddr, sizeof (struct sockaddr));
           if (-1 == ret)
           {
+              free (buff);
+              buff = NULL;
               SVInfo (@"delayTest connect error, fd = %d, ret = %d", fd, ret);
               return;
           }
@@ -391,7 +392,7 @@ double _beginTime;
           long len = write (fd, [request UTF8String], [request length] + 1);
           SVInfo (@"delayTest write len = %ld", len);
           double startTime = [[NSDate date] timeIntervalSince1970] * 1000;
-          len = read (fd, buff, DELAY_BUFFER_SIZE);
+          read (fd, buff, DELAY_BUFFER_SIZE);
           double delay = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
 
           // 取时延最小的
@@ -473,7 +474,7 @@ double _beginTime;
 
     int count = 0;
 
-    while (count++ <= SAMPLE_COUNT && _testStatus == TEST_TESTING)
+    while (count++ < SAMPLE_COUNT && _testStatus == TEST_TESTING)
     {
         time = [[NSDate date] timeIntervalSince1970];
         if (time <= preTime)
@@ -488,7 +489,7 @@ double _beginTime;
         preSize = *size;
 
         speedSum += speed;
-        _speedsAll[count] = speed;
+        _speedsAll[count - 1] = speed;
 
         // 组装100ms结果并推送给前台,此结果用来刷新表盘，不入库
         _curTestResult.testTime = time;
@@ -531,7 +532,7 @@ double _beginTime;
     SVInfo (@"sample, totalSize = %ld, costTime = %f", *size, (currentTime - _beginTime));
 
     // 所有50个采样点，排序，去除最小30%和最大10%的采样点，再取平均值
-    long len = sizeof (_speedsAll) / sizeof (_speedsAll[0]);
+    int len = sizeof (_speedsAll) / sizeof (_speedsAll[0]);
     sort (&_speedsAll, len);
 
     int startIndex = len * 0.3 + 1;
@@ -564,7 +565,7 @@ double _beginTime;
 
     _testResult.isSummeryResult = YES;
 
-    SVInfo (@"sample over, isUpload = %d, avg speed = %f, len = %ld", isUpload, speedAvg, len);
+    SVInfo (@"sample over, isUpload = %d, avg speed = %f, len = %d", isUpload, speedAvg, len);
 }
 
 /**
@@ -603,20 +604,16 @@ double _beginTime;
     [dic setObject:[[NSNumber alloc] initWithDouble:_testResult.downloadSpeed]
             forKey:@"downloadSpeed"];
     [dic setObject:[[NSNumber alloc] initWithDouble:_testResult.uploadSpeed] forKey:@"uploadSpeed"];
-    [dic setObject:_testResult.ipAddress forKey:@"ipAddress"];
+    [dic setObject:!_testResult.ipAddress ? @"" : _testResult.ipAddress forKey:@"ipAddress"];
 
     if (_testResult.isp)
     {
-        if (_testResult.isp.city)
-        {
-            [dic setObject:_testResult.isp.city forKey:@"location"];
-        }
-        if (_testResult.isp.isp)
-        {
-            [dic setObject:_testResult.isp.isp forKey:@"isp"];
-        }
+        [dic setObject:@"" forKey:@"location"];
+        [dic setObject:@"" forKey:@"isp"];
     }
 
+    [dic setObject:!_testResult.isp.city ? @"" : _testResult.isp.city forKey:@"location"];
+    [dic setObject:!_testResult.isp.isp ? @"" : _testResult.isp.isp forKey:@"isp"];
     NSString *json = [self dictionaryToJsonString:dic];
 
     SVInfo (@"testResultToJsonString:  %@", json);

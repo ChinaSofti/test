@@ -7,9 +7,10 @@
 //
 
 #import "CTViewTools.h"
-#import <SPCommon/SVLog.h>
 
 @implementation CTViewTools
+
+static CGContextRef _context;
 
 + (UIColor *)colorWithImg:(UIImage *)img point:(CGPoint)point
 {
@@ -17,11 +18,11 @@
     CGImageRef inImage = img.CGImage;
     // Create off screen bitmap context to draw the image into. Format ARGB is 4
     // bytes for each pixel: Alpa, Red, Green, Blue
-    CGContextRef cgctx = [self createARGBBitmapContextFromImage:inImage];
-    if (cgctx == NULL)
-    {
-        return nil;
-    }
+    [self createARGBBitmapContextFromImage:inImage];
+    //    if (cgctx == NULL)
+    //    {
+    //        return nil;
+    //    }
 
     size_t w = CGImageGetWidth (inImage);
     size_t h = CGImageGetHeight (inImage);
@@ -30,11 +31,11 @@
     // Draw the image to the bitmap context. Once we draw, the memory
     // allocated for the context for rendering will then contain the
     // raw image data in the specified color space.
-    CGContextDrawImage (cgctx, rect, inImage);
+    CGContextDrawImage (_context, rect, inImage);
 
     // Now we can get a pointer to the image data associated with the bitmap
     // context.
-    unsigned char *data = CGBitmapContextGetData (cgctx);
+    unsigned char *data = CGBitmapContextGetData (_context);
     if (data != NULL)
     {
         // offset locates the pixel in the data from x,y.
@@ -63,7 +64,7 @@
         }
     }
     // When finished, release the context
-    CGContextRelease (cgctx);
+    CGContextRelease (_context);
     // Free image data memory for the context
     if (data)
     {
@@ -72,14 +73,14 @@
     return color;
 }
 
-+ (CGContextRef)createARGBBitmapContextFromImage:(CGImageRef)inImage
++ (void)createARGBBitmapContextFromImage:(CGImageRef)inImage
 {
 
-    CGContextRef context = NULL;
+    //    CGContextRef context = NULL;
     CGColorSpaceRef colorSpace;
     void *bitmapData;
-    int bitmapByteCount;
-    int bitmapBytesPerRow;
+    unsigned long bitmapByteCount;
+    unsigned long bitmapBytesPerRow;
 
     // Get image width, height. We'll use the entire image.
     size_t pixelsWide = CGImageGetWidth (inImage);
@@ -97,7 +98,7 @@
     if (colorSpace == NULL)
     {
         fprintf (stderr, "Error allocating color spacen");
-        return NULL;
+        return;
     }
 
     // Allocate memory for image data. This is the destination in memory
@@ -107,17 +108,17 @@
     {
         fprintf (stderr, "Memory not allocated!");
         CGColorSpaceRelease (colorSpace);
-        return NULL;
+        return;
     }
 
     // Create the bitmap context. We want pre-multiplied ARGB, 8-bits
     // per component. Regardless of what the source image format is
     // (CMYK, Grayscale, and so on) it will be converted over to the format
     // specified here by CGBitmapContextCreate.
-    context = CGBitmapContextCreate (bitmapData, pixelsWide, pixelsHigh,
-                                     8, // bits per component
-                                     bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedFirst);
-    if (context == NULL)
+    _context = CGBitmapContextCreate (bitmapData, pixelsWide, pixelsHigh,
+                                      8, // bits per component
+                                      bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedFirst);
+    if (!_context)
     {
         free (bitmapData);
         fprintf (stderr, "Context not created!");
@@ -125,7 +126,7 @@
     // Make sure and release colorspace before returning
     CGColorSpaceRelease (colorSpace);
 
-    return context;
+    //    return context;
 }
 
 @end

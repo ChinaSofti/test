@@ -21,7 +21,9 @@
 //初始化方法
 - (instancetype)init
 {
-    if ([super init])
+    self = [super init];
+
+    if (self)
     {
         // VideoTestingView中的初始化
         _pointView = [[UIView alloc]

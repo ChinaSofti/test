@@ -16,7 +16,9 @@
 
 - (instancetype)initWithDict:(NSDictionary *)dict
 {
-    if ([super init])
+    self = [super init];
+
+    if (self)
     {
         _img_normal = dict[@"img_normal"];
         _img_selected = dict[@"img_selected"];

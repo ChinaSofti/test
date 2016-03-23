@@ -16,8 +16,6 @@
 #import "SVChart.h"
 #import "SVCurrentResultViewCtrl.h"
 #import "SVSpeedTestingViewCtrl.h"
-#import <SPCommon/SVTimeUtil.h>
-#import <SPCommon/UUBar.h>
 
 #define kVideoViewDefaultRect \
     CGRectMake (FITWIDTH (10), FITWIDTH (425), FITWIDTH (150), FITWIDTH (90))
@@ -154,6 +152,8 @@ double _preSpeed = 0.0;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     // 显示tabbar 和navigationbar
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
@@ -191,6 +191,8 @@ double _preSpeed = 0.0;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+
     for (UIView *subView in _speedView.subviews)
     {
         [subView removeFromSuperview];
@@ -305,14 +307,24 @@ double _preSpeed = 0.0;
       }
       else
       {
+          // 服务器归属地和运营商
+          if (testResult.isp)
+          {
+              if (testResult.isp.isp)
+              {
+                  _footerView.Carrier.text = testResult.isp.isp;
+              }
+              if (testResult.isp.city)
+              {
+                  _footerView.ServerLocation.text = testResult.isp.city;
+              }
+          }
+
           // 显示头部指标
           [_headerView.Delay setText:[NSString stringWithFormat:@"%.2f", testResult.delay]];
-          [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.downloadSpeed]];
-          [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.uploadSpeed]];
 
           double speed = testResult.isUpload ? testResult.uploadSpeed : testResult.downloadSpeed;
-
-          if (!testResult.isSecResult)
+          if (!testResult.isSummeryResult && !testResult.isSecResult)
           {
               speed = _preSpeed + [self getRandomNumber:-_preSpeed to:_preSpeed] * 1.0 / 100;
           }
@@ -327,7 +339,6 @@ double _preSpeed = 0.0;
           {
               [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
           }
-
 
           if (testResult.isSecResult)
           {
@@ -364,19 +375,6 @@ double _preSpeed = 0.0;
               // 线图数据秒级
               [_chart addValue:speed];
               SVInfo (@"isSecResult:%.2f", speed);
-          }
-
-          // 服务器归属地和运营商
-          if (testResult.isp)
-          {
-              if (testResult.isp.isp)
-              {
-                  _footerView.Carrier.text = testResult.isp.isp;
-              }
-              if (testResult.isp.city)
-              {
-                  _footerView.ServerLocation.text = testResult.isp.city;
-              }
           }
       }
     });

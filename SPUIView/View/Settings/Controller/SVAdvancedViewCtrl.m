@@ -43,6 +43,8 @@
 //进去时 隐藏tabBar
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     //取点击的cell的值
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
     SVSpeedTestServer *server = [servers getDefaultServer];
@@ -68,6 +70,8 @@
 //出来时显示tabBar
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowTabBar" object:nil];
 }
 #pragma mark - 自定义创建BarButtonItem返回按钮

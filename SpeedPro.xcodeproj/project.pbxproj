@@ -110,11 +110,11 @@
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B72A1D0E1C7192B600C3141A /* speed_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = B72A1D0D1C7192B600C3141A /* speed_pro.png */; };
+		B72F14D01CA26E4600EC3F53 /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
+		B72F14D11CA26E4600EC3F53 /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B72F14D21CA26E4600EC3F53 /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
+		B72F14D31CA26E4600EC3F53 /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B748CE251C9FF62C00FD388C /* SVTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE241C9FF62C00FD388C /* SVTextField.m */; };
-		B748CE3E1C9FF97F00FD388C /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
-		B748CE3F1C9FF97F00FD388C /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B748CE401C9FF97F00FD388C /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
-		B748CE411C9FF97F00FD388C /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B748CE451CA0166900FD388C /* SVGetDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE441CA0166900FD388C /* SVGetDistance.m */; };
 		B77D21F11C957904006BE281 /* SVChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21EE1C957904006BE281 /* SVChart.m */; };
 		B77D21F21C957904006BE281 /* SVLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21F01C957904006BE281 /* SVLineChart.m */; };
@@ -149,14 +149,14 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B748CE421C9FF97F00FD388C /* Embed Frameworks */ = {
+		B797345D1CA0DF97002F2E41 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B748CE3F1C9FF97F00FD388C /* SPCommon.framework in Embed Frameworks */,
-				B748CE411C9FF97F00FD388C /* SPService.framework in Embed Frameworks */,
+				B72F14D11CA26E4600EC3F53 /* SPCommon.framework in Embed Frameworks */,
+				B72F14D31CA26E4600EC3F53 /* SPService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,8 +350,8 @@
 				56CAFFC71C9BFC2100210081 /* SystemConfiguration.framework in Frameworks */,
 				56CAFFC51C9BFC0800210081 /* libz.tbd in Frameworks */,
 				56CAFFC31C9BFBFC00210081 /* libsqlite3.0.tbd in Frameworks */,
-				B748CE401C9FF97F00FD388C /* SPService.framework in Frameworks */,
-				B748CE3E1C9FF97F00FD388C /* SPCommon.framework in Frameworks */,
+				B72F14D21CA26E4600EC3F53 /* SPService.framework in Frameworks */,
+				B72F14D01CA26E4600EC3F53 /* SPCommon.framework in Frameworks */,
 				56CAFFC11C9BFBEB00210081 /* CoreTelephony.framework in Frameworks */,
 				56CAFFBF1C9BFBDB00210081 /* libc++.tbd in Frameworks */,
 				56CAFFBD1C9BFBB800210081 /* libWeChatSDK.a in Frameworks */,
@@ -855,7 +855,7 @@
 				56F523DC1C4DCF7F00E6472B /* Frameworks */,
 				56F523DD1C4DCF7F00E6472B /* Resources */,
 				56A239E41C7D9E4D000C6341 /* Copy Files */,
-				B748CE421C9FF97F00FD388C /* Embed Frameworks */,
+				B797345D1CA0DF97002F2E41 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1209,6 +1209,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SP;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 			};
 			name = Debug;
 		};
@@ -1241,6 +1242,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SP;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 			};
 			name = Release;
 		};

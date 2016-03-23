@@ -13,8 +13,6 @@
 #import "SVWebTest.h"
 #import "SVWebTestingViewCtrl.h"
 #import "SVWebView.h"
-#import <SPCommon/SVTimeUtil.h>
-#import <SPCommon/UUBar.h>
 
 
 #define kVideoViewDefaultRect \
@@ -148,6 +146,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     // 显示tabbar 和navigationbar
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
@@ -184,6 +184,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
 
     dispatch_async (dispatch_get_main_queue (), ^{
       // 当用户离开当前页面时，停止测试

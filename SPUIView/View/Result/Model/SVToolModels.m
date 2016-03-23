@@ -12,7 +12,9 @@
 
 - (instancetype)initWithDict:(NSDictionary *)dict
 {
-    if ([super init])
+    self = [super init];
+
+    if (self)
     {
 
         _key = dict[@"key"];

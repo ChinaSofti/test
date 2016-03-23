@@ -116,6 +116,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     //默认情况下按照时间的降序排列
     //从数据库中读取数据
     [self readDataFromDB:@"testTime" order:@"desc"];

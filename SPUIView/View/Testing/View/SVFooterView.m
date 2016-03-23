@@ -12,7 +12,8 @@
 //初始化方法
 - (instancetype)init
 {
-    if ([super init])
+    self = [super init];
+    if (self)
     {
         NSString *title3 = I18N (@"Video Server Location");
         NSString *title4 = I18N (@"Resolution");

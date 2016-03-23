@@ -69,6 +69,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     // 刷新视频
     if (_resultModel.uvMOS == -1)
     {
@@ -904,8 +906,6 @@
 - (void)testBtnClick
 {
     SVInfo (@"back to testting view");
-    [[_resultModel navigationController] popToRootViewControllerAnimated:NO];
-
     // 将已经推送完成的controller重新放入待推送的controller数组
     [_resultModel copyCompleteCtrlToCtrlArray];
 

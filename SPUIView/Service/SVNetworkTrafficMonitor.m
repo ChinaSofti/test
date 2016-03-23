@@ -27,7 +27,7 @@
     int WWANSent = 0;
     int WWANReceived = 0;
 
-    NSString *name = [[NSString alloc] init];
+    NSString *name = nil;
 
     success = getifaddrs (&addrs) == 0;
     if (success)

@@ -14,7 +14,9 @@
 //初始化方法
 - (instancetype)init
 {
-    if ([super init])
+    self = [super init];
+
+    if (self)
     {
         // webView中的初始化
     }

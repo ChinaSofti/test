@@ -9,7 +9,6 @@
 #import "SVNetworkTrafficMonitor.h"
 #import "SVWebTest.h"
 #import <SPCommon/SVDBManager.h>
-#import <SPCommon/SVLog.h>
 #import <SPService/SPService.h>
 
 @import WebKit;

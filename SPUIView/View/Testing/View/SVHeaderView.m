@@ -13,7 +13,9 @@
 //初始化方法
 - (instancetype)init
 {
-    if ([super init])
+    self = [super init];
+
+    if (self)
     {
         NSString *title1 = I18N (@"Initial Buffer Time");
         NSString *title2 = I18N (@"Stalling Times");
