@@ -327,34 +327,28 @@ double _preSpeed = 0.0;
           // 显示头部指标
           [_headerView.Delay setText:[NSString stringWithFormat:@"%.2f", testResult.delay]];
 
+          // 如果是汇总结果，直接使用
           double speed = testResult.isUpload ? testResult.uploadSpeed : testResult.downloadSpeed;
-          if (!testResult.isSummeryResult && !testResult.isSecResult)
-          {
-              _footerView.Carrier.text = testResult.isp.isp;
-          }
-          if (testResult.isp.city)
-          {
-              _footerView.ServerLocation.text = testResult.isp.city;
-          }
-      }
 
-      // 显示头部指标
-      [_headerView.Delay setText:[NSString stringWithFormat:@"%.2f", testResult.delay]];
+          // 如果是测试中结果，则需要计算，并显示线图
+          if (!testResult.isSummeryResult)
+          {
+              if (!testResult.isSecResult)
+              {
+                  speed = _preSpeed + [self getRandomNumber:-_preSpeed to:_preSpeed] * 1.0 / 100;
+              }
+          }
 
-      // 如果是汇总结果，直接使用
-      if (testResult.isSummeryResult)
-      {
+          [_speedtestingView updateUvMOS3:speed];
+          [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
           if (testResult.isUpload)
           {
-              [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.uploadSpeed]];
+              [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
           }
           else
           {
-              [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", testResult.downloadSpeed]];
+              [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
           }
-          return;
-      }
-
           if (testResult.isSecResult)
           {
               if (!uploadFirstResult)

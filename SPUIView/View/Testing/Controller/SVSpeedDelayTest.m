@@ -81,6 +81,8 @@ const int DELAY_BUFFER_SIZE = 1024;
     int ret = connect (fd, (struct sockaddr *)&currentAddr, sizeof (struct sockaddr));
     if (-1 == ret)
     {
+        free (buff);
+        buff = NULL;
         SVInfo (@"delayTest connect error, fd = %d, ret = %d", fd, ret);
         return;
     }
@@ -89,7 +91,7 @@ const int DELAY_BUFFER_SIZE = 1024;
     long len = write (fd, [request UTF8String], [request length] + 1);
     SVInfo (@"delayTest read len = %ld", len);
     double startTime = [[NSDate date] timeIntervalSince1970] * 1000;
-    len = read (fd, buff, DELAY_BUFFER_SIZE);
+    read (fd, buff, DELAY_BUFFER_SIZE);
     self.delay = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
 
     // 关闭socket连接，释放内存
