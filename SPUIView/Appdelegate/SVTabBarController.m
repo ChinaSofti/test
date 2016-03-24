@@ -52,7 +52,7 @@
     [self addNotificataion];
 
     // 设置启动图片
-    UIImage *image = [UIImage imageNamed:[self getImageName]];
+    UIImage *image = [UIImage imageNamed:@"starting_window"];
     imageView = [[UIImageView alloc] initWithImage:image];
     imageView.frame = [UIScreen mainScreen].bounds;
     [self.view addSubview:imageView];
@@ -72,32 +72,6 @@
                                                    selector:@selector (changeProgress)
                                                    userInfo:@"Progress"
                                                     repeats:YES];
-}
-
-// 根据屏幕大小和语言选择图片
-- (NSString *)getImageName
-{
-    CGRect rect = [UIScreen mainScreen].bounds;
-
-    // 5,5S
-    if (rect.size.width == 320 && rect.size.height == 568)
-    {
-        return @"starting_window640.png";
-    }
-
-    // 6,6s
-    if (rect.size.width == 375 && rect.size.height == 667)
-    {
-        return @"starting_window750.png";
-    }
-
-    // 6 plus,6s plus
-    if (rect.size.width == 414 && rect.size.height == 736)
-    {
-        return @"starting_window1242.png";
-    }
-
-    return @"starting_window1242.png";
 }
 
 // 改变进度条进度
