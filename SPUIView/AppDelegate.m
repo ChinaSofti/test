@@ -134,6 +134,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     // application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called
     // instead of applicationWillTerminate: when the user quits.
+    // 如果正在测试，则终止当前测试。
+    exit (0);
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
