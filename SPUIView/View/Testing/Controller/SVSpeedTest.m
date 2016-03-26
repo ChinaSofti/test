@@ -22,7 +22,7 @@
 
 const int RECONNECT_WAIT_TIME = 500 * 1000;
 const int STEP = 5;
-const int DELAY_TEST_COUTN = 5;
+const int DELAY_TEST_COUTN = 4;
 const int DOWNLOAD_BUFFER_SIZE = 512 * 1024;
 const int UPLOAD_BUFFER_SIZE = 16 * 1024;
 const int THREAD_NUM = 2;
@@ -120,20 +120,17 @@ double _beginTime;
     if (_testStatus == TEST_TESTING)
     {
         [self startDownloadTest];
-    }
 
-    // 推送最终结果
-    [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
+        // 推送最终结果
+        [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
+    }
 
     // 启动上传测试
     _internalTestStatus = TEST_TESTING;
     if (_testStatus == TEST_TESTING)
     {
         [self startUploadTest];
-    }
 
-    if (_testStatus == TEST_TESTING)
-    {
         // 推送最终结果
         [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 
@@ -235,6 +232,12 @@ double _beginTime;
     while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING)
     {
         int fd = socket (AF_INET, SOCK_STREAM, 0);
+
+        // 设置超时时间
+        struct timeval timeout = { 2, 0 }; // 2s
+        setsockopt (fd, SOL_SOCKET, SO_SNDTIMEO, (const char *)&timeout, sizeof (timeout));
+        setsockopt (fd, SOL_SOCKET, SO_RCVTIMEO, (const char *)&timeout, sizeof (timeout));
+
         int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
         if (-1 == ret)
         {
@@ -289,6 +292,11 @@ double _beginTime;
     {
         int fd = socket (AF_INET, SOCK_STREAM, 0);
 
+        // 设置超时时间
+        struct timeval timeout = { 2, 0 }; // 2s
+        setsockopt (fd, SOL_SOCKET, SO_SNDTIMEO, (const char *)&timeout, sizeof (timeout));
+        setsockopt (fd, SOL_SOCKET, SO_RCVTIMEO, (const char *)&timeout, sizeof (timeout));
+
         int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
         if (-1 == ret)
         {
@@ -329,7 +337,7 @@ double _beginTime;
 
     // 在线程中遍历前五个服务器，初始化测试实例
     NSMutableArray *delayTestArray = [[NSMutableArray alloc] init];
-    long size = [serverArray count] < 5 ? [serverArray count] : 5;
+    long size = [serverArray count] < DELAY_TEST_COUTN ? [serverArray count] : DELAY_TEST_COUTN;
     for (int i = 0; _testStatus == TEST_TESTING && i < size; i++)
     {
         // 如果用户选择的是自动则取五个url测试,取时延最小的;否则使用用户选择的服务器测试五次
@@ -351,29 +359,8 @@ double _beginTime;
         // 将测试实例放到数组中
         [delayTestArray addObject:delayTest];
 
-        // 启动线程开始测试
-        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-          [delayTest startTest];
-        });
-    }
-
-    // 需要等待五个服务器的时延都计算出来,或5秒超时
-    int sucessCount = 0;
-    double beginTime = [[NSDate date] timeIntervalSince1970];
-    while (sucessCount < size && ([[NSDate date] timeIntervalSince1970] - beginTime) < 5)
-    {
-        // 统计测试完成的个数
-        sucessCount = 0;
-        for (SVSpeedDelayTest *test in delayTestArray)
-        {
-            if (test.finished)
-            {
-                sucessCount++;
-            }
-        }
-
-        // 等待1秒
-        [NSThread sleepForTimeInterval:1];
+        // 开始测试
+        [delayTest startTest];
     }
 
     // 时延测试结束后的操作
@@ -404,6 +391,15 @@ double _beginTime;
     // 获取时延最小的
     _testResult.delay = [sortedArray[0] delay];
     SVInfo (@"delayTest over, delay = %fms", _testResult.delay);
+
+    // 如果时延为0，则认为测试失败，中止测试
+    if (_testResult.delay <= 0)
+    {
+        [self stopTest];
+
+        _testContext.testStatus = TEST_FINISHED;
+        return;
+    }
 
     // 初始化默认服务器地址
     SVSpeedTestServer *server = [sortedArray[0] testServer];

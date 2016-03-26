@@ -12,7 +12,7 @@
 #import <netdb.h>
 #import <netinet/in.h>
 
-const int DELAY_BUFFER_SIZE = 1024;
+const int DELAY_BUFFER_SIZE = 512;
 
 @implementation SVSpeedDelayTest
 {
@@ -78,21 +78,46 @@ const int DELAY_BUFFER_SIZE = 1024;
     char *buff = (char *)malloc (DELAY_BUFFER_SIZE * sizeof (char));
     memset (buff, '\0', DELAY_BUFFER_SIZE);
     int fd = socket (AF_INET, SOCK_STREAM, 0);
-    int ret = connect (fd, (struct sockaddr *)&currentAddr, sizeof (struct sockaddr));
+
+    // 设置超时时间
+    struct timeval timeout = { 2, 0 }; // 2s
+    setsockopt (fd, SOL_SOCKET, SO_SNDTIMEO, (const char *)&timeout, sizeof (timeout));
+    setsockopt (fd, SOL_SOCKET, SO_RCVTIMEO, (const char *)&timeout, sizeof (timeout));
+
+    // 开始连接
+    __block int ret = -1;
+    dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      ret = connect (fd, (struct sockaddr *)&currentAddr, sizeof (struct sockaddr));
+    });
+
+    // 等待连接成功，如果超过两秒，则认为超时
+    double startTime = [[NSDate date] timeIntervalSince1970] * 1000;
+    while (ret == -1 && ([[NSDate date] timeIntervalSince1970] * 1000 - startTime) < 2000)
+    {
+        [NSThread sleepForTimeInterval:0.001];
+    }
     if (-1 == ret)
     {
+        // 关闭socket连接，释放内存
+        ret = close (fd);
         free (buff);
         buff = NULL;
-        SVInfo (@"delayTest connect error, fd = %d, ret = %d", fd, ret);
+        SVInfo (@"delayTest connect timeout, fd = %d, ret = %d", fd, ret);
         return;
     }
 
     // 计算时延
     long len = write (fd, [request UTF8String], [request length] + 1);
     SVInfo (@"delayTest read len = %ld", len);
-    double startTime = [[NSDate date] timeIntervalSince1970] * 1000;
+    startTime = [[NSDate date] timeIntervalSince1970] * 1000;
     read (fd, buff, DELAY_BUFFER_SIZE);
     self.delay = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
+
+    // 如果超时，则将时延设为0
+    if (self.delay >= 2000)
+    {
+        self.delay = 0;
+    }
 
     // 关闭socket连接，释放内存
     ret = close (fd);
