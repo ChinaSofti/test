@@ -31,5 +31,6 @@
 #import <SPCommon/SVLog.h>
 #import <SPCommon/SVI18N.h>
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 #endif /* CTCommonDefine_pch */

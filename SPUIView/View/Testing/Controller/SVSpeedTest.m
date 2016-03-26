@@ -623,7 +623,7 @@ double _beginTime;
     [dictionary setObject:!probeInfo.ip ? @"" : probeInfo.ip forKey:@"ip"];
     [dictionary setObject:!ipAndISP.isp ? @"" : ipAndISP.isp forKey:@"isp"];
     [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
-                   forKey:@"netWorkType"];
+                   forKey:@"networkType"];
     [dictionary setObject:![probeInfo getBandwidth] ? @"" : [probeInfo getBandwidth]
                    forKey:@"signedBandwidth"];
 

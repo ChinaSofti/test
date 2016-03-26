@@ -154,7 +154,7 @@ int failCount;
     [paramDic setObject:deviceName forKey:@"mobilename"];
     //    [paramDic setObject:mobilename forKey:@"mobilename"];
     [paramDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"operatorname"];
-    [paramDic setObject:!probeInfo.networkType ? @"" : probeInfo.networkType forKey:@"operatornw"];
+    [paramDic setObject:@"" forKey:@"operatornw"];
     NSMutableDictionary *collectorResultsDic = [[NSMutableDictionary alloc] init];
     NSString *bw = [probeInfo getBandwidth];
     NSNumber *bwNumber = [NSNumber numberWithInt:[bw intValue]];
@@ -165,7 +165,8 @@ int failCount;
     [collectorResultsDic setObject:@"SUCCESS" forKey:@"completions"];
     [collectorResultsDic setObject:@0 forKey:@"id"];
     [collectorResultsDic setObject:locationDic forKey:@"location"];
-    [collectorResultsDic setObject:@1 forKey:@"networktype"];
+    NSString *networkType = !probeInfo.networkType ? @"0" : probeInfo.networkType;
+    [collectorResultsDic setObject:networkType forKey:@"networktype"];
     [collectorResultsDic setObject:paramDic forKey:@"param"];
     [collectorResultsDic setObject:@0 forKey:@"sampleTime"];
     [collectorResultsDic setObject:@0 forKey:@"signalStrength"];
@@ -202,25 +203,59 @@ int failCount;
                                       error:&error];
 
     NSMutableDictionary *locationDic = [[NSMutableDictionary alloc] init];
-    [locationDic setObject:@"" forKey:@"as"];
-    [locationDic setObject:@"" forKey:@"carrier"];
-    [locationDic setObject:@"" forKey:@"city"];
-    [locationDic setObject:@"" forKey:@"country"];
-    [locationDic setObject:@"" forKey:@"countryCode"];
-    [locationDic setObject:@"" forKey:@"district"];
-    [locationDic setObject:@"" forKey:@"ip"];
-    [locationDic setObject:@"" forKey:@"isp"];
-    [locationDic setObject:@"" forKey:@"lat"];
-    [locationDic setObject:@"" forKey:@"lon"];
-    [locationDic setObject:@"" forKey:@"message"];
-    [locationDic setObject:@"" forKey:@"org"];
-    [locationDic setObject:@"" forKey:@"province"];
-    [locationDic setObject:@"" forKey:@"query"];
-    [locationDic setObject:@"" forKey:@"region"];
-    [locationDic setObject:@"" forKey:@"regionName"];
-    [locationDic setObject:@"success" forKey:@"status"];
-    [locationDic setObject:@"" forKey:@"timezone"];
-    [locationDic setObject:@"" forKey:@"zip"];
+    if (error)
+    {
+        return locationDic;
+    }
+
+
+    NSString *ipAddress = [speedTestResultJson valueForKey:@"ipAddress"];
+    SVIPAndISP *isp = [SVIPAndISPGetter queryIPDetail:ipAddress];
+    if (isp)
+    {
+        [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
+        [locationDic setObject:[self ispFilter:isp str:isp.carrier] forKey:@"carrier"];
+        [locationDic setObject:[self ispFilter:isp str:isp.city] forKey:@"city"];
+        [locationDic setObject:[self ispFilter:isp str:isp.country] forKey:@"country"];
+        [locationDic setObject:[self ispFilter:isp str:isp.countryCode] forKey:@"countryCode"];
+        [locationDic setObject:@"" forKey:@"district"];
+        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"ip"];
+        [locationDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"isp"];
+        [locationDic setObject:[self ispFilter:isp str:isp.lat] forKey:@"lat"];
+        [locationDic setObject:[self ispFilter:isp str:isp.lon] forKey:@"lon"];
+        [locationDic setObject:@"" forKey:@"message"];
+        [locationDic setObject:[self ispFilter:isp str:isp.org] forKey:@"org"];
+        [locationDic setObject:@"" forKey:@"province"];
+        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"query"];
+        [locationDic setObject:[self ispFilter:isp str:isp.region] forKey:@"region"];
+        [locationDic setObject:[self ispFilter:isp str:isp.regionName] forKey:@"regionName"];
+        [locationDic setObject:@"success" forKey:@"status"];
+        [locationDic setObject:[self ispFilter:isp str:isp.timezone] forKey:@"timezone"];
+        [locationDic setObject:[self ispFilter:isp str:isp.zip] forKey:@"zip"];
+    }
+    else
+    {
+        [locationDic setObject:@"" forKey:@"as"];
+        [locationDic setObject:@"" forKey:@"carrier"];
+        [locationDic setObject:@"" forKey:@"city"];
+        [locationDic setObject:@"" forKey:@"country"];
+        [locationDic setObject:@"" forKey:@"countryCode"];
+        [locationDic setObject:@"" forKey:@"district"];
+        [locationDic setObject:@"" forKey:@"ip"];
+        [locationDic setObject:@"" forKey:@"isp"];
+        [locationDic setObject:@"" forKey:@"lat"];
+        [locationDic setObject:@"" forKey:@"lon"];
+        [locationDic setObject:@"" forKey:@"message"];
+        [locationDic setObject:@"" forKey:@"org"];
+        [locationDic setObject:@"" forKey:@"province"];
+        [locationDic setObject:@"" forKey:@"query"];
+        [locationDic setObject:@"" forKey:@"region"];
+        [locationDic setObject:@"" forKey:@"regionName"];
+        [locationDic setObject:@"success" forKey:@"status"];
+        [locationDic setObject:@"" forKey:@"timezone"];
+        [locationDic setObject:@"" forKey:@"zip"];
+    }
+
 
     // 2.2 upAverage
     NSMutableDictionary *upAverageDic = [[NSMutableDictionary alloc] init];
@@ -288,27 +323,55 @@ int failCount;
                                     options:0
                                       error:&error];
 
-    NSMutableDictionary *vtLocationDic = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *locationDic = [[NSMutableDictionary alloc] init];
     //    SVIPAndISP *videoIsp = [SVIPAndISPGetter getIPAndISP];
-    [vtLocationDic setObject:@"" forKey:@"as"];
-    [vtLocationDic setObject:@"" forKey:@"carrier"];
-    [vtLocationDic setObject:@"" forKey:@"city"];
-    [vtLocationDic setObject:@"" forKey:@"country"];
-    [vtLocationDic setObject:@"" forKey:@"countryCode"];
-    [vtLocationDic setObject:@"" forKey:@"district"];
-    [vtLocationDic setObject:@"" forKey:@"ip"];
-    [vtLocationDic setObject:@"" forKey:@"isp"];
-    [vtLocationDic setObject:@"" forKey:@"lat"];
-    [vtLocationDic setObject:@"" forKey:@"lon"];
-    [vtLocationDic setObject:@"" forKey:@"message"];
-    [vtLocationDic setObject:@"" forKey:@"org"];
-    [vtLocationDic setObject:@"" forKey:@"province"];
-    [vtLocationDic setObject:@"" forKey:@"query"];
-    [vtLocationDic setObject:@"" forKey:@"region"];
-    [vtLocationDic setObject:@"" forKey:@"regionName"];
-    [vtLocationDic setObject:@"success" forKey:@"status"];
-    [vtLocationDic setObject:@"" forKey:@"timezone"];
-    [vtLocationDic setObject:@"" forKey:@"zip"];
+
+    NSString *ipAddress = [videoTestContextJson valueForKey:@"videoSegementIP"];
+    SVIPAndISP *isp = [SVIPAndISPGetter queryIPDetail:ipAddress];
+    if (isp)
+    {
+        [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
+        [locationDic setObject:[self ispFilter:isp str:isp.carrier] forKey:@"carrier"];
+        [locationDic setObject:[self ispFilter:isp str:isp.city] forKey:@"city"];
+        [locationDic setObject:[self ispFilter:isp str:isp.country] forKey:@"country"];
+        [locationDic setObject:[self ispFilter:isp str:isp.countryCode] forKey:@"countryCode"];
+        [locationDic setObject:@"" forKey:@"district"];
+        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"ip"];
+        [locationDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"isp"];
+        [locationDic setObject:[self ispFilter:isp str:isp.lat] forKey:@"lat"];
+        [locationDic setObject:[self ispFilter:isp str:isp.lon] forKey:@"lon"];
+        [locationDic setObject:@"" forKey:@"message"];
+        [locationDic setObject:[self ispFilter:isp str:isp.org] forKey:@"org"];
+        [locationDic setObject:@"" forKey:@"province"];
+        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"query"];
+        [locationDic setObject:[self ispFilter:isp str:isp.region] forKey:@"region"];
+        [locationDic setObject:[self ispFilter:isp str:isp.regionName] forKey:@"regionName"];
+        [locationDic setObject:@"success" forKey:@"status"];
+        [locationDic setObject:[self ispFilter:isp str:isp.timezone] forKey:@"timezone"];
+        [locationDic setObject:[self ispFilter:isp str:isp.zip] forKey:@"zip"];
+    }
+    else
+    {
+        [locationDic setObject:@"" forKey:@"as"];
+        [locationDic setObject:@"" forKey:@"carrier"];
+        [locationDic setObject:@"" forKey:@"city"];
+        [locationDic setObject:@"" forKey:@"country"];
+        [locationDic setObject:@"" forKey:@"countryCode"];
+        [locationDic setObject:@"" forKey:@"district"];
+        [locationDic setObject:@"" forKey:@"ip"];
+        [locationDic setObject:@"" forKey:@"isp"];
+        [locationDic setObject:@"" forKey:@"lat"];
+        [locationDic setObject:@"" forKey:@"lon"];
+        [locationDic setObject:@"" forKey:@"message"];
+        [locationDic setObject:@"" forKey:@"org"];
+        [locationDic setObject:@"" forKey:@"province"];
+        [locationDic setObject:@"" forKey:@"query"];
+        [locationDic setObject:@"" forKey:@"region"];
+        [locationDic setObject:@"" forKey:@"regionName"];
+        [locationDic setObject:@"success" forKey:@"status"];
+        [locationDic setObject:@"" forKey:@"timezone"];
+        [locationDic setObject:@"" forKey:@"zip"];
+    }
 
     // 3.2 mediaInput
     NSMutableDictionary *mediaInputDic = [[NSMutableDictionary alloc] init];
@@ -386,7 +449,7 @@ int failCount;
     [videoTestResultsDic
     setObject:[self string2num:[videoTestResultJson valueForKey:@"firstBufferTime"]]
        forKey:@"initialBufferTime"];
-    [videoTestResultsDic setObject:vtLocationDic forKey:@"location"];
+    [videoTestResultsDic setObject:locationDic forKey:@"location"];
     [videoTestResultsDic setObject:mediaInputDic forKey:@"mediaInput"];
     [videoTestResultsDic setObject:ottTestParamsDic forKey:@"ottTestParams"];
     [videoTestResultsDic setObject:_emptyArr forKey:@"resultList"];

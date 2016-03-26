@@ -11,7 +11,6 @@
 #import "SVResultPush.h"
 #import "SVTestViewCtrl.h"
 #import <SPCommon/SVDBManager.h>
-#import <SPCommon/SVSystemUtil.h>
 #import <SPCommon/SVTimeUtil.h>
 #import <SPService/SVTestContextGetter.h>
 #define kFirstHederH 40
