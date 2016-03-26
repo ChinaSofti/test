@@ -180,7 +180,7 @@
     _textField.placeholder = @"Please input bandwidth";
     //键盘类型
     _textField.keyboardType = UIKeyboardTypeNumberPad;
-    [_textField setCharacterLength:6];
+    [_textField setCharacterLength:5];
 
     //添加
     [views addSubview:_textField];

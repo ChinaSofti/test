@@ -215,22 +215,18 @@
                }]];
 
     // 网络类型
-    int networkType = [[probeInfoJson valueForKey:@"networkType"] intValue];
-    switch (networkType)
+    NSString *networkType = [probeInfoJson valueForKey:@"networkType"];
+    if ([networkType isEqualToString:@"0"])
     {
-    case 0:
-        valueStr = @"WIFI";
-        break;
-    case 1:
-        valueStr = @"MOBILE";
-        break;
-    default:
-        valueStr = I18N (@"Unknown");
-        break;
+        networkType = I18N (@"WIFI");
+    }
+    else
+    {
+        networkType = I18N (@"Mobile network");
     }
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Network type"),
-                   @"value": valueStr
+                   @"value": networkType
                }]];
 
     //     测试时间

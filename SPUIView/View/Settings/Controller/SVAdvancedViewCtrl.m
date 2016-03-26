@@ -8,15 +8,16 @@
 #import "SVAdvancedViewCtrl.h"
 #import "SVBandWidthCtrl.h"
 #import "SVTextField.h"
+#import "SVToast.h"
 #import <SPService/SVProbeInfo.h>
 
-@interface SVAdvancedViewCtrl () <UITableViewDelegate, UITableViewDataSource>
+@interface SVAdvancedViewCtrl () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @end
 
 @implementation SVAdvancedViewCtrl
 {
-    SVTextField *_textField;
+    UITextField *_textField;
     UIButton *_button;
     UIButton *_button2;
     NSString *_name;
@@ -116,7 +117,8 @@
 
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     //文本框
-    _textField = [[SVTextField alloc] init];
+    _textField = [[UITextField alloc] init];
+    [_textField setDelegate:self];
     _textField.frame = CGRectMake (100, 10, kScreenW - 125, 20);
     _textField.text = probeInfo.getScreenSize;
     _textField.placeholder = I18N (@"Please enter the number of 13~100");
@@ -125,7 +127,6 @@
     _textField.borderStyle = UITextBorderStyleRoundedRect;
     //输入键盘类型
     _textField.keyboardType = UIKeyboardTypeDecimalPad;
-    [_textField setCharacterLength:7];
     [views addSubview:_textField];
     //单位(英寸)
     UILabel *lableInch = [[UILabel alloc] init];
@@ -471,5 +472,20 @@
     SVBandWidthCtrl *bandwidthCtrl = [[SVBandWidthCtrl alloc] init];
     bandwidthCtrl.title = I18N (@"Bandwidth test server configuration");
     [self.navigationController pushViewController:bandwidthCtrl animated:YES];
+}
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    float screenSize = [[textField text] floatValue];
+    if (screenSize < 13 || screenSize > 100)
+    {
+        NSString *message = [NSString stringWithFormat:@"%@ %@", I18N (@"Value is invalid"),
+                                                       I18N (@"Please enter the number of 13~100")];
+        [SVToast showWithText:message];
+
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        _textField.text = probeInfo.getScreenSize;
+    }
 }
 @end

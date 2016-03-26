@@ -506,7 +506,7 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
     [dictionary setObject:!ipAndISP.isp ? @"" : ipAndISP.isp forKey:@"isp"];
     [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
-                   forKey:@"netWorkType"];
+                   forKey:@"networkType"];
     [dictionary setObject:![probeInfo getBandwidth] ? @"" : [probeInfo getBandwidth]
                    forKey:@"signedBandwidth"];
 

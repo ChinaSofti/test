@@ -193,8 +193,8 @@
 
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     int _videoPlayTime = [probeInfo getVideoPlayTime];
-    // 视频总时长 除以 20个U-vMOS柱子 获得每个柱子需要的时长，单位秒。再乘以10，将单位转换为100毫秒
-    _per_uvmos_bar_need_time = (_videoPlayTime / 20) * 10;
+    // 视频总时长 除以 20个U-vMOS柱子 获得每个柱子需要的时长，单位秒。再乘以5，将单位转换为200毫秒
+    _per_uvmos_bar_need_time = _videoPlayTime * 5 / 20;
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       BOOL isOK = [_videoTest initTestContext];
       if (isOK)
@@ -417,9 +417,6 @@
 
     // 分辨率
     NSString *videoResolution = testResult.videoResolution;
-    //    SVInfo (@"uvMOSSession: %f  firstBufferTime:%ld  cuttonTimes:%d  location:%@  bitrate:%f "
-    //            @"videoResolution:%@",
-    //            uvMOSSession, firstBufferTime, cuttonTimes, location, bitrate, videoResolution);
     dispatch_async (dispatch_get_main_queue (), ^{
       [_footerView.placeLabel setText:location];
       [_footerView.resolutionLabel setText:videoResolution];
@@ -439,29 +436,47 @@
       realBitrate = bitrate;
       realuvMOSSession = uvMOSSession;
 
-      if (!_resultTimes || _resultTimes == 0)
+      int i = arc4random () % 50;
+      [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
+      [_bitRateInFullScreenValue setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
+
+
+      float k;
+      if (i < 20)
       {
-          _resultTimes = 1;
-          //每一秒中改变一下界面显示的值
-          _timer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                    target:self
-                                                  selector:@selector (changeValueUseFakeData)
-                                                  userInfo:nil
-                                                   repeats:YES];
+          k = (uvMOSSession - 0.1);
+      }
+      else if (i > 30)
+      {
+          k = (uvMOSSession + 0.1);
+      }
+      else
+      {
+          k = uvMOSSession;
+      }
+
+      [_testingView updateUvMOS:k];
+      [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", k]];
+
+      // 更新柱状图
+      _resultTimes += 1;
+      if (_resultTimes == _per_uvmos_bar_need_time)
+      {
+          _UvMOSbarResultTimes += 1;
+          _resultTimes = 0;
+          if (_UvMOSbarResultTimes < 20)
+          {
+              // 如果显示柱子个数少于等于 20 个，添加新的柱子
+              UUBar *bar =
+              [[UUBar alloc] initWithFrame:CGRectMake (5 + _UvMOSbarResultTimes * 3, -10, 1, 30)];
+              [bar setBarValue:k];
+              [_headerView.uvMosBarView addSubview:bar];
+          }
       }
 
 
       if (testContext.testStatus == TEST_FINISHED)
       {
-          //取消定时器
-          if (_timer)
-          {
-              //取消定时器
-              [_timer invalidate];
-              _timer = nil;
-          }
-
-
           [self initCurrentResultModel:testResult];
           [self goToCurrentResultViewCtrl];
       }
@@ -473,54 +488,6 @@
     [currentResultModel setUvMOS:testResult.UvMOSSession];
     [currentResultModel setFirstBufferTime:testResult.firstBufferTime];
     [currentResultModel setCuttonTimes:testResult.videoCuttonTimes];
-}
-
-/**
- *  每一秒钟使用假的数据改变界面显示，使仪表盘能够动起来。真实值每5秒推送一次
- */
-- (void)changeValueUseFakeData
-{
-    if (realBitrate > 0)
-    {
-        int firstFakeBitrate = (arc4random () % 100 + realBitrate - 100);
-        if (firstFakeBitrate < 0)
-        {
-            firstFakeBitrate = 0;
-        }
-        int lastFakeBitrate = arc4random () % 50;
-        float fakeBitrate = [[NSString stringWithFormat:@"%d.%d", firstFakeBitrate, lastFakeBitrate] floatValue];
-        //    SVInfo (@"fake bitrate:%f", fakeBitrate);
-        [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fKbps", fakeBitrate]];
-        [_bitRateInFullScreenValue setText:[NSString stringWithFormat:@"%.2fKbps", fakeBitrate]];
-    }
-
-    if (realuvMOSSession > 0)
-    {
-        int firstFakeUvMOSSession = (int)realuvMOSSession;
-        if (firstFakeUvMOSSession < 0)
-        {
-            firstFakeUvMOSSession = 0;
-        }
-        int lastFakeUvMOSSession = arc4random () % 10;
-        float fakeUvMOSSession =
-        [[NSString stringWithFormat:@"%d.%d", firstFakeUvMOSSession, lastFakeUvMOSSession] floatValue];
-        //    SVInfo (@"fake UvMOS:%f", fakeUvMOSSession);
-        [_testingView updateUvMOS:fakeUvMOSSession];
-        [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", fakeUvMOSSession]];
-        _resultTimes += 1;
-        if (_resultTimes % _per_uvmos_bar_need_time == 0)
-        {
-            _UvMOSbarResultTimes += 1;
-            if (_UvMOSbarResultTimes < 20)
-            {
-                // 如果显示柱子个数少于等于 20 个，添加新的柱子
-                UUBar *bar =
-                [[UUBar alloc] initWithFrame:CGRectMake (5 + _UvMOSbarResultTimes * 3, -10, 1, 30)];
-                [bar setBarValue:fakeUvMOSSession];
-                [_headerView.uvMosBarView addSubview:bar];
-            }
-        }
-    }
 }
 
 - (void)goToCurrentResultViewCtrl

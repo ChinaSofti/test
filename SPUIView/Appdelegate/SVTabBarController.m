@@ -13,7 +13,6 @@
 #import "SVTestViewCtrl.h"
 #import <SPCommon/SVI18N.h>
 #import <SPCommon/SVLog.h>
-#import <SPCommon/SVSystemUtil.h>
 
 
 @interface SVTabBarController () <AlertViewDelegate>
@@ -52,7 +51,7 @@
     [self addNotificataion];
 
     // 设置启动图片
-    UIImage *image = [UIImage imageNamed:@"starting_window"];
+    UIImage *image = [UIImage imageNamed:@"starting_window_cn"];
     imageView = [[UIImageView alloc] initWithImage:image];
     imageView.frame = [UIScreen mainScreen].bounds;
     [self.view addSubview:imageView];

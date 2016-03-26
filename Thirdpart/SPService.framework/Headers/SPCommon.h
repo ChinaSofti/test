@@ -21,6 +21,7 @@ FOUNDATION_EXPORT const unsigned char SPCommonVersionString[];
 #import "GTMBase64.h"
 #import "GTMDefines.h"
 #import "Reachability.h"
+#import "SVCurrentDevice.h"
 #import "SVDBManager.h"
 #import "SVHttpGetter.h"
 #import "SVHttpsGetter.h"
