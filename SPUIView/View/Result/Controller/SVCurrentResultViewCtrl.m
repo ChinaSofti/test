@@ -173,8 +173,8 @@
     {
         [self persistSVSummaryResultModel];
         dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-          [[SVResultPush alloc] initWithURLNSString:nil
-                                             testId:[[NSNumber alloc] initWithLong:_resultModel.testId]];
+          SVResultPush *push = [[SVResultPush alloc] initWithTestId:_resultModel.testId];
+          [push sendResult];
         });
 
         isSave = YES;
@@ -685,7 +685,7 @@
     NSString *insertSVSummaryResultModelSQL =
     [NSString stringWithFormat:@"INSERT INTO "
                                @"SVSummaryResultModel(testId,type,testTime,UvMOS,loadTime,"
-                               @"bandwidth)VALUES(%ld, 0, %ld, %lf, %lf, %lf);",
+                               @"bandwidth)VALUES(%lld, 0, %lld, %lf, %lf, %lf);",
                                _resultModel.testId, _resultModel.testId, _resultModel.uvMOS,
                                _resultModel.totalTime, _resultModel.stDownloadSpeed];
     // 插入汇总结果

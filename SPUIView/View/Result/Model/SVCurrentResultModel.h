@@ -16,7 +16,7 @@
 @property UITabBarController *tabBarController;
 
 // 测试例 ID， 标示唯一
-@property long testId;
+@property long long testId;
 
 // 视频测试结果相关指标
 @property BOOL videoTest;

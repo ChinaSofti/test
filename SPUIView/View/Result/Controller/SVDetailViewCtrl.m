@@ -111,7 +111,7 @@
 {
     // 拼写sql
     NSMutableString *sql =
-    [NSMutableString stringWithFormat:@"select * from SVDetailResultModel where testId=%ld", testId];
+    [NSMutableString stringWithFormat:@"select * from SVDetailResultModel where testId=%lld", testId];
     if (self.testType)
     {
         [sql appendFormat:@" and testType=%d", [self.testType intValue]];
@@ -239,7 +239,7 @@
     //    }]];
 
     NSString *timeString =
-    [SVTimeUtil formatDateByMilliSecond:(self.testId / 1000) formatStr:@"yyyy-MM-dd HH:mm:ss"];
+    [SVTimeUtil formatDateByMilliSecond:self.testId formatStr:@"yyyy-MM-dd HH:mm:ss"];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Test time"),
                    @"value": timeString

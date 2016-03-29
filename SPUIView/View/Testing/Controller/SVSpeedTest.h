@@ -29,7 +29,7 @@
  *
  *  @return 视频测试对象
  */
-- (id)initWithView:(long)testId
+- (id)initWithView:(long long)testId
      showSpeedView:(UIView *)showSpeedView
       testDelegate:(id<SVSpeedTestDelegate>)testDelegate;
 

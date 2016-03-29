@@ -35,8 +35,8 @@
 @property int stallingTotalTime;
 
 // 开始缓冲时间
-@property long videoStartPlayTime;
+@property long long videoStartPlayTime;
 // 总卡顿时间
-@property long videoTotalCuttonTime;
+@property int videoTotalCuttonTime;
 
 @end

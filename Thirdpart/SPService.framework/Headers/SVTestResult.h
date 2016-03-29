@@ -12,7 +12,7 @@
 @interface SVTestResult : NSObject
 
 // 测试ID
-@property long testId;
+@property long long testId;
 
 
 @end

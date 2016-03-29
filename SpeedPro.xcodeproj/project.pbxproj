@@ -98,6 +98,10 @@
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B748CE251C9FF62C00FD388C /* SVTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE241C9FF62C00FD388C /* SVTextField.m */; };
 		B748CE451CA0166900FD388C /* SVGetDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE441CA0166900FD388C /* SVGetDistance.m */; };
+		B75EA9B31CAA2E9700271D79 /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
+		B75EA9B41CAA2E9700271D79 /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B75EA9B51CAA2E9700271D79 /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
+		B75EA9B61CAA2E9700271D79 /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B77D21F11C957904006BE281 /* SVChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21EE1C957904006BE281 /* SVChart.m */; };
 		B77D21F21C957904006BE281 /* SVLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21F01C957904006BE281 /* SVLineChart.m */; };
 		B7B5D8B21CA3E7E300DFEEBA /* tabbar_test@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7B5D8B01CA3E7E300DFEEBA /* tabbar_test@2x.png */; };
@@ -132,10 +136,6 @@
 		B7C61B481CA68362001E32DC /* icon87.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C61B451CA68362001E32DC /* icon87.png */; };
 		B7C61B491CA68362001E32DC /* icon80.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C61B461CA68362001E32DC /* icon80.png */; };
 		B7C61B4A1CA68362001E32DC /* icon58.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C61B471CA68362001E32DC /* icon58.png */; };
-		B7C61B4B1CA6953E001E32DC /* SPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; };
-		B7C61B4C1CA6953E001E32DC /* SPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8611C76EA3D00AAC3B3 /* SPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B7C61B4D1CA6953E001E32DC /* SPService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; };
-		B7C61B4E1CA6953E001E32DC /* SPService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B72AC8621C76EA3D00AAC3B3 /* SPService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */; };
 		B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CD57511C70C7FB00668E88 /* SVCurrentResultModel.m */; };
 		B7F3CA4A1C72CA3F009B087F /* toast_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F3CA491C72CA3F009B087F /* toast_icon.png */; };
@@ -167,14 +167,14 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B7C61B4F1CA6953E001E32DC /* Embed Frameworks */ = {
+		B75EA9B21CAA1AC100271D79 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B7C61B4C1CA6953E001E32DC /* SPCommon.framework in Embed Frameworks */,
-				B7C61B4E1CA6953E001E32DC /* SPService.framework in Embed Frameworks */,
+				B75EA9B41CAA2E9700271D79 /* SPCommon.framework in Embed Frameworks */,
+				B75EA9B61CAA2E9700271D79 /* SPService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,8 +386,8 @@
 				56CAFFC71C9BFC2100210081 /* SystemConfiguration.framework in Frameworks */,
 				56CAFFC51C9BFC0800210081 /* libz.tbd in Frameworks */,
 				56CAFFC31C9BFBFC00210081 /* libsqlite3.0.tbd in Frameworks */,
-				B7C61B4D1CA6953E001E32DC /* SPService.framework in Frameworks */,
-				B7C61B4B1CA6953E001E32DC /* SPCommon.framework in Frameworks */,
+				B75EA9B51CAA2E9700271D79 /* SPService.framework in Frameworks */,
+				B75EA9B31CAA2E9700271D79 /* SPCommon.framework in Frameworks */,
 				56CAFFC11C9BFBEB00210081 /* CoreTelephony.framework in Frameworks */,
 				56CAFFBF1C9BFBDB00210081 /* libc++.tbd in Frameworks */,
 				56CAFFBD1C9BFBB800210081 /* libWeChatSDK.a in Frameworks */,
@@ -908,7 +908,7 @@
 				56F523DC1C4DCF7F00E6472B /* Frameworks */,
 				56F523DD1C4DCF7F00E6472B /* Resources */,
 				56A239E41C7D9E4D000C6341 /* Copy Files */,
-				B7C61B4F1CA6953E001E32DC /* Embed Frameworks */,
+				B75EA9B21CAA1AC100271D79 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1254,9 +1254,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/SPUIView/ThirdPart",
 					"$(PROJECT_DIR)/Thirdpart",
-					"$(PROJECT_DIR)/SPUIView/Resoruces/LaunchImage/工作",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SPUIView/CTCommonDefine.pch";
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1287,9 +1285,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/SPUIView/ThirdPart",
 					"$(PROJECT_DIR)/Thirdpart",
-					"$(PROJECT_DIR)/SPUIView/Resoruces/LaunchImage/工作",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SPUIView/CTCommonDefine.pch";
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

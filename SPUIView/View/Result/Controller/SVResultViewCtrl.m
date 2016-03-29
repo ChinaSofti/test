@@ -478,8 +478,8 @@
     //按钮点击后alloc一个界面
     SVDetailViewCtrl *detailViewCtrl = [[SVDetailViewCtrl alloc] init];
     SVSummaryResultModel *summaryResultModel =
-    [buttonAndTest objectForKey:[NSString stringWithFormat:@"key_%ld", sender.tag]];
-    long testId = [summaryResultModel.testId longLongValue];
+    [buttonAndTest objectForKey:[NSString stringWithFormat:@"key_%zd", sender.tag]];
+    long long testId = [summaryResultModel.testId longLongValue];
     [detailViewCtrl setTestId:testId];
 
     //隐藏hidesBottomBarWhenPushed

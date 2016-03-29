@@ -26,7 +26,7 @@
 // 视频分片大小
 @property int videoSegementSize;
 // 视频分片时长
-@property long videoSegementDuration;
+@property int videoSegementDuration;
 // 视频分片码率 (单位：Kbps)
 @property float videoSegementBitrate;
 // 视频分片IP

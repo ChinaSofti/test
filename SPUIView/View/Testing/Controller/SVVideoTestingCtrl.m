@@ -404,7 +404,7 @@
     float uvMOSSession = testSample.UvMOSSession;
 
     //首次缓冲时长
-    long firstBufferTime = testResult.firstBufferTime;
+    int firstBufferTime = testResult.firstBufferTime;
 
     // 卡顿次数
     int cuttonTimes = testResult.videoCuttonTimes;
@@ -422,7 +422,7 @@
       [_footerView.resolutionLabel setText:videoResolution];
       [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fKbps", bitrate]];
       [_headerView.bufferLabel setText:[NSString stringWithFormat:@"%d", cuttonTimes]];
-      [_headerView.speedLabel setText:[NSString stringWithFormat:@"%ld", firstBufferTime]];
+      [_headerView.speedLabel setText:[NSString stringWithFormat:@"%d", firstBufferTime]];
 
       [_bufferTimesInFullScreenValue setText:[NSString stringWithFormat:@"%d", cuttonTimes]];
       [_resolutionInFullScreenValue setText:videoResolution];

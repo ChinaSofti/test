@@ -18,7 +18,7 @@
     @private
 
     // 测试ID
-    long _testId;
+    long long _testId;
 
     //播放视频的 UIView 组建
     UIView *_showWebView;
@@ -36,7 +36,7 @@
     double totalTime;
 
     // 下载总大小
-    long totalBytes;
+    long long totalBytes;
 
     // 当前测试是否结束
     BOOL finished;
@@ -68,7 +68,7 @@
  *
  *  @return 视频测试对象
  */
-- (id)initWithView:(long)testId
+- (id)initWithView:(long long)testId
        showWebView:(UIView *)showWebView
       testDelegate:(id<SVWebTestDelegate>)testDelegate
 {
@@ -84,7 +84,7 @@
     testStatus = TEST_TESTING;
     finished = NO;
 
-    SVInfo (@"SVWebTest testID:%ld  showVideoView:%@", testId, showWebView);
+    SVInfo (@"SVWebTest testID:%lld  showVideoView:%@", testId, showWebView);
 
     // 初始化UIWebView
     _webView = [[WKWebView alloc]
@@ -105,7 +105,7 @@
 
         if (!webTestContext)
         {
-            SVError (@"webTest[testId=%ld] fail. there is no test context", _testId);
+            SVError (@"webTest[testId=%lld] fail. there is no test context", _testId);
             return NO;
         }
 
@@ -260,7 +260,7 @@
     }
     @catch (NSException *exception)
     {
-        SVError (@"webTest[testId=%ld] fail,cause:%@", _testId, exception);
+        SVError (@"webTest[testId=%lld] fail,cause:%@", _testId, exception);
         testStatus = TEST_ERROR;
         return NO;
     }
@@ -286,7 +286,7 @@
     }
     @catch (NSException *exception)
     {
-        SVError (@"stop webTest[testId=%ld] fail,cause:%@", _testId, exception);
+        SVError (@"stop webTest[testId=%lld] fail,cause:%@", _testId, exception);
         testStatus = TEST_ERROR;
         return NO;
     }
@@ -486,7 +486,7 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     NSString *insertSVDetailResultModelSQL =
     [NSString stringWithFormat:@"INSERT INTO "
                                @"SVDetailResultModel (testId,testType,testResult, testContext, "
-                               @"probeInfo) VALUES(%ld, %d, "
+                               @"probeInfo) VALUES(%lld, %d, "
                                @"'%@', '%@', '%@');",
                                _testId, WEB, [self testResultToJsonString],
                                [self testContextToJsonString], [self testProbeInfo]];
@@ -521,7 +521,8 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     {
         SVWebTestResult *result = [self.webTestResultDic objectForKey:testUrl];
         NSMutableDictionary *currenDic = [[NSMutableDictionary alloc] init];
-        [currenDic setObject:[[NSNumber alloc] initWithLong:result.testTime] forKey:@"testTime"];
+        [currenDic setObject:[[NSNumber alloc] initWithLongLong:result.testTime]
+                      forKey:@"testTime"];
         [currenDic setObject:result.testUrl forKey:@"testUrl"];
         [currenDic setObject:[[NSNumber alloc] initWithDouble:result.responseTime]
                       forKey:@"responseTime"];

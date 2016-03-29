@@ -11,8 +11,8 @@
 
 @interface SVResultPush : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate, UIAlertViewDelegate>
 
-- (id)initWithURLNSString:(NSString *)urlString testId:(NSNumber *)testId;
+- (id)initWithTestId:(long long)testId;
 
-- (NSNumber *)string2num:(NSString *)str;
+- (void)sendResult;
 
 @end

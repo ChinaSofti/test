@@ -26,6 +26,7 @@ FOUNDATION_EXPORT const unsigned char SPCommonVersionString[];
 #import "SVHttpGetter.h"
 #import "SVHttpsGetter.h"
 #import "SVI18N.h"
+#import "SVIPAddress.h"
 #import "SVLog.h"
 #import "SVSystemUtil.h"
 #import "SVTimeUtil.h"

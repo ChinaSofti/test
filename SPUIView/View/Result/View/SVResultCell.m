@@ -202,9 +202,9 @@
     //    SVInfo (@"date1:%@", [dataFormater stringFromDate:date]);
     //    SVInfo (@"time1:%@", [timeFormater stringFromDate:date]);
     self.testDate.text =
-    [SVTimeUtil formatDateByMilliSecond:[testTime longLongValue] / 1000 formatStr:@"MM/dd"];
+    [SVTimeUtil formatDateByMilliSecond:[testTime longLongValue] formatStr:@"MM/dd"];
     self.testTime.text =
-    [SVTimeUtil formatDateByMilliSecond:[testTime longLongValue] / 1000 formatStr:@"HH:mm:ss"];
+    [SVTimeUtil formatDateByMilliSecond:[testTime longLongValue] formatStr:@"HH:mm:ss"];
 
     // 显示指标值，-1的显示--
     float uvmos = [_resultModel.UvMOS floatValue];

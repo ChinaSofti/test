@@ -11,7 +11,7 @@
 @interface SVWebTestResult : SVTestResult
 
 // 测试时间
-@property long testTime;
+@property long long testTime;
 
 // 测试的url
 @property NSString *testUrl;

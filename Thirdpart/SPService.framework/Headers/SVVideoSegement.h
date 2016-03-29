@@ -20,7 +20,7 @@
 @property int size;
 
 // 视频时长 (单位秒)
-@property long duration;
+@property int duration;
 
 // 视频码率 (单位：Kbps)
 @property float bitrate;

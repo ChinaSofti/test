@@ -32,7 +32,7 @@ const NSString *BUNDORY = @"---------------------------7db1c523809b2";
 
 @implementation SVSpeedTest
 
-long _testId;
+long long _testId;
 
 id<SVSpeedTestDelegate> _testDelegate;
 
@@ -67,7 +67,7 @@ double _beginTime;
  *
  *  @return 带宽测试对象
  */
-- (id)initWithView:(long)testId
+- (id)initWithView:(long long)testId
      showSpeedView:(UIView *)showSpeedView
       testDelegate:(id<SVSpeedTestDelegate>)testDelegate
 {
@@ -574,7 +574,7 @@ double _beginTime;
     NSString *insertSVDetailResultModelSQL =
     [NSString stringWithFormat:@"INSERT INTO "
                                @"SVDetailResultModel (testId,testType,testResult, testContext, "
-                               @"probeInfo) VALUES(%ld, %d, "
+                               @"probeInfo) VALUES(%lld, %d, "
                                @"'%@', '%@', '%@');",
                                _testId, BANDWIDTH, [self testResultToJsonString],
                                [self testContextToJsonString], [self testProbeInfo]];

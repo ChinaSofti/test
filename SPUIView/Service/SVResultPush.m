@@ -29,8 +29,8 @@ NSString *_urlString = @"https://58.60.106.188:12210/speedpro/results";
 
 BOOL finished;
 
-long _svTestId;
-NSNumber *_svTestTime;
+long long _svTestId;
+long long *_svTestTime;
 
 
 SVDBManager *_db;
@@ -43,19 +43,124 @@ NSArray *_emptyArr;
 NSMutableURLRequest *request;
 int failCount;
 
+
+- (id)initWithTestId:(long long)testId
+{
+    self = [super init];
+    if (self)
+    {
+        _svTestId = testId;
+        _db = [SVDBManager sharedInstance];
+        _emptyArr = [[NSArray alloc] init];
+    }
+
+    return self;
+}
+
+- (void)sendResult
+{
+    [self queryResult];
+
+    NSURL *url = [[NSURL alloc] initWithString:_urlString];
+    request = [[NSMutableURLRequest alloc] initWithURL:url
+                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                       timeoutInterval:10];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+    // 3.设置请求体
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+
+
+    NSMutableDictionary *collectorResultsDic;
+    NSMutableDictionary *speedTestResultsDic;
+    NSMutableDictionary *videoTestResultsDic;
+    NSMutableDictionary *webTestResultsDic;
+
+    @try
+    {
+        collectorResultsDic = [self genCollectorResultsDic];
+    }
+    @catch (NSException *e)
+    {
+        SVError (@"genCollectorResultsDic error! %@", e);
+    }
+
+    @try
+    {
+        speedTestResultsDic = [self genSpeedTestResultsDic];
+    }
+    @catch (NSException *e)
+    {
+        SVError (@"genSpeedTestResultsDic error! %@", e);
+    }
+
+    @try
+    {
+        videoTestResultsDic = [self genVideoTestResultsDic];
+    }
+    @catch (NSException *e)
+    {
+        SVError (@"genVideoTestResultsDic error! %@", e);
+    }
+
+    @try
+    {
+        webTestResultsDic = [self genWebTestResultsDic];
+    }
+    @catch (NSException *e)
+    {
+        SVError (@"genWebTestResultsDic error! %@", e);
+    }
+
+    if (collectorResultsDic)
+    {
+        [dic setObject:collectorResultsDic forKey:@"collectorResults"];
+
+        if (speedTestResultsDic)
+        {
+            [dic setObject:speedTestResultsDic forKey:@"speedTestResults"];
+        }
+
+        if (videoTestResultsDic)
+        {
+            [dic setObject:videoTestResultsDic forKey:@"videoTestResults"];
+        }
+
+        if (webTestResultsDic)
+        {
+            [dic setObject:webTestResultsDic forKey:@"webTestResults"];
+        }
+    }
+
+
+    SVInfo (@"json = %@", [self dictionaryToJsonString:dic]);
+
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
+
+    //    if (dic)
+    //    {
+    //        return nil;
+    //    }
+    // 连接服务器发送请求
+    failCount = 0;
+    [self sendResultByRequest];
+}
+
+
 - (void)queryResult
 {
     sleep (2);
 
     // 拼写sql // 测试类型：0=video,1=web,2=speed
     NSMutableString *vsql = [NSMutableString
-    stringWithFormat:@"select * from SVDetailResultModel where testId=%ld and testType=0", _svTestId];
+    stringWithFormat:@"select * from SVDetailResultModel where testId=%lld and testType=0", _svTestId];
 
     NSMutableString *wsql = [NSMutableString
-    stringWithFormat:@"select * from SVDetailResultModel where testId=%ld and testType=1", _svTestId];
+    stringWithFormat:@"select * from SVDetailResultModel where testId=%lld and testType=1", _svTestId];
 
     NSMutableString *ssql = [NSMutableString
-    stringWithFormat:@"select * from SVDetailResultModel where testId=%ld and testType=2", _svTestId];
+    stringWithFormat:@"select * from SVDetailResultModel where testId=%lld and testType=2", _svTestId];
 
     // 查询结果，如果结果为空则返回
     _videoResultArray = [_db executeQuery:[SVDetailResultModel class] SQL:vsql];
@@ -70,23 +175,6 @@ int failCount;
     return [NSString stringWithFormat:@"%.2f%@ ", [value floatValue], unit];
 }
 
-- (id)initWithURLNSString:(NSString *)urlString testId:(NSNumber *)testId
-{
-    _svTestId = [testId longValue];
-    _db = [SVDBManager sharedInstance];
-
-    _emptyArr = [[NSArray alloc] init];
-
-    // TODO yzy 测试时间
-    _svTestTime = [[NSNumber alloc] initWithLong:(long)([[NSDate date] timeIntervalSince1970] * 1000)];
-
-    [self queryResult];
-
-    //_urlString = urlString;
-    NSURL *url = [[NSURL alloc] initWithString:_urlString];
-
-    return [self initWithURL:url];
-}
 
 - (NSString *)ispFilter:(SVIPAndISP *)isp str:(NSString *)str
 {
@@ -172,7 +260,7 @@ int failCount;
     [collectorResultsDic setObject:@0 forKey:@"signalStrength"];
     [collectorResultsDic setObject:@0 forKey:@"SNR"];
     [collectorResultsDic setObject:@0 forKey:@"testId"];
-    [collectorResultsDic setObject:_svTestTime forKey:@"testTime"];
+    [collectorResultsDic setObject:[NSNumber numberWithLongLong:_svTestId] forKey:@"testTime"];
 
     return collectorResultsDic;
 }
@@ -453,7 +541,7 @@ int failCount;
     [videoTestResultsDic setObject:mediaInputDic forKey:@"mediaInput"];
     [videoTestResultsDic setObject:ottTestParamsDic forKey:@"ottTestParams"];
     [videoTestResultsDic setObject:_emptyArr forKey:@"resultList"];
-    [videoTestResultsDic setObject:_svTestTime forKey:@"sampleTime"];
+    [videoTestResultsDic setObject:[NSNumber numberWithLongLong:_svTestId] forKey:@"sampleTime"];
     [videoTestResultsDic setObject:@0 forKey:@"samplingTimes"];
     [videoTestResultsDic setObject:@0 forKey:@"startTime"];
     [videoTestResultsDic setObject:@0 forKey:@"testId"];
@@ -552,9 +640,9 @@ int failCount;
         [detailResultArray addObject:currentDic];
     }
 
-    [totalResultDic setObject:[[NSNumber alloc] initWithLong:[model.ID longLongValue]]
+    [totalResultDic setObject:[[NSNumber alloc] initWithLongLong:[model.ID longLongValue]]
                        forKey:@"testId"];
-    [totalResultDic setObject:[[NSNumber alloc] initWithLong:[model.testId longLongValue]]
+    [totalResultDic setObject:[[NSNumber alloc] initWithLongLong:[model.testId longLongValue]]
                        forKey:@"testId"];
     [totalResultDic setObject:[[NSNumber alloc] initWithInt:0] forKey:@"sampleTime"];
 
@@ -585,101 +673,6 @@ int failCount;
     return totalResultDic;
 }
 
-- (id)initWithURL:(NSURL *)url
-{
-    _currPush = [super init];
-    if (!_currPush)
-    {
-        return nil;
-    }
-
-    request = [[NSMutableURLRequest alloc] initWithURL:url
-                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                       timeoutInterval:10];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-
-    // 3.设置请求体
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-
-
-    NSMutableDictionary *collectorResultsDic;
-    NSMutableDictionary *speedTestResultsDic;
-    NSMutableDictionary *videoTestResultsDic;
-    NSMutableDictionary *webTestResultsDic;
-
-    @try
-    {
-        collectorResultsDic = [_currPush genCollectorResultsDic];
-    }
-    @catch (NSException *e)
-    {
-        SVError (@"genCollectorResultsDic error! %@", e);
-    }
-
-    @try
-    {
-        speedTestResultsDic = [_currPush genSpeedTestResultsDic];
-    }
-    @catch (NSException *e)
-    {
-        SVError (@"genSpeedTestResultsDic error! %@", e);
-    }
-
-    @try
-    {
-        videoTestResultsDic = [_currPush genVideoTestResultsDic];
-    }
-    @catch (NSException *e)
-    {
-        SVError (@"genVideoTestResultsDic error! %@", e);
-    }
-
-    @try
-    {
-        webTestResultsDic = [_currPush genWebTestResultsDic];
-    }
-    @catch (NSException *e)
-    {
-        SVError (@"genWebTestResultsDic error! %@", e);
-    }
-
-    if (collectorResultsDic)
-    {
-        [dic setObject:collectorResultsDic forKey:@"collectorResults"];
-
-        if (speedTestResultsDic)
-        {
-            [dic setObject:speedTestResultsDic forKey:@"speedTestResults"];
-        }
-
-        if (videoTestResultsDic)
-        {
-            [dic setObject:videoTestResultsDic forKey:@"videoTestResults"];
-        }
-
-        if (webTestResultsDic)
-        {
-            [dic setObject:webTestResultsDic forKey:@"webTestResults"];
-        }
-    }
-
-
-    SVInfo (@"json = %@", [_currPush dictionaryToJsonString:dic]);
-
-    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
-
-    //    if (dic)
-    //    {
-    //        return nil;
-    //    }
-    // 连接服务器发送请求
-    failCount = 0;
-    [_currPush sendResultByRequest];
-
-    return _currPush;
-}
-
 // 发送保存数据的请求
 - (void)sendResultByRequest
 {
@@ -693,7 +686,7 @@ int failCount;
             {
                 SVError (@"result push error:%@", connectionError);
                 failCount++;
-                [_currPush sendResultByRequest];
+                [self sendResultByRequest];
                 return;
             }
 
@@ -701,7 +694,7 @@ int failCount;
             if (failCount >= 3)
             {
                 //                dispatch_async (dispatch_get_main_queue (), ^{
-                //                  [_currPush showAlertView];
+                //                  [self showAlertView];
                 //                });
                 SVInfo (@"result push failed！");
                 return;
@@ -718,7 +711,7 @@ int failCount;
     UIAlertView *warningView =
     [[UIAlertView alloc] initWithTitle:@""
                                message:I18N (@"Upload the test result failed, continue?")
-                              delegate:_currPush
+                              delegate:self
                      cancelButtonTitle:I18N (@"Cancel")
                      otherButtonTitles:I18N (@"Continue"), nil];
     [warningView setTag:100];
@@ -742,7 +735,7 @@ int failCount;
     {
         // 点击继续时，将failCount重置，然后继续发送请求
         failCount = 0;
-        [_currPush sendResultByRequest];
+        [self sendResultByRequest];
 
         // 让alertView消失
         [alertView dismissWithClickedButtonIndex:0 animated:NO];
@@ -804,7 +797,7 @@ int failCount;
 {
     if (_allData)
     {
-        NSLog (@"request finished. data length:%ld", _allData.length);
+        NSLog (@"request finished. data length:%zd", _allData.length);
     }
     else
     {

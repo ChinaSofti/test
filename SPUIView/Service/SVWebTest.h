@@ -35,7 +35,7 @@
  *
  *  @return 视频测试对象
  */
-- (id)initWithView:(long)testId
+- (id)initWithView:(long long)testId
        showWebView:(UIView *)showWebView
       testDelegate:(id<SVWebTestDelegate>)testDelegate;
 

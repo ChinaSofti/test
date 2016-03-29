@@ -23,7 +23,7 @@
  *
  *  @return 毫秒时间戳
  */
-+ (long)currentMilliSecondStamp;
++ (long long)currentMilliSecondStamp;
 
 /**
  *  将毫秒值改成日期格式
@@ -31,6 +31,6 @@
  *  @param formatStr 日期格式
  *  @return 日期字符串
  */
-+ (NSString *)formatDateByMilliSecond:(long)timeNum formatStr:(NSString *)formatStr;
++ (NSString *)formatDateByMilliSecond:(long long)timeNum formatStr:(NSString *)formatStr;
 
 @end

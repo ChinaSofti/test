@@ -34,7 +34,7 @@
  *
  *  @return 视频测试对象
  */
-- (id)initWithView:(long)testId
+- (id)initWithView:(long long)testId
      showVideoView:(UIView *)showVideoView
       testDelegate:(id<SVVideoTestDelegate>)testDelegate;
 

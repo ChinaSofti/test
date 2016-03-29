@@ -15,7 +15,7 @@
 @interface SVVideoTestResult : SVTestResult
 
 // 测试时间
-@property long testTime;
+@property long long testTime;
 
 // sQuality会话得分：截止到当前的会话期间，视频质量得分，包含之前的所有采样周期
 @property float sQualitySession;
@@ -31,9 +31,9 @@
 @property int firstBufferTime;
 
 // 开始视频播放
-@property long videoStartPlayTime;
+@property long long videoStartPlayTime;
 // 结束视频播放
-@property long videoEndPlayTime;
+@property long long videoEndPlayTime;
 // 视频卡顿次数
 @property int videoCuttonTimes;
 // 视频卡顿总时长

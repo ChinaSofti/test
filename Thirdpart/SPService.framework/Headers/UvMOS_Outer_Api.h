@@ -78,7 +78,7 @@ typedef struct _UvMOSMediaInfo
     unsigned int iVideoResolutionWidth; // 视频宽度
     unsigned int iVideoResolutionHeigth; // 视频高度
     UvMOSVideoCodec eVideoCodec; // 视频编码格式，取值详见枚举类型UvMOSVideoCodec
-    double fScreenSize; // 屏幕尺寸，单位英寸，输入为0时，屏幕映射默认为42寸TV
+    double dScreenSize; // 屏幕尺寸，单位英寸，输入为0时，屏幕映射默认为42寸TV
     unsigned int iScreenResolutionWidth; // 屏幕分辨率宽度
     unsigned int iScreenResolutionHeight; // 屏幕分辨率高度
 
@@ -105,11 +105,11 @@ typedef struct _UvMOSSegementInfo
     //    unsigned int iStallingInterval; // 采样周期内，平均卡顿间隔，单位毫秒(ms)
     unsigned int iTimeStamp; // 视频片段截止时间戳，已视频开始加载时为开始时间点，单位毫秒
     UvMOSPlayStatus ePlayStatus; // 当前时间点视频播放状态
-    double iVideoFrameRate; // 视频帧率，采用VFR时，输入视频片段内平均帧率
+    double dVideoFrameRate; // 视频帧率，采用VFR时，输入视频片段内平均帧率
     unsigned int iAvgVideoBitrate; // 视频平均码率，单位Kbps， 采用VBR时，输入视频片段内平均码率
     unsigned int iAvgKeyFrameSize; // 采用VBR时，输入视频片段内I帧平均大小，单位子节（Byte），否则输入为0
-    unsigned int iImpairmentDegree; // 视频片段内，画面损伤程度百分比（％）卡顿时为100%，花屏时为［1%，
-    // 99%］，其他情况为0%
+    unsigned int iImpairmentDegree; // 画面花屏奇迹，平均花屏面积百分比（％），卡顿时为100%，卡顿时间为100%，花屏时为［1%，
+    // 100%］，其他情况为0%
 
 } UvMOSSegmentInfo;
 
@@ -117,13 +117,13 @@ typedef struct _UvMOSStatisticsInfo
 {
     unsigned int iVideoPlayDuration; // 视频可播放时长，单位秒（s）,不包含初始化缓冲时间和画面卡顿时间
     unsigned int iInitBufferLatency; // 初始化缓冲时长，单位毫秒（ms），包括初始加载（点播），频道切换（直播）
-    double iVideoFrameRate; // 视频帧率，采用VFR时，输入视频片段内平均帧率
+    double dVideoFrameRate; // 视频帧率，采用VFR时，输入视频片段内平均帧率
     unsigned int iAvgVideoBitrate; // 视频平均码率，单位Kbps，采用VBR时，输入视频片段内平均码率
     unsigned int iAvgKeyFrameSize; // 采用VBR时，输入视频片段内I帧平均大小，单位子节（Byte），否则输入为0
     unsigned int iImpairmentFrequency; // 视频播放期间，画面损伤次数，包括卡顿，花屏
     unsigned int iImpairmentDuration; // 视频播放期间，画面损伤总时长，单位毫秒（ms）
-    unsigned int iImpairmentDegree; // 画面损伤奇迹，平均损伤程度百分比（％），卡顿时为100%，卡顿时间为100%，花屏时为［1%，
-    // 99%］，其他情况为0%
+    unsigned int iImpairmentDegree; // 画面花屏奇迹，平均花屏面积百分比（％），卡顿时为100%，卡顿时间为100%，花屏时为［1%，
+    // 100%］，其他情况为0%
 } UvMOSStatisticsInfo;
 
 /**
