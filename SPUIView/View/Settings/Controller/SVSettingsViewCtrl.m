@@ -255,8 +255,8 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     _grey = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
     _grey.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.3];
     //创建一个分享到sharetoview
-    UIView *sharetoview = [[UIView alloc]
-    initWithFrame:CGRectMake (0, kScreenH - FITTHEIGHT (200), kScreenW, FITTHEIGHT (200))];
+    UIView *sharetoview =
+    [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - FITHEIGHT (200), kScreenW, FITHEIGHT (200))];
     sharetoview.backgroundColor = [UIColor whiteColor];
     //创建一个分享到label
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH / 10)];
@@ -277,13 +277,13 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     label2.textAlignment = NSTextAlignmentCenter;
     //创建2个分享按钮
     UIButton *button1 = [[UIButton alloc]
-    initWithFrame:CGRectMake (kScreenW / 2 - FITTHEIGHT (80) - 35, kScreenH - FITTHEIGHT (140), 70, 70)];
+    initWithFrame:CGRectMake (kScreenW / 2 - FITHEIGHT (80) - 35, kScreenH - FITHEIGHT (140), 70, 70)];
     [button1 setImage:[UIImage imageNamed:@"share_to_wechat"] forState:UIControlStateNormal];
     [button1 addTarget:self
                 action:@selector (Button1Click)
       forControlEvents:UIControlEventTouchUpInside];
     UIButton *button2 = [[UIButton alloc]
-    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITTHEIGHT (80), kScreenH - FITTHEIGHT (140), 70, 70)];
+    initWithFrame:CGRectMake (kScreenW / 2 - 35 + FITHEIGHT (80), kScreenH - FITHEIGHT (140), 70, 70)];
     [button2 setImage:[UIImage imageNamed:@"share_to_wechatmoments"] forState:UIControlStateNormal];
     [button2 addTarget:self
                 action:@selector (Button2Click)
@@ -291,14 +291,14 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     //添加2个label
     //创建一个显示微信的label3
     UILabel *label3 = [[UILabel alloc]
-    initWithFrame:CGRectMake (kScreenW / 2 - FITTHEIGHT (90) - 15, kScreenH / 10 + FITTHEIGHT (70), 50, 20)];
+    initWithFrame:CGRectMake (kScreenW / 2 - FITHEIGHT (90) - 15, kScreenH / 10 + FITHEIGHT (70), 50, 20)];
     label3.text = title10;
     label3.font = [UIFont systemFontOfSize:15];
     label3.textColor = [UIColor lightGrayColor];
     label3.textAlignment = NSTextAlignmentCenter;
     //创建一个显示微信朋友圈的label4
     UILabel *label4 = [[UILabel alloc]
-    initWithFrame:CGRectMake (kScreenW / 2 - 20 + FITTHEIGHT (40), kScreenH / 10 + FITTHEIGHT (70), 130, 20)];
+    initWithFrame:CGRectMake (kScreenW / 2 - 20 + FITHEIGHT (40), kScreenH / 10 + FITHEIGHT (70), 130, 20)];
     label4.text = title11;
     label4.font = [UIFont systemFontOfSize:15];
     label4.textColor = [UIColor lightGrayColor];

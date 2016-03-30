@@ -38,16 +38,19 @@
     NSString *title2 = I18N (@"Results");
     NSString *title3 = I18N (@"Settings");
 
-    //测试
+    // 测试
     SVTestViewCtrl *testCtrl = [SVTestViewCtrl new];
     [self addChildViewController:testCtrl imageName:@"tabbar_test" title:title1];
-    //结果
+
+    // 结果
     SVResultViewCtrl *resultCtrl = [SVResultViewCtrl new];
     [self addChildViewController:resultCtrl imageName:@"tabbar_result" title:title2];
-    //设置
+
+    // 设置
     SVSettingsViewCtrl *settingsCtrl = [SVSettingsViewCtrl new];
     [self addChildViewController:settingsCtrl imageName:@"tabbar_settings" title:title3];
-    //添加通知的监听
+
+    // 添加通知的监听
     [self addNotificataion];
 
     // 设置启动图片
@@ -57,9 +60,8 @@
     [self.view addSubview:imageView];
 
     // 设置进度条
-    CGRect rect = [UIScreen mainScreen].bounds;
     progressView = [[UIProgressView alloc]
-    initWithFrame:CGRectMake (rect.size.width * 0.1, rect.size.height / 2, rect.size.width * 0.8, 10)];
+    initWithFrame:CGRectMake (FITWIDTH (108), FITHEIGHT (960), FITWIDTH (864), FITHEIGHT (20))];
 
     [progressView setProgressViewStyle:UIProgressViewStyleDefault];
     [self.view addSubview:progressView];
@@ -134,39 +136,49 @@
                      imageName:(NSString *)imageName
                          title:(NSString *)title
 {
-    //设置选中与未选中的图片-->指定一下渲染模式-->图片以原样的方式显示出来
+    // 设置选中与未选中的图片-->指定一下渲染模式-->图片以原样的方式显示出来
     childCtrl.tabBarItem.image =
     [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     childCtrl.tabBarItem.selectedImage =
     [[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected", imageName]]
     imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    //设置标题
-    //    childCtrl.tabBarItem.title = title;
-    //    childCtrl.navigationItem.title = title;
+
+    // 设置标题
     childCtrl.title = title;
-    //指定一下属性
+
+    // 指定未选中时属性
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    dic[NSForegroundColorAttributeName] = [UIColor orangeColor];
-    //指定字体
-    dic[NSFontAttributeName] = [UIFont systemFontOfSize:16];
-    //指定选中状态下文字颜色
-    [childCtrl.tabBarItem setTitleTextAttributes:@{
-        NSForegroundColorAttributeName:
-        [UIColor colorWithRed:29 / 255.0 green:145 / 255.0 blue:226 / 255.0 alpha:1.0]
-    }
-                                        forState:UIControlStateSelected];
 
-    //用UINavigationController包裹controller
+    // 指定字体颜色
+    dic[NSForegroundColorAttributeName] = [UIColor colorWithHexString:@"869095"];
+
+    // 指定字体
+    dic[NSFontAttributeName] = [UIFont systemFontOfSize:pixelToFontsize (28)];
+
+    // 指定未选中状态下文字属性
+    [childCtrl.tabBarItem setTitleTextAttributes:dic forState:UIControlStateNormal];
+
+    // 指定选中时属性
+    NSMutableDictionary *selectedDic = [NSMutableDictionary dictionary];
+
+    // 指定字体颜色
+    selectedDic[NSForegroundColorAttributeName] = [UIColor colorWithHexString:@"29A5E5"];
+
+    // 指定字体
+    selectedDic[NSFontAttributeName] = [UIFont systemFontOfSize:pixelToFontsize (28)];
+
+    // 指定选中状态下文字属性
+    [childCtrl.tabBarItem setTitleTextAttributes:selectedDic forState:UIControlStateSelected];
+
+    // 用UINavigationController包裹controller
     UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:childCtrl];
-    //添加控制器
-    [self addChildViewController:navCtrl];
 
-    //    [[UITableView appearance] setBackgroundColor:[UIColor whiteColor]];
+    // 添加控制器
+    [self addChildViewController:navCtrl];
 }
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 /**
  *  **************************以下代码都是弹框页代码************************************
@@ -180,22 +192,22 @@
  *  创建阴影背景
  */
 
-//代理方法
+// 代理方法
 - (void)setShadowView
 {
-    //添加动画
+    // 添加动画
     [UIView
     animateWithDuration:0.01
              animations:^{
-               //黑色透明阴影
+               // 黑色透明阴影
                UIView *shadowView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
                shadowView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.8];
 
                if (!_alertView)
                {
                    _alertView = [[AlertView alloc]
-                   initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (183),
-                                             shadowView.frame.size.width - FITWIDTH (40), FITWIDTH (220))
+                   initWithFrame:CGRectMake (FITWIDTH (58), FITHEIGHT (527),
+                                             shadowView.frame.size.width - FITWIDTH (116), FITHEIGHT (634))
                          bgColor:[UIColor whiteColor]];
 
                    _alertView.delegate = self;
@@ -210,14 +222,15 @@
                [self.view.window addSubview:shadowView];
              }];
 }
-//取消键盘
+
+// 取消键盘
 - (void)dismissTextField:(UIGestureRecognizer *)tap
 {
     UIView *view = tap.view;
     [view endEditing:YES];
 }
 
-//代理方法-宽带类型
+// 代理方法-宽带类型
 - (void)alertView:(AlertView *)alertView didClickBtn:(NSInteger)index
 {
     switch (index)
@@ -235,7 +248,7 @@
         break;
     }
 }
-//代理方法-忽略
+// 代理方法-忽略
 - (void)alertView:(AlertView *)alertView overLookBtnClick:(UIButton *)Btn
 {
     SVInfo (@"忽略");
@@ -243,7 +256,7 @@
     [shadowView removeFromSuperview];
     alertView = nil;
 }
-//代理方法-保存
+// 代理方法-保存
 - (void)alertView:(AlertView *)alertView saveBtnClick:(UIButton *)Btn
 {
     SVInfo (@"保存");

@@ -16,10 +16,6 @@
 #import <SPCommon/UUBar.h>
 #import <SPService/SVVideoTest.h>
 
-
-#define kVideoViewDefaultRect \
-    CGRectMake (FITWIDTH (10), FITTHEIGHT (500), FITTWIDTH (172.8), FITTHEIGHT (97.2))
-
 @interface SVVideoTestingCtrl ()
 {
 
@@ -340,7 +336,8 @@
     [_showCurrentResultInFullScreenMode addSubview:_resolutionInFullScreenValue];
 
     //初始化
-    _videoView = [[SVVideoView alloc] initWithFrame:kVideoViewDefaultRect];
+    _videoView = [[SVVideoView alloc]
+    initWithFrame:CGRectMake (FITWIDTH (10), FITHEIGHT (500), FITWIDTH (172.8), FITHEIGHT (97.2))];
     [_videoView setBackgroundColor:[UIColor blackColor]];
     [_videoView setContentMode:UIViewContentModeScaleToFill];
     UITapGestureRecognizer *tapGesture =
@@ -510,7 +507,7 @@
 
     CGAffineTransform at = CGAffineTransformMakeRotation (0);
     [_videoView setTransform:at];
-    _videoView.frame = kVideoViewDefaultRect;
+    _videoView.frame = CGRectMake (FITWIDTH (10), FITHEIGHT (500), FITWIDTH (172.8), FITHEIGHT (97.2));
     // 退出全屏模式时，隐藏_videoView上方显示测试指标
     [_showCurrentResultInFullScreenMode removeFromSuperview];
 }

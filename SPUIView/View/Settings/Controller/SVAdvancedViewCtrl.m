@@ -104,7 +104,7 @@
     NSString *title2 = I18N (@"inch");
     // views
     UIView *views = [[UIView alloc] init];
-    views.frame = CGRectMake (FITTHEIGHT (10), FITTHEIGHT (74), kScreenW - FITTHEIGHT (20), FITTHEIGHT (44));
+    views.frame = CGRectMake (FITHEIGHT (10), FITHEIGHT (74), kScreenW - FITHEIGHT (20), FITHEIGHT (44));
     views.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views];
 
@@ -149,8 +149,8 @@
     NSString *title3 = I18N (@"Video Test Duration:");
     // views
     UIView *views = [[UIView alloc] init];
-    views.frame = CGRectMake (FITTHEIGHT (10), FITTHEIGHT (74) + FITTHEIGHT (50),
-                              kScreenW - FITTHEIGHT (20), FITTHEIGHT (44));
+    views.frame = CGRectMake (FITHEIGHT (10), FITHEIGHT (74) + FITHEIGHT (50),
+                              kScreenW - FITHEIGHT (20), FITHEIGHT (44));
     views.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views];
     // label屏幕尺寸
@@ -214,7 +214,7 @@
     //一.创建一个 tableView
     // 1.style:Grouped化合的,分组的
     _tableView = [[UITableView alloc]
-    initWithFrame:CGRectMake (170, FITTHEIGHT (168), kScreenW - 190, FITTHEIGHT (250))
+    initWithFrame:CGRectMake (170, FITHEIGHT (168), kScreenW - 190, FITHEIGHT (250))
             style:UITableViewStylePlain];
     // 2.设置背景颜色
     _tableView.backgroundColor =
@@ -377,25 +377,25 @@
     NSString *title1 = title4;
     // views3
     UIView *views3 = [[UIView alloc] init];
-    views3.frame = CGRectMake (FITTHEIGHT (10), FITTHEIGHT (125) + FITWIDTH (44),
-                               kScreenW - FITTHEIGHT (20), FITTHEIGHT (100));
+    views3.frame = CGRectMake (FITHEIGHT (10), FITHEIGHT (125) + FITWIDTH (44),
+                               kScreenW - FITHEIGHT (20), FITHEIGHT (100));
     views3.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views3];
     // label
     UILabel *lableScreenSize = [[UILabel alloc] init];
-    lableScreenSize.frame = CGRectMake (FITTHEIGHT (10), FITTHEIGHT (10), FITTHEIGHT (200), FITTHEIGHT (20));
+    lableScreenSize.frame = CGRectMake (FITHEIGHT (10), FITHEIGHT (10), FITHEIGHT (200), FITHEIGHT (20));
     lableScreenSize.text = title1;
     lableScreenSize.font = [UIFont systemFontOfSize:14];
     [views3 addSubview:lableScreenSize];
     // labelview
     UIView *labelview = [[UIView alloc]
-    initWithFrame:CGRectMake (FITTHEIGHT (10), FITTHEIGHT (30), FITTHEIGHT (200), FITTHEIGHT (60))];
+    initWithFrame:CGRectMake (FITHEIGHT (10), FITHEIGHT (30), FITHEIGHT (200), FITHEIGHT (60))];
     //        labelview.backgroundColor = [UIColor yellowColor];
     labelview.layer.cornerRadius = 5;
     [views3 addSubview:labelview];
     // label1
     _label1 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITTHEIGHT (10), FITTHEIGHT (10), FITTHEIGHT (200), FITTHEIGHT (20))];
+    initWithFrame:CGRectMake (FITHEIGHT (10), FITHEIGHT (10), FITHEIGHT (200), FITHEIGHT (20))];
     _label1.text = _defaultvalue.name;
     _label1.font = [UIFont systemFontOfSize:14];
     //        label1.backgroundColor = [UIColor redColor];
@@ -403,7 +403,7 @@
     [labelview addSubview:_label1];
     // label2
     _label2 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITTHEIGHT (10), FITTHEIGHT (40), FITTHEIGHT (215), FITTHEIGHT (20))];
+    initWithFrame:CGRectMake (FITHEIGHT (10), FITHEIGHT (40), FITHEIGHT (215), FITHEIGHT (20))];
     _label2.text = _defaultvalue.sponsor;
     _label2.font = [UIFont systemFontOfSize:11];
     //        label2.backgroundColor = [UIColor redColor];
@@ -412,7 +412,7 @@
 
     // button自动
     _button = [UIButton buttonWithType:UIButtonTypeCustom];
-    _button.frame = CGRectMake (FITTHEIGHT (215), FITTHEIGHT (27), FITTHEIGHT (60), FITTHEIGHT (45));
+    _button.frame = CGRectMake (FITHEIGHT (215), FITHEIGHT (27), FITHEIGHT (60), FITHEIGHT (45));
     _button.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
 
@@ -428,7 +428,7 @@
 
     // button选择
     _button2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    _button2.frame = CGRectMake (FITTHEIGHT (285), FITTHEIGHT (27), FITTHEIGHT (60), FITTHEIGHT (45));
+    _button2.frame = CGRectMake (FITHEIGHT (285), FITHEIGHT (27), FITHEIGHT (60), FITHEIGHT (45));
     _button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     [_button2 setTitle:title6 forState:UIControlStateNormal];
     _button2.titleLabel.font = [UIFont systemFontOfSize:15];

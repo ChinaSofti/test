@@ -24,11 +24,12 @@
     if (self)
     {
 
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor whiteColor];
 
+        // 初始化按钮
         _bgdBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _bgdBtn.frame = CGRectMake (kMargin, 0, kScreenW - 2 * kMargin, kCellH);
-        _bgdBtn.layer.cornerRadius = kCornerRadius * 2;
+        _bgdBtn.frame = CGRectMake (FITWIDTH (22), 0, FITWIDTH (1036), FITHEIGHT (209));
+        _bgdBtn.layer.cornerRadius = svCornerRadius (12);
         _bgdBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
         _bgdBtn.layer.borderWidth = 1;
         [_bgdBtn addTarget:self
@@ -36,20 +37,24 @@
           forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_bgdBtn];
 
-        CGFloat imgViewWAndH = _bgdBtn.height - 3 * _bgdBtn.originX;
-
+        // 初始化按钮左侧图片
         _imgView = [[UIImageView alloc]
-        initWithFrame:CGRectMake (kMargin * 2, (kCellH - imgViewWAndH) * 0.5, imgViewWAndH, imgViewWAndH)];
+        initWithFrame:CGRectMake (FITWIDTH (63), FITHEIGHT (44.5), FITWIDTH (120), FITHEIGHT (120))];
         [_bgdBtn addSubview:_imgView];
 
-        _rightImgView =
-        [[UIImageView alloc] initWithFrame:CGRectMake (_bgdBtn.width - imgViewWAndH - kMargin,
-                                                       _imgView.originY, imgViewWAndH, imgViewWAndH)];
+        // 初始化按钮右侧图片
+        _rightImgView = [[UIImageView alloc]
+        initWithFrame:CGRectMake (_bgdBtn.width - FITWIDTH (120) - FITWIDTH (63), FITHEIGHT (49.5),
+                                  FITWIDTH (110), FITWIDTH (110))];
         [_bgdBtn addSubview:_rightImgView];
 
+        // 初始化标题
         _titleLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (_imgView.rightX + 30, _imgView.originY,
-                                  _rightImgView.originX - _imgView.rightX - 30, imgViewWAndH)];
+        initWithFrame:CGRectMake (_imgView.rightX + FITWIDTH (114), _imgView.originY,
+                                  _rightImgView.originX - _imgView.rightX - FITWIDTH (114), FITHEIGHT (120))];
+        _titleLabel.textColor = [UIColor colorWithHexString:@"#B2000000"];
+        _titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (51)];
+
         //初始化透明度
         _bgdBtn.alpha = 0.5;
         [_bgdBtn addSubview:_titleLabel];

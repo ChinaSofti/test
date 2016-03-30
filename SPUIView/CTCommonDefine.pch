@@ -13,17 +13,43 @@
 #ifndef CTCommonDefine_pch
 #define CTCommonDefine_pch
 
-//宏定义
+// 宏定义
+// 转换宽度像素，将1080P转换成750P
+#define changePixelW(P) (P / 1080.0) * 750.0
+
+// 转换高度像素，将1080P转换成750P
+#define changePixelH(P) (P / 1920.0) * 1334.0
+
+// 将像素转换为点-宽度
+#define pixelToPonitW(P) changePixelW(P) / 2.0
+
+// 将像素转换为点-高度
+#define pixelToPonitH(P) changePixelH(P) / 2.0
+
+// 将像素转换为点-圆角
+#define svCornerRadius(P) changePixelW(P) / 2.0
+
+// 将像素转换为字体大小
+#define pixelToFontsize(P) pixelToPonitH(P) / 96.0 * 72.0
+
+// 屏幕宽度
 #define kScreenW            [[UIScreen mainScreen] bounds].size.width
+
+// 屏幕高度
 #define kScreenH            [[UIScreen mainScreen] bounds].size.height
-#define FITWIDTH(W)  W / 320.0 * ([UIScreen mainScreen].bounds.size.width)
-#define FITHEIGHT(H) H / 568.0 * ([UIScreen mainScreen].bounds.size.height)
-#define FITTWIDTH(W)  W / 375.0 * ([UIScreen mainScreen].bounds.size.width)
-#define FITTHEIGHT(H) H / 667.0 * ([UIScreen mainScreen].bounds.size.height)
+
+// 适配屏幕宽度
+#define FITWIDTH(W)  (pixelToPonitW(W)) / 375.0 * ([UIScreen mainScreen].bounds.size.width)
+
+// 适配屏幕高度
+#define FITHEIGHT(H) (pixelToPonitH(H)) / 667.0 * ([UIScreen mainScreen].bounds.size.height)
+
+// 自定义颜色
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
 
 //宏头
 #import "UIView+Exten.h"
+#import "UIColor+Hex.h"
 #import "CTViewTools.h"
 #import "CTWBViewTools.h"
 #import "SVVideoTestingCtrl.h"

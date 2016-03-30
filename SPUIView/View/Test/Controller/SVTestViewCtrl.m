@@ -16,8 +16,6 @@
 #import "SVWebTestingViewCtrl.h"
 #import <SPCommon/SVTimeUtil.h>
 #import <SPService/SVTestContextGetter.h>
-#define kFirstHederH 40
-#define kLastFooterH 140
 
 @interface SVTestViewCtrl () <SVToolCellDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -38,36 +36,47 @@
     [super viewDidLoad];
     SVInfo (@"SVTestViewController");
 
-    // 1.自定义navigationItem.titleView
-    //设置图片大小
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, 100, 30)];
+    // 设置图片宽和高
+    CGFloat imageW = FITWIDTH (100);
+    CGFloat imageH = FITHEIGHT (120);
+
+    // 自定义navigationItem.titleView
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, imageW, imageH)];
+
     //设置图片名称
-    imageView.image = [UIImage imageNamed:@"speed_pro"];
+    imageView.image = [UIImage imageNamed:@"speedpro"];
+
     //让图片适应
     imageView.contentMode = UIViewContentModeScaleAspectFit;
+
     //把图片添加到navigationItem.titleView
     self.navigationItem.titleView = imageView;
+
     //电池显示不了,设置样式让电池显示
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
-    // 2.编辑界面
-    //创建一个 tableView
-    // 1.style:Grouped化合的,分组的
+    // 编辑界面
+    // 创建一个 tableView，style:Grouped化合的,分组的
     _tableView =
     [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStyleGrouped];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    // 2.设置背景颜色
-    _tableView.backgroundColor = [UIColor whiteColor];
-    // 3.设置 table 的行高
-    //*4.设置代理
+
+    // 设置背景颜色
+    _tableView.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
+
+    // 设置代理
     _tableView.delegate = self;
-    //*5.设置数据源
+
+    // 设置数据源
     _tableView.dataSource = self;
-    // 6.设置tableView不可上下拖动
+
+    // 设置tableView不可上下拖动
     _tableView.bounces = NO;
-    // 7.定义数组展示图片
+
+    // 定义数组展示图片
     _selectedMA = [NSMutableArray array];
-    // 8.国际化
+
+    // 国际化
     NSString *title = I18N (@"Video Test");
     NSString *title2 = I18N (@"Web Test");
     NSString *title3 = I18N (@"Speed Test");
@@ -102,11 +111,22 @@
         [sourceMA addObject:toolModel];
     }
     _soucreMA = sourceMA;
-    // 9.把tableView添加到 view
+
+    // 把tableView添加到 view
     [self.view addSubview:_tableView];
 
     SVRealReachability *realReachability = [SVRealReachability sharedInstance];
     [realReachability addDelegate:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 #pragma mark - tableview的方法
@@ -124,16 +144,18 @@
 
     return 1;
 }
-//设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
 
+//设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"cell";
     SVToolCell *cell =
     [[SVToolCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-    //取消cell的点击效果
+
+    // 取消cell的点击效果
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     cell.delegate = self;
     [cell cellViewModel:_soucreMA[indexPath.section] section:indexPath.section];
     return cell;
@@ -146,11 +168,12 @@
     if (section == 0)
     {
         UIView *bgdView = [[UIView alloc] init];
-        UILabel *label =
-        [[UILabel alloc] initWithFrame:CGRectMake (kMargin, 0, kScreenW - kMargin, kFirstHederH)];
+        UILabel *label = [[UILabel alloc]
+        initWithFrame:CGRectMake (FITWIDTH (22), FITHEIGHT (60), kScreenW - FITWIDTH (44), FITHEIGHT (36))];
         NSString *title4 = I18N (@"Select Test Item");
         label.text = title4;
-        label.font = [UIFont systemFontOfSize:13.0f];
+        label.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
+        label.textColor = [UIColor colorWithHexString:@"#CC000000"];
         [bgdView addSubview:label];
         return bgdView;
     }
@@ -176,10 +199,12 @@
 {
     if (section == 0)
     {
-        return 40;
+        return FITHEIGHT (120);
     }
     else
-        return 10;
+    {
+        return FITHEIGHT (33);
+    }
 }
 
 //设置 tableView的section 的Footer的高度
@@ -187,16 +212,16 @@
 {
     if (section == _soucreMA.count - 1)
     {
-        return kLastFooterH;
+        return FITHEIGHT (435);
     }
     else
-        return CGFLOAT_MIN;
+        return FITHEIGHT (CGFLOAT_MIN);
 }
 
 //设置cell的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return kCellH;
+    return FITHEIGHT (209);
 }
 
 #pragma mark - 开始测试按钮初始化(按钮未被选中时的状态)
@@ -205,31 +230,43 @@
 {
     if (_testBtn == nil)
     {
-        //按钮高度
-        CGFloat testBtnH = 40;
-        //按钮类型
+        // 按钮高度
+        CGFloat testBtnH = FITHEIGHT (116);
+
+        // 按钮类型
         _testBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        //按钮尺寸
-        _testBtn.frame = CGRectMake (kMargin * 4, kLastFooterH - testBtnH, kScreenW - kMargin * 8, testBtnH);
-        //按钮背景颜色
+
+        // 按钮尺寸
+        _testBtn.frame = CGRectMake (FITWIDTH (104), FITHEIGHT (435), FITWIDTH (872), testBtnH);
+
+        // 按钮背景颜色
         _testBtn.backgroundColor =
         [UIColor colorWithRed:229 / 255.0 green:229 / 255.0 blue:229 / 255.0 alpha:1.0];
         NSString *title5 = I18N (@"Start Test");
         [_testBtn setTitle:title5 forState:UIControlStateNormal];
-        //按钮点击事件
+
+        // 按钮点击事件
         [_testBtn addTarget:self
                      action:@selector (testBtnClick1)
            forControlEvents:UIControlEventTouchUpInside];
-        //按钮圆角
-        _testBtn.layer.cornerRadius = kCornerRadius;
-        //设置居中
+
+        // 按钮圆角
+        _testBtn.layer.cornerRadius = svCornerRadius (12);
+
+        // 设置居中
         _testBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        //按钮文字颜色和类型
+
+        // 按钮文字颜色和类型
         [_testBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        //按钮交互
-        //设置按钮默认情况下不可交互
+
+        // 设置字体大小
+        [_testBtn.titleLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (48)]];
+
+        // 按钮交互
+        // 设置按钮默认情况下不可交互
         _testBtn.userInteractionEnabled = NO;
-        //设置默认情况下按钮不可点击方法2
+
+        // 设置默认情况下按钮不可点击方法2
         // _testBtn.enabled = NO;
     }
     return _testBtn;
@@ -239,20 +276,25 @@
 {
     if (_button == nil)
     {
+        // 初始化button
         NSString *title7 = I18N (@"Network Settings");
         _button = [[UIButton alloc]
-        initWithFrame:CGRectMake (kMargin * 4, kLastFooterH - 40, kScreenW - kMargin * 8, 40)];
+        initWithFrame:CGRectMake (FITWIDTH (104), FITHEIGHT (435), FITWIDTH (872), FITHEIGHT (116))];
         [_button setTitle:title7 forState:UIControlStateNormal];
         _button.backgroundColor =
         [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
         _button.userInteractionEnabled = YES;
-        //按钮圆角
-        _button.layer.cornerRadius = kCornerRadius;
-        //设置居中
+
+        // 按钮圆角
+        _button.layer.cornerRadius = svCornerRadius (12);
+
+        // 设置居中
         _button.titleLabel.textAlignment = NSTextAlignmentCenter;
-        //按钮文字颜色和类型
+
+        // 按钮文字颜色和类型
         [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        //按钮点击事件
+
+        // 按钮点击事件
         [_button addTarget:self
                     action:@selector (goNetworkSetting)
           forControlEvents:UIControlEventTouchUpInside];
@@ -275,21 +317,25 @@
 
 - (void)toolCellClick:(SVToolCell *)cell
 {
-    //设置按钮的背景色
+    // 设置按钮的背景色
     self.testBtn.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
-    //设置按钮可以点击
+
+    // 设置按钮可以点击
     // self.testBtn.enabled = YES;
     self.testBtn.userInteractionEnabled = YES;
-    //按钮文字颜色和类型
+
+    // 按钮文字颜色和类型
     [_testBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    //如果_selectedMA.count的值为空,添加对象
+
+    // 如果_selectedMA.count的值为空,添加对象
     if (!_selectedMA.count)
     {
         [_selectedMA addObject:[[NSNumber alloc] initWithInteger:cell.bgdBtn.tag]];
         return;
     }
-    //遍历他是否存在过,如果存在过移除
+
+    // 遍历他是否存在过,如果存在过移除
     BOOL isInclude = NO;
     for (NSNumber *nsTag in _selectedMA)
     {
@@ -301,26 +347,30 @@
             break;
         }
     }
-    //判断是不是空,如果是空添加(跟第一个if是一样的)
+
+    // 判断是不是空,如果是空添加(跟第一个if是一样的)
     if (!isInclude)
     {
         [_selectedMA addObject:[[NSNumber alloc] initWithInteger:cell.bgdBtn.tag]];
     }
-    //如果被选中的cell数为0(也是默认情况)
+
+    // 如果被选中的cell数为0(也是默认情况)
     if (!_selectedMA.count)
     {
         self.testBtn.backgroundColor =
         [UIColor colorWithRed:229 / 255.0 green:229 / 255.0 blue:229 / 255.0 alpha:1.0];
-        //设置按钮不可点击
+
+        // 设置按钮不可点击
         // self.testBtn.enabled = NO;
         self.testBtn.userInteractionEnabled = NO;
-        //按钮文字颜色和类型
+
+        // 按钮文字颜色和类型
         [_testBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
 }
 
 
-//按钮的点击事件
+// 按钮的点击事件
 - (void)testBtnClick1
 {
     [_selectedMA sortUsingComparator:^NSComparisonResult (__strong id obj1, __strong id obj2) {
@@ -338,12 +388,12 @@
 
     for (id selected in _selectedMA)
     {
-        //定义一个cellIndex,来记录数组中哪一个第一个被选择的
+        // 定义一个cellIndex,来记录数组中哪一个第一个被选择的
         NSInteger cellIndex = ((NSNumber *)(selected)).integerValue;
 
         if (cellIndex == 0)
         {
-            //按钮点击后alloc一个界面
+            // 按钮点击后alloc一个界面
             SVVideoTestingCtrl *videotestingCtrl =
             [[SVVideoTestingCtrl alloc] initWithResultModel:currentResultModel];
             [currentResultModel setVideoTest:YES];

@@ -36,7 +36,7 @@
     //一.创建一个 tableView
     // 1.style:Grouped化合的,分组的
     _tableView = [[UITableView alloc]
-    initWithFrame:CGRectMake (FITTHEIGHT (10), FITTHEIGHT (0), kScreenW - FITTHEIGHT (20), kScreenH)
+    initWithFrame:CGRectMake (FITHEIGHT (10), FITHEIGHT (0), kScreenW - FITHEIGHT (20), kScreenH)
             style:UITableViewStyleGrouped];
     // 2.设置背景颜色
     _tableView.backgroundColor =
@@ -73,7 +73,7 @@
 // 设置 tableView 的行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return FITTHEIGHT (50);
+    return FITHEIGHT (50);
 }
 
 //设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
@@ -94,7 +94,7 @@
     if (indexPath.row == 0)
     {
         UILabel *label1 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITTHEIGHT (5), FITTHEIGHT (5), FITTHEIGHT (150), FITTHEIGHT (20))];
+        initWithFrame:CGRectMake (FITHEIGHT (5), FITHEIGHT (5), FITHEIGHT (150), FITHEIGHT (20))];
         label1.text = server.name;
         //设置字体和是否加粗
         label1.font = [UIFont systemFontOfSize:14];
@@ -115,7 +115,7 @@
 
 
         UILabel *label2 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITTHEIGHT (285), FITTHEIGHT (8), FITTHEIGHT (50), FITTHEIGHT (20))];
+        initWithFrame:CGRectMake (FITHEIGHT (285), FITHEIGHT (8), FITHEIGHT (50), FITHEIGHT (20))];
         label2.text = [NSString stringWithFormat:@"%.2f", distance];
         //设置字体和是否加粗
         label2.font = [UIFont systemFontOfSize:14];
@@ -123,24 +123,24 @@
         [cell addSubview:label2];
 
         UILabel *label3 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITTHEIGHT (5), FITTHEIGHT (25), FITTHEIGHT (75), FITTHEIGHT (20))];
+        initWithFrame:CGRectMake (FITHEIGHT (5), FITHEIGHT (25), FITHEIGHT (75), FITHEIGHT (20))];
         label3.text = @"Hosted by:";
         label3.font = [UIFont systemFontOfSize:11];
         [cell addSubview:label3];
 
         UILabel *label4 = [[UILabel alloc]
-        initWithFrame:CGRectMake (label3.rightX, FITTHEIGHT (25), FITTHEIGHT (240), FITTHEIGHT (20))];
+        initWithFrame:CGRectMake (label3.rightX, FITHEIGHT (25), FITHEIGHT (240), FITHEIGHT (20))];
         label4.text = server.sponsor;
         label4.font = [UIFont systemFontOfSize:11];
         [cell addSubview:label4];
 
         UILabel *label5 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITTHEIGHT (320), FITTHEIGHT (25), FITTHEIGHT (20), FITTHEIGHT (20))];
+        initWithFrame:CGRectMake (FITHEIGHT (320), FITHEIGHT (25), FITHEIGHT (20), FITHEIGHT (20))];
         label5.text = @"km";
         label5.font = [UIFont systemFontOfSize:11];
         [cell addSubview:label5];
         //添加点击事件
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, FITTHEIGHT (50))];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, FITHEIGHT (50))];
         [button addTarget:self
                    action:@selector (CellClicked:)
          forControlEvents:UIControlEventTouchUpInside];

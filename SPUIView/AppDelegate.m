@@ -26,14 +26,24 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     //微信分享api注册
     [WXApi registerApp:@"wx2cce736067ee4a2d"];
 
-    [[UINavigationBar appearance] setBarTintColor:RGBACOLOR (37, 55, 64, 1)];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#45545C"]];
     [[UILabel appearance] setAdjustsFontSizeToFitWidth:YES];
     [[[UIButton appearance] titleLabel] setAdjustsFontSizeToFitWidth:YES];
 
+    // 设置tabbar的背景颜色
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithHexString:@"EEEEEE"]];
+    [UITabBar appearance].translucent = NO;
+
+    // 去掉tabbar边框
+    [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
+    [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
+
     // 1.初始化一个window
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+
     // 2.设置根控制器
     self.window.rootViewController = [SVTabBarController new];
+
     // 3.让显示并成为主窗口
     [self.window makeKeyAndVisible];
 

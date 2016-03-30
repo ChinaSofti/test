@@ -69,35 +69,40 @@ static NSInteger BtnTag = 10086;
     NSString *title8 = ipAndISP.isp;
     NSString *title9 = I18N (@"Ignore");
     NSString *title10 = I18N (@"Save");
+
     //标题
     UILabel *titleLabel = [CTWBViewTools
-    createLabelWithFrame:CGRectMake (FITWIDTH (0), FITWIDTH (15), FITWIDTH (279), FITWIDTH (20))
-                withFont:17
+    createLabelWithFrame:CGRectMake (FITWIDTH (0), FITHEIGHT (43), FITWIDTH (964), FITHEIGHT (58))
+                withFont:pixelToFontsize (44)
           withTitleColor:[UIColor blackColor]
                withTitle:title1];
     titleLabel.textAlignment = NSTextAlignmentCenter;
+
     //类型
     UILabel *internetTypeLabel = [CTWBViewTools
-    createLabelWithFrame:CGRectMake (FITWIDTH (15), titleLabel.bottomY + FITWIDTH (15), FITWIDTH (60), FITWIDTH (20))
-                withFont:15
+    createLabelWithFrame:CGRectMake (FITWIDTH (44), titleLabel.bottomY + FITHEIGHT (43),
+                                     FITWIDTH (219), FITHEIGHT (86))
+                withFont:pixelToFontsize (40)
           withTitleColor:RGBACOLOR (88, 88, 88, 1)
                withTitle:title2];
+
     //三个button
     for (int i = 0; i < 3; i++)
     {
         //初始化
         _typeBtn = [[UIButton alloc]
-        initWithFrame:CGRectMake (FITWIDTH (84) + FITWIDTH (60) * i, internetTypeLabel.originY,
-                                  FITWIDTH (60), FITWIDTH (30))];
+        initWithFrame:CGRectMake (FITWIDTH (263) + FITWIDTH (219) * i, internetTypeLabel.originY,
+                                  FITWIDTH (219), FITHEIGHT (86))];
         [_typeBtnArray addObject:_typeBtn];
         [_typeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_typeBtn
         setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
              forState:UIControlStateSelected];
-        [_typeBtn setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor whiteColor]
-                                                              size:CGSizeMake (FITWIDTH (35), FITWIDTH (30))]
-                            forState:UIControlStateSelected];
-        _typeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_typeBtn
+        setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor whiteColor]
+                                                    size:CGSizeMake (FITWIDTH (101), FITHEIGHT (86))]
+                  forState:UIControlStateSelected];
+        _typeBtn.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (40)];
 
 
         _typeBtn.tag = BtnTag + i;
@@ -131,64 +136,72 @@ static NSInteger BtnTag = 10086;
         }
         [_bgView addSubview:_typeBtn];
     }
+
     //宽带套餐
     UILabel *internetMealLabel = [CTWBViewTools
-    createLabelWithFrame:CGRectMake (FITWIDTH (15), internetTypeLabel.bottomY + FITWIDTH (15),
-                                     FITWIDTH (60), FITWIDTH (20))
-                withFont:15
+    createLabelWithFrame:CGRectMake (FITWIDTH (44), internetTypeLabel.bottomY + FITHEIGHT (43),
+                                     FITWIDTH (219), FITHEIGHT (58))
+                withFont:pixelToFontsize (40)
           withTitleColor:RGBACOLOR (88, 88, 88, 1)
                withTitle:title6];
+
     //线
     UIView *lineView = [CTWBViewTools
-    lineViewWithFrame:CGRectMake (FITWIDTH (80), internetMealLabel.bottomY, FITWIDTH (170), FITWIDTH (1.5))
+    lineViewWithFrame:CGRectMake (FITWIDTH (263), internetMealLabel.bottomY, FITWIDTH (657), FITHEIGHT (3))
             withColor:RGBACOLOR (67, 184, 202, 1)];
+
     //单位
     UILabel *M =
-    [[UILabel alloc] initWithFrame:CGRectMake (FITWIDTH (255), internetTypeLabel.bottomY + FITWIDTH (15),
-                                               FITHEIGHT (20), FITHEIGHT (20))];
-    M.font = [UIFont systemFontOfSize:14];
+    [[UILabel alloc] initWithFrame:CGRectMake (FITWIDTH (862), internetTypeLabel.bottomY + FITHEIGHT (43),
+                                               FITWIDTH (58), FITHEIGHT (58))];
+    M.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
     M.text = @"M";
+
     //输入文本
     _mealTextField = [CTWBViewTools
-    createTextFieldWithFrame:CGRectMake (FITWIDTH (80), internetMealLabel.originY, FITWIDTH (170), FITWIDTH (20))
+    createTextFieldWithFrame:CGRectMake (FITWIDTH (263), internetMealLabel.originY, FITWIDTH (599), FITHEIGHT (58))
                  placeholder:nil
-                        Font:15
+                        Font:pixelToFontsize (40)
                    fontColor:[UIColor blackColor]
              characterLength:6];
     _mealTextField.keyboardType = UIKeyboardTypeNumberPad;
+
     //所属运营商
     UILabel *internetCompanyLabel = [CTWBViewTools
-    createLabelWithFrame:CGRectMake (FITWIDTH (15), internetMealLabel.bottomY + FITWIDTH (15),
-                                     FITWIDTH (80), FITWIDTH (20))
-                withFont:15
+    createLabelWithFrame:CGRectMake (FITWIDTH (44), internetMealLabel.bottomY + FITHEIGHT (43),
+                                     FITWIDTH (219), FITHEIGHT (58))
+                withFont:pixelToFontsize (40)
           withTitleColor:RGBACOLOR (88, 88, 88, 1)
                withTitle:title7];
+
     //运营商
     _contentLabel = [CTWBViewTools
-    createLabelWithFrame:CGRectMake (FITWIDTH (100), internetMealLabel.bottomY + FITWIDTH (15),
-                                     FITWIDTH (160), FITWIDTH (20))
-                withFont:15
+    createLabelWithFrame:CGRectMake (FITWIDTH (263), internetMealLabel.bottomY + FITHEIGHT (43),
+                                     FITWIDTH (657), FITHEIGHT (58))
+                withFont:pixelToFontsize (40)
           withTitleColor:[UIColor blackColor]
                withTitle:title8];
     _contentLabel.textAlignment = NSTextAlignmentRight;
+
     //按钮篮筐
     _imageView2 = [[UIView alloc] init];
     _imageView2.layer.borderWidth = 1;
     _imageView2.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     _imageView2.layer.masksToBounds = YES;
     _imageView2.layer.cornerRadius = 5;
-    self.imageView2.frame = CGRectMake (FITWIDTH (15), internetCompanyLabel.bottomY + FITWIDTH (25),
-                                        FITWIDTH (115), FITWIDTH (40));
+    self.imageView2.frame = CGRectMake (FITWIDTH (104), internetCompanyLabel.bottomY + FITHEIGHT (72),
+                                        FITWIDTH (331), FITHEIGHT (115));
+
     //忽略按钮
     UIButton *overLookBtn = [[UIButton alloc]
-    initWithFrame:CGRectMake (FITWIDTH (15), internetCompanyLabel.bottomY + FITWIDTH (25),
-                              FITWIDTH (115), FITWIDTH (40))];
+    initWithFrame:CGRectMake (FITWIDTH (104), internetCompanyLabel.bottomY + FITHEIGHT (72),
+                              FITWIDTH (331), FITHEIGHT (115))];
     [overLookBtn setTitle:title9 forState:UIControlStateNormal];
-    overLookBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    overLookBtn.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (40)];
     [overLookBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [overLookBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [overLookBtn setBackgroundImage:[CTWBViewTools imageWithColor:RGBACOLOR (35, 144, 222, 1)
-                                                             size:CGSizeMake (FITWIDTH (114), FITWIDTH (40))]
+                                                             size:CGSizeMake (FITWIDTH (331), FITWIDTH (115))]
                            forState:UIControlStateHighlighted];
     overLookBtn.layer.cornerRadius = 5;
     overLookBtn.layer.masksToBounds = YES;
@@ -197,15 +210,16 @@ static NSInteger BtnTag = 10086;
           forControlEvents:UIControlEventTouchUpInside];
 
     //保存按钮
-    UIButton *saveBtn = [[UIButton alloc]
-    initWithFrame:CGRectMake (FITWIDTH (150), internetCompanyLabel.bottomY + FITWIDTH (25),
-                              FITWIDTH (115), FITWIDTH (40))];
+    UIButton *saveBtn =
+    [[UIButton alloc] initWithFrame:CGRectMake (overLookBtn.rightX + FITWIDTH (94),
+                                                internetCompanyLabel.bottomY + FITHEIGHT (72),
+                                                FITWIDTH (331), FITHEIGHT (115))];
     [saveBtn setTitle:title10 forState:UIControlStateNormal];
-    saveBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    saveBtn.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (40)];
     [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [saveBtn setBackgroundImage:[CTWBViewTools imageWithColor:RGBACOLOR (35, 144, 222, 1)
-                                                         size:CGSizeMake (FITWIDTH (114), FITWIDTH (40))]
+                                                         size:CGSizeMake (FITWIDTH (331), FITWIDTH (115))]
                        forState:UIControlStateHighlighted];
     saveBtn.layer.cornerRadius = 5;
     saveBtn.layer.masksToBounds = YES;

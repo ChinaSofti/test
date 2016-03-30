@@ -126,8 +126,8 @@
     {
         UIButton *button = [[UIButton alloc] init];
         [bandwidthTypeButtonArray addObject:button];
-        button.frame = CGRectMake (FITTWIDTH (80) + i * (FITTWIDTH (50) + FITTWIDTH (20)), 35,
-                                   FITTWIDTH (60), FITTWIDTH (30));
+        button.frame = CGRectMake (FITWIDTH (80) + i * (FITWIDTH (50) + FITWIDTH (20)), 35,
+                                   FITWIDTH (60), FITWIDTH (30));
         [button setTitle:titleArr[i] forState:UIControlStateNormal];
         // button普通状态下的字体颜色
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -256,7 +256,7 @@
         //跟随系统
         SVInfo (@"未知");
 
-        self.imageView.frame = CGRectMake (FITTWIDTH (87), 110, FITTWIDTH (66), FITTWIDTH (30));
+        self.imageView.frame = CGRectMake (FITWIDTH (87), 110, FITWIDTH (66), FITWIDTH (30));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
@@ -265,7 +265,7 @@
     case 1:
         //简体中文
         SVInfo (@"光纤");
-        self.imageView.frame = CGRectMake (FITTWIDTH (160), 110, FITTWIDTH (60), FITTWIDTH (30));
+        self.imageView.frame = CGRectMake (FITWIDTH (160), 110, FITWIDTH (60), FITWIDTH (30));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
@@ -274,7 +274,7 @@
     case 2:
         // English
         SVInfo (@"铜线");
-        self.imageView.frame = CGRectMake (FITTWIDTH (230), 110, FITTWIDTH (60), FITTWIDTH (30));
+        self.imageView.frame = CGRectMake (FITWIDTH (230), 110, FITWIDTH (60), FITWIDTH (30));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];

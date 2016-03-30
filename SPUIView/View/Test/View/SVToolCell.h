@@ -10,13 +10,8 @@
  *  cell设置界面
  */
 
-#import <UIKit/UIKit.h>
-
-#define kCellH (kScreenW - 20) * 0.22
-#define kMargin 10
-#define kCornerRadius 5
-
 #import "SVToolModel.h"
+#import <UIKit/UIKit.h>
 
 @class SVToolCell;
 
