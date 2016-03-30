@@ -6,7 +6,6 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
-#import "SVViewController.h"
 #import <SPCommon/SVRealReachability.h>
 
 /**

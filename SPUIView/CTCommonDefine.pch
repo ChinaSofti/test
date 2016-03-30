@@ -53,6 +53,7 @@
 #import "CTViewTools.h"
 #import "CTWBViewTools.h"
 #import "SVVideoTestingCtrl.h"
+#import "SVViewController.h"
 #import <SPService/SPService.h>
 #import <SPCommon/SVLog.h>
 #import <SPCommon/SVI18N.h>

@@ -212,7 +212,7 @@
 {
     if (section == _soucreMA.count - 1)
     {
-        return FITHEIGHT (435);
+        return FITHEIGHT (551);
     }
     else
         return FITHEIGHT (CGFLOAT_MIN);
