@@ -36,18 +36,18 @@
         _imageView.layer.borderColor =
         [[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1] CGColor];
         _imageView.layer.masksToBounds = YES;
-        _imageView.layer.cornerRadius = 5;
+        _imageView.layer.cornerRadius = svCornerRadius (12);
     }
     return _imageView;
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA" alpha:1.0];
     //设置LeftBarButtonItem
     [self createLeftBarButtonItem];
-
     [self createUI];
 }
 
@@ -65,7 +65,7 @@
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowTabBar" object:nil];
 }
-
+#pragma mark -  创建UI
 - (void)createLeftBarButtonItem
 {
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
@@ -85,7 +85,6 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 - (void)createUI
 {
     NSString *title1 = I18N (@"Type");
@@ -103,15 +102,15 @@
 
     // views
     UIView *views = [[UIView alloc] init];
-    views.frame = CGRectMake (10, 74, kScreenW - 20, 180);
+    views.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (213), kScreenW - FITWIDTH (58), FITHEIGHT (519));
     views.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views];
 
     // lableBWType
     UILabel *lableBWType = [[UILabel alloc] init];
-    lableBWType.frame = CGRectMake (10, 10, 200, 20);
+    lableBWType.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (29), FITWIDTH (580), FITHEIGHT (58));
     lableBWType.text = title1;
-    lableBWType.font = [UIFont systemFontOfSize:14];
+    lableBWType.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     [views addSubview:lableBWType];
 
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
@@ -126,8 +125,8 @@
     {
         UIButton *button = [[UIButton alloc] init];
         [bandwidthTypeButtonArray addObject:button];
-        button.frame = CGRectMake (FITWIDTH (80) + i * (FITWIDTH (50) + FITWIDTH (20)), 35,
-                                   FITWIDTH (60), FITWIDTH (30));
+        button.frame =
+        CGRectMake (FITWIDTH (230) + i * FITWIDTH (202), FITHEIGHT (102), FITWIDTH (172), FITHEIGHT (87));
         [button setTitle:titleArr[i] forState:UIControlStateNormal];
         // button普通状态下的字体颜色
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -139,7 +138,7 @@
         setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
              forState:UIControlStateSelected];
 
-        button.titleLabel.font = [UIFont systemFontOfSize:12];
+        button.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
 
         [button addTarget:self
                    action:@selector (buttonClicked:)
@@ -163,17 +162,18 @@
 
     // lableBWPackage
     UILabel *lableBWPackage = [[UILabel alloc] init];
-    lableBWPackage.frame = CGRectMake (10, 70, 100, 20);
+    lableBWPackage.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (202), FITWIDTH (290), FITHEIGHT (58));
     lableBWPackage.text = title5;
-    lableBWPackage.font = [UIFont systemFontOfSize:14];
+    lableBWPackage.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     [views addSubview:lableBWPackage];
 
     _textField = [[SVTextField alloc] init];
     //大小
-    _textField.frame = CGRectMake (10, 90, kScreenW - 40, 20);
+    _textField.frame =
+    CGRectMake (FITWIDTH (29), FITHEIGHT (259), kScreenW - FITWIDTH (115), FITHEIGHT (58));
     //文字
     _textField.text = [probeInfo getBandwidth];
-    _textField.font = [UIFont systemFontOfSize:14];
+    _textField.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     //边框
     _textField.borderStyle = UITextBorderStyleRoundedRect;
     //灰色提示框
@@ -185,28 +185,29 @@
     //添加
     [views addSubview:_textField];
 
-    UILabel *M = [[UILabel alloc] initWithFrame:CGRectMake (FITWIDTH (280), 90, 20, 20)];
-    M.font = [UIFont systemFontOfSize:14];
+    UILabel *M = [[UILabel alloc]
+    initWithFrame:CGRectMake (FITWIDTH (908), FITHEIGHT (259), FITWIDTH (58), FITHEIGHT (58))];
+    M.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     M.text = @"M";
     [views addSubview:M];
 
     // lableCarrier
     UILabel *lableCarrier = [[UILabel alloc] init];
-    lableCarrier.frame = CGRectMake (10, 130, 100, 20);
+    lableCarrier.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (377), FITWIDTH (290), FITHEIGHT (58));
     lableCarrier.text = title7;
-    lableCarrier.font = [UIFont systemFontOfSize:14];
+    lableCarrier.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     [views addSubview:lableCarrier];
 
     UILabel *lableCarriers = [[UILabel alloc] init];
-    lableCarriers.frame = CGRectMake (10, 160, 150, 20);
+    lableCarriers.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (461), FITWIDTH (434), FITHEIGHT (58));
     lableCarriers.text = title8;
-    lableCarriers.font = [UIFont systemFontOfSize:14];
+    lableCarriers.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     [views addSubview:lableCarriers];
 
 
     //添加保存按钮
     //保存按钮高度
-    CGFloat saveBtnH = 44;
+    CGFloat saveBtnH = FITHEIGHT (116);
     //保存按钮类型
     UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     //保存按钮尺寸
@@ -219,18 +220,17 @@
     [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //设置居中
     saveBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-
     //保存按钮点击事件
     [saveBtn addTarget:self
                 action:@selector (saveBtnClicked:)
       forControlEvents:UIControlEventTouchUpInside];
-
     //保存按钮圆角
-    saveBtn.layer.cornerRadius = 5;
-
+    saveBtn.layer.cornerRadius = svCornerRadius (12);
+    ;
     //保存按钮交互
     saveBtn.userInteractionEnabled = YES;
-
+    // 设置字体大小
+    [saveBtn.titleLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (48)]];
     [self.view addSubview:saveBtn];
 }
 //退出键盘的方法
@@ -241,6 +241,7 @@
         [_textField resignFirstResponder];
     }
 }
+#pragma mark - 点击事件
 - (void)buttonClicked:(UIButton *)button
 {
     for (UIButton *bb in bandwidthTypeButtonArray)
@@ -256,7 +257,7 @@
         //跟随系统
         SVInfo (@"未知");
 
-        self.imageView.frame = CGRectMake (FITWIDTH (87), 110, FITWIDTH (66), FITWIDTH (30));
+        self.imageView.frame = CGRectMake (FITWIDTH (250), FITHEIGHT (317), FITWIDTH (190), FITHEIGHT (87));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
@@ -265,7 +266,7 @@
     case 1:
         //简体中文
         SVInfo (@"光纤");
-        self.imageView.frame = CGRectMake (FITWIDTH (160), 110, FITWIDTH (60), FITWIDTH (30));
+        self.imageView.frame = CGRectMake (FITWIDTH (461), FITHEIGHT (317), FITWIDTH (190), FITHEIGHT (87));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
@@ -274,7 +275,7 @@
     case 2:
         // English
         SVInfo (@"铜线");
-        self.imageView.frame = CGRectMake (FITWIDTH (230), 110, FITWIDTH (60), FITWIDTH (30));
+        self.imageView.frame = CGRectMake (FITWIDTH (663), FITHEIGHT (317), FITWIDTH (190), FITHEIGHT (87));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];

@@ -27,12 +27,11 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [WXApi registerApp:@"wx2cce736067ee4a2d"];
 
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#45545C"]];
-    [[UILabel appearance] setAdjustsFontSizeToFitWidth:YES];
-    [[[UIButton appearance] titleLabel] setAdjustsFontSizeToFitWidth:YES];
+    //    [[UILabel appearance] setAdjustsFontSizeToFitWidth:YES];
+    //    [[[UIButton appearance] titleLabel] setAdjustsFontSizeToFitWidth:YES];
 
     // 设置tabbar的背景颜色
     [[UITabBar appearance] setBarTintColor:[UIColor colorWithHexString:@"EEEEEE"]];
-    [UITabBar appearance].translucent = NO;
 
     // 去掉tabbar边框
     [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];

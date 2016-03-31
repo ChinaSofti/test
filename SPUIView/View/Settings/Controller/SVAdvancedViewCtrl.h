@@ -9,8 +9,8 @@
 /**
  *  高级设置界面
  */
+#import "SVViewController.h"
 #import <UIKit/UIKit.h>
-
-@interface SVAdvancedViewCtrl : UIViewController
+@interface SVAdvancedViewCtrl : SVViewController
 
 @end

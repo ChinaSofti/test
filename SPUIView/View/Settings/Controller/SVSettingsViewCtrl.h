@@ -9,8 +9,9 @@
 /**
  *  设置界面
  */
+#import "SVViewController.h"
 #import <UIKit/UIKit.h>
 
-@interface SVSettingsViewCtrl : UIViewController
+@interface SVSettingsViewCtrl : SVViewController
 
 @end

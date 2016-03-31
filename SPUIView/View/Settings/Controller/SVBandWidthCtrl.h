@@ -8,8 +8,8 @@
 /**
  *  带宽测试服务器列表
  */
+#import "SVViewController.h"
 #import <UIKit/UIKit.h>
-
-@interface SVBandWidthCtrl : UIViewController
+@interface SVBandWidthCtrl : SVViewController
 
 @end

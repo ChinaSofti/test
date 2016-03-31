@@ -8,8 +8,8 @@
 /**
  *  关于页面
  */
+#import "SVViewController.h"
 #import <UIKit/UIKit.h>
-
-@interface SVAboutViewCtrl : UIViewController
+@interface SVAboutViewCtrl : SVViewController
 
 @end

@@ -36,7 +36,7 @@ static int userLanguageIndex;
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA" alpha:1.0];
 
     //设置LeftBarButtonItem
     [self createLeftBarButtonItem];
@@ -58,7 +58,7 @@ static int userLanguageIndex;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowTabBar" object:nil];
 }
-
+#pragma mark - 创建UI
 - (void)createLeftBarButtonItem
 {
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
@@ -84,8 +84,9 @@ static int userLanguageIndex;
 {
     // views
     UIView *views = [[UIView alloc] init];
-    views.frame = CGRectMake (10, 74, kScreenW - 20, 131);
+    views.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (213), kScreenW - FITWIDTH (58), FITHEIGHT (380));
     views.backgroundColor = [UIColor whiteColor];
+    views.layer.cornerRadius = svCornerRadius (12);
     [self.view addSubview:views];
 
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
@@ -99,13 +100,15 @@ static int userLanguageIndex;
     NSMutableArray *languageButtonArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 3; i++)
     {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (10, 74 + i * 43, kScreenW - 20, 44)];
+        UIButton *button =
+        [[UIButton alloc] initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (213) + i * FITHEIGHT (123),
+                                                    kScreenW - FITWIDTH (58), FITHEIGHT (126))];
         [button setTitle:titlesArr[i] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:14];
-        button.titleEdgeInsets = UIEdgeInsetsMake (0, -(kScreenW + 120) / 2, 0, 0);
+        button.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+        button.titleEdgeInsets = UIEdgeInsetsMake (0, -(kScreenW + FITHEIGHT (348)) / 2, 0, 0);
         button.titleLabel.textAlignment = NSTextAlignmentLeft;
-        button.layer.cornerRadius = 2;
+        button.layer.cornerRadius = svCornerRadius (12);
         button.layer.borderColor = [UIColor colorWithWhite:200 / 255.0 alpha:0.5].CGColor;
         button.layer.borderWidth = 1;
         button.tag = Button_Tag + i;
@@ -121,7 +124,7 @@ static int userLanguageIndex;
     }
 
     //保存按钮高度
-    CGFloat saveBtnH = 44;
+    CGFloat saveBtnH = FITHEIGHT (116);
     //保存按钮类型
     _saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     //保存按钮尺寸
@@ -141,11 +144,14 @@ static int userLanguageIndex;
        forControlEvents:UIControlEventTouchUpInside];
 
     //保存按钮圆角
-    _saveBtn.layer.cornerRadius = 5;
+    _saveBtn.layer.cornerRadius = svCornerRadius (12);
+
+    // 设置字体大小
+    [_saveBtn.titleLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (48)]];
 
     [self.view addSubview:_saveBtn];
 }
-
+#pragma mark - 点击事件
 /**
  *  保存按钮
  *
@@ -155,7 +161,8 @@ static int userLanguageIndex;
 {
     //按钮被点击后 右侧显示语言被选中
     UIImage *image = [UIImage imageNamed:@"ic_language_select"];
-    self.imageView.frame = CGRectMake (kScreenW - 60, 17, 15, 10);
+    self.imageView.frame =
+    CGRectMake (kScreenW - FITWIDTH (172), FITHEIGHT (49), FITWIDTH (43), FITHEIGHT (29));
     self.imageView.image = image;
 
     switch (button.tag - Button_Tag)

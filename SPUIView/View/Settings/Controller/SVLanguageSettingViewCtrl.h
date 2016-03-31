@@ -9,8 +9,8 @@
 /**
  *  语言设置界面
  */
+#import "SVViewController.h"
 #import <UIKit/UIKit.h>
-
-@interface SVLanguageSettingViewCtrl : UIViewController
+@interface SVLanguageSettingViewCtrl : SVViewController
 
 @end

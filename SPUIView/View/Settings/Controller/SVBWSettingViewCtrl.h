@@ -8,8 +8,8 @@
 /**
  *  当前连接界面
  */
+#import "SVViewController.h"
 #import <UIKit/UIKit.h>
-
-@interface SVBWSettingViewCtrl : UIViewController
+@interface SVBWSettingViewCtrl : SVViewController
 
 @end
