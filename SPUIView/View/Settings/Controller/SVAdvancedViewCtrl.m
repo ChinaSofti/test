@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
 
     [self createLeftBarButtonItem];
     [self createScreenSizeUI];
@@ -417,7 +417,7 @@
 
     // button自动
     _button = [UIButton buttonWithType:UIButtonTypeCustom];
-    _button.frame = CGRectMake (FITWIDTH (620), FITHEIGHT (80), FITWIDTH (172), FITHEIGHT (129));
+    _button.frame = CGRectMake (FITWIDTH (620), FITHEIGHT (95), FITWIDTH (172), FITHEIGHT (109));
     _button.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
 
@@ -433,7 +433,7 @@
 
     // button选择
     _button2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    _button2.frame = CGRectMake (FITWIDTH (823), FITHEIGHT (80), FITWIDTH (172), FITHEIGHT (129));
+    _button2.frame = CGRectMake (FITWIDTH (823), FITHEIGHT (95), FITWIDTH (172), FITHEIGHT (109));
     _button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     [_button2 setTitle:title6 forState:UIControlStateNormal];
     _button2.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (45)];

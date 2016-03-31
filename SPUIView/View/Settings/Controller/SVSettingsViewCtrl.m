@@ -55,7 +55,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 {
     [super viewDidLoad];
     SVInfo (@"SVSettingsView");
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
     //电池显示不了,设置样式让电池显示
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     //编辑界面
@@ -65,7 +65,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     initWithFrame:CGRectMake (FITWIDTH (22), 0, kScreenW - FITWIDTH (44), kScreenH - FITHEIGHT (144))
             style:UITableViewStyleGrouped];
     // 2.设置背景颜色
-    _tableView.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
+    _tableView.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
     //*4.设置代理
     _tableView.delegate = self;
     //*5.设置数据源
@@ -112,9 +112,9 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 
     UILabel *label111 =
     [[UILabel alloc] initWithFrame:CGRectMake (label11.originX + label11.width, FITHEIGHT (43),
-                                               FITWIDTH (150), FITHEIGHT (58))];
+                                               FITWIDTH (250), FITHEIGHT (58))];
 
-    //    label111.backgroundColor  = [UIColor blueColor];
+    //        label111.backgroundColor  = [UIColor blueColor];
     label111.text = I18N (@"Mobile Network");
     if (status == SV_RealStatusViaWiFi)
     {

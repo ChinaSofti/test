@@ -36,7 +36,7 @@ static int userLanguageIndex;
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
 
     //设置LeftBarButtonItem
     [self createLeftBarButtonItem];

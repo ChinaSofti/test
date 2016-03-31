@@ -62,7 +62,7 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     // 设置背景颜色
-    _tableView.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
+    _tableView.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
 
     // 设置代理
     _tableView.delegate = self;

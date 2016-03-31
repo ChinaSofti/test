@@ -33,8 +33,7 @@
     {
         _imageView = [[UIView alloc] init];
         _imageView.layer.borderWidth = 1;
-        _imageView.layer.borderColor =
-        [[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1] CGColor];
+        _imageView.layer.borderColor = [UIColor colorWithHexString:@"#29a5e5"].CGColor;
         _imageView.layer.masksToBounds = YES;
         _imageView.layer.cornerRadius = svCornerRadius (12);
     }
@@ -45,7 +44,7 @@
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
     //设置LeftBarButtonItem
     [self createLeftBarButtonItem];
     [self createUI];
@@ -102,15 +101,18 @@
 
     // views
     UIView *views = [[UIView alloc] init];
-    views.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (213), kScreenW - FITWIDTH (58), FITHEIGHT (519));
-    views.backgroundColor = [UIColor whiteColor];
+    views.frame = CGRectMake (FITWIDTH (22), FITHEIGHT (279), FITWIDTH (1036), FITHEIGHT (650));
+    views.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
+    views.layer.cornerRadius = svCornerRadius (12);
+    views.layer.borderColor = [UIColor colorWithHexString:@"#dddddd"].CGColor;
     [self.view addSubview:views];
 
     // lableBWType
     UILabel *lableBWType = [[UILabel alloc] init];
-    lableBWType.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (29), FITWIDTH (580), FITHEIGHT (58));
+    lableBWType.frame = CGRectMake (FITWIDTH (33), FITHEIGHT (45), FITWIDTH (580), FITHEIGHT (58));
     lableBWType.text = title1;
-    lableBWType.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    lableBWType.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
+    lableBWType.textColor = [UIColor colorWithHexString:@"#CC000000"];
     [views addSubview:lableBWType];
 
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
@@ -126,17 +128,15 @@
         UIButton *button = [[UIButton alloc] init];
         [bandwidthTypeButtonArray addObject:button];
         button.frame =
-        CGRectMake (FITWIDTH (230) + i * FITWIDTH (202), FITHEIGHT (102), FITWIDTH (172), FITHEIGHT (87));
+        CGRectMake (FITWIDTH (208) + i * FITWIDTH (210), FITHEIGHT (114), FITWIDTH (198), FITHEIGHT (79));
         [button setTitle:titleArr[i] forState:UIControlStateNormal];
         // button普通状态下的字体颜色
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         // button选中状态下的字体颜色
-        [button
-        setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
-             forState:UIControlStateSelected | UIControlStateHighlighted];
-        [button
-        setTitleColor:[UIColor colorWithRed:61 / 255.0 green:173 / 255.0 blue:231 / 255.0 alpha:1]
-             forState:UIControlStateSelected];
+        [button setTitleColor:[UIColor colorWithHexString:@"#e50000000"]
+                     forState:UIControlStateSelected | UIControlStateHighlighted];
+        [button setTitleColor:[UIColor colorWithHexString:@"#29a5e5"]
+                     forState:UIControlStateSelected];
 
         button.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
 
@@ -162,18 +162,20 @@
 
     // lableBWPackage
     UILabel *lableBWPackage = [[UILabel alloc] init];
-    lableBWPackage.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (202), FITWIDTH (290), FITHEIGHT (58));
+    lableBWPackage.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (246), FITWIDTH (290), FITHEIGHT (58));
     lableBWPackage.text = title5;
-    lableBWPackage.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    lableBWPackage.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
     [views addSubview:lableBWPackage];
 
     _textField = [[SVTextField alloc] init];
     //大小
     _textField.frame =
-    CGRectMake (FITWIDTH (29), FITHEIGHT (259), kScreenW - FITWIDTH (115), FITHEIGHT (58));
+    CGRectMake (FITWIDTH (29), FITHEIGHT (315), kScreenW - FITWIDTH (115), FITHEIGHT (58));
     //文字
     _textField.text = [probeInfo getBandwidth];
     _textField.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    _textField.textColor = [UIColor colorWithHexString:@"#4C000000"];
+    _textField.layer.cornerRadius = svCornerRadius (12);
     //边框
     _textField.borderStyle = UITextBorderStyleRoundedRect;
     //灰色提示框
@@ -186,22 +188,22 @@
     [views addSubview:_textField];
 
     UILabel *M = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (908), FITHEIGHT (259), FITWIDTH (58), FITHEIGHT (58))];
+    initWithFrame:CGRectMake (FITWIDTH (928), FITHEIGHT (315), FITWIDTH (58), FITHEIGHT (58))];
     M.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     M.text = @"M";
     [views addSubview:M];
 
     // lableCarrier
     UILabel *lableCarrier = [[UILabel alloc] init];
-    lableCarrier.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (377), FITWIDTH (290), FITHEIGHT (58));
+    lableCarrier.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (453), FITWIDTH (290), FITHEIGHT (58));
     lableCarrier.text = title7;
-    lableCarrier.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    lableCarrier.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
     [views addSubview:lableCarrier];
 
     UILabel *lableCarriers = [[UILabel alloc] init];
-    lableCarriers.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (461), FITWIDTH (434), FITHEIGHT (58));
+    lableCarriers.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (536), FITWIDTH (434), FITHEIGHT (58));
     lableCarriers.text = title8;
-    lableCarriers.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    lableCarriers.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
     [views addSubview:lableCarriers];
 
 
@@ -211,7 +213,7 @@
     //保存按钮类型
     UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     //保存按钮尺寸
-    saveBtn.frame = CGRectMake (saveBtnH, kScreenH - saveBtnH * 2, kScreenW - saveBtnH * 2, saveBtnH);
+    saveBtn.frame = CGRectMake (saveBtnH, views.bottomY + FITHEIGHT (465), FITWIDTH (872), saveBtnH);
     //保存按钮背景颜色
     saveBtn.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
@@ -257,7 +259,7 @@
         //跟随系统
         SVInfo (@"未知");
 
-        self.imageView.frame = CGRectMake (FITWIDTH (250), FITHEIGHT (317), FITWIDTH (190), FITHEIGHT (87));
+        self.imageView.frame = CGRectMake (FITWIDTH (230), FITHEIGHT (393), FITWIDTH (198), FITHEIGHT (79));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
@@ -266,7 +268,7 @@
     case 1:
         //简体中文
         SVInfo (@"光纤");
-        self.imageView.frame = CGRectMake (FITWIDTH (461), FITHEIGHT (317), FITWIDTH (190), FITHEIGHT (87));
+        self.imageView.frame = CGRectMake (FITWIDTH (438), FITHEIGHT (393), FITWIDTH (198), FITHEIGHT (79));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];
@@ -275,7 +277,7 @@
     case 2:
         // English
         SVInfo (@"铜线");
-        self.imageView.frame = CGRectMake (FITWIDTH (663), FITHEIGHT (317), FITWIDTH (190), FITHEIGHT (87));
+        self.imageView.frame = CGRectMake (FITWIDTH (651), FITHEIGHT (393), FITWIDTH (198), FITHEIGHT (79));
 
         [self.imageView removeFromSuperview];
         [self.view addSubview:self.imageView];

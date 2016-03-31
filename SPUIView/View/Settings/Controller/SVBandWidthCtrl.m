@@ -35,7 +35,7 @@
     initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (0), kScreenW - FITHEIGHT (48), kScreenH)
             style:UITableViewStyleGrouped];
     // 2.设置背景颜色
-    _tableView.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
+    _tableView.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
     //*4.设置代理
     _tableView.delegate = self;
     //*5.设置数据源
