@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA" alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
 
     [self createLeftBarButtonItem];
     [self createScreenSizeUI];

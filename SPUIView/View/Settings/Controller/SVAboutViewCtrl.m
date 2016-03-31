@@ -17,7 +17,7 @@
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA" alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
     //设置LeftBarButtonItem
     [self createLeftBarButtonItem];
     [self createUI];

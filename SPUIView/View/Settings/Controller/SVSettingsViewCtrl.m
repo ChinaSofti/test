@@ -55,7 +55,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 {
     [super viewDidLoad];
     SVInfo (@"SVSettingsView");
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA" alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
     //电池显示不了,设置样式让电池显示
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     //编辑界面
@@ -65,7 +65,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     initWithFrame:CGRectMake (FITWIDTH (22), 0, kScreenW - FITWIDTH (44), kScreenH - FITHEIGHT (144))
             style:UITableViewStyleGrouped];
     // 2.设置背景颜色
-    _tableView.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA" alpha:1.0];
+    _tableView.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
     //*4.设置代理
     _tableView.delegate = self;
     //*5.设置数据源
