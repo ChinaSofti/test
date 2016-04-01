@@ -26,7 +26,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     //微信分享api注册
     [WXApi registerApp:@"wx2cce736067ee4a2d"];
 
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#45545C"]];
+    //设置navigationBar的颜色
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#45545c"]];
 
     // 设置tabbar的背景颜色
     [[UITabBar appearance] setBarTintColor:[UIColor colorWithHexString:@"EEEEEE"]];
