@@ -19,17 +19,17 @@
     }
 
     // 设置view大小
-    [self setFrame:CGRectMake (0, FITHEIGHT (1286), kScreenW, FITHEIGHT (490))];
+    [self setFrame:CGRectMake (0, FITHEIGHT (1366), kScreenW, FITHEIGHT (410))];
 
     // 初始化左侧的View
     _leftView = [[UIView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (30), FITHEIGHT (156), FITWIDTH (524), FITHEIGHT (312))];
+    initWithFrame:CGRectMake (FITWIDTH (30), FITHEIGHT (30), FITWIDTH (524), FITHEIGHT (312))];
     [_leftView.layer setBorderColor:[UIColor colorWithHexString:@"#DDDDDD"].CGColor];
     [_leftView.layer setBorderWidth:FITHEIGHT (1)];
 
     // 初始化右侧的View
     _rightView = [[UIView alloc]
-    initWithFrame:CGRectMake (_leftView.rightX, FITHEIGHT (156), FITWIDTH (526), FITHEIGHT (312))];
+    initWithFrame:CGRectMake (_leftView.rightX, FITHEIGHT (30), FITWIDTH (526), FITHEIGHT (312))];
 
 
     [self addSubview:_leftView];

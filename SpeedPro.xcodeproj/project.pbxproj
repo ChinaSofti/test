@@ -108,6 +108,7 @@
 		5BE6DE221CAD2D5B00CA2B5B /* clock_video_panel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE161CAD2D5B00CA2B5B /* clock_video_panel@3x.png */; };
 		5BE6DE231CAD2D5B00CA2B5B /* clock_web_panel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE171CAD2D5B00CA2B5B /* clock_web_panel@2x.png */; };
 		5BE6DE241CAD2D5B00CA2B5B /* clock_web_panel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE181CAD2D5B00CA2B5B /* clock_web_panel@3x.png */; };
+		5BE6DE271CAE69CD00CA2B5B /* SVLabelTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE6DE261CAE69CD00CA2B5B /* SVLabelTools.m */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B748CE251C9FF62C00FD388C /* SVTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE241C9FF62C00FD388C /* SVTextField.m */; };
@@ -415,6 +416,8 @@
 		5BE6DE161CAD2D5B00CA2B5B /* clock_video_panel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_video_panel@3x.png"; sourceTree = "<group>"; };
 		5BE6DE171CAD2D5B00CA2B5B /* clock_web_panel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_web_panel@2x.png"; sourceTree = "<group>"; };
 		5BE6DE181CAD2D5B00CA2B5B /* clock_web_panel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_web_panel@3x.png"; sourceTree = "<group>"; };
+		5BE6DE251CAE69CD00CA2B5B /* SVLabelTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVLabelTools.h; sourceTree = "<group>"; };
+		5BE6DE261CAE69CD00CA2B5B /* SVLabelTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVLabelTools.m; sourceTree = "<group>"; };
 		B70FF3D31C6582AA002D571B /* SpeedPro.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedPro.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70FF3D51C6582AA002D571B /* SPUIViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUIViewTests.m; sourceTree = "<group>"; };
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1193,6 +1196,8 @@
 				B748CE441CA0166900FD388C /* SVGetDistance.m */,
 				5B1FEDBB1CAA74D600508920 /* SVViewController.h */,
 				5B1FEDBC1CAA74D600508920 /* SVViewController.m */,
+				5BE6DE251CAE69CD00CA2B5B /* SVLabelTools.h */,
+				5BE6DE261CAE69CD00CA2B5B /* SVLabelTools.m */,
 			);
 			path = UIUtils;
 			sourceTree = "<group>";
@@ -1873,6 +1878,7 @@
 				56F523E41C4DCF7F00E6472B /* main.m in Sources */,
 				B7F268351CAE1C3900E44299 /* DDASLLogger.m in Sources */,
 				B7F267761CAE1BF300E44299 /* SVVideoTestContext.m in Sources */,
+				5BE6DE271CAE69CD00CA2B5B /* SVLabelTools.m in Sources */,
 				B7F268321CAE1C3900E44299 /* CLIColor.m in Sources */,
 				B7F2678C1CAE1BF300E44299 /* SVDetailResultModel.m in Sources */,
 				B77D21F21C957904006BE281 /* SVLineChart.m in Sources */,

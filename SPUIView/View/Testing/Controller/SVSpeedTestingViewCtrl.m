@@ -15,6 +15,7 @@
 
 #import "SVChart.h"
 #import "SVCurrentResultViewCtrl.h"
+#import "SVLabelTools.h"
 #import "SVSpeedTestingViewCtrl.h"
 
 #define kVideoViewDefaultRect \
@@ -25,7 +26,6 @@
 
     SVHeaderView *_headerView; // 定义headerView
     SVPointView *_speedtestingView; //定义speedtestingView
-    SVSpeedView *_speedView; //定义访问网页的View
     SVFooterView *_footerView; // 定义footerView
     SVSpeedTest *_speedTest;
     SVChart *_chart;
@@ -104,7 +104,6 @@ double _preSpeed = 0.0;
     [self creatHeaderView];
     [self creatSpeedTestingView];
     [self creatFooterView];
-    [self creatSpeedView];
 }
 //退出测试按钮点击事件
 - (void)removeButtonClicked:(UIButton *)button
@@ -136,12 +135,13 @@ double _preSpeed = 0.0;
  */
 - (void)initContext
 {
+    [_headerView updateLeftValue:@"0.00"];
+    [_headerView updateMiddleValue:@"0.00"];
+    [_headerView updateRightValue:@"0.00"];
+
     NSString *loadingStr = I18N (@"Loading...");
     [_serverLocationLabel setText:loadingStr];
     [_carrierLabel setText:loadingStr];
-    [_headerView.Delay setText:@"0"];
-    [_headerView.Downloadspeed setText:@"0"];
-    [_headerView.Uploadspeed setText:@"0"];
     [_speedtestingView updateValue:0];
     [_speedtestingView.titleLabel setText:@""];
 }
@@ -193,7 +193,7 @@ double _preSpeed = 0.0;
 {
     [super viewWillDisappear:animated];
 
-    for (UIView *subView in _speedView.subviews)
+    for (UIView *subView in _footerView.leftView.subviews)
     {
         [subView removeFromSuperview];
     }
@@ -218,19 +218,29 @@ double _preSpeed = 0.0;
 
 - (void)creatHeaderView
 {
-    //初始化headerView
-    _headerView = [[SVHeaderView alloc] init];
-    //把所有Label添加到View中
-    [_headerView addSubview:_headerView.Delay];
-    [_headerView addSubview:_headerView.Delay1];
-    [_headerView addSubview:_headerView.Downloadspeed];
-    [_headerView addSubview:_headerView.Downloadspeed1];
-    [_headerView addSubview:_headerView.Uploadspeed];
-    [_headerView addSubview:_headerView.Uploadspeed1];
-    [_headerView addSubview:_headerView.DelayNumLabel];
-    [_headerView addSubview:_headerView.DownloadspeedNumLabel];
-    [_headerView addSubview:_headerView.UploadspeedNumLabel];
-    //把headerView添加到中整个视图上
+    // 初始化默认值
+    NSMutableDictionary *defalutValue = [[NSMutableDictionary alloc] init];
+    [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (36)] forKey:@"labelFontSize"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#B2000000"] forKey:@"labelColor"];
+    [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (60)] forKey:@"valueFontSize"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#FC5F45"] forKey:@"valueColor"];
+    [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (33)] forKey:@"unitFontSize"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#FC5F45"] forKey:@"unitColor"];
+    [defalutValue setValue:@"0.00" forKey:@"leftDefaultValue"];
+    [defalutValue setValue:I18N (@"Delay") forKey:@"leftTitle"];
+    [defalutValue setValue:@"ms" forKey:@"leftUnit"];
+    [defalutValue setValue:@"0.00" forKey:@"middleDefaultValue"];
+    [defalutValue setValue:I18N (@"Download Speed") forKey:@"middleTitle"];
+    [defalutValue setValue:@"Mbps" forKey:@"middleUnit"];
+    [defalutValue setValue:@"0.00" forKey:@"rightDefaultValue"];
+    [defalutValue setValue:I18N (@"Upload speed") forKey:@"rightTitle"];
+    [defalutValue setValue:@"Mbps" forKey:@"rightUnit"];
+
+
+    // 初始化headerView
+    _headerView = [[SVHeaderView alloc] initWithDic:defalutValue];
+
+    // 把headerView添加到中整个视图上
     [self.view addSubview:_headerView];
 }
 
@@ -252,19 +262,6 @@ double _preSpeed = 0.0;
     [self.view addSubview:_speedtestingView];
 }
 
-
-#pragma mark - 创建speedView
-- (void)creatSpeedView
-{
-    //初始化
-    _speedView = [[SVSpeedView alloc] initWithFrame:kVideoViewDefaultRect];
-    [_speedView setBackgroundColor:[UIColor whiteColor]];
-    _speedView.layer.borderWidth = 0.5;
-    _speedView.layer.borderColor = [[UIColor grayColor] CGColor];
-    //    [_webView setContentMode:UIViewContentModeScaleToFill];
-    [self.view addSubview:_speedView];
-}
-
 #pragma mark - 创建尾footerView
 
 - (void)creatFooterView
@@ -274,40 +271,41 @@ double _preSpeed = 0.0;
 
     // 初始化服务器地址的label
     _serverLocationLabel = [CTWBViewTools
-    createLabelWithFrame:CGRectMake (FITWIDTH (50), FITHEIGHT (32), FITWIDTH (446), FITHEIGHT (50))
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), FITHEIGHT (10), FITWIDTH (446), FITHEIGHT (50))
                 withFont:pixelToFontsize (44)
           withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
                withTitle:@""];
 
     // 初始化服务器地址标题的label
     _serverLocationTitle = [CTWBViewTools
-    createLabelWithFrame:CGRectMake (FITWIDTH (50), _serverLocationLabel.bottomY + FITHEIGHT (46),
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), _serverLocationLabel.bottomY + FITHEIGHT (16),
                                      FITWIDTH (446), FITWIDTH (34))
                 withFont:pixelToFontsize (36)
           withTitleColor:[UIColor colorWithHexString:@"#B2000000"]
                withTitle:I18N (@"Server Location")];
 
     // 初始化服务器归属地的label
+    _carrierLabel = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), _serverLocationTitle.bottomY + FITHEIGHT (28),
+                                     FITWIDTH (446), FITWIDTH (50))
+                withFont:pixelToFontsize (39)
+          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+               withTitle:@""];
+
+    // 初始化服务器归属地标题的label
     _carrierTitle = [CTWBViewTools
-    createLabelWithFrame:CGRectMake (FITWIDTH (50), _serverLocationTitle.bottomY + FITHEIGHT (78),
-                                     FITWIDTH (223), FITHEIGHT (50))
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), _carrierLabel.bottomY + FITHEIGHT (16),
+                                     FITWIDTH (446), FITHEIGHT (50))
                 withFont:pixelToFontsize (36)
           withTitleColor:[UIColor colorWithHexString:@"#B2000000"]
                withTitle:I18N (@"Carrier")];
 
-    // 初始化服务器归属地标题的label
-    _carrierLabel = [CTWBViewTools
-    createLabelWithFrame:CGRectMake (_carrierTitle.rightX, _serverLocationTitle.bottomY + FITHEIGHT (78),
-                                     FITWIDTH (223), FITWIDTH (50))
-                withFont:pixelToFontsize (39)
-          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
-               withTitle:@""];
 
     // 设置Label对齐
     _serverLocationLabel.textAlignment = NSTextAlignmentLeft;
     _serverLocationTitle.textAlignment = NSTextAlignmentLeft;
     _carrierTitle.textAlignment = NSTextAlignmentLeft;
-    _carrierLabel.textAlignment = NSTextAlignmentRight;
+    _carrierLabel.textAlignment = NSTextAlignmentLeft;
 
 
     // 将所有label放入右侧的View
@@ -315,6 +313,9 @@ double _preSpeed = 0.0;
     [_footerView.rightView addSubview:_serverLocationTitle];
     [_footerView.rightView addSubview:_carrierTitle];
     [_footerView.rightView addSubview:_carrierLabel];
+
+    //初始化
+    [_footerView.leftView setBackgroundColor:[UIColor colorWithHexString:@"#FFFAFAFA"]];
 
     [self.view addSubview:_footerView];
 }
@@ -352,6 +353,9 @@ double _preSpeed = 0.0;
           if (testResult.isp.isp)
           {
               _carrierLabel.text = testResult.isp.isp;
+
+              // label自动换行
+              [SVLabelTools wrapForLabel:_carrierLabel nextLabel:_carrierTitle];
           }
           if (testResult.isp.city)
           {
@@ -360,7 +364,7 @@ double _preSpeed = 0.0;
       }
 
       // 显示头部指标
-      [_headerView.Delay setText:[NSString stringWithFormat:@"%.2f", testResult.delay]];
+      [_headerView updateLeftValue:[NSString stringWithFormat:@"%.2f", testResult.delay]];
 
       // 如果是汇总结果，直接使用
       double speed = testResult.isUpload ? testResult.uploadSpeed : testResult.downloadSpeed;
@@ -374,12 +378,12 @@ double _preSpeed = 0.0;
       [_speedtestingView updateValue:speed];
       if (testResult.isUpload)
       {
-          [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+          [_headerView updateRightValue:[NSString stringWithFormat:@"%.2f", speed]];
           _speedtestingView.titleLabel.text = uploadTitle;
       }
       else
       {
-          [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
+          [_headerView updateMiddleValue:[NSString stringWithFormat:@"%.2f", speed]];
           _speedtestingView.titleLabel.text = downTitle;
       }
 
@@ -396,7 +400,7 @@ double _preSpeed = 0.0;
                       [_chart removeFromSuperview];
                   }
 
-                  _chart = [[SVChart alloc] initWithView:_speedView];
+                  _chart = [[SVChart alloc] initWithView:_footerView.leftView];
                   uploadFirstResult = true;
               }
           }
@@ -409,7 +413,7 @@ double _preSpeed = 0.0;
                       [_chart removeFromSuperview];
                   }
 
-                  _chart = [[SVChart alloc] initWithView:_speedView];
+                  _chart = [[SVChart alloc] initWithView:_footerView.leftView];
                   downloadFirstResult = true;
               }
           }
