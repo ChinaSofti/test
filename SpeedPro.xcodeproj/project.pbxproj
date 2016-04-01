@@ -67,7 +67,6 @@
 		56BA8FDA1C561E9100886CAE /* SVToolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCA1C561E9100886CAE /* SVToolModel.m */; };
 		56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCD1C561E9100886CAE /* AlertView.m */; };
 		56BA8FDC1C561E9100886CAE /* SVToolCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCF1C561E9100886CAE /* SVToolCell.m */; };
-		56CAFFBD1C9BFBB800210081 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFB91C9BFBB800210081 /* libWeChatSDK.a */; };
 		56CAFFBF1C9BFBDB00210081 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFBE1C9BFBDB00210081 /* libc++.tbd */; };
 		56CAFFC11C9BFBEB00210081 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFC01C9BFBEB00210081 /* CoreTelephony.framework */; };
 		56CAFFC31C9BFBFC00210081 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */; };
@@ -196,11 +195,6 @@
 		B7F2681E1CAE1C3900E44299 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = B7F267BD1CAE1C3900E44299 /* unzip.c */; };
 		B7F2681F1CAE1C3900E44299 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = B7F267BF1CAE1C3900E44299 /* zip.c */; };
 		B7F268201CAE1C3900E44299 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = B7F267C21CAE1C3900E44299 /* ZipArchive.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		B7F268211CAE1C3900E44299 /* libffmpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F267CE1CAE1C3900E44299 /* libffmpeg.a */; };
-		B7F268221CAE1C3900E44299 /* libopenssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F267CF1CAE1C3900E44299 /* libopenssl.a */; };
-		B7F268231CAE1C3900E44299 /* libVitamio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F267D01CAE1C3900E44299 /* libVitamio.a */; };
-		B7F268241CAE1C3900E44299 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B7F267D11CAE1C3900E44299 /* LICENSE */; };
-		B7F268251CAE1C3900E44299 /* UvMOS_C_for_iOS_v1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F267D31CAE1C3900E44299 /* UvMOS_C_for_iOS_v1.1.0.a */; };
 		B7F268261CAE1C3900E44299 /* LocalConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267D81CAE1C3900E44299 /* LocalConnection.m */; };
 		B7F268271CAE1C3900E44299 /* FSMEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267DC1CAE1C3900E44299 /* FSMEngine.m */; };
 		B7F268281CAE1C3900E44299 /* FSMStateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267DE1CAE1C3900E44299 /* FSMStateUtil.m */; };
@@ -246,6 +240,12 @@
 		B7F268671CAE263300E44299 /* SVSpeedTestContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F268611CAE263300E44299 /* SVSpeedTestContext.m */; };
 		B7F268681CAE263300E44299 /* SVSpeedTestInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F268621CAE263300E44299 /* SVSpeedTestInfo.m */; };
 		B7F268691CAE263300E44299 /* SVSpeedTestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F268631CAE263300E44299 /* SVSpeedTestResult.m */; };
+		B7F2688E1CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268781CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a */; };
+		B7F2688F1CAE4BC800E44299 /* libffmpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268851CAE4BC800E44299 /* libffmpeg.a */; };
+		B7F268901CAE4BC800E44299 /* libopenssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268861CAE4BC800E44299 /* libopenssl.a */; };
+		B7F268911CAE4BC800E44299 /* libVitamio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268871CAE4BC800E44299 /* libVitamio.a */; };
+		B7F268921CAE4BC800E44299 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B7F268881CAE4BC800E44299 /* LICENSE */; };
+		B7F268931CAE4BC800E44299 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F2688A1CAE4BC800E44299 /* libWeChatSDK.a */; };
 		B7F3CA4A1C72CA3F009B087F /* toast_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F3CA491C72CA3F009B087F /* toast_icon.png */; };
 		F69C9C981C95332B00D89B87 /* SVResultPush.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C9C971C95332B00D89B87 /* SVResultPush.m */; };
 /* End PBXBuildFile section */
@@ -366,10 +366,6 @@
 		56BA8FCD1C561E9100886CAE /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
 		56BA8FCE1C561E9100886CAE /* SVToolCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToolCell.h; sourceTree = "<group>"; };
 		56BA8FCF1C561E9100886CAE /* SVToolCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToolCell.m; sourceTree = "<group>"; };
-		56CAFFB91C9BFBB800210081 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = ../SPUIView/Appdelegate/libWeChatSDK.a; sourceTree = "<group>"; };
-		56CAFFBA1C9BFBB800210081 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WechatAuthSDK.h; path = ../SPUIView/Appdelegate/WechatAuthSDK.h; sourceTree = "<group>"; };
-		56CAFFBB1C9BFBB800210081 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = ../SPUIView/Appdelegate/WXApi.h; sourceTree = "<group>"; };
-		56CAFFBC1C9BFBB800210081 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = ../SPUIView/Appdelegate/WXApiObject.h; sourceTree = "<group>"; };
 		56CAFFBE1C9BFBDB00210081 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		56CAFFC01C9BFBEB00210081 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -566,20 +562,6 @@
 		B7F267C01CAE1C3900E44299 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		B7F267C11CAE1C3900E44299 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
 		B7F267C21CAE1C3900E44299 /* ZipArchive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZipArchive.mm; sourceTree = "<group>"; };
-		B7F267C61CAE1C3900E44299 /* VDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDefines.h; sourceTree = "<group>"; };
-		B7F267C71CAE1C3900E44299 /* Vitamio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vitamio.h; sourceTree = "<group>"; };
-		B7F267C81CAE1C3900E44299 /* VMediaExtracter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMediaExtracter.h; sourceTree = "<group>"; };
-		B7F267C91CAE1C3900E44299 /* VMediaExtracterDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMediaExtracterDef.h; sourceTree = "<group>"; };
-		B7F267CA1CAE1C3900E44299 /* VMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMediaPlayer.h; sourceTree = "<group>"; };
-		B7F267CB1CAE1C3900E44299 /* VMediaPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMediaPlayerDelegate.h; sourceTree = "<group>"; };
-		B7F267CC1CAE1C3900E44299 /* VPlayerManageDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPlayerManageDef.h; sourceTree = "<group>"; };
-		B7F267CD1CAE1C3900E44299 /* VSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSingleton.h; sourceTree = "<group>"; };
-		B7F267CE1CAE1C3900E44299 /* libffmpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffmpeg.a; sourceTree = "<group>"; };
-		B7F267CF1CAE1C3900E44299 /* libopenssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopenssl.a; sourceTree = "<group>"; };
-		B7F267D01CAE1C3900E44299 /* libVitamio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVitamio.a; sourceTree = "<group>"; };
-		B7F267D11CAE1C3900E44299 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		B7F267D31CAE1C3900E44299 /* UvMOS_C_for_iOS_v1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = UvMOS_C_for_iOS_v1.1.0.a; sourceTree = "<group>"; };
-		B7F267D41CAE1C3900E44299 /* UvMOS_Outer_Api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UvMOS_Outer_Api.h; sourceTree = "<group>"; };
 		B7F267D71CAE1C3900E44299 /* LocalConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalConnection.h; sourceTree = "<group>"; };
 		B7F267D81CAE1C3900E44299 /* LocalConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalConnection.m; sourceTree = "<group>"; };
 		B7F267DA1CAE1C3900E44299 /* FSMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMDefines.h; sourceTree = "<group>"; };
@@ -665,6 +647,24 @@
 		B7F268611CAE263300E44299 /* SVSpeedTestContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestContext.m; sourceTree = "<group>"; };
 		B7F268621CAE263300E44299 /* SVSpeedTestInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestInfo.m; sourceTree = "<group>"; };
 		B7F268631CAE263300E44299 /* SVSpeedTestResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestResult.m; sourceTree = "<group>"; };
+		B7F268781CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = UvMOS_C_for_iOS_v1.1.0.a; sourceTree = "<group>"; };
+		B7F268791CAE4BC800E44299 /* UvMOS_Outer_Api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UvMOS_Outer_Api.h; sourceTree = "<group>"; };
+		B7F2687D1CAE4BC800E44299 /* VDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDefines.h; sourceTree = "<group>"; };
+		B7F2687E1CAE4BC800E44299 /* Vitamio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vitamio.h; sourceTree = "<group>"; };
+		B7F2687F1CAE4BC800E44299 /* VMediaExtracter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMediaExtracter.h; sourceTree = "<group>"; };
+		B7F268801CAE4BC800E44299 /* VMediaExtracterDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMediaExtracterDef.h; sourceTree = "<group>"; };
+		B7F268811CAE4BC800E44299 /* VMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMediaPlayer.h; sourceTree = "<group>"; };
+		B7F268821CAE4BC800E44299 /* VMediaPlayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMediaPlayerDelegate.h; sourceTree = "<group>"; };
+		B7F268831CAE4BC800E44299 /* VPlayerManageDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPlayerManageDef.h; sourceTree = "<group>"; };
+		B7F268841CAE4BC800E44299 /* VSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSingleton.h; sourceTree = "<group>"; };
+		B7F268851CAE4BC800E44299 /* libffmpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffmpeg.a; sourceTree = "<group>"; };
+		B7F268861CAE4BC800E44299 /* libopenssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopenssl.a; sourceTree = "<group>"; };
+		B7F268871CAE4BC800E44299 /* libVitamio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVitamio.a; sourceTree = "<group>"; };
+		B7F268881CAE4BC800E44299 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		B7F2688A1CAE4BC800E44299 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		B7F2688B1CAE4BC800E44299 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		B7F2688C1CAE4BC800E44299 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		B7F2688D1CAE4BC800E44299 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		B7F3CA491C72CA3F009B087F /* toast_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toast_icon.png; sourceTree = "<group>"; };
 		B7FEB2DB1C87DDD900A027D9 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/i18n.strings; sourceTree = "<group>"; };
 		F69C9C961C95332B00D89B87 /* SVResultPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultPush.h; sourceTree = "<group>"; };
@@ -677,6 +677,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7F268571CAE248D00E44299 /* libiconv.2.tbd in Frameworks */,
+				B7F2688E1CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a in Frameworks */,
 				B7F268551CAE248500E44299 /* libstdc++.6.0.9.tbd in Frameworks */,
 				B7F268531CAE247A00E44299 /* libz.1.tbd in Frameworks */,
 				B7F268511CAE246F00E44299 /* libbz2.tbd in Frameworks */,
@@ -686,17 +687,16 @@
 				B7F268491CAE22F800E44299 /* CoreVideo.framework in Frameworks */,
 				B7F268471CAE22EE00E44299 /* CoreMedia.framework in Frameworks */,
 				B7F268451CAE22E400E44299 /* AudioToolbox.framework in Frameworks */,
+				B7F268911CAE4BC800E44299 /* libVitamio.a in Frameworks */,
 				B7F268431CAE22D900E44299 /* AVFoundation.framework in Frameworks */,
-				B7F268251CAE1C3900E44299 /* UvMOS_C_for_iOS_v1.1.0.a in Frameworks */,
+				B7F268901CAE4BC800E44299 /* libopenssl.a in Frameworks */,
+				B7F268931CAE4BC800E44299 /* libWeChatSDK.a in Frameworks */,
 				56CAFFC71C9BFC2100210081 /* SystemConfiguration.framework in Frameworks */,
 				56CAFFC51C9BFC0800210081 /* libz.tbd in Frameworks */,
+				B7F2688F1CAE4BC800E44299 /* libffmpeg.a in Frameworks */,
 				56CAFFC31C9BFBFC00210081 /* libsqlite3.0.tbd in Frameworks */,
 				56CAFFC11C9BFBEB00210081 /* CoreTelephony.framework in Frameworks */,
 				56CAFFBF1C9BFBDB00210081 /* libc++.tbd in Frameworks */,
-				B7F268231CAE1C3900E44299 /* libVitamio.a in Frameworks */,
-				B7F268211CAE1C3900E44299 /* libffmpeg.a in Frameworks */,
-				B7F268221CAE1C3900E44299 /* libopenssl.a in Frameworks */,
-				56CAFFBD1C9BFBB800210081 /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1150,6 +1150,9 @@
 		B71E7C4F1C743DA200DF1AA4 /* Thirdpart */ = {
 			isa = PBXGroup;
 			children = (
+				B7F268771CAE4BC800E44299 /* U-vMOS_SDK_for_iOS */,
+				B7F2687A1CAE4BC800E44299 /* Vitamio */,
+				B7F268891CAE4BC800E44299 /* WebChat */,
 				B7F268561CAE248D00E44299 /* libiconv.2.tbd */,
 				B7F268541CAE248500E44299 /* libstdc++.6.0.9.tbd */,
 				B7F268521CAE247A00E44299 /* libz.1.tbd */,
@@ -1162,13 +1165,10 @@
 				B7F268441CAE22E400E44299 /* AudioToolbox.framework */,
 				B7F268421CAE22D900E44299 /* AVFoundation.framework */,
 				B7F267B61CAE1C3900E44299 /* ZipArchive */,
-				B7F267C31CAE1C3900E44299 /* Vitamio */,
-				B7F267D21CAE1C3900E44299 /* U-vMOS_SDK_for_iOS */,
 				B7F267D51CAE1C3900E44299 /* RealReachability */,
 				B7F267F21CAE1C3900E44299 /* Lumberjack */,
 				B7F2680E1CAE1C3900E44299 /* fmdb */,
 				B7F268191CAE1C3900E44299 /* Chart */,
-				B7B5D8A01CA38C7800DFEEBA /* WebChat */,
 				56CAFFC61C9BFC2100210081 /* SystemConfiguration.framework */,
 				56CAFFC41C9BFC0800210081 /* libz.tbd */,
 				56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */,
@@ -1195,17 +1195,6 @@
 				5B1FEDBC1CAA74D600508920 /* SVViewController.m */,
 			);
 			path = UIUtils;
-			sourceTree = "<group>";
-		};
-		B7B5D8A01CA38C7800DFEEBA /* WebChat */ = {
-			isa = PBXGroup;
-			children = (
-				56CAFFB91C9BFBB800210081 /* libWeChatSDK.a */,
-				56CAFFBA1C9BFBB800210081 /* WechatAuthSDK.h */,
-				56CAFFBB1C9BFBB800210081 /* WXApi.h */,
-				56CAFFBC1C9BFBB800210081 /* WXApiObject.h */,
-			);
-			name = WebChat;
 			sourceTree = "<group>";
 		};
 		B7B5D8DD1CA40E3600DFEEBA /* LaunchImage */ = {
@@ -1281,50 +1270,6 @@
 				B7F267C01CAE1C3900E44299 /* zip.h */,
 			);
 			path = minizip;
-			sourceTree = "<group>";
-		};
-		B7F267C31CAE1C3900E44299 /* Vitamio */ = {
-			isa = PBXGroup;
-			children = (
-				B7F267C41CAE1C3900E44299 /* include */,
-				B7F267CE1CAE1C3900E44299 /* libffmpeg.a */,
-				B7F267CF1CAE1C3900E44299 /* libopenssl.a */,
-				B7F267D01CAE1C3900E44299 /* libVitamio.a */,
-				B7F267D11CAE1C3900E44299 /* LICENSE */,
-			);
-			path = Vitamio;
-			sourceTree = "<group>";
-		};
-		B7F267C41CAE1C3900E44299 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				B7F267C51CAE1C3900E44299 /* Vitamio */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		B7F267C51CAE1C3900E44299 /* Vitamio */ = {
-			isa = PBXGroup;
-			children = (
-				B7F267C61CAE1C3900E44299 /* VDefines.h */,
-				B7F267C71CAE1C3900E44299 /* Vitamio.h */,
-				B7F267C81CAE1C3900E44299 /* VMediaExtracter.h */,
-				B7F267C91CAE1C3900E44299 /* VMediaExtracterDef.h */,
-				B7F267CA1CAE1C3900E44299 /* VMediaPlayer.h */,
-				B7F267CB1CAE1C3900E44299 /* VMediaPlayerDelegate.h */,
-				B7F267CC1CAE1C3900E44299 /* VPlayerManageDef.h */,
-				B7F267CD1CAE1C3900E44299 /* VSingleton.h */,
-			);
-			path = Vitamio;
-			sourceTree = "<group>";
-		};
-		B7F267D21CAE1C3900E44299 /* U-vMOS_SDK_for_iOS */ = {
-			isa = PBXGroup;
-			children = (
-				B7F267D31CAE1C3900E44299 /* UvMOS_C_for_iOS_v1.1.0.a */,
-				B7F267D41CAE1C3900E44299 /* UvMOS_Outer_Api.h */,
-			);
-			path = "U-vMOS_SDK_for_iOS";
 			sourceTree = "<group>";
 		};
 		B7F267D51CAE1C3900E44299 /* RealReachability */ = {
@@ -1572,6 +1517,61 @@
 			name = Setting;
 			sourceTree = "<group>";
 		};
+		B7F268771CAE4BC800E44299 /* U-vMOS_SDK_for_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B7F268781CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a */,
+				B7F268791CAE4BC800E44299 /* UvMOS_Outer_Api.h */,
+			);
+			path = "U-vMOS_SDK_for_iOS";
+			sourceTree = "<group>";
+		};
+		B7F2687A1CAE4BC800E44299 /* Vitamio */ = {
+			isa = PBXGroup;
+			children = (
+				B7F2687B1CAE4BC800E44299 /* include */,
+				B7F268851CAE4BC800E44299 /* libffmpeg.a */,
+				B7F268861CAE4BC800E44299 /* libopenssl.a */,
+				B7F268871CAE4BC800E44299 /* libVitamio.a */,
+				B7F268881CAE4BC800E44299 /* LICENSE */,
+			);
+			path = Vitamio;
+			sourceTree = "<group>";
+		};
+		B7F2687B1CAE4BC800E44299 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				B7F2687C1CAE4BC800E44299 /* Vitamio */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		B7F2687C1CAE4BC800E44299 /* Vitamio */ = {
+			isa = PBXGroup;
+			children = (
+				B7F2687D1CAE4BC800E44299 /* VDefines.h */,
+				B7F2687E1CAE4BC800E44299 /* Vitamio.h */,
+				B7F2687F1CAE4BC800E44299 /* VMediaExtracter.h */,
+				B7F268801CAE4BC800E44299 /* VMediaExtracterDef.h */,
+				B7F268811CAE4BC800E44299 /* VMediaPlayer.h */,
+				B7F268821CAE4BC800E44299 /* VMediaPlayerDelegate.h */,
+				B7F268831CAE4BC800E44299 /* VPlayerManageDef.h */,
+				B7F268841CAE4BC800E44299 /* VSingleton.h */,
+			);
+			path = Vitamio;
+			sourceTree = "<group>";
+		};
+		B7F268891CAE4BC800E44299 /* WebChat */ = {
+			isa = PBXGroup;
+			children = (
+				B7F2688A1CAE4BC800E44299 /* libWeChatSDK.a */,
+				B7F2688B1CAE4BC800E44299 /* WechatAuthSDK.h */,
+				B7F2688C1CAE4BC800E44299 /* WXApi.h */,
+				B7F2688D1CAE4BC800E44299 /* WXApiObject.h */,
+			);
+			path = WebChat;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1683,7 +1683,7 @@
 				B7B5D8D51CA407BA00DFEEBA /* tabbar_settings@3x.png in Resources */,
 				4DD006061C609EDB007D4D2F /* ic_video_testing.png in Resources */,
 				5BE6DE1E1CAD2D5B00CA2B5B /* clock_pointer_gray@3x.png in Resources */,
-				B7F268241CAE1C3900E44299 /* LICENSE in Resources */,
+				B7F268921CAE4BC800E44299 /* LICENSE in Resources */,
 				4DD006051C609EDB007D4D2F /* ic_video_normal.png in Resources */,
 				568E033F1C78135D00A7CD72 /* rt_detail_title_web_img.png in Resources */,
 				B7C61B401CA68247001E32DC /* starting_window_cn@3x.png in Resources */,
@@ -2034,6 +2034,7 @@
 					"$(PROJECT_DIR)/SPUIView/Appdelegate",
 					"$(PROJECT_DIR)/Thirdpart/Vitamio",
 					"$(PROJECT_DIR)/Thirdpart/U-vMOS_SDK_for_iOS",
+					"$(PROJECT_DIR)/Thirdpart/WebChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SP;
@@ -2068,6 +2069,7 @@
 					"$(PROJECT_DIR)/SPUIView/Appdelegate",
 					"$(PROJECT_DIR)/Thirdpart/Vitamio",
 					"$(PROJECT_DIR)/Thirdpart/U-vMOS_SDK_for_iOS",
+					"$(PROJECT_DIR)/Thirdpart/WebChat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SP;
