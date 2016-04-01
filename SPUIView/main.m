@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <SPCommon/SVLog.h>
+#import "SVLog.h"
 #import <UIKit/UIKit.h>
 
 int main (int argc, char *argv[])

@@ -6,13 +6,13 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+#import "SVDBManager.h"
+#import "SVDetailResultModel.h"
 #import "SVDetailViewCtrl.h"
 #import "SVDetailViewModel.h"
 #import "SVResultViewCtrl.h"
+#import "SVTimeUtil.h"
 #import "SVToolCells.h"
-#import <SPCommon/SVDBManager.h>
-#import <SPCommon/SVTimeUtil.h>
-#import <SPService/SVDetailResultModel.h>
 #define kMargin 10
 #define kFirstHederH 40
 #define kLastFooterH 140

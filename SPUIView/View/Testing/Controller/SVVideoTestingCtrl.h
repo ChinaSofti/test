@@ -12,7 +12,7 @@
  */
 
 #import "SVCurrentResultModel.h"
-#import <SPService/SVVideoTest.h>
+#import "SVVideoTest.h"
 
 @interface SVVideoTestingCtrl : SVViewController <SVVideoTestDelegate>
 

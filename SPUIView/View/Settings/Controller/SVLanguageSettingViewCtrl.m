@@ -9,7 +9,7 @@
 #define Button_Tag 20
 
 #import "SVLanguageSettingViewCtrl.h"
-#import <SPService/SVProbeInfo.h>
+#import "SVProbeInfo.h"
 
 @interface SVLanguageSettingViewCtrl ()
 

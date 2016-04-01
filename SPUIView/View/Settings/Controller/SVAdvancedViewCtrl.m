@@ -7,9 +7,11 @@
 //
 #import "SVAdvancedViewCtrl.h"
 #import "SVBandWidthCtrl.h"
+#import "SVProbeInfo.h"
+#import "SVSpeedTestServers.h"
+#import "SVSpeedTestServers.h"
 #import "SVTextField.h"
 #import "SVToast.h"
-#import <SPService/SVProbeInfo.h>
 
 @interface SVAdvancedViewCtrl () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 

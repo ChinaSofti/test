@@ -9,11 +9,11 @@
 #import "SVAboutViewCtrl.h"
 #import "SVAdvancedViewCtrl.h"
 #import "SVBWSettingViewCtrl.h"
+#import "SVIPAndISPGetter.h"
 #import "SVLanguageSettingViewCtrl.h"
+#import "SVRealReachability.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
-#import <SPCommon/SVRealReachability.h>
-#import <SPService/SVIPAndISPGetter.h>
 //微信分享
 #import "WXApi.h"
 //上传日志提示

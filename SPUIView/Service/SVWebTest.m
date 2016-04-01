@@ -6,10 +6,12 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+#import "SVDBManager.h"
 #import "SVNetworkTrafficMonitor.h"
+#import "SVProbeInfo.h"
+#import "SVSpeedTestServers.h"
+#import "SVTestContextGetter.h"
 #import "SVWebTest.h"
-#import <SPCommon/SVDBManager.h>
-#import <SPService/SPService.h>
 
 @import WebKit;
 

@@ -5,9 +5,8 @@
 //  Created by 徐瑞 on 16/3/3.
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
+#import "SVWebTestContext.h"
 #import "SVWebTestResult.h"
-#import <Foundation/Foundation.h>
-#import <SPService/SPService.h>
 
 @import WebKit;
 

@@ -1,6 +1,0 @@
-framework module SPService {
-  umbrella header "SPService.h"
-
-  export *
-  module * { export * }
-}

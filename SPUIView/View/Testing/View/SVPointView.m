@@ -9,7 +9,7 @@
 
 #import "SVPointView.h"
 #import "SVVideoTestingCtrl.h"
-#import <SPCommon/UUBar.h>
+#import "UUBar.h"
 
 @interface SVPointView ()
 //定义转盘imageView

@@ -54,9 +54,8 @@
 #import "CTWBViewTools.h"
 #import "SVViewController.h"
 #import "SVVideoTestingCtrl.h"
-#import <SPService/SPService.h>
-#import <SPCommon/SVLog.h>
-#import <SPCommon/SVI18N.h>
+#import "SVLog.h"
+#import "SVI18N.h"
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 

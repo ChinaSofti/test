@@ -7,11 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "SVProbeInfo.h"
+#import "SVSpeedTestServers.h"
 #import "SVTabBarController.h"
+#import "SVTestContextGetter.h"
 #import "SVToast.h"
-#import <SPService/SVProbeInfo.h>
-#import <SPService/SVSpeedTestServers.h>
-#import <SPService/SVTestContextGetter.h>
 //微信分享
 #import "WXApi.h"
 @interface AppDelegate () <WXApiDelegate>

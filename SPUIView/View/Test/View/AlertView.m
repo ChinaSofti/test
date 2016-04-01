@@ -7,8 +7,9 @@
 //
 
 #import "AlertView.h"
+#import "SVIPAndISPGetter.h"
+#import "SVProbeInfo.h"
 #import "UIView+Exten.h"
-#import <SPService/SVIPAndISPGetter.h>
 
 static NSInteger BtnTag = 10086;
 @interface AlertView ()

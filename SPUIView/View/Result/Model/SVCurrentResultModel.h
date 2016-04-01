@@ -13,7 +13,7 @@
 // 基本参数
 @property (nonatomic, retain) NSArray *selectedA;
 @property (nonatomic, retain) UINavigationController *navigationController;
-@property UITabBarController *tabBarController;
+@property (nonatomic, retain) UITabBarController *tabBarController;
 
 // 测试例 ID， 标示唯一
 @property long long testId;

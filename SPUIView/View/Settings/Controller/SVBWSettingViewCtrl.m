@@ -8,9 +8,9 @@
 #define BUTTON_TAG 30
 
 #import "SVBWSettingViewCtrl.h"
+#import "SVIPAndISPGetter.h"
+#import "SVProbeInfo.h"
 #import "SVTextField.h"
-#import <SPService/SVIPAndISPGetter.h>
-#import <SPService/SVProbeInfo.h>
 
 @interface SVBWSettingViewCtrl ()
 

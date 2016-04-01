@@ -7,12 +7,12 @@
 //
 
 #import "SVCurrentResultViewCtrl.h"
+#import "SVDBManager.h"
 #import "SVDetailViewCtrl.h"
 #import "SVResultPush.h"
+#import "SVTestContextGetter.h"
 #import "SVTestViewCtrl.h"
-#import <SPCommon/SVDBManager.h>
-#import <SPCommon/SVTimeUtil.h>
-#import <SPService/SVTestContextGetter.h>
+#import "SVTimeUtil.h"
 #define kFirstHederH 40
 #define kLastFooterH 140
 #define kCellH (kScreenW - 20) * 0.22

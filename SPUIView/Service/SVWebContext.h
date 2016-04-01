@@ -6,7 +6,7 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
-#import <SPService/SPService.h>
+#import "SVWebTestContext.h"
 
 @interface SVWebContext : SVWebTestContext
 

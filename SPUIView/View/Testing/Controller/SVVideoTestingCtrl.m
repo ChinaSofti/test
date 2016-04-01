@@ -10,11 +10,12 @@
 #import "SVFooterView.h"
 #import "SVHeaderView.h"
 #import "SVPointView.h"
+#import "SVProbeInfo.h"
+#import "SVTimeUtil.h"
+#import "SVVideoTest.h"
 #import "SVVideoTestingCtrl.h"
 #import "SVVideoView.h"
-#import <SPCommon/SVTimeUtil.h>
-#import <SPCommon/UUBar.h>
-#import <SPService/SVVideoTest.h>
+#import "UUBar.h"
 
 @interface SVVideoTestingCtrl ()
 {

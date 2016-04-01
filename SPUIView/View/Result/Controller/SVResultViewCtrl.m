@@ -8,11 +8,11 @@
 
 #define Button_Tag 10
 
+#import "SVDBManager.h"
 #import "SVDetailViewCtrl.h"
 #import "SVResultCell.h"
 #import "SVResultViewCtrl.h"
-#import <SPCommon/SVDBManager.h>
-#import <SPService/SVSummaryResultModel.h>
+#import "SVSummaryResultModel.h"
 
 @interface SVResultViewCtrl () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 {

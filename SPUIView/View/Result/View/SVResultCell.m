@@ -12,8 +12,8 @@
 #define CornerRadius 5
 
 #import "SVResultCell.h"
-#import <SPCommon/SVTimeUtil.h>
-#import <SPService/SVSummaryResultModel.h>
+#import "SVSummaryResultModel.h"
+#import "SVTimeUtil.h"
 
 @interface SVResultCell ()
 

@@ -7,7 +7,8 @@
 //
 #import "SVBandWidthCtrl.h"
 #import "SVGetDistance.h"
-#import <SPService/SVSpeedTestServers.h>
+#import "SVIPAndISPGetter.h"
+#import "SVSpeedTestServers.h"
 
 @interface SVBandWidthCtrl () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 {

@@ -10,12 +10,12 @@
 #import "SVCurrentResultModel.h"
 #import "SVCurrentResultViewCtrl.h"
 #import "SVSpeedTestingViewCtrl.h"
+#import "SVTestContextGetter.h"
 #import "SVTestViewCtrl.h"
+#import "SVTimeUtil.h"
 #import "SVToolCell.h"
 #import "SVVideoTestingCtrl.h"
 #import "SVWebTestingViewCtrl.h"
-#import <SPCommon/SVTimeUtil.h>
-#import <SPService/SVTestContextGetter.h>
 
 @interface SVTestViewCtrl () <SVToolCellDelegate, UITableViewDelegate, UITableViewDataSource>
 

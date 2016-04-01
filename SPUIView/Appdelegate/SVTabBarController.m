@@ -10,9 +10,8 @@
 #import "SVResultViewCtrl.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVTabBarController.h"
+#import "SVTestContextGetter.h"
 #import "SVTestViewCtrl.h"
-#import <SPCommon/SVI18N.h>
-#import <SPCommon/SVLog.h>
 
 
 @interface SVTabBarController () <AlertViewDelegate>

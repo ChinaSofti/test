@@ -7,11 +7,12 @@
 //
 
 
+#import "SVDBManager.h"
+#import "SVDetailResultModel.h"
+#import "SVHttpsGetter.h"
+#import "SVIPAndISPGetter.h"
+#import "SVProbeInfo.h"
 #import "SVResultPush.h"
-#import <SPCommon/SVDBManager.h>
-#import <SPCommon/SVHttpsGetter.h>
-#import <SPService/SVIPAndISPGetter.h>
-#import <SPService/SVProbeInfo.h>
 
 @interface SVResultPush ()
 
