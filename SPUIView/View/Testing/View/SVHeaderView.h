@@ -10,16 +10,6 @@
 
 @interface SVHeaderView : UIView
 
-// videotesting
-// HeaderView中的属性值
-@property (nonatomic, strong) UIView *uvMosBarView; // uvMos
-@property (nonatomic, strong) UILabel *speedLabel; //测试速度
-@property (nonatomic, strong) UILabel *speedLabel1; // 单位ms
-@property (nonatomic, strong) UILabel *bufferLabel; //首次加载时间
-//对应的标题
-@property (nonatomic, strong) UILabel *uvMosNumLabel;
-@property (nonatomic, strong) UILabel *speedNumLabel;
-@property (nonatomic, strong) UILabel *bufferNumLabel;
 // webtesting
 // HeaderView中的属性值
 @property (nonatomic, strong) UILabel *ResponseLabel; // 响应时间
@@ -44,4 +34,28 @@
 @property (nonatomic, strong) UILabel *DelayNumLabel;
 @property (nonatomic, strong) UILabel *DownloadspeedNumLabel;
 @property (nonatomic, strong) UILabel *UploadspeedNumLabel;
+
+//初始化方法
+- (instancetype)initWithDic:(NSMutableDictionary *)dic;
+
+/**
+ * 将左侧的labe换成view
+ */
+- (void)replaceLeftLabelWithView:(UIView *)view;
+
+/**
+ * 更新左侧的label内容
+ */
+- (void)updateLeftValue:(NSString *)value;
+
+/**
+ * 更新中间的label内容
+ */
+- (void)updateMiddleValue:(NSString *)value;
+
+/**
+ * 更新右侧的label内容
+ */
+- (void)updateRightValue:(NSString *)value;
+
 @end

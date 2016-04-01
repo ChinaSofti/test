@@ -27,12 +27,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [WXApi registerApp:@"wx2cce736067ee4a2d"];
 
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#45545C"]];
+
     // 设置tabbar的背景颜色
     [[UITabBar appearance] setBarTintColor:[UIColor colorWithHexString:@"EEEEEE"]];
-
-    // 去掉tabbar边框
-    //        [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
-    //        [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
 
     // 1.初始化一个window
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

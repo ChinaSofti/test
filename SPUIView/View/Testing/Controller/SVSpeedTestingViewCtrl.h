@@ -13,7 +13,7 @@
 #import "SVCurrentResultModel.h"
 #import "SVSpeedTest.h"
 
-@interface SVSpeedTestingViewCtrl : UIViewController <SVSpeedTestDelegate>
+@interface SVSpeedTestingViewCtrl : SVViewController <SVSpeedTestDelegate>
 
 @property (nonatomic, retain) NSArray *selectedA;
 

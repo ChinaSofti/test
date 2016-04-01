@@ -18,240 +18,202 @@
 @end
 
 @implementation SVPointView
-//初始化方法
-- (instancetype)init
+{
+    NSString *testType;
+}
+
+// 根据字典内容初始化表盘
+- (instancetype)initWithDic:(NSMutableDictionary *)dic
 {
     self = [super init];
-
-    if (self)
+    if (!self)
     {
-        // VideoTestingView中的初始化
-        _pointView = [[UIView alloc]
-        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
-        UIImageView *imageView0 = [[UIImageView alloc] initWithFrame:CGRectZero];
-        imageView0.size = CGSizeMake (280, 280);
-        imageView0.image = [UIImage imageNamed:@"clock_pointer_blue"];
-        imageView0.center = CGPointMake (_pointView.frame.size.width / 2, _pointView.frame.size.height / 2);
-        [_pointView addSubview:imageView0];
-
-        _panelView = [[UIView alloc]
-        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        imageView.size = CGSizeMake (280, 280);
-        imageView.image = [UIImage imageNamed:@"clock_video_panel"];
-        imageView.center = CGPointMake (_panelView.frame.size.width / 2, _panelView.frame.size.height / 2);
-        [_panelView addSubview:imageView];
-
-        _middleView = [[UIView alloc]
-        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
-        UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectZero];
-        imageView2.size = CGSizeMake (280, 280);
-        imageView2.image = [UIImage imageNamed:@"clock_middle"];
-        imageView2.center = CGPointMake (_panelView.frame.size.width / 2, _panelView.frame.size.height / 2);
-        [_middleView addSubview:imageView2];
-
-
-        _grayView = [[SVPointView alloc]
-        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
-        UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:CGRectZero];
-        imageView3.size = CGSizeMake (280, 280);
-        imageView3.image = [UIImage imageNamed:@"clock_pointer_gray"];
-        imageView3.center = CGPointMake (_panelView.frame.size.width / 2, _panelView.frame.size.height / 2);
-        [_grayView addSubview:imageView3];
-
-
-        _label1 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (130), FITWIDTH (290), FITWIDTH (60), FITWIDTH (20))];
-        _label1.text = @"U-vMOS";
-        _label1.font = [UIFont systemFontOfSize:13.0f];
-        _label1.textAlignment = NSTextAlignmentCenter;
-
-
-        _label2 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (110), FITWIDTH (350), FITWIDTH (100), FITWIDTH (50))];
-        _label2.text = @"0.00";
-        _label2.textColor = RGBACOLOR (44, 166, 222, 1);
-        _label2.font = [UIFont systemFontOfSize:36.0f];
-        _label2.textAlignment = NSTextAlignmentCenter;
-
-
-        //        _pointView = [[[NSBundle mainBundle] loadNibNamed:@"SVPointView" owner:nil
-        //        options:nil] lastObject];
-        //        _pointView.center = _panelView.center;
-        //        _pointView.center = CGPointMake(_panelView.frame.size.width/2,
-        //        _panelView.frame.size.height/2);
-
-
-        // WebTestingView中的初始化
-
-        NSString *title1 = I18N (@"Load duration");
-        _panelView2 = [[UIView alloc]
-        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
-        UIImageView *imageView12 = [[UIImageView alloc] initWithFrame:CGRectZero];
-        imageView12.size = CGSizeMake (280, 280);
-        imageView12.image = [UIImage imageNamed:@"clock_web_panel"];
-        imageView12.center =
-        CGPointMake (_panelView2.frame.size.width / 2, _panelView2.frame.size.height / 2);
-        [_panelView2 addSubview:imageView12];
-
-        _grayView2 = [[SVPointView alloc]
-        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
-        UIImageView *imageView32 = [[UIImageView alloc] initWithFrame:CGRectZero];
-        imageView32.size = CGSizeMake (280, 280);
-        imageView32.image = [UIImage imageNamed:@"clock_pointer_gray"];
-        imageView32.center =
-        CGPointMake (_panelView2.frame.size.width / 2, _panelView2.frame.size.height / 2);
-        [_grayView2 addSubview:imageView32];
-
-        _label12 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (120), FITWIDTH (290), FITWIDTH (80), FITWIDTH (20))];
-        _label12.text = title1;
-        _label12.font = [UIFont systemFontOfSize:13.0f];
-        _label12.textAlignment = NSTextAlignmentCenter;
-
-
-        _label22 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (110), FITWIDTH (350), FITWIDTH (80), FITWIDTH (50))];
-        _label22.text = @"0.00";
-        _label22.textColor = RGBACOLOR (44, 166, 222, 1);
-        _label22.font = [UIFont systemFontOfSize:36.0f];
-        _label22.textAlignment = NSTextAlignmentCenter;
-
-        _label32 = [[UILabel alloc]
-        initWithFrame:CGRectMake (_label22.rightX, FITWIDTH (355), FITWIDTH (10), FITWIDTH (50))];
-        _label32.text = @"s";
-        _label32.textColor = RGBACOLOR (44, 166, 222, 1);
-        _label32.font = [UIFont systemFontOfSize:18.0f];
-        _label32.textAlignment = NSTextAlignmentCenter;
-
-        // SpeedTestingView中的初始化
-        NSString *title2 = I18N (@"Download");
-        _panelView3 = [[UIView alloc]
-        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
-        UIImageView *imageView13 = [[UIImageView alloc] initWithFrame:CGRectZero];
-        imageView13.size = CGSizeMake (280, 280);
-        imageView13.image = [UIImage imageNamed:@"clock_speed_panel"];
-        imageView13.center =
-        CGPointMake (_panelView3.frame.size.width / 2, _panelView3.frame.size.height / 2);
-        [_panelView3 addSubview:imageView13];
-
-        _grayView3 = [[SVPointView alloc]
-        initWithFrame:CGRectMake (FITWIDTH (20), FITWIDTH (160), FITWIDTH (280), FITWIDTH (280))];
-        UIImageView *imageView33 = [[UIImageView alloc] initWithFrame:CGRectZero];
-        imageView33.size = CGSizeMake (280, 280);
-        imageView33.image = [UIImage imageNamed:@"clock_pointer_gray"];
-        imageView33.center =
-        CGPointMake (_panelView3.frame.size.width / 2, _panelView3.frame.size.height / 2);
-        [_grayView3 addSubview:imageView33];
-
-
-        _label13 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (120), FITWIDTH (290), FITWIDTH (80), FITWIDTH (20))];
-        _label13.text = title2;
-        _label13.font = [UIFont systemFontOfSize:13.0f];
-        _label13.textAlignment = NSTextAlignmentCenter;
-
-
-        _label23 = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (110), FITWIDTH (350), FITWIDTH (80), FITWIDTH (50))];
-        _label23.text = @"0.00";
-        _label23.textColor = RGBACOLOR (44, 166, 222, 1);
-        _label23.font = [UIFont systemFontOfSize:36.0f];
-        _label23.textAlignment = NSTextAlignmentCenter;
-
-        _label33 = [[UILabel alloc]
-        initWithFrame:CGRectMake (_label23.rightX, FITWIDTH (355), FITWIDTH (30), FITWIDTH (50))];
-        _label33.text = @"Mbps";
-        _label33.textColor = RGBACOLOR (44, 166, 222, 1);
-        _label33.font = [UIFont systemFontOfSize:18.0f];
-        _label33.textAlignment = NSTextAlignmentCenter;
+        return nil;
     }
+
+    // 设置view大小
+    [self setFrame:CGRectMake (0, FITHEIGHT (456), kScreenW, FITHEIGHT (830))];
+
+    // 根据类型获取imageName
+    testType = dic[@"testType"];
+    NSString *imageName = @"clock_video_panel";
+    if ([testType isEqualToString:@"web"])
+    {
+        imageName = @"clock_web_panel";
+    }
+    if ([testType isEqualToString:@"speed"])
+    {
+        imageName = @"clock_speed_panel";
+    }
+
+    // 初始化表盘的view
+    _pointView =
+    [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (125), 0, FITWIDTH (830), FITHEIGHT (830))];
+    UIImageView *pointImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    pointImageView.size = CGSizeMake (FITWIDTH (830), FITHEIGHT (830));
+    pointImageView.image = [UIImage imageNamed:@"clock_pointer_blue"];
+    pointImageView.center = CGPointMake (_pointView.frame.size.width / 2, _pointView.frame.size.height / 2);
+    [_pointView addSubview:pointImageView];
+
+    _panelView =
+    [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (125), 0, FITWIDTH (830), FITHEIGHT (830))];
+    UIImageView *panelImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    panelImageView.size = CGSizeMake (FITWIDTH (830), FITHEIGHT (830));
+    panelImageView.image = [UIImage imageNamed:imageName];
+    panelImageView.center = CGPointMake (_panelView.frame.size.width / 2, _panelView.frame.size.height / 2);
+    [_panelView addSubview:panelImageView];
+
+    _middleView =
+    [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (125), 0, FITWIDTH (830), FITHEIGHT (830))];
+    UIImageView *middleImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    middleImageView.size = CGSizeMake (FITWIDTH (830), FITHEIGHT (830));
+    middleImageView.image = [UIImage imageNamed:@"clock_middle"];
+    middleImageView.center = CGPointMake (_panelView.frame.size.width / 2, _panelView.frame.size.height / 2);
+    [_middleView addSubview:middleImageView];
+
+
+    _grayView =
+    [[SVPointView alloc] initWithFrame:CGRectMake (FITWIDTH (125), 0, FITWIDTH (830), FITHEIGHT (830))];
+    UIImageView *grayImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    grayImageView.size = CGSizeMake (FITWIDTH (830), FITHEIGHT (830));
+    grayImageView.image = [UIImage imageNamed:@"clock_pointer_gray"];
+    grayImageView.center = CGPointMake (_panelView.frame.size.width / 2, _panelView.frame.size.height / 2);
+    [_grayView addSubview:grayImageView];
+
+
+    _titleLabel = [[UILabel alloc]
+    initWithFrame:CGRectMake (FITWIDTH (453), FITHEIGHT (343), FITWIDTH (174), FITHEIGHT (144))];
+    _titleLabel.text = dic[@"title"];
+    _titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
+    _titleLabel.textColor = [UIColor colorWithHexString:@"#B2000000"];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+
+
+    _valueLabel = [[UILabel alloc]
+    initWithFrame:CGRectMake (FITWIDTH (395), FITHEIGHT (560), FITWIDTH (290), FITHEIGHT (144))];
+    _valueLabel.text = dic[@"defaultValue"];
+    _valueLabel.textColor = [UIColor colorWithHexString:@"#29A5E5"];
+    _valueLabel.font = [UIFont systemFontOfSize:pixelToFontsize (118)];
+    _valueLabel.textAlignment = NSTextAlignmentCenter;
+
+    NSString *unitStr = dic[@"unit"];
+    if (!unitStr)
+    {
+        _unitLabel = [[UILabel alloc]
+        initWithFrame:CGRectMake (_valueLabel.rightX, FITHEIGHT (560), FITWIDTH (29), FITHEIGHT (129))];
+        _unitLabel.text = unitStr;
+        _unitLabel.textColor = [UIColor colorWithHexString:@"#29A5E5"];
+        _unitLabel.font = [UIFont systemFontOfSize:pixelToFontsize (78)];
+        _unitLabel.textAlignment = NSTextAlignmentCenter;
+    }
+
+    [self addSubview:_pointView];
+    [self addSubview:_grayView];
+    [self addSubview:_panelView];
+    [self addSubview:_middleView];
+    [self addSubview:_titleLabel];
+    [self addSubview:_valueLabel];
+    [self addSubview:_unitLabel];
+
     return self;
 }
-// video
+
 //开始转动方法
 - (void)start
 {
 
-    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector (rotate)];
+    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector (rotate_5)];
+    if ([testType isEqualToString:@"web"])
+    {
+        link = [CADisplayLink displayLinkWithTarget:self selector:@selector (rotate_10)];
+    }
+    if ([testType isEqualToString:@"speed"])
+    {
+        link = [CADisplayLink displayLinkWithTarget:self selector:@selector (rotate_100)];
+    }
+
     [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 //转动角度,速度控制
-- (void)rotate
+- (void)rotate_5
 {
     //设置图片旋转速度
     self.pointView.transform = CGAffineTransformMakeRotation (self.num / 1.2);
 }
 
 /**
- *  更新仪表盘UvMOS值
+ *  更新仪表盘的指标值
  *
  *  @param uvMOS uvMOS值
  */
-- (void)updateUvMOS:(float)uvMOS
+- (void)updateValue:(float)value
 {
-    _num = -1;
-    if (uvMOS != _num)
+    if ([testType isEqualToString:@"video"])
     {
-        if (uvMOS < 2.5)
-        {
-            self.grayView.transform = CGAffineTransformMakeRotation (0 / 1.2);
-        }
-        if (uvMOS >= 2.5)
-        {
-            self.grayView.transform = CGAffineTransformMakeRotation (uvMOS / 1.2 - 2.5 / 1.2);
-        }
-        _num = uvMOS;
-        _label2.text = [NSString stringWithFormat:@"%.2f", _num];
+        [self updateValue_5:value];
+    }
+
+    if ([testType isEqualToString:@"web"])
+    {
+        [self updateValue_10:value];
+    }
+    if ([testType isEqualToString:@"speed"])
+    {
+        [self updateValue_100:value];
     }
 }
 
-// web
-//开始转动方法
-- (void)start2
+/**
+ *  更新仪表盘的指标值
+ *
+ *  @param uvMOS uvMOS值
+ */
+- (void)updateValue_5:(float)value
 {
-
-    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector (rotate2)];
-    [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    _num = -1;
+    if (value != _num)
+    {
+        if (value < 2.5)
+        {
+            self.grayView.transform = CGAffineTransformMakeRotation (0 / 1.2);
+        }
+        if (value >= 2.5)
+        {
+            self.grayView.transform = CGAffineTransformMakeRotation (value / 1.2 - 2.5 / 1.2);
+        }
+        _num = value;
+        _valueLabel.text = [NSString stringWithFormat:@"%.2f", _num];
+    }
 }
 
 //转动角度,速度控制
-- (void)rotate2
+- (void)rotate_10
 {
     //设置图片旋转速度
     self.pointView.transform = CGAffineTransformMakeRotation (self.num / 2.4);
 }
 
-- (void)updateUvMOS2:(float)uvMOS
+- (void)updateValue_10:(float)uvMOS
 {
     _num = -1;
     if (uvMOS != _num)
     {
         if (uvMOS < 5)
         {
-            self.grayView2.transform = CGAffineTransformMakeRotation (0 / 2.4);
+            self.grayView.transform = CGAffineTransformMakeRotation (0 / 2.4);
         }
         if (uvMOS >= 5)
         {
-            self.grayView2.transform = CGAffineTransformMakeRotation (uvMOS / 2.4 - 5 / 2.4);
+            self.grayView.transform = CGAffineTransformMakeRotation (uvMOS / 2.4 - 5 / 2.4);
         }
         _num = uvMOS;
-        _label22.text = [NSString stringWithFormat:@"%.2f", _num];
+        _valueLabel.text = [NSString stringWithFormat:@"%.2f", _num];
     }
 }
 
-// speed
-//开始转动方法
-- (void)start3
-{
-
-    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector (rotate3)];
-    [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-}
-
 //转动角度,速度控制
-- (void)rotate3
+- (void)rotate_100
 {
     if (_num < 3) // 0-8
     {
@@ -277,53 +239,35 @@
     {
         self.pointView.transform = CGAffineTransformMakeRotation (0.0108 * (self.num - 50) + 3.62);
     }
-
-    // 0
-    //    self.pointView.transform = CGAffineTransformMakeRotation (0);
-    // 1
-    //    self.pointView.transform = CGAffineTransformMakeRotation (0.52);
-    // 3
-    //    self.pointView.transform = CGAffineTransformMakeRotation (1.56);
-    // 5
-    //    self.pointView.transform = CGAffineTransformMakeRotation (2.08);   (l5-l3)/(5-3) *(self
-    //    -3) + M= 0.26*(sel -3)+M//3-5
-    // 10
-    //    self.pointView.transform = CGAffineTransformMakeRotation (2.6);
-    // 20
-    //    self.pointView.transform = CGAffineTransformMakeRotation (3.12);
-    // 50
-    //    self.pointView.transform = CGAffineTransformMakeRotation (3.62);
-    // 100
-    //    self.pointView.transform = CGAffineTransformMakeRotation (4.16);
 }
 
-- (void)updateUvMOS3:(float)uvMOS
+- (void)updateValue_100:(float)uvMOS
 {
     _num = -1;
     if (uvMOS != _num)
     {
         if (uvMOS < 5) // 0-8
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation (0);
+            self.grayView.transform = CGAffineTransformMakeRotation (0);
         }
         if (uvMOS >= 5 && uvMOS < 10) // 0-25
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation (0.104 * (uvMOS - 5));
+            self.grayView.transform = CGAffineTransformMakeRotation (0.104 * (uvMOS - 5));
         }
         if (uvMOS >= 10 && uvMOS < 20) // 0-40
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation (0.052 * (uvMOS - 10) + 0.52);
+            self.grayView.transform = CGAffineTransformMakeRotation (0.052 * (uvMOS - 10) + 0.52);
         }
         if (uvMOS >= 20 && uvMOS < 50) // 0-80
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation (0.017 * (uvMOS - 20) + 0.52 * 2);
+            self.grayView.transform = CGAffineTransformMakeRotation (0.017 * (uvMOS - 20) + 0.52 * 2);
         }
         if (uvMOS >= 50 && uvMOS < 100) // 0-100
         {
-            self.grayView3.transform = CGAffineTransformMakeRotation (0.0108 * (uvMOS - 50) + 0.52 * 3);
+            self.grayView.transform = CGAffineTransformMakeRotation (0.0108 * (uvMOS - 50) + 0.52 * 3);
         }
         _num = uvMOS;
-        _label23.text = [NSString stringWithFormat:@"%.2f", _num];
+        _valueLabel.text = [NSString stringWithFormat:@"%.2f", _num];
     }
 }
 @end

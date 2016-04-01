@@ -13,9 +13,8 @@
 
 #import "SVCurrentResultModel.h"
 #import <SPService/SVVideoTest.h>
-#import <UIKit/UIKit.h>
 
-@interface SVVideoTestingCtrl : UIViewController <SVVideoTestDelegate>
+@interface SVVideoTestingCtrl : SVViewController <SVVideoTestDelegate>
 
 @property SVCurrentResultModel *currentResultModel;
 

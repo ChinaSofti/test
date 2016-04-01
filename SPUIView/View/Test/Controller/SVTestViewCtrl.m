@@ -36,25 +36,6 @@
     [super viewDidLoad];
     SVInfo (@"SVTestViewController");
 
-    // 设置图片宽和高
-    CGFloat imageW = FITWIDTH (100);
-    CGFloat imageH = FITHEIGHT (120);
-
-    // 自定义navigationItem.titleView
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, imageW, imageH)];
-
-    //设置图片名称
-    imageView.image = [UIImage imageNamed:@"speedpro"];
-
-    //让图片适应
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-
-    //把图片添加到navigationItem.titleView
-    self.navigationItem.titleView = imageView;
-
-    //电池显示不了,设置样式让电池显示
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-
     // 编辑界面
     // 创建一个 tableView，style:Grouped化合的,分组的
     _tableView =

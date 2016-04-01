@@ -14,7 +14,7 @@
 #import "SVWebTest.h"
 #import <UIKit/UIKit.h>
 
-@interface SVWebTestingViewCtrl : UIViewController <SVWebTestDelegate>
+@interface SVWebTestingViewCtrl : SVViewController <SVWebTestDelegate>
 
 @property SVCurrentResultModel *currentResultModel;
 

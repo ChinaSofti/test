@@ -63,12 +63,6 @@
 		568E03421C78137C00A7CD72 /* ic_language_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 568E03411C78137C00A7CD72 /* ic_language_select.png */; };
 		56A919151C4F4BAA00E8BB72 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A919101C4F4BAA00E8BB72 /* AppDelegate.m */; };
 		56AA27361C57090400FA5D0F /* CTWBViewTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AA27351C57090400FA5D0F /* CTWBViewTools.m */; };
-		56AA74771C7C36C500BA7E51 /* clock_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = 56AA74711C7C36C500BA7E51 /* clock_middle.png */; };
-		56AA74791C7C36C500BA7E51 /* clock_pointer_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 56AA74731C7C36C500BA7E51 /* clock_pointer_gray.png */; };
-		56AA747A1C7C36C500BA7E51 /* clock_speed_panel.png in Resources */ = {isa = PBXBuildFile; fileRef = 56AA74741C7C36C500BA7E51 /* clock_speed_panel.png */; };
-		56AA747B1C7C36C500BA7E51 /* clock_video_panel.png in Resources */ = {isa = PBXBuildFile; fileRef = 56AA74751C7C36C500BA7E51 /* clock_video_panel.png */; };
-		56AA747C1C7C36C500BA7E51 /* clock_web_panel.png in Resources */ = {isa = PBXBuildFile; fileRef = 56AA74761C7C36C500BA7E51 /* clock_web_panel.png */; };
-		56AA74801C7C3A9900BA7E51 /* clock_pointer_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 56AA747F1C7C3A9900BA7E51 /* clock_pointer_blue.png */; };
 		56B5180D1C5126C700AA76F1 /* UIView+Exten.m in Sources */ = {isa = PBXBuildFile; fileRef = 56B5180C1C5126C700AA76F1 /* UIView+Exten.m */; };
 		56BA8FDA1C561E9100886CAE /* SVToolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCA1C561E9100886CAE /* SVToolModel.m */; };
 		56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCD1C561E9100886CAE /* AlertView.m */; };
@@ -105,6 +99,18 @@
 		5BC491F21CAB5D420002CA68 /* ic_web_label@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BC491E61CAB5D420002CA68 /* ic_web_label@2x.png */; };
 		5BC491F31CAB5D420002CA68 /* ic_web_label@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BC491E71CAB5D420002CA68 /* ic_web_label@3x.png */; };
 		5BDB915B1CA130A500B1E9D2 /* SVSpeedDelayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB915A1CA130A500B1E9D2 /* SVSpeedDelayTest.m */; };
+		5BE6DE191CAD2D5B00CA2B5B /* clock_middle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE0D1CAD2D5B00CA2B5B /* clock_middle@2x.png */; };
+		5BE6DE1A1CAD2D5B00CA2B5B /* clock_middle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE0E1CAD2D5B00CA2B5B /* clock_middle@3x.png */; };
+		5BE6DE1B1CAD2D5B00CA2B5B /* clock_pointer_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE0F1CAD2D5B00CA2B5B /* clock_pointer_blue@2x.png */; };
+		5BE6DE1C1CAD2D5B00CA2B5B /* clock_pointer_blue@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE101CAD2D5B00CA2B5B /* clock_pointer_blue@3x.png */; };
+		5BE6DE1D1CAD2D5B00CA2B5B /* clock_pointer_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE111CAD2D5B00CA2B5B /* clock_pointer_gray@2x.png */; };
+		5BE6DE1E1CAD2D5B00CA2B5B /* clock_pointer_gray@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE121CAD2D5B00CA2B5B /* clock_pointer_gray@3x.png */; };
+		5BE6DE1F1CAD2D5B00CA2B5B /* clock_speed_panel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE131CAD2D5B00CA2B5B /* clock_speed_panel@2x.png */; };
+		5BE6DE201CAD2D5B00CA2B5B /* clock_speed_panel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE141CAD2D5B00CA2B5B /* clock_speed_panel@3x.png */; };
+		5BE6DE211CAD2D5B00CA2B5B /* clock_video_panel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE151CAD2D5B00CA2B5B /* clock_video_panel@2x.png */; };
+		5BE6DE221CAD2D5B00CA2B5B /* clock_video_panel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE161CAD2D5B00CA2B5B /* clock_video_panel@3x.png */; };
+		5BE6DE231CAD2D5B00CA2B5B /* clock_web_panel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE171CAD2D5B00CA2B5B /* clock_web_panel@2x.png */; };
+		5BE6DE241CAD2D5B00CA2B5B /* clock_web_panel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE181CAD2D5B00CA2B5B /* clock_web_panel@3x.png */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B748CE251C9FF62C00FD388C /* SVTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE241C9FF62C00FD388C /* SVTextField.m */; };
@@ -275,12 +281,6 @@
 		56A919121C4F4BAA00E8BB72 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		56AA27341C57090400FA5D0F /* CTWBViewTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTWBViewTools.h; sourceTree = "<group>"; };
 		56AA27351C57090400FA5D0F /* CTWBViewTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTWBViewTools.m; sourceTree = "<group>"; };
-		56AA74711C7C36C500BA7E51 /* clock_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock_middle.png; sourceTree = "<group>"; };
-		56AA74731C7C36C500BA7E51 /* clock_pointer_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock_pointer_gray.png; sourceTree = "<group>"; };
-		56AA74741C7C36C500BA7E51 /* clock_speed_panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock_speed_panel.png; sourceTree = "<group>"; };
-		56AA74751C7C36C500BA7E51 /* clock_video_panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock_video_panel.png; sourceTree = "<group>"; };
-		56AA74761C7C36C500BA7E51 /* clock_web_panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock_web_panel.png; sourceTree = "<group>"; };
-		56AA747F1C7C3A9900BA7E51 /* clock_pointer_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock_pointer_blue.png; sourceTree = "<group>"; };
 		56B5180B1C5126C700AA76F1 /* UIView+Exten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Exten.h"; sourceTree = "<group>"; };
 		56B5180C1C5126C700AA76F1 /* UIView+Exten.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Exten.m"; sourceTree = "<group>"; };
 		56BA8FC91C561E9100886CAE /* SVToolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToolModel.h; sourceTree = "<group>"; };
@@ -334,6 +334,18 @@
 		5BC491E71CAB5D420002CA68 /* ic_web_label@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_web_label@3x.png"; sourceTree = "<group>"; };
 		5BDB91591CA130A500B1E9D2 /* SVSpeedDelayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedDelayTest.h; sourceTree = "<group>"; };
 		5BDB915A1CA130A500B1E9D2 /* SVSpeedDelayTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedDelayTest.m; sourceTree = "<group>"; };
+		5BE6DE0D1CAD2D5B00CA2B5B /* clock_middle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_middle@2x.png"; sourceTree = "<group>"; };
+		5BE6DE0E1CAD2D5B00CA2B5B /* clock_middle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_middle@3x.png"; sourceTree = "<group>"; };
+		5BE6DE0F1CAD2D5B00CA2B5B /* clock_pointer_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_pointer_blue@2x.png"; sourceTree = "<group>"; };
+		5BE6DE101CAD2D5B00CA2B5B /* clock_pointer_blue@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_pointer_blue@3x.png"; sourceTree = "<group>"; };
+		5BE6DE111CAD2D5B00CA2B5B /* clock_pointer_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_pointer_gray@2x.png"; sourceTree = "<group>"; };
+		5BE6DE121CAD2D5B00CA2B5B /* clock_pointer_gray@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_pointer_gray@3x.png"; sourceTree = "<group>"; };
+		5BE6DE131CAD2D5B00CA2B5B /* clock_speed_panel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_speed_panel@2x.png"; sourceTree = "<group>"; };
+		5BE6DE141CAD2D5B00CA2B5B /* clock_speed_panel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_speed_panel@3x.png"; sourceTree = "<group>"; };
+		5BE6DE151CAD2D5B00CA2B5B /* clock_video_panel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_video_panel@2x.png"; sourceTree = "<group>"; };
+		5BE6DE161CAD2D5B00CA2B5B /* clock_video_panel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_video_panel@3x.png"; sourceTree = "<group>"; };
+		5BE6DE171CAD2D5B00CA2B5B /* clock_web_panel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_web_panel@2x.png"; sourceTree = "<group>"; };
+		5BE6DE181CAD2D5B00CA2B5B /* clock_web_panel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock_web_panel@3x.png"; sourceTree = "<group>"; };
 		B70FF3D31C6582AA002D571B /* SpeedPro.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedPro.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70FF3D51C6582AA002D571B /* SPUIViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUIViewTests.m; sourceTree = "<group>"; };
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -627,12 +639,18 @@
 		56AA74701C7C36C500BA7E51 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
-				56AA747F1C7C3A9900BA7E51 /* clock_pointer_blue.png */,
-				56AA74711C7C36C500BA7E51 /* clock_middle.png */,
-				56AA74731C7C36C500BA7E51 /* clock_pointer_gray.png */,
-				56AA74741C7C36C500BA7E51 /* clock_speed_panel.png */,
-				56AA74751C7C36C500BA7E51 /* clock_video_panel.png */,
-				56AA74761C7C36C500BA7E51 /* clock_web_panel.png */,
+				5BE6DE0D1CAD2D5B00CA2B5B /* clock_middle@2x.png */,
+				5BE6DE0E1CAD2D5B00CA2B5B /* clock_middle@3x.png */,
+				5BE6DE0F1CAD2D5B00CA2B5B /* clock_pointer_blue@2x.png */,
+				5BE6DE101CAD2D5B00CA2B5B /* clock_pointer_blue@3x.png */,
+				5BE6DE111CAD2D5B00CA2B5B /* clock_pointer_gray@2x.png */,
+				5BE6DE121CAD2D5B00CA2B5B /* clock_pointer_gray@3x.png */,
+				5BE6DE131CAD2D5B00CA2B5B /* clock_speed_panel@2x.png */,
+				5BE6DE141CAD2D5B00CA2B5B /* clock_speed_panel@3x.png */,
+				5BE6DE151CAD2D5B00CA2B5B /* clock_video_panel@2x.png */,
+				5BE6DE161CAD2D5B00CA2B5B /* clock_video_panel@3x.png */,
+				5BE6DE171CAD2D5B00CA2B5B /* clock_web_panel@2x.png */,
+				5BE6DE181CAD2D5B00CA2B5B /* clock_web_panel@3x.png */,
 			);
 			name = Testing;
 			path = ../Appdelegate/Testing;
@@ -1014,6 +1032,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BE6DE1F1CAD2D5B00CA2B5B /* clock_speed_panel@2x.png in Resources */,
 				B7C61B491CA68362001E32DC /* icon80.png in Resources */,
 				568B78C51C916DDC00AF4097 /* share_to_wechat.png in Resources */,
 				4DD033911C734BB400A8CE9B /* ic_language_select.png in Resources */,
@@ -1021,7 +1040,6 @@
 				4DD006021C609EDB007D4D2F /* ic_speed_testing.png in Resources */,
 				B7C61B3E1CA68247001E32DC /* starting_window_en@1x_2.png in Resources */,
 				B7B5D8B91CA3E8A400DFEEBA /* tabbar_result@2x.png in Resources */,
-				56AA74791C7C36C500BA7E51 /* clock_pointer_gray.png in Resources */,
 				565DFAEB1C515BB10024FF45 /* ic_speed_testing.png in Resources */,
 				5B1FEDB51CAA413A00508920 /* tabbar_test_selected@2x.png in Resources */,
 				5BC491ED1CAB5D420002CA68 /* ic_video_check@3x.png in Resources */,
@@ -1033,9 +1051,11 @@
 				B7B5D8D81CA407BA00DFEEBA /* tabbar_settings_selected@2x.png in Resources */,
 				5644354C1C5215AB009B7024 /* i18n.strings in Resources */,
 				568E03421C78137C00A7CD72 /* ic_language_select.png in Resources */,
+				5BE6DE231CAD2D5B00CA2B5B /* clock_web_panel@2x.png in Resources */,
 				B7C61B4A1CA68362001E32DC /* icon58.png in Resources */,
 				B7B5D8D51CA407BA00DFEEBA /* tabbar_settings@3x.png in Resources */,
 				4DD006061C609EDB007D4D2F /* ic_video_testing.png in Resources */,
+				5BE6DE1E1CAD2D5B00CA2B5B /* clock_pointer_gray@3x.png in Resources */,
 				4DD006051C609EDB007D4D2F /* ic_video_normal.png in Resources */,
 				568E033F1C78135D00A7CD72 /* rt_detail_title_web_img.png in Resources */,
 				B7C61B401CA68247001E32DC /* starting_window_cn@3x.png in Resources */,
@@ -1045,16 +1065,21 @@
 				5B1FEDBA1CAA63C100508920 /* speedpro@3x.png in Resources */,
 				B7B5D8BA1CA3E8A400DFEEBA /* tabbar_result_selected@3x.png in Resources */,
 				5BC491E91CAB5D420002CA68 /* ic_speed_check@3x.png in Resources */,
+				5BE6DE1A1CAD2D5B00CA2B5B /* clock_middle@3x.png in Resources */,
 				B7B5D8FF1CA543AE00DFEEBA /* Images.xcassets in Resources */,
 				B7C61B3B1CA68247001E32DC /* starting_window_en@3x.png in Resources */,
 				5B1FEDB91CAA63C100508920 /* speedpro@2x.png in Resources */,
-				56AA74801C7C3A9900BA7E51 /* clock_pointer_blue.png in Resources */,
 				B7B5D8B81CA3E8A400DFEEBA /* tabbar_result@3x.png in Resources */,
 				565DFAEE1C515BB10024FF45 /* ic_video_normal.png in Resources */,
+				5BE6DE211CAD2D5B00CA2B5B /* clock_video_panel@2x.png in Resources */,
 				5BC491F21CAB5D420002CA68 /* ic_web_label@2x.png in Resources */,
+				5BE6DE241CAD2D5B00CA2B5B /* clock_web_panel@3x.png in Resources */,
 				B7C61B421CA68247001E32DC /* starting_window_cn@2x_1.png in Resources */,
 				B7C61B481CA68362001E32DC /* icon87.png in Resources */,
+				5BE6DE221CAD2D5B00CA2B5B /* clock_video_panel@3x.png in Resources */,
+				5BE6DE191CAD2D5B00CA2B5B /* clock_middle@2x.png in Resources */,
 				B7C61B3C1CA68247001E32DC /* starting_window_en@2x_2.png in Resources */,
+				5BE6DE1B1CAD2D5B00CA2B5B /* clock_pointer_blue@2x.png in Resources */,
 				4DD006031C609EDB007D4D2F /* ic_start_time.png in Resources */,
 				568E033D1C78135D00A7CD72 /* rt_detail_title_ftp_img.png in Resources */,
 				4DD005FB1C609EDB007D4D2F /* ic_network_type.png in Resources */,
@@ -1065,12 +1090,13 @@
 				5BC491F11CAB5D420002CA68 /* ic_web_check@3x.png in Resources */,
 				B7B5D8DB1CA407D000DFEEBA /* ic_clear@3x.png in Resources */,
 				4DD005FC1C609EDB007D4D2F /* ic_network_type_mobile.png in Resources */,
-				56AA74771C7C36C500BA7E51 /* clock_middle.png in Resources */,
 				B7C61B3D1CA68247001E32DC /* starting_window_en@2x_1.png in Resources */,
 				5B1FEDB61CAA413A00508920 /* tabbar_test@2x.png in Resources */,
+				5BE6DE201CAD2D5B00CA2B5B /* clock_speed_panel@3x.png in Resources */,
+				5BE6DE1D1CAD2D5B00CA2B5B /* clock_pointer_gray@2x.png in Resources */,
 				B7B5D8CC1CA407A300DFEEBA /* homeindicator@2x.png in Resources */,
-				56AA747B1C7C36C500BA7E51 /* clock_video_panel.png in Resources */,
 				B7B5D8D61CA407BA00DFEEBA /* tabbar_settings@2x.png in Resources */,
+				5BE6DE1C1CAD2D5B00CA2B5B /* clock_pointer_blue@3x.png in Resources */,
 				5BC491F01CAB5D420002CA68 /* ic_web_check@2x.png in Resources */,
 				568E03401C78135D00A7CD72 /* share.png in Resources */,
 				5BC491EF1CAB5D420002CA68 /* ic_video_label@3x.png in Resources */,
@@ -1078,12 +1104,10 @@
 				B7B5D8D41CA407BA00DFEEBA /* tabbar_test_selected@3x.png in Resources */,
 				4DD005FF1C609EDB007D4D2F /* ic_sort.png in Resources */,
 				B7B5D8D31CA407BA00DFEEBA /* tabbar_test@3x.png in Resources */,
-				56AA747A1C7C36C500BA7E51 /* clock_speed_panel.png in Resources */,
 				B7C61B411CA68247001E32DC /* starting_window_cn@2x_2.png in Resources */,
 				4DD006001C609EDB007D4D2F /* ic_sort_asc.png in Resources */,
 				4DD005FE1C609EDB007D4D2F /* ic_network_type_wifi.png in Resources */,
 				B7B5D8D71CA407BA00DFEEBA /* tabbar_settings_selected@3x.png in Resources */,
-				56AA747C1C7C36C500BA7E51 /* clock_web_panel.png in Resources */,
 				565DFAEF1C515BB10024FF45 /* ic_video_testing.png in Resources */,
 				B7B5D8EF1CA53C8900DFEEBA /* icon180@3x.png in Resources */,
 				B7C61B3F1CA68247001E32DC /* starting_window_en@1x_1.png in Resources */,

@@ -17,7 +17,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    // 设置图片宽和高
+    CGFloat imageW = FITWIDTH (100);
+    CGFloat imageH = FITHEIGHT (120);
+
+    // 自定义navigationItem.titleView
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, imageW, imageH)];
+
+    //设置图片名称
+    imageView.image = [UIImage imageNamed:@"speedpro"];
+
+    //让图片适应
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+
+    //把图片添加到navigationItem.titleView
+    self.navigationItem.titleView = imageView;
+
+    //电池显示不了,设置样式让电池显示
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,11 +61,11 @@
     [super viewWillAppear:animated];
 
     // 设置标题距离底部的距离
-    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:0.0
+    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:-2.0
                                                                   forBarMetrics:UIBarMetricsDefault];
 
     // 设置返回按钮距离底部的距离
-    [self.navigationItem.leftBarButtonItem setBackgroundVerticalPositionAdjustment:0.0
+    [self.navigationItem.leftBarButtonItem setBackgroundVerticalPositionAdjustment:-2.0
                                                                      forBarMetrics:UIBarMetricsDefault];
 }
 

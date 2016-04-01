@@ -23,9 +23,14 @@
 
     SVHeaderView *_headerView; // 定义headerView
     SVPointView *_webtestingView; //定义webtestingView
-    SVWebView *_webView; //定义访问网页的View
     SVFooterView *_footerView; // 定义footerView
     SVWebTest *_webTest;
+
+    // 测试地址的label
+    UILabel *_testUrlLabel;
+
+    // 测试地址标题的label
+    UILabel *_testUrlTitle;
 }
 
 //定义gray遮挡View
@@ -57,18 +62,6 @@
 
     SVInfo (@"SVWebTestingCtrl");
 
-    // 1.自定义navigationItem.titleView
-    //设置图片大小
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, 100, 30)];
-    //设置图片名称
-    imageView.image = [UIImage imageNamed:@"speed_pro"];
-    //让图片适应
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    //把图片添加到navigationItem.titleView
-    self.navigationItem.titleView = imageView;
-    //电池显示不了,设置样式让电池显示
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-
     //添加返回按钮
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
     [button setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
@@ -83,23 +76,21 @@
                action:@selector (removeButtonClicked:)
      forControlEvents:UIControlEventTouchUpInside];
 
-    //为了保持平衡添加一个leftBtn
+    // 为了保持平衡添加一个leftBtn
     UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 44, 44)];
     UIBarButtonItem *backButton1 = [[UIBarButtonItem alloc] initWithCustomView:button1];
     self.navigationItem.rightBarButtonItem = backButton1;
     self.navigationItem.rightBarButtonItem.enabled = NO;
 
     // 2.设置整个Viewcontroller
-    //设置背景颜色
+    // 设置背景颜色
     self.view.backgroundColor =
     [UIColor colorWithRed:250 / 255.0 green:250 / 255.0 blue:250 / 255.0 alpha:1.0];
-    //打印排序结果
-    //    SVInfo (@"%@", _selectedA);
-    //添加方法
+
+    // 添加方法
     [self creatHeaderView];
     [self creatWebTestingView];
     [self creatFooterView];
-    [self creatWebView];
 }
 //退出测试按钮点击事件
 - (void)removeButtonClicked:(UIButton *)button
@@ -131,17 +122,11 @@
  */
 - (void)initContext
 {
-    NSString *title5 = I18N (@"Loading...");
-    [_footerView.urlLabel setText:title5];
+    [_testUrlLabel setText:I18N (@"Loading...")];
     [_headerView.ResponseLabel setText:@"0"];
     [_headerView.LoadLabel setText:@"0"];
     [_headerView.DownloadLabel setText:@"0"];
-    [_webtestingView updateUvMOS2:0];
-
-    for (UIView *view in [_headerView.uvMosBarView subviews])
-    {
-        [view removeFromSuperview];
-    }
+    [_webtestingView updateValue:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -164,7 +149,7 @@
     [self initContext];
     // 进入页面时，开始测试
     _webTest = [[SVWebTest alloc] initWithView:self.currentResultModel.testId
-                                   showWebView:_webView
+                                   showWebView:_footerView.leftView
                                   testDelegate:self];
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       BOOL isOK = [_webTest initTestContext];
@@ -179,6 +164,11 @@
           });
       }
     });
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 
@@ -222,28 +212,18 @@
 
 - (void)creatWebTestingView
 {
-    //初始化整个webtestingView
-    _webtestingView = [[SVPointView alloc] init];
-    //添加到View中
-    [_webtestingView addSubview:_webtestingView.pointView];
-    [_webtestingView addSubview:_webtestingView.grayView2];
-    [_webtestingView addSubview:_webtestingView.panelView2];
-    [_webtestingView addSubview:_webtestingView.middleView];
-    [_webtestingView addSubview:_webtestingView.label12];
-    [_webtestingView addSubview:_webtestingView.label22];
-    [_webtestingView addSubview:_webtestingView.label32];
-    [_webtestingView start2];
+    // 初始化默认值
+    NSMutableDictionary *defalutValue = [[NSMutableDictionary alloc] init];
+    [defalutValue setValue:I18N (@"Load duration") forKey:@"title"];
+    [defalutValue setValue:@"0.00" forKey:@"defaultValue"];
+    [defalutValue setValue:@"s" forKey:@"unit"];
+    [defalutValue setValue:@"web" forKey:@"testType"];
+
+    // 初始化整个testingView
+    _webtestingView = [[SVPointView alloc] initWithDic:defalutValue];
+    [_webtestingView start];
+
     [self.view addSubview:_webtestingView];
-}
-
-
-#pragma mark - 创建WebView
-- (void)creatWebView
-{
-    //初始化
-    _webView = [[SVWebView alloc] initWithFrame:kVideoViewDefaultRect];
-    [_webView setBackgroundColor:[UIColor blackColor]];
-    [self.view addSubview:_webView];
 }
 
 #pragma mark - 创建尾footerView
@@ -252,11 +232,30 @@
 {
     //初始化headerView
     _footerView = [[SVFooterView alloc] init];
-    //把所有Label添加到headerView中
-    [_footerView addSubview:_footerView.urlLabel];
-    [_footerView addSubview:_footerView.urlNumLabel];
-    [_footerView addSubview:_footerView.abc];
-    //把headerView添加到中整个视图上
+
+    // 初始化测试地址的label
+    _testUrlLabel = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), FITHEIGHT (106), FITWIDTH (446), FITHEIGHT (50))
+                withFont:pixelToFontsize (45)
+          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+               withTitle:@""];
+
+    // 初始化测试地址标题的label
+    _testUrlTitle = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), _testUrlLabel.bottomY + FITHEIGHT (16),
+                                     FITWIDTH (446), FITWIDTH (34))
+                withFont:pixelToFontsize (36)
+          withTitleColor:[UIColor colorWithHexString:@"#B2000000"]
+               withTitle:I18N (@"Test Url")];
+
+    // 设置Label对齐
+    _testUrlLabel.textAlignment = NSTextAlignmentLeft;
+    _testUrlTitle.textAlignment = NSTextAlignmentLeft;
+
+    // 将所有label放入右侧的View
+    [_footerView.rightView addSubview:_testUrlLabel];
+    [_footerView.rightView addSubview:_testUrlTitle];
+
     [self.view addSubview:_footerView];
 }
 
@@ -303,11 +302,10 @@
           [_headerView.LoadLabel setText:[NSString stringWithFormat:@"%.2f", totalTime]];
 
           // 仪表盘指标
-          [_webtestingView updateUvMOS2:totalTime];
-          [_webtestingView.label22 setText:[NSString stringWithFormat:@"%.2f", totalTime]];
+          [_webtestingView updateValue:totalTime];
 
           // 测试地址
-          [_footerView.urlLabel setText:testUrl];
+          [_testUrlLabel setText:testUrl];
           return;
       }
 
@@ -321,12 +319,12 @@
       [_headerView.LoadLabel1 setText:@""];
 
       // 仪表盘指标
-      [_webtestingView updateUvMOS2:0];
-      [_webtestingView.label22 setText:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]];
-      [_webtestingView.label32 setText:@""];
+      [_webtestingView updateValue:0];
+      [_webtestingView.valueLabel setText:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]];
+      [_webtestingView.unitLabel setText:@""];
 
       // 测试地址
-      [_footerView.urlLabel setText:testUrl];
+      [_testUrlLabel setText:testUrl];
       return;
     });
 }

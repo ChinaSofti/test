@@ -19,11 +19,23 @@
 @interface SVVideoTestingCtrl ()
 {
 
-    SVHeaderView *_headerView; // 定义headerView
-    SVPointView *_testingView; //定义testingView
-    SVVideoView *_videoView; //定义视频播放View
-    SVFooterView *_footerView; // 定义footerView
+    // 定义headerView
+    SVHeaderView *_headerView;
+
+    //定义testingView
+    SVPointView *_testingView;
+
+    //定义视频播放View
+    SVVideoView *_videoView;
+
+    // 定义footerView
+    SVFooterView *_footerView;
+
+    // 定义视频测试实例
     SVVideoTest *_videoTest;
+
+    // 定义主图的View
+    UIView *uvMosBarView;
 
     NSTimer *_timer;
     float realBitrate; // 实际真实码率
@@ -40,9 +52,27 @@
 
     // 每个U-vMOS值对应的时长
     int _per_uvmos_bar_need_time;
+
+    // 位置标题
+    UILabel *_locationTitle;
+
+    // 位置的值
+    UILabel *_locationValue;
+
+    // 分辨率标题
+    UILabel *_resolutionTitle;
+
+    // 分辨率值
+    UILabel *_resolutionValue;
+
+    // 码率标题
+    UILabel *_bitRateTitle;
+
+    // 码率值
+    UILabel *_bitRateValue;
 }
 
-//定义gray遮挡View
+// 定义gray遮挡View
 @property (nonatomic, strong) UIView *gyview;
 
 @end
@@ -71,20 +101,8 @@
     [super viewDidLoad];
     SVInfo (@"SVVideoTestingCtrl");
 
-    // 1.自定义navigationItem.titleView
-    //设置图片大小
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, 100, 30)];
-    //设置图片名称
-    imageView.image = [UIImage imageNamed:@"speed_pro"];
-    //让图片适应
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    //把图片添加到navigationItem.titleView
-    self.navigationItem.titleView = imageView;
-    //电池显示不了,设置样式让电池显示
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-
-    //添加返回按钮
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
+    // 添加返回按钮
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (100), FITHEIGHT (120))];
     [button setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     UIBarButtonItem *back0 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
@@ -97,18 +115,16 @@
                action:@selector (removeButtonClicked:)
      forControlEvents:UIControlEventTouchUpInside];
 
-    //为了保持平衡添加一个leftBtn
-    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 44, 44)];
+    // 为了保持平衡添加一个leftBtn
+    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (100), FITHEIGHT (120))];
     UIBarButtonItem *backButton1 = [[UIBarButtonItem alloc] initWithCustomView:button1];
     self.navigationItem.rightBarButtonItem = backButton1;
     self.navigationItem.rightBarButtonItem.enabled = NO;
 
-    // 2.设置整个Viewcontroller
-    //设置背景颜色
-    self.view.backgroundColor =
-    [UIColor colorWithRed:250 / 255.0 green:250 / 255.0 blue:250 / 255.0 alpha:1.0];
-    //打印排序结果
-    //    SVInfo (@"%@", _selectedA);
+    // 设置整个Viewcontroller
+    // 设置背景颜色
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
+
     //添加方法
     [self creatHeaderView];
     [self creatTestingView];
@@ -145,15 +161,15 @@
  */
 - (void)initContext
 {
-    NSString *title5 = I18N (@"Loading...");
-    [_footerView.placeLabel setText:title5];
-    [_footerView.resolutionLabel setText:title5];
-    [_footerView.bitLabel setText:title5];
-    [_headerView.bufferLabel setText:@"0"];
-    [_headerView.speedLabel setText:@"0"];
-    [_testingView updateUvMOS:0];
+    NSString *loadingStr = I18N (@"Loading...");
+    [_locationTitle setText:loadingStr];
+    [_resolutionTitle setText:loadingStr];
+    [_bitRateTitle setText:loadingStr];
+    [_headerView updateRightValue:@"0"];
+    [_headerView updateMiddleValue:@"0"];
+    [_testingView updateValue:0];
 
-    for (UIView *view in [_headerView.uvMosBarView subviews])
+    for (UIView *view in [uvMosBarView subviews])
     {
         [view removeFromSuperview];
     }
@@ -168,20 +184,28 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
     // 显示tabbar 和navigationbar
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
 
-    //添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
-    //获取整个屏幕的window
+    // 添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
+    // 获取整个屏幕的window
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    //创建一个覆盖garyView
-    _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
-    //设置透明度
+
+    // 创建一个覆盖garyView
+    _gyview =
+    [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - FITHEIGHT (144), kScreenW, FITHEIGHT (314))];
+
+    // 设置透明度
     _gyview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+
     //添加
     [window addSubview:_gyview];
+
+    // 初始化
     [self initContext];
+
     // 进入页面时，开始测试
     _videoTest = [[SVVideoTest alloc] initWithView:self.currentResultModel.testId
                                      showVideoView:_videoView
@@ -189,6 +213,7 @@
 
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     int _videoPlayTime = [probeInfo getVideoPlayTime];
+
     // 视频总时长 除以 20个U-vMOS柱子 获得每个柱子需要的时长，单位秒。再乘以5，将单位转换为200毫秒
     _per_uvmos_bar_need_time = _videoPlayTime * 5 / 20;
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -211,10 +236,10 @@
 {
     [super viewWillDisappear:animated];
 
-    //取消定时器
+    // 取消定时器
     if (_timer)
     {
-        //取消定时器
+        // 取消定时器
         [_timer invalidate];
         _timer = nil;
     }
@@ -225,7 +250,7 @@
       {
           [_videoTest stopTest];
 
-          //移除覆盖gyView
+          // 移除覆盖gyView
           [_gyview removeFromSuperview];
       }
     });
@@ -235,17 +260,31 @@
 
 - (void)creatHeaderView
 {
-    //初始化headerView
-    _headerView = [[SVHeaderView alloc] init];
-    //把所有Label添加到View中
-    [_headerView addSubview:_headerView.uvMosBarView];
-    [_headerView addSubview:_headerView.speedLabel];
-    [_headerView addSubview:_headerView.speedLabel1];
-    [_headerView addSubview:_headerView.bufferLabel];
-    [_headerView addSubview:_headerView.uvMosNumLabel];
-    [_headerView addSubview:_headerView.speedNumLabel];
-    [_headerView addSubview:_headerView.bufferNumLabel];
-    //把headerView添加到中整个视图上
+    // 初始化默认值
+    NSMutableDictionary *defalutValue = [[NSMutableDictionary alloc] init];
+    [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (36)] forKey:@"labelFontSize"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#CC000000"] forKey:@"labelColor"];
+    [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (60)] forKey:@"valueFontSize"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#FEB960"] forKey:@"valueColor"];
+    [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (32)] forKey:@"unitFontSize"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#FEB960"] forKey:@"unitColor"];
+    [defalutValue setValue:@"U-vMOS" forKey:@"leftTitle"];
+    [defalutValue setValue:@"0" forKey:@"middleDefaultValue"];
+    [defalutValue setValue:I18N (@"Initial Buffer Time") forKey:@"middleTitle"];
+    [defalutValue setValue:@"ms" forKey:@"middleUnit"];
+    [defalutValue setValue:@"0" forKey:@"rightDefaultValue"];
+    [defalutValue setValue:I18N (@"Stalling Times") forKey:@"rightTitle"];
+    [defalutValue setValue:@"" forKey:@"rightUnit"];
+
+
+    // 初始化headerView
+    _headerView = [[SVHeaderView alloc] initWithDic:defalutValue];
+
+    // 把左侧的label换成view
+    uvMosBarView = [[UIView alloc] init];
+    [_headerView replaceLeftLabelWithView:uvMosBarView];
+
+    // 把headerView添加到中整个视图上
     [self.view addSubview:_headerView];
 }
 
@@ -253,16 +292,16 @@
 
 - (void)creatTestingView
 {
-    //初始化整个testingView
-    _testingView = [[SVPointView alloc] init];
-    //添加到View中
-    [_testingView addSubview:_testingView.pointView];
-    [_testingView addSubview:_testingView.grayView];
-    [_testingView addSubview:_testingView.panelView];
-    [_testingView addSubview:_testingView.middleView];
-    [_testingView addSubview:_testingView.label1];
-    [_testingView addSubview:_testingView.label2];
+    // 初始化默认值
+    NSMutableDictionary *defalutValue = [[NSMutableDictionary alloc] init];
+    [defalutValue setValue:@"U-vMOS" forKey:@"title"];
+    [defalutValue setValue:@"0.00" forKey:@"defaultValue"];
+    [defalutValue setValue:@"video" forKey:@"testType"];
+
+    // 初始化整个testingView
+    _testingView = [[SVPointView alloc] initWithDic:defalutValue];
     [_testingView start];
+
     [self.view addSubview:_testingView];
 }
 
@@ -275,76 +314,82 @@
     NSString *title3 = I18N (@"Resolution");
 
     // 在全屏模式下，在_videoView上方显示测试指标
-    _showCurrentResultInFullScreenMode = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenH, 30)];
+    _showCurrentResultInFullScreenMode =
+    [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenH, FITWIDTH (86))];
     [_showCurrentResultInFullScreenMode setBackgroundColor:[UIColor colorWithWhite:0.3 alpha:0.3]];
 
     // 1.U-vMOS 0.0
     UILabel *UvMosInFullScreenLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITHEIGHT (40), FITHEIGHT (5), FITHEIGHT (45), FITHEIGHT (20))];
+    initWithFrame:CGRectMake (FITHEIGHT (115), FITWIDTH (14), FITHEIGHT (129), FITWIDTH (58))];
     [UvMosInFullScreenLabel setText:@"U-vMOS"];
     [UvMosInFullScreenLabel setTextColor:[UIColor whiteColor]];
-    [UvMosInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
+    [UvMosInFullScreenLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (34)]];
     [_showCurrentResultInFullScreenMode addSubview:UvMosInFullScreenLabel];
+
     // 1.5 U-vMOS值
     _UvMosInFullScreenValue =
-    [[UILabel alloc] initWithFrame:CGRectMake (UvMosInFullScreenLabel.rightX + FITHEIGHT (2),
-                                               FITHEIGHT (5), FITWIDTH (40), FITHEIGHT (20))];
+    [[UILabel alloc] initWithFrame:CGRectMake (UvMosInFullScreenLabel.rightX + FITHEIGHT (5),
+                                               FITWIDTH (14), FITHEIGHT (115), FITWIDTH (58))];
     [_UvMosInFullScreenValue setTextColor:RGBACOLOR (44, 166, 222, 1)];
-    [_UvMosInFullScreenValue setFont:[UIFont systemFontOfSize:13]];
+    [_UvMosInFullScreenValue setFont:[UIFont systemFontOfSize:pixelToFontsize (34)]];
     [_showCurrentResultInFullScreenMode addSubview:_UvMosInFullScreenValue];
+
     // 2.Buffer times 0
     UILabel *bufferTimesInFullScreenLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (kScreenH / 4 + FITHEIGHT (30), FITHEIGHT (5), FITWIDTH (70), FITHEIGHT (20))];
+    initWithFrame:CGRectMake (kScreenH / 4 + FITHEIGHT (86), FITWIDTH (14), FITHEIGHT (303), FITWIDTH (58))];
     [bufferTimesInFullScreenLabel setText:title1];
     [bufferTimesInFullScreenLabel setTextColor:[UIColor whiteColor]];
-    [bufferTimesInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
+    [bufferTimesInFullScreenLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (34)]];
     [_showCurrentResultInFullScreenMode addSubview:bufferTimesInFullScreenLabel];
+
     // 2.5 Buffer times值
     _bufferTimesInFullScreenValue =
-    [[UILabel alloc] initWithFrame:CGRectMake (bufferTimesInFullScreenLabel.rightX + FITHEIGHT (2),
-                                               FITHEIGHT (5), FITWIDTH (20), FITHEIGHT (20))];
+    [[UILabel alloc] initWithFrame:CGRectMake (bufferTimesInFullScreenLabel.rightX + FITHEIGHT (5),
+                                               FITWIDTH (14), FITHEIGHT (58), FITWIDTH (43))];
     [_bufferTimesInFullScreenValue setTextColor:RGBACOLOR (44, 166, 222, 1)];
-    [_bufferTimesInFullScreenValue setFont:[UIFont systemFontOfSize:13]];
+    [_bufferTimesInFullScreenValue setFont:[UIFont systemFontOfSize:pixelToFontsize (34)]];
     [_showCurrentResultInFullScreenMode addSubview:_bufferTimesInFullScreenValue];
 
     // 3.Bit Rate 3002.23kbps
     UILabel *bitRateInFullScreenLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (kScreenH / 2 + FITHEIGHT (12), FITHEIGHT (5), FITWIDTH (45), FITHEIGHT (20))];
+    initWithFrame:CGRectMake (kScreenH / 2 + FITHEIGHT (35), FITWIDTH (14), FITHEIGHT (129), FITWIDTH (58))];
     [bitRateInFullScreenLabel setText:title2];
     [bitRateInFullScreenLabel setTextColor:[UIColor whiteColor]];
-    [bitRateInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
+    [bitRateInFullScreenLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (34)]];
     [_showCurrentResultInFullScreenMode addSubview:bitRateInFullScreenLabel];
+
     // 3.5 Bit Rate 值
     _bitRateInFullScreenValue =
     [[UILabel alloc] initWithFrame:CGRectMake (bitRateInFullScreenLabel.rightX + FITHEIGHT (2),
-                                               FITHEIGHT (5), FITWIDTH (80), FITHEIGHT (20))];
+                                               FITWIDTH (14), FITHEIGHT (663), FITWIDTH (58))];
     [_bitRateInFullScreenValue setTextColor:RGBACOLOR (44, 166, 222, 1)];
-    [_bitRateInFullScreenValue setFont:[UIFont systemFontOfSize:13]];
+    [_bitRateInFullScreenValue setFont:[UIFont systemFontOfSize:pixelToFontsize (34)]];
     [_showCurrentResultInFullScreenMode addSubview:_bitRateInFullScreenValue];
+
     // 4. Resolution  1920 * 1080
     UILabel *resolutionInFullScreenLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (3 * kScreenH / 4, FITHEIGHT (5), FITWIDTH (60), FITHEIGHT (20))];
+    initWithFrame:CGRectMake (3 * kScreenH / 4, FITWIDTH (14), FITHEIGHT (173), FITWIDTH (58))];
     [resolutionInFullScreenLabel setText:title3];
     [resolutionInFullScreenLabel setTextColor:[UIColor whiteColor]];
-    [resolutionInFullScreenLabel setFont:[UIFont systemFontOfSize:13]];
+    [resolutionInFullScreenLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (34)]];
     [_showCurrentResultInFullScreenMode addSubview:resolutionInFullScreenLabel];
+
     // 4.5Resolution值
     _resolutionInFullScreenValue = [[UILabel alloc]
-    initWithFrame:CGRectMake (resolutionInFullScreenLabel.rightX + 2, 5, FITWIDTH (80), FITHEIGHT (20))];
+    initWithFrame:CGRectMake (resolutionInFullScreenLabel.rightX + 2, 5, FITHEIGHT (230), FITWIDTH (58))];
     [_resolutionInFullScreenValue setTextColor:RGBACOLOR (44, 166, 222, 1)];
-    [_resolutionInFullScreenValue setFont:[UIFont systemFontOfSize:13]];
+    [_resolutionInFullScreenValue setFont:[UIFont systemFontOfSize:pixelToFontsize (34)]];
     [_showCurrentResultInFullScreenMode addSubview:_resolutionInFullScreenValue];
 
-    //初始化
-    _videoView = [[SVVideoView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (10), FITHEIGHT (500), FITWIDTH (172.8), FITHEIGHT (97.2))];
+    // 初始化
+    _videoView = [[SVVideoView alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (524), FITHEIGHT (312))];
     [_videoView setBackgroundColor:[UIColor blackColor]];
     [_videoView setContentMode:UIViewContentModeScaleToFill];
     UITapGestureRecognizer *tapGesture =
     [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector (ClickVideoView:)];
     [tapGesture setNumberOfTapsRequired:1];
     [_videoView addGestureRecognizer:tapGesture];
-    [self.view addSubview:_videoView];
+    [_footerView.leftView addSubview:_videoView];
 }
 
 //点击事件:视频切换全屏和退出全屏模式
@@ -372,14 +417,71 @@
     //初始化headerView
     _footerView = [[SVFooterView alloc] init];
 
-    //把所有Label添加到headerView中
-    [_footerView addSubview:_footerView.placeLabel];
-    [_footerView addSubview:_footerView.resolutionLabel];
-    [_footerView addSubview:_footerView.bitLabel];
-    [_footerView addSubview:_footerView.placeNumLabel];
-    [_footerView addSubview:_footerView.resolutionNumLabel];
-    [_footerView addSubview:_footerView.bitNumLabel];
-    //把headerView添加到中整个视图上
+    // 初始化位置的label
+    _locationValue = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), FITHEIGHT (0), FITWIDTH (446), FITHEIGHT (50))
+                withFont:pixelToFontsize (44)
+          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+               withTitle:@""];
+
+    // 初始化位置标题的label
+    _locationTitle = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), _locationValue.bottomY + FITHEIGHT (46),
+                                     FITWIDTH (446), FITWIDTH (34))
+                withFont:pixelToFontsize (30)
+          withTitleColor:[UIColor colorWithHexString:@"#CC000000"]
+               withTitle:I18N (@"Video Server Location")];
+
+    // 初始化分辨率标题
+    _resolutionTitle = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), _locationTitle.bottomY + FITHEIGHT (60),
+                                     FITWIDTH (223), FITHEIGHT (41))
+                withFont:pixelToFontsize (36)
+          withTitleColor:[UIColor colorWithHexString:@"#CC000000"]
+               withTitle:I18N (@"Resolution")];
+
+    // 初始化分辨率的值
+    _resolutionValue = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (_resolutionTitle.rightX, _locationTitle.bottomY + FITHEIGHT (60),
+                                     FITWIDTH (223), FITHEIGHT (41))
+                withFont:pixelToFontsize (36)
+          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+               withTitle:@""];
+
+    // 码率标题
+    _bitRateTitle = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), _resolutionTitle.bottomY + FITHEIGHT (40),
+                                     FITWIDTH (223), FITHEIGHT (41))
+                withFont:pixelToFontsize (36)
+          withTitleColor:[UIColor colorWithHexString:@"#CC000000"]
+               withTitle:I18N (@"Bit Rate")];
+
+    // 码率
+    _bitRateValue = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (_bitRateTitle.rightX, _resolutionTitle.bottomY + FITHEIGHT (40),
+                                     FITWIDTH (223), FITHEIGHT (41))
+                withFont:pixelToFontsize (36)
+          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+               withTitle:@""];
+
+    // 设置Label对齐
+    _locationTitle.textAlignment = NSTextAlignmentLeft;
+    _locationValue.textAlignment = NSTextAlignmentLeft;
+    _resolutionValue.textAlignment = NSTextAlignmentRight;
+    _resolutionTitle.textAlignment = NSTextAlignmentLeft;
+    _bitRateTitle.textAlignment = NSTextAlignmentLeft;
+    _bitRateValue.textAlignment = NSTextAlignmentRight;
+
+    // 将所有label放入右侧的View
+    [_footerView.rightView addSubview:_locationValue];
+    [_footerView.rightView addSubview:_locationTitle];
+    [_footerView.rightView addSubview:_resolutionValue];
+    [_footerView.rightView addSubview:_resolutionTitle];
+    [_footerView.rightView addSubview:_bitRateTitle];
+    [_footerView.rightView addSubview:_bitRateValue];
+
+    // 去掉边框
+    [_footerView removeBoderWidth];
     [self.view addSubview:_footerView];
 }
 
@@ -415,26 +517,27 @@
     // 分辨率
     NSString *videoResolution = testResult.videoResolution;
     dispatch_async (dispatch_get_main_queue (), ^{
-      [_footerView.placeLabel setText:location];
-      [_footerView.resolutionLabel setText:videoResolution];
-      [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fKbps", bitrate]];
-      [_headerView.bufferLabel setText:[NSString stringWithFormat:@"%d", cuttonTimes]];
-      [_headerView.speedLabel setText:[NSString stringWithFormat:@"%d", firstBufferTime]];
+      [_locationValue setText:location];
+      [_resolutionValue setText:videoResolution];
+      [_bitRateValue setText:[NSString stringWithFormat:@"%.2fKbps", bitrate]];
+
+      [_headerView updateMiddleValue:[NSString stringWithFormat:@"%d", firstBufferTime]];
+      [_headerView updateRightValue:[NSString stringWithFormat:@"%d", cuttonTimes]];
 
       [_bufferTimesInFullScreenValue setText:[NSString stringWithFormat:@"%d", cuttonTimes]];
       [_resolutionInFullScreenValue setText:videoResolution];
 
-      UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (5, -10, 1, 30)];
+      UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (2), FITHEIGHT (52))];
       [bar setBarValue:uvMOSSession];
-      [_headerView.uvMosBarView addSubview:bar];
+      [uvMosBarView addSubview:bar];
 
-      [_testingView updateUvMOS:uvMOSSession];
+      [_testingView updateValue:uvMOSSession];
 
       realBitrate = bitrate;
       realuvMOSSession = uvMOSSession;
 
       int i = arc4random () % 50;
-      [_footerView.bitLabel setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
+      [_bitRateValue setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
       [_bitRateInFullScreenValue setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
 
 
@@ -452,7 +555,7 @@
           k = uvMOSSession;
       }
 
-      [_testingView updateUvMOS:k];
+      [_testingView updateValue:k];
       [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", k]];
 
       // 更新柱状图
@@ -464,10 +567,10 @@
           if (_UvMOSbarResultTimes < 20)
           {
               // 如果显示柱子个数少于等于 20 个，添加新的柱子
-              UUBar *bar =
-              [[UUBar alloc] initWithFrame:CGRectMake (5 + _UvMOSbarResultTimes * 3, -10, 1, 30)];
+              UUBar *bar = [[UUBar alloc]
+              initWithFrame:CGRectMake (_UvMOSbarResultTimes * 2, 0, FITWIDTH (2), FITHEIGHT (52))];
               [bar setBarValue:k];
-              [_headerView.uvMosBarView addSubview:bar];
+              [uvMosBarView addSubview:bar];
           }
       }
 

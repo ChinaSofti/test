@@ -31,6 +31,18 @@
     SVChart *_chart;
     BOOL uploadFirstResult;
     BOOL downloadFirstResult;
+
+    // 服务器地址
+    UILabel *_serverLocationLabel;
+
+    // 服务器地址的标题
+    UILabel *_serverLocationTitle;
+
+    // 服务器归属地
+    UILabel *_carrierLabel;
+
+    // 服务器归属地的标题
+    UILabel *_carrierTitle;
 }
 
 //定义gy遮挡View
@@ -61,18 +73,6 @@ double _preSpeed = 0.0;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     SVInfo (@"SVSpeedTestingCtrl");
-
-    // 1.自定义navigationItem.titleView
-    //设置图片大小
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, 100, 30)];
-    //设置图片名称
-    imageView.image = [UIImage imageNamed:@"speed_pro"];
-    //让图片适应
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    //把图片添加到navigationItem.titleView
-    self.navigationItem.titleView = imageView;
-    //电池显示不了,设置样式让电池显示
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
     //添加返回按钮
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
@@ -136,19 +136,14 @@ double _preSpeed = 0.0;
  */
 - (void)initContext
 {
-    NSString *title5 = I18N (@"Loading...");
-    [_footerView.ServerLocation setText:title5];
-    [_footerView.Carrier setText:title5];
+    NSString *loadingStr = I18N (@"Loading...");
+    [_serverLocationLabel setText:loadingStr];
+    [_carrierLabel setText:loadingStr];
     [_headerView.Delay setText:@"0"];
     [_headerView.Downloadspeed setText:@"0"];
     [_headerView.Uploadspeed setText:@"0"];
-    [_speedtestingView updateUvMOS3:0];
-    [_speedtestingView.label13 setText:@""];
-
-    for (UIView *view in [_headerView.uvMosBarView subviews])
-    {
-        [view removeFromSuperview];
-    }
+    [_speedtestingView updateValue:0];
+    [_speedtestingView.titleLabel setText:@""];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -189,6 +184,10 @@ double _preSpeed = 0.0;
     });
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -239,17 +238,17 @@ double _preSpeed = 0.0;
 
 - (void)creatSpeedTestingView
 {
-    //初始化整个speedtestingView
-    _speedtestingView = [[SVPointView alloc] init];
-    //添加到View中
-    [_speedtestingView addSubview:_speedtestingView.pointView];
-    [_speedtestingView addSubview:_speedtestingView.grayView3];
-    [_speedtestingView addSubview:_speedtestingView.panelView3];
-    [_speedtestingView addSubview:_speedtestingView.middleView];
-    [_speedtestingView addSubview:_speedtestingView.label13];
-    [_speedtestingView addSubview:_speedtestingView.label23];
-    [_speedtestingView addSubview:_speedtestingView.label33];
-    [_speedtestingView start3];
+    // 初始化默认值
+    NSMutableDictionary *defalutValue = [[NSMutableDictionary alloc] init];
+    [defalutValue setValue:I18N (@"Download") forKey:@"title"];
+    [defalutValue setValue:@"0.00" forKey:@"defaultValue"];
+    [defalutValue setValue:@"Mbps" forKey:@"unit"];
+    [defalutValue setValue:@"speed" forKey:@"testType"];
+
+    // 初始化整个testingView
+    _speedtestingView = [[SVPointView alloc] initWithDic:defalutValue];
+    [_speedtestingView start];
+
     [self.view addSubview:_speedtestingView];
 }
 
@@ -272,13 +271,51 @@ double _preSpeed = 0.0;
 {
     //初始化headerView
     _footerView = [[SVFooterView alloc] init];
-    //把所有Label添加到headerView中
-    [_footerView addSubview:_footerView.ServerLocation];
-    [_footerView addSubview:_footerView.Carrier];
-    [_footerView addSubview:_footerView.abcd];
-    [_footerView addSubview:_footerView.ServerLocationNumLabel];
-    [_footerView addSubview:_footerView.CarrierNumLabel];
-    //把headerView添加到中整个视图上
+
+    // 初始化服务器地址的label
+    _serverLocationLabel = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), FITHEIGHT (32), FITWIDTH (446), FITHEIGHT (50))
+                withFont:pixelToFontsize (44)
+          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+               withTitle:@""];
+
+    // 初始化服务器地址标题的label
+    _serverLocationTitle = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), _serverLocationLabel.bottomY + FITHEIGHT (46),
+                                     FITWIDTH (446), FITWIDTH (34))
+                withFont:pixelToFontsize (36)
+          withTitleColor:[UIColor colorWithHexString:@"#B2000000"]
+               withTitle:I18N (@"Server Location")];
+
+    // 初始化服务器归属地的label
+    _carrierTitle = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (FITWIDTH (50), _serverLocationTitle.bottomY + FITHEIGHT (78),
+                                     FITWIDTH (223), FITHEIGHT (50))
+                withFont:pixelToFontsize (36)
+          withTitleColor:[UIColor colorWithHexString:@"#B2000000"]
+               withTitle:I18N (@"Carrier")];
+
+    // 初始化服务器归属地标题的label
+    _carrierLabel = [CTWBViewTools
+    createLabelWithFrame:CGRectMake (_carrierTitle.rightX, _serverLocationTitle.bottomY + FITHEIGHT (78),
+                                     FITWIDTH (223), FITWIDTH (50))
+                withFont:pixelToFontsize (39)
+          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+               withTitle:@""];
+
+    // 设置Label对齐
+    _serverLocationLabel.textAlignment = NSTextAlignmentLeft;
+    _serverLocationTitle.textAlignment = NSTextAlignmentLeft;
+    _carrierTitle.textAlignment = NSTextAlignmentLeft;
+    _carrierLabel.textAlignment = NSTextAlignmentRight;
+
+
+    // 将所有label放入右侧的View
+    [_footerView.rightView addSubview:_serverLocationLabel];
+    [_footerView.rightView addSubview:_serverLocationTitle];
+    [_footerView.rightView addSubview:_carrierTitle];
+    [_footerView.rightView addSubview:_carrierLabel];
+
     [self.view addSubview:_footerView];
 }
 
@@ -297,8 +334,8 @@ double _preSpeed = 0.0;
 - (void)updateTestResultDelegate:(SVSpeedTestContext *)testContext
                       testResult:(SVSpeedTestResult *)testResult
 {
-    NSString *title21 = I18N (@"Upload");
-    NSString *title22 = I18N (@"Download");
+    NSString *uploadTitle = I18N (@"Upload");
+    NSString *downTitle = I18N (@"Download");
     dispatch_async (dispatch_get_main_queue (), ^{
 
       // 如果测试结束，则初始化测试结果，并跳转到当前结果页面
@@ -314,11 +351,11 @@ double _preSpeed = 0.0;
       {
           if (testResult.isp.isp)
           {
-              _footerView.Carrier.text = testResult.isp.isp;
+              _carrierLabel.text = testResult.isp.isp;
           }
           if (testResult.isp.city)
           {
-              _footerView.ServerLocation.text = testResult.isp.city;
+              _serverLocationLabel.text = testResult.isp.city;
           }
       }
 
@@ -334,17 +371,16 @@ double _preSpeed = 0.0;
           speed = _preSpeed + [self getRandomNumber:-_preSpeed to:_preSpeed] * 1.0 / 100;
       }
 
-      [_speedtestingView updateUvMOS3:speed];
-      [_speedtestingView.label23 setText:[NSString stringWithFormat:@"%.2f", speed]];
+      [_speedtestingView updateValue:speed];
       if (testResult.isUpload)
       {
           [_headerView.Uploadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
-          _speedtestingView.label13.text = title21;
+          _speedtestingView.titleLabel.text = uploadTitle;
       }
       else
       {
           [_headerView.Downloadspeed setText:[NSString stringWithFormat:@"%.2f", speed]];
-          _speedtestingView.label13.text = title22;
+          _speedtestingView.titleLabel.text = downTitle;
       }
 
       // 计算线图数据
