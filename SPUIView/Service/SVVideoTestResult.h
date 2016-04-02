@@ -61,10 +61,10 @@
 @property float screenSize;
 
 // 视频分辨率 1920 * 1080 即：videoWidth * videoHeight
-@property NSString *videoResolution;
+@property (nonatomic, retain) NSString *videoResolution;
 
 // 测试样本结果信息
-@property NSMutableArray *videoTestSamples;
+@property (nonatomic, retain) NSMutableArray *videoTestSamples;
 
 
 @end

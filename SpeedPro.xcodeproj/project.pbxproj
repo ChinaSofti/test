@@ -110,6 +110,13 @@
 		5BE6DE241CAD2D5B00CA2B5B /* clock_web_panel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE6DE181CAD2D5B00CA2B5B /* clock_web_panel@3x.png */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
+		B73105961CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105911CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m */; };
+		B73105971CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105921CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m */; };
+		B73105981CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105931CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.m */; };
+		B73105991CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105941CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m */; };
+		B731059A1CAF5C4400B6C3A5 /* YTPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105951CAF5C4400B6C3A5 /* YTPlayerView.m */; };
+		B731059E1CAF5F5100B6C3A5 /* player.html in Resources */ = {isa = PBXBuildFile; fileRef = B731059C1CAF5F5100B6C3A5 /* player.html */; };
+		B731059F1CAF5F5100B6C3A5 /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = B731059D1CAF5F5100B6C3A5 /* YTPlayerView-iframe-player.html */; };
 		B748CE251C9FF62C00FD388C /* SVTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE241C9FF62C00FD388C /* SVTextField.m */; };
 		B748CE451CA0166900FD388C /* SVGetDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE441CA0166900FD388C /* SVGetDistance.m */; };
 		B77D21F11C957904006BE281 /* SVChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21EE1C957904006BE281 /* SVChart.m */; };
@@ -160,7 +167,6 @@
 		B7F2677A1CAE1BF300E44299 /* SVVideoInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267431CAE1BF300E44299 /* SVVideoInfo.m */; };
 		B7F2677B1CAE1BF300E44299 /* SVVideoAnalyserFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267451CAE1BF300E44299 /* SVVideoAnalyserFactory.m */; };
 		B7F2677C1CAE1BF300E44299 /* SVVideoAnalyser.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267471CAE1BF300E44299 /* SVVideoAnalyser.m */; };
-		B7F2677D1CAE1BF300E44299 /* SVVideoAnalyser_youtube.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267491CAE1BF300E44299 /* SVVideoAnalyser_youtube.m */; };
 		B7F2677E1CAE1BF300E44299 /* SVVideoAnalyser_youku.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2674B1CAE1BF300E44299 /* SVVideoAnalyser_youku.m */; };
 		B7F2677F1CAE1BF300E44299 /* SVUvMOSCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2674D1CAE1BF300E44299 /* SVUvMOSCalculator.m */; };
 		B7F267801CAE1BF300E44299 /* SVTestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2674F1CAE1BF300E44299 /* SVTestResult.m */; };
@@ -420,6 +426,18 @@
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B71F89011C8D7E56002E8375 /* SVToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToast.h; sourceTree = "<group>"; };
 		B71F89021C8D7E56002E8375 /* SVToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToast.m; sourceTree = "<group>"; };
+		B731058C1CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoAnalyser_youtube.h; sourceTree = "<group>"; };
+		B731058D1CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVYoukuVideoPlayer.h; sourceTree = "<group>"; };
+		B731058E1CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVYoutubeVideoPlayer.h; sourceTree = "<group>"; };
+		B731058F1CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVYoutubeVideoPlayer2.h; sourceTree = "<group>"; };
+		B73105901CAF5C4400B6C3A5 /* YTPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
+		B73105911CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoAnalyser_youtube.m; sourceTree = "<group>"; };
+		B73105921CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVYoukuVideoPlayer.m; sourceTree = "<group>"; };
+		B73105931CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVYoutubeVideoPlayer.m; sourceTree = "<group>"; };
+		B73105941CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVYoutubeVideoPlayer2.m; sourceTree = "<group>"; };
+		B73105951CAF5C4400B6C3A5 /* YTPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTPlayerView.m; sourceTree = "<group>"; };
+		B731059C1CAF5F5100B6C3A5 /* player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = player.html; sourceTree = "<group>"; };
+		B731059D1CAF5F5100B6C3A5 /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
 		B748CE231C9FF62C00FD388C /* SVTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVTextField.h; sourceTree = "<group>"; };
 		B748CE241C9FF62C00FD388C /* SVTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVTextField.m; sourceTree = "<group>"; };
 		B748CE431CA0166900FD388C /* SVGetDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGetDistance.h; sourceTree = "<group>"; };
@@ -490,8 +508,6 @@
 		B7F267461CAE1BF300E44299 /* SVVideoAnalyserFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoAnalyserFactory.h; sourceTree = "<group>"; };
 		B7F267471CAE1BF300E44299 /* SVVideoAnalyser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoAnalyser.m; sourceTree = "<group>"; };
 		B7F267481CAE1BF300E44299 /* SVVideoAnalyser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoAnalyser.h; sourceTree = "<group>"; };
-		B7F267491CAE1BF300E44299 /* SVVideoAnalyser_youtube.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoAnalyser_youtube.m; sourceTree = "<group>"; };
-		B7F2674A1CAE1BF300E44299 /* SVVideoAnalyser_youtube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoAnalyser_youtube.h; sourceTree = "<group>"; };
 		B7F2674B1CAE1BF300E44299 /* SVVideoAnalyser_youku.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoAnalyser_youku.m; sourceTree = "<group>"; };
 		B7F2674C1CAE1BF300E44299 /* SVVideoAnalyser_youku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoAnalyser_youku.h; sourceTree = "<group>"; };
 		B7F2674D1CAE1BF300E44299 /* SVUvMOSCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVUvMOSCalculator.m; sourceTree = "<group>"; };
@@ -1130,6 +1146,7 @@
 		56F523E21C4DCF7F00E6472B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B731059B1CAF5F5100B6C3A5 /* Youtube */,
 				B7B5D8FE1CA543AE00DFEEBA /* Images.xcassets */,
 				56622C4D1C4F320A00B4A50B /* CTCommonDefine.pch */,
 				56F523E31C4DCF7F00E6472B /* main.m */,
@@ -1195,6 +1212,89 @@
 				5B1FEDBC1CAA74D600508920 /* SVViewController.m */,
 			);
 			path = UIUtils;
+			sourceTree = "<group>";
+		};
+		B73105881CAF5ADB00B6C3A5 /* Analyse */ = {
+			isa = PBXGroup;
+			children = (
+				B731058A1CAF5B3600B6C3A5 /* Youtube */,
+				B73105891CAF5B2900B6C3A5 /* Youku */,
+			);
+			name = Analyse;
+			sourceTree = "<group>";
+		};
+		B73105891CAF5B2900B6C3A5 /* Youku */ = {
+			isa = PBXGroup;
+			children = (
+				B7F267691CAE1BF300E44299 /* SVDecode64.m */,
+				B7F2676A1CAE1BF300E44299 /* SVDecode64.h */,
+				B7F2675D1CAE1BF300E44299 /* SVRc4.m */,
+				B7F2675E1CAE1BF300E44299 /* SVRc4.h */,
+				B7F2674B1CAE1BF300E44299 /* SVVideoAnalyser_youku.m */,
+				B7F2674C1CAE1BF300E44299 /* SVVideoAnalyser_youku.h */,
+				B7F2672F1CAE1BF300E44299 /* SVYouKu__ysuid.m */,
+				B7F267301CAE1BF300E44299 /* SVYouKu__ysuid.h */,
+				B7F2672D1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.m */,
+				B7F2672E1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.h */,
+			);
+			name = Youku;
+			sourceTree = "<group>";
+		};
+		B731058A1CAF5B3600B6C3A5 /* Youtube */ = {
+			isa = PBXGroup;
+			children = (
+				B731058C1CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.h */,
+				B73105911CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m */,
+				B73105901CAF5C4400B6C3A5 /* YTPlayerView.h */,
+				B73105951CAF5C4400B6C3A5 /* YTPlayerView.m */,
+			);
+			name = Youtube;
+			sourceTree = "<group>";
+		};
+		B731058B1CAF5B7F00B6C3A5 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				B7F2676B1CAE1BF300E44299 /* SVContentProviderGetter.m */,
+				B7F2676C1CAE1BF300E44299 /* SVContentProviderGetter.h */,
+				B7F267351CAE1BF300E44299 /* SVVideoUtil.m */,
+				B7F267361CAE1BF300E44299 /* SVVideoUtil.h */,
+				B7F267371CAE1BF300E44299 /* SVVideoTestSample.m */,
+				B7F267381CAE1BF300E44299 /* SVVideoTestSample.h */,
+				B7F267391CAE1BF300E44299 /* SVVideoTestResult.m */,
+				B7F2673A1CAE1BF300E44299 /* SVVideoTestResult.h */,
+				B7F2673B1CAE1BF300E44299 /* SVVideoTestContext.m */,
+				B7F2673C1CAE1BF300E44299 /* SVVideoTestContext.h */,
+				B7F2673D1CAE1BF300E44299 /* SVVideoTest.m */,
+				B7F2673E1CAE1BF300E44299 /* SVVideoTest.h */,
+				B7F2673F1CAE1BF300E44299 /* SVVideoSegement.m */,
+				B7F267401CAE1BF300E44299 /* SVVideoSegement.h */,
+				B7F267411CAE1BF300E44299 /* SVVideoPlayer.m */,
+				B7F267421CAE1BF300E44299 /* SVVideoPlayer.h */,
+				B7F267431CAE1BF300E44299 /* SVVideoInfo.m */,
+				B7F267441CAE1BF300E44299 /* SVVideoInfo.h */,
+				B7F267451CAE1BF300E44299 /* SVVideoAnalyserFactory.m */,
+				B7F267461CAE1BF300E44299 /* SVVideoAnalyserFactory.h */,
+				B7F267471CAE1BF300E44299 /* SVVideoAnalyser.m */,
+				B7F267481CAE1BF300E44299 /* SVVideoAnalyser.h */,
+				B7F2674D1CAE1BF300E44299 /* SVUvMOSCalculator.m */,
+				B7F2674E1CAE1BF300E44299 /* SVUvMOSCalculator.h */,
+				B731058D1CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.h */,
+				B73105921CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m */,
+				B731058E1CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.h */,
+				B73105931CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.m */,
+				B731058F1CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.h */,
+				B73105941CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m */,
+			);
+			name = Test;
+			sourceTree = "<group>";
+		};
+		B731059B1CAF5F5100B6C3A5 /* Youtube */ = {
+			isa = PBXGroup;
+			children = (
+				B731059C1CAF5F5100B6C3A5 /* player.html */,
+				B731059D1CAF5F5100B6C3A5 /* YTPlayerView-iframe-player.html */,
+			);
+			path = Youtube;
 			sourceTree = "<group>";
 		};
 		B7B5D8DD1CA40E3600DFEEBA /* LaunchImage */ = {
@@ -1405,42 +1505,8 @@
 		B7F2686A1CAE266400E44299 /* VideoTest */ = {
 			isa = PBXGroup;
 			children = (
-				B7F267691CAE1BF300E44299 /* SVDecode64.m */,
-				B7F2676A1CAE1BF300E44299 /* SVDecode64.h */,
-				B7F2676B1CAE1BF300E44299 /* SVContentProviderGetter.m */,
-				B7F2676C1CAE1BF300E44299 /* SVContentProviderGetter.h */,
-				B7F2675D1CAE1BF300E44299 /* SVRc4.m */,
-				B7F2675E1CAE1BF300E44299 /* SVRc4.h */,
-				B7F267351CAE1BF300E44299 /* SVVideoUtil.m */,
-				B7F267361CAE1BF300E44299 /* SVVideoUtil.h */,
-				B7F267371CAE1BF300E44299 /* SVVideoTestSample.m */,
-				B7F267381CAE1BF300E44299 /* SVVideoTestSample.h */,
-				B7F267391CAE1BF300E44299 /* SVVideoTestResult.m */,
-				B7F2673A1CAE1BF300E44299 /* SVVideoTestResult.h */,
-				B7F2673B1CAE1BF300E44299 /* SVVideoTestContext.m */,
-				B7F2673C1CAE1BF300E44299 /* SVVideoTestContext.h */,
-				B7F2673D1CAE1BF300E44299 /* SVVideoTest.m */,
-				B7F2673E1CAE1BF300E44299 /* SVVideoTest.h */,
-				B7F2673F1CAE1BF300E44299 /* SVVideoSegement.m */,
-				B7F267401CAE1BF300E44299 /* SVVideoSegement.h */,
-				B7F267411CAE1BF300E44299 /* SVVideoPlayer.m */,
-				B7F267421CAE1BF300E44299 /* SVVideoPlayer.h */,
-				B7F267431CAE1BF300E44299 /* SVVideoInfo.m */,
-				B7F267441CAE1BF300E44299 /* SVVideoInfo.h */,
-				B7F267451CAE1BF300E44299 /* SVVideoAnalyserFactory.m */,
-				B7F267461CAE1BF300E44299 /* SVVideoAnalyserFactory.h */,
-				B7F267471CAE1BF300E44299 /* SVVideoAnalyser.m */,
-				B7F267481CAE1BF300E44299 /* SVVideoAnalyser.h */,
-				B7F267491CAE1BF300E44299 /* SVVideoAnalyser_youtube.m */,
-				B7F2674A1CAE1BF300E44299 /* SVVideoAnalyser_youtube.h */,
-				B7F2674B1CAE1BF300E44299 /* SVVideoAnalyser_youku.m */,
-				B7F2674C1CAE1BF300E44299 /* SVVideoAnalyser_youku.h */,
-				B7F2674D1CAE1BF300E44299 /* SVUvMOSCalculator.m */,
-				B7F2674E1CAE1BF300E44299 /* SVUvMOSCalculator.h */,
-				B7F2672D1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.m */,
-				B7F2672E1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.h */,
-				B7F2672F1CAE1BF300E44299 /* SVYouKu__ysuid.m */,
-				B7F267301CAE1BF300E44299 /* SVYouKu__ysuid.h */,
+				B731058B1CAF5B7F00B6C3A5 /* Test */,
+				B73105881CAF5ADB00B6C3A5 /* Analyse */,
 			);
 			name = VideoTest;
 			sourceTree = "<group>";
@@ -1682,6 +1748,7 @@
 				B7C61B4A1CA68362001E32DC /* icon58.png in Resources */,
 				B7B5D8D51CA407BA00DFEEBA /* tabbar_settings@3x.png in Resources */,
 				4DD006061C609EDB007D4D2F /* ic_video_testing.png in Resources */,
+				B731059E1CAF5F5100B6C3A5 /* player.html in Resources */,
 				5BE6DE1E1CAD2D5B00CA2B5B /* clock_pointer_gray@3x.png in Resources */,
 				B7F268921CAE4BC800E44299 /* LICENSE in Resources */,
 				4DD006051C609EDB007D4D2F /* ic_video_normal.png in Resources */,
@@ -1744,6 +1811,7 @@
 				B7C61B441CA68247001E32DC /* starting_window_cn@1x_1.png in Resources */,
 				B7F3CA4A1C72CA3F009B087F /* toast_icon.png in Resources */,
 				568E033E1C78135D00A7CD72 /* rt_detail_title_video_img.png in Resources */,
+				B731059F1CAF5F5100B6C3A5 /* YTPlayerView-iframe-player.html in Resources */,
 				5BC491E81CAB5D420002CA68 /* ic_speed_check@2x.png in Resources */,
 				4DD005FD1C609EDB007D4D2F /* ic_network_type_normal.png in Resources */,
 				568B78C61C916DDC00AF4097 /* share_to_wechatmoments.png in Resources */,
@@ -1768,15 +1836,16 @@
 			files = (
 				B7F2682F1CAE1C3900E44299 /* PingFoundation.m in Sources */,
 				5B2FA8F11C984C9E0018D699 /* SVWarningView.m in Sources */,
+				B73105991CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m in Sources */,
 				B7F268311CAE1C3900E44299 /* RealReachability.m in Sources */,
 				B748CE251C9FF62C00FD388C /* SVTextField.m in Sources */,
 				B7F267AB1CAE1C0000E44299 /* SVCurrentDevice.m in Sources */,
+				B73105971CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m in Sources */,
 				B7F2683D1CAE1C3900E44299 /* FMDatabaseAdditions.m in Sources */,
 				B748CE451CA0166900FD388C /* SVGetDistance.m in Sources */,
 				B7F267871CAE1BF300E44299 /* SVRc4.m in Sources */,
 				B7F2683E1CAE1C3900E44299 /* FMDatabasePool.m in Sources */,
 				56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */,
-				B7F2677D1CAE1BF300E44299 /* SVVideoAnalyser_youtube.m in Sources */,
 				B7F2678B1CAE1BF300E44299 /* SVIPAndISP.m in Sources */,
 				B7F268331CAE1C3900E44299 /* DDAbstractDatabaseLogger.m in Sources */,
 				561A36E21C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m in Sources */,
@@ -1813,6 +1882,7 @@
 				B7F2677A1CAE1BF300E44299 /* SVVideoInfo.m in Sources */,
 				B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */,
 				B7F2683A1CAE1C3900E44299 /* DDDispatchQueueLogFormatter.m in Sources */,
+				B731059A1CAF5C4400B6C3A5 /* YTPlayerView.m in Sources */,
 				B7F267801CAE1BF300E44299 /* SVTestResult.m in Sources */,
 				B7F2677E1CAE1BF300E44299 /* SVVideoAnalyser_youku.m in Sources */,
 				B7F268361CAE1C3900E44299 /* DDFileLogger.m in Sources */,
@@ -1835,6 +1905,7 @@
 				B7F267771CAE1BF300E44299 /* SVVideoTest.m in Sources */,
 				B71F89031C8D7E56002E8375 /* SVToast.m in Sources */,
 				B7F268371CAE1C3900E44299 /* DDLog.m in Sources */,
+				B73105981CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.m in Sources */,
 				B7F2682C1CAE1C3900E44299 /* ReachStateUnReachable.m in Sources */,
 				B7F2676F1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.m in Sources */,
 				563734851C8ED6590064DA33 /* SVWebTestingViewCtrl.m in Sources */,
@@ -1873,6 +1944,7 @@
 				56F523E41C4DCF7F00E6472B /* main.m in Sources */,
 				B7F268351CAE1C3900E44299 /* DDASLLogger.m in Sources */,
 				B7F267761CAE1BF300E44299 /* SVVideoTestContext.m in Sources */,
+				B73105961CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m in Sources */,
 				B7F268321CAE1C3900E44299 /* CLIColor.m in Sources */,
 				B7F2678C1CAE1BF300E44299 /* SVDetailResultModel.m in Sources */,
 				B77D21F21C957904006BE281 /* SVLineChart.m in Sources */,

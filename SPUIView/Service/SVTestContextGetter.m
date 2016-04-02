@@ -205,6 +205,11 @@ static SVTestContextGetter *contextGetter = nil;
     [videoContext setVideoSegementDuration:segement.duration];
     [videoContext setVideoSegementBitrate:segement.bitrate];
     [videoContext setVideoSegementIP:url.host];
+    [videoContext setVideoQuality:segement.videoQuality];
+    [videoContext setVid:videoInfo.vid];
+    [videoContext setVideoResolution:segement.videoResolution];
+    [videoContext setFrameRate:segement.frameRate];
+
     @try
     {
         SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:url.host];
@@ -250,5 +255,20 @@ static SVTestContextGetter *contextGetter = nil;
     return bandwidthContext;
 }
 
+
+/**
+ *  视频是否是YouTube
+ *
+ *  @return TRUE 视频是YouTube视频
+ */
+- (BOOL)isYoutube
+{
+    if (videoURLS && [videoURLS containsString:@"youtube"])
+    {
+        return true;
+    }
+
+    return false;
+}
 
 @end

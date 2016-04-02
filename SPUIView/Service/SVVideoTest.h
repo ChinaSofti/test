@@ -22,9 +22,9 @@
 
 @interface SVVideoTest : NSObject
 
-@property SVVideoTestResult *testResult;
+@property (nonatomic, retain) SVVideoTestResult *testResult;
 
-@property SVVideoTestContext *testContext;
+@property (nonatomic, retain) SVVideoTestContext *testContext;
 
 /**
  *  初始化视频测试对象，初始化必须放在UI主线程中进行

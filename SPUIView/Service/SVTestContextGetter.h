@@ -90,4 +90,12 @@
  */
 - (SVSpeedTestContext *)getBandwidthContext;
 
+
+/**
+ *  视频是否是YouTube
+ *
+ *  @return TRUE 视频是YouTube视频
+ */
+- (BOOL)isYoutube;
+
 @end

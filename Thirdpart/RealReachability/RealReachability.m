@@ -18,7 +18,7 @@
 #define NSLog(...)
 #endif
 
-#define kDefaultHost @"58.60.106.188"
+#define kDefaultHost @"www.apple.com"
 #define kDefaultCheckInterval 2.0f
 
 NSString *const kRealReachabilityChangedNotification = @"kRealReachabilityChangedNotification";

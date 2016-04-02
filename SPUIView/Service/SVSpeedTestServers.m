@@ -68,6 +68,11 @@ static NSString *SPEEDTEST_SERVER_QUERY_URL = @"https://www.speedtest.net/api/an
 
 - (void)initSpeedTestServer
 {
+    if (_serverArray && _serverArray.count > 0)
+    {
+        return;
+    }
+
     SVInfo (@"start request speed test server list.");
     SVHttpsGetter *getter = [[SVHttpsGetter alloc] initWithURLNSString:SPEEDTEST_SERVER_QUERY_URL];
     NSData *reponseData = [getter getResponseData];

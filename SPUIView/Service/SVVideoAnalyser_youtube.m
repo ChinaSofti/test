@@ -10,54 +10,102 @@
 #import "SVLog.h"
 #import "SVVideoAnalyser_youtube.h"
 
-#define VIDEO_4K @"quality_label=2160p"
-//#define VIDEO_4K @"quality_label=144p"
-#define VIDEO_1K @"quality_label=1080p"
+// quality_label=2160p
+// quality_label=1440p
+// quality_label=1080p
+// quality_label=720p
+// quality_label=480p
+// quality_label=360p
+// quality_label=240p
+// quality_label=144p
+#define QUALITY_LABEL @"quality_label=360p"
 
 @implementation SVVideoAnalyser_youtube
+
+
+// 正则用于提取vid  https://www.youtube.com/watch?v=6v2L2UGZJAM
+static NSString *_VID_REG = @"^https://www.youtube.com/watch?v=([0-9a-zA-Z_]+)$";
+
+static NSString *_GET_VIDEO_INFO_URL = @"https://www.youtube.com/"
+                                       @"get_video_info?html5=1&video_id=%@&eurl&el="
+                                       @"embedded&autoplay=1&iframe=1&c=WEB&cplayer=UNIPLAYER&cbr="
+                                       @"Chrome&cos=Windows&cosver=6.1";
+
+/**
+ *  根据视频URL初始化视频信息分析器
+ *
+ *  @param videoURL 视频URL
+ *
+ *  @return 视频分片分析器
+ */
+- (id)initWithURL:(NSString *)videoURL
+{
+    self = [super initWithURL:videoURL];
+    return self;
+}
 
 /**
  *  对视频URL进行分析
  */
 - (SVVideoInfo *)analyse
 {
-    SVHttpsGetter *getter = [[SVHttpsGetter alloc] initWithURLNSString:_videoURL];
-
-    NSString *content =
-    [[NSString alloc] initWithData:[getter getResponseData] encoding:NSUTF8StringEncoding];
-    NSArray *arrays = [content componentsSeparatedByString:@"adaptive_fmts"];
-    if (arrays.count < 2)
+    NSString *vid = [self getVid];
+    if (!vid)
     {
-        SVError (@"not obtain html content of this url  %c",
-                 [content containsString:@"adaptive_fmts"]);
+        SVError (@"get vid fail. url:%@", _videoInfo.videoURL);
         return _videoInfo;
     }
 
-    NSString *paramString = arrays[1];
-    NSArray *arrays2 = [paramString componentsSeparatedByString:@"\""];
-    if (arrays2.count < 3)
+    [_videoInfo setVid:vid];
+    NSString *getVideoInfoURL = [NSString stringWithFormat:_GET_VIDEO_INFO_URL, vid];
+    SVHttpsGetter *getter = [[SVHttpsGetter alloc] initWithURLNSString:getVideoInfoURL];
+    NSString *content = [getter getResponseDataString];
+    if (!content)
     {
-        SVError (@"illeagle url info content");
+        SVError (@"request youtube get_video_info fail. url:%@", getVideoInfoURL);
         return _videoInfo;
     }
 
-    //    SVInfo (@"videoUrlSource = %@", arrays2[2]);
-    NSArray *arrays3 = [arrays2[2] componentsSeparatedByString:@","];
-    SVInfo (@"videoUrlList size = %zd", arrays3.count);
-    if (arrays3.count < 1)
+    NSString *adaptive_fmts;
+    NSArray *arrays = [content componentsSeparatedByString:@"&"];
+    for (NSString *str in arrays)
+    {
+        //        NSLog (@"%@", str);
+        if ([str containsString:@"adaptive_fmts"])
+        {
+            NSArray *adaptive_fmts_arrays = [str componentsSeparatedByString:@"="];
+            if (adaptive_fmts_arrays.count > 1)
+            {
+                adaptive_fmts = adaptive_fmts_arrays[1];
+                break;
+            }
+        }
+    }
+
+    if (!adaptive_fmts)
+    {
+        SVError (@"get_video_info doesn't contain adaptive_fmts. please check whether the url of "
+                 @"get_video_info is available.  url:%@",
+                 getVideoInfoURL);
+        return _videoInfo;
+    }
+
+    NSString *decode_adaptive_fmts = [self decodeFromPercentEscapeString:adaptive_fmts];
+    NSArray *videoSegementString = [decode_adaptive_fmts componentsSeparatedByString:@","];
+    SVInfo (@"videoUrlList size = %zd", videoSegementString.count);
+    if (videoSegementString.count < 1)
     {
         SVError (@"illeagle videoUrlList info content");
         return _videoInfo;
     }
 
     NSMutableArray *videoParamStringArrays = [[NSMutableArray alloc] init];
-
-    for (int i = 0; i < arrays3.count; i++)
+    for (int i = 0; i < videoSegementString.count; i++)
     {
-        if ([arrays3[i] containsString:VIDEO_4K] || [arrays3[i] containsString:VIDEO_1K])
+        if ([videoSegementString[i] containsString:QUALITY_LABEL] &&
+            [videoSegementString[i] containsString:@"type=video%2Fmp4"])
         {
-            //            videoParamString = arrays3[i];
-            [videoParamStringArrays addObject:arrays3[i]];
+            [videoParamStringArrays addObject:videoSegementString[i]];
         }
     }
 
@@ -75,22 +123,21 @@
         return _videoInfo;
     }
 
-    //    SVInfo (@"%@", videoParamString);
-    SVInfo (@"item:----------start--------------");
-    NSArray *arrays4 = [videoParamString componentsSeparatedByString:@"\\u0026"];
-
+    SVInfo (@"%@", videoParamString);
     NSString *videoURLString;
+    NSArray *videoInfoArray = [videoParamString componentsSeparatedByString:@"&"];
     SVVideoSegement *segement = [[SVVideoSegement alloc] init];
-    for (NSString *item in arrays4)
+    for (NSString *item in videoInfoArray)
     {
         SVInfo (@"%@", item);
         NSArray *arrays5 = [item componentsSeparatedByString:@"="];
         NSString *key = arrays5[0];
-        NSString *value = [self decodeFromPercentEscapeString:arrays5[1]];
-        if (!key)
-        {
-            continue;
-        }
+        NSString *value = arrays5[1];
+        //        NSString *value = [self decodeFromPercentEscapeString:arrays5[1]];
+        //        if (!key)
+        //        {
+        //            continue;
+        //        }
 
         if ([key isEqualToString:@"url"])
         {
@@ -127,32 +174,16 @@
             [segement setSize:[value intValue]];
             continue;
         }
-    }
-    SVInfo (@"item:----------end----------------%@", videoURLString);
 
-    if (![videoURLString containsString:@"signature"])
-    {
-        //
-        //        NSString *signature = [self extractSignature:videoURLString];
-        //        if (!signature)
-        //        {
-        //            SVError (@"extract signature fail.");
-        //            return _videoInfo;
-        //        }
-        //
-        //        SVInfo (@"modify before signature:%@", signature);
-        //        NSString *newSignature = [self modifySignarture:signature];
-        //        SVInfo (@"modify after signature:%@", newSignature);
-        //
-        //        NSArray *arrays6 = [videoURLString componentsSeparatedByString:signature];
-        //        NSString *videoURL =
-        //        [[NSString alloc] initWithFormat:@"%@%@%@%@", arrays6[0], newSignature,
-        //        arrays6[1],
-        //                                         @"&alr=yes&ratebypass=yes&c=WEB&cver=html5"];
+        // quality_label=720p
+        if ([key isEqualToString:@"quality_label"])
+        {
+            // 视频大小
+            [segement setVideoQuality:value];
+            continue;
+        }
     }
 
-
-    SVInfo (@"final url:%@", videoURLString);
     [segement setVideoSegementURL:videoURLString];
     [_videoInfo addSegement:segement];
     return _videoInfo;
@@ -270,6 +301,39 @@
 
                                     range:NSMakeRange (0, [outputStr length])];
     return [outputStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+
+/**
+ *  解析视频URL，获取其中“id_”和“.html”之间的值
+ *
+ *  @return 视频ID
+ */
+- (NSString *)getVid
+{
+    //    NSError *error = nil;
+    //    NSRegularExpression *regex = [NSRegularExpression
+    //    regularExpressionWithPattern:_VID_REG
+    //                         options:NSRegularExpressionCaseInsensitive |
+    //                         NSRegularExpressionDotMatchesLineSeparators
+    //                           error:&error];
+    //    NSArray *matches = [regex matchesInString:_videoURL
+    //                                      options:NSMatchingWithTransparentBounds
+    //                                        range:NSMakeRange (0, [_videoURL length])];
+    //    if (matches && matches.count > 0)
+    //    {
+    //        NSTextCheckingResult *checkingResult = [matches objectAtIndex:0];
+    //        NSRange halfRange = [checkingResult rangeAtIndex:1];
+    //        return [_videoURL substringWithRange:halfRange];
+    //    }
+
+    NSArray *array = [_videoURL componentsSeparatedByString:@"?v="];
+    if (array.count <= 1)
+    {
+        return nil;
+    }
+
+    return array[1];
 }
 
 

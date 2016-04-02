@@ -16,7 +16,7 @@
 
 @interface SVVideoTestingCtrl : SVViewController <SVVideoTestDelegate>
 
-@property SVCurrentResultModel *currentResultModel;
+@property (nonatomic, retain) SVCurrentResultModel *currentResultModel;
 
 
 - (id)initWithResultModel:(SVCurrentResultModel *)resultModel;

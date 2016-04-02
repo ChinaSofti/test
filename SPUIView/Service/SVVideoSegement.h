@@ -31,5 +31,7 @@
 // 视频分辨率 1920 * 1080 即：videoWidth * videoHeight
 @property NSString *videoResolution;
 
+// 视频清晰度
+@property NSString *videoQuality;
 
 @end

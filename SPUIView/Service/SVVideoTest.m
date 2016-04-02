@@ -13,6 +13,8 @@
 #import "SVTimeUtil.h"
 #import "SVVideoPlayer.h"
 #import "SVVideoTest.h"
+#import "SVYoukuVideoPlayer.h"
+#import "SVYoutubeVideoPlayer.h"
 
 @implementation SVVideoTest
 {
@@ -60,9 +62,22 @@
 
     if (!_videoPlayer)
     {
-        //初始化播放器
-        _videoPlayer =
-        [[SVVideoPlayer alloc] initWithView:_showVideoView testDelegate:testDelegate];
+
+        SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
+        BOOL isYoutube = [contextGetter isYoutube];
+        //        BOOL isYoutube = true;
+        if (isYoutube)
+        {
+            //初始化播放器
+            _videoPlayer =
+            [[SVYoutubeVideoPlayer alloc] initWithView:_showVideoView testDelegate:testDelegate];
+        }
+        else
+        {
+            //初始化播放器
+            _videoPlayer =
+            [[SVYoukuVideoPlayer alloc] initWithView:_showVideoView testDelegate:testDelegate];
+        }
     }
     SVInfo (@"SVVideoTest testID:%lld  showVideoView:%@", testId, showVideoView);
     return self;

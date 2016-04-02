@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<body style="margin:0px">
+<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+<div id="player">
+</div>
+
+<script>
+
+    var isAndroid = false;
+    /**
+    if (typeof(injectedObject) == "undefined") {
+        isAndroid = false;
+    } else {
+        isAndroid = true;
+    }
+     **/
+    var videoID = getQueryString('vid');
+    if (videoID == null) {
+        videoID = 'k4MWgNsxd_c';
+    }
+
+    var quality = getQueryString('quality');
+    if (quality == null) {
+        quality = 'default';
+    }
+
+    var videoWidth = getQueryString('width');
+    if (videoWidth == null) {
+        videoWidth = document.body.clientWidth;
+    }
+
+    var videoHeight = getQueryString('height');
+    if (videoHeight == null) {
+        videoHeight = document.body.clientWidth  * 9 / 16;
+    }
+
+    console.log("Youtube Video vid - " + videoID + " quality - " + quality );
+
+    //开始加载播放器本身
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    //定义API准备完成的回调
+    var player;
+    function onYouTubeIframeAPIReady() {
+        console.log("onYouTubeIframeAPIReady called " + document.body.clientWidth);
+        player = new YT.Player('player', {
+            // width: document.body.clientWidth,
+            // height:document.body.clientWidth  * 9 / 16,
+            width: videoWidth,
+            height: videoHeight,
+            videoId: videoID,
+            playerVars: {
+                autoplay: 1,
+                vq: quality
+            },
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange,
+                'onError': onPlayerError,
+                'onPlaybackQualityChange': onPlaybackQualityChange
+            }
+        });
+		// setPlayerSize(document.body.clientWidth, document.body.clientWidth  * 9 / 16);
+		
+    }
+
+    //定义播放器准备完成的回调
+    function onPlayerReady(event) {
+        console.log("onPlayerReady called: " + event.target.getDuration());
+        //        event.target.showVideoInfo();
+        event.target.setPlaybackQuality(quality);
+        event.target.playVideo();
+        /**
+        if (isAndroid) {
+            injectedObject.onPlayerReady(event.target.getDuration());
+        }
+        **/
+        postMyMessage('onPlayerReady', event);
+		
+    }
+
+    //定义播放器状态变化的回调
+    function onPlayerStateChange(event) {
+        console.log("onPlayerStateChange " + event.data + " duration:" + event.target.getDuration() + " quality:" + event.target.getPlaybackQuality()
+        + " Fraction:" + event.target.getVideoLoadedFraction() + " currentTime:" + event.target.getCurrentTime());
+        /**
+        if (isAndroid) {
+            injectedObject.onPlayerStateChange(event.data, event.target.getPlaybackQuality());
+        }
+         
+         -1 – 未开始
+         0 – 已结束
+         1 – 正在播放
+         2 – 已暂停
+         3 – 正在缓冲
+         5 – 已插入视频
+         **/
+		postMyMessage('onPlayerStateChange', event);
+    }
+
+    //定义视频分辨率调整的回调
+    function onPlaybackQualityChange(event) {
+        console.log("onPlaybackQualityChange:" + event.data + " Fraction:" + event.target.getVideoLoadedFraction() + " currentTime:" + event.target.getCurrentTime());
+        if(quality!='default' && event.data != quality){
+            event.target.setPlaybackQuality(quality);
+            console.log("onPlaybackQualityChange set quality: " + quality);
+        }else{
+            console.log("onPlaybackQualityChange the quality playing is " + event.data + " matches the input quality:" + quality);
+        }
+
+        /**
+        if (isAndroid) {
+            injectedObject.onPlaybackQualityChange(event.data, event.target.getCurrentTime());
+        }
+         small
+         medium
+         large
+         hd720
+         hd1080
+         highres
+         **/
+        postMyMessage('onPlaybackQualityChange', event);
+    }
+
+    //定义播放过程出现错误
+    function onPlayerError(event) {
+        console.log("onPlayerError " + event.data);
+        /**
+        if (isAndroid) {
+            injectedObject.onPlayerError(event.data);
+        }
+         
+         2 – 请求包含无效的参数值。例如，如果您指定的视频ID不足11个字符，或者如果视频ID包含无效字符（例如感叹号或星号），就会发生此错误。
+         5 – 请求的内容无法在HTML5播放器中播放，或者发生了与HTML5播放器有关的其他错误。
+         100 – 找不到所请求的视频。当视频已被移除（无论是何种原因）或者被标记为私有状态时，就会发生此错误。
+         101 – 所请求的视频的所有者不允许在嵌入式播放器中播放此视频。
+         150 – 此错误与101相同，实际就是变相的101错误！
+         **/
+        postMyMessage('onPlayerError', event);
+    }
+	
+
+	
+    function setPlayerSize(playerWidth, playerHeight) {
+		console.log("playerWidth " + playerWidth + ", playerHeight" + playerHeight);
+        player.setSize(playerWidth, playerHeight);
+		document.getElementById("player").width = playerWidth;
+        document.getElementById("player").height = playerHeight;
+    }
+
+	
+	
+    function stopVideo() {
+        player.stopVideo();
+		
+    }
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    function postMyMessage(type, event) {
+        /**
+        console.log(type);
+         console.log("onPlaybackQualityChange:" + event.data + " Fraction:" + event.target.getVideoLoadedFraction() + " currentTime:" + event.target.getCurrentTime());
+         
+         console.log("onPlayerStateChange " + event.data + " duration:" + event.target.getDuration() + " quality:" + event.target.getPlaybackQuality()
+                     + " Fraction:" + event.target.getVideoLoadedFraction() + " currentTime:" + event.target.getCurrentTime());
+**/
+        var message = {
+            'type' : "'" + type + "'",
+            'data' : {
+                'event_data': "'" + event.data  + "'",
+                'duration': "'" + event.target.getDuration()  + "'",
+                'quality': "'" + event.target.getPlaybackQuality()  + "'",
+                'fraction': "'" + event.target.getVideoLoadedFraction()  + "'",
+                'currentTime': "'" + event.target.getCurrentTime()  + "'",
+            }
+        };
+        
+        
+        window.webkit.messageHandlers.YoutubeVideoPlayer_OC.postMessage(message);
+        
+    }
+</script>
+</body>
+</html>

@@ -35,8 +35,8 @@
 @property double stDelay;
 @property double stDownloadSpeed;
 @property double stUploadSpeed;
-@property NSString *stLocation;
-@property NSString *stIsp;
+@property (nonatomic, retain) NSString *stLocation;
+@property (nonatomic, retain) NSString *stIsp;
 
 
 - (id)init;
