@@ -7,6 +7,7 @@
 //
 
 
+#import "SVLabelTools.h"
 #import "SVPointView.h"
 #import "SVVideoTestingCtrl.h"
 #import "UUBar.h"
@@ -32,7 +33,7 @@
     }
 
     // 设置view大小
-    [self setFrame:CGRectMake (0, FITHEIGHT (456), kScreenW, FITHEIGHT (830))];
+    [self setFrame:CGRectMake (0, FITHEIGHT (536), kScreenW, FITHEIGHT (830))];
 
     // 根据类型获取imageName
     testType = dic[@"testType"];
@@ -50,7 +51,7 @@
     _pointView =
     [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (125), 0, FITWIDTH (830), FITHEIGHT (830))];
     UIImageView *pointImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    pointImageView.size = CGSizeMake (FITWIDTH (830), FITHEIGHT (830));
+    pointImageView.size = CGSizeMake (FITHEIGHT (830), FITHEIGHT (830));
     pointImageView.image = [UIImage imageNamed:@"clock_pointer_blue"];
     pointImageView.center = CGPointMake (_pointView.frame.size.width / 2, _pointView.frame.size.height / 2);
     [_pointView addSubview:pointImageView];
@@ -58,7 +59,7 @@
     _panelView =
     [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (125), 0, FITWIDTH (830), FITHEIGHT (830))];
     UIImageView *panelImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    panelImageView.size = CGSizeMake (FITWIDTH (830), FITHEIGHT (830));
+    panelImageView.size = CGSizeMake (FITHEIGHT (830), FITHEIGHT (830));
     panelImageView.image = [UIImage imageNamed:imageName];
     panelImageView.center = CGPointMake (_panelView.frame.size.width / 2, _panelView.frame.size.height / 2);
     [_panelView addSubview:panelImageView];
@@ -66,7 +67,7 @@
     _middleView =
     [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (125), 0, FITWIDTH (830), FITHEIGHT (830))];
     UIImageView *middleImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    middleImageView.size = CGSizeMake (FITWIDTH (830), FITHEIGHT (830));
+    middleImageView.size = CGSizeMake (FITHEIGHT (830), FITHEIGHT (830));
     middleImageView.image = [UIImage imageNamed:@"clock_middle"];
     middleImageView.center = CGPointMake (_panelView.frame.size.width / 2, _panelView.frame.size.height / 2);
     [_middleView addSubview:middleImageView];
@@ -75,7 +76,7 @@
     _grayView =
     [[SVPointView alloc] initWithFrame:CGRectMake (FITWIDTH (125), 0, FITWIDTH (830), FITHEIGHT (830))];
     UIImageView *grayImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    grayImageView.size = CGSizeMake (FITWIDTH (830), FITHEIGHT (830));
+    grayImageView.size = CGSizeMake (FITHEIGHT (830), FITHEIGHT (830));
     grayImageView.image = [UIImage imageNamed:@"clock_pointer_gray"];
     grayImageView.center = CGPointMake (_panelView.frame.size.width / 2, _panelView.frame.size.height / 2);
     [_grayView addSubview:grayImageView];
@@ -90,17 +91,17 @@
 
 
     _valueLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (395), FITHEIGHT (560), FITWIDTH (290), FITHEIGHT (144))];
+    initWithFrame:CGRectMake (FITWIDTH (395), FITHEIGHT (604), FITWIDTH (290), FITHEIGHT (100))];
     _valueLabel.text = dic[@"defaultValue"];
     _valueLabel.textColor = [UIColor colorWithHexString:@"#29A5E5"];
     _valueLabel.font = [UIFont systemFontOfSize:pixelToFontsize (118)];
     _valueLabel.textAlignment = NSTextAlignmentCenter;
 
     NSString *unitStr = dic[@"unit"];
-    if (!unitStr)
+    if (unitStr)
     {
         _unitLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (_valueLabel.rightX, FITHEIGHT (560), FITWIDTH (29), FITHEIGHT (129))];
+        initWithFrame:CGRectMake (_valueLabel.rightX, FITHEIGHT (604), FITWIDTH (29), FITHEIGHT (100))];
         _unitLabel.text = unitStr;
         _unitLabel.textColor = [UIColor colorWithHexString:@"#29A5E5"];
         _unitLabel.font = [UIFont systemFontOfSize:pixelToFontsize (78)];
@@ -162,6 +163,18 @@
     {
         [self updateValue_100:value];
     }
+
+    // 自适应仪表盘的值和单位
+    if (!_unitLabel)
+    {
+        _unitLabel = [[UILabel alloc] init];
+    }
+
+    [SVLabelTools resetLayoutWithValueLabel:_valueLabel
+                                  UnitLabel:_unitLabel
+                                  WithWidth:kScreenW
+                                 WithHeight:FITHEIGHT (100)
+                                      WithY:FITHEIGHT (604)];
 }
 
 /**

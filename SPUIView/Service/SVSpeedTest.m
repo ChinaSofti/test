@@ -135,6 +135,14 @@ double _beginTime;
         // 推送最终结果
         [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
 
+        // 如果提前停止测试，直接返回
+        if (_testStatus == TEST_FINISHED)
+        {
+            // 取消屏幕不会休眠的设置
+            [UIApplication sharedApplication].idleTimerDisabled = NO;
+            return NO;
+        }
+
         // 结果入库
         [self persistSVDetailResultModel];
 

@@ -5,11 +5,7 @@
 //  Created by 许彦彬 on 16/1/25.
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
-#define Gap 8
-#define CellHeight (kScreenW - 20) * 0.19
-#define LabelHeight 20
-#define TimeHeight 10
-#define CornerRadius 5
+#define CornerRadius svCornerRadius (12)
 
 #import "SVResultCell.h"
 #import "SVSummaryResultModel.h"
@@ -45,8 +41,7 @@
     if (_imgViewType == nil)
     {
         _imgViewType = [[UIImageView alloc] init];
-        _imgViewType.frame =
-        CGRectMake (Gap * 3.3, (CellHeight - LabelHeight) / 2, kScreenW / 15, kScreenH / 25);
+        _imgViewType.frame = CGRectMake (FITWIDTH (79), FITHEIGHT (58), kScreenW / 15, kScreenH / 28);
     }
     return _imgViewType;
 }
@@ -56,11 +51,11 @@
     if (_testDate == nil)
     {
         _testDate = [[UILabel alloc] init];
-        _testDate.frame = CGRectMake (kScreenW / 5 - FITHEIGHT (12),
-                                      (CellHeight - LabelHeight - TimeHeight) / 2, kScreenW / 5, LabelHeight);
-        _testDate.textColor = [UIColor blackColor];
-        _testDate.font = [UIFont systemFontOfSize:13];
+        _testDate.frame = CGRectMake (FITWIDTH (207), FITHEIGHT (30), FITWIDTH (207), FITHEIGHT (58));
+        _testDate.textColor = [UIColor colorWithHexString:@"#E5000000"];
+        _testDate.font = [UIFont systemFontOfSize:pixelToFontsize (48)];
         _testDate.textAlignment = NSTextAlignmentCenter;
+        //        _testDate.backgroundColor = [UIColor redColor];
     }
     return _testDate;
 }
@@ -70,12 +65,11 @@
     if (_testTime == nil)
     {
         _testTime = [[UILabel alloc] init];
-        _testTime.frame = CGRectMake (kScreenW / 5 - FITHEIGHT (12),
-                                      (CellHeight - LabelHeight - TimeHeight) / 2 + LabelHeight,
-                                      kScreenW / 5, LabelHeight);
-        _testTime.textColor = [UIColor blackColor];
-        _testTime.font = [UIFont systemFontOfSize:11];
+        _testTime.frame = CGRectMake (FITWIDTH (207), FITHEIGHT (100), FITWIDTH (207), FITHEIGHT (58));
+        _testTime.textColor = [UIColor colorWithHexString:@"#B2000000"];
+        _testTime.font = [UIFont systemFontOfSize:pixelToFontsize (30)];
         _testTime.textAlignment = NSTextAlignmentCenter;
+        //        _testTime.backgroundColor = [UIColor redColor];
     }
     return _testTime;
 }
@@ -85,53 +79,53 @@
     if (_videoMOS == nil)
     {
         _videoMOS = [[UILabel alloc] init];
-        _videoMOS.frame = CGRectMake (kScreenW * 2 / 5 - FITHEIGHT (12),
-                                      (CellHeight - LabelHeight) / 2, kScreenW / 5, LabelHeight);
-        _videoMOS.textColor = [UIColor blackColor];
-        _videoMOS.font = [UIFont systemFontOfSize:13];
+        _videoMOS.frame = CGRectMake (FITWIDTH (414), FITHEIGHT (58), FITWIDTH (207), FITHEIGHT (58));
+        _videoMOS.textColor = [UIColor colorWithHexString:@"#E5000000"];
+        _videoMOS.font = [UIFont systemFontOfSize:pixelToFontsize (48)];
         _videoMOS.textAlignment = NSTextAlignmentCenter;
+        //        _videoMOS.backgroundColor = [UIColor redColor];
     }
     return _videoMOS;
 }
 
-//首次缓冲时间
+//完全加载时间
 - (UILabel *)loadTime
 {
     if (_loadTime == nil)
     {
         _loadTime = [[UILabel alloc] init];
-        _loadTime.frame = CGRectMake (kScreenW * 3 / 5 - FITHEIGHT (12),
-                                      (CellHeight - LabelHeight) / 2, kScreenW / 6, LabelHeight);
-        _loadTime.textColor = [UIColor blackColor];
-        _loadTime.font = [UIFont systemFontOfSize:13];
+        _loadTime.frame = CGRectMake (FITWIDTH (621), FITHEIGHT (58), FITWIDTH (207), FITHEIGHT (58));
+        _loadTime.textColor = [UIColor colorWithHexString:@"#E5000000"];
+        _loadTime.font = [UIFont systemFontOfSize:pixelToFontsize (48)];
         _loadTime.textAlignment = NSTextAlignmentCenter;
+        //        _loadTime.backgroundColor = [UIColor redColor];
     }
     return _loadTime;
 }
-//速率
+//带宽
 - (UILabel *)bandWidth
 {
     if (_bandWidth == nil)
     {
         _bandWidth = [[UILabel alloc] init];
-        _bandWidth.frame = CGRectMake (kScreenW * 4 / 5 - FITHEIGHT (30),
-                                       (CellHeight - LabelHeight) / 2, kScreenW / 4, LabelHeight);
-        _bandWidth.textColor = [UIColor blackColor];
-        _bandWidth.font = [UIFont systemFontOfSize:13];
+        _bandWidth.frame = CGRectMake (FITWIDTH (823), FITHEIGHT (58), FITWIDTH (207), FITHEIGHT (58));
+        _bandWidth.textColor = [UIColor colorWithHexString:@"#E5000000"];
+        _bandWidth.font = [UIFont systemFontOfSize:pixelToFontsize (48)];
         _bandWidth.textAlignment = NSTextAlignmentCenter;
+        //        _bandWidth.backgroundColor = [UIColor redColor];
     }
     return _bandWidth;
 }
 
-//
+// cell的框
 - (UIButton *)bgdBtn
 {
     if (_bgdBtn == nil)
     {
         _bgdBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _bgdBtn.frame = CGRectMake (Gap, 0, kScreenW - 2 * Gap, CellHeight);
+        _bgdBtn.frame = CGRectMake (FITWIDTH (24), 0, kScreenW - 2 * FITWIDTH (24), FITHEIGHT (170));
         _bgdBtn.layer.cornerRadius = CornerRadius * 2;
-        _bgdBtn.layer.borderColor = [UIColor colorWithWhite:200 / 255.0 alpha:0.5].CGColor;
+        _bgdBtn.layer.borderColor = [UIColor colorWithHexString:@"#dddddd"].CGColor;
         _bgdBtn.layer.borderWidth = 1;
         [_bgdBtn addTarget:self
                     action:@selector (bgdBtnClick:)
@@ -144,7 +138,6 @@
 {
     if (self.cellBlock)
     {
-
         _cellBlock ();
     }
 }
@@ -169,8 +162,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (void)setResultModel:(SVSummaryResultModel *)_resultModel
@@ -186,21 +177,6 @@
     }
 
     NSString *testTime = _resultModel.testTime;
-    //    NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:([testTime longLongValue] /
-    //    1000)];
-    //
-    //    NSDateFormatter *dataFormater = [[NSDateFormatter alloc] init];
-    //    [dataFormater setDateStyle:NSDateFormatterMediumStyle];
-    //    [dataFormater setTimeStyle:NSDateFormatterShortStyle];
-    //    [dataFormater setDateFormat:@"MM/dd"];
-    //
-    //    NSDateFormatter *timeFormater = [[NSDateFormatter alloc] init];
-    //    [timeFormater setDateStyle:NSDateFormatterMediumStyle];
-    //    [timeFormater setTimeStyle:NSDateFormatterShortStyle];
-    //    [timeFormater setDateFormat:@"HH:mm:ss"];
-
-    //    SVInfo (@"date1:%@", [dataFormater stringFromDate:date]);
-    //    SVInfo (@"time1:%@", [timeFormater stringFromDate:date]);
     self.testDate.text =
     [SVTimeUtil formatDateByMilliSecond:[testTime longLongValue] formatStr:@"MM/dd"];
     self.testTime.text =

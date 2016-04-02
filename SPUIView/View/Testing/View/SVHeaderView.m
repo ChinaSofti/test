@@ -7,6 +7,7 @@
 //
 
 #import "SVHeaderView.h"
+#import "SVLabelTools.h"
 
 @implementation SVHeaderView
 {
@@ -71,7 +72,7 @@
     }
 
     // 设置view大小
-    [self setFrame:CGRectMake (0, FITHEIGHT (144), kScreenW, FITHEIGHT (312))];
+    [self setFrame:CGRectMake (0, FITHEIGHT (224), kScreenW, FITHEIGHT (312))];
 
     // 初始化字体大小和颜色
     labelFontSize = dic[@"labelFontSize"];
@@ -172,159 +173,15 @@
     return self;
 }
 
-//初始化方法
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        // webtesting
-        NSString *title3 = I18N (@"Response Time");
-        NSString *title4 = I18N (@"Download Speed");
-        NSString *title5 = I18N (@"Load duration");
-        //设置Label
-        _ResponseLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (35), FITWIDTH (100), FITWIDTH (50), FITWIDTH (20))
-                    withFont:16
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"N/A"];
-        _ResponseLabel1 = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_ResponseLabel.rightX, FITWIDTH (100), FITWIDTH (30), FITWIDTH (20))
-                    withFont:10
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"s"];
-        _DownloadLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_ResponseLabel1.rightX, FITWIDTH (100), FITWIDTH (65), FITWIDTH (20))
-                    withFont:16
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"N/A"];
-        _DownloadLabel1 = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_DownloadLabel.rightX, FITWIDTH (100), FITWIDTH (35), FITWIDTH (20))
-                    withFont:10
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"kbps"];
-
-        _LoadLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_DownloadLabel1.rightX, FITWIDTH (100), FITWIDTH (58), FITWIDTH (20))
-                    withFont:16
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"N/A"];
-        _LoadLabel1 = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_LoadLabel.rightX, FITWIDTH (100), FITWIDTH (32), FITWIDTH (20))
-                    withFont:10
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"s"];
-
-        _ResponseNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (35), _ResponseLabel.bottomY + FITWIDTH (10),
-                                         FITWIDTH (95), FITWIDTH (20))
-                    withFont:13
-              withTitleColor:RGBACOLOR (81, 81, 81, 1)
-                   withTitle:title3];
-
-        _DownloadNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_ResponseNumLabel.rightX, _ResponseLabel.bottomY + FITWIDTH (10),
-                                         FITWIDTH (95), FITWIDTH (20))
-                    withFont:13
-              withTitleColor:RGBACOLOR (81, 81, 81, 1)
-                   withTitle:title4];
-
-        _LoadNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_DownloadNumLabel.rightX, _ResponseLabel.bottomY + FITWIDTH (10),
-                                         FITWIDTH (95), FITWIDTH (20))
-                    withFont:13
-              withTitleColor:RGBACOLOR (81, 81, 81, 1)
-                   withTitle:title5];
-        //所有Label居中对齐
-        _ResponseLabel.textAlignment = NSTextAlignmentRight;
-        _ResponseLabel1.textAlignment = NSTextAlignmentLeft;
-        _DownloadLabel.textAlignment = NSTextAlignmentRight;
-        _DownloadLabel1.textAlignment = NSTextAlignmentLeft;
-        _LoadLabel.textAlignment = NSTextAlignmentRight;
-        _LoadLabel1.textAlignment = NSTextAlignmentLeft;
-
-        _ResponseNumLabel.textAlignment = NSTextAlignmentCenter;
-        _DownloadNumLabel.textAlignment = NSTextAlignmentCenter;
-        _LoadNumLabel.textAlignment = NSTextAlignmentCenter;
-
-        // speedtesting
-        NSString *title6 = I18N (@"Delay");
-        NSString *title7 = I18N (@"Download Speed");
-        NSString *title8 = I18N (@"Upload speed");
-        //设置Label
-        _Delay = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (30), FITWIDTH (100), FITWIDTH (50), FITWIDTH (20))
-                    withFont:16
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"N/A"];
-        _Delay1 = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_Delay.rightX, FITWIDTH (100), FITWIDTH (30), FITWIDTH (20))
-                    withFont:10
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"ms"];
-        _Downloadspeed = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_Delay1.rightX, FITWIDTH (100), FITWIDTH (58), FITWIDTH (20))
-                    withFont:16
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"N/A"];
-        _Downloadspeed1 = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_Downloadspeed.rightX, FITWIDTH (100), FITWIDTH (42), FITWIDTH (20))
-                    withFont:10
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"Mbps"];
-
-        _Uploadspeed = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_Downloadspeed1.rightX, FITWIDTH (100), FITWIDTH (52), FITWIDTH (20))
-                    withFont:16
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"N/A"];
-        _Uploadspeed1 = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_Uploadspeed.rightX, FITWIDTH (101), FITWIDTH (38), FITWIDTH (20))
-                    withFont:10
-              withTitleColor:RGBACOLOR (250, 180, 86, 1)
-                   withTitle:@"Mbps"];
-
-        _DelayNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (FITWIDTH (30), _Delay.bottomY + FITWIDTH (10), FITWIDTH (80), FITWIDTH (20))
-                    withFont:13
-              withTitleColor:RGBACOLOR (81, 81, 81, 1)
-                   withTitle:title6];
-
-        _DownloadspeedNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_DelayNumLabel.rightX, _Delay.bottomY + FITWIDTH (10),
-                                         FITWIDTH (100), FITWIDTH (20))
-                    withFont:13
-              withTitleColor:RGBACOLOR (81, 81, 81, 1)
-                   withTitle:title7];
-
-        _UploadspeedNumLabel = [CTWBViewTools
-        createLabelWithFrame:CGRectMake (_DownloadspeedNumLabel.rightX,
-                                         _Delay.bottomY + FITWIDTH (10), FITWIDTH (90), FITWIDTH (20))
-                    withFont:13
-              withTitleColor:RGBACOLOR (81, 81, 81, 1)
-                   withTitle:title8];
-        // 所有Label居中对齐
-        _Delay.textAlignment = NSTextAlignmentRight;
-        _Delay1.textAlignment = NSTextAlignmentLeft;
-        _Downloadspeed.textAlignment = NSTextAlignmentRight;
-        _Downloadspeed1.textAlignment = NSTextAlignmentLeft;
-        _Uploadspeed.textAlignment = NSTextAlignmentRight;
-        _Uploadspeed1.textAlignment = NSTextAlignmentLeft;
-
-        _DelayNumLabel.textAlignment = NSTextAlignmentCenter;
-        _DownloadspeedNumLabel.textAlignment = NSTextAlignmentCenter;
-        _UploadspeedNumLabel.textAlignment = NSTextAlignmentCenter;
-    }
-    return self;
-}
-
 /**
  * 更新左侧的label内容
  */
 - (void)updateLeftValue:(NSString *)value
 {
     leftValueLabel.text = value;
-    [self resetValueLabelLayout];
+
+    // 左侧布局
+    [self resetLayoutWithValueLabel:leftValueLabel UnitLabel:leftUnitLabel];
 }
 
 /**
@@ -333,7 +190,9 @@
 - (void)updateMiddleValue:(NSString *)value
 {
     middleValueLabel.text = value;
-    [self resetValueLabelLayout];
+
+    // 中间布局
+    [self resetLayoutWithValueLabel:middleValueLabel UnitLabel:middleUnitLabel];
 }
 
 /**
@@ -342,7 +201,45 @@
 - (void)updateRightValue:(NSString *)value
 {
     rightValueLabel.text = value;
-    [self resetValueLabelLayout];
+
+    // 右侧布局
+    [self resetLayoutWithValueLabel:rightValueLabel UnitLabel:rightUnitLabel];
+}
+
+/**
+ * 更新左侧的label内容
+ */
+- (void)updateLeftValue:(NSString *)value WithUnit:(NSString *)unit
+{
+    leftValueLabel.text = value;
+    leftUnitLabel.text = unit;
+
+    // 左侧布局
+    [self resetLayoutWithValueLabel:leftValueLabel UnitLabel:leftUnitLabel];
+}
+
+/**
+ * 更新中间的label内容
+ */
+- (void)updateMiddleValue:(NSString *)value WithUnit:(NSString *)unit
+{
+    middleValueLabel.text = value;
+    middleUnitLabel.text = unit;
+
+    // 中间布局
+    [self resetLayoutWithValueLabel:middleValueLabel UnitLabel:middleUnitLabel];
+}
+
+/**
+ * 更新右侧的label内容
+ */
+- (void)updateRightValue:(NSString *)value WithUnit:(NSString *)unit
+{
+    rightValueLabel.text = value;
+    rightUnitLabel.text = unit;
+
+    // 右侧布局
+    [self resetLayoutWithValueLabel:rightValueLabel UnitLabel:rightUnitLabel];
 }
 
 /**
@@ -408,23 +305,12 @@
  */
 - (void)resetLayoutWithValueLabel:(UILabel *)valueLabel UnitLabel:(UILabel *)unitLabel
 {
-    // labelsize的最大值
-    CGSize maximumLabelSize = CGSizeMake (320, 124);
+    [SVLabelTools resetLayoutWithValueLabel:valueLabel
+                                  UnitLabel:unitLabel
+                                  WithWidth:FITWIDTH (320)
+                                 WithHeight:FITHEIGHT (124)
+                                      WithY:0];
 
-    // 左侧：获取指标值和单位的高宽
-    CGSize valueExpectSize = [valueLabel sizeThatFits:maximumLabelSize];
-    float valueWidth = valueExpectSize.width;
-    float valueHeight = valueExpectSize.height;
-    CGSize unitExpectSize = [unitLabel sizeThatFits:maximumLabelSize];
-    float unitWidth = unitExpectSize.width;
-    float unitHeight = unitExpectSize.height;
-
-    // 计算左间距，使label居中
-    float leftOffset = (FITWIDTH (320) - (valueWidth + unitWidth)) / 2;
-
-    // 设置布局
-    valueLabel.frame = CGRectMake (leftOffset, 0, valueWidth, valueHeight);
-    unitLabel.frame = CGRectMake (valueLabel.rightX, valueHeight - unitHeight, unitWidth, unitHeight);
 
     // 设置字体大小和颜色
     [valueLabel setTextColor:valueColor];

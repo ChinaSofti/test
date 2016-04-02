@@ -9,6 +9,7 @@
 //主View下的4个子View
 #import "SVFooterView.h"
 #import "SVHeaderView.h"
+#import "SVLabelTools.h"
 #import "SVPointView.h"
 #import "SVWebTest.h"
 #import "SVWebTestingViewCtrl.h"
@@ -122,10 +123,11 @@
  */
 - (void)initContext
 {
+    [_headerView updateLeftValue:@"0.00"];
+    [_headerView updateMiddleValue:@"0.00"];
+    [_headerView updateRightValue:@"0.00"];
+
     [_testUrlLabel setText:I18N (@"Loading...")];
-    [_headerView.ResponseLabel setText:@"0"];
-    [_headerView.LoadLabel setText:@"0"];
-    [_headerView.DownloadLabel setText:@"0"];
     [_webtestingView updateValue:0];
 }
 
@@ -192,19 +194,29 @@
 
 - (void)creatHeaderView
 {
-    //初始化headerView
-    _headerView = [[SVHeaderView alloc] init];
-    //把所有Label添加到View中
-    [_headerView addSubview:_headerView.ResponseLabel];
-    [_headerView addSubview:_headerView.ResponseLabel1];
-    [_headerView addSubview:_headerView.DownloadLabel];
-    [_headerView addSubview:_headerView.DownloadLabel1];
-    [_headerView addSubview:_headerView.LoadLabel];
-    [_headerView addSubview:_headerView.LoadLabel1];
-    [_headerView addSubview:_headerView.ResponseNumLabel];
-    [_headerView addSubview:_headerView.DownloadNumLabel];
-    [_headerView addSubview:_headerView.LoadNumLabel];
-    //把headerView添加到中整个视图上
+    // 初始化默认值
+    NSMutableDictionary *defalutValue = [[NSMutableDictionary alloc] init];
+    [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (36)] forKey:@"labelFontSize"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#B2000000"] forKey:@"labelColor"];
+    [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (60)] forKey:@"valueFontSize"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#38C695"] forKey:@"valueColor"];
+    [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (33)] forKey:@"unitFontSize"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#38C695"] forKey:@"unitColor"];
+    [defalutValue setValue:@"0.00" forKey:@"leftDefaultValue"];
+    [defalutValue setValue:I18N (@"Response Time") forKey:@"leftTitle"];
+    [defalutValue setValue:@"s" forKey:@"leftUnit"];
+    [defalutValue setValue:@"0.00" forKey:@"middleDefaultValue"];
+    [defalutValue setValue:I18N (@"Download Speed") forKey:@"middleTitle"];
+    [defalutValue setValue:@"Kbps" forKey:@"middleUnit"];
+    [defalutValue setValue:@"0.00" forKey:@"rightDefaultValue"];
+    [defalutValue setValue:I18N (@"Load duration") forKey:@"rightTitle"];
+    [defalutValue setValue:@"s" forKey:@"rightUnit"];
+
+
+    // 初始化headerView
+    _headerView = [[SVHeaderView alloc] initWithDic:defalutValue];
+
+    // 把headerView添加到中整个视图上
     [self.view addSubview:_headerView];
 }
 
@@ -297,26 +309,29 @@
       if (totalTime < 10)
       {
           // 显示头部指标
-          [_headerView.ResponseLabel setText:[NSString stringWithFormat:@"%.2f", responseTime]];
-          [_headerView.DownloadLabel setText:[NSString stringWithFormat:@"%.2f", downloadSpeed]];
-          [_headerView.LoadLabel setText:[NSString stringWithFormat:@"%.2f", totalTime]];
+          [_headerView updateLeftValue:[NSString stringWithFormat:@"%.2f", responseTime]];
+          [_headerView updateMiddleValue:[NSString stringWithFormat:@"%.2f", downloadSpeed]];
+          [_headerView updateRightValue:[NSString stringWithFormat:@"%.2f", totalTime]];
 
           // 仪表盘指标
           [_webtestingView updateValue:totalTime];
 
           // 测试地址
           [_testUrlLabel setText:testUrl];
+
+          // label自动换行
+          [SVLabelTools wrapForLabel:_testUrlLabel nextLabel:_testUrlTitle];
           return;
       }
 
       // 失败的情况显示超时
       // 显示头部指标
-      [_headerView.ResponseLabel setText:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]];
-      [_headerView.DownloadLabel setText:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]];
-      [_headerView.LoadLabel setText:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]];
-      [_headerView.ResponseLabel1 setText:@""];
-      [_headerView.DownloadLabel1 setText:@""];
-      [_headerView.LoadLabel1 setText:@""];
+      [_headerView updateLeftValue:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]
+                          WithUnit:@""];
+      [_headerView updateMiddleValue:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]
+                            WithUnit:@""];
+      [_headerView updateRightValue:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]
+                           WithUnit:@""];
 
       // 仪表盘指标
       [_webtestingView updateValue:0];
