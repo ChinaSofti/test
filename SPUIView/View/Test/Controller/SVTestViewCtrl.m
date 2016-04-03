@@ -36,6 +36,9 @@
     [super viewDidLoad];
     SVInfo (@"SVTestViewController");
 
+    // 初始化标题
+    [super initTitleView];
+
     // 编辑界面
     // 创建一个 tableView，style:Grouped化合的,分组的
     _tableView =

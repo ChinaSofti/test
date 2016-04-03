@@ -71,35 +71,20 @@ double _preSpeed = 0.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     SVInfo (@"SVSpeedTestingCtrl");
 
-    //添加返回按钮
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
-    [button setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    UIBarButtonItem *back0 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                           target:nil
-                                                                           action:nil];
-    back0.width = -15;
-    self.navigationItem.leftBarButtonItems = @[back0, backButton];
+    // 初始化标题
+    [super initTitleView];
 
-    [button addTarget:self
-               action:@selector (removeButtonClicked:)
-     forControlEvents:UIControlEventTouchUpInside];
+    // 初始化返回按钮
+    [super initBackButton];
+    [[super backBtn] addTarget:self
+                        action:@selector (removeButtonClicked:)
+              forControlEvents:UIControlEventTouchUpInside];
 
-    //为了保持平衡添加一个leftBtn
-    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 44, 44)];
-    UIBarButtonItem *backButton1 = [[UIBarButtonItem alloc] initWithCustomView:button1];
-    self.navigationItem.rightBarButtonItem = backButton1;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    // 设置背景颜色
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#FFFAFAFA"];
 
-    // 2.设置整个Viewcontroller
-    //设置背景颜色
-    self.view.backgroundColor =
-    [UIColor colorWithRed:250 / 255.0 green:250 / 255.0 blue:250 / 255.0 alpha:1.0];
-    //打印排序结果
-    //    SVInfo (@"%@", _selectedA);
     //添加方法
     [self creatHeaderView];
     [self creatSpeedTestingView];

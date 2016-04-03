@@ -27,7 +27,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [WXApi registerApp:@"wx2cce736067ee4a2d"];
 
     //设置navigationBar的颜色
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#45545c"]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#253740"]];
+
 
     // 设置tabbar的背景颜色
     [[UITabBar appearance] setBarTintColor:[UIColor colorWithHexString:@"EEEEEE"]];

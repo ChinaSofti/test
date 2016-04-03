@@ -63,4 +63,28 @@
     valueLabel.frame = CGRectMake (leftOffset, y, valueWidth, valueHeight);
     unitLabel.frame = CGRectMake (valueLabel.rightX, y + (valueHeight - unitHeight), unitWidth, unitHeight);
 }
+
+/**
+ * 对label重新布局，根据label中的内容自适应大小
+ */
++ (void)resetLayoutWithTitleLabel:(UILabel *)titleLabel
+                        WithWidth:(double)maxWidth
+                       WithHeight:(double)maxHeight
+                            WithY:(double)y
+{
+    // labelsize的最大值
+    CGSize maximumLabelSize = CGSizeMake (maxWidth, maxHeight);
+
+    // 左侧：获取指标值和单位的高宽
+    CGSize titleExpectSize = [titleLabel sizeThatFits:maximumLabelSize];
+    float titleWidth = titleExpectSize.width;
+    float titleHeight = titleExpectSize.height;
+
+    // 计算左间距，使label居中
+    float leftOffset = (maxWidth - titleWidth) / 2;
+
+    // 设置布局
+    titleLabel.frame = CGRectMake (leftOffset, y, titleWidth, titleHeight);
+}
+
 @end

@@ -19,7 +19,8 @@
 
 
 @synthesize selectedA, navigationController, tabBarController, testId, videoTest, uvMOS,
-firstBufferTime, cuttonTimes, webTest, responseTime, totalTime, downloadSpeed;
+firstBufferTime, cuttonTimes, webTest, responseTime, totalTime, downloadSpeed, speedTest, stDelay,
+stDownloadSpeed, stUploadSpeed, stIsp, stLocation;
 
 // 初始化
 - (id)init

@@ -8,4 +8,14 @@
 
 @interface SVViewController : UIViewController
 
+@property (nonatomic, strong) UIButton *backBtn;
+
+// 初始化标题
+- (void)initTitleView;
+
+// 初始化标题
+- (void)initTitleViewWithTitle:(NSString *)title;
+
+// 初始化返回按钮
+- (void)initBackButton;
 @end
