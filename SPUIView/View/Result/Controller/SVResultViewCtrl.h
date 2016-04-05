@@ -11,6 +11,6 @@
  */
 #import <UIKit/UIKit.h>
 
-@interface SVResultViewCtrl : UIViewController
+@interface SVResultViewCtrl : SVViewController
 
 @end

@@ -21,8 +21,23 @@
 + (void)resetLayoutWithValueLabel:(UILabel *)valueLabel
                         UnitLabel:(UILabel *)unitLabel
                         WithWidth:(double)maxWidth
+                       WithHeight:(double)maxHeight;
+
+/**
+ * 对label重新布局，根据label中的内容自适应大小
+ */
++ (void)resetLayoutWithValueLabel:(UILabel *)valueLabel
+                        UnitLabel:(UILabel *)unitLabel
+                        WithWidth:(double)maxWidth
                        WithHeight:(double)maxHeight
                             WithY:(double)y;
+
+/**
+ * 对label重新布局，根据label中的内容自适应大小
+ */
++ (void)resetLayoutWithTitleLabel:(UILabel *)titleLabel
+                        WithWidth:(double)maxWidth
+                       WithHeight:(double)maxHeight;
 
 /**
  * 对label重新布局，根据label中的内容自适应大小

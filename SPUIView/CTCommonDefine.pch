@@ -14,6 +14,10 @@
 #define CTCommonDefine_pch
 
 // 宏定义
+
+// 状态栏的高度
+#define statusBarH [[UIApplication sharedApplication] statusBarFrame].size.height
+
 // 转换宽度像素，将1080P转换成750P
 #define changePixelW(P) (P / 1080.0) * 750.0
 
@@ -29,9 +33,6 @@
 // 将像素转换为点-圆角
 #define svCornerRadius(P) changePixelW(P) / 2.0
 
-// 将像素转换为字体大小
-#define pixelToFontsize(P) pixelToPonitH(P) / 96.0 * 72.0
-
 // 屏幕宽度
 #define kScreenW            [[UIScreen mainScreen] bounds].size.width
 
@@ -46,6 +47,9 @@
 
 // 自定义颜色
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
+
+// 将像素转换为字体大小
+#define pixelToFontsize(P)  kScreenW > 375 ? ((P / 2.0) / 96.0 * 72.0) : ((P / 3.0) / 96.0 * 72.0)
 
 //宏头
 #import "UIView+Exten.h"

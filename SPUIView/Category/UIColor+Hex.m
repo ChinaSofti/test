@@ -80,7 +80,7 @@
         NSString *alphaStr = [colorStr substringWithRange:range];
         unsigned int a;
         [[NSScanner scannerWithString:alphaStr] scanHexInt:&a];
-        alpha = (float)a;
+        alpha = (float)a / 255.0f;
         range.location += 2;
     }
 

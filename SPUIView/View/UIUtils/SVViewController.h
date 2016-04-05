@@ -18,4 +18,10 @@
 
 // 初始化返回按钮
 - (void)initBackButton;
+
+// 获取NavigationBar的高度
+- (CGFloat)getNavigationBarH;
+
+// 设置图片透明度
+- (UIImage *)imageByApplyingAlpha:(CGFloat)alpha image:(UIImage *)image;
 @end

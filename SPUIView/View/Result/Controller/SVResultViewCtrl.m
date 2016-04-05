@@ -8,13 +8,13 @@
 
 #define Button_Tag 10
 
+#import "SVDBManager.h"
 #import "SVDetailViewCtrl.h"
 #import "SVResultCell.h"
 #import "SVResultViewCtrl.h"
-#import "SVDBManager.h"
 #import "SVSummaryResultModel.h"
 
-@interface SVResultViewCtrl () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface SVResultViewCtrl () <SVResultCellDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 {
     NSInteger currentBtn;
 }
@@ -29,7 +29,9 @@
 
 @implementation SVResultViewCtrl
 {
-    UIView *_toolView;
+    // 记录所有标题的button
+    NSMutableArray *titleBtns;
+
     SVDBManager *_db;
     int _selectedResultTestId;
     NSMutableDictionary *buttonAndTest;
@@ -65,19 +67,22 @@
 {
     if (_tableView == nil)
     {
-        // 1.创建一个 tableView
+        // 创建一个 tableView
         CGFloat tabBarH = self.tabBarController.tabBar.frame.size.height;
-        _tableView = [[UITableView alloc]
-        initWithFrame:CGRectMake (0, FITHEIGHT (370), kScreenW, kScreenH - FITHEIGHT (370) - tabBarH)
-                style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH - tabBarH)
+                                                  style:UITableViewStyleGrouped];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        // 2.设置背景颜色
+
+        // 设置背景颜色
         _tableView.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
-        // 3.设置代理
+
+        // 设置代理
         _tableView.delegate = self;
-        // 4.设置数据源
+
+        // 设置数据源
         _tableView.dataSource = self;
-        // 5.设置tableView不可上下拖动
+
+        // 设置tableView不可上下拖动
         _tableView.bounces = NO;
     }
     return _tableView;
@@ -86,44 +91,87 @@
 #pragma mark - view方法
 - (void)viewDidLoad
 {
+    // 设置标题
+    [self initTitleViewWithTitle:I18N (@"Results")];
+
     // 初始化数据库和表
     _db = [SVDBManager sharedInstance];
     [super viewDidLoad];
     SVInfo (@"SVResultView页面");
     self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
 
-    //电池显示不了,设置样式让电池显示
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-
     //添加NavigationRightItem
     [self addNavigationRightItem];
-
-    //在NavigationBar下面添加一个View
-    [self addHeadView];
 
     // 将tableView添加到 view上
     [self.view addSubview:self.tableView];
 
     currentBtn = -1;
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
     //默认情况下按照时间的降序排列
     //从数据库中读取数据
     [self readDataFromDB:@"testTime" order:@"desc"];
 }
+
+// 在显示view的时候修改navigationBar的高度
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    // 设置navigationBar的高度
+    CGRect rect = self.navigationController.navigationBar.frame;
+    [self.navigationController.navigationBar
+    setFrame:CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, FITHEIGHT (298))];
+
+    // 设置标题距离底部的距离
+    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:FITHEIGHT (-154)
+                                                                  forBarMetrics:UIBarMetricsDefault];
+
+    // 设置右侧按钮距离底部的距离
+    [self.navigationItem.rightBarButtonItem setBackgroundVerticalPositionAdjustment:FITHEIGHT (-154)
+                                                                      forBarMetrics:UIBarMetricsDefault];
+
+    //在NavigationBar下面添加一个View
+    [self addHeadView];
+}
+
+// 在页面节将消失时，还原设置
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+
+    // 设置标题距离底部的距离
+    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:-0.0
+                                                                  forBarMetrics:UIBarMetricsDefault];
+
+    // 设置右侧按钮距离底部的距离
+    [self.navigationItem.rightBarButtonItem setBackgroundVerticalPositionAdjustment:-0.0
+                                                                      forBarMetrics:UIBarMetricsDefault];
+
+    // 将所有button移除
+    for (UIButton *btn in titleBtns)
+    {
+        [btn removeFromSuperview];
+    }
+}
+
+
 #pragma mark - 创建UI
 #pragma mark - 添加NavigationRightItem
 - (void)addNavigationRightItem
 {
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (58), FITHEIGHT (60))];
-    [button setImage:[UIImage imageNamed:@"ic_clear"] forState:UIControlStateNormal];
-
-    [button addTarget:self
-               action:@selector (removeButtonClicked:)
-     forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem *rithtItem =
+    [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_clear"]
+                                     style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector (removeButtonClicked:)];
+    [rithtItem setTintColor:[UIColor whiteColor]];
+    self.navigationItem.rightBarButtonItem = rithtItem;
 }
 //清除按钮点击事件
 - (void)removeButtonClicked:(UIButton *)button
@@ -156,24 +204,17 @@
         [_tableView reloadData];
     }
 }
-#pragma mark - 在NavigationBar下面添加一个View
+
 - (void)addHeadView
 {
-    NSString *title1 = I18N (@"Type");
-    NSString *title2 = I18N (@"Time");
-    NSString *title3 = I18N (@"U-vMOS");
-    NSString *title4 = I18N (@"Load Time");
-    NSString *title5 = I18N (@"Bandwidth");
+    NSString *type = I18N (@"Type");
+    NSString *time = I18N (@"Time");
+    NSString *uVmos = I18N (@"U-vMOS");
+    NSString *loadTime = I18N (@"Load Time");
+    NSString *bandwidth = I18N (@"Bandwidth");
 
-    NSArray *titles = @[title1, title2, title3, title4, title5];
+    NSArray *titles = @[type, time, uVmos, loadTime, bandwidth];
     NSArray *images = @[
-        @"ic_network_type_normal",
-        @"ic_start_time_normal",
-        @"ic_video_normal",
-        @"ic_web_normal",
-        @"ic_speed_normal"
-    ];
-    NSArray *imagesSelected = @[
         @"ic_network_type",
         @"ic_start_time",
         @"ic_video_testing",
@@ -181,60 +222,70 @@
         @"ic_speed_testing"
     ];
 
-    _toolView = [[UIView alloc] initWithFrame:CGRectMake (0, FITHEIGHT (184), kScreenW, FITHEIGHT (184))];
-    _toolView.backgroundColor = [UIColor colorWithHexString:@"#45545c"];
+    // 初始化数组
+    titleBtns = [[NSMutableArray alloc] init];
 
-    //设置左右边距
+    // 设置左右边距
     CGFloat BandGap = FITWIDTH (22);
-    //设置按钮宽度
+
+    // 设置按钮宽度
     CGFloat ButtonWidth = (kScreenW - 2 * BandGap) / 5;
 
     for (int i = 0; i < 5; i++)
     {
-        _button = [[UIButton alloc]
-        initWithFrame:CGRectMake (BandGap + ButtonWidth * i, 0, ButtonWidth, ButtonWidth)];
-        //文字
-        [_button setTitle:titles[i] forState:UIControlStateNormal];
-        _button.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-        //设置文字居中
-        _button.titleLabel.textAlignment = NSTextAlignmentCenter;
+        UIButton *currButton = [[UIButton alloc]
+        initWithFrame:CGRectMake (BandGap + ButtonWidth * i, FITHEIGHT (144), ButtonWidth, FITHEIGHT (154))];
+
+        // 文字
+        [currButton setTitle:titles[i] forState:UIControlStateNormal];
+        currButton.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (30)];
+
+        // 设置文字居中
+        currButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+
         // button普通状态下的字体颜色
-        [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [currButton setTitleColor:[UIColor colorWithHexString:@"#FFFFFF" alpha:0.5]
+                         forState:UIControlStateNormal];
+
         // button选中状态下的字体颜色
-        [_button setTitleColor:[UIColor whiteColor]
-                      forState:UIControlStateSelected | UIControlStateHighlighted];
-        [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        _button.titleEdgeInsets = UIEdgeInsetsMake (FITWIDTH (87), -FITHEIGHT (69), 0, 0);
-        //图片
+        [currButton setTitleColor:[UIColor colorWithHexString:@"#FFFFFF"]
+                         forState:UIControlStateSelected];
+        currButton.titleEdgeInsets = UIEdgeInsetsMake (FITHEIGHT (72), -FITWIDTH (70), 0, 0);
+
+        // 图片
         // button普通状态下的图片
-        [_button setImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
+        UIImage *btnImage = [self imageByApplyingAlpha:0.5 image:[UIImage imageNamed:images[i]]];
+        [currButton setImage:btnImage forState:UIControlStateNormal];
+
         // button选中状态下的图片
-        [_button setImage:[UIImage imageNamed:imagesSelected[i]]
-                 forState:UIControlStateSelected | UIControlStateHighlighted];
-        [_button setImage:[UIImage imageNamed:imagesSelected[i]] forState:UIControlStateSelected];
-        _button.imageEdgeInsets = UIEdgeInsetsMake (-FITWIDTH (43), FITHEIGHT (59), 0, 0);
-        //调试
-        //        _button.titleLabel.backgroundColor = [UIColor yellowColor];
-        //        _button.imageView.backgroundColor = [UIColor blueColor];
-        //        _button.backgroundColor = [UIColor redColor];
-        [_button addTarget:self
-                    action:@selector (buttonClick:)
-          forControlEvents:UIControlEventTouchUpInside];
-        _button.tag = Button_Tag + i;
-        _button.selected = NO;
-        [_toolView addSubview:_button];
-        if (i == 1)
+        [currButton setImage:[UIImage imageNamed:images[i]] forState:UIControlStateSelected];
+        currButton.imageEdgeInsets = UIEdgeInsetsMake (-FITWIDTH (43), FITHEIGHT (59), 0, 0);
+
+        [currButton addTarget:self
+                       action:@selector (buttonClick:)
+             forControlEvents:UIControlEventTouchUpInside];
+        currButton.tag = Button_Tag + i;
+        currButton.selected = NO;
+        [self.navigationController.navigationBar addSubview:currButton];
+        if (i == 0)
         {
-            _typeButton = _button;
+            _typeButton = currButton;
         }
+
+        [titleBtns addObject:currButton];
     }
-    [self.view addSubview:_toolView];
 }
+
 //按钮点击事件
 - (void)buttonClick:(UIButton *)button
 {
 
     SVInfo (@"SVResultView页面");
+
+    if (!self.button)
+    {
+        self.button = button;
+    }
 
     if (button != self.button)
     {
@@ -247,38 +298,38 @@
     {
     case 0:
         self.bottomImageView.frame =
-        CGRectMake (FITWIDTH (22), FITHEIGHT (178), FITWIDTH (207), FITHEIGHT (6));
+        CGRectMake (FITWIDTH (22), FITHEIGHT (292), FITWIDTH (207), FITHEIGHT (6));
         self.bottomImageView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
         [self.bottomImageView removeFromSuperview];
-        [_toolView addSubview:self.bottomImageView];
+        [self.navigationController.navigationBar addSubview:self.bottomImageView];
         break;
     case 1:
         self.bottomImageView.frame =
-        CGRectMake (FITWIDTH (229), FITHEIGHT (178), FITWIDTH (207), FITHEIGHT (6));
+        CGRectMake (FITWIDTH (229), FITHEIGHT (292), FITWIDTH (207), FITHEIGHT (6));
         self.bottomImageView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
         [self.bottomImageView removeFromSuperview];
-        [_toolView addSubview:self.bottomImageView];
+        [self.navigationController.navigationBar addSubview:self.bottomImageView];
         break;
     case 2:
         self.bottomImageView.frame =
-        CGRectMake (FITWIDTH (436), FITHEIGHT (178), FITWIDTH (207), FITHEIGHT (6));
+        CGRectMake (FITWIDTH (436), FITHEIGHT (292), FITWIDTH (207), FITHEIGHT (6));
         self.bottomImageView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
         [self.bottomImageView removeFromSuperview];
-        [_toolView addSubview:self.bottomImageView];
+        [self.navigationController.navigationBar addSubview:self.bottomImageView];
         break;
     case 3:
         self.bottomImageView.frame =
-        CGRectMake (FITWIDTH (643), FITHEIGHT (178), FITWIDTH (207), FITHEIGHT (6));
+        CGRectMake (FITWIDTH (643), FITHEIGHT (292), FITWIDTH (207), FITHEIGHT (6));
         self.bottomImageView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
         [self.bottomImageView removeFromSuperview];
-        [_toolView addSubview:self.bottomImageView];
+        [self.navigationController.navigationBar addSubview:self.bottomImageView];
         break;
     case 4:
         self.bottomImageView.frame =
-        CGRectMake (FITWIDTH (850), FITHEIGHT (178), FITWIDTH (207), FITHEIGHT (6));
+        CGRectMake (FITWIDTH (850), FITHEIGHT (292), FITWIDTH (207), FITHEIGHT (6));
         self.bottomImageView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
         [self.bottomImageView removeFromSuperview];
-        [_toolView addSubview:self.bottomImageView];
+        [self.navigationController.navigationBar addSubview:self.bottomImageView];
         break;
     default:
         break;
@@ -286,8 +337,8 @@
 
     //按钮被点击后 右侧显示排序箭头
     UIImage *image = [UIImage imageNamed:@"ic_sort"];
-    self.imageView.frame = CGRectMake (CGRectGetMaxX (button.titleLabel.frame) - FITWIDTH (18),
-                                       button.titleLabel.frame.origin.y - FITHEIGHT (29),
+    self.imageView.frame = CGRectMake (CGRectGetMaxX (button.titleLabel.frame) - FITWIDTH (10),
+                                       button.titleLabel.frame.origin.y - FITWIDTH (15),
                                        image.size.width, image.size.height);
     static int a = 0;
 
@@ -408,68 +459,56 @@
 
 
 #pragma mark - tableView代理方法
+//设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return _dataSource.count;
+}
 
+//设置 tableView的 numberOfRowsInSection(设置每个section中有几个cell)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return _dataSource.count;
+    return 1;
 }
+
 
 //设置cell的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return FITHEIGHT (200);
+    return FITHEIGHT (170);
 }
+
 //设置 tableView 的 sectionHeader
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-
-    if (section == 0)
-    {
-        UIView *bgdView = [[UIView alloc] init];
-        return bgdView;
-    }
-
     return nil;
 }
+
+//设置tableView的 sectionFooter
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return nil;
+}
+
 //设置 tableView的section 的Header的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return FITHEIGHT (29);
+    return FITHEIGHT (30);
 }
 
 //设置 tableView的section 的Footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return FITHEIGHT (0.1);
+    return FITHEIGHT (CGFLOAT_MIN);
 }
 
 //设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SVResultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aCell"];
-    if (cell == nil)
-    {
-        cell =
-        [[SVResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"aCell"];
-
-        //取消cell 被点中的效果
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-
+    // 初始化结果数据
     SVSummaryResultModel *summaryResultModel = self.dataSource[indexPath.row];
-    [cell setResultModel:summaryResultModel];
-
-    // cell按钮点击事件
-    // cellbutton
-    UIButton *cellButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cellButton.frame = CGRectMake (FITWIDTH (22), 0, FITWIDTH (1035), FITHEIGHT (170));
-    [cellButton setImage:[UIImage imageNamed:@"camera.png"] forState:UIControlStateNormal];
-    [cellButton addTarget:self
-                   action:@selector (CellDetailClick:)
-         forControlEvents:UIControlEventTouchUpInside];
-
     _selectedResultTestId += 1;
     if (!buttonAndTest)
     {
@@ -478,32 +517,51 @@
     [buttonAndTest setObject:summaryResultModel
                       forKey:[NSString stringWithFormat:@"key_%d", _selectedResultTestId]];
 
-    cellButton.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (48)];
-    [cellButton setTag:_selectedResultTestId];
+    // 创建cell
+    SVResultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aCell"];
+    if (cell == nil)
+    {
+        cell = [[SVResultCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                   reuseIdentifier:@"aCell"
+                                           WithTag:_selectedResultTestId];
+
+        //取消cell 被点中的效果
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        [cell setResultModel:summaryResultModel];
+        cell.delegate = self;
+    }
+
     //设置cell的背景颜色
-    [cell.contentView addSubview:cellButton];
-    cell.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
+    cell.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
 
     return cell;
 }
 
 #pragma mark - 点击事件
-// cell的点击事件进入详情界面
-- (void)CellDetailClick:(UIButton *)sender
+/**
+ *section中的cell的点击事件(按钮选中后的状态设置)
+ **/
+
+- (void)toolCellClick:(SVResultCell *)cell
 {
     // cell被点击
     SVInfo (@"cell-------dianjile");
-    //按钮点击后alloc一个界面
+
+    // 按钮点击后alloc一个界面
     SVDetailViewCtrl *detailViewCtrl = [[SVDetailViewCtrl alloc] init];
     SVSummaryResultModel *summaryResultModel =
-    [buttonAndTest objectForKey:[NSString stringWithFormat:@"key_%zd", sender.tag]];
+    [buttonAndTest objectForKey:[NSString stringWithFormat:@"key_%zd", cell.bgdBtn.tag]];
     long long testId = [summaryResultModel.testId longLongValue];
     [detailViewCtrl setTestId:testId];
-    //隐藏hidesBottomBarWhenPushed
+
+    // 隐藏hidesBottomBarWhenPushed
     self.hidesBottomBarWhenPushed = YES;
+
     // push界面
-    [self.navigationController pushViewController:detailViewCtrl animated:YES];
-    //返回时显示hidesBottomBarWhenPushed
+    [self.navigationController pushViewController:detailViewCtrl animated:NO];
+
+    // 返回时显示hidesBottomBarWhenPushed
     self.hidesBottomBarWhenPushed = NO;
 }
 

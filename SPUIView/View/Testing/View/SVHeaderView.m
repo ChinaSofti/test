@@ -72,7 +72,7 @@
     }
 
     // 设置view大小
-    [self setFrame:CGRectMake (0, FITHEIGHT (224), kScreenW, FITHEIGHT (312))];
+    [self setFrame:CGRectMake (0, statusBarH + FITHEIGHT (144), kScreenW, FITHEIGHT (312))];
 
     // 初始化字体大小和颜色
     labelFontSize = dic[@"labelFontSize"];

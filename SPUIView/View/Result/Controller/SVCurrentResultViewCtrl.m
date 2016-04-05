@@ -40,13 +40,13 @@
     [super viewDidLoad];
 
     // 设置标题
-    [super initTitleViewWithTitle:I18N (@"Results")];
+    [self initTitleViewWithTitle:I18N (@"Results")];
 
     // 设置返回按钮
-    [super initBackButton];
-    [[super backBtn] addTarget:self
-                        action:@selector (backBtnClik)
-              forControlEvents:UIControlEventTouchUpInside];
+    [self initBackButton];
+    [[self backBtn] addTarget:self
+                       action:@selector (backBtnClik)
+             forControlEvents:UIControlEventTouchUpInside];
 
     // 初始化当前结果页面的View
     UIView *uiview = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];

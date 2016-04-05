@@ -10,12 +10,25 @@
 
 @class SVSummaryResultModel;
 
+@class SVResultCell;
+
+@protocol SVResultCellDelegate <NSObject>
+- (void)toolCellClick:(SVResultCell *)cell;
+@end
+
 @interface SVResultCell : UITableViewCell
 
 @property (nonatomic, strong) SVSummaryResultModel *resultModel;
 
+@property (nonatomic, assign) id<SVResultCellDelegate> delegate;
+
 @property (nonatomic, retain) UIButton *bgdBtn;
 
 @property (nonatomic, copy) void (^cellBlock) ();
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style
+              reuseIdentifier:(NSString *)reuseIdentifier
+                      WithTag:(int)currentTag;
+
 
 @end
