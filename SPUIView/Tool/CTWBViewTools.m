@@ -1073,5 +1073,37 @@ static SVTextField *textfield;
     //    NSLog (@"textfield text %@", textField.text);
 }
 
+#pragma mark - 文字适配
++ (CGFloat)fitWidthToView:(UIView *)view
+{
+    [view sizeToFit];
+    return view.frame.size.width;
+}
++ (CGFloat)fitHeightToView:(UIView *)view width:(CGFloat)width
+{
+    if ([view isKindOfClass:[UILabel class]])
+    {
+        UILabel *label = (UILabel *)view;
+        return [label.text boundingRectWithSize:CGSizeMake (width, CGFLOAT_MAX)
+                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                     attributes:@{
+                                         NSFontAttributeName: label.font
+                                     }
+                                        context:nil]
+        .size.height;
+    }
+    else
+    {
+        UIButton *btn = (UIButton *)view;
+        return [btn.titleLabel.text boundingRectWithSize:CGSizeMake (width, CGFLOAT_MAX)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                              attributes:@{
+                                                  NSFontAttributeName: btn.titleLabel.font
+                                              }
+                                                 context:nil]
+        .size.height;
+    }
+}
+
 
 @end
