@@ -118,4 +118,10 @@
 
 #pragma mark - 没中奖UI
 + (void)creatLoseUI:(UIButton *)button;
+
+#pragma mark - 文字适配
+//定高不定宽
++ (CGFloat)fitWidthToView:(UIView *)view;
+//定宽不定高
++ (CGFloat)fitHeightToView:(UIView *)view width:(CGFloat)width;
 @end

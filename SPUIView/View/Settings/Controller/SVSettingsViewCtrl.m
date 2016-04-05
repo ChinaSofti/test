@@ -102,12 +102,13 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     imageView1.frame = CGRectMake (FITWIDTH (33), FITHEIGHT (33), FITWIDTH (173), FITHEIGHT (173));
     [_networkcell addSubview:imageView1];
 
-    UILabel *label11 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (230), FITHEIGHT (43), FITWIDTH (450), FITHEIGHT (58))];
-    //    label11.backgroundColor = [UIColor redColor];
+    UILabel *label11 = [[UILabel alloc] init];
     label11.text = title1;
     //设置字体和是否加粗
     label11.font = [UIFont systemFontOfSize:pixelToFontsize (54)];
+    //    label11.backgroundColor = [UIColor redColor];
+    label11.frame =
+    CGRectMake (FITWIDTH (230), FITHEIGHT (43), [CTWBViewTools fitWidthToView:label11], FITHEIGHT (58));
     [_networkcell addSubview:label11];
 
     UILabel *label111 =
