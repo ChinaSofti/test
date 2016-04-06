@@ -557,14 +557,14 @@ static SVTextField *textfield;
     //创建2个分享按钮
     UIButton *button1 =
     [[UIButton alloc] initWithFrame:CGRectMake (kScreenW / 2 - FITWIDTH (305), kScreenH - FITHEIGHT (405),
-                                                FITWIDTH (202), FITHEIGHT (202))];
+                                                FITHEIGHT (202), FITHEIGHT (202))];
     [button1 setImage:[UIImage imageNamed:@"share_to_wechat"] forState:UIControlStateNormal];
     [button1 addTarget:self
                 action:@selector (Button1Click:)
       forControlEvents:UIControlEventTouchUpInside];
     UIButton *button2 =
     [[UIButton alloc] initWithFrame:CGRectMake (kScreenW / 2 + FITWIDTH (129), kScreenH - FITHEIGHT (405),
-                                                FITWIDTH (202), FITHEIGHT (202))];
+                                                FITHEIGHT (202), FITHEIGHT (202))];
     [button2 setImage:[UIImage imageNamed:@"share_to_wechatmoments"] forState:UIControlStateNormal];
     [button2 addTarget:self
                 action:@selector (Button2Click:)

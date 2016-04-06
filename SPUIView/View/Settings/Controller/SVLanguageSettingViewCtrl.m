@@ -63,7 +63,8 @@ static int userLanguageIndex;
 {
     // views
     UIView *views = [[UIView alloc] init];
-    views.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (213), kScreenW - FITWIDTH (58), FITHEIGHT (380));
+    views.frame =
+    CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (194), kScreenW - FITWIDTH (58), FITHEIGHT (380));
     views.backgroundColor = [UIColor whiteColor];
     views.layer.cornerRadius = svCornerRadius (12);
     [self.view addSubview:views];
@@ -79,9 +80,9 @@ static int userLanguageIndex;
     NSMutableArray *languageButtonArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 3; i++)
     {
-        UIButton *button =
-        [[UIButton alloc] initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (213) + i * FITHEIGHT (123),
-                                                    kScreenW - FITWIDTH (58), FITHEIGHT (126))];
+        UIButton *button = [[UIButton alloc]
+        initWithFrame:CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (194) + i * FITHEIGHT (123),
+                                  kScreenW - FITWIDTH (58), FITHEIGHT (126))];
         [button setTitle:titlesArr[i] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];

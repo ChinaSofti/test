@@ -42,10 +42,9 @@
 #pragma mark - 创建UI
 - (void)createUI
 {
-
     //添加imageView
     UIImageView *imageView =
-    [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (230), FITHEIGHT (230))];
+    [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, FITHEIGHT (230), FITHEIGHT (230))];
     imageView.image = [UIImage imageNamed:@"icon"];
     //创建手势添加的View
     UIView *view = [[UIView alloc]
