@@ -89,7 +89,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     }
 
     UIImageView *imageView1 = [[UIImageView alloc] initWithImage:image1];
-    imageView1.frame = CGRectMake (FITWIDTH (33), FITHEIGHT (33), FITWIDTH (173), FITHEIGHT (173));
+    imageView1.frame = CGRectMake (FITWIDTH (33), FITHEIGHT (33), FITHEIGHT (173), FITHEIGHT (173));
     [_networkcell addSubview:imageView1];
 
     UILabel *label11 = [[UILabel alloc] init];

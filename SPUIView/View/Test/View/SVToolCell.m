@@ -39,13 +39,13 @@
 
         // 初始化按钮左侧图片
         _imgView = [[UIImageView alloc]
-        initWithFrame:CGRectMake (FITWIDTH (63), FITHEIGHT (44.5), FITWIDTH (120), FITHEIGHT (120))];
+        initWithFrame:CGRectMake (FITWIDTH (63), FITHEIGHT (44.5), FITHEIGHT (120), FITHEIGHT (120))];
         [_bgdBtn addSubview:_imgView];
 
         // 初始化按钮右侧图片
         _rightImgView = [[UIImageView alloc]
         initWithFrame:CGRectMake (_bgdBtn.width - FITWIDTH (120) - FITWIDTH (63), FITHEIGHT (49.5),
-                                  FITWIDTH (110), FITWIDTH (110))];
+                                  FITHEIGHT (110), FITHEIGHT (110))];
         [_bgdBtn addSubview:_rightImgView];
 
         // 初始化标题

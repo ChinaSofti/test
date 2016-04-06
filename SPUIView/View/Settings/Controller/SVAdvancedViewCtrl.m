@@ -86,7 +86,8 @@
     NSString *title2 = I18N (@"inch");
     // views
     UIView *views = [[UIView alloc] init];
-    views.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (230), kScreenW - FITHEIGHT (58), FITHEIGHT (126));
+    views.frame =
+    CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (194), kScreenW - FITHEIGHT (58), FITHEIGHT (126));
     views.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views];
 
@@ -132,7 +133,8 @@
     NSString *title3 = I18N (@"Video Test Duration:");
     // views
     UIView *views = [[UIView alloc] init];
-    views.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (360), kScreenW - FITWIDTH (58), FITHEIGHT (126));
+    views.frame =
+    CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (330), kScreenW - FITWIDTH (58), FITHEIGHT (126));
     views.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views];
     // label屏幕尺寸
@@ -367,7 +369,8 @@
 
     // views3
     UIView *views3 = [[UIView alloc] init];
-    views3.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (490), kScreenW - FITWIDTH (58), FITHEIGHT (290));
+    views3.frame =
+    CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (466), kScreenW - FITWIDTH (58), FITHEIGHT (290));
     views3.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views3];
     // label
