@@ -49,38 +49,41 @@
 // 初始化标题
 - (void)initTitleViewWithTitle:(NSString *)title
 {
-    // 设置图片宽和高
-    CGFloat imageW = FITWIDTH (489);
-    CGFloat imageH = FITHEIGHT (83);
-
-    // 自定义navigationItem.titleView
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, imageW, imageH)];
-
-    //设置标题名称
-    titleLabel.text = title;
-    titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (54)];
-    titleLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
+    //    // 设置图片宽和高
+    //    CGFloat imageW = FITWIDTH (489);
+    //    CGFloat imageH = FITHEIGHT (83);
+    //
+    //    // 自定义navigationItem.titleView
+    //    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, imageW, imageH)];
+    //
+    //    //设置标题名称
+    //    titleLabel.text = title;
+    //    titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (54)];
+    //    titleLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF"];
+    //    titleLabel.textAlignment = NSTextAlignmentCenter;
 
     //把图片添加到navigationItem.titleView
-    self.navigationItem.titleView = titleLabel;
+    self.navigationItem.title = title;
 }
 
 // 初始化TableView
-- (UITableView *)createTableViewWithRect:(CGRect)rect WithColor:(UIColor *)bgColor
+- (UITableView *)createTableViewWithRect:(CGRect)rect
+                               WithColor:(UIColor *)bgColor
+                            WithDelegate:(id)delegate
+                          WithDataSource:(id)dataSource
 {
     // 创建一个 tableView
     UITableView *_tableView =
-    [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStyleGrouped];
+    [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
 
     // 设置背景颜色
     _tableView.backgroundColor = bgColor;
 
     // 设置代理
-    _tableView.delegate = self;
+    _tableView.delegate = delegate;
 
     // 设置数据源
-    _tableView.dataSource = self;
+    _tableView.dataSource = dataSource;
 
     // 设置tableView的section的分割线隐藏
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -101,11 +104,8 @@
                                     target:target
                                     action:action];
     [backButton setTintColor:[UIColor whiteColor]];
-    UIBarButtonItem *fixeSpaceBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                                  target:nil
-                                                                                  action:nil];
-    fixeSpaceBtn.width = FITWIDTH (-50);
-    self.navigationItem.leftBarButtonItems = @[fixeSpaceBtn, backButton];
+
+    self.navigationItem.leftBarButtonItem = backButton;
 
     // 为了保持平衡添加一个leftBtn
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (140), FITHEIGHT (70))];

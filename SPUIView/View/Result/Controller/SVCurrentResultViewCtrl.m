@@ -51,7 +51,9 @@
 
     // 把tableView添加到 view
     [uiview addSubview:[self createTableViewWithRect:CGRectMake (0, 0, kScreenW, FITHEIGHT (1242))
-                                           WithColor:[UIColor colorWithHexString:@"#FAFAFA"]]];
+                                           WithColor:[UIColor colorWithHexString:@"#FAFAFA"]
+                                        WithDelegate:self
+                                      WithDataSource:self]];
 
     // 把button添加到 view
     [uiview addSubview:self.buildTestBtn];
@@ -705,7 +707,7 @@
 //设置 tableView的section 的Footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return FITHEIGHT (CGFLOAT_MIN);
+    return 0.01;
 }
 //设置cell的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

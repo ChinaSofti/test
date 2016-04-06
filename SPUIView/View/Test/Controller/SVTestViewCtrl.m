@@ -17,7 +17,7 @@
 #import "SVVideoTestingCtrl.h"
 #import "SVWebTestingViewCtrl.h"
 
-@interface SVTestViewCtrl () <SVToolCellDelegate>
+@interface SVTestViewCtrl () <SVToolCellDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *soucreMA;
@@ -41,7 +41,9 @@
 
     // 创建一个 tableView，style:Grouped化合的,分组的
     _tableView = [self createTableViewWithRect:[UIScreen mainScreen].bounds
-                                     WithColor:[UIColor colorWithHexString:@"#FAFAFA"]];
+                                     WithColor:[UIColor colorWithHexString:@"#FAFAFA"]
+                                  WithDelegate:self
+                                WithDataSource:self];
 
     // 定义数组展示图片
     _selectedMA = [NSMutableArray array];
@@ -175,7 +177,7 @@
         return FITHEIGHT (551);
     }
     else
-        return FITHEIGHT (CGFLOAT_MIN);
+        return 0.01;
 }
 
 //设置cell的高度

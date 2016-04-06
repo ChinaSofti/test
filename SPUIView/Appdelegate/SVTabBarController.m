@@ -179,13 +179,6 @@
     [navCtrl.navigationBar
     setFrame:CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, FITHEIGHT (144))];
 
-    // 设置标题距离底部的距离
-    [navCtrl.navigationBar setTitleVerticalPositionAdjustment:-0.0
-                                                forBarMetrics:UIBarMetricsDefault];
-
-    // 设置返回按钮距离底部的距离
-    [navCtrl.navigationItem.leftBarButtonItem setBackgroundVerticalPositionAdjustment:-0.0
-                                                                        forBarMetrics:UIBarMetricsDefault];
     // 添加控制器
     [self addChildViewController:navCtrl];
 }

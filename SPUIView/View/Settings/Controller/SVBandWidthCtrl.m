@@ -10,7 +10,7 @@
 #import "SVIPAndISPGetter.h"
 #import "SVSpeedTestServers.h"
 
-@interface SVBandWidthCtrl () <UIActionSheetDelegate>
+@interface SVBandWidthCtrl () <UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     //列表内容数组
     NSArray *_array;
@@ -33,7 +33,9 @@
     //一.创建一个 tableView,style:Grouped化合的,分组的
     _tableView = [self
     createTableViewWithRect:CGRectMake (FITWIDTH (29), FITHEIGHT (0), kScreenW - FITHEIGHT (48), kScreenH)
-                  WithColor:[UIColor colorWithHexString:@"#fafafa"]];
+                  WithColor:[UIColor colorWithHexString:@"#fafafa"]
+               WithDelegate:self
+             WithDataSource:self];
 
     // 把tableView添加到 view
     [self.view addSubview:_tableView];

@@ -6,13 +6,13 @@
 //  Copyright © 2016年 Huawei. All rights reserved.
 //
 
-@interface SVViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SVViewController : UIViewController
 
 // 初始化标题
 - (void)initTitleView;
 
 // 初始化标题
-- (void)initTitleViewWithTitle:(NSString *)title;
+- (void)initTitleViewWithTitle:(nonnull NSString *)title;
 
 // 初始化返回按钮
 - (void)initBackButtonWithTarget:(nullable id)target action:(nullable SEL)action;
@@ -21,8 +21,11 @@
 - (CGFloat)getNavigationBarH;
 
 // 设置图片透明度
-- (UIImage *)imageByApplyingAlpha:(CGFloat)alpha image:(UIImage *)image;
+- (nullable UIImage *)imageByApplyingAlpha:(CGFloat)alpha image:(nonnull UIImage *)image;
 
 // 初始化TableView
-- (UITableView *)createTableViewWithRect:(CGRect)rect WithColor:(UIColor *)bgColor;
+- (nullable UITableView *)createTableViewWithRect:(CGRect)rect
+                                        WithColor:(nonnull UIColor *)bgColor
+                                     WithDelegate:(nonnull id)delegate
+                                   WithDataSource:(nonnull id)dataSource;
 @end

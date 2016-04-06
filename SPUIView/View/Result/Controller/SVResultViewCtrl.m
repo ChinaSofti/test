@@ -14,7 +14,7 @@
 #import "SVResultViewCtrl.h"
 #import "SVSummaryResultModel.h"
 
-@interface SVResultViewCtrl () <SVResultCellDelegate, UIAlertViewDelegate>
+@interface SVResultViewCtrl () <SVResultCellDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     NSInteger currentBtn;
 }
@@ -73,7 +73,9 @@
         // 创建一个 tableView
         CGFloat tabBarH = self.tabBarController.tabBar.frame.size.height;
         _tableView = [self createTableViewWithRect:CGRectMake (0, 0, kScreenW, kScreenH - tabBarH)
-                                         WithColor:[UIColor colorWithHexString:@"#FAFAFA"]];
+                                         WithColor:[UIColor colorWithHexString:@"#FAFAFA"]
+                                      WithDelegate:self
+                                    WithDataSource:self];
     }
     return _tableView;
 }
@@ -289,7 +291,8 @@
         self.button = button;
     }
     self.button.selected = YES;
-    //在被点击的按钮下方 添加细长白条
+
+    // 在被点击的按钮下方 添加细长白条
     switch (button.tag - Button_Tag)
     {
     case 0:
@@ -440,16 +443,18 @@
  */
 - (void)readDataFromDB:(NSString *)type order:(NSString *)order
 {
-    // 1、添加数据之前 先清空数据源
+    // 添加数据之前 先清空数据源
     _selectedResultTestId = 0;
     [buttonAndTest removeAllObjects];
     [self.dataSource removeAllObjects];
-    // 2、添加数据
+
+    // 添加数据
     NSString *sql = [NSString
     stringWithFormat:@"select * from SVSummaryResultModel order by %@ %@ limit 100 offset  0;", type, order];
     NSArray *array = [_db executeQuery:[SVSummaryResultModel class] SQL:sql];
     [self.dataSource addObjectsFromArray:array];
-    // 3、刷新列表
+
+    // 刷新列表
     [_tableView reloadData];
 }
 
@@ -464,10 +469,8 @@
 //设置 tableView的 numberOfRowsInSection(设置每个section中有几个cell)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
     return 1;
 }
-
 
 //设置cell的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -496,22 +499,14 @@
 //设置 tableView的section 的Footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return FITHEIGHT (CGFLOAT_MIN);
+    return 0.01;
 }
 
 //设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // 初始化结果数据
-    SVSummaryResultModel *summaryResultModel = self.dataSource[indexPath.row];
     _selectedResultTestId += 1;
-    if (!buttonAndTest)
-    {
-        buttonAndTest = [[NSMutableDictionary alloc] init];
-    }
-    [buttonAndTest setObject:summaryResultModel
-                      forKey:[NSString stringWithFormat:@"key_%d", _selectedResultTestId]];
 
     // 创建cell
     SVResultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aCell"];
@@ -523,10 +518,19 @@
 
         //取消cell 被点中的效果
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-        [cell setResultModel:summaryResultModel];
         cell.delegate = self;
     }
+
+    // 初始化结果数据
+    SVSummaryResultModel *summaryResultModel = self.dataSource[indexPath.section];
+    if (!buttonAndTest)
+    {
+        buttonAndTest = [[NSMutableDictionary alloc] init];
+    }
+    [buttonAndTest setObject:summaryResultModel
+                      forKey:[NSString stringWithFormat:@"key_%d", _selectedResultTestId]];
+
+    [cell setResultModel:summaryResultModel];
 
     //设置cell的背景颜色
     cell.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];

@@ -19,7 +19,7 @@
 //上传日志提示
 #import "SVToast.h"
 
-@interface SVSettingsViewCtrl () <WXApiDelegate>
+@interface SVSettingsViewCtrl () <WXApiDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *grey;
 @property (nonatomic, strong) UIWindow *window;
@@ -60,7 +60,9 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     // 创建一个 tableView, style:Grouped化合的,分组的
     _tableView = [self createTableViewWithRect:CGRectMake (FITWIDTH (22), 0, kScreenW - FITWIDTH (44),
                                                            kScreenH - FITHEIGHT (144))
-                                     WithColor:[UIColor colorWithHexString:@"#fafafa"]];
+                                     WithColor:[UIColor colorWithHexString:@"#fafafa"]
+                                  WithDelegate:self
+                                WithDataSource:self];
 
     // 把tableView添加到 view
     [self.view addSubview:_tableView];

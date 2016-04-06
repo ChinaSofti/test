@@ -14,7 +14,7 @@
 #import "SVTimeUtil.h"
 #import "SVToolCells.h"
 
-@interface SVDetailViewCtrl ()
+@interface SVDetailViewCtrl () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *soucreMA;
 @property (nonatomic, retain) NSMutableArray *selectedMA;
@@ -47,7 +47,9 @@
 
     // 创建一个 tableView
     _tableView = [self createTableViewWithRect:[UIScreen mainScreen].bounds
-                                     WithColor:[UIColor colorWithHexString:@"#FAFAFA"]];
+                                     WithColor:[UIColor colorWithHexString:@"#FAFAFA"]
+                                  WithDelegate:self
+                                WithDataSource:self];
 
     [self.view addSubview:_tableView];
 }
@@ -485,13 +487,14 @@
 //设置 tableView的section 的Header的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return FITHEIGHT (CGFLOAT_MIN);
+    // 设置为0会有问题，改为一个很小的值
+    return 0.01;
 }
 
 //设置 tableView的section 的Footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return FITHEIGHT (CGFLOAT_MIN);
+    return 0.01;
 }
 
 // 返回到父控制器
