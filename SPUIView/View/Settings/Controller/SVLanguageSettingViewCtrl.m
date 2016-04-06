@@ -37,10 +37,11 @@ static int userLanguageIndex;
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
-
-    //设置LeftBarButtonItem
-    [self createLeftBarButtonItem];
-
+    // 初始化返回按钮
+    [super initBackButton];
+    [[super backBtn] addTarget:self
+                        action:@selector (backButtonClick)
+              forControlEvents:UIControlEventTouchUpInside];
     [self createUI];
 }
 
@@ -59,26 +60,6 @@ static int userLanguageIndex;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowTabBar" object:nil];
 }
 #pragma mark - 创建UI
-- (void)createLeftBarButtonItem
-{
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
-    [button setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    UIBarButtonItem *back0 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                           target:nil
-                                                                           action:nil];
-    back0.width = -15;
-    self.navigationItem.leftBarButtonItems = @[back0, backButton];
-    [button addTarget:self
-               action:@selector (leftBackButtonClick)
-     forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)leftBackButtonClick
-{
-
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)createUI
 {
@@ -242,7 +223,6 @@ static int userLanguageIndex;
     }
 }
 
-
 //退出程序方法
 - (void)exitApplication
 {
@@ -264,4 +244,11 @@ static int userLanguageIndex;
         exit (0);
     }
 }
+//返回按钮
+- (void)backButtonClick
+{
+
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 @end

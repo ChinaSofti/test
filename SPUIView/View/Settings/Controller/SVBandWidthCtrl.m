@@ -21,12 +21,17 @@
 
 @implementation SVBandWidthCtrl
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     SVInfo (@"SVBandWidthCtrl");
     self.view.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1];
+    // 初始化返回按钮
+    [super initBackButton];
+    [[super backBtn] addTarget:self
+                        action:@selector (backButtonClick)
+              forControlEvents:UIControlEventTouchUpInside];
+
     //电池显示不了,设置样式让电池显示
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     //编辑界面
@@ -49,9 +54,6 @@
     [self.view addSubview:_tableView];
 
     _ipAndISP = [SVIPAndISPGetter getIPAndISP];
-
-    //设置LeftBarButtonItem
-    [self createLeftBarButtonItem];
 }
 //进去时 隐藏tabBar
 - (void)viewWillAppear:(BOOL)animated
@@ -68,21 +70,6 @@
     [super viewWillDisappear:animated];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowTabBar" object:nil];
-}
-#pragma mark - 创建UI
-- (void)createLeftBarButtonItem
-{
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
-    [button setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    UIBarButtonItem *back0 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                           target:nil
-                                                                           action:nil];
-    back0.width = -15;
-    self.navigationItem.leftBarButtonItems = @[back0, backButton];
-    [button addTarget:self
-               action:@selector (leftBackButtonClick)
-     forControlEvents:UIControlEventTouchUpInside];
 }
 #pragma mark - tableview代理方法
 //设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
@@ -191,7 +178,6 @@
 }
 #pragma mark - 点击事件
 - (void)CellClicked:(UIButton *)button
-
 {
     //获取section的点击第几个section
     UITableViewCell *cell = (UITableViewCell *)[button superview]; //获取cell
@@ -203,10 +189,10 @@
     [servers setAuto:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (void)leftBackButtonClick
+//返回按钮
+- (void)backButtonClick
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 @end
