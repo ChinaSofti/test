@@ -72,17 +72,18 @@
 - (void)initBackButton
 {
     // 添加返回按钮
-    self.backBtn = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (80), FITHEIGHT (80))];
+    self.backBtn = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (140), FITHEIGHT (70))];
+    //    backBtn.backgroundColor = [UIColor redColor];
     [self.backBtn setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     UIBarButtonItem *fixeSpaceBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                   target:nil
                                                                                   action:nil];
-    fixeSpaceBtn.width = FITWIDTH (-30);
+    fixeSpaceBtn.width = FITWIDTH (-50);
     self.navigationItem.leftBarButtonItems = @[fixeSpaceBtn, backButton];
 
     // 为了保持平衡添加一个leftBtn
-    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (80), FITHEIGHT (80))];
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (140), FITHEIGHT (70))];
     UIBarButtonItem *rightBackBtn = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     self.navigationItem.rightBarButtonItem = rightBackBtn;
     self.navigationItem.rightBarButtonItem.enabled = NO;

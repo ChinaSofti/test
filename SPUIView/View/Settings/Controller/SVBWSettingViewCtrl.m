@@ -16,7 +16,6 @@
 
 @property (nonatomic, strong) UIView *imageView;
 
-
 @end
 
 @implementation SVBWSettingViewCtrl
@@ -25,7 +24,6 @@
     int _bandwidthTypeIndex;
     NSMutableArray *bandwidthTypeButtonArray;
 }
-
 
 - (UIView *)imageView
 {
@@ -45,8 +43,11 @@
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
-    //设置LeftBarButtonItem
-    [self createLeftBarButtonItem];
+    // 初始化返回按钮
+    [super initBackButton];
+    [[super backBtn] addTarget:self
+                        action:@selector (backButtonClick)
+              forControlEvents:UIControlEventTouchUpInside];
     [self createUI];
 }
 
@@ -65,25 +66,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowTabBar" object:nil];
 }
 #pragma mark -  创建UI
-- (void)createLeftBarButtonItem
-{
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
-    [button setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    UIBarButtonItem *back0 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                           target:nil
-                                                                           action:nil];
-    back0.width = -15;
-    self.navigationItem.leftBarButtonItems = @[back0, backButton];
-    [button addTarget:self
-               action:@selector (leftBackButtonClick)
-     forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)leftBackButtonClick
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 - (void)createUI
 {
     NSString *title1 = I18N (@"Type");
@@ -97,7 +79,6 @@
     SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
     NSString *title8 = ipAndISP.isp;
     NSString *title9 = I18N (@"Save");
-
 
     // views
     UIView *views = [[UIView alloc] init];
@@ -206,7 +187,6 @@
     lableCarriers.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
     [views addSubview:lableCarriers];
 
-
     //添加保存按钮
     //保存按钮高度
     CGFloat saveBtnH = FITHEIGHT (116);
@@ -310,5 +290,9 @@
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+//返回按钮
+- (void)backButtonClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

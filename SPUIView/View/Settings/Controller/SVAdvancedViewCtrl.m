@@ -37,7 +37,11 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
 
-    [self createLeftBarButtonItem];
+    // 初始化返回按钮
+    [super initBackButton];
+    [[super backBtn] addTarget:self
+                        action:@selector (backButtonClick)
+              forControlEvents:UIControlEventTouchUpInside];
     [self createScreenSizeUI];
     [self createVideotimeUI];
     [self createBandwidthUI];
@@ -77,28 +81,7 @@
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowTabBar" object:nil];
 }
-#pragma mark - 自定义创建BarButtonItem返回按钮
-- (void)createLeftBarButtonItem
-{
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
-    [button setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    UIBarButtonItem *back0 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                           target:nil
-                                                                           action:nil];
-    back0.width = -15;
-    self.navigationItem.leftBarButtonItems = @[back0, backButton];
-    [button addTarget:self
-               action:@selector (leftBackButtonClick)
-     forControlEvents:UIControlEventTouchUpInside];
-}
-//返回按钮的点击事件
-- (void)leftBackButtonClick
-{
-    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    [probeInfo setScreenSize:[_textField.text floatValue]];
-    [self.navigationController popViewControllerAnimated:YES];
-}
+
 #pragma mark - 创建屏幕尺寸的UI界面
 - (void)createScreenSizeUI
 {
@@ -480,7 +463,6 @@
     [self.navigationController pushViewController:bandwidthCtrl animated:YES];
 }
 
-
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     float screenSize = [[textField text] floatValue];
@@ -493,5 +475,13 @@
         SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
         _textField.text = probeInfo.getScreenSize;
     }
+}
+#pragma mark - 自定义创建BarButtonItem返回按钮
+//返回按钮的点击事件
+- (void)backButtonClick
+{
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    [probeInfo setScreenSize:[_textField.text floatValue]];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end
