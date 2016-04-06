@@ -172,6 +172,20 @@
     // 用UINavigationController包裹controller
     UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:childCtrl];
 
+    // 设置navigationBar的高度
+    CGRect rect = navCtrl.navigationBar.frame;
+
+    // 设置新的高度
+    [navCtrl.navigationBar
+    setFrame:CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, FITHEIGHT (144))];
+
+    // 设置标题距离底部的距离
+    [navCtrl.navigationBar setTitleVerticalPositionAdjustment:-0.0
+                                                forBarMetrics:UIBarMetricsDefault];
+
+    // 设置返回按钮距离底部的距离
+    [navCtrl.navigationItem.leftBarButtonItem setBackgroundVerticalPositionAdjustment:-0.0
+                                                                        forBarMetrics:UIBarMetricsDefault];
     // 添加控制器
     [self addChildViewController:navCtrl];
 }

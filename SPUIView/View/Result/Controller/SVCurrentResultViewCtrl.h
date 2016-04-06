@@ -13,7 +13,7 @@
 #import "SVCurrentResultModel.h"
 #import <UIKit/UIKit.h>
 
-@interface SVCurrentResultViewCtrl : SVViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SVCurrentResultViewCtrl : SVViewController
 {
     SVCurrentResultModel *_resultModel;
 }

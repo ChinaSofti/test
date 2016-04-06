@@ -18,8 +18,6 @@
     double originHeight;
 }
 
-@synthesize backBtn;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,13 +66,41 @@
     self.navigationItem.titleView = titleLabel;
 }
 
+// 初始化TableView
+- (UITableView *)createTableViewWithRect:(CGRect)rect WithColor:(UIColor *)bgColor
+{
+    // 创建一个 tableView
+    UITableView *_tableView =
+    [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStyleGrouped];
+
+    // 设置背景颜色
+    _tableView.backgroundColor = bgColor;
+
+    // 设置代理
+    _tableView.delegate = self;
+
+    // 设置数据源
+    _tableView.dataSource = self;
+
+    // 设置tableView的section的分割线隐藏
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    // 设置tableView不可上下拖动
+    _tableView.bounces = NO;
+
+    return _tableView;
+}
+
 // 初始化返回按钮
-- (void)initBackButton
+- (void)initBackButtonWithTarget:(nullable id)target action:(nullable SEL)action
 {
     // 添加返回按钮
-    self.backBtn = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (80), FITHEIGHT (80))];
-    [self.backBtn setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    UIBarButtonItem *backButton =
+    [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"homeindicator"]
+                                     style:UIBarButtonItemStylePlain
+                                    target:target
+                                    action:action];
+    [backButton setTintColor:[UIColor whiteColor]];
     UIBarButtonItem *fixeSpaceBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                   target:nil
                                                                                   action:nil];
@@ -92,49 +118,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-// 在显示view的时候修改navigationBar的高度
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-
-    // 设置navigationBar的高度
-    CGRect rect = self.navigationController.navigationBar.frame;
-
-    // 缓存原始的高度
-    originHeight = rect.size.height;
-
-    // 设置新的高度
-    [self.navigationController.navigationBar
-    setFrame:CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, FITHEIGHT (144))];
-
-    // 设置标题距离底部的距离
-    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:-0.0
-                                                                  forBarMetrics:UIBarMetricsDefault];
-
-    // 设置返回按钮距离底部的距离
-    [self.navigationItem.leftBarButtonItem setBackgroundVerticalPositionAdjustment:-0.0
-                                                                     forBarMetrics:UIBarMetricsDefault];
-}
-
-// 在页面节将消失时，还原设置
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-
-    // 设置navigationBar的高度
-    CGRect rect = self.navigationController.navigationBar.frame;
-    [self.navigationController.navigationBar
-    setFrame:CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, originHeight)];
-
-    // 设置标题距离底部的距离
-    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:-0.0
-                                                                  forBarMetrics:UIBarMetricsDefault];
-
-    // 设置返回按钮距离底部的距离
-    [self.navigationItem.leftBarButtonItem setBackgroundVerticalPositionAdjustment:-0.0
-                                                                     forBarMetrics:UIBarMetricsDefault];
 }
 
 // 获取NavigationBar的高度

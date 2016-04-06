@@ -14,7 +14,7 @@
 #import "SVResultViewCtrl.h"
 #import "SVSummaryResultModel.h"
 
-@interface SVResultViewCtrl () <SVResultCellDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface SVResultViewCtrl () <SVResultCellDelegate, UIAlertViewDelegate>
 {
     NSInteger currentBtn;
 }
@@ -31,6 +31,9 @@
 {
     // 记录所有标题的button
     NSMutableArray *titleBtns;
+
+    // navigationBar的原始高度
+    double originH;
 
     SVDBManager *_db;
     int _selectedResultTestId;
@@ -69,21 +72,8 @@
     {
         // 创建一个 tableView
         CGFloat tabBarH = self.tabBarController.tabBar.frame.size.height;
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH - tabBarH)
-                                                  style:UITableViewStyleGrouped];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-        // 设置背景颜色
-        _tableView.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
-
-        // 设置代理
-        _tableView.delegate = self;
-
-        // 设置数据源
-        _tableView.dataSource = self;
-
-        // 设置tableView不可上下拖动
-        _tableView.bounces = NO;
+        _tableView = [self createTableViewWithRect:CGRectMake (0, 0, kScreenW, kScreenH - tabBarH)
+                                         WithColor:[UIColor colorWithHexString:@"#FAFAFA"]];
     }
     return _tableView;
 }
@@ -125,6 +115,7 @@
 
     // 设置navigationBar的高度
     CGRect rect = self.navigationController.navigationBar.frame;
+    originH = rect.size.height;
     [self.navigationController.navigationBar
     setFrame:CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, FITHEIGHT (298))];
 
@@ -144,6 +135,11 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+
+    // 还原navigationBar的高度
+    CGRect rect = self.navigationController.navigationBar.frame;
+    [self.navigationController.navigationBar
+    setFrame:CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, originH)];
 
     // 设置标题距离底部的距离
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:-0.0

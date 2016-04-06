@@ -17,7 +17,7 @@
 #import "SVVideoTestingCtrl.h"
 #import "SVWebTestingViewCtrl.h"
 
-@interface SVTestViewCtrl () <SVToolCellDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SVTestViewCtrl () <SVToolCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *soucreMA;
@@ -37,53 +37,39 @@
     SVInfo (@"SVTestViewController");
 
     // 初始化标题
-    [super initTitleView];
+    [self initTitleView];
 
-    // 编辑界面
     // 创建一个 tableView，style:Grouped化合的,分组的
-    _tableView =
-    [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStyleGrouped];
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    // 设置背景颜色
-    _tableView.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
-
-    // 设置代理
-    _tableView.delegate = self;
-
-    // 设置数据源
-    _tableView.dataSource = self;
-
-    // 设置tableView不可上下拖动
-    _tableView.bounces = NO;
+    _tableView = [self createTableViewWithRect:[UIScreen mainScreen].bounds
+                                     WithColor:[UIColor colorWithHexString:@"#FAFAFA"]];
 
     // 定义数组展示图片
     _selectedMA = [NSMutableArray array];
 
     // 国际化
-    NSString *title = I18N (@"Video Test");
-    NSString *title2 = I18N (@"Web Test");
-    NSString *title3 = I18N (@"Speed Test");
+    NSString *videoTest = I18N (@"Video Test");
+    NSString *webTest = I18N (@"Web Test");
+    NSString *speedTest = I18N (@"Speed Test");
 
     NSArray *sourceA = @[
         @{
             @"img_normal": @"ic_video_label",
             @"img_selected": @"ic_video_label",
-            @"title": title,
+            @"title": videoTest,
             @"rightImg_normal": @"1",
             @"rightImg_selected": @"ic_video_check"
         },
         @{
             @"img_normal": @"ic_web_label",
             @"img_selected": @"ic_web_label",
-            @"title": title2,
+            @"title": webTest,
             @"rightImg_normal": @"1",
             @"rightImg_selected": @"ic_web_check"
         },
         @{
             @"img_normal": @"ic_speed_label",
             @"img_selected": @"ic_speed_label",
-            @"title": title3,
+            @"title": speedTest,
             @"rightImg_normal": @"1",
             @"rightImg_selected": @"ic_speed_check"
         }
@@ -101,16 +87,6 @@
 
     SVRealReachability *realReachability = [SVRealReachability sharedInstance];
     [realReachability addDelegate:self];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
 }
 
 #pragma mark - tableview的方法

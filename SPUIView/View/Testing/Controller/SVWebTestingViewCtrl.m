@@ -65,10 +65,7 @@
     [super initTitleView];
 
     // 初始化返回按钮
-    [super initBackButton];
-    [[super backBtn] addTarget:self
-                        action:@selector (removeButtonClicked:)
-              forControlEvents:UIControlEventTouchUpInside];
+    [super initBackButtonWithTarget:self action:@selector (removeButtonClicked:)];
 
     // 设置背景颜色
     self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];

@@ -32,25 +32,31 @@
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
 
         // 创建UIView，所有内容都在该view上面显示
-        UIView *bgdView = [[UIView alloc] init];
-        bgdView.frame = CGRectMake (kMargin, 0, kScreenW - 2 * kMargin, kScreenH * 0.07);
-        bgdView.layer.borderColor =
-        [UIColor colorWithRed:240 / 255.0 green:240 / 255.0 blue:240 / 255.0 alpha:1].CGColor;
-        bgdView.backgroundColor = [UIColor whiteColor];
-        bgdView.layer.borderWidth = 1;
+        UIView *bgdView = [[UIView alloc]
+        initWithFrame:CGRectMake (FITWIDTH (22), 0, kScreenW - 2 * FITWIDTH (22), FITHEIGHT (132))];
+        bgdView.layer.borderColor = [UIColor colorWithHexString:@"#DDDDDD"].CGColor;
+        bgdView.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
+        bgdView.layer.borderWidth = FITHEIGHT (1);
 
 
         // 设置指标名称的label
-        _keyLabel = [[UILabel alloc] initWithFrame:CGRectMake (10, 0, kScreenW * 0.36, kScreenH * 0.07)];
+        _keyLabel = [[UILabel alloc]
+        initWithFrame:CGRectMake (FITWIDTH (33), 0, (bgdView.frame.size.width - 2 * FITWIDTH (33)) * 0.3,
+                                  FITHEIGHT (132))];
+        _keyLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+        _keyLabel.textAlignment = NSTextAlignmentLeft;
+        _keyLabel.textColor = [UIColor colorWithHexString:@"#CC000000"];
         [bgdView addSubview:_keyLabel];
-        _keyLabel.font = [UIFont systemFontOfSize:12.0f];
 
         // 设置指标值的label
         _valueLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (kScreenW * 0.36, 0, kScreenW - kScreenW * 0.36 - 30, kScreenH * 0.07)];
+        initWithFrame:CGRectMake (_keyLabel.rightX, 0, (bgdView.frame.size.width - 2 * FITWIDTH (33)) * 0.7,
+                                  FITHEIGHT (132))];
         _valueLabel.textAlignment = NSTextAlignmentRight;
+        _valueLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+        _valueLabel.textColor = [UIColor colorWithHexString:@"#E5000000"];
         [bgdView addSubview:_valueLabel];
-        _valueLabel.font = [UIFont systemFontOfSize:12.0f];
+
 
         // 将UIView放到cell中
         [self addSubview:bgdView];
@@ -69,30 +75,27 @@
     if (self)
     {
         // 设置背景颜色
-        self.backgroundColor =
-        [UIColor colorWithRed:240.0f / 255 green:240.0f / 255 blue:240.0f / 255 alpha:1.0];
+        self.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
 
         // 将该cell设置为不可选中
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
 
-        // 初始化UIView
-        UIView *titleView = [[UIView alloc] init];
-
         // 设置背景图片
         UIImage *image = [UIImage imageNamed:imageName];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        imageView.frame = CGRectMake (kMargin, 10, 17, 17);
-        [titleView addSubview:imageView];
+        imageView.frame = CGRectMake (FITWIDTH (22), FITHEIGHT (60), FITWIDTH (36), FITHEIGHT (36));
 
         // 设置title
-        UILabel *label =
-        [[UILabel alloc] initWithFrame:CGRectMake (kMargin + 22, 1, kScreenW - 2 * kMargin, 35)];
+        UILabel *label = [[UILabel alloc]
+        initWithFrame:CGRectMake (imageView.rightX + FITWIDTH (15), FITHEIGHT (60),
+                                  kScreenW - 2 * (imageView.rightX + FITWIDTH (15)), FITHEIGHT (36))];
         label.text = title;
-        label.font = [UIFont systemFontOfSize:12.0f];
-        [titleView addSubview:label];
+        label.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
+        label.textColor = [UIColor colorWithHexString:@"#B2000000"];
 
         // 将UIView放到cell中
-        [self addSubview:titleView];
+        [self addSubview:imageView];
+        [self addSubview:label];
     }
     return self;
 }
@@ -112,26 +115,19 @@
         // 将该cell设置为不可选中
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
 
-        // 创建UIView，所有内容都在该view上面显示
-        UIView *testUrlView = [[UIView alloc] init];
-        testUrlView.frame = CGRectMake (kMargin, 0, kScreenW - 2 * kMargin, kScreenH * 0.07);
-        testUrlView.layer.borderColor =
-        [UIColor colorWithRed:240 / 255.0 green:240 / 255.0 blue:240 / 255.0 alpha:1].CGColor;
-        testUrlView.backgroundColor = [UIColor whiteColor];
-        testUrlView.layer.borderWidth = 1;
-
         // 设置testUrl的label
-        UILabel *testUrlLabel =
-        [[UILabel alloc] initWithFrame:CGRectMake (kMargin, 0, kScreenW - 2 * kMargin, kScreenH * 0.07)];
-        testUrlLabel.textAlignment = NSTextAlignmentCenter;
-        testUrlLabel.font = [UIFont boldSystemFontOfSize:12.0f];
-        testUrlLabel.text = testUrl;
-        testUrlLabel.textColor =
-        [UIColor colorWithRed:52 / 255.0 green:199 / 255.0 blue:73 / 255.0 alpha:1];
-        [testUrlView addSubview:testUrlLabel];
+        UILabel *label = [[UILabel alloc]
+        initWithFrame:CGRectMake (FITWIDTH (22), 0, kScreenW - 2 * FITWIDTH (22), FITHEIGHT (132))];
+        label.text = testUrl;
+        label.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+        label.textColor = [UIColor colorWithHexString:@"#FF38C695"];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.layer.borderColor = [UIColor colorWithHexString:@"#DDDDDD"].CGColor;
+        label.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
+        label.layer.borderWidth = FITHEIGHT (1);
 
         // 将UIView放到cell中
-        [self addSubview:testUrlView];
+        [self addSubview:label];
     }
     return self;
 }

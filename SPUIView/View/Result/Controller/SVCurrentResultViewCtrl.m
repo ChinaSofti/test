@@ -43,17 +43,15 @@
     [self initTitleViewWithTitle:I18N (@"Results")];
 
     // 设置返回按钮
-    [self initBackButton];
-    [[self backBtn] addTarget:self
-                       action:@selector (backBtnClik)
-             forControlEvents:UIControlEventTouchUpInside];
+    [self initBackButtonWithTarget:self action:@selector (backBtnClik)];
 
     // 初始化当前结果页面的View
     UIView *uiview = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
     uiview.backgroundColor = [UIColor colorWithHexString:@"FAFAFA"];
 
     // 把tableView添加到 view
-    [uiview addSubview:self.buildTableView];
+    [uiview addSubview:[self createTableViewWithRect:CGRectMake (0, 0, kScreenW, FITHEIGHT (1242))
+                                           WithColor:[UIColor colorWithHexString:@"#FAFAFA"]]];
 
     // 把button添加到 view
     [uiview addSubview:self.buildTestBtn];
@@ -65,26 +63,6 @@
 
     // 表格重绘
     [_tableView reloadData];
-}
-
-- (UITableView *)buildTableView
-{
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, FITHEIGHT (1242))
-                                              style:UITableViewStyleGrouped];
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    // 设置背景颜色
-    _tableView.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
-
-    // 设置代理
-    _tableView.delegate = self;
-
-    // 设置数据源
-    _tableView.dataSource = self;
-
-    // 设置tableView不可上下拖动
-    _tableView.bounces = NO;
-    return _tableView;
 }
 
 /**

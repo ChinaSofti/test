@@ -13,11 +13,8 @@
 #import "SVResultViewCtrl.h"
 #import "SVTimeUtil.h"
 #import "SVToolCells.h"
-#define kMargin 10
-#define kFirstHederH 40
-#define kLastFooterH 140
 
-@interface SVDetailViewCtrl () <UITableViewDelegate, UITableViewDataSource>
+@interface SVDetailViewCtrl ()
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *soucreMA;
 @property (nonatomic, retain) NSMutableArray *selectedMA;
@@ -32,61 +29,25 @@
 
 - (void)viewDidLoad
 {
-    NSString *title1 = I18N (@"Detailed Data");
     [super viewDidLoad];
-    //设置背景颜色
-    //    self.view.backgroundColor = [UIColor redColor];
     SVInfo (@"SVDetailViewCtrl页面");
+
+    // 设置标题
+    [self initTitleViewWithTitle:I18N (@"Detailed Data")];
+
     _db = [SVDBManager sharedInstance];
-    // 1.自定义navigationItem.title
-    self.navigationItem.title = title1;
-    //电池显示不了,设置样式让电池显示
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
-    // 2.设置整个Viewcontroller
-    //设置背景颜色
-    self.view.backgroundColor =
-    [UIColor colorWithRed:250 / 255.0 green:250 / 255.0 blue:250 / 255.0 alpha:1.0];
+    // 设置整个Viewcontroller
+    // 设置背景颜色
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
 
-    // 3.自定义UIBarButtonItem(图片调整到最左边)
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, 45, 23)];
-    [button setImage:[UIImage imageNamed:@"homeindicator"] forState:UIControlStateNormal];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    UIBarButtonItem *back0 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                           target:nil
-                                                                           action:nil];
-    back0.width = -15;
-    self.navigationItem.leftBarButtonItems = @[back0, backButton];
-    // 4.设置点击事件
-    [button addTarget:self
-               action:@selector (backBtnClik)
-     forControlEvents:UIControlEventTouchUpInside];
+    // 创建返回按钮
+    [self initBackButtonWithTarget:self action:@selector (backBtnClik)];
 
-    //为了保持平衡添加一个leftBtn
-    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake (300, 0, 23, 23)];
-    [button1 setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    UIBarButtonItem *backButton1 = [[UIBarButtonItem alloc] initWithCustomView:button1];
-    self.navigationItem.rightBarButtonItem = backButton1;
 
-    // 5.编辑界面
-    //一.创建一个 tableView
-    // 1.style:Grouped化合的,分组的
-
-    _tableView =
-    [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStyleGrouped];
-    // 2.设置背景颜色
-    _tableView.backgroundColor =
-    [UIColor colorWithRed:240 / 255.0 green:240 / 255.0 blue:240 / 255.0 alpha:1];
-    // 3.设置 table 的行高
-    _tableView.rowHeight = 50;
-    //*4.设置代理
-    _tableView.delegate = self;
-    //*5.设置数据源
-    _tableView.dataSource = self;
-    //设置tableView的section的分割线隐藏
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    // 6.设置tableView不可上下拖动
-    _tableView.bounces = NO;
+    // 创建一个 tableView
+    _tableView = [self createTableViewWithRect:[UIScreen mainScreen].bounds
+                                     WithColor:[UIColor colorWithHexString:@"#FAFAFA"]];
 
     [self.view addSubview:_tableView];
 }
@@ -96,6 +57,7 @@
     [_soucreMA removeAllObjects];
 
     [super viewDidAppear:animated];
+
     SVDetailViewModel *viewModel = [self defaultDetailViewModel];
     _soucreMA = [NSMutableArray array];
     [self queryResult:viewModel];
@@ -229,15 +191,7 @@
                    @"value": networkType
                }]];
 
-    //     测试时间
-    //    [_soucreMA
-    //    addObject:[SVToolModels modelWithDict:@{
-    //        @"key": I18N (@"Test time"),
-    //        @"value":
-    //        [SVTimeUtil formatDateByMilliSecond:(self.testId / 1000) formatStr:@"yyyy-MM-dd
-    //        HH:mm:ss"]
-    //    }]];
-
+    // 测试时间
     NSString *timeString =
     [SVTimeUtil formatDateByMilliSecond:self.testId formatStr:@"yyyy-MM-dd HH:mm:ss"];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
@@ -405,22 +359,6 @@
     }
 }
 
-// 初始化testUrl的UIView
-- (UIView *)createTestUrlView:(NSString *)testUrl
-{
-    // 初始化UIView
-    UIView *testUrlView = [[UIView alloc] init];
-
-    // 设置title
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (kMargin, -2, kScreenW - kMargin, 40)];
-    label.text = testUrl;
-    label.font = [UIFont systemFontOfSize:12.0f];
-    label.textAlignment = NSTextAlignmentCenter;
-    [testUrlView addSubview:label];
-
-    return testUrlView;
-}
-
 // 生成网页测试展示详细结果需要的UIView
 - (void)createSpeedTestResultDetailView:(id)testResultJson contextJson:(id)testContextJson
 {
@@ -479,31 +417,31 @@
     return viewModel;
 }
 
-//设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
+// 设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.soucreMA.count;
 }
 
-//设置 tableView的 numberOfRowsInSection(设置每个section中有几个cell)
+// 设置 tableView的 numberOfRowsInSection(设置每个section中有几个cell)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
 }
 
-//设置cell的高度
+// 设置cell的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id currentObj = _soucreMA[indexPath.section];
     if ([currentObj isKindOfClass:[SVToolCells class]] &&
         [[currentObj reuseIdentifier] isEqualToString:@"titleCell"])
     {
-        return 35;
+        return FITHEIGHT (120);
     }
-    return kScreenH * 0.07;
+    return FITHEIGHT (132);
 }
 
-//设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
+// 设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -532,24 +470,31 @@
     return cell;
 }
 
+//设置 tableView 的 sectionHeader
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return nil;
+}
+
+//设置tableView的 sectionFooter
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return nil;
+}
+
 //设置 tableView的section 的Header的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.01;
+    return FITHEIGHT (CGFLOAT_MIN);
 }
 
 //设置 tableView的section 的Footer的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 0)
-    {
-        return 0.05;
-    }
-    else
-        return 0.05;
+    return FITHEIGHT (CGFLOAT_MIN);
 }
 
-//返回到父控制器
+// 返回到父控制器
 - (void)backBtnClik
 {
     [self.navigationController popViewControllerAnimated:NO];
@@ -560,12 +505,14 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-//输出浮点型的数值,保留2位小数
+
+// 输出浮点型的数值,保留2位小数
 - (NSString *)formatFloatValue:(NSString *)value
 {
     return [NSString stringWithFormat:@"%.2f", [value floatValue]];
 }
-//输出整形的数值,无小数
+
+// 输出整形的数值,无小数
 - (NSString *)formatValue:(NSString *)value
 {
     if (!value)
@@ -574,12 +521,14 @@
     }
     return [NSString stringWithFormat:@"%@ ", value];
 }
-//输出整形的数值,无小数+单位
+
+// 输出整形的数值,无小数+单位
 - (NSString *)formatIntValue:(NSString *)value unit:(NSString *)unit
 {
     return [NSString stringWithFormat:@"%.0f%@ ", [value floatValue], unit];
 }
-//输出浮点型的数值,保留2位小数+单位
+
+// 输出浮点型的数值,保留2位小数+单位
 - (NSString *)formatFloatValue:(NSString *)value unit:(NSString *)unit
 {
     return [NSString stringWithFormat:@"%.2f%@ ", [value floatValue], unit];
