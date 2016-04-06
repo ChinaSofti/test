@@ -10,7 +10,7 @@
 #import "SVIPAndISPGetter.h"
 #import "SVSpeedTestServers.h"
 
-@interface SVBandWidthCtrl () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
+@interface SVBandWidthCtrl () <UIActionSheetDelegate>
 {
     //列表内容数组
     NSArray *_array;
@@ -26,31 +26,16 @@
     [super viewDidLoad];
     SVInfo (@"SVBandWidthCtrl");
     self.view.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1];
-    // 初始化返回按钮
-    [super initBackButton];
-    [[super backBtn] addTarget:self
-                        action:@selector (backButtonClick)
-              forControlEvents:UIControlEventTouchUpInside];
 
-    //电池显示不了,设置样式让电池显示
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    //编辑界面
-    //一.创建一个 tableView
-    // 1.style:Grouped化合的,分组的
-    _tableView = [[UITableView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (0), kScreenW - FITHEIGHT (48), kScreenH)
-            style:UITableViewStyleGrouped];
-    // 2.设置背景颜色
-    _tableView.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
-    //*4.设置代理
-    _tableView.delegate = self;
-    //*5.设置数据源
-    _tableView.dataSource = self;
-    _tableView.separatorColor = [UIColor colorWithWhite:0.8 alpha:0.3];
-    // 6.设置tableView不可上下拖动
-    _tableView.bounces = NO;
-    //三.添加
-    // 7.把tableView添加到 view
+    // 初始化返回按钮
+    [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
+
+    //一.创建一个 tableView,style:Grouped化合的,分组的
+    _tableView = [self
+    createTableViewWithRect:CGRectMake (FITWIDTH (29), FITHEIGHT (0), kScreenW - FITHEIGHT (48), kScreenH)
+                  WithColor:[UIColor colorWithHexString:@"#fafafa"]];
+
+    // 把tableView添加到 view
     [self.view addSubview:_tableView];
 
     _ipAndISP = [SVIPAndISPGetter getIPAndISP];

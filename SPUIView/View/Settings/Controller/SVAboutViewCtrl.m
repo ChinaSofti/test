@@ -18,11 +18,10 @@
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
+
     // 初始化返回按钮
-    [super initBackButton];
-    [[super backBtn] addTarget:self
-                        action:@selector (backButtonClick)
-              forControlEvents:UIControlEventTouchUpInside];
+    [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
+
     [self createUI];
 }
 

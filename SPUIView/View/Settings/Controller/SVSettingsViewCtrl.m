@@ -19,7 +19,7 @@
 //上传日志提示
 #import "SVToast.h"
 
-@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource, WXApiDelegate>
+@interface SVSettingsViewCtrl () <WXApiDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *grey;
 @property (nonatomic, strong) UIWindow *window;
@@ -56,25 +56,13 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     [super viewDidLoad];
     SVInfo (@"SVSettingsView");
     self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
-    //电池显示不了,设置样式让电池显示
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    //编辑界面
-    //一.创建一个 tableView
-    // 1.style:Grouped化合的,分组的
-    _tableView = [[UITableView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (22), 0, kScreenW - FITWIDTH (44), kScreenH - FITHEIGHT (144))
-            style:UITableViewStyleGrouped];
-    // 2.设置背景颜色
-    _tableView.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
-    //*4.设置代理
-    _tableView.delegate = self;
-    //*5.设置数据源
-    _tableView.dataSource = self;
-    _tableView.separatorColor = [UIColor colorWithWhite:0.8 alpha:0.3];
-    // 6.设置tableView不可上下拖动
-    _tableView.bounces = NO;
-    //三.添加
-    // 7.把tableView添加到 view
+
+    // 创建一个 tableView, style:Grouped化合的,分组的
+    _tableView = [self createTableViewWithRect:CGRectMake (FITWIDTH (22), 0, kScreenW - FITWIDTH (44),
+                                                           kScreenH - FITHEIGHT (144))
+                                     WithColor:[UIColor colorWithHexString:@"#fafafa"]];
+
+    // 把tableView添加到 view
     [self.view addSubview:_tableView];
 }
 //创建UI
