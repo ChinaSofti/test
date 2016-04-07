@@ -28,19 +28,22 @@
     UILabel *_label2;
     SVSpeedTestServer *_defaultvalue;
     UITableView *_tableView;
+    UITableView *_tableView2;
     UIButton *_buttonback;
+    UIButton *_buttonback2;
     UIButton *_timebutton;
+    UIButton *_timebutton2;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
-
     // 初始化返回按钮
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
     [self createScreenSizeUI];
     [self createVideotimeUI];
+    [self createVideoQualityUI];
     [self createBandwidthUI];
 }
 
@@ -202,7 +205,7 @@
     //一.创建一个 tableView
     // 1.style:Grouped化合的,分组的
     _tableView = [[UITableView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (490), FITHEIGHT (485), kScreenW - FITWIDTH (551), FITHEIGHT (650))
+    initWithFrame:CGRectMake (FITWIDTH (490), FITHEIGHT (505), kScreenW - FITWIDTH (540), FITHEIGHT (650))
             style:UITableViewStylePlain];
     // 2.设置背景颜色
     _tableView.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
@@ -216,122 +219,6 @@
     //三.添加
     // 7.把tableView添加到 view
     [self.view addSubview:_tableView];
-}
-
-//设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-//设置 tableView的 numberOfRowsInSection(设置每个section中有几个cell)
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 5;
-}
-
-// 设置 tableView 的行高
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return FITHEIGHT (130);
-}
-
-//设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
-    static NSString *cellId = @"cell";
-
-    UITableViewCell *cell =
-    [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
-
-    //设置每个cell的内容
-    if (indexPath.section == 0)
-    {
-
-        if (indexPath.row == 0)
-        {
-            UILabel *label11 = [[UILabel alloc]
-            initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-            label11.text = @"60s";
-            //设置字体和是否加粗
-            label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-            [cell addSubview:label11];
-        }
-        if (indexPath.row == 1)
-        {
-            UILabel *label11 = [[UILabel alloc]
-            initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-            label11.text = @"3min";
-            //设置字体和是否加粗
-            label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-            [cell addSubview:label11];
-        }
-        if (indexPath.row == 2)
-        {
-            UILabel *label11 = [[UILabel alloc]
-            initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-            label11.text = @"5min";
-            //设置字体和是否加粗
-            label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-            [cell addSubview:label11];
-        }
-        if (indexPath.row == 3)
-        {
-            UILabel *label11 = [[UILabel alloc]
-            initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-            label11.text = @"10min";
-            //设置字体和是否加粗
-            label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-            [cell addSubview:label11];
-        }
-        if (indexPath.row == 4)
-        {
-            UILabel *label11 = [[UILabel alloc]
-            initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-            label11.text = @"30min";
-            //设置字体和是否加粗
-            label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-            [cell addSubview:label11];
-        }
-    }
-    return cell;
-}
-
-//点击cell的点击事件
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    if (indexPath.section == 0)
-    {
-        if (indexPath.row == 0)
-        {
-            [_timebutton setTitle:@"60s" forState:UIControlStateNormal];
-            [probeInfo setVideoPlayTime:60];
-        }
-        if (indexPath.row == 1)
-        {
-            [_timebutton setTitle:@"3min" forState:UIControlStateNormal];
-            [probeInfo setVideoPlayTime:180];
-        }
-        if (indexPath.row == 2)
-        {
-            [_timebutton setTitle:@"5min" forState:UIControlStateNormal];
-            [probeInfo setVideoPlayTime:300];
-        }
-        if (indexPath.row == 3)
-        {
-            [_timebutton setTitle:@"10min" forState:UIControlStateNormal];
-            [probeInfo setVideoPlayTime:600];
-        }
-        if (indexPath.row == 4)
-        {
-            [_timebutton setTitle:@"30min" forState:UIControlStateNormal];
-            [probeInfo setVideoPlayTime:1800];
-        }
-        [_tableView removeFromSuperview];
-        [_buttonback removeFromSuperview];
-    }
 }
 
 #pragma mark - 创建视频下拉tableview的隐藏按钮
@@ -353,6 +240,291 @@
     [_buttonback removeFromSuperview];
 }
 
+#pragma mark - 创建视屏质量的UI界面
+- (void)createVideoQualityUI
+{
+    // views
+    UIView *views = [[UIView alloc] init];
+    views.frame =
+    CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (465), kScreenW - FITWIDTH (58), FITHEIGHT (126));
+    views.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:views];
+    // label屏幕尺寸
+    UILabel *lableScreenSize = [[UILabel alloc] init];
+    lableScreenSize.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (29), FITWIDTH (405), FITHEIGHT (58));
+    lableScreenSize.text = @"视频建议质量";
+    lableScreenSize.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    [views addSubview:lableScreenSize];
+
+    NSString *l = @"480p";
+
+    //按钮
+    //初始化
+    _timebutton2 = [[UIButton alloc]
+    initWithFrame:CGRectMake (FITWIDTH (463), FITHEIGHT (24), kScreenW - FITWIDTH (585), FITHEIGHT (82))];
+    //设置文字
+    [_timebutton2 setTitle:l forState:UIControlStateNormal];
+
+    //文字颜色
+    [_timebutton2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    //文字大小
+    _timebutton2.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    //按钮背景颜色
+    [_timebutton2
+    setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor lightGrayColor]
+                                                size:CGSizeMake (FITWIDTH (330), FITHEIGHT (115))]
+              forState:UIControlStateHighlighted];
+    [_timebutton2
+    setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor whiteColor]
+                                                size:CGSizeMake (FITWIDTH (330), FITHEIGHT (115))]
+              forState:UIControlStateNormal];
+    _timebutton2.layer.cornerRadius = svCornerRadius (12);
+    _timebutton2.layer.masksToBounds = YES;
+    [_timebutton2 addTarget:self
+                     action:@selector (myQuabuttonClick:)
+           forControlEvents:UIControlEventTouchUpInside];
+
+    //按钮框
+    UIView *imageView2 = [[UIView alloc]
+    initWithFrame:CGRectMake (FITWIDTH (461), FITHEIGHT (21), kScreenW - FITWIDTH (580), FITHEIGHT (87))];
+    imageView2.layer.borderWidth = 1;
+    imageView2.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    imageView2.layer.masksToBounds = YES;
+    imageView2.layer.cornerRadius = svCornerRadius (12);
+    [views addSubview:imageView2];
+    [views addSubview:_timebutton2];
+}
+//视频质量下拉按钮的点击事件
+- (void)myQuabuttonClick:(UIButton *)btn
+{
+    SVInfo (@"视频时长下拉按钮");
+    [self creatQuatableViewbackbutton];
+    [self creatQuatableView];
+}
+#pragma mark - 创建视频质量下拉的tableview
+- (void)creatQuatableView
+{
+    //编辑界面
+    //一.创建一个 tableView
+    // 1.style:Grouped化合的,分组的
+    _tableView2 = [[UITableView alloc]
+    initWithFrame:CGRectMake (FITWIDTH (490), FITHEIGHT (630), kScreenW - FITWIDTH (540), FITHEIGHT (390))
+            style:UITableViewStylePlain];
+    // 2.设置背景颜色
+    _tableView2.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
+    //*4.设置代理
+    _tableView2.delegate = self;
+    //*5.设置数据源
+    _tableView2.dataSource = self;
+    _tableView2.separatorColor = [UIColor colorWithWhite:0.8 alpha:0.3];
+    // 6.设置tableView不可上下拖动
+    _tableView2.bounces = NO;
+    //三.添加
+    // 7.把tableView添加到 view
+    [self.view addSubview:_tableView2];
+}
+#pragma mark - 创建视频质量下拉tableview的隐藏按钮
+
+- (void)creatQuatableViewbackbutton
+{
+    _buttonback2 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
+    _buttonback2.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.0];
+    [_buttonback2 addTarget:self
+
+                     action:@selector (quatableViewbackbutton:)
+           forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_buttonback2];
+}
+//返回按钮的点击事件
+- (void)quatableViewbackbutton:(UIButton *)btn
+{
+    [_tableView2 removeFromSuperview];
+    [_buttonback2 removeFromSuperview];
+}
+
+#pragma mark - tableview的代理方法
+//设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+//设置 tableView的 numberOfRowsInSection(设置每个section中有几个cell)
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (tableView == _tableView)
+    {
+        return 5;
+    }
+    else
+    {
+        return 3;
+    }
+}
+
+// 设置 tableView 的行高
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return FITHEIGHT (130);
+}
+
+//设置 tableView的 cellForRowIndexPath(设置每个cell内的具体内容)
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellId = @"cell";
+
+    UITableViewCell *cell =
+    [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+    if (tableView == _tableView)
+    {
+        //设置每个cell的内容
+        if (indexPath.section == 0)
+        {
+
+            if (indexPath.row == 0)
+            {
+                UILabel *label11 = [[UILabel alloc]
+                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
+                label11.text = @"60s";
+                //设置字体和是否加粗
+                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+                [cell addSubview:label11];
+            }
+            if (indexPath.row == 1)
+            {
+                UILabel *label11 = [[UILabel alloc]
+                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
+                label11.text = @"3min";
+                //设置字体和是否加粗
+                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+                [cell addSubview:label11];
+            }
+            if (indexPath.row == 2)
+            {
+                UILabel *label11 = [[UILabel alloc]
+                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
+                label11.text = @"5min";
+                //设置字体和是否加粗
+                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+                [cell addSubview:label11];
+            }
+            if (indexPath.row == 3)
+            {
+                UILabel *label11 = [[UILabel alloc]
+                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
+                label11.text = @"10min";
+                //设置字体和是否加粗
+                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+                [cell addSubview:label11];
+            }
+            if (indexPath.row == 4)
+            {
+                UILabel *label11 = [[UILabel alloc]
+                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
+                label11.text = @"30min";
+                //设置字体和是否加粗
+                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+                [cell addSubview:label11];
+            }
+        }
+    }
+    else
+    {
+        //设置每个cell的内容
+        if (indexPath.section == 0)
+        {
+
+            if (indexPath.row == 0)
+            {
+                UILabel *label11 = [[UILabel alloc]
+                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
+                label11.text = @"480p";
+                //设置字体和是否加粗
+                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+                [cell addSubview:label11];
+            }
+            if (indexPath.row == 1)
+            {
+                UILabel *label11 = [[UILabel alloc]
+                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
+                label11.text = @"720p";
+                //设置字体和是否加粗
+                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+                [cell addSubview:label11];
+            }
+            if (indexPath.row == 2)
+            {
+                UILabel *label11 = [[UILabel alloc]
+                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
+                label11.text = @"1080p";
+                //设置字体和是否加粗
+                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+                [cell addSubview:label11];
+            }
+        }
+    }
+    return cell;
+}
+
+//点击cell的点击事件
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == _tableView)
+    {
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        if (indexPath.section == 0)
+        {
+            if (indexPath.row == 0)
+            {
+                [_timebutton setTitle:@"60s" forState:UIControlStateNormal];
+                [probeInfo setVideoPlayTime:60];
+            }
+            if (indexPath.row == 1)
+            {
+                [_timebutton setTitle:@"3min" forState:UIControlStateNormal];
+                [probeInfo setVideoPlayTime:180];
+            }
+            if (indexPath.row == 2)
+            {
+                [_timebutton setTitle:@"5min" forState:UIControlStateNormal];
+                [probeInfo setVideoPlayTime:300];
+            }
+            if (indexPath.row == 3)
+            {
+                [_timebutton setTitle:@"10min" forState:UIControlStateNormal];
+                [probeInfo setVideoPlayTime:600];
+            }
+            if (indexPath.row == 4)
+            {
+                [_timebutton setTitle:@"30min" forState:UIControlStateNormal];
+                [probeInfo setVideoPlayTime:1800];
+            }
+            [_tableView removeFromSuperview];
+            [_buttonback removeFromSuperview];
+        }
+    }
+    else
+    {
+        if (indexPath.section == 0)
+        {
+            if (indexPath.row == 0)
+            {
+                [_timebutton2 setTitle:@"480p" forState:UIControlStateNormal];
+            }
+            if (indexPath.row == 1)
+            {
+                [_timebutton2 setTitle:@"720p" forState:UIControlStateNormal];
+            }
+            if (indexPath.row == 2)
+            {
+                [_timebutton2 setTitle:@"1080p" forState:UIControlStateNormal];
+            }
+            [_tableView2 removeFromSuperview];
+            [_buttonback2 removeFromSuperview];
+        }
+    }
+}
+
 #pragma mark - 创建带框服务器设置的UI界面
 - (void)createBandwidthUI
 {
@@ -370,7 +542,7 @@
     // views3
     UIView *views3 = [[UIView alloc] init];
     views3.frame =
-    CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (466), kScreenW - FITWIDTH (58), FITHEIGHT (290));
+    CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (600), kScreenW - FITWIDTH (58), FITHEIGHT (290));
     views3.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views3];
     // label
