@@ -336,7 +336,7 @@
 
     //按钮被点击后 右侧显示排序箭头
     UIImage *image = [UIImage imageNamed:@"ic_sort"];
-    self.imageView.frame = CGRectMake (CGRectGetMaxX (button.titleLabel.frame) - FITWIDTH (10),
+    self.imageView.frame = CGRectMake (CGRectGetMaxX (button.titleLabel.frame),
                                        button.titleLabel.frame.origin.y - FITWIDTH (35),
                                        image.size.width, image.size.height);
     static int a = 0;

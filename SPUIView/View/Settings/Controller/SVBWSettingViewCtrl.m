@@ -153,7 +153,7 @@
     //文字
     _textField.text = [probeInfo getBandwidth];
     _textField.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    _textField.textColor = [UIColor colorWithHexString:@"#4C000000"];
+    _textField.textColor = [UIColor colorWithHexString:@"#E5000000"];
     _textField.layer.cornerRadius = svCornerRadius (12);
     //边框
     _textField.borderStyle = UITextBorderStyleRoundedRect;
