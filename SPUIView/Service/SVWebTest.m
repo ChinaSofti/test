@@ -305,7 +305,7 @@
     for (SVWebTestResult *result in [self.webTestResultDic allValues])
     {
         // 超时的数据不加入计算
-        if ([result totalTime] >= 10)
+        if ([result totalTime] <= 0 || [result totalTime] >= 10)
         {
             continue;
         }

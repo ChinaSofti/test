@@ -319,6 +319,11 @@
       [_webtestingView updateValue:0];
       [_webtestingView.valueLabel setText:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]];
       [_webtestingView.unitLabel setText:@""];
+      [SVLabelTools resetLayoutWithValueLabel:_webtestingView.valueLabel
+                                    UnitLabel:_webtestingView.unitLabel
+                                    WithWidth:kScreenW
+                                   WithHeight:FITHEIGHT (100)
+                                        WithY:FITHEIGHT (604)];
 
       // 测试地址
       [_testUrlLabel setText:testUrl];
