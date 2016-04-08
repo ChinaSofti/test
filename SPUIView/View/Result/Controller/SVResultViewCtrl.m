@@ -46,6 +46,7 @@
     if (_bottomImageView == nil)
     {
         _bottomImageView = [[UIImageView alloc] init];
+        _bottomImageView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
     }
     return _bottomImageView;
 }
@@ -277,57 +278,62 @@
 //按钮点击事件
 - (void)buttonClick:(UIButton *)button
 {
-
-    SVInfo (@"SVResultView页面");
-
     if (!self.button)
     {
         self.button = button;
     }
-
     if (button != self.button)
     {
         self.button.selected = NO;
         self.button = button;
     }
     self.button.selected = YES;
-
     // 在被点击的按钮下方 添加细长白条
     switch (button.tag - Button_Tag)
     {
     case 0:
         self.bottomImageView.frame =
         CGRectMake (FITWIDTH (22), FITHEIGHT (292), FITWIDTH (207), FITHEIGHT (6));
-        self.bottomImageView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
-        [self.bottomImageView removeFromSuperview];
+        if (self.bottomImageView)
+        {
+            [self.bottomImageView removeFromSuperview];
+        }
         [self.navigationController.navigationBar addSubview:self.bottomImageView];
         break;
     case 1:
         self.bottomImageView.frame =
         CGRectMake (FITWIDTH (229), FITHEIGHT (292), FITWIDTH (207), FITHEIGHT (6));
-        self.bottomImageView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
-        [self.bottomImageView removeFromSuperview];
+        if (self.bottomImageView)
+        {
+            [self.bottomImageView removeFromSuperview];
+        }
         [self.navigationController.navigationBar addSubview:self.bottomImageView];
         break;
     case 2:
         self.bottomImageView.frame =
         CGRectMake (FITWIDTH (436), FITHEIGHT (292), FITWIDTH (207), FITHEIGHT (6));
-        self.bottomImageView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
-        [self.bottomImageView removeFromSuperview];
+        if (self.bottomImageView)
+        {
+            [self.bottomImageView removeFromSuperview];
+        }
         [self.navigationController.navigationBar addSubview:self.bottomImageView];
         break;
     case 3:
         self.bottomImageView.frame =
         CGRectMake (FITWIDTH (643), FITHEIGHT (292), FITWIDTH (207), FITHEIGHT (6));
-        self.bottomImageView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
-        [self.bottomImageView removeFromSuperview];
+        if (self.bottomImageView)
+        {
+            [self.bottomImageView removeFromSuperview];
+        }
         [self.navigationController.navigationBar addSubview:self.bottomImageView];
         break;
     case 4:
         self.bottomImageView.frame =
         CGRectMake (FITWIDTH (850), FITHEIGHT (292), FITWIDTH (207), FITHEIGHT (6));
-        self.bottomImageView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
-        [self.bottomImageView removeFromSuperview];
+        if (self.bottomImageView)
+        {
+            [self.bottomImageView removeFromSuperview];
+        }
         [self.navigationController.navigationBar addSubview:self.bottomImageView];
         break;
     default:
@@ -554,13 +560,12 @@
     [buttonAndTest objectForKey:[NSString stringWithFormat:@"key_%zd", cell.bgdBtn.tag]];
     long long testId = [summaryResultModel.testId longLongValue];
     [detailViewCtrl setTestId:testId];
-
+    //移除白条
+    [self.bottomImageView removeFromSuperview];
     // 隐藏hidesBottomBarWhenPushed
     self.hidesBottomBarWhenPushed = YES;
-
     // push界面
     [self.navigationController pushViewController:detailViewCtrl animated:NO];
-
     // 返回时显示hidesBottomBarWhenPushed
     self.hidesBottomBarWhenPushed = NO;
 }
