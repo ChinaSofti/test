@@ -104,7 +104,7 @@
     UILabel *labLtd = [[UILabel alloc]
     initWithFrame:CGRectMake (labCopyright.frame.origin.x, labCopyright.frame.origin.y + FITHEIGHT (58),
                               kScreenW - FITWIDTH (230), FITHEIGHT (126))];
-    labLtd.text = @"Ltd. 2016-2018.";
+    labLtd.text = @"Ltd. 2014-2016.";
     labLtd.textColor = [UIColor grayColor];
     labLtd.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     [self.view addSubview:labLtd];

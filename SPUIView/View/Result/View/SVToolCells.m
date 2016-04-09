@@ -41,7 +41,7 @@
 
         // 设置指标名称的label
         _keyLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (FITWIDTH (33), 0, (bgdView.frame.size.width - 2 * FITWIDTH (33)) * 0.3,
+        initWithFrame:CGRectMake (FITWIDTH (33), 0, (bgdView.frame.size.width - 2 * FITWIDTH (33)) * 0.4,
                                   FITHEIGHT (132))];
         _keyLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
         _keyLabel.textAlignment = NSTextAlignmentLeft;
@@ -50,7 +50,7 @@
 
         // 设置指标值的label
         _valueLabel = [[UILabel alloc]
-        initWithFrame:CGRectMake (_keyLabel.rightX, 0, (bgdView.frame.size.width - 2 * FITWIDTH (33)) * 0.7,
+        initWithFrame:CGRectMake (_keyLabel.rightX, 0, (bgdView.frame.size.width - 2 * FITWIDTH (33)) * 0.6,
                                   FITHEIGHT (132))];
         _valueLabel.textAlignment = NSTextAlignmentRight;
         _valueLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
