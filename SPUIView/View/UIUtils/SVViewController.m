@@ -68,13 +68,13 @@
 
 // 初始化TableView
 - (UITableView *)createTableViewWithRect:(CGRect)rect
+                               WithStyle:(UITableViewStyle)style
                                WithColor:(UIColor *)bgColor
                             WithDelegate:(id)delegate
                           WithDataSource:(id)dataSource
 {
     // 创建一个 tableView
-    UITableView *_tableView =
-    [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
+    UITableView *_tableView = [[UITableView alloc] initWithFrame:rect style:style];
 
     // 设置背景颜色
     _tableView.backgroundColor = bgColor;

@@ -8,6 +8,7 @@
 
 #import "SVHttpsGetter.h"
 #import "SVLog.h"
+#import "SVProbeInfo.h"
 #import "SVVideoAnalyser_youtube.h"
 
 // quality_label=2160p
@@ -99,10 +100,15 @@ static NSString *_GET_VIDEO_INFO_URL = @"https://www.youtube.com/"
         return _videoInfo;
     }
 
+    // 根据用户选择的清晰度选择分片
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    int videoClarity = probeInfo.getVideoClarity;
+    NSString *videoType = [NSString stringWithFormat:@"quality_label=%dp", videoClarity];
+
     NSMutableArray *videoParamStringArrays = [[NSMutableArray alloc] init];
     for (int i = 0; i < videoSegementString.count; i++)
     {
-        if ([videoSegementString[i] containsString:QUALITY_LABEL] &&
+        if ([videoSegementString[i] containsString:videoType] &&
             [videoSegementString[i] containsString:@"type=video%2Fmp4"])
         {
             [videoParamStringArrays addObject:videoSegementString[i]];
@@ -184,7 +190,7 @@ static NSString *_GET_VIDEO_INFO_URL = @"https://www.youtube.com/"
         }
     }
 
-    [segement setVideoSegementURL:videoURLString];
+    [segement setVideoSegementURLStr:videoURLString];
     [_videoInfo addSegement:segement];
     return _videoInfo;
 }

@@ -60,6 +60,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     // 创建一个 tableView, style:Grouped化合的,分组的
     _tableView = [self createTableViewWithRect:CGRectMake (FITWIDTH (22), 0, kScreenW - FITWIDTH (44),
                                                            kScreenH - FITHEIGHT (144))
+                                     WithStyle:UITableViewStyleGrouped
                                      WithColor:[UIColor colorWithHexString:@"#fafafa"]
                                   WithDelegate:self
                                 WithDataSource:self];
@@ -103,7 +104,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 
     UILabel *label111 =
     [[UILabel alloc] initWithFrame:CGRectMake (label11.originX + label11.width, FITHEIGHT (43),
-                                               FITWIDTH (250), FITHEIGHT (58))];
+                                               FITWIDTH (300), FITHEIGHT (58))];
 
     //        label111.backgroundColor  = [UIColor blueColor];
     label111.text = I18N (@"Mobile Network");

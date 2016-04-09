@@ -190,43 +190,59 @@ static SVTestContextGetter *contextGetter = nil;
         return nil;
     }
 
-    NSArray *allSegement = [videoInfo getAllSegement];
-    if (!allSegement)
+    // 获取所有分片信息，如果为空则直接返回
+    NSMutableArray *allSegement = [[NSMutableArray alloc] initWithArray:[videoInfo getAllSegement]];
+    if (!allSegement || allSegement.count == 0)
     {
         return nil;
     }
 
+    // 生成随机数
     int randomIndex = arc4random () % [allSegement count];
-    SVVideoSegement *segement = [videoInfo getAllSegement][randomIndex];
-    [videoContext setVideoSegementURLString:segement.videoSegementURL];
-    NSURL *url = [NSURL URLWithString:segement.videoSegementURL];
-    [videoContext setVideoSegementURL:url];
-    [videoContext setVideoSegementSize:segement.size];
-    [videoContext setVideoSegementDuration:segement.duration];
-    [videoContext setVideoSegementBitrate:segement.bitrate];
-    [videoContext setVideoSegementIP:url.host];
-    [videoContext setVideoQuality:segement.videoQuality];
-    [videoContext setVid:videoInfo.vid];
-    [videoContext setVideoResolution:segement.videoResolution];
-    [videoContext setFrameRate:segement.frameRate];
 
-    @try
+    // 遍历所有分片信息，解析出视频ip，归属地等信息
+    for (SVVideoSegement *segement in allSegement)
     {
-        SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:url.host];
-        if (ipAndISP)
+        NSURL *url = [NSURL URLWithString:segement.videoSegementURLStr];
+        [segement setVideoSegementURL:url];
+        @try
         {
-            [videoContext setVideoSegemnetLocation:ipAndISP.city];
-            [videoContext setVideoSegemnetISP:ipAndISP.isp];
+            SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:url.host];
+            if (ipAndISP)
+            {
+                [segement setVideoIP:url.host];
+                [segement setVideoLocation:ipAndISP.city];
+                [segement setVideoISP:ipAndISP.isp];
+            }
+        }
+        @catch (NSException *exception)
+        {
+            SVError (@"query ip[%@] location fail %@", url.host, exception);
         }
     }
-    @catch (NSException *exception)
-    {
-        SVError (@"query ip[%@] location fail %@", url.host, exception);
-    }
+
+    // 将该分片信息移动到第一个位置
+    [allSegement exchangeObjectAtIndex:0 withObjectAtIndex:randomIndex];
+
+    //    [videoContext setVideoSegementURLString:segement.videoSegementURL];
+    //    [videoContext setVideoSegementURL:url];
+    //    [videoContext setVideoSegementSize:segement.size];
+    //    [videoContext setVideoSegementDuration:segement.duration];
+    //    [videoContext setVideoSegementBitrate:segement.bitrate];
+    //    [videoContext setVideoSegementIP:url.host];
+    //    [videoContext setVideoQuality:segement.videoQuality];
+    //    [videoContext setVideoResolution:segement.videoResolution];
+    //    [videoContext setFrameRate:segement.frameRate];
+
+    [videoContext setVideoSegementInfo:allSegement];
+    [videoContext setVid:videoInfo.vid];
+
 
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     int videoPlayDuration = [probeInfo getVideoPlayTime];
     [videoContext setVideoPlayDuration:videoPlayDuration];
+    int videoClarity = [probeInfo getVideoClarity];
+    [videoContext setVideoClarity:videoClarity];
     return videoContext;
 }
 

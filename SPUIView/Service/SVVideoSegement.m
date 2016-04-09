@@ -10,6 +10,7 @@
 
 @implementation SVVideoSegement
 
-@synthesize videoSegementURL, size, duration, segementID, bitrate, frameRate, videoResolution, videoQuality;
+@synthesize videoSegementURL, size, duration, segementID, bitrate, frameRate, videoResolution,
+videoQuality, videoIP, videoISP, videoLocation, videoSegementURLStr;
 
 @end

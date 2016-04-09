@@ -74,6 +74,7 @@
         // 创建一个 tableView
         CGFloat tabBarH = self.tabBarController.tabBar.frame.size.height;
         _tableView = [self createTableViewWithRect:CGRectMake (0, 0, kScreenW, kScreenH - tabBarH)
+                                         WithStyle:UITableViewStyleGrouped
                                          WithColor:[UIColor colorWithHexString:@"#FAFAFA"]
                                       WithDelegate:self
                                     WithDataSource:self];
@@ -85,7 +86,7 @@
 - (void)viewDidLoad
 {
     // 设置标题
-    [self initTitleViewWithTitle:I18N (@"Results")];
+    [self initTitleViewWithTitle:I18N (@"Result List")];
 
     // 初始化数据库和表
     _db = [SVDBManager sharedInstance];

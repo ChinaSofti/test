@@ -40,7 +40,7 @@
     [super viewDidLoad];
 
     // 设置标题
-    [self initTitleViewWithTitle:I18N (@"Results")];
+    [self initTitleView];
 
     // 设置返回按钮
     [self initBackButtonWithTarget:self action:@selector (backBtnClik)];
@@ -51,6 +51,7 @@
 
     // 把tableView添加到 view
     [uiview addSubview:[self createTableViewWithRect:CGRectMake (0, 0, kScreenW, FITHEIGHT (1242))
+                                           WithStyle:UITableViewStyleGrouped
                                            WithColor:[UIColor colorWithHexString:@"#FAFAFA"]
                                         WithDelegate:self
                                       WithDataSource:self]];
@@ -137,7 +138,7 @@
     UILabel *_firstBufferTimeLabelUnit = [allLabelDic valueForKey:@"videoMiddleUnitLabel"];
     if (!_resultModel.firstBufferTime || _resultModel.firstBufferTime == -1)
     {
-        [_firstBufferTimeLabelValue setText:_firstBufferTimeTitle];
+        [_firstBufferTimeLabelValue setText:_failTitle];
         [_firstBufferTimeLabelUnit setText:@""];
     }
     else
@@ -157,7 +158,7 @@
     UILabel *_cuttonTimesLabelUnit = [allLabelDic valueForKey:@"videoRightUnitLabel"];
     if (_resultModel.cuttonTimes == -1)
     {
-        [_cuttonTimesLabelValue setText:_cuttonTimesTitle];
+        [_cuttonTimesLabelValue setText:_failTitle];
     }
     else
     {
@@ -176,7 +177,7 @@
     UILabel *_responseLabelUnit = [allLabelDic valueForKey:@"webLeftUnitLabel"];
     if (!_resultModel.responseTime || _resultModel.responseTime < 0)
     {
-        [_responseLabelValue setText:_responseTimeTitle];
+        [_responseLabelValue setText:_failTitle];
         [_responseLabelUnit setText:@""];
     }
     else
@@ -196,7 +197,7 @@
     UILabel *_loadLabelUnit = [allLabelDic valueForKey:@"webRightUnitLabel"];
     if (!_resultModel.totalTime || _resultModel.totalTime < 0)
     {
-        [_loadLabelValue setText:_loadTimeTitle];
+        [_loadLabelValue setText:_failTitle];
         [_loadLabelUnit setText:@""];
     }
     else
@@ -216,7 +217,7 @@
     UILabel *_downloadLabelUnit = [allLabelDic valueForKey:@"webMiddleUnitLabel"];
     if (!_resultModel.downloadSpeed || _resultModel.downloadSpeed < 0)
     {
-        [_downloadLabelValue setText:_downloadSpeedTitle];
+        [_downloadLabelValue setText:_failTitle];
         [_downloadLabelUnit setText:@""];
     }
     else
@@ -237,7 +238,7 @@
     UILabel *_dtDelayLabelUnit = [allLabelDic valueForKey:@"speedLeftUnitLabel"];
     if (!_resultModel.stDelay || _resultModel.stDelay <= 0)
     {
-        [_dtDelayLabelValue setText:_delayTitle];
+        [_dtDelayLabelValue setText:_failTitle];
         [_dtDelayLabelUnit setText:@""];
     }
     else
@@ -257,7 +258,7 @@
     UILabel *_dtDownloadLabelUnit = [allLabelDic valueForKey:@"speedMiddleUnitLabel"];
     if (!_resultModel.stDownloadSpeed || _resultModel.stDownloadSpeed <= 0)
     {
-        [_dtDownloadLabelValue setText:_downloadSpeedTitle];
+        [_dtDownloadLabelValue setText:_failTitle];
         [_dtDownloadLabelUnit setText:@""];
     }
     else
@@ -277,7 +278,7 @@
     UILabel *_dtUploadLabelUnit = [allLabelDic valueForKey:@"speedRightUnitLabel"];
     if (!_resultModel.stUploadSpeed || _resultModel.stUploadSpeed <= 0)
     {
-        [_dtUploadLabelValue setText:_uploadSpeedTitle];
+        [_dtUploadLabelValue setText:_failTitle];
         [_dtUploadLabelUnit setText:@""];
     }
     else
@@ -328,7 +329,7 @@
     // 初始化标题
     _failTitle = I18N (@"Fail");
     _firstBufferTimeTitle = I18N (@"Initial Buffer Time");
-    _cuttonTimesTitle = I18N (@"Butter times");
+    _cuttonTimesTitle = I18N (@"Stalling Times");
     _responseTimeTitle = I18N (@"Response Time");
     _downloadSpeedTitle = I18N (@"Download Speed");
     _loadTimeTitle = I18N (@"Load duration");
@@ -384,7 +385,7 @@
         // 创建右侧指标的view
         NSString *rightValue = I18N (@"Fail");
         NSString *rightUnit = @"";
-        if (_resultModel.cuttonTimes && _resultModel.cuttonTimes != -1)
+        if (_resultModel.cuttonTimes != -1)
         {
             rightValue = [NSString stringWithFormat:@"%d", _resultModel.cuttonTimes];
             rightUnit = @"ms";

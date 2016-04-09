@@ -8,6 +8,7 @@
 
 #import "SVProbeInfo.h"
 #import "SVTimeUtil.h"
+#import "SVVideoSegement.h"
 #import "SVYoutubeVideoPlayer2.h"
 
 @implementation SVYoutubeVideoPlayer2
@@ -58,6 +59,9 @@
 
     // 上一次状态
     YTPlayerState lastState;
+
+    // 正在测试的分片信息
+    SVVideoSegement *segement;
 }
 
 @synthesize showOnView, testResult, testContext, uvMOSCalculator;
@@ -129,7 +133,10 @@ static int execute_total_times = 4;
     // 初始化UvMOS组件
     [self initUvMOSCompent];
 
-    if (testContext.videoSegementURL)
+    // 获取要测试的分片信息
+    segement = testContext.videoSegementInfo[0];
+
+    if (segement.videoSegementURL)
     {
         NSString *playerHtmlPath = [self getPlayerHtmlPath];
         //调用逻辑
@@ -384,7 +391,7 @@ static int execute_total_times = 4;
         _firstBufferTime = (int)(endPlayTime - startPlayTime);
         [testResult setFirstBufferTime:_firstBufferTime];
 
-        NSString *r = testContext.videoResolution;
+        NSString *r = segement.videoResolution;
         NSArray *array = [r componentsSeparatedByString:@"x"];
         // 视频宽度
         NSString *videoWidth = array[0];
@@ -398,8 +405,8 @@ static int execute_total_times = 4;
             [testResult setVideoResolution:[NSString stringWithFormat:@"%@", r]];
         }
 
-        [testResult setBitrate:(testContext.videoSegementBitrate)];
-        [testResult setFrameRate:testContext.frameRate];
+        [testResult setBitrate:(segement.bitrate)];
+        [testResult setFrameRate:segement.frameRate];
 
         SVVideoTestSample *sample = [[SVVideoTestSample alloc] init];
         [sample setPeriodLength:0];

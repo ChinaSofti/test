@@ -12,6 +12,7 @@
 #import "SVPointView.h"
 #import "SVProbeInfo.h"
 #import "SVTimeUtil.h"
+#import "SVVideoSegement.h"
 #import "SVVideoTest.h"
 #import "SVVideoTestingCtrl.h"
 #import "SVVideoView.h"
@@ -182,8 +183,7 @@
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
 
     // 创建一个覆盖garyView
-    _gyview =
-    [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - FITHEIGHT (144), kScreenW, FITHEIGHT (314))];
+    _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 49, kScreenW, 49)];
 
     // 设置透明度
     _gyview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
@@ -503,7 +503,8 @@
     int cuttonTimes = testResult.videoCuttonTimes;
 
     // 视频服务器位置
-    NSString *location = testContext.videoSegemnetLocation;
+    SVVideoSegement *segement = testContext.videoSegementInfo[0];
+    NSString *location = segement.videoLocation;
 
     // 视频码率
     float bitrate = testResult.bitrate;

@@ -83,6 +83,7 @@
 "Video URL" = "视频地址";
 "Video Server Location" = "视频服务器地址";
 "Video Play Duration" = "视频测试时长";
+"Video Segement URL" = "视频分片地址";
 
 //网页测试
 "Web Test"="网页测试";
@@ -198,3 +199,4 @@
 "auto" = "自动";
 "select" = "选择";
 "Value is invalid" = "无效值！";
+"Video quality" = "视频建议质量";

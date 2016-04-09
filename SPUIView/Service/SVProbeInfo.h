@@ -96,5 +96,19 @@
  */
 - (int)getVideoPlayTime;
 
+/**
+ *  设置清晰度
+ *
+ *  @param clarity 清晰度
+ */
+- (void)setVideoClarity:(int)clarity;
+
+/**
+ *  获取清晰度
+ *
+ *  @return 清晰度
+ */
+- (int)getVideoClarity;
+
 
 @end

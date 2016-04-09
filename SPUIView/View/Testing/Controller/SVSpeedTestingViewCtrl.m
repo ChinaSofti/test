@@ -117,9 +117,9 @@ double _preSpeed = 0.0;
  */
 - (void)initContext
 {
-    [_headerView updateLeftValue:@"0.00"];
-    [_headerView updateMiddleValue:@"0.00"];
-    [_headerView updateRightValue:@"0.00"];
+    [_headerView updateLeftValue:@"N/A" WithUnit:@""];
+    [_headerView updateMiddleValue:@"N/A" WithUnit:@""];
+    [_headerView updateRightValue:@"N/A" WithUnit:@""];
 
     NSString *loadingStr = I18N (@"Loading...");
     [_serverLocationLabel setText:loadingStr];
@@ -208,15 +208,15 @@ double _preSpeed = 0.0;
     [defalutValue setValue:[UIColor colorWithHexString:@"#FC5F45"] forKey:@"valueColor"];
     [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (33)] forKey:@"unitFontSize"];
     [defalutValue setValue:[UIColor colorWithHexString:@"#FC5F45"] forKey:@"unitColor"];
-    [defalutValue setValue:@"0.00" forKey:@"leftDefaultValue"];
+    [defalutValue setValue:@"N/A" forKey:@"leftDefaultValue"];
     [defalutValue setValue:I18N (@"Delay") forKey:@"leftTitle"];
-    [defalutValue setValue:@"ms" forKey:@"leftUnit"];
-    [defalutValue setValue:@"0.00" forKey:@"middleDefaultValue"];
+    [defalutValue setValue:@"" forKey:@"leftUnit"];
+    [defalutValue setValue:@"N/A" forKey:@"middleDefaultValue"];
     [defalutValue setValue:I18N (@"Download Speed") forKey:@"middleTitle"];
-    [defalutValue setValue:@"Mbps" forKey:@"middleUnit"];
-    [defalutValue setValue:@"0.00" forKey:@"rightDefaultValue"];
+    [defalutValue setValue:@"" forKey:@"middleUnit"];
+    [defalutValue setValue:@"N/A" forKey:@"rightDefaultValue"];
     [defalutValue setValue:I18N (@"Upload speed") forKey:@"rightTitle"];
-    [defalutValue setValue:@"Mbps" forKey:@"rightUnit"];
+    [defalutValue setValue:@"" forKey:@"rightUnit"];
 
 
     // 初始化headerView
@@ -346,7 +346,8 @@ double _preSpeed = 0.0;
       }
 
       // 显示头部指标
-      [_headerView updateLeftValue:[NSString stringWithFormat:@"%.2f", testResult.delay]];
+      [_headerView updateLeftValue:[NSString stringWithFormat:@"%.2f", testResult.delay]
+                          WithUnit:@"ms"];
 
       // 如果是汇总结果，直接使用
       double speed = testResult.isUpload ? testResult.uploadSpeed : testResult.downloadSpeed;
@@ -360,12 +361,14 @@ double _preSpeed = 0.0;
       [_speedtestingView updateValue:speed];
       if (testResult.isUpload)
       {
-          [_headerView updateRightValue:[NSString stringWithFormat:@"%.2f", speed]];
+          [_headerView updateRightValue:[NSString stringWithFormat:@"%.2f", speed]
+                               WithUnit:@"Mbps"];
           _speedtestingView.titleLabel.text = uploadTitle;
       }
       else
       {
-          [_headerView updateMiddleValue:[NSString stringWithFormat:@"%.2f", speed]];
+          [_headerView updateMiddleValue:[NSString stringWithFormat:@"%.2f", speed]
+                                WithUnit:@"Mbps"];
           _speedtestingView.titleLabel.text = downTitle;
       }
 

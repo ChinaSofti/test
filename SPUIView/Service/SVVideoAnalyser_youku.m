@@ -8,6 +8,7 @@
 
 #import "SVHttpGetter.h"
 #import "SVLog.h"
+#import "SVProbeInfo.h"
 #import "SVTimeUtil.h"
 #import "SVVideoAnalyser_youku.h"
 #import "SVWebBrowser.h"
@@ -119,8 +120,28 @@ static NSString *_ykss;
     {
         //
         NSString *streamType = [streamObj valueForKey:@"stream_type"];
+
+        // 根据用户选择的清晰度选择分片
+        NSString *videoType = @"mp4hd3";
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        int videoClarity = probeInfo.getVideoClarity;
+        if (videoClarity == 480)
+        {
+            videoType = @"mp4hd";
+        }
+
+        if (videoClarity == 720)
+        {
+            videoType = @"mp4hd2";
+        }
+
+        if (videoClarity == 1080)
+        {
+            videoType = @"mp4hd3";
+        }
+
         // 4K 目前手机APP只测试hd3的视频源
-        if ([streamType isEqualToString:@"mp4hd3"])
+        if ([streamType isEqualToString:videoType])
         {
             NSString *streamFileid = [streamObj valueForKey:@"stream_fileid"];
 
@@ -175,7 +196,7 @@ static NSString *_ykss;
                 // 视频大小 单位为byte
                 [segement setSize:size];
                 [segement setDuration:(millisecondVideo / 1000)];
-                [segement setVideoSegementURL:videoRealURL];
+                [segement setVideoSegementURLStr:videoRealURL];
                 [segement setBitrate:((size * 8 / 1024) / (millisecondVideo / 1000))];
                 [_videoInfo addSegement:segement];
             }

@@ -83,6 +83,7 @@
 "Video Server Location" = "Video Server Location";
 "Carrier" = "Carrier";
 "Video Play Duration" = "Video Play Duration";
+"Video Segement URL" = "Video Segement URL";
 
 //网页测试
 "Web Test"="Web Test";
@@ -203,3 +204,4 @@
 "auto" = "Auto";
 "select" = "Select";
 "Value is invalid" = "Value is invalid！";
+"Video quality" = "Video quality";

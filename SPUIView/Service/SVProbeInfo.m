@@ -38,6 +38,7 @@ static NSString *_screenSize;
             [probeInfo setVideoPlayTime:60];
             [probeInfo setScreenSize:42.00];
             [probeInfo setBandwidthType:0];
+            [probeInfo setVideoClarity:1080];
             probeInfo.networkType = @"";
             probeInfo.location = @"";
             probeInfo.ip = @"";
@@ -79,9 +80,9 @@ static NSString *_screenSize;
  */
 - (void)setScreenSize:(float)screenSize
 {
-    SVInfo (@"Advanced Setting[screenSize=%.2f]", screenSize);
+    SVInfo (@"Advanced Setting[screenSize=%.1f]", screenSize);
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _screenSize = [NSString stringWithFormat:@"%.2f", screenSize];
+    _screenSize = [NSString stringWithFormat:@"%.1f", screenSize];
     [defaults setObject:_screenSize forKey:@"screenSize"];
     [defaults synchronize];
 }
@@ -202,6 +203,31 @@ static NSString *_screenSize;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *videoPlayTime = [defaults valueForKey:VIDEO_PLAY_TIME_KEY];
     return [videoPlayTime intValue];
+}
+
+/**
+ *  设置清晰度
+ *
+ *  @param clarity 清晰度
+ */
+- (void)setVideoClarity:(int)clarity
+{
+    SVInfo (@"Advanced Setting[clarity=%d]", clarity);
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSString stringWithFormat:@"%d", clarity] forKey:@"videoClarity"];
+    [defaults synchronize];
+}
+
+/**
+ *  获取清晰度
+ *
+ *  @return 清晰度
+ */
+- (int)getVideoClarity
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *videoClarity = [defaults valueForKey:@"videoClarity"];
+    return [videoClarity intValue];
 }
 
 

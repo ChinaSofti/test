@@ -33,6 +33,7 @@
     //一.创建一个 tableView,style:Grouped化合的,分组的
     _tableView = [self
     createTableViewWithRect:CGRectMake (FITWIDTH (29), FITHEIGHT (0), kScreenW - FITHEIGHT (48), kScreenH)
+                  WithStyle:UITableViewStyleGrouped
                   WithColor:[UIColor colorWithHexString:@"#fafafa"]
                WithDelegate:self
              WithDataSource:self];

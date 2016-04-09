@@ -10,6 +10,7 @@
 #import "SVProbeInfo.h"
 #import "SVTimeUtil.h"
 #import "SVVideoPlayer.h"
+#import "SVVideoSegement.h"
 #import "SVVideoUtil.h"
 //#import "UvMOS_Outer_Api.h"
 
@@ -59,6 +60,9 @@
     BOOL _isSetup;
 
     int _videoPlayTime;
+
+    // 正在测试的分片信息
+    SVVideoSegement *segement;
 }
 
 @synthesize showOnView, testResult, testContext, uvMOSCalculator;
@@ -129,7 +133,10 @@ static int execute_total_times = 4;
     // 初始化UvMOS组件
     [self initUvMOSCompent];
 
-    if (testContext.videoSegementURL)
+    // 获取要测试的分片信息
+    segement = testContext.videoSegementInfo[0];
+
+    if (segement.videoSegementURL)
     {
         BOOL isPlaying = [_VMpalyer isPlaying];
         if (isPlaying)
@@ -238,14 +245,14 @@ static int execute_total_times = 4;
 
 - (void)prepareVideo
 {
-    if (testContext.videoSegementURL)
+    if (segement.videoSegementURL)
     {
         SVInfo (@"prepareVideo");
         //播放时不要锁屏
         [UIApplication sharedApplication].idleTimerDisabled = YES;
         // 设置缓冲大小为2倍码率
-        [_VMpalyer setBufferSize:testContext.videoSegementBitrate * 2 * 1024];
-        [_VMpalyer setDataSource:testContext.videoSegementURL];
+        [_VMpalyer setBufferSize:segement.bitrate * 2 * 1024];
+        [_VMpalyer setDataSource:segement.videoSegementURL];
         [_VMpalyer prepareAsync];
     }
 }
@@ -317,7 +324,7 @@ static int execute_total_times = 4;
     SVInfo (@"------------------------------downloadRate: %d", [arg intValue]);
     _downloadSize += [arg intValue];
     _downloadTime += 1;
-    if ((int)arg >= testContext.videoSegementBitrate)
+    if ((int)arg >= segement.bitrate)
     {
         int bufferedTime = (int)([SVTimeUtil currentMilliSecondStamp] - startPlayTime);
         [self startCalculateUvMOS:player bufferedTime:bufferedTime];
@@ -402,7 +409,7 @@ static int execute_total_times = 4;
             [testResult setVideoResolution:[NSString stringWithFormat:@"%d*%d", videoWidth, videoHeight]];
         }
 
-        [testResult setBitrate:(testContext.videoSegementBitrate)];
+        [testResult setBitrate:(segement.bitrate)];
         [testResult setFrameRate:frame_rate];
 
         SVVideoTestSample *sample = [[SVVideoTestSample alloc] init];

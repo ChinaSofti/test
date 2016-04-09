@@ -33,12 +33,29 @@
     UIButton *_buttonback2;
     UIButton *_timebutton;
     UIButton *_timebutton2;
+
+    // 播放时间数组
+    NSArray *durationDic;
+
+    // 视频清晰度数组
+    NSArray *clarityDic;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
+
+    // 初始化播放时间和清晰度
+    durationDic = @[
+        @{ @"60s": @"60" },
+        @{ @"3min": @"180" },
+        @{ @"5min": @"300" },
+        @{ @"10min": @"600" },
+        @{ @"30min": @"1800" }
+    ];
+    clarityDic = @[@{ @"480P": @"480" }, @{ @"720P": @"720" }, @{ @"1080P": @"1080" }];
+
     // 初始化返回按钮
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
     [self createScreenSizeUI];
@@ -85,44 +102,48 @@
 #pragma mark - 创建屏幕尺寸的UI界面
 - (void)createScreenSizeUI
 {
-    NSString *title1 = I18N (@"Screen Size:");
-    NSString *title2 = I18N (@"inch");
     // views
     UIView *views = [[UIView alloc] init];
     views.frame =
-    CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (194), kScreenW - FITHEIGHT (58), FITHEIGHT (126));
+    CGRectMake (FITWIDTH (22), statusBarH + FITHEIGHT (192), kScreenW - FITHEIGHT (44), FITHEIGHT (130));
     views.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views];
 
     // label屏幕尺寸
     UILabel *lableScreenSize = [[UILabel alloc] init];
-    lableScreenSize.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (29), FITWIDTH (290), FITHEIGHT (58));
-    lableScreenSize.text = title1;
+    lableScreenSize.frame = CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
+    lableScreenSize.text = I18N (@"Screen Size:");
+    lableScreenSize.textColor = [UIColor colorWithHexString:@"#CC000000"];
     lableScreenSize.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     [views addSubview:lableScreenSize];
 
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    //文本框
+
+    // 文本框
     _textField = [[UITextField alloc] init];
     [_textField setDelegate:self];
-    _textField.frame =
-    CGRectMake (FITWIDTH (290), FITHEIGHT (29), kScreenW - FITWIDTH (362), FITHEIGHT (58));
+    _textField.frame = CGRectMake (lableScreenSize.rightX, FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
     _textField.text = probeInfo.getScreenSize;
     _textField.placeholder = I18N (@"Please enter the number of 13~100");
     _textField.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    //设置文本框类型
+
+    // 设置文本框类型
     _textField.borderStyle = UITextBorderStyleRoundedRect;
-    //输入键盘类型
+
+    // 输入键盘类型
     _textField.keyboardType = UIKeyboardTypeDecimalPad;
     [views addSubview:_textField];
-    //单位(英寸)
+
+    // 单位(英寸)
     UILabel *lableInch = [[UILabel alloc] init];
-    lableInch.frame = CGRectMake (kScreenW - FITWIDTH (158), FITHEIGHT (29), FITWIDTH (87), FITHEIGHT (58));
-    lableInch.text = title2;
+    lableInch.frame =
+    CGRectMake (lableScreenSize.rightX + FITWIDTH (401), FITHEIGHT (36), FITWIDTH (87), FITHEIGHT (58));
+    lableInch.text = I18N (@"inch");
     lableInch.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    lableInch.textColor = [UIColor colorWithHexString:@"#CC000000"];
     [views addSubview:lableInch];
 }
-//退出键盘的方法
+// 退出键盘的方法
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (![_textField isExclusiveTouch])
@@ -133,19 +154,20 @@
 #pragma mark - 创建视屏加载时长的UI界面
 - (void)createVideotimeUI
 {
-    NSString *title3 = I18N (@"Video Test Duration:");
     // views
     UIView *views = [[UIView alloc] init];
     views.frame =
-    CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (330), kScreenW - FITWIDTH (58), FITHEIGHT (126));
+    CGRectMake (FITWIDTH (22), statusBarH + FITHEIGHT (332), kScreenW - FITWIDTH (44), FITHEIGHT (130));
     views.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views];
-    // label屏幕尺寸
-    UILabel *lableScreenSize = [[UILabel alloc] init];
-    lableScreenSize.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (29), FITWIDTH (405), FITHEIGHT (58));
-    lableScreenSize.text = title3;
-    lableScreenSize.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    [views addSubview:lableScreenSize];
+
+    // label视频时长
+    UILabel *labelDuration = [[UILabel alloc] init];
+    labelDuration.frame = CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
+    labelDuration.text = I18N (@"Video Test Duration:");
+    labelDuration.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    labelDuration.textColor = [UIColor colorWithHexString:@"#CC000000"];
+    [views addSubview:labelDuration];
 
     NSString *l = @"60s";
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
@@ -155,25 +177,27 @@
         l = [NSString stringWithFormat:@"%dmin", videoPlayTime / 60];
     }
 
-    //按钮
-    //初始化
-    _timebutton = [[UIButton alloc]
-    initWithFrame:CGRectMake (FITWIDTH (463), FITHEIGHT (24), kScreenW - FITWIDTH (585), FITHEIGHT (82))];
-    //设置文字
+    // 按钮
+    // 初始化
+    _timebutton = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (488), FITHEIGHT (82))];
+
+    // 设置文字
     [_timebutton setTitle:l forState:UIControlStateNormal];
 
-    //文字颜色
+    // 文字颜色
     [_timebutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    //文字大小
+
+    // 文字大小
     _timebutton.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    //按钮背景颜色
+
+    // 按钮背景颜色
     [_timebutton
     setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor lightGrayColor]
-                                                size:CGSizeMake (FITWIDTH (330), FITHEIGHT (115))]
+                                                size:CGSizeMake (FITWIDTH (488), FITHEIGHT (104))]
               forState:UIControlStateHighlighted];
     [_timebutton
     setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor whiteColor]
-                                                size:CGSizeMake (FITWIDTH (330), FITHEIGHT (115))]
+                                                size:CGSizeMake (FITWIDTH (488), FITHEIGHT (104))]
               forState:UIControlStateNormal];
     _timebutton.layer.cornerRadius = svCornerRadius (12);
     _timebutton.layer.masksToBounds = YES;
@@ -181,43 +205,31 @@
                     action:@selector (mybuttonClick:)
           forControlEvents:UIControlEventTouchUpInside];
 
-    //按钮框
-    UIView *imageView2 = [[UIView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (461), FITHEIGHT (21), kScreenW - FITWIDTH (580), FITHEIGHT (87))];
-    imageView2.layer.borderWidth = 1;
-    imageView2.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    imageView2.layer.masksToBounds = YES;
-    imageView2.layer.cornerRadius = svCornerRadius (12);
-    [views addSubview:imageView2];
-    [views addSubview:_timebutton];
+    // 按钮框
+    UIView *btnView = [[UIView alloc]
+    initWithFrame:CGRectMake (labelDuration.rightX, FITHEIGHT (22), FITWIDTH (488), FITHEIGHT (82))];
+    btnView.layer.borderWidth = 1;
+    btnView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    btnView.layer.masksToBounds = YES;
+    btnView.layer.cornerRadius = svCornerRadius (12);
+    [btnView addSubview:_timebutton];
+    [views addSubview:btnView];
 }
 //视频时长下拉按钮的点击事件
 - (void)mybuttonClick:(UIButton *)btn
 {
     SVInfo (@"视频时长下拉按钮");
     [self creattableViewbackbutton];
-    [self creattableView];
-}
-#pragma mark - 创建视频时长下拉的tableview
-- (void)creattableView
-{
-    //编辑界面
-    //一.创建一个 tableView
-    // 1.style:Grouped化合的,分组的
-    _tableView = [[UITableView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (490), FITHEIGHT (505), kScreenW - FITWIDTH (540), FITHEIGHT (650))
-            style:UITableViewStylePlain];
-    // 2.设置背景颜色
-    _tableView.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
-    //*4.设置代理
-    _tableView.delegate = self;
-    //*5.设置数据源
-    _tableView.dataSource = self;
+
+    // 创建一个 tableView
+    _tableView = [self createTableViewWithRect:CGRectMake (FITWIDTH (540), statusBarH + FITHEIGHT (462),
+                                                           FITWIDTH (488), FITHEIGHT (650))
+                                     WithStyle:UITableViewStylePlain
+                                     WithColor:[UIColor colorWithHexString:@"#FFFFFF"]
+                                  WithDelegate:self
+                                WithDataSource:self];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tableView.separatorColor = [UIColor colorWithWhite:0.8 alpha:0.3];
-    // 6.设置tableView不可上下拖动
-    _tableView.bounces = NO;
-    //三.添加
-    // 7.把tableView添加到 view
     [self.view addSubview:_tableView];
 }
 
@@ -233,7 +245,8 @@
           forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_buttonback];
 }
-//返回按钮的点击事件
+
+// 返回按钮的点击事件
 - (void)tableViewbackbutton:(UIButton *)btn
 {
     [_tableView removeFromSuperview];
@@ -244,39 +257,48 @@
 - (void)createVideoQualityUI
 {
     // views
-    UIView *views = [[UIView alloc] init];
-    views.frame =
-    CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (465), kScreenW - FITWIDTH (58), FITHEIGHT (126));
+    UIView *views = [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (22), statusBarH + FITHEIGHT (472),
+                                                              kScreenW - FITWIDTH (44), FITHEIGHT (130))];
     views.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:views];
+
     // label屏幕尺寸
-    UILabel *lableScreenSize = [[UILabel alloc] init];
-    lableScreenSize.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (29), FITWIDTH (405), FITHEIGHT (58));
-    lableScreenSize.text = @"视频建议质量";
-    lableScreenSize.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    [views addSubview:lableScreenSize];
+    UILabel *lableVideoClarity = [[UILabel alloc] init];
+    lableVideoClarity.frame = CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
+    lableVideoClarity.text = I18N (@"Video quality");
+    lableVideoClarity.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    lableVideoClarity.textColor = [UIColor colorWithHexString:@"#CC000000"];
+    [views addSubview:lableVideoClarity];
 
-    NSString *l = @"480p";
+    NSString *l = @"1080P";
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    int videoClarity = [probeInfo getVideoClarity];
+    if (videoClarity > 0)
+    {
+        l = [NSString stringWithFormat:@"%dP", videoClarity];
+    }
 
-    //按钮
-    //初始化
-    _timebutton2 = [[UIButton alloc]
-    initWithFrame:CGRectMake (FITWIDTH (463), FITHEIGHT (24), kScreenW - FITWIDTH (585), FITHEIGHT (82))];
-    //设置文字
+    // 按钮
+    // 初始化
+    _timebutton2 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (488), FITHEIGHT (82))];
+
+    // 设置文字
     [_timebutton2 setTitle:l forState:UIControlStateNormal];
 
-    //文字颜色
+    // 文字颜色
     [_timebutton2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    //文字大小
+
+    // 文字大小
     _timebutton2.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    //按钮背景颜色
+
+    // 按钮背景颜色
     [_timebutton2
     setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor lightGrayColor]
-                                                size:CGSizeMake (FITWIDTH (330), FITHEIGHT (115))]
+                                                size:CGSizeMake (FITWIDTH (488), FITHEIGHT (104))]
               forState:UIControlStateHighlighted];
     [_timebutton2
     setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor whiteColor]
-                                                size:CGSizeMake (FITWIDTH (330), FITHEIGHT (115))]
+                                                size:CGSizeMake (FITWIDTH (488), FITHEIGHT (104))]
               forState:UIControlStateNormal];
     _timebutton2.layer.cornerRadius = svCornerRadius (12);
     _timebutton2.layer.masksToBounds = YES;
@@ -284,47 +306,35 @@
                      action:@selector (myQuabuttonClick:)
            forControlEvents:UIControlEventTouchUpInside];
 
-    //按钮框
-    UIView *imageView2 = [[UIView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (461), FITHEIGHT (21), kScreenW - FITWIDTH (580), FITHEIGHT (87))];
-    imageView2.layer.borderWidth = 1;
-    imageView2.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    imageView2.layer.masksToBounds = YES;
-    imageView2.layer.cornerRadius = svCornerRadius (12);
-    [views addSubview:imageView2];
-    [views addSubview:_timebutton2];
+    // 按钮框
+    UIView *btnView = [[UIView alloc]
+    initWithFrame:CGRectMake (lableVideoClarity.rightX, FITHEIGHT (22), FITWIDTH (488), FITHEIGHT (82))];
+    btnView.layer.borderWidth = 1;
+    btnView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    btnView.layer.masksToBounds = YES;
+    btnView.layer.cornerRadius = svCornerRadius (12);
+    [btnView addSubview:_timebutton2];
+    [views addSubview:btnView];
 }
 //视频质量下拉按钮的点击事件
 - (void)myQuabuttonClick:(UIButton *)btn
 {
     SVInfo (@"视频时长下拉按钮");
     [self creatQuatableViewbackbutton];
-    [self creatQuatableView];
-}
-#pragma mark - 创建视频质量下拉的tableview
-- (void)creatQuatableView
-{
-    //编辑界面
-    //一.创建一个 tableView
-    // 1.style:Grouped化合的,分组的
-    _tableView2 = [[UITableView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (490), FITHEIGHT (630), kScreenW - FITWIDTH (540), FITHEIGHT (390))
-            style:UITableViewStylePlain];
-    // 2.设置背景颜色
-    _tableView2.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
-    //*4.设置代理
-    _tableView2.delegate = self;
-    //*5.设置数据源
-    _tableView2.dataSource = self;
+
+    // 创建一个 tableView
+    _tableView2 = [self createTableViewWithRect:CGRectMake (FITWIDTH (540), statusBarH + FITHEIGHT (602),
+                                                            FITWIDTH (488), FITHEIGHT (390))
+                                      WithStyle:UITableViewStylePlain
+                                      WithColor:[UIColor colorWithHexString:@"#FFFFFF"]
+                                   WithDelegate:self
+                                 WithDataSource:self];
+    _tableView2.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tableView2.separatorColor = [UIColor colorWithWhite:0.8 alpha:0.3];
-    // 6.设置tableView不可上下拖动
-    _tableView2.bounces = NO;
-    //三.添加
-    // 7.把tableView添加到 view
     [self.view addSubview:_tableView2];
 }
-#pragma mark - 创建视频质量下拉tableview的隐藏按钮
 
+#pragma mark - 创建视频质量下拉tableview的隐藏按钮
 - (void)creatQuatableViewbackbutton
 {
     _buttonback2 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
@@ -335,7 +345,8 @@
            forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_buttonback2];
 }
-//返回按钮的点击事件
+
+// 返回按钮的点击事件
 - (void)quatableViewbackbutton:(UIButton *)btn
 {
     [_tableView2 removeFromSuperview];
@@ -353,11 +364,11 @@
 {
     if (tableView == _tableView)
     {
-        return 5;
+        return durationDic.count;
     }
     else
     {
-        return 3;
+        return clarityDic.count;
     }
 }
 
@@ -380,125 +391,48 @@
         //设置每个cell的内容
         if (indexPath.section == 0)
         {
+            UILabel *label = [[UILabel alloc]
+            initWithFrame:CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (428), FITHEIGHT (58))];
+            NSDictionary *dic = durationDic[indexPath.row];
+            label.text = dic.allKeys[0];
 
-            if (indexPath.row == 0)
-            {
-                UILabel *label11 = [[UILabel alloc]
-                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-                label11.text = @"60s";
-                //设置字体和是否加粗
-                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-                [cell addSubview:label11];
-            }
-            if (indexPath.row == 1)
-            {
-                UILabel *label11 = [[UILabel alloc]
-                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-                label11.text = @"3min";
-                //设置字体和是否加粗
-                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-                [cell addSubview:label11];
-            }
-            if (indexPath.row == 2)
-            {
-                UILabel *label11 = [[UILabel alloc]
-                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-                label11.text = @"5min";
-                //设置字体和是否加粗
-                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-                [cell addSubview:label11];
-            }
-            if (indexPath.row == 3)
-            {
-                UILabel *label11 = [[UILabel alloc]
-                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-                label11.text = @"10min";
-                //设置字体和是否加粗
-                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-                [cell addSubview:label11];
-            }
-            if (indexPath.row == 4)
-            {
-                UILabel *label11 = [[UILabel alloc]
-                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-                label11.text = @"30min";
-                //设置字体和是否加粗
-                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-                [cell addSubview:label11];
-            }
+            // 设置字体和是否加粗
+            label.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+            [cell addSubview:label];
         }
     }
     else
     {
-        //设置每个cell的内容
+        // 设置每个cell的内容
         if (indexPath.section == 0)
         {
+            UILabel *label = [[UILabel alloc]
+            initWithFrame:CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (428), FITHEIGHT (58))];
+            NSDictionary *dic = clarityDic[indexPath.row];
+            label.text = dic.allKeys[0];
 
-            if (indexPath.row == 0)
-            {
-                UILabel *label11 = [[UILabel alloc]
-                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-                label11.text = @"480p";
-                //设置字体和是否加粗
-                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-                [cell addSubview:label11];
-            }
-            if (indexPath.row == 1)
-            {
-                UILabel *label11 = [[UILabel alloc]
-                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-                label11.text = @"720p";
-                //设置字体和是否加粗
-                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-                [cell addSubview:label11];
-            }
-            if (indexPath.row == 2)
-            {
-                UILabel *label11 = [[UILabel alloc]
-                initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (43), FITWIDTH (202), FITHEIGHT (58))];
-                label11.text = @"1080p";
-                //设置字体和是否加粗
-                label11.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-                [cell addSubview:label11];
-            }
+            // 设置字体和是否加粗
+            label.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+            [cell addSubview:label];
         }
     }
     return cell;
 }
 
-//点击cell的点击事件
+// 点击cell的点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     if (tableView == _tableView)
     {
-        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
         if (indexPath.section == 0)
         {
-            if (indexPath.row == 0)
-            {
-                [_timebutton setTitle:@"60s" forState:UIControlStateNormal];
-                [probeInfo setVideoPlayTime:60];
-            }
-            if (indexPath.row == 1)
-            {
-                [_timebutton setTitle:@"3min" forState:UIControlStateNormal];
-                [probeInfo setVideoPlayTime:180];
-            }
-            if (indexPath.row == 2)
-            {
-                [_timebutton setTitle:@"5min" forState:UIControlStateNormal];
-                [probeInfo setVideoPlayTime:300];
-            }
-            if (indexPath.row == 3)
-            {
-                [_timebutton setTitle:@"10min" forState:UIControlStateNormal];
-                [probeInfo setVideoPlayTime:600];
-            }
-            if (indexPath.row == 4)
-            {
-                [_timebutton setTitle:@"30min" forState:UIControlStateNormal];
-                [probeInfo setVideoPlayTime:1800];
-            }
+            NSDictionary *dic = durationDic[indexPath.row];
+            NSString *key = dic.allKeys[0];
+            NSString *value = [dic valueForKey:key];
+            [_timebutton setTitle:key forState:UIControlStateNormal];
+            [probeInfo setVideoPlayTime:[value intValue]];
+
             [_tableView removeFromSuperview];
             [_buttonback removeFromSuperview];
         }
@@ -507,18 +441,12 @@
     {
         if (indexPath.section == 0)
         {
-            if (indexPath.row == 0)
-            {
-                [_timebutton2 setTitle:@"480p" forState:UIControlStateNormal];
-            }
-            if (indexPath.row == 1)
-            {
-                [_timebutton2 setTitle:@"720p" forState:UIControlStateNormal];
-            }
-            if (indexPath.row == 2)
-            {
-                [_timebutton2 setTitle:@"1080p" forState:UIControlStateNormal];
-            }
+            NSDictionary *dic = clarityDic[indexPath.row];
+            NSString *key = dic.allKeys[0];
+            NSString *value = [dic valueForKey:key];
+            [_timebutton2 setTitle:key forState:UIControlStateNormal];
+            [probeInfo setVideoClarity:[value intValue]];
+
             [_tableView2 removeFromSuperview];
             [_buttonback2 removeFromSuperview];
         }
@@ -528,78 +456,77 @@
 #pragma mark - 创建带框服务器设置的UI界面
 - (void)createBandwidthUI
 {
-
-    NSString *title4 = I18N (@"Speed Test Server Config");
-    NSString *title1 = title4;
-    NSString *title5 = I18N (@"auto");
-    NSString *title6 = I18N (@"select");
-    //获取默认值
+    // 获取默认值
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
     SVSpeedTestServer *object = [servers getDefaultServer];
-    //取数组里的值
+
+    // 取数组里的值
     _defaultvalue = object;
 
     // views3
-    UIView *views3 = [[UIView alloc] init];
-    views3.frame =
-    CGRectMake (FITWIDTH (29), statusBarH + FITHEIGHT (600), kScreenW - FITWIDTH (58), FITHEIGHT (290));
-    views3.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:views3];
+    UIView *bandWidthView = [[UIView alloc] init];
+    bandWidthView.frame =
+    CGRectMake (FITWIDTH (22), statusBarH + FITHEIGHT (612), kScreenW - FITWIDTH (44), FITHEIGHT (290));
+    bandWidthView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:bandWidthView];
+
     // label
-    UILabel *lableScreenSize = [[UILabel alloc] init];
-    lableScreenSize.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (29), FITWIDTH (580), FITHEIGHT (58));
-    lableScreenSize.text = title1;
-    lableScreenSize.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    [views3 addSubview:lableScreenSize];
+    UILabel *bandWidthLabel = [[UILabel alloc] init];
+    bandWidthLabel.frame = CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
+    bandWidthLabel.text = I18N (@"Speed Test Server Config");
+    bandWidthLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    bandWidthLabel.textColor = [UIColor colorWithHexString:@"#CC000000"];
+    [bandWidthView addSubview:bandWidthLabel];
+
     // labelview
-    UIView *labelview = [[UIView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (87), FITWIDTH (580), FITHEIGHT (172))];
-    //    labelview.backgroundColor = [UIColor yellowColor];
+    UIView *labelview =
+    [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (30), bandWidthLabel.bottomY + FITHEIGHT (22),
+                                              FITWIDTH (580), FITHEIGHT (138))];
     labelview.layer.cornerRadius = svCornerRadius (12);
-    [views3 addSubview:labelview];
-    // label1
-    _label1 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (29), FITWIDTH (551), FITHEIGHT (58))];
+    [bandWidthView addSubview:labelview];
+
+    // 归属地label
+    _label1 = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (580), FITHEIGHT (58))];
     _label1.text = _defaultvalue.name;
     _label1.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-    //    _label1.backgroundColor = [UIColor redColor];
     [labelview addSubview:_label1];
-    // label2
+
+    // 服务器地址label
     _label2 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (29), FITHEIGHT (110), FITWIDTH (551), FITHEIGHT (58))];
+    initWithFrame:CGRectMake (0, _label1.bottomY + FITHEIGHT (22), FITWIDTH (580), FITHEIGHT (58))];
     _label2.text = _defaultvalue.sponsor;
     _label2.font = [UIFont systemFontOfSize:pixelToFontsize (35)];
-    //    _label2.backgroundColor = [UIColor redColor];
     [labelview addSubview:_label2];
 
     // button自动
     _button = [UIButton buttonWithType:UIButtonTypeCustom];
-    _button.frame = CGRectMake (FITWIDTH (620), FITHEIGHT (95), FITWIDTH (172), FITHEIGHT (109));
+    _button.frame = CGRectMake (labelview.rightX, FITHEIGHT (90), FITWIDTH (172), FITHEIGHT (110));
     _button.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
 
-    //设置文字
-    [_button setTitle:title5 forState:UIControlStateNormal];
+    // 设置文字
+    [_button setTitle:I18N (@"auto") forState:UIControlStateNormal];
     _button.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
     _button.titleLabel.textAlignment = NSTextAlignmentCenter;
     _button.layer.cornerRadius = svCornerRadius (12);
     [_button addTarget:self
                 action:@selector (BtnClicked:)
       forControlEvents:UIControlEventTouchUpInside];
-    [views3 addSubview:_button];
+    [bandWidthView addSubview:_button];
 
     // button选择
     _button2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    _button2.frame = CGRectMake (FITWIDTH (823), FITHEIGHT (95), FITWIDTH (172), FITHEIGHT (109));
+    _button2.frame =
+    CGRectMake (_button.rightX + FITWIDTH (52), FITHEIGHT (90), FITWIDTH (172), FITHEIGHT (110));
     _button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    [_button2 setTitle:title6 forState:UIControlStateNormal];
+    [_button2 setTitle:I18N (@"select") forState:UIControlStateNormal];
     _button2.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
     _button2.titleLabel.textAlignment = NSTextAlignmentCenter;
     _button2.layer.cornerRadius = svCornerRadius (12);
     [_button2 addTarget:self
                  action:@selector (Btn2Clicked:)
        forControlEvents:UIControlEventTouchUpInside];
-    [views3 addSubview:_button2];
+    [bandWidthView addSubview:_button2];
 }
 //自动按钮的点击事件
 - (void)BtnClicked:(UIButton *)button

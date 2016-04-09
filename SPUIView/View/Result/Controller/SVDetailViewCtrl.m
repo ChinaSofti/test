@@ -47,6 +47,7 @@
 
     // 创建一个 tableView
     _tableView = [self createTableViewWithRect:[UIScreen mainScreen].bounds
+                                     WithStyle:UITableViewStyleGrouped
                                      WithColor:[UIColor colorWithHexString:@"#FAFAFA"]
                                   WithDelegate:self
                                 WithDataSource:self];
@@ -212,6 +213,7 @@
                                                            imageName:@"rt_detail_title_video_img"]];
 
     // 生成各个指标对应的UIView
+    // Uvmos
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"U-vMOS Score"),
                    @"value": [self formatFloatValue:[testResultJson valueForKey:@"UvMOSSession"]]
@@ -229,60 +231,69 @@
         @"key": I18N (@"      sInteraction Score"),
         @"value": [self formatFloatValue:[testResultJson valueForKey:@"sInteractionSession"]]
     }]];
+
+    // 首次缓冲时间
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
         @"key": I18N (@"Initial Buffer Time"),
         @"value": [self formatIntValue:[testResultJson valueForKey:@"firstBufferTime"] unit:@"ms"]
     }]];
+
+    // 卡顿时长
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
         @"key": I18N (@"Stalling Duration"),
         @"value":
         [self formatIntValue:[testResultJson valueForKey:@"videoCuttonTotalTime"] unit:@"ms"]
     }]];
+
+    // 卡顿次数
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Stalling Times"),
                    @"value": [self formatValue:[testResultJson valueForKey:@"videoCuttonTimes"]]
                }]];
+
+    // 下载速度
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
         @"key": I18N (@"Download Speed"),
         @"value": [self formatFloatValue:[testResultJson valueForKey:@"downloadSpeed"] unit:@"Kbps"]
     }]];
 
+    // 码率
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
         @"key": I18N (@"Bit Rate"),
         @"value": [self formatFloatValue:[testResultJson valueForKey:@"bitrate"] unit:@"Kbps"]
     }]];
+
+    // 帧数
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
         @"key": I18N (@"Frame Rate"),
         @"value": [self formatFloatValue:[testResultJson valueForKey:@"frameRate"] unit:@"Fps"]
     }]];
+
+    // 分辨率
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Resolution"),
                    @"value": [self formatValue:[testResultJson valueForKey:@"videoResolution"]]
                }]];
+
+    // 视频大小
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Screen size"),
                    @"value": [self formatIntValue:[testResultJson valueForKey:@"screenSize"]
                                              unit:I18N (@"inch")]
                }]];
+
+    // 视频地址
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Video URL"),
                    @"value": [self formatValue:[testContextJson valueForKey:@"videoURL"]]
                }]];
-    [_soucreMA
-    addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Video Server Location"),
-        @"value": [self formatValue:[testContextJson valueForKey:@"videoSegemnetLocation"]]
-    }]];
-    [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                   @"key": I18N (@"Carrier"),
-                   @"value": [self formatValue:[testContextJson valueForKey:@"videoSegemnetISP"]]
-               }]];
 
+    // 测试时长
     NSString *videoPlayDurationStr = [testContextJson valueForKey:@"videoPlayDuration"];
     int videoPlayDuration = videoPlayDurationStr ? [videoPlayDurationStr intValue] : 60;
     if (videoPlayDuration > 60)
@@ -296,11 +307,51 @@
         videoPlayDurationStr = [NSString stringWithFormat:@"%ds", videoPlayDuration];
     }
 
-
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Video Play Duration"),
                    @"value": videoPlayDurationStr
                }]];
+
+#pragma mark - 遍历得到所有视频分片信息，目前只显示第一条分片信息
+    for (NSString *key in [testContextJson allKeys])
+    {
+        if ([key isEqualToString:@"videoPlayDuration"] || [key isEqualToString:@"videoURL"])
+        {
+            continue;
+        }
+
+        // 将json字符串转换成字典
+        NSData *segementData = [[testContextJson objectForKey:key] dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error;
+        id segementJson =
+        [NSJSONSerialization JSONObjectWithData:segementData options:0 error:&error];
+        if (error)
+        {
+            SVError (@"%@", error);
+            continue;
+        }
+
+        // 视频分片地址
+        [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                       @"key": I18N (@"Video Segement URL"),
+                       @"value": [self formatValue:key]
+                   }]];
+
+        // 视频分片位置
+        [_soucreMA
+        addObject:[SVToolModels modelWithDict:@{
+            @"key": I18N (@"Video Server Location"),
+            @"value": [self formatValue:[segementJson valueForKey:@"videoSegemnetLocation"]]
+        }]];
+
+        // 视频分片所属运营商
+        [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                       @"key": I18N (@"Carrier"),
+                       @"value": [self formatValue:[segementJson valueForKey:@"videoSegemnetISP"]]
+                   }]];
+
+        break;
+    }
 }
 
 // 生成带宽测试展示详细结果需要的UIView

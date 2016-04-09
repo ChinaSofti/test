@@ -12,6 +12,7 @@
 #import "SVTestContextGetter.h"
 #import "SVTimeUtil.h"
 #import "SVVideoPlayer.h"
+#import "SVVideoSegement.h"
 #import "SVVideoTest.h"
 #import "SVYoukuVideoPlayer.h"
 #import "SVYoutubeVideoPlayer.h"
@@ -236,18 +237,7 @@
     NSString *bandwidth = [probeInfo getBandwidth];
     [dictionary setObject:!bandwidth ? @"" : bandwidth forKey:@"signedBandwidth"];
 
-    NSError *error = nil;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
-    if (error)
-    {
-        SVError (@"%@", error);
-        return @"";
-    }
-    else
-    {
-        NSString *resultJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        return resultJson;
-    }
+    return [self dictionaryToJsonString:dictionary];
 }
 
 - (NSString *)testResultToJsonString
@@ -290,18 +280,7 @@
     [dictionary setObject:[[NSNumber alloc] initWithFloat:screenSize] forKey:@"screenSize"];
     [dictionary setObject:videoResolution forKey:@"videoResolution"];
 
-    NSError *error = nil;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
-    if (error)
-    {
-        SVError (@"%@", error);
-        return @"";
-    }
-    else
-    {
-        NSString *resultJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        return resultJson;
-    }
+    return [self dictionaryToJsonString:dictionary];
 }
 
 - (NSString *)testContextToJsonString
@@ -309,27 +288,62 @@
     //    NSString *videoSegementURLString = !testContext.videoSegementURLString ? @"" :
     //    testContext.videoSegementURLString;
     NSString *videoURLString = !testContext.videoURLString ? @"" : testContext.videoURLString;
-    int videoSegementURL = !testContext.videoSegementSize ? 0 : testContext.videoSegementSize;
-    int videoSegementDuration = !testContext.videoSegementDuration ? 0 : testContext.videoSegementDuration;
-    float videoSegementBitrate = !testContext.videoSegementBitrate ? 0 : testContext.videoSegementBitrate;
-    NSString *videoSegementIP = !testContext.videoSegementIP ? @"" : testContext.videoSegementIP;
-    NSString *videoSegemnetLocation = !testContext.videoSegemnetLocation ? @"" : testContext.videoSegemnetLocation;
-    NSString *videoSegemnetISP = !testContext.videoSegemnetISP ? @"" : testContext.videoSegemnetISP;
+    //    int videoSegementURL = !testContext.videoSegementSize ? 0 : testContext.videoSegementSize;
+    //    int videoSegementDuration = !testContext.videoSegementDuration ? 0 :
+    //    testContext.videoSegementDuration;
+    //    float videoSegementBitrate = !testContext.videoSegementBitrate ? 0 :
+    //    testContext.videoSegementBitrate;
+    //    NSString *videoSegementIP = !testContext.videoSegementIP ? @"" :
+    //    testContext.videoSegementIP;
+    //    NSString *videoSegemnetLocation = !testContext.videoSegemnetLocation ? @"" :
+    //    testContext.videoSegemnetLocation;
+    //    NSString *videoSegemnetISP = !testContext.videoSegemnetISP ? @"" :
+    //    testContext.videoSegemnetISP;
     int videoPlayDuration = !testContext.videoPlayDuration ? 60 : testContext.videoPlayDuration;
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
 
     [dictionary setObject:[NSNumber numberWithInt:videoPlayDuration] forKey:@"videoPlayDuration"];
     [dictionary setObject:videoURLString forKey:@"videoURL"];
-    [dictionary setObject:[[NSNumber alloc] initWithInt:videoSegementURL]
-                   forKey:@"videoSegementSize"];
-    [dictionary setObject:[[NSNumber alloc] initWithLong:videoSegementDuration]
-                   forKey:@"videoSegementDuration"];
-    [dictionary setObject:[[NSNumber alloc] initWithFloat:videoSegementBitrate]
-                   forKey:@"videoSegementBitrate"];
-    [dictionary setObject:videoSegementIP forKey:@"videoSegementIP"];
-    [dictionary setObject:videoSegemnetLocation forKey:@"videoSegemnetLocation"];
-    [dictionary setObject:videoSegemnetISP forKey:@"videoSegemnetISP"];
+    //    [dictionary setObject:[[NSNumber alloc] initWithInt:videoSegementURL]
+    //                   forKey:@"videoSegementSize"];
+    //    [dictionary setObject:[[NSNumber alloc] initWithLong:videoSegementDuration]
+    //                   forKey:@"videoSegementDuration"];
+    //    [dictionary setObject:[[NSNumber alloc] initWithFloat:videoSegementBitrate]
+    //                   forKey:@"videoSegementBitrate"];
+    //    [dictionary setObject:videoSegementIP forKey:@"videoSegementIP"];
+    //    [dictionary setObject:videoSegemnetLocation forKey:@"videoSegemnetLocation"];
+    //    [dictionary setObject:videoSegemnetISP forKey:@"videoSegemnetISP"];
 
+    for (SVVideoSegement *segement in testContext.videoSegementInfo)
+    {
+        NSMutableDictionary *segementDic = [[NSMutableDictionary alloc] init];
+        int videoSegementSize = !segement.size ? 0 : segement.size;
+        int videoSegementDuration = !segement.duration ? 0 : segement.duration;
+        float videoSegementBitrate = !segement.bitrate ? 0 : segement.bitrate;
+        NSString *videoSegementIP = !segement.videoIP ? @"" : segement.videoIP;
+        NSString *videoSegemnetLocation = !segement.videoLocation ? @"" : segement.videoLocation;
+        NSString *videoSegemnetISP = !segement.videoISP ? @"" : segement.videoISP;
+
+        [segementDic setObject:[[NSNumber alloc] initWithInt:videoSegementSize]
+                        forKey:@"videoSegementSize"];
+        [segementDic setObject:[[NSNumber alloc] initWithLong:videoSegementDuration]
+                        forKey:@"videoSegementDuration"];
+        [segementDic setObject:[[NSNumber alloc] initWithFloat:videoSegementBitrate]
+                        forKey:@"videoSegementBitrate"];
+        [segementDic setObject:videoSegementIP forKey:@"videoSegementIP"];
+        [segementDic setObject:videoSegemnetLocation forKey:@"videoSegemnetLocation"];
+        [segementDic setObject:videoSegemnetISP forKey:@"videoSegemnetISP"];
+
+        NSString *segementJsonStr = [self dictionaryToJsonString:segementDic];
+        [dictionary setValue:segementJsonStr forKey:segement.videoSegementURLStr];
+    }
+
+    return [self dictionaryToJsonString:dictionary];
+}
+
+// 将字典转换成json字符串
+- (NSString *)dictionaryToJsonString:(NSMutableDictionary *)dictionary
+{
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
     if (error)

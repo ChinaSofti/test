@@ -9,6 +9,7 @@
 #import "SVLog.h"
 #import "SVProbeInfo.h"
 #import "SVTimeUtil.h"
+#import "SVVideoSegement.h"
 #import "SVYoutubeVideoPlayer.h"
 
 NSString static *const kYTPlaybackQualitySmallQuality = @"small";
@@ -45,6 +46,7 @@ static NSString *useragent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_1 like Mac
 
     // 每5秒周期卡顿次数
     int videoCuttonTimes;
+
     // 每5秒周期卡顿总时长
     int videoCuttonTotalTime;
 
@@ -70,6 +72,9 @@ static NSString *useragent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_1 like Mac
     BOOL _isSetup;
 
     int _videoPlayTime;
+
+    // 正在测试的分片信息
+    SVVideoSegement *segement;
 }
 
 @synthesize showOnView, testResult, testContext, uvMOSCalculator;
@@ -132,7 +137,10 @@ static int execute_total_times = 4;
     // 初始化UvMOS组件
     [self initUvMOSCompent];
 
-    if (testContext.videoSegementURL)
+    // 获取要测试的分片信息
+    segement = testContext.videoSegementInfo[0];
+
+    if (segement.videoSegementURLStr)
     {
         NSString *playerHtmlPath = [self getPlayerHtmlPath];
         //调用逻辑
@@ -146,9 +154,14 @@ static int execute_total_times = 4;
                 vid = @"6v2L2UGZJAM";
             }
 
+            // 自适应高宽
+            float width = _webView.frame.size.width * kScale * 1.5;
+            float height = _webView.frame.size.height * kScale * 1.5;
+
+
             playerHtmlPath =
-            [NSString stringWithFormat:@"file://%@?vid=%@&quality=%@&width=%d&height=%d",
-                                       playerHtmlPath, vid, quality, 480, 320];
+            [NSString stringWithFormat:@"file://%@?vid=%@&quality=%@&width=%f&height=%f",
+                                       playerHtmlPath, vid, quality, width, height];
 
             if ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0)
             {
@@ -171,7 +184,7 @@ static int execute_total_times = 4;
 
 - (NSString *)getQuality
 {
-    NSString *quality = testContext.videoQuality;
+    NSString *quality = segement.videoQuality;
     if (!quality)
     {
         return kYTPlaybackQualityDefaultQuality;
@@ -341,7 +354,7 @@ static int execute_total_times = 4;
 
 - (void)prepareVideo
 {
-    if (testContext.videoSegementURL)
+    if (segement.videoSegementURL)
     {
         SVInfo (@"prepareVideo");
         //播放时不要锁屏
@@ -503,7 +516,7 @@ static int execute_total_times = 4;
         //            videoWidth, videoHeight]];
         //        }
 
-        [testResult setBitrate:(testContext.videoSegementBitrate)];
+        [testResult setBitrate:(segement.bitrate)];
         //        [testResult setFrameRate:frame_rate];
 
         SVVideoTestSample *sample = [[SVVideoTestSample alloc] init];

@@ -11,6 +11,7 @@
 #import "SVProbeInfo.h"
 #import "SVTimeUtil.h"
 #import "SVUvMOSCalculator.h"
+#import "SVVideoSegement.h"
 #import "SVVideoUtil.h"
 
 @implementation SVUvMOSCalculator
@@ -87,9 +88,11 @@
 
     // 视频帧率
     stMediaInfo.eMediaType = MEDIA_TYPE_VOD;
+
     // 视频提供商
+    SVVideoSegement *segement = _testContext.videoSegementInfo[0];
     stMediaInfo.eContentProvider =
-    [SVContentProviderGetter getContentProvider:_testContext.videoSegementURL.host];
+    [SVContentProviderGetter getContentProvider:segement.videoSegementURL.host];
     stMediaInfo.eVideoCodec = VIDEO_CODEC_H264;
     // 屏幕尺寸，单位英寸，输入为0时，屏幕映射默认为42寸TV
     //    stMediaInfo.fScreenSize = [SVVideoUtil getScreenScale];

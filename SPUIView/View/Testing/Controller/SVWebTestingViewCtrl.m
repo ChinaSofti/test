@@ -105,9 +105,9 @@
  */
 - (void)initContext
 {
-    [_headerView updateLeftValue:@"0.00"];
-    [_headerView updateMiddleValue:@"0.00"];
-    [_headerView updateRightValue:@"0.00"];
+    [_headerView updateLeftValue:@"N/A" WithUnit:@""];
+    [_headerView updateMiddleValue:@"N/A" WithUnit:@""];
+    [_headerView updateRightValue:@"N/A" WithUnit:@""];
 
     [_testUrlLabel setText:I18N (@"Loading...")];
     [_webtestingView updateValue:0];
@@ -184,15 +184,15 @@
     [defalutValue setValue:[UIColor colorWithHexString:@"#38C695"] forKey:@"valueColor"];
     [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (33)] forKey:@"unitFontSize"];
     [defalutValue setValue:[UIColor colorWithHexString:@"#38C695"] forKey:@"unitColor"];
-    [defalutValue setValue:@"0.00" forKey:@"leftDefaultValue"];
+    [defalutValue setValue:@"N/A" forKey:@"leftDefaultValue"];
     [defalutValue setValue:I18N (@"Response Time") forKey:@"leftTitle"];
-    [defalutValue setValue:@"s" forKey:@"leftUnit"];
-    [defalutValue setValue:@"0.00" forKey:@"middleDefaultValue"];
-    [defalutValue setValue:I18N (@"Download Speed") forKey:@"middleTitle"];
-    [defalutValue setValue:@"Kbps" forKey:@"middleUnit"];
-    [defalutValue setValue:@"0.00" forKey:@"rightDefaultValue"];
+    [defalutValue setValue:@"" forKey:@"leftUnit"];
+    [defalutValue setValue:@"N/A" forKey:@"middleDefaultValue"];
+    [defalutValue setValue:I18N (@"Download") forKey:@"middleTitle"];
+    [defalutValue setValue:@"" forKey:@"middleUnit"];
+    [defalutValue setValue:@"N/A" forKey:@"rightDefaultValue"];
     [defalutValue setValue:I18N (@"Load duration") forKey:@"rightTitle"];
-    [defalutValue setValue:@"s" forKey:@"rightUnit"];
+    [defalutValue setValue:@"" forKey:@"rightUnit"];
 
 
     // 初始化headerView
@@ -291,9 +291,12 @@
       if (totalTime < 10)
       {
           // 显示头部指标
-          [_headerView updateLeftValue:[NSString stringWithFormat:@"%.2f", responseTime]];
-          [_headerView updateMiddleValue:[NSString stringWithFormat:@"%.2f", downloadSpeed]];
-          [_headerView updateRightValue:[NSString stringWithFormat:@"%.2f", totalTime]];
+          [_headerView updateLeftValue:[NSString stringWithFormat:@"%.2f", responseTime]
+                              WithUnit:@"s"];
+          [_headerView updateMiddleValue:[NSString stringWithFormat:@"%.2f", downloadSpeed]
+                                WithUnit:@"Kbps"];
+          [_headerView updateRightValue:[NSString stringWithFormat:@"%.2f", totalTime]
+                               WithUnit:@"s"];
 
           // 仪表盘指标
           [_webtestingView updateValue:totalTime];

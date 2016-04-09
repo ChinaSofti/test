@@ -41,6 +41,7 @@
 
     // 创建一个 tableView，style:Grouped化合的,分组的
     _tableView = [self createTableViewWithRect:[UIScreen mainScreen].bounds
+                                     WithStyle:UITableViewStyleGrouped
                                      WithColor:[UIColor colorWithHexString:@"#FAFAFA"]
                                   WithDelegate:self
                                 WithDataSource:self];

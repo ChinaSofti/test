@@ -25,6 +25,7 @@
 
 // 初始化TableView
 - (nullable UITableView *)createTableViewWithRect:(CGRect)rect
+                                        WithStyle:(UITableViewStyle)style
                                         WithColor:(nonnull UIColor *)bgColor
                                      WithDelegate:(nonnull id)delegate
                                    WithDataSource:(nonnull id)dataSource;
