@@ -164,7 +164,7 @@ static NSInteger BtnTag = 10086;
                  placeholder:nil
                         Font:pixelToFontsize (40)
                    fontColor:[UIColor blackColor]
-             characterLength:6];
+             characterLength:5];
     _mealTextField.keyboardType = UIKeyboardTypeNumberPad;
 
     //所属运营商

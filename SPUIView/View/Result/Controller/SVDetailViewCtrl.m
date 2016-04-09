@@ -242,7 +242,7 @@
     // 卡顿时长
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Stalling Duration"),
+        @"key": I18N (@"Stalling Time"),
         @"value":
         [self formatIntValue:[testResultJson valueForKey:@"videoCuttonTotalTime"] unit:@"ms"]
     }]];
