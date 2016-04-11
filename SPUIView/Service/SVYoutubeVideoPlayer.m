@@ -110,6 +110,7 @@ static int execute_total_times = 4;
         [_webView setCustomUserAgent:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) "
                                      @"AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 "
                                      @"Safari/537.36"];
+        [_webView setContentMode:UIViewContentModeScaleToFill];
         [_showOnView addSubview:_webView];
     }
     return self;
@@ -155,9 +156,18 @@ static int execute_total_times = 4;
             }
 
             // 自适应高宽
-            float width = _webView.frame.size.width * kScale * 1.5;
-            float height = _webView.frame.size.height * kScale * 1.5;
-
+            float width = 768;
+            float height = 486;
+            if (kScale == 3)
+            {
+                width = _webView.frame.size.width * kScale * 1.35;
+                height = _webView.frame.size.height * kScale * 1.35;
+            }
+            else
+            {
+                width = _webView.frame.size.width * kScale * 2;
+                height = _webView.frame.size.height * kScale * 2;
+            }
 
             playerHtmlPath =
             [NSString stringWithFormat:@"file://%@?vid=%@&quality=%@&width=%f&height=%f",
