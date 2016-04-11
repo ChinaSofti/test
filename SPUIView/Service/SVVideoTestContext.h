@@ -43,7 +43,7 @@
 @property int videoPlayDuration;
 
 // 视频清晰度
-@property int videoClarity;
+@property (nonatomic, retain) NSString *videoClarity;
 
 // 视频vid
 @property (nonatomic, retain) NSString *vid;

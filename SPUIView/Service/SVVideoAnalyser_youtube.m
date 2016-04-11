@@ -100,10 +100,26 @@ static NSString *_GET_VIDEO_INFO_URL = @"https://www.youtube.com/"
         return _videoInfo;
     }
 
+    // 视频清晰度的字典
+    NSArray *videoTypeArray = @[@"480P", @"720P", @"1080P"];
+
     // 根据用户选择的清晰度选择分片
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    int videoClarity = probeInfo.getVideoClarity;
-    NSString *videoType = [NSString stringWithFormat:@"quality_label=%dp", videoClarity];
+    NSString *videoClarity = probeInfo.getVideoClarity;
+    NSString *videoType = @"quality_label=1080P";
+
+    if ([videoClarity isEqualToString:@"Auto"])
+    {
+        // 生成随机数
+        int randomIndex = arc4random () % [videoTypeArray count];
+
+        // 获取随机的清晰度
+        videoType = videoTypeArray[randomIndex];
+    }
+    else
+    {
+        videoType = [NSString stringWithFormat:@"quality_label=%@", videoClarity];
+    }
 
     NSMutableArray *videoParamStringArrays = [[NSMutableArray alloc] init];
     for (int i = 0; i < videoSegementString.count; i++)

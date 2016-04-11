@@ -62,6 +62,9 @@ static NSString *_ykss;
  */
 - (SVVideoInfo *)analyse
 {
+    // 视频清晰度的字典
+    NSDictionary *videoTypeDic = @{ @"480P": @"mp4hd", @"720P": @"mp4hd2", @"1080P": @"mp4hd3" };
+
     // 请求视频播放页面，获取服务器返回Cookie中ykss的值
     SVWebBrowser *browser = [[SVWebBrowser alloc] init];
     [browser addHeader:@"Referer" value:@"http://www.youku.com"];
@@ -113,32 +116,28 @@ static NSString *_ykss;
     NSString *encryptString =
     [[dataOfVideoSourceCodeJson valueForKey:@"security"] valueForKey:@"encrypt_string"];
 
+    // 根据用户选择的清晰度选择分片
+    NSString *videoType = @"mp4hd3";
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSString *videoClarity = probeInfo.getVideoClarity;
+    if ([videoClarity isEqualToString:@"Auto"])
+    {
+        // 生成随机数
+        int randomIndex = arc4random () % [videoTypeDic count];
+
+        // 获取随机的清晰度
+        videoType = videoTypeDic.allValues[randomIndex];
+    }
+    else
+    {
+        videoType = [videoTypeDic valueForKey:videoClarity];
+    }
 
     NSString *segUrl = nil;
     NSArray *streamArray = [dataOfVideoSourceCodeJson valueForKey:@"stream"];
     for (NSDictionary *streamObj in streamArray)
     {
-        //
         NSString *streamType = [streamObj valueForKey:@"stream_type"];
-
-        // 根据用户选择的清晰度选择分片
-        NSString *videoType = @"mp4hd3";
-        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-        int videoClarity = probeInfo.getVideoClarity;
-        if (videoClarity == 480)
-        {
-            videoType = @"mp4hd";
-        }
-
-        if (videoClarity == 720)
-        {
-            videoType = @"mp4hd2";
-        }
-
-        if (videoClarity == 1080)
-        {
-            videoType = @"mp4hd3";
-        }
 
         // 4K 目前手机APP只测试hd3的视频源
         if ([streamType isEqualToString:videoType])

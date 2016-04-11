@@ -54,12 +54,7 @@
         @{ @"10min": @"600" },
         @{ @"30min": @"1800" }
     ];
-    clarityDic = @[
-        @{ I18N (@"Auto"): @"Auto" },
-        @{ @"1080P": @"1080" },
-        @{ @"720P": @"720" },
-        @{ @"480P": @"480" }
-    ];
+    clarityDic = @[@"Auto", @"1080P", @"720P", @"480P"];
 
     // 初始化返回按钮
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
@@ -278,10 +273,10 @@
 
     NSString *l = I18N (@"Auto");
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    int videoClarity = [probeInfo getVideoClarity];
-    if (videoClarity > 0)
+    NSString *videoClarity = [probeInfo getVideoClarity];
+    if (![videoClarity isEqualToString:@"Auto"])
     {
-        l = [NSString stringWithFormat:@"%dP", videoClarity];
+        l = videoClarity;
     }
 
     // 按钮
@@ -415,8 +410,7 @@
         {
             UILabel *label = [[UILabel alloc]
             initWithFrame:CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (428), FITHEIGHT (58))];
-            NSDictionary *dic = clarityDic[indexPath.row];
-            label.text = dic.allKeys[0];
+            label.text = clarityDic[indexPath.row];
 
             // 设置字体和是否加粗
             label.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
@@ -448,11 +442,8 @@
     {
         if (indexPath.section == 0)
         {
-            NSDictionary *dic = clarityDic[indexPath.row];
-            NSString *key = dic.allKeys[0];
-            NSString *value = [dic valueForKey:key];
-            [_timebutton2 setTitle:key forState:UIControlStateNormal];
-            [probeInfo setVideoClarity:[value intValue]];
+            [_timebutton2 setTitle:clarityDic[indexPath.row] forState:UIControlStateNormal];
+            [probeInfo setVideoClarity:clarityDic[indexPath.row]];
 
             [_tableView2 removeFromSuperview];
             [_buttonback2 removeFromSuperview];

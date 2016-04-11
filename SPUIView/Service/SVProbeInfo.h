@@ -101,14 +101,14 @@
  *
  *  @param clarity 清晰度
  */
-- (void)setVideoClarity:(int)clarity;
+- (void)setVideoClarity:(NSString *)clarity;
 
 /**
  *  获取清晰度
  *
  *  @return 清晰度
  */
-- (int)getVideoClarity;
+- (NSString *)getVideoClarity;
 
 
 @end

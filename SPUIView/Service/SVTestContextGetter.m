@@ -194,6 +194,7 @@ static SVTestContextGetter *contextGetter = nil;
     NSMutableArray *allSegement = [[NSMutableArray alloc] initWithArray:[videoInfo getAllSegement]];
     if (!allSegement || allSegement.count == 0)
     {
+        SVError (@"video segement info is empty. ");
         return nil;
     }
 
@@ -240,7 +241,7 @@ static SVTestContextGetter *contextGetter = nil;
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     int videoPlayDuration = [probeInfo getVideoPlayTime];
     [videoContext setVideoPlayDuration:videoPlayDuration];
-    int videoClarity = [probeInfo getVideoClarity];
+    NSString *videoClarity = [probeInfo getVideoClarity];
     [videoContext setVideoClarity:videoClarity];
     return videoContext;
 }
