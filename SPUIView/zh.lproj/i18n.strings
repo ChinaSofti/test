@@ -73,9 +73,10 @@
 "Initial Buffer Time" = "首次缓冲时间";
 "Buffer time" = "卡顿总时长";
 "Butter times" = "卡顿次数";
-"Stalling Duration" = "卡顿总时长";
+"Stalling Time" = "卡顿总时长";
 "Stalling Times" = "卡顿次数";
 "Download Speed" = "下载速率";
+"Max Download Speed" = "峰值下载速率";
 "Bit Rate" = "码率";
 "Frame Rate" = "帧率";
 "Resolution" = "分辨率";

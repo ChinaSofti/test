@@ -54,7 +54,7 @@
         @{ @"10min": @"600" },
         @{ @"30min": @"1800" }
     ];
-    clarityDic = @[@"Auto", @"1080P", @"720P", @"480P"];
+    clarityDic = @[I18N (@"Auto"), @"1080P", @"720P", @"480P"];
 
     // 初始化返回按钮
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
