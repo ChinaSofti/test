@@ -53,7 +53,7 @@
     [self addNotificataion];
 
     // 设置启动图片
-    UIImage *image = [UIImage imageNamed:@"starting_window_cn"];
+    UIImage *image = [UIImage imageNamed:@"starting_window_en"];
     imageView = [[UIImageView alloc] initWithImage:image];
     imageView.frame = [UIScreen mainScreen].bounds;
     [self.view addSubview:imageView];

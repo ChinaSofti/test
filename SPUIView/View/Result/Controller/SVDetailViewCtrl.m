@@ -287,11 +287,11 @@
                                              unit:I18N (@"inch")]
                }]];
 
-    // 视频地址
-    [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                   @"key": I18N (@"Video URL"),
-                   @"value": [self formatValue:[testContextJson valueForKey:@"videoURL"]]
-               }]];
+    //    // 视频地址
+    //    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+    //                   @"key": I18N (@"Video URL"),
+    //                   @"value": [self formatValue:[testContextJson valueForKey:@"videoURL"]]
+    //               }]];
 
     // 测试时长
     NSString *videoPlayDurationStr = [testContextJson valueForKey:@"videoPlayDuration"];
@@ -333,7 +333,7 @@
 
         // 视频分片地址
         [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                       @"key": I18N (@"Video Segement URL"),
+                       @"key": I18N (@"Video URL"),
                        @"value": [self formatValue:key]
                    }]];
 
@@ -349,8 +349,6 @@
                        @"key": I18N (@"Carrier"),
                        @"value": [self formatValue:[segementJson valueForKey:@"videoSegemnetISP"]]
                    }]];
-
-        break;
     }
 }
 

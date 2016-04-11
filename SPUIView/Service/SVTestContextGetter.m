@@ -200,29 +200,28 @@ static SVTestContextGetter *contextGetter = nil;
     // 生成随机数
     int randomIndex = arc4random () % [allSegement count];
 
-    // 遍历所有分片信息，解析出视频ip，归属地等信息
-    for (SVVideoSegement *segement in allSegement)
+    // 解析出视频ip，归属地等信息
+    SVVideoSegement *segement = allSegement[randomIndex];
+    NSURL *url = [NSURL URLWithString:segement.videoSegementURLStr];
+    [segement setVideoSegementURL:url];
+    @try
     {
-        NSURL *url = [NSURL URLWithString:segement.videoSegementURLStr];
-        [segement setVideoSegementURL:url];
-        @try
+        SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:url.host];
+        if (ipAndISP)
         {
-            SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:url.host];
-            if (ipAndISP)
-            {
-                [segement setVideoIP:url.host];
-                [segement setVideoLocation:ipAndISP.city];
-                [segement setVideoISP:ipAndISP.isp];
-            }
-        }
-        @catch (NSException *exception)
-        {
-            SVError (@"query ip[%@] location fail %@", url.host, exception);
+            [segement setVideoIP:url.host];
+            [segement setVideoLocation:ipAndISP.city];
+            [segement setVideoISP:ipAndISP.isp];
         }
     }
+    @catch (NSException *exception)
+    {
+        SVError (@"query ip[%@] location fail %@", url.host, exception);
+    }
 
-    // 将该分片信息移动到第一个位置
-    [allSegement exchangeObjectAtIndex:0 withObjectAtIndex:randomIndex];
+    // 初始化需要播放的分片信息
+    NSMutableArray *videoSegmentInfo = [[NSMutableArray alloc] init];
+    [videoSegmentInfo addObject:segement];
 
     //    [videoContext setVideoSegementURLString:segement.videoSegementURL];
     //    [videoContext setVideoSegementURL:url];
@@ -234,7 +233,7 @@ static SVTestContextGetter *contextGetter = nil;
     //    [videoContext setVideoResolution:segement.videoResolution];
     //    [videoContext setFrameRate:segement.frameRate];
 
-    [videoContext setVideoSegementInfo:allSegement];
+    [videoContext setVideoSegementInfo:videoSegmentInfo];
     [videoContext setVid:videoInfo.vid];
 
 
