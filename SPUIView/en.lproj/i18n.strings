@@ -187,6 +187,14 @@
 "Select" = "Select";
 "Bandwidth test server configuration" = "Bandwidth test server configuration";
 "Please enter the number of 13~100" = "Please enter the number of 13~100";
+"Video Test Duration:" = "Video Test Duration:";
+"Speed Test Server Config" = "Speed Test Server Config";
+"auto" = "Auto";
+"select" = "Select";
+"Value is invalid" = "Value is invalid！";
+"Video quality:" = "Video quality:";
+"Result Upload" = "Result Upload";
+
 
 "Network unreachable!" = "Network Unreachable!";
 "Network wifi!" = "Network Wi-Fi!";
@@ -199,9 +207,3 @@
 "WIFI" = "Wi-Fi";
 
 
-"Video Test Duration:" = "Video Test Duration:";
-"Speed Test Server Config" = "Speed Test Server Config";
-"auto" = "Auto";
-"select" = "Select";
-"Value is invalid" = "Value is invalid！";
-"Video quality" = "Video quality";

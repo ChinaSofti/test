@@ -48,13 +48,18 @@
 
     // 初始化播放时间和清晰度
     durationDic = @[
-        @{ @"60s": @"60" },
+        @{ @"1min": @"60" },
         @{ @"3min": @"180" },
         @{ @"5min": @"300" },
         @{ @"10min": @"600" },
         @{ @"30min": @"1800" }
     ];
-    clarityDic = @[@{ @"480P": @"480" }, @{ @"720P": @"720" }, @{ @"1080P": @"1080" }];
+    clarityDic = @[
+        @{ I18N (@"Auto"): @"Auto" },
+        @{ @"1080P": @"1080" },
+        @{ @"720P": @"720" },
+        @{ @"480P": @"480" }
+    ];
 
     // 初始化返回按钮
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
@@ -62,6 +67,7 @@
     [self createVideotimeUI];
     [self createVideoQualityUI];
     [self createBandwidthUI];
+    [self createResultUploadUI];
 }
 
 //进去时 隐藏tabBar
@@ -169,7 +175,7 @@
     labelDuration.textColor = [UIColor colorWithHexString:@"#CC000000"];
     [views addSubview:labelDuration];
 
-    NSString *l = @"60s";
+    NSString *l = @"1min";
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     int videoPlayTime = [probeInfo getVideoPlayTime];
     if (videoPlayTime != 60)
@@ -218,16 +224,16 @@
 //视频时长下拉按钮的点击事件
 - (void)mybuttonClick:(UIButton *)btn
 {
-    SVInfo (@"视频时长下拉按钮");
     [self creattableViewbackbutton];
 
     // 创建一个 tableView
-    _tableView = [self createTableViewWithRect:CGRectMake (FITWIDTH (540), statusBarH + FITHEIGHT (462),
-                                                           FITWIDTH (488), FITHEIGHT (650))
-                                     WithStyle:UITableViewStylePlain
-                                     WithColor:[UIColor colorWithHexString:@"#FFFFFF"]
-                                  WithDelegate:self
-                                WithDataSource:self];
+    _tableView =
+    [self createTableViewWithRect:CGRectMake (FITWIDTH (540), statusBarH + FITHEIGHT (462),
+                                              FITWIDTH (488), FITHEIGHT (130) * durationDic.count)
+                        WithStyle:UITableViewStylePlain
+                        WithColor:[UIColor colorWithHexString:@"#FFFFFF"]
+                     WithDelegate:self
+                   WithDataSource:self];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tableView.separatorColor = [UIColor colorWithWhite:0.8 alpha:0.3];
     [self.view addSubview:_tableView];
@@ -265,12 +271,12 @@
     // label屏幕尺寸
     UILabel *lableVideoClarity = [[UILabel alloc] init];
     lableVideoClarity.frame = CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
-    lableVideoClarity.text = I18N (@"Video quality");
+    lableVideoClarity.text = I18N (@"Video quality:");
     lableVideoClarity.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     lableVideoClarity.textColor = [UIColor colorWithHexString:@"#CC000000"];
     [views addSubview:lableVideoClarity];
 
-    NSString *l = @"1080P";
+    NSString *l = I18N (@"Auto");
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     int videoClarity = [probeInfo getVideoClarity];
     if (videoClarity > 0)
@@ -323,12 +329,13 @@
     [self creatQuatableViewbackbutton];
 
     // 创建一个 tableView
-    _tableView2 = [self createTableViewWithRect:CGRectMake (FITWIDTH (540), statusBarH + FITHEIGHT (602),
-                                                            FITWIDTH (488), FITHEIGHT (390))
-                                      WithStyle:UITableViewStylePlain
-                                      WithColor:[UIColor colorWithHexString:@"#FFFFFF"]
-                                   WithDelegate:self
-                                 WithDataSource:self];
+    _tableView2 =
+    [self createTableViewWithRect:CGRectMake (FITWIDTH (540), statusBarH + FITHEIGHT (602),
+                                              FITWIDTH (488), FITHEIGHT (130) * clarityDic.count)
+                        WithStyle:UITableViewStylePlain
+                        WithColor:[UIColor colorWithHexString:@"#FFFFFF"]
+                     WithDelegate:self
+                   WithDataSource:self];
     _tableView2.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tableView2.separatorColor = [UIColor colorWithWhite:0.8 alpha:0.3];
     [self.view addSubview:_tableView2];
@@ -575,6 +582,48 @@
         _textField.text = probeInfo.getScreenSize;
     }
 }
+#pragma mark - 创建结果上传选择开关UI界面
+- (void)createResultUploadUI
+{
+    // views4
+    UIView *resultUploadView = [[UIView alloc] init];
+    resultUploadView.frame =
+    CGRectMake (FITWIDTH (22), statusBarH + FITHEIGHT (917), kScreenW - FITHEIGHT (44), FITHEIGHT (130));
+    resultUploadView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:resultUploadView];
+
+    // label结果上传
+    UILabel *lableResultUpload = [[UILabel alloc] init];
+    lableResultUpload.frame = CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
+    lableResultUpload.text = I18N (@"Result Upload");
+    lableResultUpload.textColor = [UIColor colorWithHexString:@"#CC000000"];
+    lableResultUpload.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    [resultUploadView addSubview:lableResultUpload];
+    // switch选择开关
+    UISwitch *mySwitch = [[UISwitch alloc] init];
+    mySwitch.frame = CGRectMake (FITWIDTH (850), 0, 0, 0);
+    mySwitch.centerY = lableResultUpload.centerY;
+    [mySwitch addTarget:self
+                 action:@selector (switchChange:)
+       forControlEvents:UIControlEventValueChanged];
+    [resultUploadView addSubview:mySwitch];
+}
+// switch选择开关点击事件
+- (void)switchChange:(id)sender
+{
+
+    UISwitch *mySwitch = (UISwitch *)sender;
+    BOOL isButtonOn = [mySwitch isOn];
+    if (isButtonOn)
+    {
+        SVInfo (@"打开");
+    }
+    else
+    {
+        SVInfo (@"关闭");
+    }
+}
+
 #pragma mark - 自定义创建BarButtonItem返回按钮
 //返回按钮的点击事件
 - (void)backButtonClick

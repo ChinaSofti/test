@@ -183,6 +183,15 @@
 "Select" = "选择";
 "Bandwidth test server configuration" = "带宽测试服务器配置";
 "Please enter the number of 13~100" = "请输入13~100的数字";
+"Video Test Duration:" = "视频测试持续时间:";
+"Speed Test Server Config" = "带宽测试服务器配置";
+"auto" = "自动";
+"select" = "选择";
+"Value is invalid" = "无效值！";
+"Video quality:" = "视频建议质量:";
+"Result Upload" = "结果上传";
+
+
 
 "Network unreachable!" = "网络不可用";
 "Network wifi!" = "当前为WIFI网络";
@@ -194,9 +203,4 @@
 "Mobile network" ="移动网络";
 "WIFI" = "Wi-Fi";
 
-"Video Test Duration:" = "视频测试持续时间:";
-"Speed Test Server Config" = "带宽测试服务器配置";
-"auto" = "自动";
-"select" = "选择";
-"Value is invalid" = "无效值！";
-"Video quality" = "视频建议质量";
+
