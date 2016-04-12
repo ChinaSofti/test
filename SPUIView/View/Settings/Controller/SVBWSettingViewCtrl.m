@@ -162,7 +162,12 @@
     //键盘类型
     _textField.keyboardType = UIKeyboardTypeNumberPad;
     [_textField setCharacterLength:5];
-
+    // ios输入的数字如果前面有0，保留去掉0之后的数据
+    while ([_textField.text hasPrefix:@"0"])
+    {
+        _textField.text = [_textField.text substringFromIndex:1];
+        NSLog (@"压缩之后的字符串是:%@", _textField.text);
+    }
     //添加
     [views addSubview:_textField];
 
@@ -180,8 +185,10 @@
     [views addSubview:lableCarrier];
 
     UILabel *lableCarriers = [[UILabel alloc] init];
-    lableCarriers.frame = CGRectMake (FITWIDTH (29), FITHEIGHT (536), FITWIDTH (434), FITHEIGHT (58));
+    lableCarriers.frame =
+    CGRectMake (FITWIDTH (29), FITHEIGHT (536), kScreenW - FITWIDTH (29) * 3, FITHEIGHT (58));
     lableCarriers.text = title8;
+    //    lableCarriers.backgroundColor = [UIColor redColor];
     lableCarriers.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
     [views addSubview:lableCarriers];
 

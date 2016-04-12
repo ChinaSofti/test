@@ -83,9 +83,10 @@
 
 
     _titleLabel = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (448), FITHEIGHT (343), FITWIDTH (184), FITHEIGHT (144))];
+    initWithFrame:CGRectMake (FITWIDTH (418), FITHEIGHT (343), FITWIDTH (244), FITHEIGHT (144))];
     _titleLabel.text = dic[@"title"];
     _titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
+    //    _titleLabel.backgroundColor = [UIColor redColor];
     _titleLabel.textColor = [UIColor colorWithHexString:@"#B2000000"];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
 
