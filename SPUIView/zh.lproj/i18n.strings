@@ -26,6 +26,12 @@
 "Network Settings" = "网络设置";
 "Start Test"="开始测试";
 
+//网络提示框
+"Prompt" = "提示";
+"You are using a none-Wi-Fi network.Continuing the test will cause extra traffic fees." = "当前处于非WIFI网络,继续测试可能会被运行商收取流量费用";
+"Cancel Test" = "取消测试";
+"Continue Test" = "继续测试";
+
 //视频测试
 "Loading..." = "计算中...";
 "Fail" = "失败";
@@ -109,6 +115,8 @@
 "Network type"="网络类型";
 "Unknown" = "未知";
 "Test time"="测试时间";
+//日期格式
+"yyyy-MM-dd HH:mm:ss" = "yyyy年MM月dd日 HH:mm:ss";
 "Signaling strength"="信号强度";
 
 //分享提示视图
@@ -192,8 +200,7 @@
 "Video quality:" = "视频建议质量:";
 "Result Upload" = "结果上传";
 
-
-
+//网络类型提示框
 "Network unreachable!" = "网络不可用";
 "Network wifi!" = "当前为WIFI网络";
 "Network WWAN!" = "当前为WWAN网络";
@@ -203,6 +210,4 @@
 
 "Mobile network" ="移动网络";
 "WIFI" = "Wi-Fi";
-//日期格式
-"yyyy-MM-dd HH:mm:ss" = "yyyy年MM月dd日 HH:mm:ss";
 
