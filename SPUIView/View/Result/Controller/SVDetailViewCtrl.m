@@ -196,7 +196,7 @@
 
     // 测试时间
     NSString *timeString =
-    [SVTimeUtil formatDateByMilliSecond:self.testId formatStr:@"yyyy-MM-dd HH:mm:ss"];
+    [SVTimeUtil formatDateByMilliSecond:self.testId formatStr:I18N (@"yyyy-MM-dd HH:mm:ss")];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Test time"),
                    @"value": timeString

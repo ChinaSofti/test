@@ -207,4 +207,5 @@
 "Mobile network" ="Mobile Network";
 "WIFI" = "Wi-Fi";
 
-
+//日期格式
+"yyyy-MM-dd HH:mm:ss" = "MMM dd,yyyy HH:mm:ss";
