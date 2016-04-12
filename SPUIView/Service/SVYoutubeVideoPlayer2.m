@@ -6,6 +6,7 @@
 //  Copyright © 2016 chinasofti. All rights reserved.
 //
 
+#import "SVNetworkTrafficMonitor.h"
 #import "SVProbeInfo.h"
 #import "SVTimeUtil.h"
 #import "SVVideoSegement.h"
@@ -24,10 +25,8 @@
     // 开始缓冲时间
     long long _bufferStartTime;
 
-    // 总下载大小
-    int _downloadSize;
-    // 总下载时长
-    int _downloadTime;
+    // 当前的流量
+    double currentBytes;
 
     // 每5秒周期卡顿次数
     int videoCuttonTimes;
@@ -45,6 +44,8 @@
 
     // 定时器
     NSTimer *timer;
+
+    NSTimer *speedTimer;
 
     // 计算UvMOS次数
     int execute_times;
@@ -82,15 +83,15 @@ static int execute_total_times = 4;
     if (self)
     {
         showOnView = _showOnView;
-        [self addLoadingUIView:showOnView];
+        //        [self addLoadingUIView:showOnView];
         _testDelegate = testDelegate;
         SVInfo (@"init player view:%@", _showOnView);
 
-        CGSize size = _showOnView.frame.size;
-        _videoPlayer = [[YTPlayerView alloc] initWithFrame:CGRectMake (0, 0, size.width, size.height)];
-        _videoPlayer.bounds = CGRectMake (0, 0, size.width, size.height);
-        [_videoPlayer setDelegate:self];
-        [_showOnView addSubview:_videoPlayer];
+        //        CGSize size = _showOnView.frame.size;
+        _videoPlayer = [[YTPlayerView alloc] initWithView:showOnView delegate:self];
+        // :CGRectMake (0, 0, size.width, size.height)];
+        //        [_videoPlayer setDelegate:self];
+        [_showOnView addSubview:_videoPlayer.webView];
     }
     return self;
 }
@@ -142,25 +143,29 @@ static int execute_total_times = 4;
         //调用逻辑
         if (playerHtmlPath)
         {
-            NSString *vid = testContext.vid;
+            //            NSString *vid = testContext.vid;
             //            NSString *quality = [self getQuality];
-            NSString *quality = @"small";
-            if (!vid)
-            {
-                vid = @"6v2L2UGZJAM";
-            }
-
-            playerHtmlPath =
-            [NSString stringWithFormat:@"file://%@?vid=%@&quality=%@&width=%d&height=%d",
-                                       playerHtmlPath, vid, quality, 480, 320];
+            //            NSString *quality = @"small";
+            //            if (!vid)
+            //            {
+            //                vid = @"6v2L2UGZJAM";
+            //            }
+            //
+            //            playerHtmlPath =
+            //            [NSString
+            //            stringWithFormat:@"file://%@?vid=%@&quality=%@&width=%d&height=%d",
+            //                                       playerHtmlPath, vid, quality, 480, 320];
 
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-            [dic setObject:@"default" forKey:@"vq"];
+            [dic setObject:@1 forKey:@"autoplay"];
+            [dic setObject:@"small" forKey:@"vq"];
+            [dic setObject:@1 forKey:@"playsinline"];
+            [dic setObject:@0 forKey:@"controls"];
             dispatch_async (dispatch_get_main_queue (), ^{
-              [_videoPlayer loadWithVideoId:@"6v2L2UGZJAM" playerVars:dic];
+              [_videoPlayer loadWithVideoId:testContext.vid playerVars:dic];
             });
 
-            SVInfo (@"load player.html from resource directory. URL:%@", playerHtmlPath);
+            SVInfo (@"load YTPlayerView-iframe-player.html from resource directory. URL:%@", playerHtmlPath);
         }
     }
 }
@@ -175,7 +180,7 @@ static int execute_total_times = 4;
     NSString *playerHtmlPath;
     for (NSString *path in dirArray)
     {
-        if ([path containsString:@"player.html"])
+        if ([path containsString:@"YTPlayerView-iframe-player.html"])
         {
             playerHtmlPath = [resourcePath stringByAppendingPathComponent:path];
             break;
@@ -184,11 +189,12 @@ static int execute_total_times = 4;
 
     if (!playerHtmlPath)
     {
-        SVError (@"player.html path get fail. checking the file is exist or not.");
+        SVError (
+        @"YTPlayerView-iframe-player.html path get fail. checking the file is exist or not.");
         return playerHtmlPath;
     }
 
-    SVInfo (@"player.html path:%@", playerHtmlPath);
+    SVInfo (@"YTPlayerView-iframe-player.html path:%@", playerHtmlPath);
     return playerHtmlPath;
 }
 
@@ -247,31 +253,15 @@ static int execute_total_times = 4;
             //取消定时器
             [timer invalidate];
             timer = nil;
-            //            // 视频正在播放，则停止视频
-            //            if (_VMpalyer)
-            //            {
-            //                BOOL isPlaying = [_VMpalyer isPlaying];
-            //                if (isPlaying)
-            //                {
-            //                    SVInfo (@"vmplayer pause");
-            //                    [_VMpalyer pause];
-            //                }
-            //
-            //                [_VMpalyer reset];
-            //                SVInfo (@"vmplayer reset");
-            //                [_VMpalyer unSetupPlayer];
-            //            }
+
+            [speedTimer invalidate];
+            speedTimer = nil;
         }
         @catch (NSException *exception)
         {
             SVError (@"stop video fail. exception:%@", exception);
         }
 
-        [testResult setDownloadSize:_downloadSize];
-        if (_downloadTime > 0)
-        {
-            [testResult setDownloadSpeed:(_downloadSize * 8 / _downloadTime)];
-        }
         [testResult setVideoEndPlayTime:[SVTimeUtil currentMilliSecondStamp]];
 
         // 取消 UvMOS 注册服务
@@ -433,7 +423,31 @@ static int execute_total_times = 4;
                                                selector:@selector (pushTestSample)
                                                userInfo:nil
                                                 repeats:YES];
+
+
+        speedTimer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                      target:self
+                                                    selector:@selector (cacluDownloadSpeed)
+                                                    userInfo:nil
+                                                     repeats:YES];
     }
+}
+
+- (void)cacluDownloadSpeed
+{
+    // 计算下载的大小
+    double currentDownloadSize = [[SVNetworkTrafficMonitor getDataCounters] doubleValue];
+    double downloadSize = currentDownloadSize - currentBytes;
+    currentBytes = currentDownloadSize;
+    [testResult setDownloadSize:(testResult.downloadSize + downloadSize)];
+
+    // 下载速率
+    float speed = testResult.downloadSpeed;
+    if (downloadSize > speed)
+    {
+        [testResult setDownloadSpeed:(downloadSize * 8 / 1024)];
+    }
+    NSLog (@"--------speed:%.2f", downloadSize * 8 / 1024);
 }
 
 - (void)pushTestSample
@@ -500,12 +514,13 @@ static int execute_total_times = 4;
         [activityView stopAnimating];
     }
 
+    currentBytes = [[SVNetworkTrafficMonitor getDataCounters] doubleValue];
     startPlayTime = [SVTimeUtil currentMilliSecondStamp];
     [testResult setVideoStartPlayTime:startPlayTime];
-
     int firstBufferedTime = (int)([SVTimeUtil currentMilliSecondStamp] - startPlayTime);
     [testResult setFirstBufferTime:firstBufferedTime];
 
+    [playerView playVideo];
     SVInfo (@"------------------------------didPrepared------------------------------");
     _didPrepared = YES;
 }

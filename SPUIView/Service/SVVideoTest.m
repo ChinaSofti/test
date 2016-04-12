@@ -15,7 +15,7 @@
 #import "SVVideoSegement.h"
 #import "SVVideoTest.h"
 #import "SVYoukuVideoPlayer.h"
-#import "SVYoutubeVideoPlayer.h"
+#import "SVYoutubeVideoPlayer2.h"
 
 @implementation SVVideoTest
 {
@@ -71,7 +71,7 @@
         {
             //初始化播放器
             _videoPlayer =
-            [[SVYoutubeVideoPlayer alloc] initWithView:_showVideoView testDelegate:testDelegate];
+            [[SVYoutubeVideoPlayer2 alloc] initWithView:_showVideoView testDelegate:testDelegate];
         }
         else
         {
@@ -334,8 +334,8 @@
         [segementDic setObject:videoSegemnetLocation forKey:@"videoSegemnetLocation"];
         [segementDic setObject:videoSegemnetISP forKey:@"videoSegemnetISP"];
 
-        NSString *segementJsonStr = [self dictionaryToJsonString:segementDic];
-        [dictionary setValue:segementJsonStr forKey:segement.videoSegementURLStr];
+        //        NSString *segementJsonStr = [self dictionaryToJsonString:segementDic];
+        //        [dictionary setValue:segementJsonStr forKey:segement.videoSegementURLStr];
     }
 
     return [self dictionaryToJsonString:dictionary];

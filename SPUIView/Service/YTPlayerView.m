@@ -74,6 +74,30 @@ NSString static *const kYTPlayerStaticProxyRegexPattern =
 
 @implementation YTPlayerView
 
+- (id)initWithView:(UIView *)uiview delegate:(id<YTPlayerViewDelegate>)delegate
+{
+    self = [super init];
+    if (self)
+    {
+        _delegate = delegate;
+        _webView = [[UIWebView alloc] initWithFrame:uiview.bounds];
+        //        _webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
+        //        UIViewAutoresizingFlexibleHeight);
+        //        _webView.scrollView.scrollEnabled = NO;
+        //        _webView.scrollView.bounces = NO;
+        [_webView setMediaPlaybackRequiresUserAction:NO];
+        [_webView setAllowsInlineMediaPlayback:YES];
+        [_webView setAllowsPictureInPictureMediaPlayback:NO];
+        [_webView setDelegate:self];
+        //        _webView.allowsPictureInPictureMediaPlayback = NO;
+        //        _webView.allowsInlineMediaPlayback = YES;
+        //        _webView.mediaPlaybackRequiresUserAction = NO;
+        //        _webView.delegate = self;
+    }
+
+    return self;
+}
+
 - (BOOL)loadWithVideoId:(NSString *)videoId
 {
     return [self loadWithVideoId:videoId playerVars:nil];
@@ -836,11 +860,6 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
         [playerParams setValue:[[NSDictionary alloc] init] forKey:@"playerVars"];
     }
 
-    // Remove the existing webView to reset any state
-    [self.webView removeFromSuperview];
-    _webView = [self createNewWebView];
-    [self addSubview:self.webView];
-
     NSError *error = nil;
     NSString *path = [self getPlayerHtmlPath];
 
@@ -861,8 +880,8 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
         return NO;
     }
 
-    // Render the playerVars as a JSON dictionary.
     NSError *jsonRenderingError = nil;
+    //    Render the playerVars as a JSON dictionary.NSError *jsonRenderingError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:playerParams
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&jsonRenderingError];
@@ -876,24 +895,10 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     NSString *playerVarsJsonString =
     [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 
+    //    NSString *vid = [additionalPlayerParams valueForKey:@"videoId"];
     NSString *embedHTML = [NSString stringWithFormat:embedHTMLTemplate, playerVarsJsonString];
+    NSLog (@"%@", embedHTML);
     [self.webView loadHTMLString:embedHTML baseURL:self.originURL];
-    [self.webView setDelegate:self];
-    self.webView.allowsInlineMediaPlayback = YES;
-    self.webView.mediaPlaybackRequiresUserAction = NO;
-
-    if ([self.delegate respondsToSelector:@selector (playerViewPreferredInitialLoadingView:)])
-    {
-        UIView *initialLoadingView = [self.delegate playerViewPreferredInitialLoadingView:self];
-        if (initialLoadingView)
-        {
-            initialLoadingView.frame = self.bounds;
-            initialLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            [self addSubview:initialLoadingView];
-            self.initialLoadingView = initialLoadingView;
-        }
-    }
-
     return YES;
 }
 
@@ -916,11 +921,12 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 
     if (!playerHtmlPath)
     {
-        NSLog (@"player.html path get fail. checking the file is exist or not.");
+        NSLog (
+        @"YTPlayerView-iframe-player.html path get fail. checking the file is exist or not.");
         return playerHtmlPath;
     }
 
-    NSLog (@"player.html path:%@", playerHtmlPath);
+    NSLog (@"YTPlayerView-iframe-player.html path:%@", playerHtmlPath);
     return playerHtmlPath;
 }
 
@@ -1014,36 +1020,6 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 }
 
 #pragma mark - Exposed for Testing
-
-- (void)setWebView:(UIWebView *)webView
-{
-    _webView = webView;
-}
-
-- (UIWebView *)createNewWebView
-{
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.bounds];
-    webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    webView.scrollView.scrollEnabled = NO;
-    webView.scrollView.bounces = NO;
-
-    if ([self.delegate respondsToSelector:@selector (playerViewPreferredWebViewBackgroundColor:)])
-    {
-        webView.backgroundColor = [self.delegate playerViewPreferredWebViewBackgroundColor:self];
-        if (webView.backgroundColor == [UIColor clearColor])
-        {
-            webView.opaque = NO;
-        }
-    }
-
-    return webView;
-}
-
-- (void)removeWebView
-{
-    [self.webView removeFromSuperview];
-    self.webView = nil;
-}
 
 + (NSBundle *)frameworkBundle
 {
