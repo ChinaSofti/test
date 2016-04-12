@@ -72,7 +72,7 @@
 "      sInteraction Score" = "      sInteraction Score";
 "Initial Buffer Time" = "Initial Buffer Time";
 "Buffer time" = "Buffer Time";
-"Stalling Time" = "Stalling Time";
+"Stalling Time" = "Stalling Duration";
 "Stalling Times" = "Stalling Times";
 "Download Speed" = "Download Speed";
 "Max Download Speed" = "Max Download Speed";
@@ -89,7 +89,7 @@
 //网页测试
 "Web Test"="Web Test";
 "Response Time"="Response Time";
-"Load duration"="Load Time";
+"Load duration"="Load Duration";
 "Download"="Download";
 "Timeout"="Timeout";
 

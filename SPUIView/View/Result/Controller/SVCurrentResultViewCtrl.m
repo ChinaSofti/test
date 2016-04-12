@@ -388,7 +388,7 @@
         if (_resultModel.cuttonTimes != -1)
         {
             rightValue = [NSString stringWithFormat:@"%d", _resultModel.cuttonTimes];
-            rightUnit = @"ms";
+            rightUnit = @"";
         }
         UILabel *rightView = [self createResultViewWithName:@"videoRight"
                                                       WithX:middleView.rightX
