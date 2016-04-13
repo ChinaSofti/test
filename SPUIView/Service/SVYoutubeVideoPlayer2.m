@@ -36,9 +36,6 @@
     // 缓冲时间集合
     NSMutableArray *bufferedTimeArray;
 
-    // 加载图标
-    UIActivityIndicatorView *activityView;
-
     // 每隔5秒推送一次结果
     id<SVVideoTestDelegate> _testDelegate;
 
@@ -83,35 +80,11 @@ static int execute_total_times = 4;
     if (self)
     {
         showOnView = _showOnView;
-        //        [self addLoadingUIView:showOnView];
         _testDelegate = testDelegate;
-        SVInfo (@"init player view:%@", _showOnView);
-
-        //        CGSize size = _showOnView.frame.size;
         _videoPlayer = [[YTPlayerView alloc] initWithView:showOnView delegate:self];
-        // :CGRectMake (0, 0, size.width, size.height)];
-        //        [_videoPlayer setDelegate:self];
         [_showOnView addSubview:_videoPlayer.webView];
     }
     return self;
-}
-
-/**
- *  添加视频缓冲加载圆圈图标
- *
- *  @param view 父UIView
- */
-- (void)addLoadingUIView:(UIView *)view
-{
-    // 视频播放缓冲进度
-    UIView *activityCarrier = [[UIView alloc]
-    initWithFrame:CGRectMake ((showOnView.frame.size.width - 40) / 2,
-                              (showOnView.frame.size.height - 40) / 2, FITWIDTH (40), FITWIDTH (40))];
-    activityView = [[UIActivityIndicatorView alloc]
-    initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    [activityCarrier addSubview:activityView];
-    [showOnView addSubview:activityCarrier];
-    [activityView startAnimating];
 }
 
 /**
@@ -143,22 +116,33 @@ static int execute_total_times = 4;
         //调用逻辑
         if (playerHtmlPath)
         {
-            //            NSString *vid = testContext.vid;
-            //            NSString *quality = [self getQuality];
-            //            NSString *quality = @"small";
-            //            if (!vid)
-            //            {
-            //                vid = @"6v2L2UGZJAM";
-            //            }
-            //
-            //            playerHtmlPath =
-            //            [NSString
-            //            stringWithFormat:@"file://%@?vid=%@&quality=%@&width=%d&height=%d",
-            //                                       playerHtmlPath, vid, quality, 480, 320];
+            // YTPlaybackQuality
+
+            // 根据用户选择的清晰度选择分片
+            SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+            NSString *videoClarity = probeInfo.getVideoClarity;
+            NSString *videoType = @"default";
+            if ([videoClarity isEqualToString:@"480P"])
+            {
+                videoType = @"large";
+            }
+            else if ([videoClarity isEqualToString:@"720P"])
+            {
+                videoType = @"hd720";
+            }
+            else if ([videoClarity isEqualToString:@"1080P"])
+            {
+                videoType = @"hd1080";
+            }
+            else
+            {
+                videoType = @"default";
+            }
+
 
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
             [dic setObject:@1 forKey:@"autoplay"];
-            [dic setObject:@"small" forKey:@"vq"];
+            [dic setObject:videoType forKey:@"vq"];
             [dic setObject:@1 forKey:@"playsinline"];
             [dic setObject:@0 forKey:@"controls"];
             dispatch_async (dispatch_get_main_queue (), ^{
@@ -248,8 +232,6 @@ static int execute_total_times = 4;
 
         @try
         {
-            // 隐藏加载图标
-            [activityView stopAnimating];
             //取消定时器
             [timer invalidate];
             timer = nil;
@@ -271,6 +253,8 @@ static int execute_total_times = 4;
             testContext.testStatus = TEST_FINISHED;
         }
 
+        [_videoPlayer stopVideo];
+        _videoPlayer = nil;
         isFinished = TRUE;
         [UIApplication sharedApplication].idleTimerDisabled = NO;
     }
@@ -312,7 +296,6 @@ static int execute_total_times = 4;
 - (void)mediaPlayer_error
 {
     SVInfo (@"------------------------------VMediaPlayer Error------------------------------");
-    [activityView stopAnimating];
     testContext.testStatus = TEST_ERROR;
 }
 
@@ -320,11 +303,6 @@ static int execute_total_times = 4;
 {
     SVInfo (@"NAL 2HBT &&&&&&&&&&&&&&&&.......&&&&&&&&&&&&&&&&& bufferingStart");
     _bufferStartTime = [SVTimeUtil currentMilliSecondStamp];
-    // 显示加载图标
-    if (![activityView isAnimating])
-    {
-        [activityView startAnimating];
-    }
 
     if (_firstBufferTime)
     {
@@ -342,12 +320,6 @@ static int execute_total_times = 4;
  */
 - (void)mediaPlayer_bufferingEnd
 {
-    // 隐藏加载图标
-    if ([activityView isAnimating])
-    {
-        [activityView stopAnimating];
-    }
-
     int bufferedTime = (int)([SVTimeUtil currentMilliSecondStamp] - _bufferStartTime);
     // 注意：
     // 首次缓冲时长不计入卡顿时长，且第一次缓冲不算卡顿。首次缓冲时长只是首次缓冲时长
@@ -436,8 +408,8 @@ static int execute_total_times = 4;
 - (void)cacluDownloadSpeed
 {
     // 计算下载的大小
-    double currentDownloadSize = [[SVNetworkTrafficMonitor getDataCounters] doubleValue];
-    double downloadSize = currentDownloadSize - currentBytes;
+    double currentDownloadSize = [[SVNetworkTrafficMonitor getDataCounters] doubleValue] * 8 / 1024;
+    double downloadSize = (currentDownloadSize - currentBytes);
     currentBytes = currentDownloadSize;
     [testResult setDownloadSize:(testResult.downloadSize + downloadSize)];
 
@@ -445,9 +417,9 @@ static int execute_total_times = 4;
     float speed = testResult.downloadSpeed;
     if (downloadSize > speed)
     {
-        [testResult setDownloadSpeed:(downloadSize * 8 / 1024)];
+        [testResult setDownloadSpeed:downloadSize];
     }
-    NSLog (@"--------speed:%.2f", downloadSize * 8 / 1024);
+    SVInfo (@"speed:%.2f", downloadSize);
 }
 
 - (void)pushTestSample
@@ -508,13 +480,7 @@ static int execute_total_times = 4;
 - (void)playerViewDidBecomeReady:(nonnull YTPlayerView *)playerView
 {
     SVInfo (@"playerViewDidBecomeReady");
-    // 隐藏加载图标
-    if ([activityView isAnimating])
-    {
-        [activityView stopAnimating];
-    }
-
-    currentBytes = [[SVNetworkTrafficMonitor getDataCounters] doubleValue];
+    currentBytes = [[SVNetworkTrafficMonitor getDataCounters] doubleValue] * 8 / 1024;
     startPlayTime = [SVTimeUtil currentMilliSecondStamp];
     [testResult setVideoStartPlayTime:startPlayTime];
     int firstBufferedTime = (int)([SVTimeUtil currentMilliSecondStamp] - startPlayTime);

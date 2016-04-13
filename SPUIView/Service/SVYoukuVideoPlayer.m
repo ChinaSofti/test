@@ -85,7 +85,7 @@ static int execute_total_times = 4;
     if (!_VMpalyer)
     {
         _VMpalyer = [VMediaPlayer sharedInstance];
-        [_VMpalyer setVideoFillMode:VMVideoFillModeFit];
+        //        [_VMpalyer setVideoFillMode:VMVideoFillModeFit];
         _isSetup = [_VMpalyer setupPlayerWithCarrierView:showOnView withDelegate:self];
     }
 
@@ -101,8 +101,8 @@ static int execute_total_times = 4;
 {
     // 视频播放缓冲进度
     UIView *activityCarrier = [[UIView alloc]
-    initWithFrame:CGRectMake ((showOnView.frame.size.width - 40) / 2,
-                              (showOnView.frame.size.height - 40) / 2, FITWIDTH (40), FITWIDTH (40))];
+    initWithFrame:CGRectMake ((showOnView.bounds.size.width - 40) / 2,
+                              (showOnView.bounds.size.height - 40) / 2, FITWIDTH (40), FITWIDTH (40))];
     activityView = [[UIActivityIndicatorView alloc]
     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [activityCarrier addSubview:activityView];
@@ -276,6 +276,7 @@ static int execute_total_times = 4;
 
     SVInfo (@"------------------------------didPrepared------------------------------");
     _didPrepared = YES;
+    [player setVideoFillMode:VMVideoFillModeFit];
     [player start];
 }
 
