@@ -11,6 +11,7 @@
 #import "SVBWSettingViewCtrl.h"
 #import "SVIPAndISPGetter.h"
 #import "SVLanguageSettingViewCtrl.h"
+#import "SVPrivacyCtrl.h"
 #import "SVRealReachability.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
@@ -158,8 +159,9 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     NSString *title21 = I18N (@"Share");
     NSString *title3 = I18N (@"About");
     NSString *title4 = I18N (@"Language Settings");
-    NSString *title5 = I18N (@"Upload Logs");
-    NSString *title6 = I18N (@"Advanced Settings");
+    NSString *title5 = I18N (@"Privacy Statemtent");
+    NSString *title6 = I18N (@"Upload Logs");
+    NSString *title7 = I18N (@"Advanced Settings");
 
     static NSString *cellId = @"cell";
 
@@ -186,29 +188,33 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
         cell.textLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
         cell.textLabel.textColor = [UIColor colorWithHexString:@"#CC000000"];
 
+        //        if (indexPath.row == 0)
+        //        {
+        //            cell.textLabel.text = title21;
+        //            //添加分享的点击事件
+        //            UIButton *button = [[UIButton alloc]
+        //            initWithFrame:CGRectMake (0, 0, kScreenW - FITWIDTH (44), FITHEIGHT (130))];
+        //            //            button.backgroundColor = [UIColor redColor];
+        //            [button addTarget:self
+        //                       action:@selector (ShareClicked:)
+        //             forControlEvents:UIControlEventTouchUpInside];
+        //            [cell addSubview:button];
+        //        }
         if (indexPath.row == 0)
-        {
-            cell.textLabel.text = title21;
-            //添加分享的点击事件
-            UIButton *button = [[UIButton alloc]
-            initWithFrame:CGRectMake (0, 0, kScreenW - FITWIDTH (44), FITHEIGHT (130))];
-            //            button.backgroundColor = [UIColor redColor];
-            [button addTarget:self
-                       action:@selector (ShareClicked:)
-             forControlEvents:UIControlEventTouchUpInside];
-            [cell addSubview:button];
-        }
-        if (indexPath.row == 1)
         {
             cell.textLabel.text = title3;
         }
-        if (indexPath.row == 2)
+        if (indexPath.row == 1)
         {
             cell.textLabel.text = title4;
         }
-        if (indexPath.row == 3)
+        if (indexPath.row == 2)
         {
             cell.textLabel.text = title5;
+        }
+        if (indexPath.row == 3)
+        {
+            cell.textLabel.text = title6;
 
             //添加上传日志的点击事件
             UIButton *button = [[UIButton alloc]
@@ -221,7 +227,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
         }
         if (indexPath.row == 4)
         {
-            cell.textLabel.text = title6;
+            cell.textLabel.text = title7;
         }
     }
     return cell;
@@ -231,6 +237,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     NSString *title0 = I18N (@"Bandwidth Settings");
     NSString *title3 = I18N (@"About");
     NSString *title4 = I18N (@"Language Settings");
+    NSString *title5 = I18N (@"Privacy Instructions");
     NSString *title6 = I18N (@"Advanced Settings");
     //当前连接
     if (indexPath.section == 0)
@@ -242,25 +249,33 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 
     if (indexPath.section == 1)
     {
-        //分享
-        if (indexPath.row == 0)
-        {
-        }
+
         //关于
-        if (indexPath.row == 1)
+        if (indexPath.row == 0)
         {
             SVAboutViewCtrl *about = [[SVAboutViewCtrl alloc] init];
             about.title = title3;
             [self.navigationController pushViewController:about animated:YES];
         }
         //语言设置
-        if (indexPath.row == 2)
+        if (indexPath.row == 1)
         {
             SVLanguageSettingViewCtrl *languageSetting = [[SVLanguageSettingViewCtrl alloc] init];
             languageSetting.title = title4;
             [self.navigationController pushViewController:languageSetting animated:YES];
         }
 
+        //隐私说明
+        if (indexPath.row == 2)
+        {
+            SVPrivacyCtrl *advanced = [[SVPrivacyCtrl alloc] init];
+            advanced.title = title5;
+            [self.navigationController pushViewController:advanced animated:YES];
+        }
+        //上传日志
+        if (indexPath.row == 3)
+        {
+        }
         //高级设置
         if (indexPath.row == 4)
         {

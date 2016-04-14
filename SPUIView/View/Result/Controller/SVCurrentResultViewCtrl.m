@@ -136,7 +136,7 @@
 
     UILabel *_firstBufferTimeLabelValue = [allLabelDic valueForKey:@"videoMiddleValueLabel"];
     UILabel *_firstBufferTimeLabelUnit = [allLabelDic valueForKey:@"videoMiddleUnitLabel"];
-    if (!_resultModel.firstBufferTime || _resultModel.firstBufferTime == -1)
+    if (_resultModel.firstBufferTime == -1)
     {
         [_firstBufferTimeLabelValue setText:_failTitle];
         [_firstBufferTimeLabelUnit setText:@""];
@@ -175,7 +175,7 @@
     // 刷新网页
     UILabel *_responseLabelValue = [allLabelDic valueForKey:@"webLeftValueLabel"];
     UILabel *_responseLabelUnit = [allLabelDic valueForKey:@"webLeftUnitLabel"];
-    if (!_resultModel.responseTime || _resultModel.responseTime < 0)
+    if (_resultModel.responseTime < 0)
     {
         [_responseLabelValue setText:_failTitle];
         [_responseLabelUnit setText:@""];
@@ -195,7 +195,7 @@
 
     UILabel *_loadLabelValue = [allLabelDic valueForKey:@"webRightValueLabel"];
     UILabel *_loadLabelUnit = [allLabelDic valueForKey:@"webRightUnitLabel"];
-    if (!_resultModel.totalTime || _resultModel.totalTime < 0)
+    if (_resultModel.totalTime < 0)
     {
         [_loadLabelValue setText:_failTitle];
         [_loadLabelUnit setText:@""];
@@ -215,7 +215,7 @@
 
     UILabel *_downloadLabelValue = [allLabelDic valueForKey:@"webMiddleValueLabel"];
     UILabel *_downloadLabelUnit = [allLabelDic valueForKey:@"webMiddleUnitLabel"];
-    if (!_resultModel.downloadSpeed || _resultModel.downloadSpeed < 0)
+    if (_resultModel.downloadSpeed < 0)
     {
         [_downloadLabelValue setText:_failTitle];
         [_downloadLabelUnit setText:@""];
@@ -236,7 +236,7 @@
     // 刷新带宽
     UILabel *_dtDelayLabelValue = [allLabelDic valueForKey:@"speedLeftValueLabel"];
     UILabel *_dtDelayLabelUnit = [allLabelDic valueForKey:@"speedLeftUnitLabel"];
-    if (!_resultModel.stDelay || _resultModel.stDelay <= 0)
+    if (_resultModel.stDelay <= 0)
     {
         [_dtDelayLabelValue setText:_failTitle];
         [_dtDelayLabelUnit setText:@""];
@@ -256,7 +256,7 @@
 
     UILabel *_dtDownloadLabelValue = [allLabelDic valueForKey:@"speedMiddleValueLabel"];
     UILabel *_dtDownloadLabelUnit = [allLabelDic valueForKey:@"speedMiddleUnitLabel"];
-    if (!_resultModel.stDownloadSpeed || _resultModel.stDownloadSpeed <= 0)
+    if (_resultModel.stDownloadSpeed <= 0)
     {
         [_dtDownloadLabelValue setText:_failTitle];
         [_dtDownloadLabelUnit setText:@""];
@@ -276,7 +276,7 @@
 
     UILabel *_dtUploadLabelValue = [allLabelDic valueForKey:@"speedRightValueLabel"];
     UILabel *_dtUploadLabelUnit = [allLabelDic valueForKey:@"speedRightUnitLabel"];
-    if (!_resultModel.stUploadSpeed || _resultModel.stUploadSpeed <= 0)
+    if (_resultModel.stUploadSpeed <= 0)
     {
         [_dtUploadLabelValue setText:_failTitle];
         [_dtUploadLabelUnit setText:@""];

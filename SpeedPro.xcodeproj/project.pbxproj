@@ -23,6 +23,7 @@
 		561A36E41C896BAF00AC5F5E /* SVResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E11C896BAF00AC5F5E /* SVResultViewCtrl.m */; };
 		561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E71C896BD700AC5F5E /* SVVideoTestingCtrl.m */; };
 		5627689D1C907D760048D867 /* SVSpeedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5627689C1C907D760048D867 /* SVSpeedView.m */; };
+		5629C2651CBF9ACC007070D6 /* SVPrivacyCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5629C2641CBF9ACC007070D6 /* SVPrivacyCtrl.m */; };
 		563734851C8ED6590064DA33 /* SVWebTestingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 563734841C8ED6590064DA33 /* SVWebTestingViewCtrl.m */; };
 		563734881C8ED6730064DA33 /* SVSpeedTestingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 563734871C8ED6730064DA33 /* SVSpeedTestingViewCtrl.m */; };
 		563DA8D51CB6006F00578D02 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 563DA8D41CB6006F00578D02 /* icon.png */; };
@@ -324,6 +325,8 @@
 		561A36E71C896BD700AC5F5E /* SVVideoTestingCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoTestingCtrl.m; sourceTree = "<group>"; };
 		5627689B1C907D760048D867 /* SVSpeedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedView.h; sourceTree = "<group>"; };
 		5627689C1C907D760048D867 /* SVSpeedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedView.m; sourceTree = "<group>"; };
+		5629C2631CBF9ACC007070D6 /* SVPrivacyCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPrivacyCtrl.h; sourceTree = "<group>"; };
+		5629C2641CBF9ACC007070D6 /* SVPrivacyCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPrivacyCtrl.m; sourceTree = "<group>"; };
 		563734831C8ED6590064DA33 /* SVWebTestingViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebTestingViewCtrl.h; sourceTree = "<group>"; };
 		563734841C8ED6590064DA33 /* SVWebTestingViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebTestingViewCtrl.m; sourceTree = "<group>"; };
 		563734861C8ED6730064DA33 /* SVSpeedTestingViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedTestingViewCtrl.h; sourceTree = "<group>"; };
@@ -853,6 +856,8 @@
 				561A36D01C896B5A00AC5F5E /* SVSettingsViewCtrl.m */,
 				568D42B21C89E20B00F2916B /* SVBandWidthCtrl.h */,
 				568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */,
+				5629C2631CBF9ACC007070D6 /* SVPrivacyCtrl.h */,
+				5629C2641CBF9ACC007070D6 /* SVPrivacyCtrl.m */,
 			);
 			name = Controller;
 			path = SPUIView/View/Settings/Controller;
@@ -1973,6 +1978,7 @@
 				B7F2677F1CAE1BF300E44299 /* SVUvMOSCalculator.m in Sources */,
 				B7F268671CAE263300E44299 /* SVSpeedTestContext.m in Sources */,
 				B7F268301CAE1C3900E44299 /* PingHelper.m in Sources */,
+				5629C2651CBF9ACC007070D6 /* SVPrivacyCtrl.m in Sources */,
 				56B5180D1C5126C700AA76F1 /* UIView+Exten.m in Sources */,
 				B7F267B31CAE1C0000E44299 /* SVRealReachability.m in Sources */,
 				56BA8FDC1C561E9100886CAE /* SVToolCell.m in Sources */,

@@ -158,7 +158,7 @@
     //边框
     _textField.borderStyle = UITextBorderStyleRoundedRect;
     //灰色提示框
-    _textField.placeholder = @"Please input bandwidth";
+    _textField.placeholder = I18N (@"Please input bandwidth");
     //键盘类型
     _textField.keyboardType = UIKeyboardTypeNumberPad;
     [_textField setCharacterLength:5];

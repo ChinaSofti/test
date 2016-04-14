@@ -215,3 +215,10 @@
 "Mobile network" ="Mobile Network";
 "WIFI" = "Wi-Fi";
 
+//隐私声明
+"Please input bandwidth" = "Please input bandwidth";
+"Privacy Statemtent" = "Privacy Statemtent";
+"Privacy Instructions" = "Privacy Instructions";
+
+"PrivacyText1" = "We hope that through the information collection and analysis to provide uers with more accurate and targeted internet business assessment servicse,So we collect experience and software running information automatically.Any information is collected,cannot be used to identify your identity,and personal information will not be recorder.";
+"PrivacyText2" = "To help promote partners and third party service quality of the internet network business,SpeedPro statistics will be provided to those partners and third party as a result,the premise is that the information is aggregated or in the form of unable to idetify your personalidentity, hope that through this cooperation to promote industry development,and bring a better internet business experience for the users.";
