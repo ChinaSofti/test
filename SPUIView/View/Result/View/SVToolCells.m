@@ -100,10 +100,11 @@
     return self;
 }
 
-// 初始化testUrl的cell
-- (instancetype)initUrlCellWithStyle:(UITableViewCellStyle)style
-                     reuseIdentifier:(NSString *)reuseIdentifier
-                             testUrl:(NSString *)testUrl
+// 初始化子标题的cell
+- (instancetype)initSubTitleCellWithStyle:(UITableViewCellStyle)style
+                          reuseIdentifier:(NSString *)reuseIdentifier
+                                 subTitle:(NSString *)subTitle
+                                WithColor:(UIColor *)color
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
@@ -118,9 +119,9 @@
         // 设置testUrl的label
         UILabel *label = [[UILabel alloc]
         initWithFrame:CGRectMake (FITWIDTH (22), 0, kScreenW - 2 * FITWIDTH (22), FITHEIGHT (132))];
-        label.text = testUrl;
+        label.text = subTitle;
         label.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-        label.textColor = [UIColor colorWithHexString:@"#FF38C695"];
+        label.textColor = color;
         label.textAlignment = NSTextAlignmentCenter;
         label.layer.borderColor = [UIColor colorWithHexString:@"#DDDDDD"].CGColor;
         label.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];

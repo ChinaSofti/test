@@ -334,8 +334,12 @@
         [segementDic setObject:videoSegemnetLocation forKey:@"videoSegemnetLocation"];
         [segementDic setObject:videoSegemnetISP forKey:@"videoSegemnetISP"];
 
-        //        NSString *segementJsonStr = [self dictionaryToJsonString:segementDic];
-        //        [dictionary setValue:segementJsonStr forKey:segement.videoSegementURLStr];
+        NSString *segementJsonStr = [self dictionaryToJsonString:segementDic];
+
+        // 将%替换为%%，防止转json时将%当特殊字符处理
+        NSString *segementUrl = segement.videoSegementURLStr;
+        segementUrl = [segementUrl stringByReplacingOccurrencesOfString:@"%" withString:@"%%"];
+        [dictionary setValue:segementJsonStr forKey:segementUrl];
     }
 
     return [self dictionaryToJsonString:dictionary];

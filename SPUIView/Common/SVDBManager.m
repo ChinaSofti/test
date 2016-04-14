@@ -189,4 +189,67 @@
     return array;
 }
 
+/**
+ *  使用指定SQL进行count查询
+ *
+ *  @param sql   SQL查询语句
+ *
+ *  @return 数据个数
+ */
+- (int)executeCountQuery:(NSString *)sql, ...
+{
+    if (!sql)
+    {
+        return 0;
+    }
+
+    va_list args;
+    va_start (args, sql);
+    NSString *formatedSQL = [[NSString alloc] initWithFormat:sql arguments:args];
+    va_end (args);
+    SVInfo (@"sql:%@", formatedSQL);
+
+    NSString *countValue;
+    @synchronized (self)
+    {
+        // TODO liuchengyu 研究内省，支持非NSString 类型
+        @try
+        {
+            if ([_dataBase open])
+            {
+                FMResultSet *set = [_dataBase executeQuery:formatedSQL];
+                while ([set next])
+                {
+                    for (int i = 0; i < set.columnCount; i++)
+                    {
+                        @try
+                        {
+                            NSString *columnName = [set columnNameForIndex:i];
+                            countValue = [set stringForColumn:columnName];
+                        }
+                        @catch (NSException *exception)
+                        {
+                            SVError (@"%@", exception);
+                        }
+                    }
+                }
+            }
+        }
+        @catch (NSException *exception)
+        {
+            SVError (@"%@", exception);
+        }
+        @finally
+        {
+            [_dataBase close];
+        }
+    }
+
+    if (countValue == nil)
+    {
+        return 0;
+    }
+    return countValue == nil ? 0 : [countValue intValue];
+}
+
 @end

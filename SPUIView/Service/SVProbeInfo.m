@@ -38,7 +38,8 @@ static NSString *_screenSize;
             [probeInfo setVideoPlayTime:60];
             [probeInfo setScreenSize:42.00];
             [probeInfo setBandwidthType:0];
-            [probeInfo setVideoClarity:@"Auto"];
+            [probeInfo setVideoClarity:@"1080P"];
+            [probeInfo setUploadResult:YES];
             probeInfo.networkType = @"";
             probeInfo.location = @"";
             probeInfo.ip = @"";
@@ -228,6 +229,31 @@ static NSString *_screenSize;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *videoClarity = [defaults valueForKey:@"videoClarity"];
     return videoClarity;
+}
+
+/**
+ *  设置是否上传结果
+ *
+ *  @param isUploadResult 是否上传结果
+ */
+- (void)setUploadResult:(BOOL)isUploadResult
+{
+    SVInfo (@"Advanced Setting[isUploadResult=%d]", isUploadResult);
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSString stringWithFormat:@"%d", isUploadResult] forKey:@"isUploadResult"];
+    [defaults synchronize];
+}
+
+/**
+ *  获取是否上传结果
+ *
+ *  @return 是否上传结果
+ */
+- (BOOL)isUploadResult
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *isUploadResult = [defaults valueForKey:@"isUploadResult"];
+    return [isUploadResult boolValue];
 }
 
 

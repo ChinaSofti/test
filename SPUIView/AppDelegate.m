@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SVCurrentDevice.h"
 #import "SVProbeInfo.h"
 #import "SVSpeedTestServers.h"
 #import "SVTabBarController.h"
@@ -24,7 +25,7 @@
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //微信分享api注册
-    [WXApi registerApp:@"wx2cce736067ee4a2d"];
+    //    [WXApi registerApp:@"wx2cce736067ee4a2d"];
 
     //设置navigationBar的颜色
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#263841"]];

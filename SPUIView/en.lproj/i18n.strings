@@ -61,6 +61,10 @@
 "U-vMOS"="U-vMOS";
 "Load Time"="Load Time";
 "Bandwidth"="Bandwidth";
+"Infomation"="Infomation";
+"IP Address"="IP Address";
+"City"="City";
+"Carrier"="Carrier";
 //删除 提示视图
 "Prompt"="Prompt";
 "Clear all test results"="Clear All Test Results";

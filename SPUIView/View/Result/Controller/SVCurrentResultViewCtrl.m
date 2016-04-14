@@ -10,6 +10,7 @@
 #import "SVDBManager.h"
 #import "SVDetailViewCtrl.h"
 #import "SVLabelTools.h"
+#import "SVProbeInfo.h"
 #import "SVResultPush.h"
 #import "SVTestContextGetter.h"
 #import "SVTestViewCtrl.h"
@@ -298,10 +299,16 @@
     if (!isSave)
     {
         [self persistSVSummaryResultModel];
-        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-          SVResultPush *push = [[SVResultPush alloc] initWithTestId:_resultModel.testId];
-          [push sendResult];
-        });
+
+        // 判断用户是否允许上传结果，如果允许，则将测试结果上传
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        if (probeInfo.isUploadResult)
+        {
+            dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+              SVResultPush *push = [[SVResultPush alloc] initWithTestId:_resultModel.testId];
+              [push sendResult];
+            });
+        }
 
         isSave = YES;
     }
@@ -335,6 +342,9 @@
     _loadTimeTitle = I18N (@"Load duration");
     _delayTitle = I18N (@"Delay");
     _uploadSpeedTitle = I18N (@"Upload speed");
+
+    // 初始化字典
+    allLabelDic = [[NSMutableDictionary alloc] init];
 
     // 初始化三种测试对应的结果按钮
     if (_resultModel.videoTest == YES)
@@ -637,19 +647,33 @@
 {
     // 结果持久化
     SVDBManager *db = [SVDBManager sharedInstance];
+
     // 如果表不存在，则创建表
     [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVSummaryResultModel(ID integer PRIMARY KEY "
                       @"AUTOINCREMENT, testId integer, type integer, testTime integer, UvMOS "
                       @"real, loadTime integer, bandwidth real);"];
 
+    // 获取网络类型
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSString *networkType = probeInfo.networkType;
+
     NSString *insertSVSummaryResultModelSQL =
     [NSString stringWithFormat:@"INSERT INTO "
                                @"SVSummaryResultModel(testId,type,testTime,UvMOS,loadTime,"
-                               @"bandwidth)VALUES(%lld, 0, %lld, %lf, %lf, %lf);",
-                               _resultModel.testId, _resultModel.testId, _resultModel.uvMOS,
-                               _resultModel.totalTime, _resultModel.stDownloadSpeed];
+                               @"bandwidth)VALUES(%lld, %d, %lld, %lf, %lf, %lf);",
+                               _resultModel.testId, networkType.intValue, _resultModel.testId,
+                               _resultModel.uvMOS, _resultModel.totalTime, _resultModel.stDownloadSpeed];
     // 插入汇总结果
     [db executeUpdate:insertSVSummaryResultModelSQL];
+
+    // 判断结果是否超过限制，如果超出限制，则删除多余数据
+    int resultNum = [db executeCountQuery:@"SELECT COUNT(*) FROM SVSummaryResultModel;"];
+    if (resultNum > 200)
+    {
+        // 删除最早的数据
+        [db executeUpdate:@"DELETE FROM SVSummaryResultModel WHERE id in (SELECT id FROM "
+                          @"SVSummaryResultModel ORDER BY testTime asc LIMIT 101);"];
+    }
 }
 
 //设置 tableView 的 numberOfSectionsInTableView(设置几个 section)

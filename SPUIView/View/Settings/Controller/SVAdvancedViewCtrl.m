@@ -54,7 +54,7 @@
         @{ @"10min": @"600" },
         @{ @"30min": @"1800" }
     ];
-    clarityDic = @[I18N (@"Auto"), @"1080P", @"720P", @"480P"];
+    clarityDic = @[@"1080P", @"720P", @"480P"];
 
     // 初始化返回按钮
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
@@ -590,6 +590,7 @@
     lableResultUpload.textColor = [UIColor colorWithHexString:@"#CC000000"];
     lableResultUpload.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     [resultUploadView addSubview:lableResultUpload];
+
     // switch选择开关
     UISwitch *mySwitch = [[UISwitch alloc] init];
     mySwitch.frame = CGRectMake (FITWIDTH (850), 0, 0, 0);
@@ -597,21 +598,28 @@
     [mySwitch addTarget:self
                  action:@selector (switchChange:)
        forControlEvents:UIControlEventValueChanged];
+
+    // 设置switch开关的默认值
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    BOOL isUploadResult = [probeInfo isUploadResult];
+    [mySwitch setOn:isUploadResult];
     [resultUploadView addSubview:mySwitch];
 }
 // switch选择开关点击事件
 - (void)switchChange:(id)sender
 {
-
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     UISwitch *mySwitch = (UISwitch *)sender;
     BOOL isButtonOn = [mySwitch isOn];
     if (isButtonOn)
     {
-        SVInfo (@"打开");
+        SVInfo (@"Open result upload!");
+        [probeInfo setUploadResult:YES];
     }
     else
     {
-        SVInfo (@"关闭");
+        SVInfo (@"Close result upload!");
+        [probeInfo setUploadResult:NO];
     }
 }
 

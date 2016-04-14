@@ -226,13 +226,13 @@
 
 - (void)setResultModel:(SVSummaryResultModel *)_resultModel
 {
-    // WIFI 0  Mobile 1
+    // WIFI 1  Mobile 0
     UIImage *networkTypeImage;
-    if ([_resultModel.type isEqualToString:@"0"])
+    if ([_resultModel.type isEqualToString:@"1"])
     {
         networkTypeImage = [UIImage imageNamed:@"ic_network_type_wifi"];
     }
-    else if ([_resultModel.type isEqualToString:@"1"])
+    else if ([_resultModel.type isEqualToString:@"0"])
     {
         networkTypeImage = [UIImage imageNamed:@"ic_network_type_mobile"];
     }

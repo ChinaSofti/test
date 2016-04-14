@@ -123,6 +123,8 @@
 		5BC491F21CAB5D420002CA68 /* ic_web_label@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BC491E61CAB5D420002CA68 /* ic_web_label@2x.png */; };
 		5BC491F31CAB5D420002CA68 /* ic_web_label@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BC491E71CAB5D420002CA68 /* ic_web_label@3x.png */; };
 		5BE6DE271CAE69CD00CA2B5B /* SVLabelTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE6DE261CAE69CD00CA2B5B /* SVLabelTools.m */; };
+		5BE7A5D71CBF81E20080FEA9 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE7A5D51CBF81E20080FEA9 /* libpcre.a */; };
+		5BE7A5D81CBF81E20080FEA9 /* libVideoParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE7A5D61CBF81E20080FEA9 /* libVideoParser.a */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B73105961CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105911CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m */; };
@@ -453,6 +455,9 @@
 		5BC491E71CAB5D420002CA68 /* ic_web_label@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_web_label@3x.png"; sourceTree = "<group>"; };
 		5BE6DE251CAE69CD00CA2B5B /* SVLabelTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVLabelTools.h; sourceTree = "<group>"; };
 		5BE6DE261CAE69CD00CA2B5B /* SVLabelTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVLabelTools.m; sourceTree = "<group>"; };
+		5BE7A5D31CBF81E20080FEA9 /* DLVideoParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLVideoParser.h; sourceTree = "<group>"; };
+		5BE7A5D51CBF81E20080FEA9 /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpcre.a; sourceTree = "<group>"; };
+		5BE7A5D61CBF81E20080FEA9 /* libVideoParser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVideoParser.a; sourceTree = "<group>"; };
 		B70FF3D31C6582AA002D571B /* SpeedPro.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedPro.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70FF3D51C6582AA002D571B /* SPUIViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUIViewTests.m; sourceTree = "<group>"; };
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -736,10 +741,12 @@
 				B7F268451CAE22E400E44299 /* AudioToolbox.framework in Frameworks */,
 				B7F268911CAE4BC800E44299 /* libVitamio.a in Frameworks */,
 				B7F268431CAE22D900E44299 /* AVFoundation.framework in Frameworks */,
+				5BE7A5D71CBF81E20080FEA9 /* libpcre.a in Frameworks */,
 				B7F268901CAE4BC800E44299 /* libopenssl.a in Frameworks */,
 				B7F268931CAE4BC800E44299 /* libWeChatSDK.a in Frameworks */,
 				56CAFFC71C9BFC2100210081 /* SystemConfiguration.framework in Frameworks */,
 				56CAFFC51C9BFC0800210081 /* libz.tbd in Frameworks */,
+				5BE7A5D81CBF81E20080FEA9 /* libVideoParser.a in Frameworks */,
 				B7F2688F1CAE4BC800E44299 /* libffmpeg.a in Frameworks */,
 				56CAFFC31C9BFBFC00210081 /* libsqlite3.0.tbd in Frameworks */,
 				56CAFFC11C9BFBEB00210081 /* CoreTelephony.framework in Frameworks */,
@@ -1198,6 +1205,32 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5BE7A5D11CBF81E20080FEA9 /* DLVideoParser */ = {
+			isa = PBXGroup;
+			children = (
+				5BE7A5D21CBF81E20080FEA9 /* inc */,
+				5BE7A5D41CBF81E20080FEA9 /* lib */,
+			);
+			path = DLVideoParser;
+			sourceTree = "<group>";
+		};
+		5BE7A5D21CBF81E20080FEA9 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				5BE7A5D31CBF81E20080FEA9 /* DLVideoParser.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		5BE7A5D41CBF81E20080FEA9 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				5BE7A5D51CBF81E20080FEA9 /* libpcre.a */,
+				5BE7A5D61CBF81E20080FEA9 /* libVideoParser.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 		B70FF3D41C6582AA002D571B /* SPUIViewTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1210,6 +1243,7 @@
 		B71E7C4F1C743DA200DF1AA4 /* Thirdpart */ = {
 			isa = PBXGroup;
 			children = (
+				5BE7A5D11CBF81E20080FEA9 /* DLVideoParser */,
 				B7F268771CAE4BC800E44299 /* U-vMOS_SDK_for_iOS */,
 				B7F2687A1CAE4BC800E44299 /* Vitamio */,
 				B7F268891CAE4BC800E44299 /* WebChat */,
@@ -2168,9 +2202,10 @@
 					"$(PROJECT_DIR)/Thirdpart/Vitamio",
 					"$(PROJECT_DIR)/Thirdpart/U-vMOS_SDK_for_iOS",
 					"$(PROJECT_DIR)/Thirdpart/WebChat",
+					"$(PROJECT_DIR)/Thirdpart/DLVideoParser/lib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2203,9 +2238,10 @@
 					"$(PROJECT_DIR)/Thirdpart/Vitamio",
 					"$(PROJECT_DIR)/Thirdpart/U-vMOS_SDK_for_iOS",
 					"$(PROJECT_DIR)/Thirdpart/WebChat",
+					"$(PROJECT_DIR)/Thirdpart/DLVideoParser/lib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.SP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
