@@ -110,5 +110,19 @@
  */
 - (NSString *)getVideoClarity;
 
+/**
+ *  设置是否上传结果
+ *
+ *  @param isUploadResult 是否上传结果
+ */
+- (void)setUploadResult:(BOOL)isUploadResult;
+
+/**
+ *  获取是否上传结果
+ *
+ *  @return 是否上传结果
+ */
+- (BOOL)isUploadResult;
+
 
 @end

@@ -10,7 +10,6 @@
 
 @interface SVVideoView : UIView
 
-@property (nonatomic, strong) UIView *vView; //定义videoView中的属性
-@property (nonatomic, strong) UIView *vvView; //定义videoView中的属性
+- (id)initWithFrame:(CGRect)frame;
 
 @end

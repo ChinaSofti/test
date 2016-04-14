@@ -181,7 +181,7 @@
 
     // 网络类型
     NSString *networkType = [probeInfoJson valueForKey:@"networkType"];
-    if ([networkType isEqualToString:@"0"])
+    if ([networkType isEqualToString:@"1"])
     {
         networkType = I18N (@"WIFI");
     }
@@ -287,32 +287,28 @@
                                              unit:I18N (@"inch")]
                }]];
 
-    //    // 视频地址
-    //    [_soucreMA addObject:[SVToolModels modelWithDict:@{
-    //                   @"key": I18N (@"Video URL"),
-    //                   @"value": [self formatValue:[testContextJson valueForKey:@"videoURL"]]
-    //               }]];
-
     // 测试时长
     NSString *videoPlayDurationStr = [testContextJson valueForKey:@"videoPlayDuration"];
     int videoPlayDuration = videoPlayDurationStr ? [videoPlayDurationStr intValue] : 60;
-    if (videoPlayDuration > 60)
-    {
-        // 单位转换为min分钟
-        videoPlayDuration = videoPlayDuration / 60;
-        videoPlayDurationStr = [NSString stringWithFormat:@"%dmin", videoPlayDuration];
-    }
-    else
-    {
-        videoPlayDurationStr = [NSString stringWithFormat:@"%ds", videoPlayDuration];
-    }
+
+    // 单位转换为min分钟
+    videoPlayDuration = videoPlayDuration / 60;
+    videoPlayDurationStr = [NSString stringWithFormat:@"%dmin", videoPlayDuration];
+
 
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Video Play Duration"),
                    @"value": videoPlayDurationStr
                }]];
 
+    // 视频地址
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Video URL"),
+                   @"value": [self formatValue:[testContextJson valueForKey:@"videoURL"]]
+               }]];
+
 #pragma mark - 遍历得到所有视频分片信息，目前只显示第一条分片信息
+    int index = 1;
     for (NSString *key in [testContextJson allKeys])
     {
         if ([key isEqualToString:@"videoPlayDuration"] || [key isEqualToString:@"videoURL"])
@@ -331,16 +327,23 @@
             continue;
         }
 
-        // 视频分片地址
+        // 生成testUrl对应的UIView
+        [_soucreMA addObject:[[SVToolCells alloc]
+                             initSubTitleCellWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:@"CND Cell"
+                                              subTitle:[NSString stringWithFormat:@"CND%d%@", index, I18N (@"Infomation")]
+                                             WithColor:[UIColor colorWithHexString:@"#FFFEB960"]]];
+
+        // 视频分片IP
         [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                       @"key": I18N (@"Video URL"),
-                       @"value": [self formatValue:key]
+                       @"key": I18N (@"IP Address"),
+                       @"value": [self formatValue:[segementJson valueForKey:@"videoSegementIP"]]
                    }]];
 
         // 视频分片位置
         [_soucreMA
         addObject:[SVToolModels modelWithDict:@{
-            @"key": I18N (@"Video Server Location"),
+            @"key": I18N (@"City"),
             @"value": [self formatValue:[segementJson valueForKey:@"videoSegemnetLocation"]]
         }]];
 
@@ -349,6 +352,8 @@
                        @"key": I18N (@"Carrier"),
                        @"value": [self formatValue:[segementJson valueForKey:@"videoSegemnetISP"]]
                    }]];
+
+        index++;
     }
 }
 
@@ -376,9 +381,11 @@
         }
 
         // 生成testUrl对应的UIView
-        [_soucreMA addObject:[[SVToolCells alloc] initUrlCellWithStyle:UITableViewCellStyleDefault
-                                                       reuseIdentifier:@"urlCell"
-                                                               testUrl:url]];
+        [_soucreMA addObject:[[SVToolCells alloc]
+                             initSubTitleCellWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:@"urlCell"
+                                              subTitle:url
+                                             WithColor:[UIColor colorWithHexString:@"#FF38C695"]]];
 
         // 判断加载时间是否超过10S，如果超过则显示超时
         NSString *loadTime = [currentResultJson valueForKey:@"totalTime"];
@@ -430,11 +437,10 @@
         @"key": I18N (@"Upload speed"),
         @"value": [self formatFloatValue:[testResultJson valueForKey:@"uploadSpeed"] unit:@"Mbps"]
     }]];
-    [_soucreMA
-    addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Delay"),
-        @"value": [self formatFloatValue:[testResultJson valueForKey:@"delay"] unit:@"ms"]
-    }]];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Delay"),
+                   @"value": [self formatIntValue:[testResultJson valueForKey:@"delay"] unit:@"ms"]
+               }]];
 
 
     [_soucreMA addObject:[SVToolModels modelWithDict:@{

@@ -93,7 +93,17 @@
         return;
     }
 
-    // 根据测试数据是否加载完成来显示进度条的进度，当进度条走到80%时，会一直等待知道加载完成
+    // 如果网络无法连接，则直接进入
+    SVRealReachability *realReachability = [SVRealReachability sharedInstance];
+    SVRealReachabilityStatus currentStatus = realReachability.getNetworkStatus;
+    if (currentStatus == SV_WWANTypeUnknown || currentStatus == SV_RealStatusNotReachable)
+    {
+        progressVlaue = 1;
+        [progressView setProgress:progressVlaue];
+        return;
+    }
+
+    // 根据测试数据是否加载完成来显示进度条的进度
     SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
     if (![contextGetter isInitSuccess])
     {

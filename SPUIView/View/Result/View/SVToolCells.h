@@ -36,10 +36,11 @@
                                  title:(NSString *)title
                              imageName:(NSString *)imageName;
 
-// 初始化testUrl的cell
-- (instancetype)initUrlCellWithStyle:(UITableViewCellStyle)style
-                     reuseIdentifier:(NSString *)reuseIdentifier
-                             testUrl:(NSString *)testUrl;
+// 初始化子标题的cell
+- (instancetype)initSubTitleCellWithStyle:(UITableViewCellStyle)style
+                          reuseIdentifier:(NSString *)reuseIdentifier
+                                 subTitle:(NSString *)subTitle
+                                WithColor:(UIColor *)color;
 
 - (void)cellViewModelByToolModel:(SVToolModels *)model Section:(NSInteger)section;
 

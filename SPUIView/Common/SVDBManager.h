@@ -37,4 +37,13 @@
  */
 - (NSArray *)executeQuery:(Class)clazz SQL:(NSString *)sql, ...;
 
+/**
+ *  使用指定SQL进行count查询
+ *
+ *  @param sql   SQL查询语句
+ *
+ *  @return 数据个数
+ */
+- (int)executeCountQuery:(NSString *)sql, ...;
+
 @end

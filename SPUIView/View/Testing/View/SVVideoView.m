@@ -10,10 +10,9 @@
 
 @implementation SVVideoView
 
-//初始化方法
-- (instancetype)init
+- (id)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self)
     {
         // videoView中的初始化

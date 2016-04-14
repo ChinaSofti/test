@@ -26,6 +26,12 @@
 "Network Settings" = "Network Settings";
 "Start Test"="Start Test";
 
+//网络提示框
+"Prompt" = "Prompt";
+"You are using a none-Wi-Fi network.Continuing the test will cause extra traffic fees." = "You are using a none-Wi-Fi network.Continuing the test will cause extra traffic fees.";
+"Cancel Test" = "Cancel Test";
+"Continue Test" = "Continue Test";
+
 //视频测试
 "Loading..." = "Loading...";
 "Fail" = "Fail";
@@ -55,6 +61,10 @@
 "U-vMOS"="U-vMOS";
 "Load Time"="Load Time";
 "Bandwidth"="Bandwidth";
+"Infomation"="Infomation";
+"IP Address"="IP Address";
+"City"="City";
+"Carrier"="Carrier";
 //删除 提示视图
 "Prompt"="Prompt";
 "Clear all test results"="Clear All Test Results";
@@ -108,6 +118,8 @@
 "Network type"="Network Type";
 "Unknown" = "Unknown";
 "Test time"="Test Time";
+//日期格式
+"yyyy-MM-dd HH:mm:ss" = "MMM dd,yyyy HH:mm:ss";
 "Signaling strength"="Signaling Strength";
 
 //分享提示视图
@@ -196,7 +208,7 @@
 "Video quality:" = "Video quality:";
 "Result Upload" = "Result Upload";
 
-
+//网络类型提示框
 "Network unreachable!" = "Network Unreachable!";
 "Network wifi!" = "Network Wi-Fi!";
 "Network WWAN!" = "Network WWAN!";
@@ -207,5 +219,3 @@
 "Mobile network" ="Mobile Network";
 "WIFI" = "Wi-Fi";
 
-//日期格式
-"yyyy-MM-dd HH:mm:ss" = "MMM dd,yyyy HH:mm:ss";

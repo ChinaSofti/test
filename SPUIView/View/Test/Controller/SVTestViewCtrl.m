@@ -9,6 +9,7 @@
 #import "AlertView.h"
 #import "SVCurrentResultModel.h"
 #import "SVCurrentResultViewCtrl.h"
+#import "SVRealReachability.h"
 #import "SVSpeedTestingViewCtrl.h"
 #import "SVTestContextGetter.h"
 #import "SVTestViewCtrl.h"
@@ -248,6 +249,9 @@
         [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
         _button.userInteractionEnabled = YES;
 
+        // 设置字体大小
+        [_button.titleLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (48)]];
+
         // 按钮圆角
         _button.layer.cornerRadius = svCornerRadius (12);
 
@@ -336,6 +340,44 @@
 // 按钮的点击事件
 - (void)testBtnClick1
 {
+    SVInfo (@"testBtnClick...");
+    //获取网络类型
+    SVRealReachability *realReachablity = [SVRealReachability sharedInstance];
+    SVRealReachabilityStatus status = [realReachablity getNetworkStatus];
+    if (status != SV_RealStatusViaWiFi)
+    {
+        NSString *title1 = I18N (@"Prompt");
+        NSString *title2 = I18N (
+        @"You are using a none-Wi-Fi network.Continuing the test will cause extra traffic fees.");
+        NSString *title3 = I18N (@"Cancel Test");
+        NSString *title4 = I18N (@"Continue Test");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title1
+                                                        message:title2
+                                                       delegate:self
+                                              cancelButtonTitle:title3
+                                              otherButtonTitles:title4, nil];
+        [alert show];
+    }
+    else
+    {
+        [self beginTest];
+    }
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        SVInfo (@"继续测试");
+        [self beginTest];
+    }
+    else
+    {
+        SVInfo (@"返回");
+    }
+}
+//开始测试方法
+- (void)beginTest
+{
     [_selectedMA sortUsingComparator:^NSComparisonResult (__strong id obj1, __strong id obj2) {
       return [obj1 intValue] > [obj2 intValue];
     }];
@@ -383,8 +425,8 @@
     [currentResultModel addCtrl:currentResultView];
 
     [currentResultModel pushNextCtrl];
-    SVInfo (@"testBtnClick...");
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

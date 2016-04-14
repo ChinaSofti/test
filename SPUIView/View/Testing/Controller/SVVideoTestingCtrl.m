@@ -39,7 +39,6 @@
     // 定义主图的View
     UIView *uvMosBarView;
 
-    NSTimer *_timer;
     float realBitrate; // 实际真实码率
     float realuvMOSSession; // 实际真实UvMOS值
     int _resultTimes; // 是否时第一次上报结果
@@ -72,6 +71,9 @@
 
     // 码率值
     UILabel *_bitRateValue;
+
+    // 遮挡视频的透明UIView，其大小始终与视频大小相同
+    UIView *_transparentView;
 }
 
 // 定义gray遮挡View
@@ -167,7 +169,6 @@
     realuvMOSSession = 0.0;
     _resultTimes = 0;
     _UvMOSbarResultTimes = 0;
-    _timer = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -198,6 +199,20 @@
     _videoTest = [[SVVideoTest alloc] initWithView:self.currentResultModel.testId
                                      showVideoView:_videoView
                                       testDelegate:self];
+    // 创建遮挡视频的透明UIView
+    if (_transparentView)
+    {
+        [_transparentView removeFromSuperview];
+        _transparentView = nil;
+    }
+
+    _transparentView = [[UIView alloc] initWithFrame:_videoView.frame];
+    _transparentView.alpha = 0.1;
+    UITapGestureRecognizer *tapGesture =
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector (ClickVideoView:)];
+    [tapGesture setNumberOfTapsRequired:1];
+    [_transparentView addGestureRecognizer:tapGesture];
+    [_footerView.leftView addSubview:_transparentView];
 
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     int _videoPlayTime = [probeInfo getVideoPlayTime];
@@ -223,14 +238,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
-    // 取消定时器
-    if (_timer)
-    {
-        // 取消定时器
-        [_timer invalidate];
-        _timer = nil;
-    }
 
     dispatch_async (dispatch_get_main_queue (), ^{
       // 当用户离开当前页面时，停止测试
@@ -375,14 +382,10 @@
     [_resolutionInFullScreenValue setTextAlignment:NSTextAlignmentCenter];
     [_showCurrentResultInFullScreenMode addSubview:_resolutionInFullScreenValue];
 
-    // 初始化
-    _videoView = [[SVVideoView alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (524), FITHEIGHT (312))];
+    // 初始化CGRectMake (0, 0, FITWIDTH (525), FITHEIGHT (310));
+    _videoView = [[SVVideoView alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (512), FITHEIGHT (288))];
     [_videoView setBackgroundColor:[UIColor blackColor]];
-    [_videoView setContentMode:UIViewContentModeScaleToFill];
-    UITapGestureRecognizer *tapGesture =
-    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector (ClickVideoView:)];
-    [tapGesture setNumberOfTapsRequired:1];
-    [_videoView addGestureRecognizer:tapGesture];
+    //    [_videoView setContentMode:UIViewContentModeScaleToFill];
     [_footerView.leftView addSubview:_videoView];
 }
 
@@ -490,7 +493,6 @@
 - (void)updateTestResultDelegate:(SVVideoTestContext *)testContext
                       testResult:(SVVideoTestResult *)testResult
 {
-
     // UvMOS 综合得分
     NSArray *testSamples = testResult.videoTestSamples;
     SVVideoTestSample *testSample = testSamples[testSamples.count - 1];
@@ -522,12 +524,14 @@
       [_bufferTimesInFullScreenValue setText:[NSString stringWithFormat:@"%d", cuttonTimes]];
       [_resolutionInFullScreenValue setText:videoResolution];
 
-      UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (2), FITHEIGHT (52))];
-      [bar setBarValue:uvMOSSession];
-      [uvMosBarView addSubview:bar];
+      if (!realuvMOSSession)
+      {
+          UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (2), FITHEIGHT (52))];
+          [bar setBarValue:uvMOSSession];
+          [uvMosBarView addSubview:bar];
+      }
 
       [_testingView updateValue:uvMOSSession];
-
       realBitrate = bitrate;
       realuvMOSSession = uvMOSSession;
 
@@ -604,15 +608,32 @@
     self.navigationController.navigationBar.hidden = NO;
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
 
+    [_transparentView removeFromSuperview];
+    [_videoView removeFromSuperview];
+
     CGAffineTransform at = CGAffineTransformMakeRotation (0);
     [_videoView setTransform:at];
-    _videoView.frame = CGRectMake (0, 0, FITWIDTH (524), FITHEIGHT (312));
+    [_transparentView setTransform:at];
+    _videoView.frame = CGRectMake (0, 0, FITWIDTH (512), FITHEIGHT (288));
+    _transparentView.frame = _videoView.frame;
+
+    NSArray *subViews = _videoView.subviews;
+    for (UIView *view in subViews)
+    {
+        if ([view isKindOfClass:[UIWebView class]])
+        {
+            //
+            UIWebView *webView = (UIWebView *)view;
+            webView.frame = _videoView.frame;
+        }
+    }
+
     // 退出全屏模式时，隐藏_videoView上方显示测试指标
     [_showCurrentResultInFullScreenMode removeFromSuperview];
 
     // 退出全屏模式时将videoView放回原处
-    [_videoView removeFromSuperview];
     [_footerView.leftView addSubview:_videoView];
+    [_footerView.leftView addSubview:_transparentView];
 }
 
 
@@ -626,21 +647,39 @@
     self.navigationController.navigationBar.hidden = YES;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
+    [_transparentView removeFromSuperview];
+    [_videoView removeFromSuperview];
+
     _videoView.center = CGPointMake (kScreenW / 2, kScreenH / 2);
+    _transparentView.center = CGPointMake (kScreenW / 2, kScreenH / 2);
 
     CGAffineTransform at = CGAffineTransformMakeRotation (M_PI / 2);
     at = CGAffineTransformTranslate (at, 0, 0);
     [_videoView setTransform:at];
+    [_transparentView setTransform:at];
 
     _videoView.frame = CGRectMake (0, 0, kScreenW, kScreenH);
+    _transparentView.frame = _videoView.frame;
+
+    NSArray *subViews = _videoView.subviews;
+    for (UIView *view in subViews)
+    {
+        if ([view isKindOfClass:[UIWebView class]])
+        {
+            //
+            UIWebView *webView = (UIWebView *)view;
+            webView.frame = CGRectMake (0, 0, kScreenH, kScreenW);
+        }
+    }
+
     // kScreenW:414.000000    kScreenH:736.000000
     // 在全屏模式下，在_videoView上方显示测试指标
     [_videoView addSubview:_showCurrentResultInFullScreenMode];
     [_videoView setNeedsDisplay];
 
     // 进入全屏时将videoView放到当前view中
-    [_videoView removeFromSuperview];
     [self.view addSubview:_videoView];
+    [self.view addSubview:_transparentView];
 }
 
 @end

@@ -282,6 +282,10 @@ int failCount;
     // 2. speedTestResults
     // 2.1 location
     //[testResultJson valueForKey:@"downloadSpeed"];
+    if (_speedResultArray.count == 0)
+    {
+        return nil;
+    }
 
     SVDetailResultModel *model = [_speedResultArray objectAtIndex:0];
     NSString *testResult = model.testResult;
@@ -396,6 +400,10 @@ int failCount;
 {
     // 3. videoTestResults
     // 3.1 location
+    if (_videoResultArray.count == 0)
+    {
+        return nil;
+    }
 
     NSError *error;
     SVDetailResultModel *model = [_videoResultArray objectAtIndex:0];
@@ -557,6 +565,11 @@ int failCount;
 
 - (NSMutableDictionary *)genWebTestResultsDic
 {
+    if (_webResultArray.count == 0)
+    {
+        return nil;
+    }
+
     // 将结果的json字符串转换成对象
     NSError *error;
     SVDetailResultModel *model = [_webResultArray objectAtIndex:0];

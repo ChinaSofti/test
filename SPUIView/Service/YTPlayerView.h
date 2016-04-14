@@ -17,7 +17,7 @@
 @class YTPlayerView;
 
 /** These enums represent the state of the current video in the player. */
-typedef NS_ENUM(NSInteger, YTPlayerState) {
+typedef NS_ENUM (NSInteger, YTPlayerState) {
     kYTPlayerStateUnstarted,
     kYTPlayerStateEnded,
     kYTPlayerStatePlaying,
@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, YTPlayerState) {
 };
 
 /** These enums represent the resolution of the currently loaded video. */
-typedef NS_ENUM(NSInteger, YTPlaybackQuality) {
+typedef NS_ENUM (NSInteger, YTPlaybackQuality) {
     kYTPlaybackQualitySmall,
     kYTPlaybackQualityMedium,
     kYTPlaybackQualityLarge,
@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger, YTPlaybackQuality) {
 };
 
 /** These enums represent error codes thrown by the player. */
-typedef NS_ENUM(NSInteger, YTPlayerError) {
+typedef NS_ENUM (NSInteger, YTPlayerError) {
     kYTPlayerErrorInvalidParam,
     kYTPlayerErrorHTML5Error,
     kYTPlayerErrorVideoNotFound, // Functionally equivalent error codes 100 and
@@ -58,7 +58,7 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * For the full documentation, see the IFrame documentation here:
  *     https://developers.google.com/youtube/iframe_api_reference#Events
  */
-@protocol YTPlayerViewDelegate<NSObject>
+@protocol YTPlayerViewDelegate <NSObject>
 
 @optional
 /**
@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * Callback invoked when setting up the webview to allow custom colours so it fits in
  * with app color schemes. If a transparent view is required specify clearColor and
  * the code will handle the opacity etc.
- * 
+ *
  * @param playerView The YTPlayerView instance where the error has occurred.
  * @return A color object that represents the background color of the webview.
  */
@@ -118,13 +118,14 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  *
  * The default implementation does not display any custom loading views so the player will display
  * a blank view with a background color of (-playerViewPreferredWebViewBackgroundColor:).
- * 
- * Note that the custom loading view WILL NOT be displayed after iframe is loaded. It will be 
+ *
+ * Note that the custom loading view WILL NOT be displayed after iframe is loaded. It will be
  * handled by YouTube iframe API. This callback is just intended to tell users the view is actually
- * doing something while iframe is being loaded, which will take some time if users are in poor networks.
+ * doing something while iframe is being loaded, which will take some time if users are in poor
+ * networks.
  *
  * @param playerView The YTPlayerView instance where the error has occurred.
- * @return A view object that will be displayed while YouTube iframe API is being loaded. 
+ * @return A view object that will be displayed while YouTube iframe API is being loaded.
  *         Pass nil to display no custom loading view. Default implementation returns nil.
  */
 - (nullable UIView *)playerViewPreferredInitialLoadingView:(nonnull YTPlayerView *)playerView;
@@ -138,12 +139,15 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * YTPlayerView::loadWithPlaylistId: or their variants to set the video or playlist
  * to populate the view with.
  */
-@interface YTPlayerView : UIView<UIWebViewDelegate>
+@interface YTPlayerView : NSObject <UIWebViewDelegate>
 
-@property(nonatomic, strong, nullable, readonly) UIWebView *webView;
+@property (nonatomic, strong, nullable, readonly) UIWebView *webView;
 
 /** A delegate to be notified on playback events. */
-@property(nonatomic, weak, nullable) id<YTPlayerViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<YTPlayerViewDelegate> delegate;
+
+- (nullable id)initWithView:(nullable UIView *)uiview
+                   delegate:(nullable id<YTPlayerViewDelegate>)delegate;
 
 /**
  * This method loads the player with the given video ID.
@@ -219,11 +223,13 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * @param playerVars An NSDictionary of player parameters.
  * @return YES if player has been configured correctly, NO otherwise.
  */
-- (BOOL)loadWithPlaylistId:(nonnull NSString *)playlistId playerVars:(nullable NSDictionary *)playerVars;
+- (BOOL)loadWithPlaylistId:(nonnull NSString *)playlistId
+                playerVars:(nullable NSDictionary *)playerVars;
 
 /**
  * This method loads an iframe player with the given player parameters. Usually you may want to use
- * -loadWithVideoId:playerVars: or -loadWithPlaylistId:playerVars: instead of this method does not handle
+ * -loadWithVideoId:playerVars: or -loadWithPlaylistId:playerVars: instead of this method does not
+ * handle
  * video_id or playlist_id at all. The full list of parameters is defined at:
  *   https://developers.google.com/youtube/player_parameters?playerVersion=HTML5.
  *
@@ -621,7 +627,8 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * JavaScript API defined here:
  *   https://developers.google.com/youtube/iframe_api_reference#getAvailableQualityLevels
  *
- * @return An NSArray containing available playback quality levels. Returns nil if there is an error.
+ * @return An NSArray containing available playback quality levels. Returns nil if there is an
+ * error.
  */
 - (nullable NSArray *)availableQualityLevels;
 
@@ -681,13 +688,5 @@ typedef NS_ENUM(NSInteger, YTPlayerError) {
  * @return The 0-based index of the currently playing item in the playlist.
  */
 - (int)playlistIndex;
-
-#pragma mark - Exposed for Testing
-
-/**
- * Removes the internal web view from this player view.
- * Intended to use for testing, should not be used in production code.
- */
-- (void)removeWebView;
 
 @end

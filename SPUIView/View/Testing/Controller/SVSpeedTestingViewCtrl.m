@@ -346,7 +346,7 @@ double _preSpeed = 0.0;
       }
 
       // 显示头部指标
-      [_headerView updateLeftValue:[NSString stringWithFormat:@"%.2f", testResult.delay]
+      [_headerView updateLeftValue:[NSString stringWithFormat:@"%.0f", testResult.delay]
                           WithUnit:@"ms"];
 
       // 如果是汇总结果，直接使用

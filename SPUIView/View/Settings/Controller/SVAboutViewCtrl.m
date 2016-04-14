@@ -94,9 +94,10 @@
     //添加LabCopyright
     UILabel *labCopyright = [[UILabel alloc]
     initWithFrame:CGRectMake (viewLine.frame.origin.x, viewLine.frame.origin.y + FITHEIGHT (58),
-                              kScreenW - FITWIDTH (230), FITHEIGHT (126))];
+                              FITWIDTH (930), FITHEIGHT (126))];
     labCopyright.text = @"Copyright @ Huawei Software Technologies Co.,";
     labCopyright.textColor = [UIColor grayColor];
+    //    labCopyright.backgroundColor = [UIColor redColor];
     labCopyright.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     [self.view addSubview:labCopyright];
 
