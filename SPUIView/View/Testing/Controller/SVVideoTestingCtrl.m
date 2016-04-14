@@ -39,7 +39,6 @@
     // 定义主图的View
     UIView *uvMosBarView;
 
-    NSTimer *_timer;
     float realBitrate; // 实际真实码率
     float realuvMOSSession; // 实际真实UvMOS值
     int _resultTimes; // 是否时第一次上报结果
@@ -170,7 +169,6 @@
     realuvMOSSession = 0.0;
     _resultTimes = 0;
     _UvMOSbarResultTimes = 0;
-    _timer = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -240,14 +238,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
-    // 取消定时器
-    if (_timer)
-    {
-        // 取消定时器
-        [_timer invalidate];
-        _timer = nil;
-    }
 
     dispatch_async (dispatch_get_main_queue (), ^{
       // 当用户离开当前页面时，停止测试
@@ -393,7 +383,7 @@
     [_showCurrentResultInFullScreenMode addSubview:_resolutionInFullScreenValue];
 
     // 初始化CGRectMake (0, 0, FITWIDTH (525), FITHEIGHT (310));
-    _videoView = [[SVVideoView alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (524), FITHEIGHT (312))];
+    _videoView = [[SVVideoView alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (512), FITHEIGHT (288))];
     [_videoView setBackgroundColor:[UIColor blackColor]];
     //    [_videoView setContentMode:UIViewContentModeScaleToFill];
     [_footerView.leftView addSubview:_videoView];
@@ -503,7 +493,6 @@
 - (void)updateTestResultDelegate:(SVVideoTestContext *)testContext
                       testResult:(SVVideoTestResult *)testResult
 {
-
     // UvMOS 综合得分
     NSArray *testSamples = testResult.videoTestSamples;
     SVVideoTestSample *testSample = testSamples[testSamples.count - 1];
@@ -535,12 +524,14 @@
       [_bufferTimesInFullScreenValue setText:[NSString stringWithFormat:@"%d", cuttonTimes]];
       [_resolutionInFullScreenValue setText:videoResolution];
 
-      UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (2), FITHEIGHT (52))];
-      [bar setBarValue:uvMOSSession];
-      [uvMosBarView addSubview:bar];
+      if (!realuvMOSSession)
+      {
+          UUBar *bar = [[UUBar alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (2), FITHEIGHT (52))];
+          [bar setBarValue:uvMOSSession];
+          [uvMosBarView addSubview:bar];
+      }
 
       [_testingView updateValue:uvMOSSession];
-
       realBitrate = bitrate;
       realuvMOSSession = uvMOSSession;
 
@@ -623,7 +614,7 @@
     CGAffineTransform at = CGAffineTransformMakeRotation (0);
     [_videoView setTransform:at];
     [_transparentView setTransform:at];
-    _videoView.frame = CGRectMake (0, 0, FITWIDTH (524), FITHEIGHT (312));
+    _videoView.frame = CGRectMake (0, 0, FITWIDTH (512), FITHEIGHT (288));
     _transparentView.frame = _videoView.frame;
 
     NSArray *subViews = _videoView.subviews;
