@@ -19,4 +19,6 @@
 + (NSString *)deviceType;
 
 
++ (NSString *)getIPAddress;
+
 @end

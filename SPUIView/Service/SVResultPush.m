@@ -7,6 +7,7 @@
 //
 
 
+#import "SVCurrentDevice.h"
 #import "SVDBManager.h"
 #import "SVDetailResultModel.h"
 #import "SVHttpsGetter.h"
@@ -202,14 +203,14 @@ int failCount;
     [locationDic setObject:[self ispFilter:isp str:isp.country] forKey:@"country"];
     [locationDic setObject:[self ispFilter:isp str:isp.countryCode] forKey:@"countryCode"];
     [locationDic setObject:@"" forKey:@"district"];
-    [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"ip"];
+    [locationDic setObject:[self hideIp:[self ispFilter:isp str:isp.query]] forKey:@"ip"];
     [locationDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"isp"];
     [locationDic setObject:[self ispFilter:isp str:isp.lat] forKey:@"lat"];
     [locationDic setObject:[self ispFilter:isp str:isp.lon] forKey:@"lon"];
     [locationDic setObject:@"" forKey:@"message"];
     [locationDic setObject:[self ispFilter:isp str:isp.org] forKey:@"org"];
     [locationDic setObject:@"" forKey:@"province"];
-    [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"query"];
+    [locationDic setObject:[self hideIp:[self ispFilter:isp str:isp.query]] forKey:@"query"];
     [locationDic setObject:[self ispFilter:isp str:isp.region] forKey:@"region"];
     [locationDic setObject:[self ispFilter:isp str:isp.regionName] forKey:@"regionName"];
     [locationDic setObject:@"success" forKey:@"status"];
@@ -231,6 +232,7 @@ int failCount;
     // 手机型号: iPhone
     //    NSString *phoneModel = [[UIDevice currentDevice] model];
 
+    NSString *localIP = [SVCurrentDevice getIPAddress];
     // UUID
     //    NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 
@@ -239,7 +241,7 @@ int failCount;
 
     [paramDic setObject:@0 forKey:@"cellid"];
     [paramDic setObject:@"xxxxxxxxxxxxxxxxxxxxxxxxxxx" forKey:@"mobileid"];
-    [paramDic setObject:[self hideIp:[self ispFilter:isp str:isp.query]] forKey:@"mobileip"];
+    [paramDic setObject:!localIP ? @"" : [self hideIp:localIP] forKey:@"mobileip"];
     [paramDic setObject:deviceName forKey:@"mobilename"];
     //    [paramDic setObject:mobilename forKey:@"mobilename"];
     [paramDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"operatorname"];
@@ -272,7 +274,7 @@ int failCount;
     if ([mobileIp containsString:@"."])
     {
         NSArray *array = [mobileIp componentsSeparatedByString:@"."];
-        mobileIp = [NSString stringWithFormat:@"%@.%@.%@.xxx", array[0], array[1], array[2]];
+        mobileIp = [NSString stringWithFormat:@"%@.%@.%@.***", array[0], array[1], array[2]];
     }
     return mobileIp;
 }
