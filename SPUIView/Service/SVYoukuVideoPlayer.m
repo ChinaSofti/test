@@ -62,6 +62,8 @@
 
     // 正在测试的分片信息
     SVVideoSegement *segement;
+
+    int maxDownloadSize;
 }
 
 @synthesize showOnView, testResult, testContext, uvMOSCalculator;
@@ -213,10 +215,10 @@ static int execute_total_times = 4;
         }
 
         [testResult setDownloadSize:_downloadSize];
-        if (_downloadTime > 0)
-        {
-            [testResult setDownloadSpeed:(_downloadSize * 8 / _downloadTime)];
-        }
+        //        if (_downloadTime > 0)
+        //        {
+        //            [testResult setDownloadSpeed:(_downloadSize * 8 / _downloadTime)];
+        //        }
         [testResult setVideoEndPlayTime:[SVTimeUtil currentMilliSecondStamp]];
 
         // 取消 UvMOS 注册服务
@@ -328,6 +330,17 @@ static int execute_total_times = 4;
     {
         int bufferedTime = (int)([SVTimeUtil currentMilliSecondStamp] - startPlayTime);
         [self startCalculateUvMOS:player bufferedTime:bufferedTime];
+    }
+
+    if (!maxDownloadSize)
+    {
+        maxDownloadSize = [arg intValue];
+    }
+
+    if ([arg intValue] >= maxDownloadSize)
+    {
+        [testResult setDownloadSpeed:(maxDownloadSize * 8)];
+        maxDownloadSize = [arg intValue];
     }
 }
 
