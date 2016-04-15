@@ -13,8 +13,6 @@
 #import "SVTimeUtil.h"
 #import "SVVideoAnalyser_youku.h"
 #import "SVWebBrowser.h"
-#import "SVYouKu__ysuid.h"
-#import "SVYoukuSIDAndTokenAndEqGetter.h"
 
 // 获取密文 ip等信息
 #define ToGetSourceCodeURL "http://play.youku.com/play/get.json?vid=%@&ct=12"

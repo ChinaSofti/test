@@ -647,6 +647,11 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
  */
 - (void)notifyDelegateOfYouTubeCallbackUrl:(NSURL *)url
 {
+    if (!self.delegate)
+    {
+        return;
+    }
+
     NSString *action = url.host;
 
     // We know the query can only be of the format ytplayer://action?data=SOMEVALUE,
@@ -897,7 +902,7 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 
     //    NSString *vid = [additionalPlayerParams valueForKey:@"videoId"];
     NSString *embedHTML = [NSString stringWithFormat:embedHTMLTemplate, playerVarsJsonString];
-    NSLog (@"%@", embedHTML);
+    //    NSLog (@"%@", embedHTML);
     [self.webView loadHTMLString:embedHTML baseURL:self.originURL];
     return YES;
 }

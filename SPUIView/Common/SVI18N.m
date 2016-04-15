@@ -114,6 +114,11 @@ static NSBundle *i18nBundle;
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *language = [defaults valueForKey:@"language"];
+    if (!language)
+    {
+        return [SVI18N getSystemLanguage];
+    }
+
     return language;
 }
 

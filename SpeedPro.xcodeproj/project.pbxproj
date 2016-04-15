@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4DD033911C734BB400A8CE9B /* ic_language_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD033901C734BB400A8CE9B /* ic_language_select.png */; };
 		561447C11C59BCE900003B9A /* SVPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 561447C01C59BCE900003B9A /* SVPointView.m */; };
+		5614729F1CC0906F0089BC02 /* SVProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5614729E1CC0906F0089BC02 /* SVProgressView.m */; };
 		561A36B91C89693F00AC5F5E /* SVUploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36B81C89693F00AC5F5E /* SVUploadFile.m */; };
 		561A36BF1C896A0C00AC5F5E /* SVResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36BC1C896A0C00AC5F5E /* SVResultCell.m */; };
 		561A36C01C896A0C00AC5F5E /* SVToolCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36BE1C896A0C00AC5F5E /* SVToolCells.m */; };
@@ -177,8 +178,8 @@
 		B7C61B4A1CA68362001E32DC /* icon58.png in Resources */ = {isa = PBXBuildFile; fileRef = B7C61B471CA68362001E32DC /* icon58.png */; };
 		B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */; };
 		B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CD57511C70C7FB00668E88 /* SVCurrentResultModel.m */; };
-		B7F2676F1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2672D1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.m */; };
-		B7F267701CAE1BF300E44299 /* SVYouKu__ysuid.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2672F1CAE1BF300E44299 /* SVYouKu__ysuid.m */; };
+		B7E4C1741CBFE31800CB941A /* Privacy_cn.html in Resources */ = {isa = PBXBuildFile; fileRef = B7E4C1721CBFE31800CB941A /* Privacy_cn.html */; };
+		B7E4C1751CBFE31800CB941A /* Privacy_en.html in Resources */ = {isa = PBXBuildFile; fileRef = B7E4C1731CBFE31800CB941A /* Privacy_en.html */; };
 		B7F267711CAE1BF300E44299 /* SVWebTestContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267311CAE1BF300E44299 /* SVWebTestContext.m */; };
 		B7F267721CAE1BF300E44299 /* SVWebContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267331CAE1BF300E44299 /* SVWebContext.m */; };
 		B7F267731CAE1BF300E44299 /* SVVideoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267351CAE1BF300E44299 /* SVVideoUtil.m */; };
@@ -200,13 +201,11 @@
 		B7F267841CAE1BF300E44299 /* SVSpeedTestServersParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267571CAE1BF300E44299 /* SVSpeedTestServersParser.m */; };
 		B7F267851CAE1BF300E44299 /* SVSpeedTestServers.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267591CAE1BF300E44299 /* SVSpeedTestServers.m */; };
 		B7F267861CAE1BF300E44299 /* SVSpeedTestServer.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2675B1CAE1BF300E44299 /* SVSpeedTestServer.m */; };
-		B7F267871CAE1BF300E44299 /* SVRc4.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2675D1CAE1BF300E44299 /* SVRc4.m */; };
 		B7F267881CAE1BF300E44299 /* SVProbeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2675F1CAE1BF300E44299 /* SVProbeInfo.m */; };
 		B7F267891CAE1BF300E44299 /* SVLogUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267611CAE1BF300E44299 /* SVLogUploader.m */; };
 		B7F2678A1CAE1BF300E44299 /* SVIPAndISPGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267631CAE1BF300E44299 /* SVIPAndISPGetter.m */; };
 		B7F2678B1CAE1BF300E44299 /* SVIPAndISP.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267651CAE1BF300E44299 /* SVIPAndISP.m */; };
 		B7F2678C1CAE1BF300E44299 /* SVDetailResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267671CAE1BF300E44299 /* SVDetailResultModel.m */; };
-		B7F2678D1CAE1BF300E44299 /* SVDecode64.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267691CAE1BF300E44299 /* SVDecode64.m */; };
 		B7F2678E1CAE1BF300E44299 /* SVContentProviderGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2676B1CAE1BF300E44299 /* SVContentProviderGetter.m */; };
 		B7F267AA1CAE1C0000E44299 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267921CAE1C0000E44299 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B7F267AB1CAE1C0000E44299 /* SVCurrentDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267951CAE1C0000E44299 /* SVCurrentDevice.m */; };
@@ -272,7 +271,6 @@
 		B7F268691CAE263300E44299 /* SVSpeedTestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F268631CAE263300E44299 /* SVSpeedTestResult.m */; };
 		B7F2688E1CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268781CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a */; };
 		B7F2688F1CAE4BC800E44299 /* libffmpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268851CAE4BC800E44299 /* libffmpeg.a */; };
-		B7F268901CAE4BC800E44299 /* libopenssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268861CAE4BC800E44299 /* libopenssl.a */; };
 		B7F268911CAE4BC800E44299 /* libVitamio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268871CAE4BC800E44299 /* libVitamio.a */; };
 		B7F268921CAE4BC800E44299 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B7F268881CAE4BC800E44299 /* LICENSE */; };
 		B7F268931CAE4BC800E44299 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F2688A1CAE4BC800E44299 /* libWeChatSDK.a */; };
@@ -307,6 +305,8 @@
 		4DD033901C734BB400A8CE9B /* ic_language_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_language_select.png; path = ../ic_language_select.png; sourceTree = "<group>"; };
 		561447BF1C59BCE900003B9A /* SVPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPointView.h; sourceTree = "<group>"; };
 		561447C01C59BCE900003B9A /* SVPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPointView.m; sourceTree = "<group>"; };
+		5614729D1CC0906F0089BC02 /* SVProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressView.h; sourceTree = "<group>"; };
+		5614729E1CC0906F0089BC02 /* SVProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressView.m; sourceTree = "<group>"; };
 		561A36B71C89693F00AC5F5E /* SVUploadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVUploadFile.h; sourceTree = "<group>"; };
 		561A36B81C89693F00AC5F5E /* SVUploadFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVUploadFile.m; sourceTree = "<group>"; };
 		561A36BB1C896A0C00AC5F5E /* SVResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultCell.h; sourceTree = "<group>"; };
@@ -534,10 +534,8 @@
 		B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDetailViewModel.m; sourceTree = "<group>"; };
 		B7CD57501C70C7FB00668E88 /* SVCurrentResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVCurrentResultModel.h; sourceTree = "<group>"; };
 		B7CD57511C70C7FB00668E88 /* SVCurrentResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVCurrentResultModel.m; sourceTree = "<group>"; };
-		B7F2672D1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVYoukuSIDAndTokenAndEqGetter.m; sourceTree = "<group>"; };
-		B7F2672E1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVYoukuSIDAndTokenAndEqGetter.h; sourceTree = "<group>"; };
-		B7F2672F1CAE1BF300E44299 /* SVYouKu__ysuid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVYouKu__ysuid.m; sourceTree = "<group>"; };
-		B7F267301CAE1BF300E44299 /* SVYouKu__ysuid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVYouKu__ysuid.h; sourceTree = "<group>"; };
+		B7E4C1721CBFE31800CB941A /* Privacy_cn.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Privacy_cn.html; sourceTree = "<group>"; };
+		B7E4C1731CBFE31800CB941A /* Privacy_en.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Privacy_en.html; sourceTree = "<group>"; };
 		B7F267311CAE1BF300E44299 /* SVWebTestContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebTestContext.m; sourceTree = "<group>"; };
 		B7F267321CAE1BF300E44299 /* SVWebTestContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebTestContext.h; sourceTree = "<group>"; };
 		B7F267331CAE1BF300E44299 /* SVWebContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebContext.m; sourceTree = "<group>"; };
@@ -580,8 +578,6 @@
 		B7F2675A1CAE1BF300E44299 /* SVSpeedTestServers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedTestServers.h; sourceTree = "<group>"; };
 		B7F2675B1CAE1BF300E44299 /* SVSpeedTestServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestServer.m; sourceTree = "<group>"; };
 		B7F2675C1CAE1BF300E44299 /* SVSpeedTestServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedTestServer.h; sourceTree = "<group>"; };
-		B7F2675D1CAE1BF300E44299 /* SVRc4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRc4.m; sourceTree = "<group>"; };
-		B7F2675E1CAE1BF300E44299 /* SVRc4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRc4.h; sourceTree = "<group>"; };
 		B7F2675F1CAE1BF300E44299 /* SVProbeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProbeInfo.m; sourceTree = "<group>"; };
 		B7F267601CAE1BF300E44299 /* SVProbeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProbeInfo.h; sourceTree = "<group>"; };
 		B7F267611CAE1BF300E44299 /* SVLogUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVLogUploader.m; sourceTree = "<group>"; };
@@ -592,8 +588,6 @@
 		B7F267661CAE1BF300E44299 /* SVIPAndISP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIPAndISP.h; sourceTree = "<group>"; };
 		B7F267671CAE1BF300E44299 /* SVDetailResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDetailResultModel.m; sourceTree = "<group>"; };
 		B7F267681CAE1BF300E44299 /* SVDetailResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVDetailResultModel.h; sourceTree = "<group>"; };
-		B7F267691CAE1BF300E44299 /* SVDecode64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDecode64.m; sourceTree = "<group>"; };
-		B7F2676A1CAE1BF300E44299 /* SVDecode64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVDecode64.h; sourceTree = "<group>"; };
 		B7F2676B1CAE1BF300E44299 /* SVContentProviderGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVContentProviderGetter.m; sourceTree = "<group>"; };
 		B7F2676C1CAE1BF300E44299 /* SVContentProviderGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVContentProviderGetter.h; sourceTree = "<group>"; };
 		B7F267911CAE1C0000E44299 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
@@ -728,7 +722,6 @@
 		B7F268831CAE4BC800E44299 /* VPlayerManageDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPlayerManageDef.h; sourceTree = "<group>"; };
 		B7F268841CAE4BC800E44299 /* VSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSingleton.h; sourceTree = "<group>"; };
 		B7F268851CAE4BC800E44299 /* libffmpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libffmpeg.a; sourceTree = "<group>"; };
-		B7F268861CAE4BC800E44299 /* libopenssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopenssl.a; sourceTree = "<group>"; };
 		B7F268871CAE4BC800E44299 /* libVitamio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVitamio.a; sourceTree = "<group>"; };
 		B7F268881CAE4BC800E44299 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		B7F2688A1CAE4BC800E44299 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -760,7 +753,6 @@
 				B7F268911CAE4BC800E44299 /* libVitamio.a in Frameworks */,
 				B7F268431CAE22D900E44299 /* AVFoundation.framework in Frameworks */,
 				5BE7A5D71CBF81E20080FEA9 /* libpcre.a in Frameworks */,
-				B7F268901CAE4BC800E44299 /* libopenssl.a in Frameworks */,
 				B7F268931CAE4BC800E44299 /* libWeChatSDK.a in Frameworks */,
 				56CAFFC71C9BFC2100210081 /* SystemConfiguration.framework in Frameworks */,
 				56CAFFC51C9BFC0800210081 /* libz.tbd in Frameworks */,
@@ -1096,6 +1088,8 @@
 		56BA8FD51C561E9100886CAE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5614729D1CC0906F0089BC02 /* SVProgressView.h */,
+				5614729E1CC0906F0089BC02 /* SVProgressView.m */,
 				561447BF1C59BCE900003B9A /* SVPointView.h */,
 				561447C01C59BCE900003B9A /* SVPointView.m */,
 				566589DC1C88414600269F78 /* SVFooterView.h */,
@@ -1219,6 +1213,7 @@
 			isa = PBXGroup;
 			children = (
 				5B50AB031CC0110F006499BE /* Cert */,
+				B7E4C1711CBFE31800CB941A /* About */,
 				B731059B1CAF5F5100B6C3A5 /* Youtube */,
 				B7B5D8FE1CA543AE00DFEEBA /* Images.xcassets */,
 				56622C4D1C4F320A00B4A50B /* CTCommonDefine.pch */,
@@ -1341,16 +1336,8 @@
 		B73105891CAF5B2900B6C3A5 /* Youku */ = {
 			isa = PBXGroup;
 			children = (
-				B7F267691CAE1BF300E44299 /* SVDecode64.m */,
-				B7F2676A1CAE1BF300E44299 /* SVDecode64.h */,
-				B7F2675D1CAE1BF300E44299 /* SVRc4.m */,
-				B7F2675E1CAE1BF300E44299 /* SVRc4.h */,
 				B7F2674B1CAE1BF300E44299 /* SVVideoAnalyser_youku.m */,
 				B7F2674C1CAE1BF300E44299 /* SVVideoAnalyser_youku.h */,
-				B7F2672F1CAE1BF300E44299 /* SVYouKu__ysuid.m */,
-				B7F267301CAE1BF300E44299 /* SVYouKu__ysuid.h */,
-				B7F2672D1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.m */,
-				B7F2672E1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.h */,
 			);
 			name = Youku;
 			sourceTree = "<group>";
@@ -1427,6 +1414,15 @@
 				B7C61B3A1CA68247001E32DC /* starting_window_cn@1x_1.png */,
 			);
 			path = LaunchImage;
+			sourceTree = "<group>";
+		};
+		B7E4C1711CBFE31800CB941A /* About */ = {
+			isa = PBXGroup;
+			children = (
+				B7E4C1721CBFE31800CB941A /* Privacy_cn.html */,
+				B7E4C1731CBFE31800CB941A /* Privacy_en.html */,
+			);
+			path = About;
 			sourceTree = "<group>";
 		};
 		B7F267901CAE1C0000E44299 /* Common */ = {
@@ -1714,7 +1710,6 @@
 			children = (
 				B7F2687B1CAE4BC800E44299 /* include */,
 				B7F268851CAE4BC800E44299 /* libffmpeg.a */,
-				B7F268861CAE4BC800E44299 /* libopenssl.a */,
 				B7F268871CAE4BC800E44299 /* libVitamio.a */,
 				B7F268881CAE4BC800E44299 /* LICENSE */,
 			);
@@ -1850,6 +1845,7 @@
 				5B592E041CBB4A4500DCA39B /* starting_window_en@2x_1.png in Resources */,
 				5B2521851CB36D4800C4481D /* ic_video_testing@3x.png in Resources */,
 				B7C61B3E1CA68247001E32DC /* starting_window_en@1x_2.png in Resources */,
+				B7E4C1741CBFE31800CB941A /* Privacy_cn.html in Resources */,
 				B7B5D8B91CA3E8A400DFEEBA /* tabbar_result@2x.png in Resources */,
 				565DFAEB1C515BB10024FF45 /* ic_speed_testing.png in Resources */,
 				5B25218E1CB396E200C4481D /* ic_network_type_mobile@2x.png in Resources */,
@@ -1977,7 +1973,6 @@
 				B73105971CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m in Sources */,
 				B7F2683D1CAE1C3900E44299 /* FMDatabaseAdditions.m in Sources */,
 				B748CE451CA0166900FD388C /* SVGetDistance.m in Sources */,
-				B7F267871CAE1BF300E44299 /* SVRc4.m in Sources */,
 				B7F2683E1CAE1C3900E44299 /* FMDatabasePool.m in Sources */,
 				56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */,
 				B7F2678B1CAE1BF300E44299 /* SVIPAndISP.m in Sources */,
@@ -1997,7 +1992,6 @@
 				B7F2682D1CAE1C3900E44299 /* ReachStateWIFI.m in Sources */,
 				561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */,
 				B7F268391CAE1C3900E44299 /* DDContextFilterLogFormatter.m in Sources */,
-				B7F267701CAE1BF300E44299 /* SVYouKu__ysuid.m in Sources */,
 				B7F267881CAE1BF300E44299 /* SVProbeInfo.m in Sources */,
 				B7F267851CAE1BF300E44299 /* SVSpeedTestServers.m in Sources */,
 				B7F267B21CAE1C0000E44299 /* SVLog.m in Sources */,
@@ -2043,7 +2037,6 @@
 				B7F268371CAE1C3900E44299 /* DDLog.m in Sources */,
 				B73105981CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.m in Sources */,
 				B7F2682C1CAE1C3900E44299 /* ReachStateUnReachable.m in Sources */,
-				B7F2676F1CAE1BF300E44299 /* SVYoukuSIDAndTokenAndEqGetter.m in Sources */,
 				563734851C8ED6590064DA33 /* SVWebTestingViewCtrl.m in Sources */,
 				B7F2681F1CAE1C3900E44299 /* zip.c in Sources */,
 				561A36D21C896B5A00AC5F5E /* SVAdvancedViewCtrl.m in Sources */,
@@ -2072,7 +2065,6 @@
 				561A36D61C896B5A00AC5F5E /* SVSettingsViewCtrl.m in Sources */,
 				B7F267841CAE1BF300E44299 /* SVSpeedTestServersParser.m in Sources */,
 				561A36BF1C896A0C00AC5F5E /* SVResultCell.m in Sources */,
-				B7F2678D1CAE1BF300E44299 /* SVDecode64.m in Sources */,
 				5B85C06B1C9025E000CA8A1E /* SVWebTestResult.m in Sources */,
 				B7F267B01CAE1C0000E44299 /* SVIPAddress.m in Sources */,
 				56A919151C4F4BAA00E8BB72 /* AppDelegate.m in Sources */,
@@ -2082,6 +2074,7 @@
 				B7F268351CAE1C3900E44299 /* DDASLLogger.m in Sources */,
 				B7F267761CAE1BF300E44299 /* SVVideoTestContext.m in Sources */,
 				B73105961CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m in Sources */,
+				5614729F1CC0906F0089BC02 /* SVProgressView.m in Sources */,
 				5BE6DE271CAE69CD00CA2B5B /* SVLabelTools.m in Sources */,
 				B7F268321CAE1C3900E44299 /* CLIColor.m in Sources */,
 				B7F2678C1CAE1BF300E44299 /* SVDetailResultModel.m in Sources */,

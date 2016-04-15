@@ -124,7 +124,7 @@
     }
     else
     {
-        [_uVMosLabel setText:[NSString stringWithFormat:@"%.2f", _resultModel.uvMOS]];
+        [_uVMosLabel setText:[NSString stringWithFormat:@"%.1f", _resultModel.uvMOS]];
     }
 
     // 使Label根据内容自适应大小

@@ -12,6 +12,7 @@
 #import "SVIPAndISPGetter.h"
 #import "SVLanguageSettingViewCtrl.h"
 #import "SVPrivacyCtrl.h"
+#import "SVProbeInfo.h"
 #import "SVRealReachability.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
@@ -76,10 +77,50 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     {
         return;
     }
-
     NSString *title1 = I18N (@"Current Connection:");
+
+    //准备字符串
     SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
-    NSString *title2 = ipAndISP.isp;
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSString *type = [probeInfo getBandwidthType];
+    int bandwidthTypeIndex = [type intValue];
+    NSString *value = [probeInfo getBandwidth];
+
+    NSString *title21 = I18N (@"Carrier");
+    NSString *title22 = ipAndISP.isp;
+    NSString *title23 = I18N (@"bandwidth type");
+    NSString *titlea = I18N (@"Unknow");
+    NSString *titleb = I18N (@"Fiber");
+    NSString *titlec = I18N (@"Copper");
+    NSString *title25 = I18N (@"Bandwidth package");
+    NSString *title26;
+    if ([value isEqualToString:@""])
+    {
+        title26 = I18N (@"Unknow");
+    }
+    else
+    {
+        title26 = [NSString stringWithFormat:@"%@M", value];
+    }
+
+    NSString *title2;
+    NSLog (@"%d", bandwidthTypeIndex);
+    if (bandwidthTypeIndex == 0)
+    {
+        title2 = [NSString stringWithFormat:@"%@  %@,%@  %@,%@  %@", title21, title22, title23,
+                                            titlea, title25, title26];
+    }
+    if (bandwidthTypeIndex == 1)
+    {
+        title2 = [NSString stringWithFormat:@"%@  %@,%@  %@,%@  %@", title21, title22, title23,
+                                            titleb, title25, title26];
+    }
+    if (bandwidthTypeIndex == 2)
+    {
+        title2 = [NSString stringWithFormat:@"%@  %@,%@  %@,%@  %@", title21, title22, title23,
+                                            titlec, title25, title26];
+    }
+
     SVRealReachability *realReachablity = [SVRealReachability sharedInstance];
     SVRealReachabilityStatus status = [realReachablity getNetworkStatus];
 
@@ -116,12 +157,16 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 
     //设置字体和是否加粗
     label111.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    //    label111.backgroundColor = [UIColor redColor];
     [_networkcell addSubview:label111];
 
-    UILabel *label22 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (230), FITHEIGHT (129), FITWIDTH (460), FITHEIGHT (58))];
+    UILabel *label22 = [[UILabel alloc] init];
     label22.text = title2;
-    label22.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    label22.frame = CGRectMake (FITWIDTH (230), label111.bottomY - FITHEIGHT (20), FITWIDTH (660),
+                                [CTWBViewTools fitHeightToView:label22 width:FITWIDTH (660)]);
+    label22.numberOfLines = 0;
+    //    label22.backgroundColor = [UIColor blueColor];
+    label22.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
     [_networkcell addSubview:label22];
 }
 #pragma mark - tableview代理方法
@@ -156,7 +201,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title21 = I18N (@"Share");
+    //    NSString *title21 = I18N (@"Share");
     NSString *title3 = I18N (@"About");
     NSString *title4 = I18N (@"Language Settings");
     NSString *title5 = I18N (@"Privacy Statemtent");
