@@ -332,7 +332,7 @@
     // 2.Buffer times 0
     UILabel *bufferTimesInFullScreenLabel = [[UILabel alloc]
     initWithFrame:CGRectMake (_UvMosInFullScreenValue.rightX, FITWIDTH (14), kScreenH / 8, FITWIDTH (58))];
-    [bufferTimesInFullScreenLabel setText:I18N (@"Butter times")];
+    [bufferTimesInFullScreenLabel setText:I18N (@"Stalling Times")];
     [bufferTimesInFullScreenLabel setTextColor:[UIColor whiteColor]];
     [bufferTimesInFullScreenLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (34)]];
     [bufferTimesInFullScreenLabel setTextAlignment:NSTextAlignmentCenter];
