@@ -156,7 +156,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title21 = I18N (@"Share");
+    //    NSString *title21 = I18N (@"Share");
     NSString *title3 = I18N (@"About");
     NSString *title4 = I18N (@"Language Settings");
     NSString *title5 = I18N (@"Privacy Statemtent");

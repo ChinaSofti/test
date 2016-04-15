@@ -7,7 +7,7 @@
 //
 
 #import "SVPrivacyCtrl.h"
-
+#import <WebKit/WebKit.h>
 
 @interface SVPrivacyCtrl ()
 @end
@@ -18,13 +18,49 @@
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
+    //    self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
 
     // 初始化返回按钮
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
 
-    [self createUI];
+    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
+    NSString *htmlPath = [NSString stringWithFormat:@"file://%@", [self getHtmlPath]];
+    SVInfo (@"load Privacy html from resource directory. URL:%@", htmlPath);
+    NSURL *fileURL = [NSURL URLWithString:htmlPath];
+    [webView loadFileURL:fileURL allowingReadAccessToURL:fileURL];
+
+    [self.view addSubview:webView];
+    //    [self createUI];
 }
+
+
+- (NSString *)getHtmlPath
+{
+    // 资源目录
+    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *dirArray = [fileManager subpathsAtPath:resourcePath];
+    SVI18N *i18n = [SVI18N sharedInstance];
+    NSString *language = [i18n getLanguage];
+
+    NSString *playerHtmlPath;
+    for (NSString *path in dirArray)
+    {
+        if ([language containsString:@"en"] && [path containsString:@"Privacy_en.html"])
+        {
+            playerHtmlPath = [resourcePath stringByAppendingPathComponent:path];
+            break;
+        }
+        else if ([language containsString:@"zh"] && [path containsString:@"Privacy_cn.html"])
+        {
+            playerHtmlPath = [resourcePath stringByAppendingPathComponent:path];
+            break;
+        }
+    }
+
+    return playerHtmlPath;
+}
+
 
 //进去时 隐藏tabBar
 - (void)viewWillAppear:(BOOL)animated
