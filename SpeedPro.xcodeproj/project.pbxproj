@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4DD033911C734BB400A8CE9B /* ic_language_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD033901C734BB400A8CE9B /* ic_language_select.png */; };
 		561447C11C59BCE900003B9A /* SVPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 561447C01C59BCE900003B9A /* SVPointView.m */; };
+		5614729F1CC0906F0089BC02 /* SVProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5614729E1CC0906F0089BC02 /* SVProgressView.m */; };
 		561A36B91C89693F00AC5F5E /* SVUploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36B81C89693F00AC5F5E /* SVUploadFile.m */; };
 		561A36BF1C896A0C00AC5F5E /* SVResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36BC1C896A0C00AC5F5E /* SVResultCell.m */; };
 		561A36C01C896A0C00AC5F5E /* SVToolCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36BE1C896A0C00AC5F5E /* SVToolCells.m */; };
@@ -296,6 +297,8 @@
 		4DD033901C734BB400A8CE9B /* ic_language_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_language_select.png; path = ../ic_language_select.png; sourceTree = "<group>"; };
 		561447BF1C59BCE900003B9A /* SVPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPointView.h; sourceTree = "<group>"; };
 		561447C01C59BCE900003B9A /* SVPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPointView.m; sourceTree = "<group>"; };
+		5614729D1CC0906F0089BC02 /* SVProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressView.h; sourceTree = "<group>"; };
+		5614729E1CC0906F0089BC02 /* SVProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressView.m; sourceTree = "<group>"; };
 		561A36B71C89693F00AC5F5E /* SVUploadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVUploadFile.h; sourceTree = "<group>"; };
 		561A36B81C89693F00AC5F5E /* SVUploadFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVUploadFile.m; sourceTree = "<group>"; };
 		561A36BB1C896A0C00AC5F5E /* SVResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultCell.h; sourceTree = "<group>"; };
@@ -1063,6 +1066,8 @@
 		56BA8FD51C561E9100886CAE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5614729D1CC0906F0089BC02 /* SVProgressView.h */,
+				5614729E1CC0906F0089BC02 /* SVProgressView.m */,
 				561447BF1C59BCE900003B9A /* SVPointView.h */,
 				561447C01C59BCE900003B9A /* SVPointView.m */,
 				566589DC1C88414600269F78 /* SVFooterView.h */,
@@ -2027,6 +2032,7 @@
 				B7F268351CAE1C3900E44299 /* DDASLLogger.m in Sources */,
 				B7F267761CAE1BF300E44299 /* SVVideoTestContext.m in Sources */,
 				B73105961CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m in Sources */,
+				5614729F1CC0906F0089BC02 /* SVProgressView.m in Sources */,
 				5BE6DE271CAE69CD00CA2B5B /* SVLabelTools.m in Sources */,
 				B7F268321CAE1C3900E44299 /* CLIColor.m in Sources */,
 				B7F2678C1CAE1BF300E44299 /* SVDetailResultModel.m in Sources */,

@@ -11,6 +11,7 @@
 #import "SVHeaderView.h"
 #import "SVPointView.h"
 #import "SVProbeInfo.h"
+#import "SVProgressView.h"
 #import "SVTimeUtil.h"
 #import "SVVideoSegement.h"
 #import "SVVideoTest.h"
@@ -74,6 +75,9 @@
 
     // 遮挡视频的透明UIView，其大小始终与视频大小相同
     UIView *_transparentView;
+    //进度条
+    SVProgressView *pro;
+    float value;
 }
 
 // 定义gray遮挡View
@@ -174,6 +178,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    //初始化进度条
+    pro = [[SVProgressView alloc] initWithheight:NavBarH];
+    value = 0.0;
+    [self.view addSubview:pro];
 
     // 显示tabbar 和navigationbar
     self.tabBarController.tabBar.hidden = NO;
@@ -570,12 +579,18 @@
               initWithFrame:CGRectMake (_UvMOSbarResultTimes * 2, 0, FITWIDTH (2), FITHEIGHT (52))];
               [bar setBarValue:k];
               [uvMosBarView addSubview:bar];
+              //柱状图更新
+              value += 0.05;
+              [pro setProgress:value];
           }
       }
 
 
       if (testContext.testStatus == TEST_FINISHED)
       {
+          //柱状图
+          [pro setProgress:1.0];
+          [pro removeFromSuperview];
           [self initCurrentResultModel:testResult];
           [self goToCurrentResultViewCtrl];
       }
