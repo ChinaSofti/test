@@ -138,7 +138,7 @@
 
         while (!_videoPlayer.isFinished)
         {
-            [NSThread sleepForTimeInterval:1];
+            [NSThread sleepForTimeInterval:0.1];
         }
 
         SVInfo (@"test[%lld] finished", _testId);
