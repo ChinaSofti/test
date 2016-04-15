@@ -274,6 +274,17 @@
     // 测试地址
     NSString *testUrl = testResult.testUrl;
 
+    // 去掉测试地址中的http头
+    NSArray *strArray = [testUrl componentsSeparatedByString:@"/"];
+    if ([strArray count] >= 4)
+    {
+        testUrl = strArray[2];
+    }
+    else
+    {
+        testUrl = strArray[0];
+    }
+
     // 下载速度
     double downloadSpeed = testResult.downloadSpeed;
 

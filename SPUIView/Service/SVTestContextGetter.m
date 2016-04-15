@@ -6,7 +6,7 @@
 //  Copyright © 2016 Huawei. All rights reserved.
 //
 
-#import "SVHttpsGetter.h"
+#import "SVHttpsTools.h"
 #import "SVLog.h"
 #import "SVProbeInfo.h"
 #import "SVProbeInfo.h"
@@ -38,9 +38,9 @@
     BOOL isInitSuccess;
 }
 
-static NSString *inChinaURL = @"https://58.60.106.188:12210/speedpro/configapi?lang=CN";
+static NSString *inChinaURL = @"https://tools-speedpro.huawei.com/proconfig/distribute?lang=CN";
 
-static NSString *overseaURL = @"https://58.60.106.188:12210/speedpro/configapi?lang=EN";
+static NSString *overseaURL = @"https://tools-speedpro.huawei.com/proconfig/distribute?lang=EN";
 
 static SVTestContextGetter *contextGetter = nil;
 
@@ -120,7 +120,7 @@ static SVTestContextGetter *contextGetter = nil;
 {
     @try
     {
-        SVHttpsGetter *getter = [[SVHttpsGetter alloc] initWithURLNSString:_serverURL];
+        SVHttpsTools *getter = [[SVHttpsTools alloc] initWithURLNSString:_serverURL];
         self.data = [getter getResponseData];
         SVInfo (@"%@", [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]);
     }

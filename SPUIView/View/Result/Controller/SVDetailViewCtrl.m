@@ -331,7 +331,7 @@
         [_soucreMA addObject:[[SVToolCells alloc]
                              initSubTitleCellWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:@"CND Cell"
-                                              subTitle:[NSString stringWithFormat:@"CND%d%@", index, I18N (@"Infomation")]
+                                              subTitle:[NSString stringWithFormat:@"CDN%d%@", index, I18N (@"Information")]
                                              WithColor:[UIColor colorWithHexString:@"#FFFEB960"]]];
 
         // 视频分片IP

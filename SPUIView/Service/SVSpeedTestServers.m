@@ -5,7 +5,7 @@
 //  Created by Rain on 3/10/16.
 //  Copyright © 2016 chinasofti. All rights reserved.
 //
-#import "SVHttpsGetter.h"
+#import "SVHttpsTools.h"
 #import "SVLog.h"
 #import "SVSpeedTestServers.h"
 #import "SVSpeedTestServersParser.h"
@@ -74,7 +74,8 @@ static NSString *SPEEDTEST_SERVER_QUERY_URL = @"https://www.speedtest.net/api/an
     }
 
     SVInfo (@"start request speed test server list.");
-    SVHttpsGetter *getter = [[SVHttpsGetter alloc] initWithURLNSString:SPEEDTEST_SERVER_QUERY_URL];
+    SVHttpsTools *getter =
+    [[SVHttpsTools alloc] initWithURLNSString:SPEEDTEST_SERVER_QUERY_URL WithCert:NO];
     NSData *reponseData = [getter getResponseData];
     if (!reponseData)
     {

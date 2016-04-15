@@ -351,7 +351,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
         NSString *filePath = [log compressLogFiles];
         SVInfo (@"upload log file:%@", filePath);
         SVUploadFile *upload = [[SVUploadFile alloc] init];
-        NSString *urlString = @"https://58.60.106.188:12210/speedpro/log?op=list&begin=0&end=50";
+        NSString *urlString = @"https://tools-speedpro.huawei.com/prolog/upload";
         [upload uploadFileWithURL:[NSURL URLWithString:urlString] filePath:filePath];
     }
     @catch (NSException *exception)

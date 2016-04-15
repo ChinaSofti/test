@@ -10,7 +10,7 @@
 #import "SVCurrentDevice.h"
 #import "SVDBManager.h"
 #import "SVDetailResultModel.h"
-#import "SVHttpsGetter.h"
+#import "SVHttpsTools.h"
 #import "SVIPAndISPGetter.h"
 #import "SVProbeInfo.h"
 #import "SVResultPush.h"
@@ -27,7 +27,7 @@ SVCurrentResultModel *_resultModel;
 
 NSMutableData *_allData;
 
-NSString *_urlString = @"https://58.60.106.188:12210/speedpro/results";
+NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/upload";
 
 BOOL finished;
 
@@ -43,7 +43,6 @@ NSArray *_speedResultArray;
 NSArray *_emptyArr;
 
 NSMutableURLRequest *request;
-int failCount;
 
 
 - (id)initWithTestId:(long long)testId
@@ -145,8 +144,8 @@ int failCount;
     //        return nil;
     //    }
     // 连接服务器发送请求
-    failCount = 0;
-    [self sendResultByRequest];
+    SVHttpsTools *httpsTools = [[SVHttpsTools alloc] init];
+    [httpsTools sendRequest:request isUploadResult:YES];
 }
 
 
@@ -687,75 +686,6 @@ int failCount;
     [totalResultDic setObject:detailResultArray forKey:@"urlTestResList"];
 
     return totalResultDic;
-}
-
-// 发送保存数据的请求
-- (void)sendResultByRequest
-{
-    [NSURLConnection
-    sendAsynchronousRequest:request
-                      queue:[[NSOperationQueue alloc] init]
-          completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-
-            // 发送失败时继续请求
-            if (connectionError && failCount < 3)
-            {
-                SVError (@"result push error:%@", connectionError);
-                failCount++;
-                [self sendResultByRequest];
-                return;
-            }
-
-            // 请求失败重试3次，然后弹出提示框
-            if (failCount >= 3)
-            {
-                //                dispatch_async (dispatch_get_main_queue (), ^{
-                //                  [self showAlertView];
-                //                });
-                SVInfo (@"result push failed！");
-                return;
-            }
-
-            NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            SVInfo (@"result push success %@", result);
-          }];
-}
-
-// 初始化弹出框并显示
-- (void)showAlertView
-{
-    UIAlertView *warningView =
-    [[UIAlertView alloc] initWithTitle:@""
-                               message:I18N (@"Upload the test result failed, continue?")
-                              delegate:self
-                     cancelButtonTitle:I18N (@"Cancel")
-                     otherButtonTitles:I18N (@"Continue"), nil];
-    [warningView setTag:100];
-
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:warningView];
-    [warningView show];
-}
-
-// 点击按钮时间
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    // 判断是否是需要处理的alertView
-    if (alertView.tag != 100)
-    {
-        return;
-    }
-
-    // 继续按钮的index是1
-    if (buttonIndex == 1)
-    {
-        // 点击继续时，将failCount重置，然后继续发送请求
-        failCount = 0;
-        [self sendResultByRequest];
-
-        // 让alertView消失
-        [alertView dismissWithClickedButtonIndex:0 animated:NO];
-    }
 }
 
 - (NSNumber *)string2num:(NSString *)str

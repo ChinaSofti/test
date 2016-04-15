@@ -11,7 +11,7 @@
 @implementation SVHttpsUtils
 {
     // 证书数组
-    NSArray *trustedCerArr;
+    CFArrayRef trustedCerArr;
 
     // 失败次数
     int failCount;
@@ -21,6 +21,8 @@
 
     // 响应数据
     NSMutableData *_allData;
+
+    SecIdentityRef identity;
 }
 
 - (id)initWithRequest:(NSURLRequest *)request
@@ -34,17 +36,64 @@
     urlRequest = request;
 
     // 导入证书
-    NSString *p12 = [[NSBundle mainBundle] pathForResource:@"testClient" ofType:@"p12"];
-    NSData *cerData = [NSData dataWithContentsOfFile:p12];
-    SecCertificateRef certificate = SecCertificateCreateWithData (NULL, (__bridge CFDataRef) (cerData));
-    trustedCerArr = @[(__bridge_transfer id)certificate];
+    NSString *thePath = [[NSBundle mainBundle] pathForResource:@"trust" ofType:@"p12"];
+    NSData *PKCS12Data = [[NSData alloc] initWithContentsOfFile:thePath];
+
+    // 读取p12证书中的内容
+    OSStatus result = [self extractP12Data:(__bridge CFDataRef) (PKCS12Data)];
+    if (result != errSecSuccess)
+    {
+        SVError (@"Read certificate failed!");
+        return nil;
+    }
+
+    SecCertificateRef certificate = NULL;
+    SecIdentityCopyCertificate (identity, &certificate);
+    const void *certs[] = { certificate };
+    trustedCerArr = CFArrayCreate (kCFAllocatorDefault, certs, 1, NULL);
 
     return self;
 }
 
-- (void)sendHttpsRequest
+- (OSStatus)extractP12Data:(CFDataRef)inP12Data
+{
+
+    OSStatus securityError = errSecSuccess;
+
+    CFStringRef password = CFSTR ("SpeedPro@huawei");
+    const void *keys[] = { kSecImportExportPassphrase };
+    const void *values[] = { password };
+
+    CFDictionaryRef options = CFDictionaryCreate (NULL, keys, values, 1, NULL, NULL);
+
+    CFArrayRef items = CFArrayCreate (NULL, 0, 0, NULL);
+    securityError = SecPKCS12Import (inP12Data, options, &items);
+
+    if (securityError == 0)
+    {
+        CFDictionaryRef ident = CFArrayGetValueAtIndex (items, 0);
+        const void *tempIdentity = NULL;
+        tempIdentity = CFDictionaryGetValue (ident, kSecImportItemIdentity);
+        identity = (SecIdentityRef)tempIdentity;
+    }
+
+    if (options)
+    {
+        CFRelease (options);
+    }
+
+    return securityError;
+}
+
+- (void)startConnect
 {
     // 发送数据
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    [conn start];
+}
+
+- (void)sendHttpsRequest
+{
     [NSURLConnection
     sendAsynchronousRequest:urlRequest
                       queue:[[NSOperationQueue alloc] init]
@@ -153,7 +202,8 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
     SecTrustResultType result;
 
     // 注意：这里将之前导入的证书设置成下面验证的Trust Object的anchor certificate
-    SecTrustSetAnchorCertificates (trust, (__bridge CFArrayRef)trustedCerArr);
+    SecTrustSetAnchorCertificates (trust, trustedCerArr);
+
 
     // SecTrustEvaluate会查找前面SecTrustSetAnchorCertificates设置的证书或者系统默认提供的证书，对trust进行验证
     OSStatus status = SecTrustEvaluate (trust, &result);
@@ -171,20 +221,5 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
         SVError (@"Certificate authentication failure!");
     }
 }
-
-//- (void)connection:(NSURLConnection *)connection
-// didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-//{
-//    [challenge.sender useCredential:[NSURLCredential
-//    credentialForTrust:challenge.protectionSpace.serverTrust]
-//         forAuthenticationChallenge:challenge];
-//}
-//
-//- (BOOL)connection:(NSURLConnection *)connection
-// canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
-//{
-//    return [protectionSpace.authenticationMethod
-//    isEqualToString:NSURLAuthenticationMethodServerTrust];
-//}
 
 @end

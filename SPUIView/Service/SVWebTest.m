@@ -178,6 +178,12 @@
                 return NO;
             }
 
+            // 如果URL为空则执行下一个
+            if (!url || [url isEqualToString:@""])
+            {
+                continue;
+            }
+
             // 初始化数据
             totalTime = 0;
             totalBytes = 0;

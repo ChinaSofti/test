@@ -6,7 +6,7 @@
 //  Copyright © 2016 Huawei. All rights reserved.
 //
 
-#import "SVHttpsGetter.h"
+#import "SVHttpsTools.h"
 #import "SVLog.h"
 #import "SVProbeInfo.h"
 #import "SVVideoAnalyser_youtube.h"
@@ -59,7 +59,7 @@ static NSString *_GET_VIDEO_INFO_URL = @"https://www.youtube.com/"
 
     [_videoInfo setVid:vid];
     NSString *getVideoInfoURL = [NSString stringWithFormat:_GET_VIDEO_INFO_URL, vid];
-    SVHttpsGetter *getter = [[SVHttpsGetter alloc] initWithURLNSString:getVideoInfoURL];
+    SVHttpsTools *getter = [[SVHttpsTools alloc] initWithURLNSString:getVideoInfoURL];
     NSString *content = [getter getResponseDataString];
     if (!content)
     {

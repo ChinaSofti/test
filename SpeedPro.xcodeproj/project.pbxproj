@@ -97,6 +97,14 @@
 		5B2521921CB396E200C4481D /* ic_sort_asc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B25218C1CB396E200C4481D /* ic_sort_asc@2x.png */; };
 		5B2521931CB396E200C4481D /* ic_sort_asc@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B25218D1CB396E200C4481D /* ic_sort_asc@3x.png */; };
 		5B2FA8F11C984C9E0018D699 /* SVWarningView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FA8F01C984C9E0018D699 /* SVWarningView.m */; };
+		5B50AB061CC0110F006499BE /* key.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 5B50AB041CC0110F006499BE /* key.p12 */; };
+		5B50AB071CC0110F006499BE /* trust.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 5B50AB051CC0110F006499BE /* trust.p12 */; };
+		5B50AB091CC0119E006499BE /* config.properties in Resources */ = {isa = PBXBuildFile; fileRef = 5B50AB081CC0119E006499BE /* config.properties */; };
+		5B50AB0C1CC085BB006499BE /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B50AB0B1CC085BB006499BE /* NSData+AES256.m */; };
+		5B50AB0F1CC08645006499BE /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B50AB0E1CC08645006499BE /* NSString+AES256.m */; };
+		5B50AB111CC089A3006499BE /* params.properties in Resources */ = {isa = PBXBuildFile; fileRef = 5B50AB101CC089A3006499BE /* params.properties */; };
+		5B50AB131CC08BA5006499BE /* cert.properties in Resources */ = {isa = PBXBuildFile; fileRef = 5B50AB121CC08BA5006499BE /* cert.properties */; };
+		5B50AB151CC08BDE006499BE /* key.properties in Resources */ = {isa = PBXBuildFile; fileRef = 5B50AB141CC08BDE006499BE /* key.properties */; };
 		5B592E041CBB4A4500DCA39B /* starting_window_en@2x_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B592E031CBB4A4500DCA39B /* starting_window_en@2x_1.png */; };
 		5B80D3921C91742700FF61DE /* SVNetworkTrafficMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B80D3911C91742700FF61DE /* SVNetworkTrafficMonitor.m */; };
 		5B85C06A1C9025E000CA8A1E /* SVWebTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0661C9025E000CA8A1E /* SVWebTest.m */; };
@@ -204,7 +212,7 @@
 		B7F267AB1CAE1C0000E44299 /* SVCurrentDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267951CAE1C0000E44299 /* SVCurrentDevice.m */; };
 		B7F267AC1CAE1C0000E44299 /* SVDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267971CAE1C0000E44299 /* SVDBManager.m */; };
 		B7F267AD1CAE1C0000E44299 /* SVHttpGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267991CAE1C0000E44299 /* SVHttpGetter.m */; };
-		B7F267AE1CAE1C0000E44299 /* SVHttpsGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2679B1CAE1C0000E44299 /* SVHttpsGetter.m */; };
+		B7F267AE1CAE1C0000E44299 /* SVHttpsTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2679B1CAE1C0000E44299 /* SVHttpsTools.m */; };
 		B7F267AF1CAE1C0000E44299 /* SVI18N.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2679D1CAE1C0000E44299 /* SVI18N.m */; };
 		B7F267B01CAE1C0000E44299 /* SVIPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2679F1CAE1C0000E44299 /* SVIPAddress.m */; };
 		B7F267B11CAE1C0000E44299 /* SVJunitTestTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267A11CAE1C0000E44299 /* SVJunitTestTable.m */; };
@@ -424,6 +432,16 @@
 		5B25218D1CB396E200C4481D /* ic_sort_asc@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sort_asc@3x.png"; sourceTree = "<group>"; };
 		5B2FA8EF1C984C9E0018D699 /* SVWarningView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWarningView.h; sourceTree = "<group>"; };
 		5B2FA8F01C984C9E0018D699 /* SVWarningView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWarningView.m; sourceTree = "<group>"; };
+		5B50AB041CC0110F006499BE /* key.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = key.p12; sourceTree = "<group>"; };
+		5B50AB051CC0110F006499BE /* trust.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = trust.p12; sourceTree = "<group>"; };
+		5B50AB081CC0119E006499BE /* config.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config.properties; sourceTree = "<group>"; };
+		5B50AB0A1CC085BB006499BE /* NSData+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AES256.h"; sourceTree = "<group>"; };
+		5B50AB0B1CC085BB006499BE /* NSData+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES256.m"; sourceTree = "<group>"; };
+		5B50AB0D1CC08645006499BE /* NSString+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AES256.h"; sourceTree = "<group>"; };
+		5B50AB0E1CC08645006499BE /* NSString+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AES256.m"; sourceTree = "<group>"; };
+		5B50AB101CC089A3006499BE /* params.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = params.properties; sourceTree = "<group>"; };
+		5B50AB121CC08BA5006499BE /* cert.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cert.properties; sourceTree = "<group>"; };
+		5B50AB141CC08BDE006499BE /* key.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = key.properties; sourceTree = "<group>"; };
 		5B592E031CBB4A4500DCA39B /* starting_window_en@2x_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starting_window_en@2x_1.png"; sourceTree = "<group>"; };
 		5B80D3901C91742700FF61DE /* SVNetworkTrafficMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVNetworkTrafficMonitor.h; sourceTree = "<group>"; };
 		5B80D3911C91742700FF61DE /* SVNetworkTrafficMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVNetworkTrafficMonitor.m; sourceTree = "<group>"; };
@@ -587,8 +605,8 @@
 		B7F267971CAE1C0000E44299 /* SVDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDBManager.m; sourceTree = "<group>"; };
 		B7F267981CAE1C0000E44299 /* SVHttpGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVHttpGetter.h; sourceTree = "<group>"; };
 		B7F267991CAE1C0000E44299 /* SVHttpGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVHttpGetter.m; sourceTree = "<group>"; };
-		B7F2679A1CAE1C0000E44299 /* SVHttpsGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVHttpsGetter.h; sourceTree = "<group>"; };
-		B7F2679B1CAE1C0000E44299 /* SVHttpsGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVHttpsGetter.m; sourceTree = "<group>"; };
+		B7F2679A1CAE1C0000E44299 /* SVHttpsTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVHttpsTools.h; sourceTree = "<group>"; };
+		B7F2679B1CAE1C0000E44299 /* SVHttpsTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVHttpsTools.m; sourceTree = "<group>"; };
 		B7F2679C1CAE1C0000E44299 /* SVI18N.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVI18N.h; sourceTree = "<group>"; };
 		B7F2679D1CAE1C0000E44299 /* SVI18N.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVI18N.m; sourceTree = "<group>"; };
 		B7F2679E1CAE1C0000E44299 /* SVIPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIPAddress.h; sourceTree = "<group>"; };
@@ -992,6 +1010,10 @@
 				56B5180C1C5126C700AA76F1 /* UIView+Exten.m */,
 				5B1FEDBE1CAA85B400508920 /* UIColor+Hex.h */,
 				5B1FEDBF1CAA85B400508920 /* UIColor+Hex.m */,
+				5B50AB0A1CC085BB006499BE /* NSData+AES256.h */,
+				5B50AB0B1CC085BB006499BE /* NSData+AES256.m */,
+				5B50AB0D1CC08645006499BE /* NSString+AES256.h */,
+				5B50AB0E1CC08645006499BE /* NSString+AES256.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1196,6 +1218,7 @@
 		56F523E21C4DCF7F00E6472B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5B50AB031CC0110F006499BE /* Cert */,
 				B731059B1CAF5F5100B6C3A5 /* Youtube */,
 				B7B5D8FE1CA543AE00DFEEBA /* Images.xcassets */,
 				56622C4D1C4F320A00B4A50B /* CTCommonDefine.pch */,
@@ -1203,6 +1226,19 @@
 				5644354E1C5215AB009B7024 /* i18n.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5B50AB031CC0110F006499BE /* Cert */ = {
+			isa = PBXGroup;
+			children = (
+				5B50AB041CC0110F006499BE /* key.p12 */,
+				5B50AB051CC0110F006499BE /* trust.p12 */,
+				5B50AB081CC0119E006499BE /* config.properties */,
+				5B50AB101CC089A3006499BE /* params.properties */,
+				5B50AB121CC08BA5006499BE /* cert.properties */,
+				5B50AB141CC08BDE006499BE /* key.properties */,
+			);
+			path = Cert;
 			sourceTree = "<group>";
 		};
 		5BE7A5D11CBF81E20080FEA9 /* DLVideoParser */ = {
@@ -1405,8 +1441,8 @@
 				B7F267971CAE1C0000E44299 /* SVDBManager.m */,
 				B7F267981CAE1C0000E44299 /* SVHttpGetter.h */,
 				B7F267991CAE1C0000E44299 /* SVHttpGetter.m */,
-				B7F2679A1CAE1C0000E44299 /* SVHttpsGetter.h */,
-				B7F2679B1CAE1C0000E44299 /* SVHttpsGetter.m */,
+				B7F2679A1CAE1C0000E44299 /* SVHttpsTools.h */,
+				B7F2679B1CAE1C0000E44299 /* SVHttpsTools.m */,
 				B7F2679C1CAE1C0000E44299 /* SVI18N.h */,
 				B7F2679D1CAE1C0000E44299 /* SVI18N.m */,
 				B7F2679E1CAE1C0000E44299 /* SVIPAddress.h */,
@@ -1832,6 +1868,7 @@
 				B7C61B4A1CA68362001E32DC /* icon58.png in Resources */,
 				563DA8E71CB6010F00578D02 /* clock_pointer_blue@2x.png in Resources */,
 				563DA8EE1CB6010F00578D02 /* clock_video_panel@3x.png in Resources */,
+				5B50AB091CC0119E006499BE /* config.properties in Resources */,
 				5B2521861CB36D4800C4481D /* ic_web_test@2x.png in Resources */,
 				B7B5D8D51CA407BA00DFEEBA /* tabbar_settings@3x.png in Resources */,
 				5B2521831CB36D4800C4481D /* ic_start_time@3x.png in Resources */,
@@ -1851,6 +1888,7 @@
 				563DA8D51CB6006F00578D02 /* icon.png in Resources */,
 				B7B5D8FF1CA543AE00DFEEBA /* Images.xcassets in Resources */,
 				563DA8EF1CB6010F00578D02 /* clock_web_panel@2x.png in Resources */,
+				5B50AB151CC08BDE006499BE /* key.properties in Resources */,
 				563DA8F11CB6010F00578D02 /* speedpro@2x.png in Resources */,
 				563DA8ED1CB6010F00578D02 /* clock_video_panel@2x.png in Resources */,
 				B7C61B3B1CA68247001E32DC /* starting_window_en@3x.png in Resources */,
@@ -1865,12 +1903,15 @@
 				5BB0DE6A1CB410A500F8DAF9 /* rt_detail_title_collector_img@3x.png in Resources */,
 				B7C61B3C1CA68247001E32DC /* starting_window_en@2x_2.png in Resources */,
 				5BC491EB1CAB5D420002CA68 /* ic_speed_label@3x.png in Resources */,
+				5B50AB071CC0110F006499BE /* trust.p12 in Resources */,
 				5BC491EC1CAB5D420002CA68 /* ic_video_check@2x.png in Resources */,
 				B7B5D8F01CA53C8900DFEEBA /* icon120@2x.png in Resources */,
 				5BC491F11CAB5D420002CA68 /* ic_web_check@3x.png in Resources */,
 				B7B5D8DB1CA407D000DFEEBA /* ic_clear@3x.png in Resources */,
 				5B1FEDB61CAA413A00508920 /* tabbar_test@2x.png in Resources */,
+				5B50AB111CC089A3006499BE /* params.properties in Resources */,
 				5B25217C1CB36D4800C4481D /* ic_network_type@2x.png in Resources */,
+				5B50AB061CC0110F006499BE /* key.p12 in Resources */,
 				B7B5D8CC1CA407A300DFEEBA /* homeindicator@2x.png in Resources */,
 				B7B5D8D61CA407BA00DFEEBA /* tabbar_settings@2x.png in Resources */,
 				5BB0DE6F1CB410A500F8DAF9 /* rt_detail_title_web_img@2x.png in Resources */,
@@ -1894,6 +1935,7 @@
 				B7B5D8BB1CA3E8A400DFEEBA /* tabbar_result_selected@2x.png in Resources */,
 				5BC491EA1CAB5D420002CA68 /* ic_speed_label@2x.png in Resources */,
 				B7C61B441CA68247001E32DC /* starting_window_cn@1x_1.png in Resources */,
+				5B50AB131CC08BA5006499BE /* cert.properties in Resources */,
 				5B25218F1CB396E200C4481D /* ic_network_type_mobile@3x.png in Resources */,
 				B7F3CA4A1C72CA3F009B087F /* toast_icon.png in Resources */,
 				5B2521811CB36D4800C4481D /* ic_speed_testing@3x.png in Resources */,
@@ -1972,6 +2014,7 @@
 				B7F267AF1CAE1C0000E44299 /* SVI18N.m in Sources */,
 				B7F2682B1CAE1C3900E44299 /* ReachStateUnloaded.m in Sources */,
 				566589E21C88414600269F78 /* SVFooterView.m in Sources */,
+				5B50AB0C1CC085BB006499BE /* NSData+AES256.m in Sources */,
 				B7F2677A1CAE1BF300E44299 /* SVVideoInfo.m in Sources */,
 				B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */,
 				B7F2683A1CAE1C3900E44299 /* DDDispatchQueueLogFormatter.m in Sources */,
@@ -2044,10 +2087,11 @@
 				B7F2678C1CAE1BF300E44299 /* SVDetailResultModel.m in Sources */,
 				B77D21F21C957904006BE281 /* SVLineChart.m in Sources */,
 				568D42B41C89E20B00F2916B /* SVBandWidthCtrl.m in Sources */,
-				B7F267AE1CAE1C0000E44299 /* SVHttpsGetter.m in Sources */,
+				B7F267AE1CAE1C0000E44299 /* SVHttpsTools.m in Sources */,
 				561447C11C59BCE900003B9A /* SVPointView.m in Sources */,
 				5B80D3921C91742700FF61DE /* SVNetworkTrafficMonitor.m in Sources */,
 				B7F267891CAE1BF300E44299 /* SVLogUploader.m in Sources */,
+				5B50AB0F1CC08645006499BE /* NSString+AES256.m in Sources */,
 				B7F268651CAE263300E44299 /* SVSpeedServerDelay.m in Sources */,
 				B7F267821CAE1BF300E44299 /* SVTestContext.m in Sources */,
 				5B1FEDBD1CAA74D600508920 /* SVViewController.m in Sources */,

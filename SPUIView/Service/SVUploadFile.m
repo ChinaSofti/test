@@ -6,6 +6,7 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+#import "SVHttpsTools.h"
 #import "SVToast.h"
 #import "SVUploadFile.h"
 
@@ -96,39 +97,8 @@ static NSString *uploadID; // 上传(php)脚本中，接收文件字段
     [request setValue:useragent forHTTPHeaderField:@"User-Agent"];
 
     // 6> 连接服务器发送请求
-    [NSURLConnection
-    sendAsynchronousRequest:request
-                      queue:[[NSOperationQueue alloc] init]
-          completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-
-            if (_filePath)
-            {
-                // 删除文件
-                NSFileManager *fileManager = [NSFileManager defaultManager];
-                [fileManager removeItemAtPath:_filePath error:nil];
-                SVInfo (@"file has been deleted. file path:%@", _filePath);
-            }
-
-            if (connectionError)
-            {
-
-                dispatch_async (dispatch_get_main_queue (), ^{
-                  NSString *title3 = I18N (@"Upload Failed");
-                  [SVToast showWithText:title3];
-
-                });
-                SVError (@"上传失败, error:%@", connectionError);
-                return;
-            }
-
-            NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            SVInfo (@"%@上传成功", result);
-            dispatch_async (dispatch_get_main_queue (), ^{
-              NSString *title2 = I18N (@"Upload Success");
-              [SVToast showWithText:title2];
-            });
-
-          }];
+    SVHttpsTools *httpsTools = [[SVHttpsTools alloc] init];
+    [httpsTools sendRequest:request WithFilePath:_filePath];
 }
 
 @end
