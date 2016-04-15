@@ -474,9 +474,8 @@ int failCount;
 
     // 3.2 mediaInput
     NSMutableDictionary *mediaInputDic = [[NSMutableDictionary alloc] init];
-    [mediaInputDic
-    setObject:[self string2num:[videoTestContextJson valueForKey:@"videoSegementBitrate"]]
-       forKey:@"mediaAvgVideoBitrate"];
+    [mediaInputDic setObject:[self string2num:[videoTestResultJson valueForKey:@"bitrate"]]
+                      forKey:@"mediaAvgVideoBitrate"];
     [mediaInputDic setObject:@0.0 forKey:@"mediaCodecType"];
     [mediaInputDic setObject:@4 forKey:@"mediaContentProvider"];
     [mediaInputDic setObject:[self string2num:[videoTestResultJson valueForKey:@"frameRate"]]
@@ -486,7 +485,8 @@ int failCount;
     [mediaInputDic setObject:[videoTestResultJson valueForKey:@"videoWidth"]
                       forKey:@"mediaWidthResolution"];
     [mediaInputDic setObject:@0 forKey:@"periodAvgKeyFrameSize"];
-    [mediaInputDic setObject:@0.0 forKey:@"periodAvgVideoBitrate"];
+    [mediaInputDic setObject:[self string2num:[videoTestResultJson valueForKey:@"bitrate"]]
+                      forKey:@"periodAvgVideoBitrate"];
     [mediaInputDic setObject:@0.0 forKey:@"playTotalTime"];
     [mediaInputDic setObject:@0 forKey:@"screenHeightResolution"];
     [mediaInputDic setObject:@42 forKey:@"screenSize"];
@@ -509,7 +509,7 @@ int failCount;
     [ottTestParamsDic setObject:@0 forKey:@"testDuration"];
     [ottTestParamsDic setObject:[videoTestContextJson valueForKey:@"videoURL"] forKey:@"testUrl"];
     [ottTestParamsDic setObject:@"" forKey:@"userName"];
-    [ottTestParamsDic setObject:@"" forKey:@"videoServerIp"];
+    [ottTestParamsDic setObject:!ipAddress ? @"" : ipAddress forKey:@"videoServerIp"];
     [ottTestParamsDic setObject:@80 forKey:@"videoServerPort"];
     [ottTestParamsDic setObject:@0 forKey:@"videoSize"];
     [ottTestParamsDic setObject:@"MP4" forKey:@"videoType"];
@@ -532,7 +532,8 @@ int failCount;
     [uvMOSScoreDic setObject:@0.0 forKey:@"satSviewMos"];
 
     NSMutableDictionary *videoTestResultsDic = [[NSMutableDictionary alloc] init];
-    [videoTestResultsDic setObject:@0.0 forKey:@"aveBitRate"];
+    [videoTestResultsDic setObject:[self string2num:[videoTestResultJson valueForKey:@"bitrate"]]
+                            forKey:@"aveBitRate"];
     [videoTestResultsDic
     setObject:[self string2num:[videoTestResultJson valueForKey:@"videoCuttonTotalTime"]]
        forKey:@"bufferTime"];
