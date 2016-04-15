@@ -329,7 +329,7 @@
     [_UvMosInFullScreenValue setTextAlignment:NSTextAlignmentCenter];
     [_showCurrentResultInFullScreenMode addSubview:_UvMosInFullScreenValue];
 
-    // 2.Buffer times 0
+    // 2.Stalling Times 0
     UILabel *bufferTimesInFullScreenLabel = [[UILabel alloc]
     initWithFrame:CGRectMake (_UvMosInFullScreenValue.rightX, FITWIDTH (14), kScreenH / 8, FITWIDTH (58))];
     [bufferTimesInFullScreenLabel setText:I18N (@"Stalling Times")];
@@ -338,7 +338,7 @@
     [bufferTimesInFullScreenLabel setTextAlignment:NSTextAlignmentCenter];
     [_showCurrentResultInFullScreenMode addSubview:bufferTimesInFullScreenLabel];
 
-    // 2.5 Buffer times值
+    // 2.5 Stalling Times值
     _bufferTimesInFullScreenValue =
     [[UILabel alloc] initWithFrame:CGRectMake (bufferTimesInFullScreenLabel.rightX, FITWIDTH (14),
                                                kScreenH / 8, FITWIDTH (58))];
@@ -555,7 +555,7 @@
       }
 
       [_testingView updateValue:k];
-      [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", k]];
+      [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.1f", k]];
 
       // 更新柱状图
       _resultTimes += 1;
