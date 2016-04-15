@@ -18,7 +18,7 @@
 #define NSLog(...)
 #endif
 
-#define kDefaultHost @"www.baidu.com"
+#define kDefaultHost @"tools-speedpro.huawei.com"
 #define kDefaultCheckInterval 2.0f
 
 NSString *const kRealReachabilityChangedNotification = @"kRealReachabilityChangedNotification";
