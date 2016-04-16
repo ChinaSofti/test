@@ -11,6 +11,7 @@
 #import "SVHeaderView.h"
 #import "SVLabelTools.h"
 #import "SVPointView.h"
+#import "SVProgressView.h"
 #import "SVWebTest.h"
 #import "SVWebTestingViewCtrl.h"
 #import "SVWebView.h"
@@ -32,6 +33,12 @@
 
     // 测试地址标题的label
     UILabel *_testUrlTitle;
+    //进度条
+    SVProgressView *pro;
+    float value;
+
+    // 上一个url
+    NSString *tempUrl;
 }
 
 //定义gray遮挡View
@@ -120,6 +127,12 @@
     // 显示tabbar 和navigationbar
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
+
+    //初始化进度条
+    pro = [[SVProgressView alloc] initWithheight:NavBarH];
+    value = 0.0;
+    tempUrl = nil;
+    [self.view addSubview:pro];
 
     //添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
     //获取整个屏幕的window
@@ -284,6 +297,21 @@
     {
         testUrl = strArray[0];
     }
+    //进度条
+
+    if (!tempUrl)
+    {
+        tempUrl = testUrl;
+    }
+
+    if (![testUrl isEqualToString:tempUrl])
+    {
+        //柱状图更新
+        value += 0.25;
+        [pro setProgress:value];
+        tempUrl = testUrl;
+    }
+
 
     // 下载速度
     double downloadSpeed = testResult.downloadSpeed;

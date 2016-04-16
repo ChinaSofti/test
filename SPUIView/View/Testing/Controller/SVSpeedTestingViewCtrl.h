@@ -17,10 +17,6 @@
 
 @property (nonatomic, retain) NSArray *selectedA;
 
-@property UINavigationController *navigationController;
-
-@property UITabBarController *tabBarController;
-
 @property SVCurrentResultModel *currentResultModel;
 
 - (id)initWithResultModel:(SVCurrentResultModel *)resultModel;

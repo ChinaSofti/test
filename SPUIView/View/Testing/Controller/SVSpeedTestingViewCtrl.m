@@ -12,10 +12,10 @@
 #import "SVPointView.h"
 #import "SVSpeedView.h"
 
-
 #import "SVChart.h"
 #import "SVCurrentResultViewCtrl.h"
 #import "SVLabelTools.h"
+#import "SVProgressView.h"
 #import "SVSpeedTestingViewCtrl.h"
 
 #define kVideoViewDefaultRect \
@@ -43,6 +43,11 @@
 
     // 服务器归属地的标题
     UILabel *_carrierTitle;
+    //进度条
+    SVProgressView *pro;
+    float value;
+
+    BOOL isFirstResult;
 }
 
 //定义gy遮挡View
@@ -54,7 +59,7 @@
 
 double _preSpeed = 0.0;
 
-@synthesize navigationController, tabBarController, currentResultModel;
+@synthesize currentResultModel;
 
 - (id)initWithResultModel:(SVCurrentResultModel *)resultModel
 {
@@ -132,9 +137,13 @@ double _preSpeed = 0.0;
 {
     [super viewWillAppear:animated];
 
+
     // 显示tabbar 和navigationbar
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
+
+    isFirstResult = YES;
+
 
     //添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
     //获取整个屏幕的window
@@ -319,11 +328,25 @@ double _preSpeed = 0.0;
 {
     NSString *uploadTitle = I18N (@"Upload");
     NSString *downTitle = I18N (@"Download");
+
     dispatch_async (dispatch_get_main_queue (), ^{
 
+      if (isFirstResult)
+      {
+          //初始化进度条
+          pro = [[SVProgressView alloc] initWithheight:NavBarH];
+          value = 0.0;
+          [self.view addSubview:pro];
+          [pro bindTimerTotalTime:22];
+          isFirstResult = NO;
+      }
       // 如果测试结束，则初始化测试结果，并跳转到当前结果页面
       if (testContext.testStatus == TEST_FINISHED)
       {
+          //柱状图
+          [pro setProgress:1.0];
+          [pro removeFromSuperview];
+
           [self initCurrentResultModel:testResult];
           [self goToCurrentResultViewCtrl];
           return;
