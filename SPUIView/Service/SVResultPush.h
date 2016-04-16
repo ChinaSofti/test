@@ -9,7 +9,7 @@
 #import "SVCurrentResultModel.h"
 #import <Foundation/Foundation.h>
 
-@interface SVResultPush : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate, UIAlertViewDelegate>
+@interface SVResultPush : NSObject
 
 - (id)initWithTestId:(long long)testId;
 

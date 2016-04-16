@@ -42,8 +42,6 @@ NSArray *_speedResultArray;
 
 NSArray *_emptyArr;
 
-NSMutableURLRequest *request;
-
 
 - (id)initWithTestId:(long long)testId
 {
@@ -61,13 +59,6 @@ NSMutableURLRequest *request;
 - (void)sendResult
 {
     [self queryResult];
-
-    NSURL *url = [[NSURL alloc] initWithString:_urlString];
-    request = [[NSMutableURLRequest alloc] initWithURL:url
-                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                       timeoutInterval:10];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
     // 3.设置请求体
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -135,14 +126,19 @@ NSMutableURLRequest *request;
     }
 
 
-    SVInfo (@"json = %@", [self dictionaryToJsonString:dic]);
+    NSURL *url = [[NSURL alloc] initWithString:_urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 
-    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:dic options:0 error:nil];
+    NSString *resultJson = [self dictionaryToJsonString:dic];
+    SVInfo (@"json = %@", resultJson);
 
-    //    if (dic)
-    //    {
-    //        return nil;
-    //    }
+    [request setHTTPBody:[resultJson dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setTimeoutInterval:10];
+    [request setHTTPMethod:@"POST"];
+
+    // 设置Content-Type
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+
     // 连接服务器发送请求
     SVHttpsTools *httpsTools = [[SVHttpsTools alloc] init];
     [httpsTools sendRequest:request isUploadResult:YES];
@@ -421,54 +417,91 @@ NSMutableURLRequest *request;
                                     options:0
                                       error:&error];
 
-    NSMutableDictionary *locationDic = [[NSMutableDictionary alloc] init];
-    //    SVIPAndISP *videoIsp = [SVIPAndISPGetter getIPAndISP];
+    // CDN信息
+    NSMutableArray *cdnInfoArray = [[NSMutableArray alloc] init];
+    NSMutableDictionary *locationDic;
+    NSString *ipAddress;
+    int index = 0;
+    for (NSString *key in [videoTestContextJson allKeys])
+    {
+        if ([key isEqualToString:@"videoPlayDuration"] || [key isEqualToString:@"videoURL"])
+        {
+            continue;
+        }
 
-    NSString *ipAddress = [videoTestContextJson valueForKey:@"videoSegementIP"];
-    SVIPAndISP *isp = [SVIPAndISPGetter queryIPDetail:ipAddress];
-    if (isp)
-    {
-        [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
-        [locationDic setObject:[self ispFilter:isp str:isp.carrier] forKey:@"carrier"];
-        [locationDic setObject:[self ispFilter:isp str:isp.city] forKey:@"city"];
-        [locationDic setObject:[self ispFilter:isp str:isp.country] forKey:@"country"];
-        [locationDic setObject:[self ispFilter:isp str:isp.countryCode] forKey:@"countryCode"];
-        [locationDic setObject:@"" forKey:@"district"];
-        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"ip"];
-        [locationDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"isp"];
-        [locationDic setObject:[self ispFilter:isp str:isp.lat] forKey:@"lat"];
-        [locationDic setObject:[self ispFilter:isp str:isp.lon] forKey:@"lon"];
-        [locationDic setObject:@"" forKey:@"message"];
-        [locationDic setObject:[self ispFilter:isp str:isp.org] forKey:@"org"];
-        [locationDic setObject:@"" forKey:@"province"];
-        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"query"];
-        [locationDic setObject:[self ispFilter:isp str:isp.region] forKey:@"region"];
-        [locationDic setObject:[self ispFilter:isp str:isp.regionName] forKey:@"regionName"];
-        [locationDic setObject:@"success" forKey:@"status"];
-        [locationDic setObject:[self ispFilter:isp str:isp.timezone] forKey:@"timezone"];
-        [locationDic setObject:[self ispFilter:isp str:isp.zip] forKey:@"zip"];
-    }
-    else
-    {
-        [locationDic setObject:@"" forKey:@"as"];
-        [locationDic setObject:@"" forKey:@"carrier"];
-        [locationDic setObject:@"" forKey:@"city"];
-        [locationDic setObject:@"" forKey:@"country"];
-        [locationDic setObject:@"" forKey:@"countryCode"];
-        [locationDic setObject:@"" forKey:@"district"];
-        [locationDic setObject:@"" forKey:@"ip"];
-        [locationDic setObject:@"" forKey:@"isp"];
-        [locationDic setObject:@"" forKey:@"lat"];
-        [locationDic setObject:@"" forKey:@"lon"];
-        [locationDic setObject:@"" forKey:@"message"];
-        [locationDic setObject:@"" forKey:@"org"];
-        [locationDic setObject:@"" forKey:@"province"];
-        [locationDic setObject:@"" forKey:@"query"];
-        [locationDic setObject:@"" forKey:@"region"];
-        [locationDic setObject:@"" forKey:@"regionName"];
-        [locationDic setObject:@"success" forKey:@"status"];
-        [locationDic setObject:@"" forKey:@"timezone"];
-        [locationDic setObject:@"" forKey:@"zip"];
+        // 将json字符串转换成字典
+        NSData *segementData = [[videoTestContextJson objectForKey:key] dataUsingEncoding:NSUTF8StringEncoding];
+        id segementJson =
+        [NSJSONSerialization JSONObjectWithData:segementData options:0 error:&error];
+        if (error)
+        {
+            SVError (@"%@", error);
+            continue;
+        }
+
+        // 单个分片信息
+        NSMutableDictionary *cdnInfo = [[NSMutableDictionary alloc] init];
+        ipAddress = [segementJson valueForKey:@"videoSegementIP"];
+        [cdnInfo setObject:key forKey:@"videoUrl"];
+        [cdnInfo setObject:ipAddress forKey:@"ipAddress"];
+
+        // 地址信息
+        locationDic = [[NSMutableDictionary alloc] init];
+        SVIPAndISP *isp = [SVIPAndISPGetter queryIPDetail:ipAddress];
+        if (isp)
+        {
+            [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
+            [locationDic setObject:[self ispFilter:isp str:isp.carrier] forKey:@"carrier"];
+            [locationDic setObject:[self ispFilter:isp str:isp.city] forKey:@"city"];
+            [locationDic setObject:[self ispFilter:isp str:isp.country] forKey:@"country"];
+            [locationDic setObject:[self ispFilter:isp str:isp.countryCode] forKey:@"countryCode"];
+            [locationDic setObject:@"" forKey:@"district"];
+            [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"ip"];
+            [locationDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"isp"];
+            [locationDic setObject:[self ispFilter:isp str:isp.lat] forKey:@"lat"];
+            [locationDic setObject:[self ispFilter:isp str:isp.lon] forKey:@"lon"];
+            [locationDic setObject:@"" forKey:@"message"];
+            [locationDic setObject:[self ispFilter:isp str:isp.org] forKey:@"org"];
+            [locationDic setObject:@"" forKey:@"province"];
+            [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"query"];
+            [locationDic setObject:[self ispFilter:isp str:isp.region] forKey:@"region"];
+            [locationDic setObject:[self ispFilter:isp str:isp.regionName] forKey:@"regionName"];
+            [locationDic setObject:@"success" forKey:@"status"];
+            [locationDic setObject:[self ispFilter:isp str:isp.timezone] forKey:@"timezone"];
+            [locationDic setObject:[self ispFilter:isp str:isp.zip] forKey:@"zip"];
+        }
+        else
+        {
+            [locationDic setObject:@"" forKey:@"as"];
+            [locationDic setObject:@"" forKey:@"carrier"];
+            [locationDic setObject:@"" forKey:@"city"];
+            [locationDic setObject:@"" forKey:@"country"];
+            [locationDic setObject:@"" forKey:@"countryCode"];
+            [locationDic setObject:@"" forKey:@"district"];
+            [locationDic setObject:@"" forKey:@"ip"];
+            [locationDic setObject:@"" forKey:@"isp"];
+            [locationDic setObject:@"" forKey:@"lat"];
+            [locationDic setObject:@"" forKey:@"lon"];
+            [locationDic setObject:@"" forKey:@"message"];
+            [locationDic setObject:@"" forKey:@"org"];
+            [locationDic setObject:@"" forKey:@"province"];
+            [locationDic setObject:@"" forKey:@"query"];
+            [locationDic setObject:@"" forKey:@"region"];
+            [locationDic setObject:@"" forKey:@"regionName"];
+            [locationDic setObject:@"success" forKey:@"status"];
+            [locationDic setObject:@"" forKey:@"timezone"];
+            [locationDic setObject:@"" forKey:@"zip"];
+        }
+
+        [cdnInfo setObject:locationDic forKey:@"location"];
+        [cdnInfo setObject:[[NSNumber alloc] initWithInt:index] forKey:@"cdnId"];
+        [cdnInfo setObject:[self string2num:[segementJson valueForKey:@"videoSegementSize"]]
+                    forKey:@"videoSize"];
+        [cdnInfo setObject:[self string2num:[segementJson valueForKey:@"videoSegementDuration"]]
+                    forKey:@"playTotalDuration"];
+
+        [cdnInfoArray addObject:cdnInfo];
+        index++;
     }
 
     // 3.2 mediaInput
@@ -505,7 +538,9 @@ NSMutableURLRequest *request;
     [ottTestParamsDic setObject:@NO forKey:@"proxyEnable"];
     [ottTestParamsDic setObject:@"" forKey:@"proxyIp"];
     [ottTestParamsDic setObject:@0 forKey:@"proxyPort"];
-    [ottTestParamsDic setObject:@0 forKey:@"testDuration"];
+    // videoPlayDuration
+    [ottTestParamsDic setObject:[videoTestContextJson valueForKey:@"videoPlayDuration"]
+                         forKey:@"testDuration"];
     [ottTestParamsDic setObject:[videoTestContextJson valueForKey:@"videoURL"] forKey:@"testUrl"];
     [ottTestParamsDic setObject:@"" forKey:@"userName"];
     [ottTestParamsDic setObject:!ipAddress ? @"" : ipAddress forKey:@"videoServerIp"];
@@ -560,6 +595,7 @@ NSMutableURLRequest *request;
     [videoTestResultsDic setObject:@0 forKey:@"totalDownloadTime"];
     [videoTestResultsDic setObject:@0 forKey:@"totalPlayingByteNumber"];
     [videoTestResultsDic setObject:uvMOSScoreDic forKey:@"uvMOSScore"];
+    [videoTestResultsDic setObject:cdnInfoArray forKey:@"cdnServerInfos"];
 
     return videoTestResultsDic;
 }
@@ -619,14 +655,14 @@ NSMutableURLRequest *request;
 
         // 完整下载时间
         NSNumber *totalTime = [self string2num:[currentResultJson valueForKey:@"totalTime"]];
-        [currentDic setObject:[[NSNumber alloc] initWithDouble:[totalTime doubleValue] * 1000]
+        [currentDic setObject:[[NSNumber alloc] initWithLong:[totalTime doubleValue] * 1000]
                        forKey:@"loadingTime"];
 
         [currentDic setObject:[[NSNumber alloc] initWithInt:100] forKey:@"progress"];
 
         // 响应时间
         NSNumber *responseTime = [self string2num:[currentResultJson valueForKey:@"responseTime"]];
-        [currentDic setObject:[[NSNumber alloc] initWithDouble:[responseTime doubleValue] * 1000]
+        [currentDic setObject:[[NSNumber alloc] initWithLong:[responseTime doubleValue] * 1000]
                        forKey:@"responseTime"];
 
         [currentDic setObject:[[NSNumber alloc] initWithInt:0] forKey:@"startLoadingUrlCount"];
@@ -670,9 +706,9 @@ NSMutableURLRequest *request;
         [totalResultDic setObject:[[NSNumber alloc] initWithInt:0] forKey:@"resStatus"];
         [totalResultDic setObject:[[NSNumber alloc] initWithDouble:(sumSpeed / sucessCount)]
                            forKey:@"downloadSpeed"];
-        [totalResultDic setObject:[[NSNumber alloc] initWithDouble:((sumLoadTime * 1000) / sucessCount)]
+        [totalResultDic setObject:[[NSNumber alloc] initWithLong:((sumLoadTime * 1000) / sucessCount)]
                            forKey:@"openDuration"];
-        [totalResultDic setObject:[[NSNumber alloc] initWithDouble:((sumResponseTime * 1000) / sucessCount)]
+        [totalResultDic setObject:[[NSNumber alloc] initWithLong:((sumResponseTime * 1000) / sucessCount)]
                            forKey:@"responseTime"];
     }
     else
@@ -689,6 +725,7 @@ NSMutableURLRequest *request;
     return totalResultDic;
 }
 
+// 将字符串转换为数字
 - (NSNumber *)string2num:(NSString *)str
 {
     if (!str)
@@ -714,57 +751,6 @@ NSMutableURLRequest *request;
         NSString *resultJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         return [resultJson stringByReplacingOccurrencesOfString:@"\\" withString:@""];
     }
-}
-
-#pragma mark - NSURLConnectionDataDelegate
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    if (error)
-    {
-        SVError (@"request URL:%@ fail.  Error:%@", _urlString, error);
-        finished = true;
-    }
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    if (data)
-    {
-        if (!_allData)
-        {
-            _allData = [[NSMutableData alloc] init];
-        }
-
-        [_allData appendData:data];
-    }
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    if (_allData)
-    {
-        NSLog (@"request finished. data length:%zd", _allData.length);
-    }
-    else
-    {
-        NSLog (@"request finished. data length:0");
-    }
-
-    finished = true;
-}
-
-- (void)connection:(NSURLConnection *)connection
-didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-{
-    [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust]
-         forAuthenticationChallenge:challenge];
-}
-
-- (BOOL)connection:(NSURLConnection *)connection
-canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
-{
-    return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
 }
 
 @end

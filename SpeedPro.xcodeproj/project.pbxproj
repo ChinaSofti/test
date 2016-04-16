@@ -110,7 +110,6 @@
 		5B80D3921C91742700FF61DE /* SVNetworkTrafficMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B80D3911C91742700FF61DE /* SVNetworkTrafficMonitor.m */; };
 		5B85C06A1C9025E000CA8A1E /* SVWebTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0661C9025E000CA8A1E /* SVWebTest.m */; };
 		5B85C06B1C9025E000CA8A1E /* SVWebTestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0681C9025E000CA8A1E /* SVWebTestResult.m */; };
-		5B94B0B91CB357BF007F2523 /* SVHttpsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B94B0B81CB357BF007F2523 /* SVHttpsUtils.m */; };
 		5BB0DE691CB410A500F8DAF9 /* rt_detail_title_collector_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB0DE611CB410A500F8DAF9 /* rt_detail_title_collector_img@2x.png */; };
 		5BB0DE6A1CB410A500F8DAF9 /* rt_detail_title_collector_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB0DE621CB410A500F8DAF9 /* rt_detail_title_collector_img@3x.png */; };
 		5BB0DE6B1CB410A500F8DAF9 /* rt_detail_title_ftp_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB0DE631CB410A500F8DAF9 /* rt_detail_title_ftp_img@2x.png */; };
@@ -179,7 +178,6 @@
 		B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */; };
 		B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CD57511C70C7FB00668E88 /* SVCurrentResultModel.m */; };
 		B7E4C1741CBFE31800CB941A /* Privacy_cn.html in Resources */ = {isa = PBXBuildFile; fileRef = B7E4C1721CBFE31800CB941A /* Privacy_cn.html */; };
-		B7E4C1751CBFE31800CB941A /* Privacy_en.html in Resources */ = {isa = PBXBuildFile; fileRef = B7E4C1731CBFE31800CB941A /* Privacy_en.html */; };
 		B7F267711CAE1BF300E44299 /* SVWebTestContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267311CAE1BF300E44299 /* SVWebTestContext.m */; };
 		B7F267721CAE1BF300E44299 /* SVWebContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267331CAE1BF300E44299 /* SVWebContext.m */; };
 		B7F267731CAE1BF300E44299 /* SVVideoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267351CAE1BF300E44299 /* SVVideoUtil.m */; };
@@ -449,8 +447,6 @@
 		5B85C0661C9025E000CA8A1E /* SVWebTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebTest.m; sourceTree = "<group>"; };
 		5B85C0671C9025E000CA8A1E /* SVWebTestResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebTestResult.h; sourceTree = "<group>"; };
 		5B85C0681C9025E000CA8A1E /* SVWebTestResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebTestResult.m; sourceTree = "<group>"; };
-		5B94B0B71CB357BF007F2523 /* SVHttpsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVHttpsUtils.h; sourceTree = "<group>"; };
-		5B94B0B81CB357BF007F2523 /* SVHttpsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVHttpsUtils.m; sourceTree = "<group>"; };
 		5BB0DE611CB410A500F8DAF9 /* rt_detail_title_collector_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rt_detail_title_collector_img@2x.png"; sourceTree = "<group>"; };
 		5BB0DE621CB410A500F8DAF9 /* rt_detail_title_collector_img@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rt_detail_title_collector_img@3x.png"; sourceTree = "<group>"; };
 		5BB0DE631CB410A500F8DAF9 /* rt_detail_title_ftp_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rt_detail_title_ftp_img@2x.png"; sourceTree = "<group>"; };
@@ -1453,8 +1449,6 @@
 				B7F267A71CAE1C0000E44299 /* SVTimeUtil.m */,
 				B7F267A81CAE1C0000E44299 /* SVWebBrowser.h */,
 				B7F267A91CAE1C0000E44299 /* SVWebBrowser.m */,
-				5B94B0B71CB357BF007F2523 /* SVHttpsUtils.h */,
-				5B94B0B81CB357BF007F2523 /* SVHttpsUtils.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1977,7 +1971,6 @@
 				56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */,
 				B7F2678B1CAE1BF300E44299 /* SVIPAndISP.m in Sources */,
 				B7F268331CAE1C3900E44299 /* DDAbstractDatabaseLogger.m in Sources */,
-				5B94B0B91CB357BF007F2523 /* SVHttpsUtils.m in Sources */,
 				561A36E21C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m in Sources */,
 				B7F268271CAE1C3900E44299 /* FSMEngine.m in Sources */,
 				566CB03A1C90199A001AA64D /* SVWebView.m in Sources */,

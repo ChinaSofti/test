@@ -59,7 +59,7 @@ static NSString *_GET_VIDEO_INFO_URL = @"https://www.youtube.com/"
 
     [_videoInfo setVid:vid];
     NSString *getVideoInfoURL = [NSString stringWithFormat:_GET_VIDEO_INFO_URL, vid];
-    SVHttpsTools *getter = [[SVHttpsTools alloc] initWithURLNSString:getVideoInfoURL];
+    SVHttpsTools *getter = [[SVHttpsTools alloc] initWithURLNSString:getVideoInfoURL WithCert:NO];
     NSString *content = [getter getResponseDataString];
     if (!content)
     {

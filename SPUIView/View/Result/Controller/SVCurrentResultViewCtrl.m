@@ -304,7 +304,7 @@
         SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
         if (probeInfo.isUploadResult)
         {
-            dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            dispatch_async (dispatch_get_main_queue (), ^{
               SVResultPush *push = [[SVResultPush alloc] initWithTestId:_resultModel.testId];
               [push sendResult];
             });
