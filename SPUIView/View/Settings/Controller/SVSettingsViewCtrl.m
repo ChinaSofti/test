@@ -89,14 +89,14 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     NSString *title21 = I18N (@"Carrier");
     NSString *title22 = ipAndISP.isp;
     NSString *title23 = I18N (@"bandwidth type");
-    NSString *titlea = I18N (@"Unknow");
+    NSString *titlea = I18N (@"Unknown");
     NSString *titleb = I18N (@"Fiber");
     NSString *titlec = I18N (@"Copper");
     NSString *title25 = I18N (@"Bandwidth package");
     NSString *title26;
     if ([value isEqualToString:@""])
     {
-        title26 = I18N (@"Unknow");
+        title26 = I18N (@"Unknown");
     }
     else
     {
@@ -107,17 +107,17 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     NSLog (@"%d", bandwidthTypeIndex);
     if (bandwidthTypeIndex == 0)
     {
-        title2 = [NSString stringWithFormat:@"%@  %@,%@  %@,%@  %@", title21, title22, title23,
+        title2 = [NSString stringWithFormat:@"%@:  %@,%@:  %@,%@:  %@", title21, title22, title23,
                                             titlea, title25, title26];
     }
     if (bandwidthTypeIndex == 1)
     {
-        title2 = [NSString stringWithFormat:@"%@  %@,%@  %@,%@  %@", title21, title22, title23,
+        title2 = [NSString stringWithFormat:@"%@:  %@,%@:  %@,%@:  %@", title21, title22, title23,
                                             titleb, title25, title26];
     }
     if (bandwidthTypeIndex == 2)
     {
-        title2 = [NSString stringWithFormat:@"%@  %@,%@  %@,%@  %@", title21, title22, title23,
+        title2 = [NSString stringWithFormat:@"%@:  %@,%@:  %@,%@:  %@", title21, title22, title23,
                                             titlec, title25, title26];
     }
 

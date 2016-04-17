@@ -137,16 +137,35 @@
                                                    delegate:self
                                           cancelButtonTitle:title3
                                           otherButtonTitles:title4, nil];
+    [alert setTag:0];
     [alert show];
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1)
+    NSInteger tag = alertView.tag;
+    if (tag == 0)
     {
-        SVInfo (@"取消了此次测试");
-        [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
+        if (buttonIndex == 1)
+        {
+            SVInfo (@"取消了此次测试");
+            [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
+        }
+        SVInfo (@"继续测试");
     }
-    SVInfo (@"继续测试");
+    else if (tag == 1)
+    {
+        if (buttonIndex == 0)
+        {
+            SVInfo (@"取消了此次测试");
+            [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
+        }
+        else
+        {
+            // push界面
+            SVInfo (@"继续测试");
+            [self.currentResultModel pushNextCtrl];
+        }
+    }
 }
 
 /**
@@ -237,7 +256,19 @@
       else
       {
           dispatch_async (dispatch_get_main_queue (), ^{
-            [self goToCurrentResultViewCtrl];
+            //            [self goToCurrentResultViewCtrl];
+            NSString *title1 = I18N (@"Prompt");
+            NSString *title2 = I18N (@"Test Fail. Check Network");
+            NSString *title3 = I18N (@"Cancel Test");
+            NSString *title4 = I18N (@"Continue Test");
+
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title1
+                                                            message:title2
+                                                           delegate:self
+                                                  cancelButtonTitle:title3
+                                                  otherButtonTitles:title4, nil];
+            [alert setTag:1];
+            [alert show];
           });
       }
     });

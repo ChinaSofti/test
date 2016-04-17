@@ -89,8 +89,10 @@
     // 把tableView添加到 view
     [self.view addSubview:_tableView];
 
-    SVRealReachability *realReachability = [SVRealReachability sharedInstance];
-    [realReachability addDelegate:self];
+    // ---------暂时取消网络设置按钮，无论是否有网络，均显示开始测试-------
+    //    SVRealReachability *realReachability = [SVRealReachability sharedInstance];
+    //    [realReachability addDelegate:self];
+    // ---------暂时取消网络设置按钮，无论是否有网络，均显示开始测试- end------
 }
 
 #pragma mark - tableview的方法
@@ -122,6 +124,15 @@
 
     cell.delegate = self;
     [cell cellViewModel:_soucreMA[indexPath.section] section:indexPath.section];
+
+    // 默认视频勾选，且不能取消勾选。在视频项上添加透明UIVIew遮挡事件
+    if (indexPath.section == 0)
+    {
+        UIView *view =
+        [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (22), 0, FITWIDTH (1036), FITHEIGHT (209))];
+        [view setAlpha:0.1];
+        [cell addSubview:view];
+    }
     return cell;
 }
 
@@ -153,6 +164,12 @@
 
         [self.footerView addSubview:self.testBtn];
         [self.footerView addSubview:self.button];
+
+        // ---------暂时取消网络设置按钮，无论是否有网络，均显示开始测试-------
+        [_button removeFromSuperview];
+        [self.footerView addSubview:_testBtn];
+        // ---------暂时取消网络设置按钮，无论是否有网络，均显示开始测试- end------
+
         return self.footerView;
     }
     return nil;
@@ -344,11 +361,11 @@
     //获取网络类型
     SVRealReachability *realReachablity = [SVRealReachability sharedInstance];
     SVRealReachabilityStatus status = [realReachablity getNetworkStatus];
-    if (status != SV_RealStatusViaWiFi)
+    if (status == SV_WWANType2G || status == SV_WWANType3G || status == SV_WWANType4G)
     {
         NSString *title1 = I18N (@"Prompt");
-        NSString *title2 = I18N (
-        @"You are using a none-Wi-Fi network.Continuing the test will cause extra traffic fees.");
+        NSString *title2 = I18N (@"You are using a none-Wi-Fi network.Continuing the test will "
+                                 @"cause extra traffic fees.");
         NSString *title3 = I18N (@"Cancel Test");
         NSString *title4 = I18N (@"Continue Test");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title1
