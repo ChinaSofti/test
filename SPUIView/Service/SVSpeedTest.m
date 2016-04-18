@@ -21,7 +21,7 @@
 #import <pthread.h>
 #import <sys/socket.h>
 
-const int RECONNECT_WAIT_TIME = 500 * 1000;
+const int RECONNECT_WAIT_TIME = 1;
 const int STEP = 5;
 const int DELAY_TEST_COUTN = 4;
 const int DOWNLOAD_BUFFER_SIZE = 512 * 1024;
@@ -305,6 +305,10 @@ double _beginTime;
         struct timeval timeout = { 2, 0 }; // 2s
         setsockopt (fd, SOL_SOCKET, SO_SNDTIMEO, (const char *)&timeout, sizeof (timeout));
         setsockopt (fd, SOL_SOCKET, SO_RCVTIMEO, (const char *)&timeout, sizeof (timeout));
+
+        // 设置忽略SIGPIPE
+        int set = 1;
+        setsockopt (fd, SOL_SOCKET, SO_NOSIGPIPE, (void *)&set, sizeof (int));
 
         int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
         if (-1 == ret)
