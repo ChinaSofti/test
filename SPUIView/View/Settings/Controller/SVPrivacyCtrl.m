@@ -24,15 +24,61 @@
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
 
     WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
+
+
+    //调用逻辑
+
     NSString *htmlPath = [NSString stringWithFormat:@"file://%@", [self getHtmlPath]];
     SVInfo (@"load Privacy html from resource directory. URL:%@", htmlPath);
     NSURL *fileURL = [NSURL URLWithString:htmlPath];
+
+    if (fileURL)
+    {
+        if ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0)
+        {
+            // iOS9. One year later things are OK.
+            [webView loadFileURL:fileURL allowingReadAccessToURL:fileURL];
+        }
+        else
+        {
+            // iOS8. Things can be workaround-ed
+            //   Brave people can do just this
+            //   fileURL = try! pathForBuggyWKWebView8(fileURL)
+            //   webView.loadRequest(NSURLRequest(URL: fileURL))
+            NSURL *url = [self fileURLForBuggyWKWebView8:fileURL];
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            [webView loadRequest:request];
+        }
+    }
     [webView loadFileURL:fileURL allowingReadAccessToURL:fileURL];
 
     [self.view addSubview:webView];
     //    [self createUI];
 }
 
+//将文件copy到tmp目录
+- (NSURL *)fileURLForBuggyWKWebView8:(NSURL *)fileURL
+{
+    NSError *error = nil;
+    if (!fileURL.fileURL || ![fileURL checkResourceIsReachableAndReturnError:&error])
+    {
+        return nil;
+    }
+    // Create "/temp/www" directory
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *temDirURL = [[NSURL fileURLWithPath:NSTemporaryDirectory ()] URLByAppendingPathComponent:@"www"];
+    [fileManager createDirectoryAtURL:temDirURL
+          withIntermediateDirectories:YES
+                           attributes:nil
+                                error:&error];
+
+    NSURL *dstURL = [temDirURL URLByAppendingPathComponent:fileURL.lastPathComponent];
+    // Now copy given file to the temp directory
+    [fileManager removeItemAtURL:dstURL error:&error];
+    [fileManager copyItemAtURL:fileURL toURL:dstURL error:&error];
+    // Files in "/temp/www" load flawlesly :)
+    return dstURL;
+}
 
 - (NSString *)getHtmlPath
 {
@@ -46,6 +92,10 @@
     NSString *playerHtmlPath;
     for (NSString *path in dirArray)
     {
+        if ([path containsString:@"html"])
+        {
+            NSLog (@"%@", path);
+        }
         if ([language containsString:@"en"] && [path containsString:@"Privacy_en.html"])
         {
             playerHtmlPath = [resourcePath stringByAppendingPathComponent:path];

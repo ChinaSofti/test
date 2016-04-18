@@ -178,6 +178,7 @@
 		B7CAB7C81C7416E100108B02 /* SVDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CAB7C71C7416E100108B02 /* SVDetailViewModel.m */; };
 		B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CD57511C70C7FB00668E88 /* SVCurrentResultModel.m */; };
 		B7E4C1741CBFE31800CB941A /* Privacy_cn.html in Resources */ = {isa = PBXBuildFile; fileRef = B7E4C1721CBFE31800CB941A /* Privacy_cn.html */; };
+		B7E4C17C1CC3B89E00CB941A /* Privacy_en.html in Resources */ = {isa = PBXBuildFile; fileRef = B7E4C17B1CC3B89E00CB941A /* Privacy_en.html */; };
 		B7F267711CAE1BF300E44299 /* SVWebTestContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267311CAE1BF300E44299 /* SVWebTestContext.m */; };
 		B7F267721CAE1BF300E44299 /* SVWebContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267331CAE1BF300E44299 /* SVWebContext.m */; };
 		B7F267731CAE1BF300E44299 /* SVVideoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267351CAE1BF300E44299 /* SVVideoUtil.m */; };
@@ -531,7 +532,7 @@
 		B7CD57501C70C7FB00668E88 /* SVCurrentResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVCurrentResultModel.h; sourceTree = "<group>"; };
 		B7CD57511C70C7FB00668E88 /* SVCurrentResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVCurrentResultModel.m; sourceTree = "<group>"; };
 		B7E4C1721CBFE31800CB941A /* Privacy_cn.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Privacy_cn.html; sourceTree = "<group>"; };
-		B7E4C1731CBFE31800CB941A /* Privacy_en.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Privacy_en.html; sourceTree = "<group>"; };
+		B7E4C17B1CC3B89E00CB941A /* Privacy_en.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Privacy_en.html; sourceTree = "<group>"; };
 		B7F267311CAE1BF300E44299 /* SVWebTestContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebTestContext.m; sourceTree = "<group>"; };
 		B7F267321CAE1BF300E44299 /* SVWebTestContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebTestContext.h; sourceTree = "<group>"; };
 		B7F267331CAE1BF300E44299 /* SVWebContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebContext.m; sourceTree = "<group>"; };
@@ -1415,8 +1416,8 @@
 		B7E4C1711CBFE31800CB941A /* About */ = {
 			isa = PBXGroup;
 			children = (
+				B7E4C17B1CC3B89E00CB941A /* Privacy_en.html */,
 				B7E4C1721CBFE31800CB941A /* Privacy_cn.html */,
-				B7E4C1731CBFE31800CB941A /* Privacy_en.html */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -1798,7 +1799,7 @@
 				TargetAttributes = {
 					56F523DE1C4DCF7F00E6472B = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = YB96TFSDV6;
+						DevelopmentTeam = 7SGYK8N456;
 					};
 					B70FF3D21C6582AA002D571B = {
 						CreatedOnToolsVersion = 7.2;
@@ -1832,6 +1833,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				563DA8EB1CB6010F00578D02 /* clock_speed_panel@2x.png in Resources */,
+				B7E4C17C1CC3B89E00CB941A /* Privacy_en.html in Resources */,
 				5B2521911CB396E200C4481D /* ic_network_type_wifi@3x.png in Resources */,
 				B7C61B491CA68362001E32DC /* icon80.png in Resources */,
 				568B78C51C916DDC00AF4097 /* share_to_wechat.png in Resources */,
