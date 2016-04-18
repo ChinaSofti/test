@@ -155,7 +155,7 @@
     stSegmentInfo.iImpairmentDegree = 50;
     stSegmentInfo.iTimeStamp = iTimeStamp;
 
-    if (status == STATUS_IMPAIR_START || _lastePlayStatus == STATUS_BUFFERING_END)
+    if (status == STATUS_IMPAIR_START || _lastePlayStatus == STATUS_IMPAIR_END)
     {
         stSegmentInfo.ePlayStatus = STATUS_IMPAIR_START;
         _lastePlayStatus = STATUS_IMPAIR_START;
@@ -165,16 +165,16 @@
         stSegmentInfo.ePlayStatus = STATUS_IMPAIRING;
         _lastePlayStatus = STATUS_IMPAIRING;
     }
-    else if (status == STATUS_BUFFERING_END)
+    else if (status == STATUS_IMPAIR_END)
     {
         stSegmentInfo.ePlayStatus = STATUS_BUFFERING_END;
         _lastePlayStatus = STATUS_BUFFERING_END;
     }
     else
     {
-        SVInfo (@"ePlayStatus exception.");
-        stSegmentInfo.ePlayStatus = STATUS_BUFFERING_END;
-        _lastePlayStatus = STATUS_BUFFERING_END;
+        //        SVInfo (@"ePlayStatus exception.");
+        stSegmentInfo.ePlayStatus = status;
+        _lastePlayStatus = status;
     }
 
     SVInfo (@"-----UvMOSSegmentInfo[iAvgVideoBitrate:%d  iVideoFrameRate:%.2f  iAvgKeyFrameSize:%d "
