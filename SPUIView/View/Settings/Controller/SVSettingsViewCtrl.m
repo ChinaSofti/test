@@ -162,8 +162,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 
     UILabel *label22 = [[UILabel alloc] init];
     label22.text = title2;
-    label22.frame = CGRectMake (FITWIDTH (230), label111.bottomY - FITHEIGHT (20), FITWIDTH (660),
-                                [CTWBViewTools fitHeightToView:label22 width:FITWIDTH (660)]);
+    label22.frame = CGRectMake (FITWIDTH (230), label111.bottomY, FITWIDTH (660), FITHEIGHT (150));
     label22.numberOfLines = 0;
     //    label22.backgroundColor = [UIColor blueColor];
     label22.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
