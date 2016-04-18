@@ -304,9 +304,20 @@
         SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
         if (probeInfo.isUploadResult)
         {
-            dispatch_async (dispatch_get_main_queue (), ^{
+            dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
               SVResultPush *push = [[SVResultPush alloc] initWithTestId:_resultModel.testId];
               [push sendResult];
+
+              // 等待30S，等待结果上传结束
+              int count = 0;
+              while (count < 30)
+              {
+                  count++;
+
+                  // spend 1 second processing events on each loop
+                  NSDate *oneSecond = [NSDate dateWithTimeIntervalSinceNow:1];
+                  [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:oneSecond];
+              }
             });
         }
 
@@ -366,7 +377,7 @@
         NSString *leftUnit = @"";
         if (_resultModel.uvMOS && _resultModel.uvMOS != -1)
         {
-            leftValue = [NSString stringWithFormat:@"%.2f", _resultModel.uvMOS];
+            leftValue = [NSString stringWithFormat:@"%.1f", _resultModel.uvMOS];
         }
         UILabel *leftView = [self createResultViewWithName:@"videoLeft"
                                                      WithX:FITWIDTH (268)
