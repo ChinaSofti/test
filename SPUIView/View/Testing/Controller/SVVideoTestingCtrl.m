@@ -537,6 +537,7 @@
     NSArray *testSamples = testResult.videoTestSamples;
     SVVideoTestSample *testSample = testSamples[testSamples.count - 1];
     float uvMOSSession = testSample.UvMOSSession;
+    uvMOSSession = uvMOSSession - 0.05;
 
     //首次缓冲时长
     int firstBufferTime = testResult.firstBufferTime;

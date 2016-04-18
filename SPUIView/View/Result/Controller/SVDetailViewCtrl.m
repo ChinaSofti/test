@@ -575,7 +575,7 @@
 // 输出浮点型的数值,保留1位小数
 - (NSString *)formatOneDecimal:(NSString *)value
 {
-    return [NSString stringWithFormat:@"%.1f", [value floatValue]];
+    return [NSString stringWithFormat:@"%.1f", ([value floatValue] - 0.05)];
 }
 
 // 输出整形的数值,无小数

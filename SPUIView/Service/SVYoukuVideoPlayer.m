@@ -21,9 +21,6 @@
     // 第三方视频播放对象
     VMediaPlayer *_VMpalyer;
 
-    // 首次缓冲开始毫秒时间戳
-    long _firstBufferTime;
-
     // 开始缓冲时间
     long long _bufferStartTime;
 
@@ -280,6 +277,47 @@ static int execute_total_times = 4;
     _didPrepared = YES;
     [player setVideoFillMode:VMVideoFillModeFit];
     [player start];
+
+    // 视频宽度
+    int videoWidth = [player getVideoWidth];
+    // 视频高度
+    int videoHeight = [player getVideoHeight];
+    // 视频帧率
+    NSDictionary *metaData = [player getMetadata];
+    float frame_rate = [[metaData valueForKey:@"video_frame_rate"] floatValue];
+
+    [testResult setVideoWidth:videoWidth];
+    [testResult setVideoHeight:videoHeight];
+    if (videoHeight && videoWidth)
+    {
+        [testResult setVideoResolution:[NSString stringWithFormat:@"%d*%d", videoWidth, videoHeight]];
+    }
+
+    [testResult setBitrate:(segement.bitrate)];
+    [testResult setFrameRate:frame_rate];
+
+    SVVideoTestSample *sample = [[SVVideoTestSample alloc] init];
+    [sample setPeriodLength:0];
+    [sample setInitBufferLatency:testResult.firstBufferTime];
+    [sample setAvgVideoBitrate:testResult.bitrate];
+    [sample setAvgKeyFrameSize:testResult.frameRate];
+    [sample setStallingFrequency:20];
+    [sample setStallingDuration:0];
+    [sample setVideoStartPlayTime:[testResult videoStartPlayTime]];
+    [sample setVideoTotalCuttonTime:0];
+    [uvMOSCalculator calculateUvMOS:sample time:firstBufferedTime];
+    if (!testResult.videoTestSamples)
+    {
+        testResult.videoTestSamples = [[NSMutableArray alloc] init];
+    }
+    [testResult.videoTestSamples addObject:sample];
+
+    [_testDelegate updateTestResultDelegate:testContext testResult:testResult];
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.2
+                                             target:self
+                                           selector:@selector (pushTestSample)
+                                           userInfo:nil
+                                            repeats:YES];
 }
 
 /**
@@ -326,11 +364,6 @@ static int execute_total_times = 4;
     SVInfo (@"------------------------------downloadRate: %d", [arg intValue]);
     _downloadSize += [arg intValue];
     _downloadTime += 1;
-    if ((int)arg >= segement.bitrate)
-    {
-        int bufferedTime = (int)([SVTimeUtil currentMilliSecondStamp] - startPlayTime);
-        [self startCalculateUvMOS:player bufferedTime:bufferedTime];
-    }
 
     if (!maxDownloadSize)
     {
@@ -355,12 +388,9 @@ static int execute_total_times = 4;
         [activityView startAnimating];
     }
 
-    if (_firstBufferTime)
-    {
-        // 卡顿开始
-        int interval = (int)([SVTimeUtil currentMilliSecondStamp] - [testResult videoStartPlayTime]);
-        [uvMOSCalculator update:STATUS_IMPAIR_START time:interval];
-    }
+    // 卡顿开始
+    int interval = (int)([SVTimeUtil currentMilliSecondStamp] - [testResult videoStartPlayTime]);
+    [uvMOSCalculator update:STATUS_IMPAIR_START time:interval];
 }
 
 /**
@@ -381,76 +411,17 @@ static int execute_total_times = 4;
 
     // 注意：
     // 首次缓冲时长不计入卡顿时长，且第一次缓冲不算卡顿。首次缓冲时长只是首次缓冲时长
-    if (_firstBufferTime)
-    {
-        // 卡顿次数加一
-        videoCuttonTimes += 1;
-        videoCuttonTotalTime += bufferedTime;
-        [testResult setVideoCuttonTimes:(testResult.videoCuttonTimes + 1)];
-        [testResult setVideoCuttonTotalTime:(testResult.videoCuttonTotalTime + bufferedTime)];
+    // 卡顿次数加一
+    videoCuttonTimes += 1;
+    videoCuttonTotalTime += bufferedTime;
+    [testResult setVideoCuttonTimes:(testResult.videoCuttonTimes + 1)];
+    [testResult setVideoCuttonTotalTime:(testResult.videoCuttonTotalTime + bufferedTime)];
 
-        // 卡顿结束
-        int interval = (int)([SVTimeUtil currentMilliSecondStamp] - [testResult videoStartPlayTime]);
-        [uvMOSCalculator update:STATUS_IMPAIR_END time:interval];
-    }
-
+    // 卡顿结束
+    int interval = (int)([SVTimeUtil currentMilliSecondStamp] - [testResult videoStartPlayTime]);
+    [uvMOSCalculator update:STATUS_IMPAIR_END time:interval];
     SVInfo (@"NAL 3HBT &&&&&&&&&&&&&&&&.......&&&&&&&&&&&&&&&&&  bufferingEnd");
-    [self startCalculateUvMOS:player bufferedTime:bufferedTime];
     [player start];
-}
-
-- (void)startCalculateUvMOS:(VMediaPlayer *)player bufferedTime:(long)bufferedTime
-{
-    // 注意：
-    // 首次缓冲时长不计入卡顿时长，且第一次缓冲不算卡顿。首次缓冲时长只是首次缓冲时长
-    if (!_firstBufferTime)
-    {
-        NSLog (@"first calculate uvmos, registe and calcuate U-vMOS");
-        _firstBufferTime = bufferedTime;
-        // 视频宽度
-        int videoWidth = [player getVideoWidth];
-        // 视频高度
-        int videoHeight = [player getVideoHeight];
-        // 视频帧率
-        NSDictionary *metaData = [player getMetadata];
-        float frame_rate = [[metaData valueForKey:@"video_frame_rate"] floatValue];
-
-        [testResult setVideoWidth:videoWidth];
-        [testResult setVideoHeight:videoHeight];
-        if (videoHeight && videoWidth)
-        {
-            [testResult setVideoResolution:[NSString stringWithFormat:@"%d*%d", videoWidth, videoHeight]];
-        }
-
-        [testResult setBitrate:(segement.bitrate)];
-        [testResult setFrameRate:frame_rate];
-
-        SVVideoTestSample *sample = [[SVVideoTestSample alloc] init];
-        [sample setPeriodLength:0];
-        [sample setInitBufferLatency:testResult.firstBufferTime];
-        [sample setAvgVideoBitrate:testResult.bitrate];
-        [sample setAvgKeyFrameSize:testResult.frameRate];
-        [sample setStallingFrequency:20];
-        [sample setStallingDuration:0];
-        [sample setVideoStartPlayTime:[testResult videoStartPlayTime]];
-        [sample setVideoTotalCuttonTime:0];
-
-        long long endTime = [SVTimeUtil currentMilliSecondStamp];
-        int interval = (int)(endTime - [testResult videoStartPlayTime]);
-        [uvMOSCalculator calculateUvMOS:sample time:interval];
-
-        if (!testResult.videoTestSamples)
-        {
-            testResult.videoTestSamples = [[NSMutableArray alloc] init];
-        }
-        [testResult.videoTestSamples addObject:sample];
-        [_testDelegate updateTestResultDelegate:testContext testResult:testResult];
-        timer = [NSTimer scheduledTimerWithTimeInterval:0.2
-                                                 target:self
-                                               selector:@selector (pushTestSample)
-                                               userInfo:nil
-                                                repeats:YES];
-    }
 }
 
 - (void)pushTestSample

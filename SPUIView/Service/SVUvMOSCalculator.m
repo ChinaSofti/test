@@ -22,6 +22,7 @@
     int isFirstTime;
     long _videoPlayTime;
     UvMOSPlayStatus _lastePlayStatus;
+    BOOL cutton;
 }
 
 /**
@@ -144,6 +145,7 @@
         SVError (@"calculate UvMOS fail. hServiceHandle is null");
         return;
     }
+    NSLog (@"--#####-----------------%d", status);
 
     /* 赋值周期性采样参数 */
     UvMOSSegmentInfo stSegmentInfo = { 0 };
@@ -155,27 +157,31 @@
     stSegmentInfo.iImpairmentDegree = 50;
     stSegmentInfo.iTimeStamp = iTimeStamp;
 
-    if (status == STATUS_IMPAIR_START || _lastePlayStatus == STATUS_IMPAIR_END)
+    if (status == STATUS_INIT_BUFFERING || status == STATUS_BUFFERING_END)
     {
-        stSegmentInfo.ePlayStatus = STATUS_IMPAIR_START;
-        _lastePlayStatus = STATUS_IMPAIR_START;
-    }
-    else if (status == STATUS_IMPAIR_START || _lastePlayStatus == STATUS_IMPAIR_START)
-    {
-        stSegmentInfo.ePlayStatus = STATUS_IMPAIRING;
-        _lastePlayStatus = STATUS_IMPAIRING;
-    }
-    else if (status == STATUS_IMPAIR_END)
-    {
-        stSegmentInfo.ePlayStatus = STATUS_BUFFERING_END;
-        _lastePlayStatus = STATUS_BUFFERING_END;
+        stSegmentInfo.ePlayStatus = status;
     }
     else
     {
-        //        SVInfo (@"ePlayStatus exception.");
-        stSegmentInfo.ePlayStatus = status;
-        _lastePlayStatus = status;
+        if (!cutton && status != STATUS_IMPAIR_END)
+        {
+            stSegmentInfo.ePlayStatus = STATUS_IMPAIR_START;
+            cutton = true;
+        }
+        else if (status == STATUS_IMPAIR_END)
+        {
+            cutton = false;
+            stSegmentInfo.ePlayStatus = STATUS_IMPAIR_END;
+        }
+        else if (cutton)
+        {
+            stSegmentInfo.ePlayStatus = STATUS_IMPAIRING;
+        }
     }
+
+    _lastePlayStatus = stSegmentInfo.ePlayStatus;
+    NSLog (@"--##-----------------%d", _lastePlayStatus);
+
 
     SVInfo (@"-----UvMOSSegmentInfo[iAvgVideoBitrate:%d  iVideoFrameRate:%.2f  iAvgKeyFrameSize:%d "
             @" "
@@ -225,6 +231,10 @@
     if (_lastePlayStatus == STATUS_IMPAIR_END || _lastePlayStatus == STATUS_BUFFERING_END)
     {
         stSegmentInfo.ePlayStatus = STATUS_PLAYING;
+    }
+    else if (_lastePlayStatus == STATUS_IMPAIR_START)
+    {
+        stSegmentInfo.ePlayStatus = STATUS_IMPAIRING;
     }
     else
     {
