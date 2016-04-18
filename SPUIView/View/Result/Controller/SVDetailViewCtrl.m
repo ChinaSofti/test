@@ -216,20 +216,20 @@
     // Uvmos
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"U-vMOS Score"),
-                   @"value": [self formatFloatValue:[testResultJson valueForKey:@"UvMOSSession"]]
+                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"UvMOSSession"]]
                }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"      sView Score"),
-                   @"value": [self formatFloatValue:[testResultJson valueForKey:@"sViewSession"]]
+                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sViewSession"]]
                }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"      sQuality Score"),
-                   @"value": [self formatFloatValue:[testResultJson valueForKey:@"sQualitySession"]]
+                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sQualitySession"]]
                }]];
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
         @"key": I18N (@"      sInteraction Score"),
-        @"value": [self formatFloatValue:[testResultJson valueForKey:@"sInteractionSession"]]
+        @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sInteractionSession"]]
     }]];
 
     // 首次缓冲时间
@@ -568,6 +568,12 @@
 - (NSString *)formatFloatValue:(NSString *)value
 {
     return [NSString stringWithFormat:@"%.2f", [value floatValue]];
+}
+
+// 输出浮点型的数值,保留1位小数
+- (NSString *)formatOneDecimal:(NSString *)value
+{
+    return [NSString stringWithFormat:@"%.1f", [value floatValue]];
 }
 
 // 输出整形的数值,无小数

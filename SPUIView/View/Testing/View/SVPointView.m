@@ -197,7 +197,7 @@
             self.grayView.transform = CGAffineTransformMakeRotation (value / 1.2 - 2.5 / 1.2);
         }
         _num = value;
-        _valueLabel.text = [NSString stringWithFormat:@"%.2f", _num];
+        _valueLabel.text = [NSString stringWithFormat:@"%.1f", _num];
     }
 }
 
