@@ -43,14 +43,19 @@
 
     // 服务器归属地的标题
     UILabel *_carrierTitle;
-    //进度条
+
+    // 进度条
     SVProgressView *pro;
+
     float value;
+
+    // 主窗口
+    UIWindow *window;
 
     BOOL isFirstResult;
 }
 
-//定义gy遮挡View
+// 定义gy遮挡View
 @property (nonatomic, strong) UIView *gyview;
 
 @end
@@ -70,6 +75,9 @@ double _preSpeed = 0.0;
     }
     _preSpeed = 0.0;
     currentResultModel = resultModel;
+
+    // 获取整个屏幕的window
+    window = [UIApplication sharedApplication].keyWindow;
     return self;
 }
 
@@ -87,12 +95,13 @@ double _preSpeed = 0.0;
     // 设置背景颜色
     self.view.backgroundColor = [UIColor colorWithHexString:@"#FFFAFAFA"];
 
-    //添加方法
+    // 添加方法
     [self creatHeaderView];
     [self creatSpeedTestingView];
     [self creatFooterView];
 }
-//退出测试按钮点击事件
+
+// 退出测试按钮点击事件
 - (void)removeButtonClicked:(UIButton *)button
 {
     NSString *title1 = I18N (@"Test stopped");
@@ -107,6 +116,7 @@ double _preSpeed = 0.0;
                                           otherButtonTitles:title4, nil];
     [alert show];
 }
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1)
@@ -145,16 +155,22 @@ double _preSpeed = 0.0;
     isFirstResult = YES;
 
 
-    //添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
-    //获取整个屏幕的window
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    //创建一个覆盖garyView
+    // 添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
+    // 将当前view的window设置为主窗口
+    [window makeKeyAndVisible];
+
+    // 创建一个覆盖garyView
     _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 50, kScreenW, 50)];
-    //设置透明度
+
+    // 设置透明度
     _gyview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
-    //添加
+
+    // 添加
     [window addSubview:_gyview];
+
+    // 初始化页面
     [self initContext];
+
     // 进入页面时，开始测试
     _speedTest = [[SVSpeedTest alloc] initWithView:self.currentResultModel.testId
                                      showSpeedView:nil
