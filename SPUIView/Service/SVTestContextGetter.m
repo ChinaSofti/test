@@ -198,11 +198,12 @@ static SVTestContextGetter *contextGetter = nil;
         return nil;
     }
 
-    // 生成随机数
-    int randomIndex = arc4random () % [allSegement count];
+    //    // 生成随机数
+    //    int randomIndex = arc4random () % [allSegement count];
 
     // 解析出视频ip，归属地等信息
-    SVVideoSegement *segement = allSegement[randomIndex];
+    //    SVVideoSegement *segement = allSegement[randomIndex];
+    SVVideoSegement *segement = allSegement[0];
     NSURL *url = [NSURL URLWithString:segement.videoSegementURLStr];
     [segement setVideoSegementURL:url];
     @try
