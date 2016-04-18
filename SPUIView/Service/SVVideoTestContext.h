@@ -15,7 +15,7 @@
  */
 @interface SVVideoTestContext : SVTestContext
 
-@property (nonatomic, retain) NSArray *urlArray;
+@property (nonatomic, retain) NSMutableArray *urlArray;
 
 @property (nonatomic, retain) NSString *videoURLString;
 

@@ -75,8 +75,12 @@
 
     // 遮挡视频的透明UIView，其大小始终与视频大小相同
     UIView *_transparentView;
-    //进度条
+
+    // 进度条
     SVProgressView *pro;
+
+    // 主窗口
+    UIWindow *window;
     float value;
 }
 
@@ -99,6 +103,9 @@
     }
 
     currentResultModel = resultModel;
+
+    // 获取整个屏幕的window
+    window = [UIApplication sharedApplication].keyWindow;
     return self;
 }
 
@@ -118,13 +125,14 @@
     // 设置背景颜色
     self.view.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
 
-    //添加方法
+    // 添加方法
     [self creatHeaderView];
     [self creatTestingView];
     [self creatFooterView];
     [self creatVideoView];
 }
-//退出测试按钮点击事件
+
+// 退出测试按钮点击事件
 - (void)removeButtonClicked:(UIButton *)button
 {
     NSString *title1 = I18N (@"Test stopped");
@@ -140,6 +148,7 @@
     [alert setTag:0];
     [alert show];
 }
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSInteger tag = alertView.tag;
@@ -198,7 +207,7 @@
 {
     [super viewWillAppear:animated];
 
-    //初始化进度条
+    // 初始化进度条
     pro = [[SVProgressView alloc] initWithheight:NavBarH];
     value = 0.0;
     [self.view addSubview:pro];
@@ -208,8 +217,8 @@
     self.navigationController.navigationBar.hidden = NO;
 
     // 添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
-    // 获取整个屏幕的window
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    // 将当前view的window设置为主窗口
+    [window makeKeyAndVisible];
 
     // 创建一个覆盖garyView
     _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 49, kScreenW, 49)];

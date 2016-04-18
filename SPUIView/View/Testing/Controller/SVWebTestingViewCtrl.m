@@ -39,6 +39,8 @@
 
     // 上一个url
     NSString *tempUrl;
+
+    UIWindow *window;
 }
 
 //定义gray遮挡View
@@ -60,6 +62,9 @@
     }
 
     currentResultModel = resultModel;
+
+    // 获取整个屏幕的window
+    window = [UIApplication sharedApplication].keyWindow;
     return self;
 }
 
@@ -128,22 +133,29 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
 
-    //初始化进度条
+    // 初始化进度条
     pro = [[SVProgressView alloc] initWithheight:NavBarH];
     value = 0.0;
     tempUrl = nil;
     [self.view addSubview:pro];
 
-    //添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
-    //获取整个屏幕的window
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    //创建一个覆盖garyView
+    // 添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
+    // 将当前view的window设置为主窗口
+    [window makeKeyAndVisible];
+
+    // 创建一个覆盖garyView
     _gyview = [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - 200, kScreenW, 200)];
-    //设置透明度
+
+    // 设置透明度
     _gyview.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
-    //添加
+
+    // 添加
     [window addSubview:_gyview];
+
+    // 初始化页面
     [self initContext];
+
+
     // 进入页面时，开始测试
     _webTest = [[SVWebTest alloc] initWithView:self.currentResultModel.testId
                                    showWebView:_footerView.leftView

@@ -33,7 +33,18 @@
  */
 - (void)setVideoURLsString:(NSString *)videoURLsString
 {
-    urlArray = [videoURLsString componentsSeparatedByString:@"\r\n"];
+    urlArray = [[NSMutableArray alloc] init];
+    NSArray *urlArrayTemp = [videoURLsString componentsSeparatedByString:@"\r\n"];
+    for (NSString *url in urlArrayTemp)
+    {
+        // 过滤掉为空的url
+        if (!url || [url isEqualToString:@""])
+        {
+            continue;
+        }
+
+        [urlArray addObject:url];
+    }
     if (urlArray)
     {
         int index = arc4random () % urlArray.count;
