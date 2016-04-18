@@ -201,7 +201,7 @@
     [defalutValue setValue:I18N (@"Response Time") forKey:@"leftTitle"];
     [defalutValue setValue:@"" forKey:@"leftUnit"];
     [defalutValue setValue:@"N/A" forKey:@"middleDefaultValue"];
-    [defalutValue setValue:I18N (@"Download") forKey:@"middleTitle"];
+    [defalutValue setValue:I18N (@"Download Speed") forKey:@"middleTitle"];
     [defalutValue setValue:@"" forKey:@"middleUnit"];
     [defalutValue setValue:@"N/A" forKey:@"rightDefaultValue"];
     [defalutValue setValue:I18N (@"Load duration") forKey:@"rightTitle"];

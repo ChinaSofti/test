@@ -50,7 +50,6 @@
             [webView loadRequest:request];
         }
     }
-    [webView loadFileURL:fileURL allowingReadAccessToURL:fileURL];
 
     [self.view addSubview:webView];
     //    [self createUI];
