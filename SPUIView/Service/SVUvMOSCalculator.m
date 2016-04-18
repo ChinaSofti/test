@@ -152,11 +152,30 @@
     stSegmentInfo.iAvgVideoBitrate = _testResult.bitrate;
     stSegmentInfo.dVideoFrameRate = _testResult.frameRate;
     stSegmentInfo.iAvgKeyFrameSize = 0;
-    stSegmentInfo.ePlayStatus = status;
     stSegmentInfo.iImpairmentDegree = 50;
     stSegmentInfo.iTimeStamp = iTimeStamp;
 
-    _lastePlayStatus = stSegmentInfo.ePlayStatus;
+    if (status == STATUS_IMPAIR_START || _lastePlayStatus == STATUS_BUFFERING_END)
+    {
+        stSegmentInfo.ePlayStatus = STATUS_IMPAIR_START;
+        _lastePlayStatus = STATUS_IMPAIR_START;
+    }
+    else if (status == STATUS_IMPAIR_START || _lastePlayStatus == STATUS_IMPAIR_START)
+    {
+        stSegmentInfo.ePlayStatus = STATUS_IMPAIRING;
+        _lastePlayStatus = STATUS_IMPAIRING;
+    }
+    else if (status == STATUS_BUFFERING_END)
+    {
+        stSegmentInfo.ePlayStatus = STATUS_BUFFERING_END;
+        _lastePlayStatus = STATUS_BUFFERING_END;
+    }
+    else
+    {
+        SVInfo (@"ePlayStatus exception.");
+        stSegmentInfo.ePlayStatus = STATUS_BUFFERING_END;
+        _lastePlayStatus = STATUS_BUFFERING_END;
+    }
 
     SVInfo (@"-----UvMOSSegmentInfo[iAvgVideoBitrate:%d  iVideoFrameRate:%.2f  iAvgKeyFrameSize:%d "
             @" "
