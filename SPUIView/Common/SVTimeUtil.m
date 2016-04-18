@@ -57,14 +57,13 @@
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     SVI18N *i18n = [SVI18N sharedInstance];
     NSString *language = [i18n getLanguage];
-    
+
     if ([language isEqual:@"en"])
     {
-        NSLog (@"!!!!!!!!!!!!");
         dateFormat.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     }
     NSDate *nd = [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
-    
+
     [dateFormat setDateFormat:formatStr];
     NSString *dateString = [dateFormat stringFromDate:nd];
     return dateString;

@@ -55,8 +55,10 @@
     [self.view addSubview:_tableView];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     [_soucreMA removeAllObjects];
 
     [super viewDidAppear:animated];
