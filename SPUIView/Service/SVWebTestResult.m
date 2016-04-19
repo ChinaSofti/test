@@ -9,5 +9,5 @@
 #import "SVWebTestResult.h"
 
 @implementation SVWebTestResult
-@synthesize testId, testTime, testUrl, responseTime, totalTime, downloadSpeed, downloadSize;
+@synthesize testId, testTime, testUrl, responseTime, totalTime, downloadSpeed, downloadSize, finished;
 @end

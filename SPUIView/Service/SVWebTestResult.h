@@ -28,4 +28,7 @@
 // 下载速度
 @property double downloadSpeed;
 
+// 当前url是否测试结束
+@property BOOL finished;
+
 @end

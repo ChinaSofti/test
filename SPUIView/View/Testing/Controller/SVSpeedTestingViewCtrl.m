@@ -147,6 +147,8 @@ double _preSpeed = 0.0;
 {
     [super viewWillAppear:animated];
 
+    // 设置屏幕不会休眠
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
 
     // 显示tabbar 和navigationbar
     self.tabBarController.tabBar.hidden = NO;
@@ -219,6 +221,9 @@ double _preSpeed = 0.0;
           [_gyview removeFromSuperview];
       }
     });
+
+    // 设置屏幕自动锁屏
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
 }
 
 #pragma mark - 创建头headerView

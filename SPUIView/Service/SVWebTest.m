@@ -167,9 +167,6 @@
         // 获取要测试的url
         [self getUrlArray];
 
-        // 设置屏幕不会休眠
-        [UIApplication sharedApplication].idleTimerDisabled = YES;
-
         // 开始测试
         for (NSString *url in webTestContext.urlArray)
         {
@@ -288,9 +285,6 @@
 
         // 关闭定时器和url连接
         [self closeTimerAndConn];
-
-        // 取消屏幕不会休眠的设置
-        [UIApplication sharedApplication].idleTimerDisabled = NO;
     }
     @catch (NSException *exception)
     {
@@ -331,9 +325,6 @@
     [currentResult setResponseTime:count > 0 ? (sumResponseTime / count) : -1];
     [currentResult setTotalTime:count > 0 ? (sumTotalTime / count) : -1];
     [currentResult setDownloadSpeed:count > 0 ? (sumDownloadSpeed / count) : -1];
-
-    // 取消屏幕不会休眠的设置
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
 
     // 将平均后的结果推送给前台
     [_testDelegate updateTestResultDelegate:self.webTestContext testResult:currentResult];
@@ -379,6 +370,10 @@
     [currentResult setTotalTime:totalTime];
     [currentResult setDownloadSpeed:avgSpeed];
 
+    // 当前url测试结束
+    finished = YES;
+    [currentResult setFinished:finished];
+
     // 记录日志
     SVInfo (@"%@%@;%@%f;%@%f", @"Test Url:", currentUrl, @"Total Time:", totalTime,
             @"Avg Dowanload Speed:", avgSpeed);
@@ -388,9 +383,6 @@
 
     // 将结果放入字典
     [self.webTestResultDic setValue:currentResult forKey:currentUrl];
-
-    // 当前url测试结束
-    finished = YES;
 }
 
 // 加载页面失败时调用
@@ -431,21 +423,23 @@ didFailNavigation:(WKNavigation *)navigation
     [currentResult setTotalTime:costTime];
     [currentResult setDownloadSpeed:avgSpeed];
     [currentResult setDownloadSize:downloadSize];
+    [currentResult setFinished:finished];
 
     SVInfo (@"%@%@;%@%f;%@%f", @"Test Url:", currentUrl, @"Current Cost Time:", costTime,
             @"Current Dowanload Speed:", avgSpeed);
-
-    // 向页面推送数据
-    [_testDelegate updateTestResultDelegate:self.webTestContext testResult:currentResult];
 
     // 如果超过10S，则任务测试结束
     if (costTime >= 10)
     {
         finished = YES;
+        [currentResult setFinished:finished];
 
         // 将结果放入字典
         [self.webTestResultDic setValue:currentResult forKey:currentUrl];
     }
+
+    // 向页面推送数据
+    [_testDelegate updateTestResultDelegate:self.webTestContext testResult:currentResult];
 }
 
 

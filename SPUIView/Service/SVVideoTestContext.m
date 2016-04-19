@@ -45,11 +45,16 @@
 
         [urlArray addObject:url];
     }
-    if (urlArray)
+
+    // 如果得到的urlArray为空，则直接返回
+    if ([urlArray count] == 0)
     {
-        int index = arc4random () % urlArray.count;
-        videoURLString = [urlArray objectAtIndex:index];
+        return;
     }
+
+    // 随机选取一个测试地址
+    int index = arc4random () % urlArray.count;
+    videoURLString = [urlArray objectAtIndex:index];
 }
 
 @end

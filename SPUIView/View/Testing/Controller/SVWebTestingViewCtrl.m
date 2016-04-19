@@ -37,9 +37,7 @@
     SVProgressView *pro;
     float value;
 
-    // 上一个url
-    NSString *tempUrl;
-
+    // 当前页面的主窗口
     UIWindow *window;
 }
 
@@ -129,6 +127,9 @@
 {
     [super viewWillAppear:animated];
 
+    // 设置屏幕不会休眠
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+
     // 显示tabbar 和navigationbar
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
@@ -136,7 +137,6 @@
     // 初始化进度条
     pro = [[SVProgressView alloc] initWithheight:NavBarH];
     value = 0.0;
-    tempUrl = nil;
     [self.view addSubview:pro];
 
     // 添加覆盖gyview(为了防止用户在测试的过程中点击按钮)
@@ -195,6 +195,9 @@
           [_gyview removeFromSuperview];
       }
     });
+
+    // 设置屏幕自动锁屏
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
 }
 
 #pragma mark - 创建头headerView
@@ -309,19 +312,13 @@
     {
         testUrl = strArray[0];
     }
+
     //进度条
-
-    if (!tempUrl)
-    {
-        tempUrl = testUrl;
-    }
-
-    if (![testUrl isEqualToString:tempUrl])
+    if (testResult.finished)
     {
         //柱状图更新
-        value += 0.25;
+        value += (1.0 / [testContext.urlArray count]);
         [pro setProgress:value];
-        tempUrl = testUrl;
     }
 
 
@@ -333,6 +330,9 @@
       // 测试完成跳转到
       if (testContext.testStatus == TEST_FINISHED)
       {
+          // 如果测试结束，进度条直接走完
+          [pro setProgress:1.0];
+
           [self initCurrentResultModel:testResult];
           [self goToCurrentResultViewCtrl];
           return;

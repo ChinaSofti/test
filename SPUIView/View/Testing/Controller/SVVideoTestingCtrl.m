@@ -201,6 +201,11 @@
     realuvMOSSession = 0.0;
     _resultTimes = 0;
     _UvMOSbarResultTimes = 0;
+
+    // 初始化resultModel中的值
+    currentResultModel.uvMOS = -1;
+    currentResultModel.firstBufferTime = -1;
+    currentResultModel.cuttonTimes = -1;
 }
 
 - (void)viewWillAppear:(BOOL)animated

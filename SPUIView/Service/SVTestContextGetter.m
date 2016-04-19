@@ -256,7 +256,19 @@ static SVTestContextGetter *contextGetter = nil;
 {
     webContext = [[SVWebTestContext alloc] initWithData:self.data];
 
-    [webContext setUrlArray:[webURLs componentsSeparatedByString:@"\r\n"]];
+    // 过滤掉为空的url
+    NSMutableArray *realArray = [[NSMutableArray alloc] init];
+    NSArray *urlArray = [webURLs componentsSeparatedByString:@"\r\n"];
+    for (NSString *url in urlArray)
+    {
+        if (!url || [url isEqualToString:@""])
+        {
+            continue;
+        }
+        [realArray addObject:url];
+    }
+
+    [webContext setUrlArray:realArray];
 
     return webContext;
 }

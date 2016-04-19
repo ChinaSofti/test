@@ -103,9 +103,6 @@ double _beginTime;
 // 开始测试
 - (BOOL)startTest
 {
-    // 设置屏幕不会休眠
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
-
     _testResult.testId = _testId;
     _testResult.testTime = [[NSDate date] timeIntervalSince1970] * 1000;
     _testResult.delay = 0;
@@ -138,8 +135,6 @@ double _beginTime;
         // 如果提前停止测试，直接返回
         if (_testStatus == TEST_FINISHED)
         {
-            // 取消屏幕不会休眠的设置
-            [UIApplication sharedApplication].idleTimerDisabled = NO;
             return NO;
         }
 
@@ -152,9 +147,6 @@ double _beginTime;
         _internalTestStatus = TEST_FINISHED;
         [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
     }
-
-    // 取消屏幕不会休眠的设置
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
 
     return TRUE;
 }
@@ -722,9 +714,6 @@ void sort (double *a, int n)
 {
     _testStatus = TEST_FINISHED;
     _internalTestStatus = TEST_FINISHED;
-
-    // 取消屏幕不会休眠的设置
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
 
     SVInfo (@"stop speed test!!!!");
 

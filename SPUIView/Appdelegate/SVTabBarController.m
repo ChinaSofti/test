@@ -23,7 +23,7 @@
 @implementation SVTabBarController
 
 {
-    UIImageView *imageView;
+    UIView *launchImageView;
     UIProgressView *progressView;
     NSTimer *progressTimer;
     float progressVlaue;
@@ -53,10 +53,12 @@
     [self addNotificataion];
 
     // 设置启动图片
+    launchImageView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UIImage *image = [UIImage imageNamed:@"starting_window"];
-    imageView = [[UIImageView alloc] initWithImage:image];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.frame = [UIScreen mainScreen].bounds;
-    [self.view addSubview:imageView];
+    [launchImageView addSubview:imageView];
+    [self.view addSubview:launchImageView];
 
     // 设置进度条
     progressView = [[UIProgressView alloc]
@@ -86,7 +88,7 @@
 
         // 去掉进度条和启动图片
         [progressView removeFromSuperview];
-        [imageView removeFromSuperview];
+        [launchImageView removeFromSuperview];
 
         // 显示主页面
         [self setShadowView];
