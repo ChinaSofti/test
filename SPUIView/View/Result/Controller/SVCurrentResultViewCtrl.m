@@ -377,7 +377,7 @@
         NSString *leftUnit = @"";
         if (_resultModel.uvMOS && _resultModel.uvMOS != -1)
         {
-            leftValue = [NSString stringWithFormat:@"%.1f", _resultModel.uvMOS];
+            leftValue = [NSString stringWithFormat:@"%.1f", _resultModel.uvMOS - 0.05];
         }
         UILabel *leftView = [self createResultViewWithName:@"videoLeft"
                                                      WithX:FITWIDTH (268)
