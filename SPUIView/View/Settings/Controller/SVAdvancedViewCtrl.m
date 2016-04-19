@@ -572,6 +572,11 @@
         SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
         _textField.text = probeInfo.getScreenSize;
     }
+    else
+    {
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        [probeInfo setScreenSize:[_textField.text floatValue]];
+    }
 }
 #pragma mark - 创建结果上传选择开关UI界面
 - (void)createResultUploadUI
@@ -627,8 +632,6 @@
 //返回按钮的点击事件
 - (void)backButtonClick
 {
-    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    [probeInfo setScreenSize:[_textField.text floatValue]];
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end
