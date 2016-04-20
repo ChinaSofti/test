@@ -228,7 +228,7 @@ static int execute_total_times = 4;
         }
 
         isFinished = TRUE;
-        [UIApplication sharedApplication].idleTimerDisabled = NO;
+        //        [UIApplication sharedApplication].idleTimerDisabled = NO;
     }
 }
 
@@ -249,7 +249,7 @@ static int execute_total_times = 4;
     {
         SVInfo (@"prepareVideo");
         //播放时不要锁屏
-        [UIApplication sharedApplication].idleTimerDisabled = YES;
+        //        [UIApplication sharedApplication].idleTimerDisabled = YES;
         // 设置缓冲大小为2倍码率
         [_VMpalyer setBufferSize:segement.bitrate * 2 * 1024];
         [_VMpalyer setDataSource:segement.videoSegementURL];

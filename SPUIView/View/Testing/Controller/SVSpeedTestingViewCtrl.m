@@ -148,7 +148,7 @@ double _preSpeed = 0.0;
     [super viewWillAppear:animated];
 
     // 设置屏幕不会休眠
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    //    [UIApplication sharedApplication].idleTimerDisabled = YES;
 
     // 显示tabbar 和navigationbar
     self.tabBarController.tabBar.hidden = NO;
@@ -223,7 +223,7 @@ double _preSpeed = 0.0;
     });
 
     // 设置屏幕自动锁屏
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
+    //    [UIApplication sharedApplication].idleTimerDisabled = NO;
 }
 
 #pragma mark - 创建头headerView
@@ -401,8 +401,14 @@ double _preSpeed = 0.0;
       {
           speed = _preSpeed + [self getRandomNumber:-_preSpeed to:_preSpeed] * 1.0 / 100;
       }
-
       [_speedtestingView updateValue:speed];
+
+      // 如果是汇总结果，说明测试结束，将表盘指针改为0
+      if (testResult.isSummeryResult)
+      {
+          [_speedtestingView updateValue:0];
+      }
+
       if (testResult.isUpload)
       {
           [_headerView updateRightValue:[NSString stringWithFormat:@"%.2f", speed]

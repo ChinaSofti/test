@@ -26,7 +26,7 @@ const int STEP = 5;
 const int DELAY_TEST_COUTN = 4;
 const int DOWNLOAD_BUFFER_SIZE = 512 * 1024;
 const int UPLOAD_BUFFER_SIZE = 16 * 1024;
-const int THREAD_NUM = 2;
+const int THREAD_NUM = 1;
 const int SAMPLE_INTERVAL = 200 * 1000;
 const int SAMPLE_COUNT = 50;
 const NSString *BUNDORY = @"---------------------------7db1c523809b2";
@@ -122,6 +122,9 @@ double _beginTime;
         // 推送最终结果
         [_testDelegate updateTestResultDelegate:_testContext testResult:_testResult];
     }
+
+    // 等待1秒
+    [NSThread sleepForTimeInterval:1];
 
     // 启动上传测试
     _internalTestStatus = TEST_TESTING;

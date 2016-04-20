@@ -395,6 +395,9 @@
 //开始测试方法
 - (void)beginTest
 {
+    // 设置屏幕不会休眠
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+
     [_selectedMA sortUsingComparator:^NSComparisonResult (__strong id obj1, __strong id obj2) {
       return [obj1 intValue] > [obj2 intValue];
     }];
