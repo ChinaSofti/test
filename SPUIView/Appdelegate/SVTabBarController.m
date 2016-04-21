@@ -164,7 +164,7 @@
     dic[NSForegroundColorAttributeName] = [UIColor colorWithHexString:@"869095"];
 
     // 指定字体
-    dic[NSFontAttributeName] = [UIFont systemFontOfSize:pixelToFontsize (28)];
+    dic[NSFontAttributeName] = [UIFont systemFontOfSize:11];
 
     // 指定未选中状态下文字属性
     [childCtrl.tabBarItem setTitleTextAttributes:dic forState:UIControlStateNormal];
@@ -176,7 +176,7 @@
     selectedDic[NSForegroundColorAttributeName] = [UIColor colorWithHexString:@"29A5E5"];
 
     // 指定字体
-    selectedDic[NSFontAttributeName] = [UIFont systemFontOfSize:pixelToFontsize (28)];
+    selectedDic[NSFontAttributeName] = [UIFont systemFontOfSize:11];
 
     // 指定选中状态下文字属性
     [childCtrl.tabBarItem setTitleTextAttributes:selectedDic forState:UIControlStateSelected];
