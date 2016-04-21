@@ -285,6 +285,12 @@
 
         // 更新probeInfo的内容
         SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        // ios输入的数字如果前面有0，保留去掉0之后的数据
+        while ([_textField.text hasPrefix:@"0"])
+        {
+            _textField.text = [_textField.text substringFromIndex:1];
+            NSLog (@"压缩之后的字符串是:%@", _textField.text);
+        }
         [probeInfo setBandwidth:_textField.text];
     }
 
