@@ -538,7 +538,6 @@
         SVSpeedTestServer *defaultvalue0 = array[0];
         _label1.text = defaultvalue0.name;
         _label2.text = defaultvalue0.sponsor;
-        NSLog (@"%@", defaultvalue0.name);
         [servers setDefaultServer:defaultvalue0];
     }
     [servers setAuto:YES];

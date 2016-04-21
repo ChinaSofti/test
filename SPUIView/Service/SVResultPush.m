@@ -6,7 +6,7 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
-
+#import "SVAppVersionChecker.h"
 #import "SVCurrentDevice.h"
 #import "SVDBManager.h"
 #import "SVDetailResultModel.h"
@@ -14,6 +14,7 @@
 #import "SVIPAndISPGetter.h"
 #import "SVProbeInfo.h"
 #import "SVResultPush.h"
+#import "SVUvMOSCalculator.h"
 
 @interface SVResultPush ()
 
@@ -228,14 +229,15 @@ NSArray *_emptyArr;
     //    NSString *phoneModel = [[UIDevice currentDevice] model];
 
     NSString *localIP = [SVCurrentDevice getIPAddress];
+
     // UUID
-    //    NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSString *uuid = [probeInfo getUUID];
 
     //    NSString *mobilename = [NSString stringWithFormat:@"%@ %@ %@", userPhoneName, deviceName,
     //    phoneVersion];
 
     [paramDic setObject:@0 forKey:@"cellid"];
-    [paramDic setObject:@"xxxxxxxxxxxxxxxxxxxxxxxxxxx" forKey:@"mobileid"];
+    [paramDic setObject:!uuid ? @"" : uuid forKey:@"mobileid"];
     [paramDic setObject:!localIP ? @"" : [self hideIp:localIP] forKey:@"mobileip"];
     [paramDic setObject:deviceName forKey:@"mobilename"];
     //    [paramDic setObject:mobilename forKey:@"mobilename"];
@@ -258,6 +260,8 @@ NSArray *_emptyArr;
     [collectorResultsDic setObject:@0 forKey:@"signalStrength"];
     [collectorResultsDic setObject:@0 forKey:@"SNR"];
     [collectorResultsDic setObject:@0 forKey:@"testId"];
+    [collectorResultsDic setObject:[SVAppVersionChecker currentVersion] forKey:@"softwareVersion"];
+    [collectorResultsDic setObject:[SVUvMOSCalculator getSDKCurVersion] forKey:@"uvmosVersion"];
     [collectorResultsDic setObject:[NSNumber numberWithLongLong:_svTestId] forKey:@"testTime"];
 
     return collectorResultsDic;

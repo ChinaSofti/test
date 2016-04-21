@@ -165,6 +165,11 @@ static NSInteger BtnTag = 10086;
                         Font:pixelToFontsize (40)
                    fontColor:[UIColor blackColor]
              characterLength:5];
+    // ios输入的数字如果前面有0，保留去掉0之后的数据
+    while ([_mealTextField.text hasPrefix:@"0"])
+    {
+        _mealTextField.text = [_mealTextField.text substringFromIndex:1];
+    }
     _mealTextField.keyboardType = UIKeyboardTypeNumberPad;
 
     //所属运营商
@@ -313,6 +318,12 @@ static NSInteger BtnTag = 10086;
     if (_mealTextField.text)
     {
         SVInfo (@"%@", _mealTextField.text);
+        // ios输入的数字如果前面有0，保留去掉0之后的数据
+        while ([_mealTextField.text hasPrefix:@"0"])
+        {
+            _mealTextField.text = [_mealTextField.text substringFromIndex:1];
+        }
+        _mealTextField.keyboardType = UIKeyboardTypeNumberPad;
         [probeInfo setBandwidth:_mealTextField.text];
     }
 
