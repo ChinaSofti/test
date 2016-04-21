@@ -121,7 +121,7 @@
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
 
     // 文本框
-    _textField = [[UITextField alloc] init];
+    _textField = [[SVTextField alloc] init];
     [_textField setDelegate:self];
     _textField.frame = CGRectMake (lableScreenSize.rightX, FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
     _textField.text = probeInfo.getScreenSize;

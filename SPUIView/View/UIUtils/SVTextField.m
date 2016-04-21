@@ -45,4 +45,14 @@ shouldChangeCharactersInRange:(NSRange)range
     return ([newtxt length] <= _characterLength);
 }
 
+// 禁止复制粘贴选择等
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    if (menuController)
+    {
+        [UIMenuController sharedMenuController].menuVisible = NO;
+    }
+    return NO;
+}
 @end
