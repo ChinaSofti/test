@@ -182,7 +182,6 @@
                         @try
                         {
                             NSString *columnName = [set columnNameForIndex:i];
-                            // NSLog (@"columnName:%@", columnName);
                             // [columnName capitalizedString] 字符串首字母大写
                             NSString *firstCharacter = [[columnName substringToIndex:1] uppercaseString];
                             NSString *lastCharacter = [columnName substringFromIndex:1];

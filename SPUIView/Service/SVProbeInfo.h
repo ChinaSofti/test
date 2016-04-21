@@ -124,5 +124,12 @@
  */
 - (BOOL)isUploadResult;
 
+/**
+ *  获取UUID
+ *
+ *  @return UUID
+ */
+- (NSString *)getUUID;
+
 
 @end

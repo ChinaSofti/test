@@ -43,6 +43,13 @@ static NSString *_screenSize;
             probeInfo.networkType = @"";
             probeInfo.location = @"";
             probeInfo.ip = @"";
+
+            // 初始化UUID
+            if (![probeInfo getUUID])
+            {
+                NSString *uuid = [probeInfo gen_uuid];
+                [probeInfo setUUID:uuid];
+            }
         }
     }
 
@@ -254,6 +261,41 @@ static NSString *_screenSize;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *isUploadResult = [defaults valueForKey:@"isUploadResult"];
     return [isUploadResult boolValue];
+}
+
+/**
+ *  设置UUID
+ *  @param uuid 唯一标示
+ */
+- (void)setUUID:(NSString *)uuid
+{
+    SVInfo (@"Advanced Setting[UUID=%@]", uuid);
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:uuid forKey:@"speedProUUID"];
+    [defaults synchronize];
+}
+
+/**
+ *  获取UUID
+ *
+ *  @return UUID
+ */
+- (NSString *)getUUID
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *uuid = [defaults valueForKey:@"speedProUUID"];
+    return uuid;
+}
+
+// 生成UUID
+- (NSString *)gen_uuid
+{
+    CFUUIDRef uuid_ref = CFUUIDCreate (NULL);
+    CFStringRef uuid_string_ref = CFUUIDCreateString (NULL, uuid_ref);
+    CFRelease (uuid_ref);
+    NSString *uuid = [NSString stringWithString:(__bridge NSString *)uuid_string_ref];
+    CFRelease (uuid_string_ref);
+    return uuid;
 }
 
 

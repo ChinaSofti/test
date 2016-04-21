@@ -145,7 +145,6 @@
         SVError (@"calculate UvMOS fail. hServiceHandle is null");
         return;
     }
-    NSLog (@"--#####-----------------%d", status);
 
     /* 赋值周期性采样参数 */
     UvMOSSegmentInfo stSegmentInfo = { 0 };
@@ -270,7 +269,7 @@
     [sample setSInteractionSession:stResult.sInteractionSession];
     [sample setSViewSession:stResult.sViewSession];
     [sample setUvMOSSession:stResult.uvmosSession];
-    
+
     [sample setSQualityInstant:stResult.sQualityInstant];
     [sample setSInteractionInstant:stResult.sInteractionInstant];
     [sample setSViewInstant:stResult.sViewInstant];
@@ -294,7 +293,7 @@
 
 + (NSString *)getSDKCurVersion
 {
-    return [[NSString alloc] initWithCString:getSDKCurVersion() encoding:NSUTF8StringEncoding];
+    return [[NSString alloc] initWithCString:getSDKCurVersion () encoding:NSUTF8StringEncoding];
 }
 
 

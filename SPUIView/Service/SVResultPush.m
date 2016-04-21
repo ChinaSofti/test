@@ -229,14 +229,15 @@ NSArray *_emptyArr;
     //    NSString *phoneModel = [[UIDevice currentDevice] model];
 
     NSString *localIP = [SVCurrentDevice getIPAddress];
+
     // UUID
-    //    NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSString *uuid = [probeInfo getUUID];
 
     //    NSString *mobilename = [NSString stringWithFormat:@"%@ %@ %@", userPhoneName, deviceName,
     //    phoneVersion];
 
     [paramDic setObject:@0 forKey:@"cellid"];
-    [paramDic setObject:@"xxxxxxxxxxxxxxxxxxxxxxxxxxx" forKey:@"mobileid"];
+    [paramDic setObject:!uuid ? @"" : uuid forKey:@"mobileid"];
     [paramDic setObject:!localIP ? @"" : [self hideIp:localIP] forKey:@"mobileip"];
     [paramDic setObject:deviceName forKey:@"mobilename"];
     //    [paramDic setObject:mobilename forKey:@"mobilename"];

@@ -610,7 +610,7 @@ static SVTextField *textfield;
 
     //创建一个0-100的随机数
     int randomx = arc4random () % 101;
-    NSLog (@"随机数是:-------------%d", randomx);
+
     //字符串拼接1
     NSString *titlea = I18N (@"I am at the ");
     NSString *titleb1 = I18N (@"Mastery");
@@ -729,7 +729,7 @@ static SVTextField *textfield;
 {
     //创建一个0-100的随机数
     int randomx = arc4random () % 101;
-    NSLog (@"随机数是:-------------%d", randomx);
+
     //字符串拼接1
     NSString *titlea = I18N (@"I am at the ");
     NSString *titleb1 = I18N (@"Mastery");
@@ -1058,7 +1058,6 @@ static SVTextField *textfield;
         //获取textfield的值
         [self textFieldEditChanged:textfield.text];
 #pragma mark - -----------第三次网络请求,发送手机号码到服务器
-        NSLog (@"--------------%@", textfield.text);
     }
     else
     {
@@ -1070,7 +1069,6 @@ static SVTextField *textfield;
 //添加输入改变的方法
 + (void)textFieldEditChanged:(UITextField *)textField
 {
-    //    NSLog (@"textfield text %@", textField.text);
 }
 
 #pragma mark - 文字适配
