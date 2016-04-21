@@ -41,47 +41,6 @@
     return self;
 }
 
-
-//- (void)updateMediaInfo
-//{
-//    /* 赋值视频静态参数  */
-//    UvMOSMediaInfo stMediaInfo = { 0 };
-//
-//    // 视频帧率
-//    stMediaInfo.eMediaType = MEDIA_TYPE_VOD;
-//    // 视频提供商
-//    stMediaInfo.eContentProvider =
-//    [SVContentProviderGetter getContentProvider:_testContext.videoSegementURL.host];
-//    stMediaInfo.eVideoCodec = VIDEO_CODEC_H264;
-//    // 屏幕尺寸，单位英寸，输入为0时，屏幕映射默认为42寸TV
-//    //    stMediaInfo.fScreenSize = [SVVideoUtil getScreenScale];
-//    // 孙海龙 2016/02/13  屏幕尺寸 固定为42寸
-//    SVProbeInfo *probeInfo = [[SVProbeInfo alloc] init];
-//    float screenSize = [[probeInfo getScreenSize] floatValue];
-//    stMediaInfo.fScreenSize = screenSize;
-//    [_testResult setScreenSize:screenSize];
-//
-//    // 视频分辨率
-//    stMediaInfo.iVideoResolutionWidth = _testResult.videoWidth;
-//    stMediaInfo.iVideoResolutionHeigth = _testResult.videoHeight;
-//
-//    // 屏幕分辨率
-//    CGSize scressSize = [SVVideoUtil getScreenScale];
-//    stMediaInfo.iScreenResolutionWidth = scressSize.width;
-//    stMediaInfo.iScreenResolutionHeight = scressSize.height;
-//
-//    /* 第一步：申请U-vMOS服务号 (携带视频静态参数 )  */
-//    SVInfo (@"UvMOSMediaInfo[eMediaType:%d  eContentProvider:%d  eVideoCodec:%d  screenSize:%.2f "
-//            @"iVideoResolutionWidth:%d  iVideoResolutionHeigth:%d  iScreenResolutionWidth:%d   "
-//            @"iScreenResolutionHeight:%d]",
-//            stMediaInfo.eMediaType, stMediaInfo.eContentProvider, stMediaInfo.eVideoCodec,
-//            stMediaInfo.fScreenSize, stMediaInfo.iVideoResolutionWidth,
-//            stMediaInfo.iVideoResolutionHeigth,
-//            stMediaInfo.iScreenResolutionWidth, stMediaInfo.iScreenResolutionHeight);
-//
-//    resetMediaInfo (&hServiceHandle, &stMediaInfo);
-//}
-
 - (void)registeService
 {
     /* 赋值视频静态参数  */
@@ -270,7 +229,7 @@
     [sample setSInteractionSession:stResult.sInteractionSession];
     [sample setSViewSession:stResult.sViewSession];
     [sample setUvMOSSession:stResult.uvmosSession];
-    
+
     [sample setSQualityInstant:stResult.sQualityInstant];
     [sample setSInteractionInstant:stResult.sInteractionInstant];
     [sample setSViewInstant:stResult.sViewInstant];
@@ -294,7 +253,102 @@
 
 + (NSString *)getSDKCurVersion
 {
-    return [[NSString alloc] initWithCString:getSDKCurVersion() encoding:NSUTF8StringEncoding];
+    return [[NSString alloc] initWithCString:getSDKCurVersion () encoding:NSUTF8StringEncoding];
+}
+
+/**
+ *  计算网络规划得分。在测试完成后，用于计算总得分
+ */
+- (SVVideoTestSample *)calculateUvMOSNetworkPlan
+{
+    SVVideoTestSample *sample = nil;
+    if (!isFirstTime)
+    {
+        [self setFirstBufferStatus];
+        isFirstTime += 1;
+    }
+
+    /* 第二步：每个周期调用计算(携带周期性参数) */
+    if (!hServiceHandle)
+    {
+        SVError (@"calculate UvMOS fail. hServiceHandle is null");
+        return sample;
+    }
+
+    /* 赋值视频静态参数  */
+    UvMOSMediaInfo stMediaInfo = { 0 };
+    UvMOSStatisticsInfo pStatisticsInfo = { 0 };
+    UvMOSResult stResult = { 0 };
+
+    // 视频帧率
+    stMediaInfo.eMediaType = MEDIA_TYPE_VOD;
+    // 视频提供商
+    SVVideoSegement *segement = _testContext.videoSegementInfo[0];
+    stMediaInfo.eContentProvider =
+    [SVContentProviderGetter getContentProvider:segement.videoSegementURL.host];
+    stMediaInfo.eVideoCodec = VIDEO_CODEC_H264;
+    SVProbeInfo *probeInfo = [[SVProbeInfo alloc] init];
+    float screenSize = [[probeInfo getScreenSize] floatValue];
+    stMediaInfo.dScreenSize = screenSize;
+    [_testResult setScreenSize:screenSize];
+    // 视频分辨率
+    stMediaInfo.iVideoResolutionWidth = _testResult.videoWidth;
+    stMediaInfo.iVideoResolutionHeigth = _testResult.videoHeight;
+    // 屏幕分辨率
+    CGSize scressSize = [SVVideoUtil getScreenScale];
+    stMediaInfo.iScreenResolutionWidth = scressSize.width;
+    stMediaInfo.iScreenResolutionHeight = scressSize.height;
+
+    pStatisticsInfo.iVideoPlayDuration = _testContext.videoPlayDuration;
+    pStatisticsInfo.iInitBufferLatency = _testResult.firstBufferTime;
+    pStatisticsInfo.dVideoFrameRate = _testResult.frameRate;
+    pStatisticsInfo.iAvgVideoBitrate = _testResult.bitrate;
+    pStatisticsInfo.iAvgKeyFrameSize = 0;
+    pStatisticsInfo.iImpairmentFrequency = _testResult.videoCuttonTimes;
+    pStatisticsInfo.iImpairmentDuration = _testResult.videoCuttonTotalTime;
+    pStatisticsInfo.iImpairmentDegree = 50;
+
+
+    SVInfo (@"UvMOSMediaInfo[eMediaType:%d  eContentProvider:%d eVideoCodec:%d dScreenSize:%.2f "
+            @"iVideoResolutionWidth:%d iVideoResolutionHeigth:%d  iScreenResolutionWidth:%d "
+            @"iScreenResolutionHeight:%d] "
+            @"\r\n "
+            @"UvMOSStatisticsInfo[iVideoPlayDuration:%d iInitBufferLatency:%d dVideoFrameRate:%.2f "
+            @"iAvgVideoBitrate:%d iAvgKeyFrameSize:0 iImpairmentFrequency:%d "
+            @"iImpairmentDuration:%d iImpairmentDegree:50]",
+            stMediaInfo.eMediaType, stMediaInfo.eContentProvider, stMediaInfo.eVideoCodec,
+            stMediaInfo.dScreenSize, stMediaInfo.iVideoResolutionWidth, stMediaInfo.iVideoResolutionHeigth,
+            stMediaInfo.iVideoResolutionWidth, stMediaInfo.iScreenResolutionHeight,
+            pStatisticsInfo.iVideoPlayDuration, pStatisticsInfo.iInitBufferLatency,
+            pStatisticsInfo.dVideoFrameRate, pStatisticsInfo.iAvgVideoBitrate,
+            pStatisticsInfo.iImpairmentFrequency, pStatisticsInfo.iImpairmentDuration);
+
+    // UvMOSMediaInfo *pMediaInfo, UvMOSStatisticsInfo *pStatisticsInfo, UvMOSResult *pUvMOSResult
+    int iResult = calculateUvMOSNetworkPlan (&stMediaInfo, &pStatisticsInfo, &stResult);
+    if (iResult < 0)
+    {
+        SVInfo (@"calculate UvMOS fail.  iResult:%d", iResult);
+        return sample;
+    }
+
+    SVInfo (
+    @"UvMOSResult[sQualitySession:%.2f  sInteractionSession:%.2f  sViewSession:%.2f  "
+    @"uvmosSession:%.2f  sQualityInstant:%.2f  sInteractionInstant:%.2f  sViewInstant:%.2f  "
+    @"uvmosInstant:%.2f  ] ",
+    stResult.sQualitySession, stResult.sInteractionSession, stResult.sViewSession, stResult.uvmosSession,
+    stResult.sQualityInstant, stResult.sInteractionInstant, stResult.sViewInstant, stResult.uvmosInstant);
+
+    sample = [[SVVideoTestSample alloc] init];
+    [sample setSQualitySession:stResult.sQualitySession];
+    [sample setSInteractionSession:stResult.sInteractionSession];
+    [sample setSViewSession:stResult.sViewSession];
+    [sample setUvMOSSession:stResult.uvmosSession];
+
+    [sample setSQualityInstant:stResult.sQualityInstant];
+    [sample setSInteractionInstant:stResult.sInteractionInstant];
+    [sample setSViewInstant:stResult.sViewInstant];
+    [sample setUvmosInstant:stResult.uvmosInstant];
+    return sample;
 }
 
 

@@ -456,6 +456,7 @@ static int execute_total_times = 4;
         execute_times += 1;
         if (execute_times >= execute_total_times)
         {
+            SVVideoTestSample *sample = [uvMOSCalculator calculateUvMOSNetworkPlan];
             [testResult setSViewSession:sample.sViewSession];
             [testResult setSInteractionSession:sample.sInteractionSession];
             [testResult setSQualitySession:sample.sQualitySession];

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SVAppVersionChecker.h"
 #import "SVCurrentDevice.h"
 #import "SVDBManager.h"
 #import "SVProbeInfo.h"
@@ -25,25 +26,17 @@
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSString *lastVersion = [[NSUserDefaults standardUserDefaults] valueForKey:@"lastversion"];
+    NSString *currentVersion = [SVAppVersionChecker currentVersion];
     // 判断是否是安装后第一次启动APP
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"])
+    if (!lastVersion || ![lastVersion isEqualToString:currentVersion])
     {
+        // 第一次启动APP，清除旧数据
         SVDBManager *manager = [SVDBManager sharedInstance];
         [manager removeDatabase];
-        // 第一次启动APP，清除旧数据
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+
+        [[NSUserDefaults standardUserDefaults] setValue:currentVersion forKey:@"lastversion"];
     }
-
-    //    NSLog (@"-----------------------------------------------------------------");
-    //    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-    //    //    NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
-    //    NSEnumerator *enmuerator = [infoDic keyEnumerator];
-    //    for (NSString *key in enmuerator)
-    //    {
-    //        NSLog (@"%@=%@", key, [infoDic objectForKey:key]);
-    //    }
-    //    NSLog (@"-----------------------------------------------------------------");
-
 
     //微信分享api注册
     //    [WXApi registerApp:@"wx2cce736067ee4a2d"];

@@ -593,7 +593,7 @@
       [_bitRateValue setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
       [_bitRateInFullScreenValue setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
 
-        
+
       int j = arc4random () % 10;
       float m = (float)j / 100;
       float k;
@@ -646,7 +646,7 @@
 
 - (void)initCurrentResultModel:(SVVideoTestResult *)testResult
 {
-    [currentResultModel setUvMOS:testResult.uvmosInstant];
+    [currentResultModel setUvMOS:testResult.UvMOSSession];
     [currentResultModel setFirstBufferTime:testResult.firstBufferTime];
     [currentResultModel setCuttonTimes:testResult.videoCuttonTimes];
 }

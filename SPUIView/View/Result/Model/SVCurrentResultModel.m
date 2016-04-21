@@ -9,6 +9,7 @@
 #import "SVCurrentResultModel.h"
 #import "SVCurrentResultViewCtrl.h"
 #import "SVSpeedTestingViewCtrl.h"
+#import "SVTimeUtil.h"
 #import "SVWebTestingViewCtrl.h"
 
 @implementation SVCurrentResultModel
@@ -90,6 +91,18 @@ stDownloadSpeed, stUploadSpeed, stIsp, stLocation;
     {
         return;
     }
+
+    [self setTestId:[SVTimeUtil currentMilliSecondStamp]];
+    // 将指标值都设置为-1
+    self.uvMOS = -1.0f;
+    self.firstBufferTime = -1.0f;
+    self.cuttonTimes = -1;
+    self.responseTime = -1.0f;
+    self.totalTime = -1.0f;
+    self.downloadSpeed = -1.0f;
+    self.stDelay = -1.0f;
+    self.stDownloadSpeed = -1.0f;
+    self.stUploadSpeed = -1.0f;
 
     for (UIViewController *control in _completeCtrlArray)
     {

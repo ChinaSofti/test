@@ -242,11 +242,10 @@
 
 - (NSString *)testResultToJsonString
 {
-
-    float sQualityInstant = !testResult.sQualityInstant ? 0 : testResult.sQualityInstant;
-    float sInteractionInstant = !testResult.sInteractionInstant ? 0 : testResult.sInteractionInstant;
-    float sViewInstant = !testResult.sViewInstant ? 0 : testResult.sViewInstant;
-    float uvmosInstant = !testResult.uvmosInstant ? 0 : testResult.uvmosInstant;
+    float sQualitySession = !testResult.sQualitySession ? 0 : testResult.sQualitySession;
+    float sInteractionSession = !testResult.sInteractionSession ? 0 : testResult.sInteractionSession;
+    float sViewSession = !testResult.sViewSession ? 0 : testResult.sViewSession;
+    float UvMOSSession = !testResult.UvMOSSession ? 0 : testResult.UvMOSSession;
     float firstBufferTime = !testResult.firstBufferTime ? 0 : testResult.firstBufferTime;
     int videoCuttonTimes = !testResult.videoCuttonTimes ? 0 : testResult.videoCuttonTimes;
     int videoCuttonTotalTime = !testResult.videoCuttonTotalTime ? 0 : testResult.videoCuttonTotalTime;
@@ -260,12 +259,12 @@
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
     [dictionary setObject:[[NSNumber alloc] initWithLongLong:testResult.testTime]
                    forKey:@"testTime"];
-    [dictionary setObject:[[NSNumber alloc] initWithFloat:sQualityInstant]
-                   forKey:@"sQualityInstant"];
-    [dictionary setObject:[[NSNumber alloc] initWithFloat:sInteractionInstant]
-                   forKey:@"sInteractionInstant"];
-    [dictionary setObject:[[NSNumber alloc] initWithFloat:sViewInstant] forKey:@"sViewInstant"];
-    [dictionary setObject:[[NSNumber alloc] initWithFloat:uvmosInstant] forKey:@"uvmosInstant"];
+    [dictionary setObject:[[NSNumber alloc] initWithFloat:sQualitySession]
+                   forKey:@"sQualitySession"];
+    [dictionary setObject:[[NSNumber alloc] initWithFloat:sInteractionSession]
+                   forKey:@"sInteractionSession"];
+    [dictionary setObject:[[NSNumber alloc] initWithFloat:sViewSession] forKey:@"sViewSession"];
+    [dictionary setObject:[[NSNumber alloc] initWithFloat:UvMOSSession] forKey:@"UvMOSSession"];
     [dictionary setObject:[[NSNumber alloc] initWithLong:firstBufferTime]
                    forKey:@"firstBufferTime"];
     [dictionary setObject:[[NSNumber alloc] initWithInt:videoCuttonTimes]

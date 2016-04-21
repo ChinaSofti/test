@@ -43,6 +43,11 @@
  */
 - (void)calculateUvMOS:(SVVideoTestSample *)sample time:(int)iTimeStamp;
 
+/**
+ *  计算网络规划得分。在测试完成后，用于计算总得分
+ */
+- (SVVideoTestSample *)calculateUvMOSNetworkPlan;
+
 - (void)unRegisteService;
 
 

@@ -217,20 +217,20 @@
     // Uvmos
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"U-vMOS Score"),
-                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"uvmosInstant"]]
+                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"UvMOSSession"]]
                }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"      sView Score"),
-                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sViewInstant"]]
+                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sViewSession"]]
                }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"      sQuality Score"),
-                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sQualityInstant"]]
+                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sQualitySession"]]
                }]];
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
         @"key": I18N (@"      sInteraction Score"),
-        @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sInteractionInstant"]]
+        @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sInteractionSession"]]
     }]];
 
     // 首次缓冲时间

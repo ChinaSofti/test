@@ -13,6 +13,6 @@
 
 @synthesize singnal, networkType, signedBandwidth, screenSize, sInteractionSession, sQualitySession,
 sViewSession, location, isp, videoCuttonTimes, videoCuttonTotalTime, videoResolution, videoSegemnetISP,
-videoSegemnetLocation, videoSegementURLString, bitrate, firstBufferTime, frameRate, downloadSpeed, testTime, sViewInstant, sInteractionInstant, sQualityInstant, uvmosInstant;
+videoSegemnetLocation, videoSegementURLString, bitrate, firstBufferTime, frameRate, downloadSpeed, testTime;
 
 @end
