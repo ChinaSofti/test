@@ -142,7 +142,6 @@
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B73105961CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105911CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m */; };
 		B73105971CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105921CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m */; };
-		B73105981CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105931CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.m */; };
 		B73105991CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105941CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m */; };
 		B731059A1CAF5C4400B6C3A5 /* YTPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105951CAF5C4400B6C3A5 /* YTPlayerView.m */; };
 		B731059E1CAF5F5100B6C3A5 /* player.html in Resources */ = {isa = PBXBuildFile; fileRef = B731059C1CAF5F5100B6C3A5 /* player.html */; };
@@ -151,6 +150,7 @@
 		B748CE451CA0166900FD388C /* SVGetDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE441CA0166900FD388C /* SVGetDistance.m */; };
 		B77D21F11C957904006BE281 /* SVChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21EE1C957904006BE281 /* SVChart.m */; };
 		B77D21F21C957904006BE281 /* SVLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21F01C957904006BE281 /* SVLineChart.m */; };
+		B7B547C91CC72AD40054D471 /* SVAppVersionChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B547C81CC72AD40054D471 /* SVAppVersionChecker.m */; };
 		B7B5D8B81CA3E8A400DFEEBA /* tabbar_result@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7B5D8B41CA3E8A400DFEEBA /* tabbar_result@3x.png */; };
 		B7B5D8B91CA3E8A400DFEEBA /* tabbar_result@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7B5D8B51CA3E8A400DFEEBA /* tabbar_result@2x.png */; };
 		B7B5D8BA1CA3E8A400DFEEBA /* tabbar_result_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B7B5D8B61CA3E8A400DFEEBA /* tabbar_result_selected@3x.png */; };
@@ -211,13 +211,11 @@
 		B7F2678B1CAE1BF300E44299 /* SVIPAndISP.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267651CAE1BF300E44299 /* SVIPAndISP.m */; };
 		B7F2678C1CAE1BF300E44299 /* SVDetailResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267671CAE1BF300E44299 /* SVDetailResultModel.m */; };
 		B7F2678E1CAE1BF300E44299 /* SVContentProviderGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2676B1CAE1BF300E44299 /* SVContentProviderGetter.m */; };
-		B7F267AA1CAE1C0000E44299 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267921CAE1C0000E44299 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B7F267AB1CAE1C0000E44299 /* SVCurrentDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267951CAE1C0000E44299 /* SVCurrentDevice.m */; };
 		B7F267AC1CAE1C0000E44299 /* SVDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267971CAE1C0000E44299 /* SVDBManager.m */; };
 		B7F267AD1CAE1C0000E44299 /* SVHttpGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267991CAE1C0000E44299 /* SVHttpGetter.m */; };
 		B7F267AE1CAE1C0000E44299 /* SVHttpsTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2679B1CAE1C0000E44299 /* SVHttpsTools.m */; };
 		B7F267AF1CAE1C0000E44299 /* SVI18N.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2679D1CAE1C0000E44299 /* SVI18N.m */; };
-		B7F267B01CAE1C0000E44299 /* SVIPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2679F1CAE1C0000E44299 /* SVIPAddress.m */; };
 		B7F267B11CAE1C0000E44299 /* SVJunitTestTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267A11CAE1C0000E44299 /* SVJunitTestTable.m */; };
 		B7F267B21CAE1C0000E44299 /* SVLog.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267A31CAE1C0000E44299 /* SVLog.m */; };
 		B7F267B31CAE1C0000E44299 /* SVRealReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267A51CAE1C0000E44299 /* SVRealReachability.m */; };
@@ -490,12 +488,10 @@
 		B71F89021C8D7E56002E8375 /* SVToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToast.m; sourceTree = "<group>"; };
 		B731058C1CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoAnalyser_youtube.h; sourceTree = "<group>"; };
 		B731058D1CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVYoukuVideoPlayer.h; sourceTree = "<group>"; };
-		B731058E1CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVYoutubeVideoPlayer.h; sourceTree = "<group>"; };
 		B731058F1CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVYoutubeVideoPlayer2.h; sourceTree = "<group>"; };
 		B73105901CAF5C4400B6C3A5 /* YTPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
 		B73105911CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoAnalyser_youtube.m; sourceTree = "<group>"; };
 		B73105921CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVYoukuVideoPlayer.m; sourceTree = "<group>"; };
-		B73105931CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVYoutubeVideoPlayer.m; sourceTree = "<group>"; };
 		B73105941CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVYoutubeVideoPlayer2.m; sourceTree = "<group>"; };
 		B73105951CAF5C4400B6C3A5 /* YTPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTPlayerView.m; sourceTree = "<group>"; };
 		B731059C1CAF5F5100B6C3A5 /* player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = player.html; sourceTree = "<group>"; };
@@ -508,6 +504,8 @@
 		B77D21EE1C957904006BE281 /* SVChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVChart.m; sourceTree = "<group>"; };
 		B77D21EF1C957904006BE281 /* SVLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVLineChart.h; sourceTree = "<group>"; };
 		B77D21F01C957904006BE281 /* SVLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVLineChart.m; sourceTree = "<group>"; };
+		B7B547C71CC72AD40054D471 /* SVAppVersionChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVAppVersionChecker.h; sourceTree = "<group>"; };
+		B7B547C81CC72AD40054D471 /* SVAppVersionChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVAppVersionChecker.m; sourceTree = "<group>"; };
 		B7B5D8B41CA3E8A400DFEEBA /* tabbar_result@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_result@3x.png"; sourceTree = "<group>"; };
 		B7B5D8B51CA3E8A400DFEEBA /* tabbar_result@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_result@2x.png"; sourceTree = "<group>"; };
 		B7B5D8B61CA3E8A400DFEEBA /* tabbar_result_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_result_selected@3x.png"; sourceTree = "<group>"; };
@@ -597,9 +595,6 @@
 		B7F267681CAE1BF300E44299 /* SVDetailResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVDetailResultModel.h; sourceTree = "<group>"; };
 		B7F2676B1CAE1BF300E44299 /* SVContentProviderGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVContentProviderGetter.m; sourceTree = "<group>"; };
 		B7F2676C1CAE1BF300E44299 /* SVContentProviderGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVContentProviderGetter.h; sourceTree = "<group>"; };
-		B7F267911CAE1C0000E44299 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
-		B7F267921CAE1C0000E44299 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
-		B7F267931CAE1C0000E44299 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		B7F267941CAE1C0000E44299 /* SVCurrentDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVCurrentDevice.h; sourceTree = "<group>"; };
 		B7F267951CAE1C0000E44299 /* SVCurrentDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVCurrentDevice.m; sourceTree = "<group>"; };
 		B7F267961CAE1C0000E44299 /* SVDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVDBManager.h; sourceTree = "<group>"; };
@@ -610,8 +605,6 @@
 		B7F2679B1CAE1C0000E44299 /* SVHttpsTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVHttpsTools.m; sourceTree = "<group>"; };
 		B7F2679C1CAE1C0000E44299 /* SVI18N.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVI18N.h; sourceTree = "<group>"; };
 		B7F2679D1CAE1C0000E44299 /* SVI18N.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVI18N.m; sourceTree = "<group>"; };
-		B7F2679E1CAE1C0000E44299 /* SVIPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIPAddress.h; sourceTree = "<group>"; };
-		B7F2679F1CAE1C0000E44299 /* SVIPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIPAddress.m; sourceTree = "<group>"; };
 		B7F267A01CAE1C0000E44299 /* SVJunitTestTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVJunitTestTable.h; sourceTree = "<group>"; };
 		B7F267A11CAE1C0000E44299 /* SVJunitTestTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVJunitTestTable.m; sourceTree = "<group>"; };
 		B7F267A21CAE1C0000E44299 /* SVLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVLog.h; sourceTree = "<group>"; };
@@ -1281,31 +1274,31 @@
 		B71E7C4F1C743DA200DF1AA4 /* Thirdpart */ = {
 			isa = PBXGroup;
 			children = (
+				B7F268441CAE22E400E44299 /* AudioToolbox.framework */,
+				B7F268421CAE22D900E44299 /* AVFoundation.framework */,
+				B7F268461CAE22ED00E44299 /* CoreMedia.framework */,
+				56CAFFC01C9BFBEB00210081 /* CoreTelephony.framework */,
+				B7F268481CAE22F800E44299 /* CoreVideo.framework */,
+				B7F2684A1CAE230500E44299 /* MediaPlayer.framework */,
+				B7F2684C1CAE230E00E44299 /* OpenGLES.framework */,
+				B7F2684E1CAE231500E44299 /* QuartzCore.framework */,
+				56CAFFC61C9BFC2100210081 /* SystemConfiguration.framework */,
+				B7F268501CAE246F00E44299 /* libbz2.tbd */,
+				56CAFFBE1C9BFBDB00210081 /* libc++.tbd */,
+				B7F268561CAE248D00E44299 /* libiconv.2.tbd */,
+				56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */,
+				B7F268541CAE248500E44299 /* libstdc++.6.0.9.tbd */,
+				B7F268521CAE247A00E44299 /* libz.1.tbd */,
+				56CAFFC41C9BFC0800210081 /* libz.tbd */,
+				B7F268191CAE1C3900E44299 /* Chart */,
 				5BE7A5D11CBF81E20080FEA9 /* DLVideoParser */,
+				B7F2680E1CAE1C3900E44299 /* fmdb */,
+				B7F267F21CAE1C3900E44299 /* Lumberjack */,
+				B7F267D51CAE1C3900E44299 /* RealReachability */,
 				B7F268771CAE4BC800E44299 /* U-vMOS_SDK_for_iOS */,
 				B7F2687A1CAE4BC800E44299 /* Vitamio */,
 				B7F268891CAE4BC800E44299 /* WebChat */,
-				B7F268561CAE248D00E44299 /* libiconv.2.tbd */,
-				B7F268541CAE248500E44299 /* libstdc++.6.0.9.tbd */,
-				B7F268521CAE247A00E44299 /* libz.1.tbd */,
-				B7F268501CAE246F00E44299 /* libbz2.tbd */,
-				B7F2684E1CAE231500E44299 /* QuartzCore.framework */,
-				B7F2684C1CAE230E00E44299 /* OpenGLES.framework */,
-				B7F2684A1CAE230500E44299 /* MediaPlayer.framework */,
-				B7F268481CAE22F800E44299 /* CoreVideo.framework */,
-				B7F268461CAE22ED00E44299 /* CoreMedia.framework */,
-				B7F268441CAE22E400E44299 /* AudioToolbox.framework */,
-				B7F268421CAE22D900E44299 /* AVFoundation.framework */,
 				B7F267B61CAE1C3900E44299 /* ZipArchive */,
-				B7F267D51CAE1C3900E44299 /* RealReachability */,
-				B7F267F21CAE1C3900E44299 /* Lumberjack */,
-				B7F2680E1CAE1C3900E44299 /* fmdb */,
-				B7F268191CAE1C3900E44299 /* Chart */,
-				56CAFFC61C9BFC2100210081 /* SystemConfiguration.framework */,
-				56CAFFC41C9BFC0800210081 /* libz.tbd */,
-				56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */,
-				56CAFFC01C9BFBEB00210081 /* CoreTelephony.framework */,
-				56CAFFBE1C9BFBDB00210081 /* libc++.tbd */,
 			);
 			path = Thirdpart;
 			sourceTree = "<group>";
@@ -1389,8 +1382,6 @@
 				B7F2674E1CAE1BF300E44299 /* SVUvMOSCalculator.h */,
 				B731058D1CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.h */,
 				B73105921CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m */,
-				B731058E1CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.h */,
-				B73105931CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.m */,
 				B731058F1CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.h */,
 				B73105941CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m */,
 			);
@@ -1440,9 +1431,6 @@
 		B7F267901CAE1C0000E44299 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B7F267911CAE1C0000E44299 /* GTMBase64.h */,
-				B7F267921CAE1C0000E44299 /* GTMBase64.m */,
-				B7F267931CAE1C0000E44299 /* GTMDefines.h */,
 				B7F267941CAE1C0000E44299 /* SVCurrentDevice.h */,
 				B7F267951CAE1C0000E44299 /* SVCurrentDevice.m */,
 				B7F267961CAE1C0000E44299 /* SVDBManager.h */,
@@ -1453,8 +1441,6 @@
 				B7F2679B1CAE1C0000E44299 /* SVHttpsTools.m */,
 				B7F2679C1CAE1C0000E44299 /* SVI18N.h */,
 				B7F2679D1CAE1C0000E44299 /* SVI18N.m */,
-				B7F2679E1CAE1C0000E44299 /* SVIPAddress.h */,
-				B7F2679F1CAE1C0000E44299 /* SVIPAddress.m */,
 				B7F267A01CAE1C0000E44299 /* SVJunitTestTable.h */,
 				B7F267A11CAE1C0000E44299 /* SVJunitTestTable.m */,
 				B7F267A21CAE1C0000E44299 /* SVLog.h */,
@@ -1465,6 +1451,8 @@
 				B7F267A71CAE1C0000E44299 /* SVTimeUtil.m */,
 				B7F267A81CAE1C0000E44299 /* SVWebBrowser.h */,
 				B7F267A91CAE1C0000E44299 /* SVWebBrowser.m */,
+				B7B547C71CC72AD40054D471 /* SVAppVersionChecker.h */,
+				B7B547C81CC72AD40054D471 /* SVAppVersionChecker.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2050,12 +2038,12 @@
 				B7F267771CAE1BF300E44299 /* SVVideoTest.m in Sources */,
 				B71F89031C8D7E56002E8375 /* SVToast.m in Sources */,
 				B7F268371CAE1C3900E44299 /* DDLog.m in Sources */,
-				B73105981CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer.m in Sources */,
 				B7F2682C1CAE1C3900E44299 /* ReachStateUnReachable.m in Sources */,
 				563734851C8ED6590064DA33 /* SVWebTestingViewCtrl.m in Sources */,
 				B7F2681F1CAE1C3900E44299 /* zip.c in Sources */,
 				561A36D21C896B5A00AC5F5E /* SVAdvancedViewCtrl.m in Sources */,
 				B7F267811CAE1BF300E44299 /* SVTestContextGetter.m in Sources */,
+				B7B547C91CC72AD40054D471 /* SVAppVersionChecker.m in Sources */,
 				B7F268281CAE1C3900E44299 /* FSMStateUtil.m in Sources */,
 				561A36D31C896B5A00AC5F5E /* SVBWSettingViewCtrl.m in Sources */,
 				B7F268261CAE1C3900E44299 /* LocalConnection.m in Sources */,
@@ -2081,7 +2069,6 @@
 				B7F267841CAE1BF300E44299 /* SVSpeedTestServersParser.m in Sources */,
 				561A36BF1C896A0C00AC5F5E /* SVResultCell.m in Sources */,
 				5B85C06B1C9025E000CA8A1E /* SVWebTestResult.m in Sources */,
-				B7F267B01CAE1C0000E44299 /* SVIPAddress.m in Sources */,
 				56A919151C4F4BAA00E8BB72 /* AppDelegate.m in Sources */,
 				B7F267B11CAE1C0000E44299 /* SVJunitTestTable.m in Sources */,
 				B7F2681C1CAE1C3900E44299 /* ioapi.c in Sources */,
@@ -2113,7 +2100,6 @@
 				B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */,
 				B7F267721CAE1BF300E44299 /* SVWebContext.m in Sources */,
 				5B1FEDC01CAA85B400508920 /* UIColor+Hex.m in Sources */,
-				B7F267AA1CAE1C0000E44299 /* GTMBase64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -44,4 +44,8 @@
 - (void)calculateUvMOS:(SVVideoTestSample *)sample time:(int)iTimeStamp;
 
 - (void)unRegisteService;
+
+
++ (NSString *)getSDKCurVersion;
+
 @end

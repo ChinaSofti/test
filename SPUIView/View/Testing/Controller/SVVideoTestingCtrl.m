@@ -551,7 +551,6 @@
     NSArray *testSamples = testResult.videoTestSamples;
     SVVideoTestSample *testSample = testSamples[testSamples.count - 1];
     float uvMOSSession = testSample.UvMOSSession;
-    uvMOSSession = uvMOSSession - 0.05;
 
     //首次缓冲时长
     int firstBufferTime = testResult.firstBufferTime;
@@ -594,15 +593,17 @@
       [_bitRateValue setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
       [_bitRateInFullScreenValue setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
 
-
+        
+      int j = arc4random () % 10;
+      float m = (float)j / 100;
       float k;
       if (i < 20)
       {
-          k = (uvMOSSession - 0.1);
+          k = (uvMOSSession - m);
       }
       else if (i > 30)
       {
-          k = (uvMOSSession + 0.1);
+          k = (uvMOSSession + m);
       }
       else
       {
@@ -610,7 +611,7 @@
       }
 
       [_testingView updateValue:k];
-      [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.1f", k]];
+      [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", k]];
 
       // 更新柱状图
       _resultTimes += 1;
@@ -645,7 +646,7 @@
 
 - (void)initCurrentResultModel:(SVVideoTestResult *)testResult
 {
-    [currentResultModel setUvMOS:testResult.UvMOSSession];
+    [currentResultModel setUvMOS:testResult.uvmosInstant];
     [currentResultModel setFirstBufferTime:testResult.firstBufferTime];
     [currentResultModel setCuttonTimes:testResult.videoCuttonTimes];
 }

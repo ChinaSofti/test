@@ -258,7 +258,7 @@
     }
     else
     {
-        self.videoMOS.text = [NSString stringWithFormat:@"%.1f", uvmos - 0.05];
+        self.videoMOS.text = [NSString stringWithFormat:@"%.2f", uvmos];
     }
 
     double totalTime = [_resultModel.loadTime doubleValue];

@@ -270,6 +270,11 @@
     [sample setSInteractionSession:stResult.sInteractionSession];
     [sample setSViewSession:stResult.sViewSession];
     [sample setUvMOSSession:stResult.uvmosSession];
+    
+    [sample setSQualityInstant:stResult.sQualityInstant];
+    [sample setSInteractionInstant:stResult.sInteractionInstant];
+    [sample setSViewInstant:stResult.sViewInstant];
+    [sample setUvmosInstant:stResult.uvmosInstant];
 }
 
 
@@ -285,6 +290,11 @@
     {
         SVInfo (@"unregiste UvMOS calculate service.  iResult:%d", iResult);
     }
+}
+
++ (NSString *)getSDKCurVersion
+{
+    return [[NSString alloc] initWithCString:getSDKCurVersion() encoding:NSUTF8StringEncoding];
 }
 
 

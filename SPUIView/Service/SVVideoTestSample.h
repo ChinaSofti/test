@@ -19,6 +19,14 @@
 // U-vMOS会话得分：截止到当前的会话期间，U-vMOS综合得分，包含之前的所有采样周期
 @property float UvMOSSession;
 
+@property float sQualityInstant;
+
+@property float sInteractionInstant;
+
+@property float sViewInstant;
+
+@property float uvmosInstant;
+
 // 采样周期时长，单位秒(s)，建议按照观看时间反馈，近似可以按照内容的实际时间反馈
 @property int periodLength;
 // 初始缓冲时长，单位毫秒(ms)，采样周期内没有初始缓冲事件时，输入0

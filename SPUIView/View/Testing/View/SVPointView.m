@@ -185,6 +185,11 @@
  */
 - (void)updateValue_5:(float)value
 {
+    if (value < 0)
+    {
+        value = 0;
+    }
+    
     _num = -1;
     if (value != _num)
     {
@@ -197,7 +202,7 @@
             self.grayView.transform = CGAffineTransformMakeRotation (value / 1.2 - 2.5 / 1.2);
         }
         _num = value;
-        _valueLabel.text = [NSString stringWithFormat:@"%.1f", _num];
+        _valueLabel.text = [NSString stringWithFormat:@"%.2f", _num];
     }
 }
 

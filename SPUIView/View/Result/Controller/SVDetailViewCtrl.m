@@ -63,9 +63,8 @@
 
     [super viewDidAppear:animated];
 
-    SVDetailViewModel *viewModel = [self defaultDetailViewModel];
     _soucreMA = [NSMutableArray array];
-    [self queryResult:viewModel];
+    [self queryResult];
 
     // 定义数组展示图片
     _selectedMA = [[NSMutableArray alloc] init];
@@ -74,7 +73,7 @@
     [_tableView reloadData];
 }
 
-- (void)queryResult:(SVDetailViewModel *)viewModel
+- (void)queryResult
 {
     // 拼写sql
     NSMutableString *sql =
@@ -218,20 +217,20 @@
     // Uvmos
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"U-vMOS Score"),
-                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"UvMOSSession"]]
+                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"uvmosInstant"]]
                }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"      sView Score"),
-                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sViewSession"]]
+                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sViewInstant"]]
                }]];
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"      sQuality Score"),
-                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sQualitySession"]]
+                   @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sQualityInstant"]]
                }]];
     [_soucreMA
     addObject:[SVToolModels modelWithDict:@{
         @"key": I18N (@"      sInteraction Score"),
-        @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sInteractionSession"]]
+        @"value": [self formatOneDecimal:[testResultJson valueForKey:@"sInteractionInstant"]]
     }]];
 
     // 首次缓冲时间
@@ -464,18 +463,6 @@
     return str;
 }
 
-
-// 默认的model
-- (SVDetailViewModel *)defaultDetailViewModel
-{
-    SVDetailViewModel *viewModel = [[SVDetailViewModel alloc] init];
-    viewModel.UvMOSSession = @"-1";
-    viewModel.firstBufferTime = @"-1";
-    viewModel.videoCuttonTimes = @"-1";
-    viewModel.bitrate = @"-1";
-    return viewModel;
-}
-
 // 设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -575,7 +562,7 @@
 // 输出浮点型的数值,保留1位小数
 - (NSString *)formatOneDecimal:(NSString *)value
 {
-    return [NSString stringWithFormat:@"%.1f", ([value floatValue] - 0.05)];
+    return [NSString stringWithFormat:@"%.2f", [value floatValue]];
 }
 
 // 输出整形的数值,无小数

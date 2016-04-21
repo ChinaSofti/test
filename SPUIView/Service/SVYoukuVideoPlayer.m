@@ -460,6 +460,10 @@ static int execute_total_times = 4;
             [testResult setSInteractionSession:sample.sInteractionSession];
             [testResult setSQualitySession:sample.sQualitySession];
             [testResult setUvMOSSession:sample.UvMOSSession];
+            [testResult setSQualityInstant:sample.sQualityInstant];
+            [testResult setSInteractionInstant:sample.sInteractionInstant];
+            [testResult setSViewInstant:sample.sViewInstant];
+            [testResult setUvmosInstant:sample.uvmosInstant];
             [self stop];
         }
 

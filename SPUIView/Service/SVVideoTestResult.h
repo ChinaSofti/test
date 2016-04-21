@@ -26,6 +26,13 @@
 // U-vMOS会话得分：截止到当前的会话期间，U-vMOS综合得分，包含之前的所有采样周期
 @property float UvMOSSession;
 
+@property float sQualityInstant;
+
+@property float sInteractionInstant;
+
+@property float sViewInstant;
+
+@property float uvmosInstant;
 
 // 首次缓冲时间
 @property int firstBufferTime;
