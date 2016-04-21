@@ -115,6 +115,9 @@
 {
     [super viewWillAppear:animated];
 
+    // 设置屏幕自动锁屏
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+
     // 刷新视频
     UILabel *_uVMosLabel = [allLabelDic valueForKey:@"videoLeftValueLabel"];
     UILabel *_uVMosUnitLabel = [allLabelDic valueForKey:@"videoLeftUnitLabel"];
@@ -814,6 +817,10 @@
 - (void)testBtnClick
 {
     SVInfo (@"back to testting view");
+
+    // 设置屏幕不会休眠
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
+
     // 将已经推送完成的controller重新放入待推送的controller数组
     [_resultModel copyCompleteCtrlToCtrlArray];
 

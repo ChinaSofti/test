@@ -255,7 +255,7 @@ static int execute_total_times = 4;
 
         [_videoPlayer stopVideo];
         isFinished = TRUE;
-        [UIApplication sharedApplication].idleTimerDisabled = NO;
+        //        [UIApplication sharedApplication].idleTimerDisabled = NO;
     }
 }
 
