@@ -21,6 +21,11 @@
 + (id)sharedInstance;
 
 /**
+ *  删除旧数据库
+ */
+- (void)removeDatabase;
+
+/**
  *  执行SQL语句进行更新操作
  *
  *  @param sql SQL语句 和 可变参数

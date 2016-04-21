@@ -148,6 +148,8 @@
 		B731059F1CAF5F5100B6C3A5 /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = B731059D1CAF5F5100B6C3A5 /* YTPlayerView-iframe-player.html */; };
 		B748CE251C9FF62C00FD388C /* SVTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE241C9FF62C00FD388C /* SVTextField.m */; };
 		B748CE451CA0166900FD388C /* SVGetDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = B748CE441CA0166900FD388C /* SVGetDistance.m */; };
+		B75B237C1CC8A9AD00F7C120 /* UvMOS_C_for_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B75B237B1CC8A9AD00F7C120 /* UvMOS_C_for_iOS.a */; };
+		B75B237E1CC8CB6900F7C120 /* SVAppVersionCheckerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B75B237D1CC8CB6900F7C120 /* SVAppVersionCheckerTest.m */; };
 		B77D21F11C957904006BE281 /* SVChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21EE1C957904006BE281 /* SVChart.m */; };
 		B77D21F21C957904006BE281 /* SVLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B77D21F01C957904006BE281 /* SVLineChart.m */; };
 		B7B547C91CC72AD40054D471 /* SVAppVersionChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B547C81CC72AD40054D471 /* SVAppVersionChecker.m */; };
@@ -271,7 +273,6 @@
 		B7F268671CAE263300E44299 /* SVSpeedTestContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F268611CAE263300E44299 /* SVSpeedTestContext.m */; };
 		B7F268681CAE263300E44299 /* SVSpeedTestInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F268621CAE263300E44299 /* SVSpeedTestInfo.m */; };
 		B7F268691CAE263300E44299 /* SVSpeedTestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F268631CAE263300E44299 /* SVSpeedTestResult.m */; };
-		B7F2688E1CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268781CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a */; };
 		B7F2688F1CAE4BC800E44299 /* libffmpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268851CAE4BC800E44299 /* libffmpeg.a */; };
 		B7F268911CAE4BC800E44299 /* libVitamio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268871CAE4BC800E44299 /* libVitamio.a */; };
 		B7F268921CAE4BC800E44299 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B7F268881CAE4BC800E44299 /* LICENSE */; };
@@ -500,6 +501,8 @@
 		B748CE241C9FF62C00FD388C /* SVTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVTextField.m; sourceTree = "<group>"; };
 		B748CE431CA0166900FD388C /* SVGetDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGetDistance.h; sourceTree = "<group>"; };
 		B748CE441CA0166900FD388C /* SVGetDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGetDistance.m; sourceTree = "<group>"; };
+		B75B237B1CC8A9AD00F7C120 /* UvMOS_C_for_iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = UvMOS_C_for_iOS.a; sourceTree = "<group>"; };
+		B75B237D1CC8CB6900F7C120 /* SVAppVersionCheckerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVAppVersionCheckerTest.m; sourceTree = "<group>"; };
 		B77D21ED1C957904006BE281 /* SVChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVChart.h; sourceTree = "<group>"; };
 		B77D21EE1C957904006BE281 /* SVChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVChart.m; sourceTree = "<group>"; };
 		B77D21EF1C957904006BE281 /* SVLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVLineChart.h; sourceTree = "<group>"; };
@@ -711,7 +714,6 @@
 		B7F268611CAE263300E44299 /* SVSpeedTestContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestContext.m; sourceTree = "<group>"; };
 		B7F268621CAE263300E44299 /* SVSpeedTestInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestInfo.m; sourceTree = "<group>"; };
 		B7F268631CAE263300E44299 /* SVSpeedTestResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestResult.m; sourceTree = "<group>"; };
-		B7F268781CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = UvMOS_C_for_iOS_v1.1.0.a; sourceTree = "<group>"; };
 		B7F268791CAE4BC800E44299 /* UvMOS_Outer_Api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UvMOS_Outer_Api.h; sourceTree = "<group>"; };
 		B7F2687D1CAE4BC800E44299 /* VDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDefines.h; sourceTree = "<group>"; };
 		B7F2687E1CAE4BC800E44299 /* Vitamio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vitamio.h; sourceTree = "<group>"; };
@@ -740,7 +742,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7F268571CAE248D00E44299 /* libiconv.2.tbd in Frameworks */,
-				B7F2688E1CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a in Frameworks */,
 				B7F268551CAE248500E44299 /* libstdc++.6.0.9.tbd in Frameworks */,
 				B7F268531CAE247A00E44299 /* libz.1.tbd in Frameworks */,
 				B7F268511CAE246F00E44299 /* libbz2.tbd in Frameworks */,
@@ -750,6 +751,7 @@
 				B7F268491CAE22F800E44299 /* CoreVideo.framework in Frameworks */,
 				B7F268471CAE22EE00E44299 /* CoreMedia.framework in Frameworks */,
 				B7F268451CAE22E400E44299 /* AudioToolbox.framework in Frameworks */,
+				B75B237C1CC8A9AD00F7C120 /* UvMOS_C_for_iOS.a in Frameworks */,
 				B7F268911CAE4BC800E44299 /* libVitamio.a in Frameworks */,
 				B7F268431CAE22D900E44299 /* AVFoundation.framework in Frameworks */,
 				5BE7A5D71CBF81E20080FEA9 /* libpcre.a in Frameworks */,
@@ -1267,6 +1269,7 @@
 			children = (
 				B70FF3D51C6582AA002D571B /* SPUIViewTests.m */,
 				B70FF3D71C6582AA002D571B /* Info.plist */,
+				B75B237D1CC8CB6900F7C120 /* SVAppVersionCheckerTest.m */,
 			);
 			path = SPUIViewTests;
 			sourceTree = "<group>";
@@ -1697,7 +1700,7 @@
 		B7F268771CAE4BC800E44299 /* U-vMOS_SDK_for_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				B7F268781CAE4BC800E44299 /* UvMOS_C_for_iOS_v1.1.0.a */,
+				B75B237B1CC8A9AD00F7C120 /* UvMOS_C_for_iOS.a */,
 				B7F268791CAE4BC800E44299 /* UvMOS_Outer_Api.h */,
 			);
 			path = "U-vMOS_SDK_for_iOS";
@@ -2108,6 +2111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */,
+				B75B237E1CC8CB6900F7C120 /* SVAppVersionCheckerTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

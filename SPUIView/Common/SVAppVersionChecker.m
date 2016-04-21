@@ -7,68 +7,107 @@
 //
 
 #import "SVAppVersionChecker.h"
+#import "SVHttpGetter.h"
+#import "SVLog.h"
 
 @implementation SVAppVersionChecker
 
 
-+(BOOL) hasNewVersion
+/**
+ *  检查当前AppStore上App是否存在新的发布。
+ *
+ *  @return YES: 存在新版本
+ *
+ */
++ (BOOL)hasNewVersion
 {
-//    NSString *recStr = [[NSString alloc] initWithData:request.responseData encoding:NSUTF8StringEncoding];
-//    recStr = [recStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    //返回的字符串有前面有很多换行符，需要去除一下
-//    NSDictionary *resultDic = [JSONHelper DeserializerDictionary:recStr];
-    //jsonhelper是我封装的json解析类，你可以使用自己方式解析
-    NSDictionary *resultDic = nil;
-    NSArray *infoArray = [resultDic objectForKey:@"results"];
-    if (infoArray.count > 0) {
-        
-        NSDictionary* releaseInfo =[infoArray objectAtIndex:0];
-        NSString* appStoreVersion = [releaseInfo objectForKey:@"version"];
-        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-        NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
-        
-        NSArray *curVerArr = [currentVersion componentsSeparatedByString:@"."];
-        NSArray *appstoreVerArr = [appStoreVersion componentsSeparatedByString:@"."];
-        BOOL needUpdate = NO;
-        //比较版本号大小
-        int maxv = (int)MAX(curVerArr.count, appstoreVerArr.count);
-        int cver = 0;
-        int aver = 0;
-        for (int i = 0; i < maxv; i++) {
-            if (appstoreVerArr.count > i) {
-                aver = [NSString stringWithFormat:@"%@",appstoreVerArr[i]].intValue;
-            }
-            else{
-                aver = 0;
-            }
-            if (curVerArr.count > i) {
-                cver = [NSString stringWithFormat:@"%@",curVerArr[i]].intValue;
-            }
-            else{
-                cver = 0;
-            }
-            if (aver > cver) {
-                
-                
-                needUpdate = YES;
-                break;
-            }
+
+    NSString *appStoreVersion = [SVAppVersionChecker currentVersionInAppStore];
+    NSString *currentVersion = [SVAppVersionChecker currentVersion];
+
+    NSArray *curVerArr = [currentVersion componentsSeparatedByString:@"."];
+    NSArray *appstoreVerArr = [appStoreVersion componentsSeparatedByString:@"."];
+    BOOL needUpdate = NO;
+    //比较版本号大小
+    int maxv = (int)MAX (curVerArr.count, appstoreVerArr.count);
+    int cver = 0;
+    int aver = 0;
+    for (int i = 0; i < maxv; i++)
+    {
+        if (appstoreVerArr.count > i)
+        {
+            aver = [NSString stringWithFormat:@"%@", appstoreVerArr[i]].intValue;
         }
-        
-        //如果有可用的更新
-        if (needUpdate){
-            
-           NSString *trackViewURL = [[NSString alloc] initWithString:[releaseInfo objectForKey:@"trackViewUrl"]];
-            //trackViewURL临时变量存储app下载地址，可以让app跳转到appstore
-            UIAlertView* alertview =[[UIAlertView alloc] initWithTitle:@"版本升级" message:[NSString stringWithFormat:@"发现有新版本，是否升级？"] delegate:self cancelButtonTitle:@"暂不升级" otherButtonTitles:@"马上升级", nil];
-            [alertview show];
-            
+        else
+        {
+            aver = 0;
         }
-        
+        if (curVerArr.count > i)
+        {
+            cver = [NSString stringWithFormat:@"%@", curVerArr[i]].intValue;
+        }
+        else
+        {
+            cver = 0;
+        }
+
+        if (aver > cver)
+        {
+            needUpdate = YES;
+            break;
+        }
     }
-    return NO;
+
+    return needUpdate;
 }
 
 
+/**
+ *  获取当前APP版本号
+ *
+ *  @return 当前APP版本号
+ */
++ (NSString *)currentVersion
+{
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    //    CFBundleShortVersionString  1.1
+    NSString *mainVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
+    //    CFBundleVersion  build 版本号
+    NSString *buildVersion = [infoDic objectForKey:@"CFBundleVersion"];
+    return [NSString stringWithFormat:@"%@.%@", mainVersion, buildVersion];
+}
+
+
+/**
+ *  获取AppStore中APP版本号
+ *
+ *  @return 当前AppStore中APP版本号
+ */
++ (NSString *)currentVersionInAppStore
+{
+    NSString *version = @"1.0.1";
+    NSString *url =
+    [[NSString alloc] initWithFormat:@"http://itunes.apple.com/lookup?id=%@", @"1094185054"];
+    NSData *data = [SVHttpGetter requestDataWithoutParameter:url];
+    NSError *error;
+    id jsonObj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    if (error)
+    {
+        SVError (@"get app version fail from appstore. use default version:1.0.1");
+        return version;
+    }
+
+
+    NSArray *results = [jsonObj valueForKey:@"results"];
+    if (!results || results.count <= 0)
+    {
+        SVError (@"get app version fail from appstore. use default version:1.0.1");
+        return version;
+    }
+
+    NSDictionary *resultDic = results[0];
+    version = [resultDic valueForKey:@"version"];
+    return version;
+}
 
 @end

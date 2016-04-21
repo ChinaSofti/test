@@ -15,6 +15,8 @@
 {
     // fmdb 第三方数据库操作框架
     FMDatabase *_dataBase;
+
+    NSString *_dbPath;
 }
 
 /**
@@ -42,13 +44,13 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
 
     NSString *documents = [paths objectAtIndex:0];
-    NSString *dbPath = [documents stringByAppendingPathComponent:@"SpeedPro.db"];
-    SVInfo (@"database path:%@", dbPath);
+    _dbPath = [documents stringByAppendingPathComponent:@"SpeedPro.db"];
+    SVInfo (@"database path:%@", _dbPath);
 
     // 2、在这个位置创建一个数据库
     if (_dataBase == nil)
     {
-        _dataBase = [FMDatabase databaseWithPath:dbPath];
+        _dataBase = [FMDatabase databaseWithPath:_dbPath];
     }
 }
 
@@ -77,6 +79,29 @@
     return [SVDBManager sharedInstance];
 }
 
+/**
+ *  删除旧数据库
+ */
+- (void)removeDatabase
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL exists = [fileManager fileExistsAtPath:_dbPath];
+    if (!exists)
+    {
+        return;
+    }
+
+    NSError *error;
+    [fileManager removeItemAtPath:_dbPath error:&error];
+    if (error)
+    {
+        SVError (@"remove database fail. %@", error);
+    }
+    else
+    {
+        SVInfo (@"remove old database successs.");
+    }
+}
 
 /**
  *  执行SQL语句进行更新操作

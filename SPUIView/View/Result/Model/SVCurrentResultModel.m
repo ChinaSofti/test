@@ -7,6 +7,9 @@
 //
 
 #import "SVCurrentResultModel.h"
+#import "SVCurrentResultViewCtrl.h"
+#import "SVSpeedTestingViewCtrl.h"
+#import "SVWebTestingViewCtrl.h"
 
 @implementation SVCurrentResultModel
 {
@@ -87,7 +90,39 @@ stDownloadSpeed, stUploadSpeed, stIsp, stLocation;
     {
         return;
     }
-    [_ctrlArray addObjectsFromArray:_completeCtrlArray];
+
+    for (UIViewController *control in _completeCtrlArray)
+    {
+        if ([control isKindOfClass:[SVVideoTestingCtrl class]])
+        {
+            // 按钮点击后alloc一个界面
+            SVVideoTestingCtrl *videotestingCtrl = [[SVVideoTestingCtrl alloc] initWithResultModel:self];
+            [self setVideoTest:YES];
+            [self addCtrl:videotestingCtrl];
+            continue;
+        }
+
+        if ([control isKindOfClass:[SVWebTestingViewCtrl class]])
+        {
+            SVWebTestingViewCtrl *webtestingCtrl = [[SVWebTestingViewCtrl alloc] initWithResultModel:self];
+            [self setWebTest:YES];
+            [self addCtrl:webtestingCtrl];
+            continue;
+        }
+
+        if ([control isKindOfClass:[SVWebTestingViewCtrl class]])
+        {
+            SVSpeedTestingViewCtrl *speedtestingCtrl =
+            [[SVSpeedTestingViewCtrl alloc] initWithResultModel:self];
+            [self setSpeedTest:YES];
+            [self addCtrl:speedtestingCtrl];
+            continue;
+        }
+    }
+
+    SVCurrentResultViewCtrl *currentResultView = [[SVCurrentResultViewCtrl alloc] initWithResultModel:self];
+    [self addCtrl:currentResultView];
+
     [_completeCtrlArray removeAllObjects];
 }
 

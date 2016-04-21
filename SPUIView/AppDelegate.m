@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "SVCurrentDevice.h"
+#import "SVDBManager.h"
 #import "SVProbeInfo.h"
 #import "SVSpeedTestServers.h"
 #import "SVTabBarController.h"
@@ -24,6 +25,26 @@
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // 判断是否是安装后第一次启动APP
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"])
+    {
+        SVDBManager *manager = [SVDBManager sharedInstance];
+        [manager removeDatabase];
+        // 第一次启动APP，清除旧数据
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+    }
+
+    //    NSLog (@"-----------------------------------------------------------------");
+    //    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    //    //    NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
+    //    NSEnumerator *enmuerator = [infoDic keyEnumerator];
+    //    for (NSString *key in enmuerator)
+    //    {
+    //        NSLog (@"%@=%@", key, [infoDic objectForKey:key]);
+    //    }
+    //    NSLog (@"-----------------------------------------------------------------");
+
+
     //微信分享api注册
     //    [WXApi registerApp:@"wx2cce736067ee4a2d"];
 
