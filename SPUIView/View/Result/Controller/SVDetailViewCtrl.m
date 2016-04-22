@@ -288,18 +288,11 @@
                                              unit:I18N (@"inch")]
                }]];
 
-    // 测试时长
-    NSString *videoPlayDurationStr = [testContextJson valueForKey:@"videoPlayDuration"];
-    int videoPlayDuration = videoPlayDurationStr ? [videoPlayDurationStr intValue] : 60;
-
-    // 单位转换为min分钟
-    videoPlayDuration = videoPlayDuration / 60;
-    videoPlayDurationStr = [NSString stringWithFormat:@"%dmin", videoPlayDuration];
-
-
+    // 视频播放时长
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                   @"key": I18N (@"Video Play Duration"),
-                   @"value": videoPlayDurationStr
+                   @"key": I18N (@"Video Test Duration"),
+                   @"value": [self formatIntValue:[testResultJson valueForKey:@"playDuration"]
+                                             unit:I18N (@"s")]
                }]];
 
     // 视频地址

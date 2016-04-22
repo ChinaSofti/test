@@ -10,6 +10,9 @@
 #import "SVHttpsTools.h"
 #import "SVLog.h"
 #import "SVToast.h"
+#import <arpa/inet.h>
+#import <netdb.h>
+#import <netinet/in.h>
 
 // 是否需要证书认证
 static BOOL isNeedCert = YES;
@@ -543,5 +546,45 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
 - (void)isNeedCert:(BOOL)isNeed
 {
     isNeedCert = isNeed;
+}
+
+/**
+ * 根据host获取对应的ip地址
+ * @param hostName host地址
+ * @return IP地址
+ */
++ (NSString *)getIPWithHostName:(const NSString *)hostName
+{
+    NSString *strIPAddress = @"0.0.0.0";
+
+    if (!hostName)
+    {
+        return strIPAddress;
+    }
+
+    const char *hostN = [hostName UTF8String];
+    struct hostent *phot;
+
+    if (!hostN)
+    {
+        return strIPAddress;
+    }
+
+    phot = gethostbyname (hostN);
+
+    if (!phot || !phot->h_addr_list)
+    {
+        return strIPAddress;
+    }
+
+    struct in_addr ip_addr;
+
+    memcpy (&ip_addr, phot->h_addr_list[0], 4);
+    char ip[20] = { 0 };
+    inet_ntop (AF_INET, &ip_addr, ip, sizeof (ip));
+
+    strIPAddress = [NSString stringWithUTF8String:ip];
+
+    return strIPAddress;
 }
 @end

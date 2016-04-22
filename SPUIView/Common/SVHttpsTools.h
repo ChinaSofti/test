@@ -89,4 +89,11 @@
 // 设置是否需要证书
 - (void)isNeedCert:(BOOL)isNeed;
 
+/**
+ * 根据host获取对应的ip地址
+ * @param hostName host地址
+ * @return IP地址
+ */
++ (NSString *)getIPWithHostName:(const NSString *)hostName;
+
 @end

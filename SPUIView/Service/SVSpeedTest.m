@@ -7,6 +7,7 @@
 //
 
 #import "SVDBManager.h"
+#import "SVHttpsTools.h"
 #import "SVIPAndISPGetter.h"
 #import "SVProbeInfo.h"
 #import "SVResultPush.h"
@@ -16,8 +17,6 @@
 #import "SVSpeedTestServers.h"
 
 #import <arpa/inet.h>
-#import <netdb.h>
-#import <netinet/in.h>
 #import <pthread.h>
 #import <sys/socket.h>
 
@@ -437,7 +436,7 @@ double _beginTime;
 
     // 解析域名
     _speedTestInfo = [self analyse];
-    NSString *ip = [sortedArray[0] getIPWithHostName:_speedTestInfo.host];
+    NSString *ip = [SVHttpsTools getIPWithHostName:_speedTestInfo.host];
     _speedTestInfo.ip = ip;
     SVInfo (@"analyse, host:%@, ip: %@", _speedTestInfo.host, ip);
 

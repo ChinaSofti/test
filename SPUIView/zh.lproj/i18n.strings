@@ -93,7 +93,8 @@
 "Screen size" = "屏幕尺寸";
 "Video URL" = "视频地址";
 "Video Server Location" = "视频服务器位置";
-"Video Play Duration" = "视频测试时长";
+"Video Play Duration" = "视频播放时长";
+"Video Test Duration" = "视频测试持续时间";
 "Video Segement URL" = "视频分片地址";
 
 //网页测试

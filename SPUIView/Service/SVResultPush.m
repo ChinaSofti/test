@@ -523,7 +523,8 @@ NSArray *_emptyArr;
     [mediaInputDic setObject:@0 forKey:@"periodAvgKeyFrameSize"];
     [mediaInputDic setObject:[self string2num:[videoTestResultJson valueForKey:@"bitrate"]]
                       forKey:@"periodAvgVideoBitrate"];
-    [mediaInputDic setObject:@0.0 forKey:@"playTotalTime"];
+    [mediaInputDic setObject:[self string2num:[videoTestResultJson valueForKey:@"playDuration"]]
+                      forKey:@"playTotalTime"];
     [mediaInputDic setObject:@0 forKey:@"screenHeightResolution"];
     [mediaInputDic setObject:@42 forKey:@"screenSize"];
     [mediaInputDic setObject:@0 forKey:@"screenWidthResolution"];

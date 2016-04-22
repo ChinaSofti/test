@@ -208,10 +208,11 @@ static SVTestContextGetter *contextGetter = nil;
     [segement setVideoSegementURL:url];
     @try
     {
-        SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:url.host];
+        NSString *ip = [SVHttpsTools getIPWithHostName:url.host];
+        SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:ip];
         if (ipAndISP)
         {
-            [segement setVideoIP:url.host];
+            [segement setVideoIP:ip];
             [segement setVideoLocation:ipAndISP.city];
             [segement setVideoISP:ipAndISP.isp];
         }

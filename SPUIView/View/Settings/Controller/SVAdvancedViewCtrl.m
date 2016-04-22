@@ -62,7 +62,7 @@
     [self createVideotimeUI];
     [self createVideoQualityUI];
     [self createBandwidthUI];
-    [self createResultUploadUI];
+    //    [self createResultUploadUI];
 }
 
 //进去时 隐藏tabBar

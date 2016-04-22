@@ -6,11 +6,9 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
+#import "SVHttpsTools.h"
 #import "SVSpeedDelayTest.h"
-
 #import <arpa/inet.h>
-#import <netdb.h>
-#import <netinet/in.h>
 
 const int DELAY_BUFFER_SIZE = 512;
 
@@ -64,7 +62,7 @@ const int DELAY_BUFFER_SIZE = 512;
     currentAddr.sin_family = AF_INET;
     currentAddr.sin_addr.s_addr = INADDR_ANY;
     currentAddr.sin_port = htons ([testUrl.port intValue]);
-    currentAddr.sin_addr.s_addr = inet_addr ([[self getIPWithHostName:testUrl.host] UTF8String]);
+    currentAddr.sin_addr.s_addr = inet_addr ([[SVHttpsTools getIPWithHostName:testUrl.host] UTF8String]);
 
     return self;
 }
@@ -127,46 +125,6 @@ const int DELAY_BUFFER_SIZE = 512;
 
     // 测试完成
     self.finished = YES;
-}
-
-/**
- * 根据host获取对应的ip地址
- * @param hostName host地址
- * @return IP地址
- */
-- (NSString *)getIPWithHostName:(const NSString *)hostName
-{
-    NSString *strIPAddress = @"0.0.0.0";
-
-    if (!hostName)
-    {
-        return strIPAddress;
-    }
-
-    const char *hostN = [hostName UTF8String];
-    struct hostent *phot;
-
-    if (!hostN)
-    {
-        return strIPAddress;
-    }
-
-    phot = gethostbyname (hostN);
-
-    if (!phot || !phot->h_addr_list)
-    {
-        return strIPAddress;
-    }
-
-    struct in_addr ip_addr;
-
-    memcpy (&ip_addr, phot->h_addr_list[0], 4);
-    char ip[20] = { 0 };
-    inet_ntop (AF_INET, &ip_addr, ip, sizeof (ip));
-
-    strIPAddress = [NSString stringWithUTF8String:ip];
-
-    return strIPAddress;
 }
 
 @end
