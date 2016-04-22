@@ -6,6 +6,52 @@
  Copyright © 2016年 chinasofti. All rights reserved.
  */
 
+
+//抽奖
+//图片
+"speed_level_frist_english" = "speed_level_frist_english";
+"speed_level_second_english" = "speed_level_second_english";
+"speed_level_thrid_english" = "speed_level_thrid_english";
+"speed_level_forth_english" = "speed_level_forth_english";
+"speed_level_last_english" = "speed_level_last_english";
+
+"share_image_frist_english" = "share_image_frist_english";
+"share_image_second_english" = "share_image_second_english";
+"share_image_thrid_english" = "share_image_thrid_english";
+"share_image_forth_english" = "share_image_forth_english";
+"share_image_last_english" = "share_image_last_english";
+//界面文字
+"I have defeated" = "I have defeated";
+"of all users" = "of all users";
+"Activity period:4.1 to 4.7!" = "Activity period:4.1 to 4.7!";
+"Share to win 100-yuan top up" = "Share to win 100-yuan top up";
+
+"I am at the " = "I am at the ";
+"Mastery" = "Mastery";
+"Expertise" = "Expertise";
+"Proficiency" = "Proficiency";
+"Competence" = "Competence";
+"Novice" = "Novice";
+" level.What is yours?" = " level.What is yours?";
+
+"I have defeated " = "I have defeated ";
+"% of all users in the Red Envelope  War.Come on and test how fast you are!" = "% of all users in the Red Envelope  War.Come on and test how fast you are!";
+//中奖页
+"Congratulations" = "Congratulations!";
+"You have won " = "You have won ";
+"100-yuan" = "100-yuan";
+" top up" = " top up";
+"Enter a phone number" = "Enter a phone number";
+"Send" = "Send";
+"Invalid phone number" = "Invalid phone number";
+"A working day for you to recharge" ="A working day for you to recharge";
+//未中奖页
+"Thanks for participation" = "Thanks for participation";
+"Sorry for not getting the prize." = "Sorry for not getting the prize.";
+"Try again." = "Try again.";
+"Continue Test" = "Continue Test";
+
+
 //测试界面
 
 //初始设置
@@ -126,6 +172,7 @@
 //分享提示视图
 "Share on"="Share On";
 "Sina Weibo"="Sina Weibo";
+"Facebook"="Facebook";
 "WeChat"="WeChat";
 "Moments"="Moments";
 "Email"="Email";

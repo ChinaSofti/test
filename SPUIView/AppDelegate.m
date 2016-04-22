@@ -17,6 +17,13 @@
 #import "SVToast.h"
 //微信分享
 #import "WXApi.h"
+#import <FBSDKShareKit/FBSDKShareKit.h>
+//分享
+#import "UMSocial.h"
+#import "UMSocialFacebookHandler.h"
+#import "UMSocialSinaSSOHandler.h"
+#import "UMSocialWechatHandler.h"
+
 @interface AppDelegate () <WXApiDelegate>
 
 @end
@@ -38,8 +45,27 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         [[NSUserDefaults standardUserDefaults] setValue:currentVersion forKey:@"lastversion"];
     }
 
-    //微信分享api注册
-    //    [WXApi registerApp:@"wx2cce736067ee4a2d"];
+    //友盟分享的Key
+    NSString *UmengAppkey = @"57173b1ce0f55add74000285";
+    //要分享的URL
+    NSString *Url = @"http://58.60.106.185:12210";
+    //设置友盟社会化组件appkey
+    [UMSocialData setAppKey:UmengAppkey];
+    //设置微信AppId、appSecret，分享url
+    [UMSocialWechatHandler setWXAppId:@"wx1d6b749a18f33c50"
+                            appSecret:@"c8e7605d0bd5f02add0e35bdbc6f2b30"
+                                  url:Url];
+    //打开新浪微博的SSO开关，设置新浪微博回调地址，这里必须要和你在新浪微博后台设置的回调地址一致
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1657697846"
+                                              secret:@"d09a66e00701f15f5f5bcc20f514fc53"
+                                         RedirectURL:Url];
+    //设置Facebook，AppID和分享url
+    [UMSocialFacebookHandler setFacebookAppID:@"1694953214094427" shareFacebookWithURL:Url];
+
+
+    //支持横屏
+    [UMSocialConfig setSupportedInterfaceOrientations:UIInterfaceOrientationMaskLandscape];
+    [UMSocialData defaultData].extConfig.facebookData.title = @"huawei share";
 
     //设置navigationBar的颜色
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#263841"]];
@@ -62,7 +88,24 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     return YES;
 }
 
-
+//回调函数
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE)
+    {
+        //调用其他SDK，例如支付宝SDK等
+        SVInfo (@"分享回调函数");
+    }
+    return result;
+}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [UMSocialSnsService handleOpenURL:url];
+}
 - (void)networkStatusChange:(SVRealReachabilityStatus)status
 {
     switch (status)
