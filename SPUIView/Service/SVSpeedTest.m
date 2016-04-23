@@ -102,6 +102,7 @@ double _beginTime;
 // 开始测试
 - (BOOL)startTest
 {
+    SVInfo (@"Start Speed Test!");
     _testResult.testId = _testId;
     _testResult.testTime = [[NSDate date] timeIntervalSince1970] * 1000;
     _testResult.delay = 0;

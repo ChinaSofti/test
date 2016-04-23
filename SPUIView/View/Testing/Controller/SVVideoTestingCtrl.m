@@ -610,8 +610,8 @@
           k = uvMOSSession;
       }
 
-      [_testingView updateValue:k];
-      [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", k]];
+      [_testingView updateValue:k < 1 ? 1 : k];
+      [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", k < 1 ? 1 : k]];
 
       // 更新柱状图
       _resultTimes += 1;

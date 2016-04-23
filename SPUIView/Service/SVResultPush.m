@@ -359,7 +359,7 @@ NSArray *_emptyArr;
     [upAverageDic setObject:@0 forKey:@"isUpload"];
     [upAverageDic setObject:@1457841583057 forKey:@"sampleTime"];
     NSNumber *upSpeed =
-    [[NSNumber alloc] initWithLong:[[speedTestResultJson valueForKey:@"uploadSpeed"] longValue]];
+    [[NSNumber alloc] initWithFloat:[[speedTestResultJson valueForKey:@"uploadSpeed"] floatValue]];
     [upAverageDic setObject:upSpeed forKey:@"speed"];
     [upAverageDic setObject:@"0" forKey:@"testId"];
 
@@ -371,7 +371,7 @@ NSArray *_emptyArr;
     [downAverageDic setObject:@1 forKey:@"isUpload"];
     [downAverageDic setObject:@1457841583057 forKey:@"sampleTime"];
     NSNumber *downSpeed =
-    [[NSNumber alloc] initWithLong:[[speedTestResultJson valueForKey:@"downloadSpeed"] longValue]];
+    [[NSNumber alloc] initWithFloat:[[speedTestResultJson valueForKey:@"downloadSpeed"] floatValue]];
     [downAverageDic setObject:downSpeed forKey:@"speed"];
     [downAverageDic setObject:@"0" forKey:@"testId"];
 
