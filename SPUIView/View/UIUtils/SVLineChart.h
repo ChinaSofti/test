@@ -11,7 +11,7 @@
 @interface SVLineChart : UIView
 
 
-- (id)initWithFrame:(CGRect)frame;
+- (id)initWithFrame:(CGRect)frame maxY:(float)maxY;
 
 - (void)addValue:(float)value;
 
