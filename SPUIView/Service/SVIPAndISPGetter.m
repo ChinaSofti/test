@@ -17,9 +17,9 @@
     //    TSIPAndISP *ipAndISP;
 }
 
-static NSString *defaultURL = @"http://ip-api.com/json?lang=%@";
+static NSString *defaultURL = @"http://www.ip-api.com/json?lang=%@";
 
-static NSString *queryIPLocationURL = @"http://ip-api.com/json/%@?lang=%@";
+static NSString *queryIPLocationURL = @"http://www.ip-api.com/json/%@?lang=%@";
 
 static NSString *bakDefaultURL =
 @"http://api.map.baidu.com/location/ip?ak=k38rQGnU2ZIAGAGSGwrxdCtIFE74lvjp&coor=bd09ll";

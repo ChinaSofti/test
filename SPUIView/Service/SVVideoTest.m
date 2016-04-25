@@ -255,11 +255,7 @@
     float frameRate = !testResult.frameRate ? 0 : testResult.frameRate;
     float bitrate = !testResult.bitrate ? 0 : testResult.bitrate;
     float screenSize = !testResult.screenSize ? 0 : testResult.screenSize;
-
-    // 计算视频实际播放时长
-    long long videoStartPlayTime = !testResult.videoStartPlayTime ? 0 : testResult.videoStartPlayTime;
-    long long videoEndPlayTime = !testResult.videoEndPlayTime ? 0 : testResult.videoEndPlayTime;
-    int playDuration = (videoEndPlayTime - videoStartPlayTime - firstBufferTime - videoCuttonTotalTime) / 1000;
+    int playDuration = !testResult.videoPlayTime ? 0 : testResult.videoPlayTime;
 
     NSString *videoResolution = !testResult.videoResolution ? @"" : testResult.videoResolution;
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];

@@ -2078,7 +2078,7 @@
 				TargetAttributes = {
 					56F523DE1C4DCF7F00E6472B = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = DGQ9BHE78D;
+						DevelopmentTeam = 7SGYK8N456;
 					};
 					B70FF3D21C6582AA002D571B = {
 						CreatedOnToolsVersion = 7.2;
@@ -2569,7 +2569,7 @@
 					"$(PROJECT_DIR)/Thirdpart/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.debug;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2610,7 +2610,7 @@
 					"$(PROJECT_DIR)/Thirdpart/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.debug;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;

@@ -66,10 +66,9 @@
     stMediaInfo.iVideoResolutionWidth = _testResult.videoWidth;
     stMediaInfo.iVideoResolutionHeigth = _testResult.videoHeight;
 
-    // 屏幕分辨率
-    CGSize scressSize = [SVVideoUtil getScreenScale];
-    stMediaInfo.iScreenResolutionWidth = scressSize.width;
-    stMediaInfo.iScreenResolutionHeight = scressSize.height;
+    // 屏幕分辨率 目前 设置为 视频分辨率
+    stMediaInfo.iScreenResolutionWidth = _testResult.videoWidth;
+    stMediaInfo.iScreenResolutionHeight = _testResult.videoHeight;
 
     /* 第一步：申请U-vMOS服务号 (携带视频静态参数 )  */
     SVInfo (@"UvMOSMediaInfo[eMediaType:%d  eContentProvider:%d  eVideoCodec:%d  screenSize:%.2f   "
@@ -283,9 +282,7 @@
     // 视频帧率
     stMediaInfo.eMediaType = MEDIA_TYPE_VOD;
     // 视频提供商
-    SVVideoSegement *segement = _testContext.videoSegementInfo[0];
-    stMediaInfo.eContentProvider =
-    [SVContentProviderGetter getContentProvider:segement.videoSegementURL.host];
+    stMediaInfo.eContentProvider = 0;
     stMediaInfo.eVideoCodec = VIDEO_CODEC_H264;
     SVProbeInfo *probeInfo = [[SVProbeInfo alloc] init];
     float screenSize = [[probeInfo getScreenSize] floatValue];
@@ -294,12 +291,11 @@
     // 视频分辨率
     stMediaInfo.iVideoResolutionWidth = _testResult.videoWidth;
     stMediaInfo.iVideoResolutionHeigth = _testResult.videoHeight;
-    // 屏幕分辨率
-    CGSize scressSize = [SVVideoUtil getScreenScale];
-    stMediaInfo.iScreenResolutionWidth = scressSize.width;
-    stMediaInfo.iScreenResolutionHeight = scressSize.height;
+    // 屏幕分辨率 目前 设置为 视频分辨率
+    stMediaInfo.iScreenResolutionWidth = _testResult.videoWidth;
+    stMediaInfo.iScreenResolutionHeight = _testResult.videoHeight;
 
-    pStatisticsInfo.iVideoPlayDuration = _testContext.videoPlayDuration;
+    pStatisticsInfo.iVideoPlayDuration = _testResult.videoPlayTime;
     pStatisticsInfo.iInitBufferLatency = _testResult.firstBufferTime;
     pStatisticsInfo.dVideoFrameRate = _testResult.frameRate;
     pStatisticsInfo.iAvgVideoBitrate = _testResult.bitrate;

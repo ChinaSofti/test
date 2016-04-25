@@ -244,8 +244,6 @@ static int execute_total_times = 4;
             SVError (@"stop video fail. exception:%@", exception);
         }
 
-        [testResult setVideoEndPlayTime:[SVTimeUtil currentMilliSecondStamp]];
-
         // 取消 UvMOS 注册服务
         [uvMOSCalculator unRegisteService];
         if (testContext.testStatus == TEST_TESTING)
@@ -255,7 +253,6 @@ static int execute_total_times = 4;
 
         [_videoPlayer stopVideo];
         isFinished = TRUE;
-        //        [UIApplication sharedApplication].idleTimerDisabled = NO;
     }
 }
 
@@ -453,6 +450,17 @@ static int execute_total_times = 4;
         execute_times += 1;
         if (execute_times >= execute_total_times)
         {
+            [testResult setVideoEndPlayTime:[SVTimeUtil currentMilliSecondStamp]];
+
+            // 计算视频实际播放时长
+            long long videoStartPlayTime = !testResult.videoStartPlayTime ? 0 : testResult.videoStartPlayTime;
+            long long videoEndPlayTime = !testResult.videoEndPlayTime ? 0 : testResult.videoEndPlayTime;
+            int firstBufferTime = testResult.firstBufferTime;
+            int cuttonTotalTime = testResult.videoCuttonTotalTime;
+            int videoPlayTime =
+            ((int)(videoEndPlayTime - videoStartPlayTime) - firstBufferTime - cuttonTotalTime) / 1000;
+            [testResult setVideoPlayTime:videoPlayTime];
+
             SVVideoTestSample *sample = [uvMOSCalculator calculateUvMOSNetworkPlan];
             [testResult setSViewSession:sample.sViewSession];
             [testResult setSInteractionSession:sample.sInteractionSession];

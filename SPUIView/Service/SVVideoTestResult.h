@@ -73,5 +73,7 @@
 // 测试样本结果信息
 @property (nonatomic, retain) NSMutableArray *videoTestSamples;
 
+// 视频实际播放时长 = 视频播放时长-卡顿总时长-首次缓冲时长
+@property int videoPlayTime;
 
 @end
