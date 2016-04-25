@@ -637,8 +637,18 @@
           k = uvMOSSession;
       }
 
-      [_testingView updateValue:k < 1 ? 1 : k];
-      [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", k < 1 ? 1 : k]];
+      // 将Uvmos值限制在1-5之间
+      if (k < 1)
+      {
+          k = 1;
+      }
+      if (k > 5)
+      {
+          k = 5;
+      }
+
+      [_testingView updateValue:k];
+      [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", k]];
 
       // 更新柱状图
       _resultTimes += 1;

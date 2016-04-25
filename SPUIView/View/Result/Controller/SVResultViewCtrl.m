@@ -6,13 +6,15 @@
 //  Copyright © 2016年 chinasofti. All rights reserved.
 //
 
-#define Button_Tag 10
+#define Button_Tag 1000
 
 #import "SVDBManager.h"
 #import "SVDetailViewCtrl.h"
 #import "SVResultCell.h"
 #import "SVResultViewCtrl.h"
 #import "SVSummaryResultModel.h"
+
+static int a = 0;
 
 @interface SVResultViewCtrl () <SVResultCellDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
 {
@@ -41,6 +43,9 @@
 
     // 选中的列
     NSString *columnName;
+
+    // 排序方式
+    NSString *orderType;
 }
 
 #pragma mark - 懒加载
@@ -110,9 +115,8 @@
 {
     [super viewWillAppear:animated];
 
-    //默认情况下按照时间的降序排列
-    //从数据库中读取数据
-    [self readDataFromDB:@"testTime" order:@"desc"];
+    // 初始化button
+    self.button = nil;
 }
 
 // 在显示view的时候修改navigationBar的高度
@@ -136,6 +140,22 @@
 
     //在NavigationBar下面添加一个View
     [self addHeadView];
+
+    if (self.button)
+    {
+        self.button.selected = YES;
+        [self.button addSubview:self.imageView];
+        [self.navigationController.navigationBar addSubview:self.bottomImageView];
+
+        //从数据库中读取数据
+        [self readDataFromDB:columnName order:orderType];
+    }
+    else
+    {
+        //默认情况下按照时间的降序排列
+        //从数据库中读取数据
+        [self readDataFromDB:@"testTime" order:@"desc"];
+    }
 }
 
 // 在页面节将消失时，还原设置
@@ -275,6 +295,12 @@
             _typeButton = currButton;
         }
 
+        // 如果当前按钮是已选的的按钮，则出发点击事件
+        if (i == currentBtn)
+        {
+            self.button = currButton;
+        }
+
         [titleBtns addObject:currButton];
     }
 }
@@ -292,8 +318,11 @@
         self.button = button;
     }
     self.button.selected = YES;
+
+    currentBtn = button.tag - Button_Tag;
+
     // 在被点击的按钮下方 添加细长白条
-    switch (button.tag - Button_Tag)
+    switch (currentBtn)
     {
     case 0:
         self.bottomImageView.frame =
@@ -349,7 +378,6 @@
     self.imageView.frame = CGRectMake (CGRectGetMaxX (button.titleLabel.frame),
                                        button.titleLabel.frame.origin.y - FITWIDTH (35),
                                        image.size.width, image.size.height);
-    static int a = 0;
 
     NSString *type = @"type";
     NSString *order = @"asc";
@@ -359,7 +387,7 @@
         //显示向上箭头
         UIImage *image = [UIImage imageNamed:@"ic_sort_asc"];
         self.imageView.image = image;
-        switch (button.tag - Button_Tag)
+        switch (currentBtn)
         {
         case 0:
             //类型
@@ -394,13 +422,12 @@
         default:
             break;
         }
-        currentBtn = button.tag - Button_Tag;
     }
     else
     { //显示向下箭头
         self.imageView.image = [UIImage imageNamed:@"ic_sort"];
 
-        switch (button.tag - Button_Tag)
+        switch (currentBtn)
         {
         case 0:
             //类型
@@ -440,6 +467,9 @@
 
     // 记录选中的列
     columnName = type;
+
+    // 记录排序方式
+    orderType = order;
 
     // asc 生序  desc 降序
     [self readDataFromDB:type order:order];
@@ -526,14 +556,16 @@
     SVResultCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aCell"];
     if (cell == nil)
     {
-        cell = [[SVResultCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                   reuseIdentifier:@"aCell"
-                                           WithTag:_selectedResultTestId];
+        cell =
+        [[SVResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"aCell"];
 
         //取消cell 被点中的效果
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     }
+
+    // 设置tag
+    cell.selectedTag = _selectedResultTestId;
 
     // 设置被选中的列
     cell.columnName = columnName;
