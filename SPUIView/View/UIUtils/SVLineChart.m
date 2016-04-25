@@ -35,7 +35,7 @@
         self.layer.borderWidth = 0.5;
         self.layer.borderColor = [[UIColor grayColor] CGColor];
         _arrays = [[NSMutableArray alloc] init];
-        
+
         _maxY = maxY;
         _pathArrays = [[NSMutableArray alloc] init];
     }
@@ -59,17 +59,21 @@
     _layer.lineWidth = 1.0f;
     _layer.lineCap = kCALineCapRound;
     _layer.lineJoin = kCALineJoinRound;
-    _layer.strokeColor = [UIColor redColor].CGColor;
+    //    _layer.strokeColor = [UIColor redColor].CGColor;
+    _layer.strokeColor = [UIColor colorWithHexString:@"#F54D2D"].CGColor;
     [self.layer insertSublayer:_layer atIndex:0];
-    
+
     //绘制渐变色层
     CAGradientLayer *colorLayer = [CAGradientLayer layer];
     colorLayer.frame = self.frame;
-    colorLayer.colors = @[(__bridge id)[UIColor colorWithHexString:@"#FEDDBD"].CGColor,
-                          (__bridge id)[UIColor colorWithHexString:@"#FEDDBD" alpha:0.0].CGColor];
-    colorLayer.locations = @[@0.0,@1.0];
+    colorLayer.colors = @[
+        (__bridge id)[UIColor colorWithHexString:@"#FEDDBD"]
+        .CGColor,
+        (__bridge id)[UIColor colorWithHexString:@"#FEDDBD" alpha:0.0].CGColor
+    ];
+    colorLayer.locations = @[@0.0, @1.0];
     [self.layer insertSublayer:colorLayer atIndex:0];
-    
+
     CAShapeLayer *arc = [CAShapeLayer layer];
     colorLayer.mask = arc;
 
@@ -82,7 +86,7 @@
         // 创建贝塞尔路径~
         UIBezierPath *path = [UIBezierPath bezierPath];
         [path moveToPoint:CGPointMake (0, _frameHeight)];
-        
+
         // 添加原点
         [self labelWithFrame:self.frame index:0];
 
@@ -90,17 +94,18 @@
         //        NSString *value = _arrays[0];
         long index = _arrays.count;
         NSString *value = _arrays[index - 1];
-        
+
         [self labelWithFrame:self.frame index:(int)index];
 
         NSLog (@"%@ ", value);
         CGPoint point2 = CGPointMake ([self nextPointX:index], [self nextPointY:[value floatValue]]);
         [self addPoint:point2];
-        
-        UIBezierPath *colorPath = [self createPathWithFirstPoint:CGPointMake (0, _frameHeight) SecondPoint:point2];
+
+        UIBezierPath *colorPath =
+        [self createPathWithFirstPoint:CGPointMake (0, _frameHeight) SecondPoint:point2];
         arc.path = colorPath.CGPath;
         [_pathArrays addObject:colorPath];
-        
+
         lastPoint = CGPointMake ([self nextPointX:index], [self nextPointY:[value floatValue]]);
         [path addLineToPoint:lastPoint];
         // 关联layer和贝塞尔路径~
@@ -122,16 +127,16 @@
         // 第二个点，根据用户设置的数据设置点的位置
         long index = _arrays.count;
         NSString *value = _arrays[index - 1];
-        
+
         [self labelWithFrame:self.frame index:(int)index];
 
         CGPoint point2 = CGPointMake ([self nextPointX:index], [self nextPointY:[value floatValue]]);
         NSLog (@"%@ ", value);
         [self addPoint:point2];
-        
+
         UIBezierPath *colorPath = [self createPathWithFirstPoint:lastPoint SecondPoint:point2];
         arc.path = colorPath.CGPath;
-        
+
         [_pathArrays addObject:colorPath];
 
         lastPoint = CGPointMake ([self nextPointX:index], [self nextPointY:[value floatValue]]);
@@ -174,7 +179,7 @@
     view.layer.cornerRadius = 6;
     view.layer.borderWidth = 1.2;
     view.layer.borderColor = [UIColor whiteColor].CGColor;
-    view.backgroundColor = [UIColor redColor];
+    view.backgroundColor = [UIColor colorWithHexString:@"#F54D2D"];
     [self addSubview:view];
 }
 
@@ -182,17 +187,20 @@
 - (void)labelWithFrame:(CGRect)frame index:(int)index
 {
     CGFloat x = (frame.origin.x - 4) + index * (_frameWidth / 10);
-    if (index == 0) {
+    if (index == 0)
+    {
         x = x + 2;
-    } else if (index == 10) {
+    }
+    else if (index == 10)
+    {
         x = x - 4;
     }
     CGFloat y = frame.size.height;
     CGFloat w = 10;
     CGFloat h = 10;
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, w, h)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (x, y, w, h)];
     label.text = [NSString stringWithFormat:@"%d", index];
-    label.textColor = [UIColor redColor];
+    label.textColor = [UIColor colorWithHexString:@"#F54D2D"];
     label.font = [UIFont systemFontOfSize:8];
     label.textAlignment = NSTextAlignmentCenter;
     [self.superview addSubview:label];
@@ -202,14 +210,14 @@
 - (UIBezierPath *)createPathWithFirstPoint:(CGPoint)firstP SecondPoint:(CGPoint)secondP
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
-    
-    [path moveToPoint:firstP];//第一个点
-    [path addLineToPoint:secondP];//第二个点
-    
-    [path addLineToPoint:CGPointMake (secondP.x, self.frame.size.height)];//第三个点
-    [path addLineToPoint:CGPointMake(firstP.x, self.frame.size.height)];//第四个点
+
+    [path moveToPoint:firstP]; //第一个点
+    [path addLineToPoint:secondP]; //第二个点
+
+    [path addLineToPoint:CGPointMake (secondP.x, self.frame.size.height)]; //第三个点
+    [path addLineToPoint:CGPointMake (firstP.x, self.frame.size.height)]; //第四个点
     [path closePath];
-    
+
     return path;
 }
 
