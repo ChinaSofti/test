@@ -140,13 +140,27 @@
     NSString *title3 = I18N (@"No");
     NSString *title4 = I18N (@"Yes");
 
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title1
-                                                    message:title2
-                                                   delegate:self
-                                          cancelButtonTitle:title3
-                                          otherButtonTitles:title4, nil];
-    [alert setTag:0];
-    [alert show];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title1
+                                                                   message:title2
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *continueAction = [UIAlertAction actionWithTitle:title3
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action) {
+                                                             SVInfo (@"继续测试");
+                                                           }];
+
+    UIAlertAction *stopTestAction = [UIAlertAction
+    actionWithTitle:title4
+              style:UIAlertActionStyleDefault
+            handler:^(UIAlertAction *action) {
+              SVInfo (@"取消了此次测试");
+              [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
+            }];
+
+    [alert addAction:continueAction];
+    [alert addAction:stopTestAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -270,19 +284,32 @@
       else
       {
           dispatch_async (dispatch_get_main_queue (), ^{
-            //            [self goToCurrentResultViewCtrl];
             NSString *title1 = I18N (@"Prompt");
             NSString *title2 = I18N (@"Test Fail. Check Network");
             NSString *title3 = I18N (@"Cancel Test");
             NSString *title4 = I18N (@"Continue Test");
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:title1
+                                                                           message:title2
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *continueAction = [UIAlertAction
+            actionWithTitle:title3
+                      style:UIAlertActionStyleDefault
+                    handler:^(UIAlertAction *action) {
+                      SVInfo (@"取消了此次测试");
+                      [[self.currentResultModel navigationController] popToRootViewControllerAnimated:NO];
+                    }];
 
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title1
-                                                            message:title2
-                                                           delegate:self
-                                                  cancelButtonTitle:title3
-                                                  otherButtonTitles:title4, nil];
-            [alert setTag:1];
-            [alert show];
+            UIAlertAction *stopTestAction = [UIAlertAction actionWithTitle:title4
+                                                                     style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction *action) {
+                                                                     // push界面
+                                                                     SVInfo (@"继续测试");
+                                                                     [self.currentResultModel pushNextCtrl];
+                                                                   }];
+
+            [alert addAction:continueAction];
+            [alert addAction:stopTestAction];
+            [self presentViewController:alert animated:YES completion:nil];
           });
       }
     });
@@ -610,8 +637,8 @@
           k = uvMOSSession;
       }
 
-      [_testingView updateValue:k < 1 ? 1 : k];
-      [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", k < 1 ? 1 : k]];
+      [_testingView updateValue:k];
+      [_UvMosInFullScreenValue setText:[NSString stringWithFormat:@"%.2f", k]];
 
       // 更新柱状图
       _resultTimes += 1;

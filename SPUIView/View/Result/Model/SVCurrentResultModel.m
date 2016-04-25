@@ -123,7 +123,7 @@ stDownloadSpeed, stUploadSpeed, stIsp, stLocation;
             continue;
         }
 
-        if ([control isKindOfClass:[SVWebTestingViewCtrl class]])
+        if ([control isKindOfClass:[SVSpeedTestingViewCtrl class]])
         {
             SVSpeedTestingViewCtrl *speedtestingCtrl =
             [[SVSpeedTestingViewCtrl alloc] initWithResultModel:self];

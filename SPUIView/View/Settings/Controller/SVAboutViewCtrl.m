@@ -7,6 +7,7 @@
 //
 
 #import "SVAboutViewCtrl.h"
+#import "SVAppVersionChecker.h"
 
 @interface SVAboutViewCtrl ()
 @end
@@ -79,7 +80,7 @@
     UILabel *labV = [[UILabel alloc]
     initWithFrame:CGRectMake (CGRectGetMaxX (view.frame) + FITWIDTH (58),
                               view.frame.origin.y + FITHEIGHT (129), FITWIDTH (348), FITHEIGHT (126))];
-    labV.text = @"V0.0.1";
+    labV.text = [SVAppVersionChecker currentVersion];
     labV.textColor = [UIColor grayColor];
     labV.font = [UIFont systemFontOfSize:pixelToFontsize (60)];
     [self.view addSubview:labV];

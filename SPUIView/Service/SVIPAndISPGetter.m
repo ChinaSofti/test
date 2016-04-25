@@ -96,16 +96,18 @@ static SVIPAndISP *localIPAndISP;
 + (SVIPAndISP *)ipInfoWithIp:(NSString *)ip
 {
     // 获取系统语言
-    SVI18N *i18n = [SVI18N sharedInstance];
-    NSString *lang = [i18n getLanguage];
-    if ([lang containsString:@"en"])
-    {
-        lang = DEFAULT_EN_US_LANG;
-    }
-    else
-    {
-        lang = DEFAULT_ZH_CN_LANG;
-    }
+    //    SVI18N *i18n = [SVI18N sharedInstance];
+    //    NSString *lang = [i18n getLanguage];
+    //    if ([lang containsString:@"en"])
+    //    {
+    //        lang = DEFAULT_EN_US_LANG;
+    //    }
+    //    else
+    //    {
+    //        lang = DEFAULT_ZH_CN_LANG;
+    //    }
+
+    NSString *lang = DEFAULT_EN_US_LANG;
 
     // 查询IP地址信息的json数据
     NSData *jsonData = nil;

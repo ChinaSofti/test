@@ -206,6 +206,9 @@ static NSString *_GET_VIDEO_INFO_URL = @"https://www.youtube.com/"
         }
     }
 
+    // 对URL进行解码
+    videoURLString = [videoURLString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
     [segement setVideoSegementURLStr:videoURLString];
     [_videoInfo addSegement:segement];
     return _videoInfo;

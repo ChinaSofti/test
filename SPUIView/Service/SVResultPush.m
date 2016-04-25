@@ -246,7 +246,7 @@ NSArray *_emptyArr;
     NSMutableDictionary *collectorResultsDic = [[NSMutableDictionary alloc] init];
     NSString *bw = [probeInfo getBandwidth];
     NSNumber *bwNumber = [NSNumber numberWithInt:[bw intValue]];
-    [collectorResultsDic setObject:!bw ? @0 : bwNumber forKey:@"bandWidth"];
+    [collectorResultsDic setObject:!bw ? @0 : bwNumber forKey:@"bandwidth"];
     NSString *bandwidthType = [probeInfo getBandwidthType];
     NSNumber *bandwidthTypeNumber = [NSNumber numberWithInt:[bandwidthType intValue]];
     [collectorResultsDic setObject:bandwidthTypeNumber forKey:@"bandwidthType"];
@@ -303,52 +303,57 @@ NSArray *_emptyArr;
     }
 
 
-    NSString *ipAddress = [speedTestResultJson valueForKey:@"ipAddress"];
-    SVIPAndISP *isp = [SVIPAndISPGetter queryIPDetail:ipAddress];
-    if (isp)
-    {
-        [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
-        [locationDic setObject:[self ispFilter:isp str:isp.carrier] forKey:@"carrier"];
-        [locationDic setObject:[self ispFilter:isp str:isp.city] forKey:@"city"];
-        [locationDic setObject:[self ispFilter:isp str:isp.country] forKey:@"country"];
-        [locationDic setObject:[self ispFilter:isp str:isp.countryCode] forKey:@"countryCode"];
-        [locationDic setObject:@"" forKey:@"district"];
-        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"ip"];
-        [locationDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"isp"];
-        [locationDic setObject:[self ispFilter:isp str:isp.lat] forKey:@"lat"];
-        [locationDic setObject:[self ispFilter:isp str:isp.lon] forKey:@"lon"];
-        [locationDic setObject:@"" forKey:@"message"];
-        [locationDic setObject:[self ispFilter:isp str:isp.org] forKey:@"org"];
-        [locationDic setObject:@"" forKey:@"province"];
-        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"query"];
-        [locationDic setObject:[self ispFilter:isp str:isp.region] forKey:@"region"];
-        [locationDic setObject:[self ispFilter:isp str:isp.regionName] forKey:@"regionName"];
-        [locationDic setObject:@"success" forKey:@"status"];
-        [locationDic setObject:[self ispFilter:isp str:isp.timezone] forKey:@"timezone"];
-        [locationDic setObject:[self ispFilter:isp str:isp.zip] forKey:@"zip"];
-    }
-    else
-    {
-        [locationDic setObject:@"" forKey:@"as"];
-        [locationDic setObject:@"" forKey:@"carrier"];
-        [locationDic setObject:@"" forKey:@"city"];
-        [locationDic setObject:@"" forKey:@"country"];
-        [locationDic setObject:@"" forKey:@"countryCode"];
-        [locationDic setObject:@"" forKey:@"district"];
-        [locationDic setObject:@"" forKey:@"ip"];
-        [locationDic setObject:@"" forKey:@"isp"];
-        [locationDic setObject:@"" forKey:@"lat"];
-        [locationDic setObject:@"" forKey:@"lon"];
-        [locationDic setObject:@"" forKey:@"message"];
-        [locationDic setObject:@"" forKey:@"org"];
-        [locationDic setObject:@"" forKey:@"province"];
-        [locationDic setObject:@"" forKey:@"query"];
-        [locationDic setObject:@"" forKey:@"region"];
-        [locationDic setObject:@"" forKey:@"regionName"];
-        [locationDic setObject:@"success" forKey:@"status"];
-        [locationDic setObject:@"" forKey:@"timezone"];
-        [locationDic setObject:@"" forKey:@"zip"];
-    }
+    //    NSString *ipAddress = [speedTestResultJson valueForKey:@"ipAddress"];
+    //    SVIPAndISP *isp = [SVIPAndISPGetter queryIPDetail:ipAddress];
+    //    if (isp)
+    //    {
+    //        [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.carrier] forKey:@"carrier"];
+    //        [locationDic
+    //        setObject:[self ispFilter:isp str:[speedTestResultJson valueForKey:@"location"]]
+    //           forKey:@"city"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.country] forKey:@"country"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.countryCode]
+    //        forKey:@"countryCode"];
+    //        [locationDic setObject:@"" forKey:@"district"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"ip"];
+    //        [locationDic setObject:[self ispFilter:isp str:[speedTestResultJson
+    //        valueForKey:@"isp"]]
+    //                        forKey:@"isp"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.lat] forKey:@"lat"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.lon] forKey:@"lon"];
+    //        [locationDic setObject:@"" forKey:@"message"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.org] forKey:@"org"];
+    //        [locationDic setObject:@"" forKey:@"province"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"query"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.region] forKey:@"region"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.regionName] forKey:@"regionName"];
+    //        [locationDic setObject:@"success" forKey:@"status"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.timezone] forKey:@"timezone"];
+    //        [locationDic setObject:[self ispFilter:isp str:isp.zip] forKey:@"zip"];
+    //    }
+    //    else
+    //    {
+    [locationDic setObject:@"" forKey:@"as"];
+    [locationDic setObject:@"" forKey:@"carrier"];
+    [locationDic setObject:[speedTestResultJson valueForKey:@"location"] forKey:@"city"];
+    [locationDic setObject:@"" forKey:@"country"];
+    [locationDic setObject:@"" forKey:@"countryCode"];
+    [locationDic setObject:@"" forKey:@"district"];
+    [locationDic setObject:@"" forKey:@"ip"];
+    [locationDic setObject:[speedTestResultJson valueForKey:@"isp"] forKey:@"isp"];
+    [locationDic setObject:@"" forKey:@"lat"];
+    [locationDic setObject:@"" forKey:@"lon"];
+    [locationDic setObject:@"" forKey:@"message"];
+    [locationDic setObject:@"" forKey:@"org"];
+    [locationDic setObject:@"" forKey:@"province"];
+    [locationDic setObject:@"" forKey:@"query"];
+    [locationDic setObject:@"" forKey:@"region"];
+    [locationDic setObject:@"" forKey:@"regionName"];
+    [locationDic setObject:@"success" forKey:@"status"];
+    [locationDic setObject:@"" forKey:@"timezone"];
+    [locationDic setObject:@"" forKey:@"zip"];
+    //}
 
 
     // 2.2 upAverage

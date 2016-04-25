@@ -126,6 +126,9 @@ static NSString *_ykss;
                                 [NSString stringWithUTF8String:vResult->streams[i].segs[j].url] :
                                 @"");
 
+            // 对URL进行解码
+            segUrl = [segUrl stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
             SVVideoSegement *segement = [[SVVideoSegement alloc] init];
             [segement setSegementID:i];
 

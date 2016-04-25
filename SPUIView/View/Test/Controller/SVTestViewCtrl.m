@@ -26,6 +26,8 @@
 @property (nonatomic, retain) UIButton *testBtn;
 @property (nonatomic, retain) UIButton *button;
 @property (nonatomic, retain) UIView *footerView;
+@property (nonatomic, retain) UIAlertController *alert;
+
 @end
 
 
@@ -363,35 +365,45 @@
     SVRealReachabilityStatus status = [realReachablity getNetworkStatus];
     if (status == SV_WWANType2G || status == SV_WWANType3G || status == SV_WWANType4G)
     {
-        NSString *title1 = I18N (@"Prompt");
-        NSString *title2 = I18N (@"You are using a none-Wi-Fi network.Continuing the test will "
-                                 @"cause extra traffic fees.");
-        NSString *title3 = I18N (@"Cancel Test");
-        NSString *title4 = I18N (@"Continue Test");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title1
-                                                        message:title2
-                                                       delegate:self
-                                              cancelButtonTitle:title3
-                                              otherButtonTitles:title4, nil];
-        [alert show];
+        if (_alert)
+        {
+            [self presentViewController:_alert animated:YES completion:nil];
+        }
+        else
+        {
+            NSString *title1 = I18N (@"Prompt");
+            NSString *title2 = I18N (@"You are using a none-Wi-Fi network.Continuing the test will "
+                                     @"cause extra traffic fees.");
+            NSString *title3 = I18N (@"Cancel Test");
+            NSString *title4 = I18N (@"Continue Test");
+
+            _alert = [UIAlertController alertControllerWithTitle:title1
+                                                         message:title2
+                                                  preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:title3
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction *action) {
+                                                                   SVInfo (@"取消测试");
+                                                                 }];
+
+            UIAlertAction *continueAction = [UIAlertAction actionWithTitle:title4
+                                                                     style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction *action) {
+                                                                     SVInfo (@"继续测试");
+                                                                     [self beginTest];
+                                                                   }];
+            [_alert addAction:cancelAction];
+            [_alert addAction:continueAction];
+            [self presentViewController:_alert animated:YES completion:nil];
+        }
     }
     else
     {
         [self beginTest];
     }
 }
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-    {
-        SVInfo (@"继续测试");
-        [self beginTest];
-    }
-    else
-    {
-        SVInfo (@"返回");
-    }
-}
+
 //开始测试方法
 - (void)beginTest
 {
