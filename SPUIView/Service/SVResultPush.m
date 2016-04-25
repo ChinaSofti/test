@@ -57,7 +57,7 @@ NSArray *_emptyArr;
     return self;
 }
 
-- (void)sendResult
+- (id)sendResult
 {
     [self queryResult];
 
@@ -143,6 +143,13 @@ NSArray *_emptyArr;
     // 连接服务器发送请求
     SVHttpsTools *httpsTools = [[SVHttpsTools alloc] init];
     [httpsTools sendRequest:request isUploadResult:YES];
+    while (!httpsTools.finished)
+    {
+        // spend 1 second processing events on each loop
+        NSDate *oneSecond = [NSDate dateWithTimeIntervalSinceNow:1];
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:oneSecond];
+    }
+    return [httpsTools getResponseData];
 }
 
 

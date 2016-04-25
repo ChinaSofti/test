@@ -6,6 +6,7 @@
 //  Copyright © 2016 Huawei. All rights reserved.
 //
 
+#import "JSONKit.h"
 #import "NSString+AES256.h"
 #import "SVHttpsTools.h"
 #import "SVLog.h"
@@ -23,8 +24,6 @@ static BOOL isNeedCert = YES;
     NSMutableData *_allData;
 
     NSString *_urlString;
-
-    BOOL finished;
 
     // 证书数组
     CFArrayRef trustedCerArr;
@@ -46,6 +45,8 @@ static BOOL isNeedCert = YES;
     // 日志文件目录
     NSString *filePath;
 }
+
+@synthesize finished;
 
 /**
  *  初始化证书

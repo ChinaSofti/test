@@ -10,6 +10,8 @@
 
 @interface SVHttpsTools : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
+@property BOOL finished;
+
 /**
  *  使用指定URL字符串进行对象初始化
  *
