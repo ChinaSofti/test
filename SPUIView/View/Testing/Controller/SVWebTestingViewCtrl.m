@@ -26,7 +26,6 @@
     SVHeaderView *_headerView; // 定义headerView
     SVPointView *_webtestingView; //定义webtestingView
     SVFooterView *_footerView; // 定义footerView
-    SVWebTest *_webTest;
 
     // 测试地址的label
     UILabel *_testUrlLabel;
@@ -183,21 +182,18 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    // 当用户离开当前页面时，停止测试
+    if (_webTest)
+    {
+        [_webTest stopTest];
+
+        _insertSVDetailResultModelSQL = [_webTest getPersistDataSQL];
+
+        //移除覆盖gyView
+        [_gyview removeFromSuperview];
+    }
+
     [super viewWillDisappear:animated];
-
-    dispatch_async (dispatch_get_main_queue (), ^{
-      // 当用户离开当前页面时，停止测试
-      if (_webTest)
-      {
-          [_webTest stopTest];
-
-          //移除覆盖gyView
-          [_gyview removeFromSuperview];
-      }
-    });
-
-    // 设置屏幕自动锁屏
-    //    [UIApplication sharedApplication].idleTimerDisabled = NO;
 }
 
 #pragma mark - 创建头headerView

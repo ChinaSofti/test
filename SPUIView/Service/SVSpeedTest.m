@@ -59,6 +59,8 @@ struct sockaddr_in addr;
 
 double _beginTime;
 
+NSString *insertSVDetailResultModelSQL;
+
 /**
  *  初始化带宽测试对象，初始化必须放在UI主线程中进行
  *
@@ -141,9 +143,6 @@ double _beginTime;
             return NO;
         }
 
-        // 结果入库
-        [self persistSVDetailResultModel];
-
         // 等待2秒后推送给页面
         [NSThread sleepForTimeInterval:2];
         _testContext.testStatus = TEST_FINISHED;
@@ -152,6 +151,17 @@ double _beginTime;
     }
 
     return TRUE;
+}
+
+
+/**
+ *  获取持久化数据的SQL语句
+ *
+ *  @return SQL语句
+ */
+- (NSString *)getPersistDataSQL
+{
+    return insertSVDetailResultModelSQL;
 }
 
 // 启动两个显示同时跑下载测试，并且通过定时器来计算下载速度
@@ -572,14 +582,15 @@ double _beginTime;
  */
 - (void)persistSVDetailResultModel
 {
-    SVDBManager *db = [SVDBManager sharedInstance];
+    //    SVDBManager *db = [SVDBManager sharedInstance];
+    //
+    //    // 如果表不存在，则创建表
+    //    [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVDetailResultModel(ID integer PRIMARY KEY
+    //    "
+    //                      @"AUTOINCREMENT, testId integer, testType integer, testResult text, "
+    //                      @"testContext text, probeInfo text);"];
 
-    // 如果表不存在，则创建表
-    [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVDetailResultModel(ID integer PRIMARY KEY "
-                      @"AUTOINCREMENT, testId integer, testType integer, testResult text, "
-                      @"testContext text, probeInfo text);"];
-
-    NSString *insertSVDetailResultModelSQL =
+    insertSVDetailResultModelSQL =
     [NSString stringWithFormat:@"INSERT INTO "
                                @"SVDetailResultModel (testId,testType,testResult, testContext, "
                                @"probeInfo) VALUES(%lld, %d, "
@@ -588,7 +599,7 @@ double _beginTime;
                                [self testContextToJsonString], [self testProbeInfo]];
 
     // 插入结果明细
-    [db executeUpdate:insertSVDetailResultModelSQL];
+    //    [db executeUpdate:insertSVDetailResultModelSQL];
 }
 
 
@@ -719,6 +730,9 @@ void sort (double *a, int n)
     _internalTestStatus = TEST_FINISHED;
 
     SVInfo (@"stop speed test!!!!");
+
+    // 结果入库
+    [self persistSVDetailResultModel];
 
     return TRUE;
 }

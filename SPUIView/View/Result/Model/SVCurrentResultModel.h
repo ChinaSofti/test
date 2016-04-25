@@ -48,4 +48,11 @@
 // 将已经推送完成的controller重新放入待推送的controller数组，并将已经推送完成的controller数组清空
 - (void)copyCompleteCtrlToCtrlArray;
 
+/**
+ *  获取所有测试对象
+ *
+ *  @return 所有测试对象
+ */
+- (NSArray *)testObjArray;
+
 @end

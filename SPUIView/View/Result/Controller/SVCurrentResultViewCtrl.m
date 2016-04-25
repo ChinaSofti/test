@@ -307,36 +307,69 @@
                                  WithHeight:FITHEIGHT (209)
                                       WithY:FITHEIGHT (58)];
 
-    // 持久化测试结果
     if (!isSave)
     {
-        [self persistSVSummaryResultModel];
-
-        // 判断用户是否允许上传结果，如果允许，则将测试结果上传
-        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-        if (probeInfo.isUploadResult)
-        {
-            dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-              SVResultPush *push = [[SVResultPush alloc] initWithTestId:_resultModel.testId];
-              [push sendResult];
-
-              // 等待30S，等待结果上传结束
-              int count = 0;
-              while (count < 30)
-              {
-                  count++;
-
-                  // spend 1 second processing events on each loop
-                  NSDate *oneSecond = [NSDate dateWithTimeIntervalSinceNow:1];
-                  [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:oneSecond];
-              }
-            });
-        }
-
+        [self persistData];
         isSave = YES;
+    }
+}
 
-        //弹分享界面
-        [self createShareUI];
+- (void)persistData
+{
+    SVInfo (@"persistData");
+    [self persistTestResultDetail];
+    [self persistSVSummaryResultModel];
+
+    // 判断用户是否允许上传结果，如果允许，则将测试结果上传
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    if (probeInfo.isUploadResult)
+    {
+        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+
+          [self cleanOldData];
+          SVResultPush *push = [[SVResultPush alloc] initWithTestId:_resultModel.testId];
+          [push sendResult];
+
+          // 等待30S，等待结果上传结束
+          int count = 0;
+          while (count < 30)
+          {
+              count++;
+
+              // spend 1 second processing events on each loop
+              NSDate *oneSecond = [NSDate dateWithTimeIntervalSinceNow:1];
+              [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:oneSecond];
+          }
+        });
+    }
+}
+
+- (void)cleanOldData
+{
+    SVDBManager *db = [SVDBManager sharedInstance];
+    // 判断结果是否超过限制，如果超出限制，则删除多余数据
+    int resultNum = [db executeCountQuery:@"SELECT COUNT(*) FROM SVSummaryResultModel;"];
+    if (resultNum > 200)
+    {
+        // 删除最早的数据
+        [db executeUpdate:@"DELETE FROM SVSummaryResultModel WHERE id in (SELECT id FROM "
+                          @"SVSummaryResultModel ORDER BY testTime asc LIMIT 101);"];
+    }
+}
+
+- (void)persistTestResultDetail
+{
+    SVDBManager *db = [SVDBManager sharedInstance];
+    // 如果表不存在，则创建表
+    [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVDetailResultModel(ID integer PRIMARY KEY "
+                      @"AUTOINCREMENT, testId integer, testType integer, testResult  text, "
+                      @"testContext text, probeInfo text);"];
+
+
+    NSArray *array = [_resultModel testObjArray];
+    for (NSString *insertSVDetailResultModelSQL in array)
+    {
+        [db executeUpdate:insertSVDetailResultModelSQL];
     }
 }
 
@@ -691,15 +724,6 @@
                                _resultModel.uvMOS, _resultModel.totalTime, _resultModel.stDownloadSpeed];
     // 插入汇总结果
     [db executeUpdate:insertSVSummaryResultModelSQL];
-
-    // 判断结果是否超过限制，如果超出限制，则删除多余数据
-    int resultNum = [db executeCountQuery:@"SELECT COUNT(*) FROM SVSummaryResultModel;"];
-    if (resultNum > 200)
-    {
-        // 删除最早的数据
-        [db executeUpdate:@"DELETE FROM SVSummaryResultModel WHERE id in (SELECT id FROM "
-                          @"SVSummaryResultModel ORDER BY testTime asc LIMIT 101);"];
-    }
 }
 
 //设置 tableView 的 numberOfSectionsInTableView(设置几个 section)

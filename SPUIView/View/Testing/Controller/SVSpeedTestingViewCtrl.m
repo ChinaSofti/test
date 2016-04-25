@@ -27,7 +27,7 @@
     SVHeaderView *_headerView; // 定义headerView
     SVPointView *_speedtestingView; //定义speedtestingView
     SVFooterView *_footerView; // 定义footerView
-    SVSpeedTest *_speedTest;
+
     SVChart *_chart;
     BOOL uploadFirstResult;
     BOOL downloadFirstResult;
@@ -200,8 +200,6 @@ double _preSpeed = 0.0;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
-
     for (UIView *subView in _footerView.leftView.subviews)
     {
         [subView removeFromSuperview];
@@ -210,20 +208,18 @@ double _preSpeed = 0.0;
     uploadFirstResult = false;
     downloadFirstResult = false;
 
-    dispatch_async (dispatch_get_main_queue (), ^{
+    // 当用户离开当前页面时，停止测试
+    if (_speedTest)
+    {
+        [_speedTest stopTest];
 
-      // 当用户离开当前页面时，停止测试
-      if (_speedTest)
-      {
-          [_speedTest stopTest];
+        _insertSVDetailResultModelSQL = [_speedTest getPersistDataSQL];
 
-          //移除覆盖gyView
-          [_gyview removeFromSuperview];
-      }
-    });
+        //移除覆盖gyView
+        [_gyview removeFromSuperview];
+    }
 
-    // 设置屏幕自动锁屏
-    //    [UIApplication sharedApplication].idleTimerDisabled = NO;
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark - 创建头headerView

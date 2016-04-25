@@ -18,6 +18,10 @@
 
 @property (nonatomic, retain) SVCurrentResultModel *currentResultModel;
 
+@property (nonatomic, retain) SVVideoTest *videoTest;
+
+@property (nonatomic, copy) NSString *insertSVDetailResultModelSQL;
+
 
 - (id)initWithResultModel:(SVCurrentResultModel *)resultModel;
 

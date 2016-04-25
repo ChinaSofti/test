@@ -34,9 +34,6 @@
     // 定义footerView
     SVFooterView *_footerView;
 
-    // 定义视频测试实例
-    SVVideoTest *_videoTest;
-
     // 定义主图的View
     UIView *uvMosBarView;
 
@@ -318,18 +315,18 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    // 当用户离开当前页面时，停止测试
+    if (_videoTest)
+    {
+        [_videoTest stopTest];
+
+
+        _insertSVDetailResultModelSQL = [_videoTest getPersistDataSQL];
+
+        // 移除覆盖gyView
+        [_gyview removeFromSuperview];
+    }
     [super viewWillDisappear:animated];
-
-    dispatch_async (dispatch_get_main_queue (), ^{
-      // 当用户离开当前页面时，停止测试
-      if (_videoTest)
-      {
-          [_videoTest stopTest];
-
-          // 移除覆盖gyView
-          [_gyview removeFromSuperview];
-      }
-    });
 }
 
 #pragma mark - 创建头headerView

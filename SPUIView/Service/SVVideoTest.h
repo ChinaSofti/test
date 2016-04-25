@@ -52,4 +52,12 @@
  *  停止测试
  */
 - (BOOL)stopTest;
+
+/**
+ *  获取持久化数据的SQL语句
+ *
+ *  @return SQL语句
+ */
+- (NSString *)getPersistDataSQL;
+
 @end

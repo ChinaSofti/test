@@ -57,6 +57,8 @@
 
     // 显示网页的WebView
     WKWebView *_webView;
+
+    NSString *insertSVDetailResultModelSQL;
 }
 
 @synthesize webTestContext, webTestResultDic;
@@ -259,9 +261,6 @@
 
         // 推送最后一次结果
         [self pushLastResult];
-
-        // 持久化详细结果
-        [self persistSVDetailResultModel];
     }
     @catch (NSException *exception)
     {
@@ -292,6 +291,20 @@
         testStatus = TEST_ERROR;
         return NO;
     }
+
+    // 持久化详细结果
+    [self persistSVDetailResultModel];
+}
+
+
+/**
+ *  获取持久化数据的SQL语句
+ *
+ *  @return SQL语句
+ */
+- (NSString *)getPersistDataSQL
+{
+    return insertSVDetailResultModelSQL;
 }
 
 // 推送最后一次结果
@@ -478,14 +491,15 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
  */
 - (void)persistSVDetailResultModel
 {
-    SVDBManager *db = [SVDBManager sharedInstance];
+    //    SVDBManager *db = [SVDBManager sharedInstance];
+    //
+    //    // 如果表不存在，则创建表
+    //    [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVDetailResultModel(ID integer PRIMARY KEY
+    //    "
+    //                      @"AUTOINCREMENT, testId integer, testType integer, testResult text, "
+    //                      @"testContext text, probeInfo text);"];
 
-    // 如果表不存在，则创建表
-    [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVDetailResultModel(ID integer PRIMARY KEY "
-                      @"AUTOINCREMENT, testId integer, testType integer, testResult text, "
-                      @"testContext text, probeInfo text);"];
-
-    NSString *insertSVDetailResultModelSQL =
+    insertSVDetailResultModelSQL =
     [NSString stringWithFormat:@"INSERT INTO "
                                @"SVDetailResultModel (testId,testType,testResult, testContext, "
                                @"probeInfo) VALUES(%lld, %d, "
@@ -494,7 +508,7 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
                                [self testContextToJsonString], [self testProbeInfo]];
 
     // 插入结果明细
-    [db executeUpdate:insertSVDetailResultModelSQL];
+    //    [db executeUpdate:insertSVDetailResultModelSQL];
 }
 
 // probeInfo转换成json字符串

@@ -18,6 +18,11 @@
 
 @property SVCurrentResultModel *currentResultModel;
 
+@property SVWebTest *webTest;
+
+
+@property (nonatomic, copy) NSString *insertSVDetailResultModelSQL;
+
 - (id)initWithResultModel:(SVCurrentResultModel *)resultModel;
 
 @end

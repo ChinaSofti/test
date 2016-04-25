@@ -139,4 +139,51 @@ stDownloadSpeed, stUploadSpeed, stIsp, stLocation;
     [_completeCtrlArray removeAllObjects];
 }
 
+/**
+ *  获取所有测试对象
+ *
+ *  @return 所有测试对象
+ */
+- (NSArray *)testObjArray
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (UIViewController *control in _completeCtrlArray)
+    {
+        if ([control isKindOfClass:[SVVideoTestingCtrl class]])
+        {
+            SVVideoTestingCtrl *ctrl = (SVVideoTestingCtrl *)control;
+            NSString *sql = ctrl.insertSVDetailResultModelSQL;
+            if (sql)
+            {
+                [array addObject:sql];
+            }
+            continue;
+        }
+
+        if ([control isKindOfClass:[SVWebTestingViewCtrl class]])
+        {
+            SVWebTestingViewCtrl *ctrl = (SVWebTestingViewCtrl *)control;
+            NSString *sql = ctrl.insertSVDetailResultModelSQL;
+            if (sql)
+            {
+                [array addObject:sql];
+            }
+
+            continue;
+        }
+
+        if ([control isKindOfClass:[SVSpeedTestingViewCtrl class]])
+        {
+            SVSpeedTestingViewCtrl *ctrl = (SVSpeedTestingViewCtrl *)control;
+            NSString *sql = ctrl.insertSVDetailResultModelSQL;
+            if (sql)
+            {
+                [array addObject:sql];
+            }
+            continue;
+        }
+    }
+    return array;
+}
+
 @end

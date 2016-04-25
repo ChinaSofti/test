@@ -17,6 +17,10 @@
 
 @property (nonatomic, retain) NSArray *selectedA;
 
+@property (nonatomic, retain) SVSpeedTest *speedTest;
+
+@property (nonatomic, copy) NSString *insertSVDetailResultModelSQL;
+
 @property SVCurrentResultModel *currentResultModel;
 
 - (id)initWithResultModel:(SVCurrentResultModel *)resultModel;

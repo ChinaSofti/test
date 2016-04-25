@@ -35,6 +35,9 @@
 
     // 测试状态
     TestStatus testStatus;
+
+    // SQL 语句
+    NSString *insertSVDetailResultModelSQL;
 }
 
 @synthesize testResult, testContext;
@@ -150,9 +153,6 @@
         return false;
     }
 
-    // 持久化结果明细
-    [self persistSVDetailResultModel];
-    SVInfo (@"persist test[testId=%lld] result success", _testId);
     return true;
 }
 
@@ -184,23 +184,37 @@
         }
     }
 
+    // 持久化结果明细
+    [self persistSVDetailResultModel];
+    SVInfo (@"persist test[testId=%lld] result success", _testId);
+
     return true;
 }
 
+/**
+ *  获取持久化数据的SQL语句
+ *
+ *  @return SQL语句
+ */
+- (NSString *)getPersistDataSQL
+{
+    return insertSVDetailResultModelSQL;
+}
 
 /**
  *  持久化结果明细
  */
 - (void)persistSVDetailResultModel
 {
-    SVDBManager *db = [SVDBManager sharedInstance];
-    NSString *insertSVDetailResultModelSQL;
+    //    SVDBManager *db = [SVDBManager sharedInstance];
     @try
     {
-        // 如果表不存在，则创建表
-        [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVDetailResultModel(ID integer PRIMARY KEY "
-                          @"AUTOINCREMENT, testId integer, testType integer, testResult text, "
-                          @"testContext text, probeInfo text);"];
+        //        // 如果表不存在，则创建表
+        //        [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVDetailResultModel(ID integer
+        //        PRIMARY KEY "
+        //                          @"AUTOINCREMENT, testId integer, testType integer, testResult
+        //                          text, "
+        //                          @"testContext text, probeInfo text);"];
 
         insertSVDetailResultModelSQL =
         [NSString stringWithFormat:@"INSERT INTO "
@@ -210,7 +224,7 @@
                                    _testId, VIDEO, [self testResultToJsonString],
                                    [self testContextToJsonString], [self testProbeInfo]];
         // 插入结果明细
-        [db executeUpdate:insertSVDetailResultModelSQL];
+        //        [db executeUpdate:insertSVDetailResultModelSQL];
     }
     @catch (NSException *exception)
     {
@@ -218,6 +232,7 @@
                  insertSVDetailResultModelSQL, exception);
     }
 }
+
 
 - (NSString *)testProbeInfo
 {
