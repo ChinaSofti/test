@@ -16,12 +16,10 @@
 #import "SVRealReachability.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
-//微信分享
-#import "WXApi.h"
 //上传日志提示
 #import "SVToast.h"
 
-@interface SVSettingsViewCtrl () <WXApiDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SVSettingsViewCtrl () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *grey;
 @property (nonatomic, strong) UIWindow *window;
@@ -200,7 +198,6 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    NSString *title21 = I18N (@"Share");
     NSString *title3 = I18N (@"About");
     NSString *title4 = I18N (@"Language Settings");
     NSString *title5 = I18N (@"Privacy Statemtent");
@@ -232,18 +229,6 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
         cell.textLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
         cell.textLabel.textColor = [UIColor colorWithHexString:@"#CC000000"];
 
-        //        if (indexPath.row == 0)
-        //        {
-        //            cell.textLabel.text = title21;
-        //            //添加分享的点击事件
-        //            UIButton *button = [[UIButton alloc]
-        //            initWithFrame:CGRectMake (0, 0, kScreenW - FITWIDTH (44), FITHEIGHT (130))];
-        //            //            button.backgroundColor = [UIColor redColor];
-        //            [button addTarget:self
-        //                       action:@selector (ShareClicked:)
-        //             forControlEvents:UIControlEventTouchUpInside];
-        //            [cell addSubview:button];
-        //        }
         if (indexPath.row == 0)
         {
             cell.textLabel.text = title3;
@@ -343,14 +328,6 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.01;
-}
-
-#pragma mark - 分享点击事件
-//分享的点击事件
-- (void)ShareClicked:(UIButton *)button
-
-{
-    [CTWBViewTools shareClicked:nil];
 }
 
 #pragma mark - 上传日志按钮的点击事件
