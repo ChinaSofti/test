@@ -110,14 +110,17 @@
 #pragma mark - 取消searchbar背景色/图片
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 
-#pragma mark - 分享方法
-+ (void)shareClicked:(UIButton *)button;
+//#pragma mark - 分享方法
+////有facebook的
+//+ (void)shareClicked1:(UIButton *)button;
+////美哦与Facebook的
+//+ (void)shareClicked2:(UIButton *)button;
 
-#pragma mark - 中奖UI
-+ (void)creatWinUI:(UIButton *)button;
-
-#pragma mark - 没中奖UI
-+ (void)creatLoseUI:(UIButton *)button;
+//#pragma mark - 中奖UI
+//+ (void)creatWinUI:(UIButton *)button;
+//
+//#pragma mark - 没中奖UI
+//+ (void)creatLoseUI:(UIButton *)button;
 
 #pragma mark - 文字适配
 //定高不定宽

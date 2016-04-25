@@ -38,6 +38,9 @@
     SVDBManager *_db;
     int _selectedResultTestId;
     NSMutableDictionary *buttonAndTest;
+
+    // 选中的列
+    NSString *columnName;
 }
 
 #pragma mark - 懒加载
@@ -434,6 +437,10 @@
         }
     }
     a++;
+
+    // 记录选中的列
+    columnName = type;
+
     // asc 生序  desc 降序
     [self readDataFromDB:type order:order];
     [self.imageView removeFromSuperview];
@@ -527,6 +534,9 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
     }
+
+    // 设置被选中的列
+    cell.columnName = columnName;
 
     // 初始化结果数据
     SVSummaryResultModel *summaryResultModel = self.dataSource[indexPath.section];

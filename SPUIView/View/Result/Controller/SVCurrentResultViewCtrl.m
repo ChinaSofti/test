@@ -15,9 +15,16 @@
 #import "SVTestContextGetter.h"
 #import "SVTestViewCtrl.h"
 #import "SVTimeUtil.h"
-
+//友盟分享
+#import "UMSocial.h"
+@interface SVCurrentResultViewCtrl () <UMSocialUIDelegate>
+//分享
+@property (nonatomic, strong) UIButton *greybtn;
+@property (nonatomic, strong) UIButton *sharebtn;
+@end
 
 @implementation SVCurrentResultViewCtrl
+
 {
     NSMutableArray *_buttons;
     UITableView *_tableView;
@@ -34,6 +41,8 @@
     NSString *_loadTimeTitle;
     NSString *_delayTitle;
     NSString *_uploadSpeedTitle;
+    //随机数
+    int randomx;
 }
 
 - (void)viewDidLoad
@@ -325,6 +334,9 @@
         }
 
         isSave = YES;
+
+        //弹分享界面
+        [self createShareUI];
     }
 }
 
@@ -843,4 +855,185 @@
     [[_resultModel navigationController] popToRootViewControllerAnimated:NO];
 }
 
+#pragma mark - 分享页面
+
+- (void)createShareUI
+{
+#pragma mark - 发送网络请求获取两个值
+    //    1.测试总次数a
+    //    2.你的当前位置b
+    //    int randomx =  (int)(b/a)
+    //创建一个0-100的随机数
+    randomx = arc4random () % 101;
+    SVInfo (@"随机数是:-------------%d", randomx);
+    //获取整个屏幕的window
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    //创建一个覆盖garybutton
+    _greybtn = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
+    _greybtn.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.0];
+    [_greybtn addTarget:self
+                 action:@selector (greyBtnBackClick)
+       forControlEvents:UIControlEventTouchUpInside];
+    //创建一个图片
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectZero];
+    imageview.size = CGSizeMake (kScreenW, kScreenH * 0.8);
+    NSString *str11 = I18N (@"speed_level_frist_english");
+    NSString *str21 = I18N (@"speed_level_second_english");
+    NSString *str31 = I18N (@"speed_level_thrid_english");
+    NSString *str41 = I18N (@"speed_level_forth_english");
+    NSString *str51 = I18N (@"speed_level_last_english");
+    //根据随机数显示
+    if (randomx >= 95)
+    {
+        imageview.image = [UIImage imageNamed:str11];
+    }
+    if (randomx >= 80 && randomx <= 95)
+    {
+        imageview.image = [UIImage imageNamed:str21];
+    }
+    if (randomx >= 60 && randomx <= 80)
+    {
+        imageview.image = [UIImage imageNamed:str31];
+    }
+    if (randomx >= 10 && randomx <= 60)
+    {
+        imageview.image = [UIImage imageNamed:str41];
+    }
+    if (randomx >= 0 && randomx <= 10)
+    {
+        imageview.image = [UIImage imageNamed:str51];
+    }
+
+    imageview.center = CGPointMake (_greybtn.frame.size.width / 2, _greybtn.frame.size.height / 2);
+    //创建一个label
+    UILabel *label = [[UILabel alloc] init];
+    //字符串拼接
+    NSString *str1 = I18N (@"I have defeated");
+    NSString *str2 = @"%";
+    NSString *str3 = I18N (@"of all users");
+    //根据随机数显示
+    NSString *str4 = [[NSString alloc] initWithFormat:@"%@%d%@%@", str1, randomx, str2, str3];
+    //显示
+    label.text = str4;
+    label.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    label.textColor = [UIColor blueColor];
+    //    label.backgroundColor = [UIColor redColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.size = CGSizeMake (FITWIDTH (519), FITHEIGHT (58));
+    label.centerX = imageview.centerX;
+    label.centerY = imageview.centerY / 1.9;
+    //创建一个按钮
+    _sharebtn = [[UIButton alloc]
+    initWithFrame:CGRectMake (kScreenW * 0.03, kScreenH * 0.82, kScreenW * 0.94, kScreenH * 0.08)];
+    //设置文字
+    NSString *str6 = I18N (@"Share");
+    [_sharebtn setTitle:str6 forState:UIControlStateNormal];
+    //文字颜色
+    [_sharebtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //文字大小
+    _sharebtn.titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    //按钮背景颜色
+    [_sharebtn setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor lightGrayColor]
+                                                           size:CGSizeMake (FITWIDTH (114), FITWIDTH (40))]
+                         forState:UIControlStateHighlighted];
+    [_sharebtn setBackgroundImage:[CTWBViewTools imageWithColor:[UIColor orangeColor]
+                                                           size:CGSizeMake (FITWIDTH (114), FITWIDTH (40))]
+                         forState:UIControlStateNormal];
+
+    [_sharebtn addTarget:self
+                  action:@selector (shareBtnClick)
+        forControlEvents:UIControlEventTouchUpInside];
+    //添加
+    [imageview addSubview:label];
+    [_greybtn addSubview:imageview];
+    [_greybtn addSubview:_sharebtn];
+    [window addSubview:_greybtn];
+}
+//移除抽奖页面
+- (void)greyBtnBackClick
+{
+    [_greybtn removeFromSuperview];
+}
+//调分享点击事件
+- (void)shareBtnClick
+{
+    [_greybtn removeFromSuperview];
+    //分享的文本
+    NSString *titlea = I18N (@"I am at the ");
+    NSString *titleb1 = I18N (@"Mastery");
+    NSString *titleb2 = I18N (@"Expertise");
+    NSString *titleb3 = I18N (@"Proficiency");
+    NSString *titleb4 = I18N (@"Competence");
+    NSString *titleb5 = I18N (@"Novice");
+    NSString *titlec = I18N (@" level.What is yours?");
+    NSString *titleA1 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb1, titlec];
+    NSString *titleA2 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb2, titlec];
+    NSString *titleA3 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb3, titlec];
+    NSString *titleA4 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb4, titlec];
+    NSString *titleA5 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb5, titlec];
+    //创建分享内容对象
+    NSString *urlMessage;
+    //根据随机数判断要分享的标题
+    if (randomx >= 95)
+    {
+        urlMessage = titleA1; //分享标题
+    }
+    if (randomx >= 80 && randomx <= 95)
+    {
+        urlMessage = titleA2; //分享标题
+    }
+    if (randomx >= 60 && randomx <= 80)
+    {
+        urlMessage = titleA3; //分享标题
+    }
+    if (randomx >= 10 && randomx <= 60)
+    {
+        urlMessage = titleA4; //分享标题
+    }
+    if (randomx >= 0 && randomx <= 10)
+    {
+        urlMessage = titleA5; //分享标题
+    }
+    //根据随机数显示压缩图片
+    NSString *str11 = I18N (@"share_image_frist_english");
+    NSString *str21 = I18N (@"share_image_second_english");
+    NSString *str31 = I18N (@"share_image_thrid_english");
+    NSString *str41 = I18N (@"share_image_forth_english");
+    NSString *str51 = I18N (@"share_image_last_english");
+    //创建分享的图片
+    NSString *image;
+    //分享图片,使用SDK的setThumbImage方法可压缩图片大小
+    if (randomx >= 95)
+    {
+        image = str11;
+    }
+    if (randomx >= 80 && randomx <= 95)
+    {
+        image = str21;
+    }
+    if (randomx >= 60 && randomx <= 80)
+    {
+        image = str31;
+    }
+    if (randomx >= 10 && randomx <= 60)
+    {
+        image = str41;
+    }
+    if (randomx >= 0 && randomx <= 10)
+    {
+        image = str51;
+    }
+
+    //友盟分享的Key
+    NSString *UmengAppkey = @"57173b1ce0f55add74000285";
+    //分享内容
+    [UMSocialSnsService
+    presentSnsIconSheetView:self
+                     appKey:UmengAppkey
+                  shareText:urlMessage
+                 shareImage:[UIImage imageNamed:image]
+            shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession, UMShareToWechatTimeline,
+                                                      UMShareToSina, UMShareToFacebook, nil]
+                   delegate:self];
+}
 @end

@@ -74,7 +74,7 @@
     NSString *mainVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
     //    CFBundleVersion  build 版本号
     NSString *buildVersion = [infoDic objectForKey:@"CFBundleVersion"];
-    return [NSString stringWithFormat:@"%@.%@", mainVersion, buildVersion];
+    return [NSString stringWithFormat:@"V%@.%@", mainVersion, buildVersion];
 }
 
 

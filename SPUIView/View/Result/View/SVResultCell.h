@@ -24,6 +24,8 @@
 
 @property (nonatomic, retain) UIButton *bgdBtn;
 
+@property (nonatomic, strong) NSString *columnName;
+
 @property (nonatomic, copy) void (^cellBlock) ();
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style

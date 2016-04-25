@@ -203,6 +203,7 @@ static SVTestContextGetter *contextGetter = nil;
 
     // 解析出视频ip，归属地等信息
     //    SVVideoSegement *segement = allSegement[randomIndex];
+
     SVVideoSegement *segement = allSegement[0];
     NSURL *url = [NSURL URLWithString:segement.videoSegementURLStr];
     [segement setVideoSegementURL:url];
@@ -211,7 +212,7 @@ static SVTestContextGetter *contextGetter = nil;
         SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:url.host];
         if (ipAndISP)
         {
-            [segement setVideoIP:url.host];
+            [segement setVideoIP:ipAndISP.query];
             [segement setVideoLocation:ipAndISP.city];
             [segement setVideoISP:ipAndISP.isp];
         }

@@ -69,11 +69,12 @@
 
     // 启动计算下载速度的定时器，当前时间100ms后，每隔1s执行一次
     progressVlaue = 0.0;
-    progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
-                                                     target:self
-                                                   selector:@selector (changeProgress)
-                                                   userInfo:@"Progress"
-                                                    repeats:YES];
+    progressTimer = [NSTimer timerWithTimeInterval:0.5
+                                            target:self
+                                          selector:@selector (changeProgress)
+                                          userInfo:@"Progress"
+                                           repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:progressTimer forMode:NSDefaultRunLoopMode];
 }
 
 // 改变进度条进度
