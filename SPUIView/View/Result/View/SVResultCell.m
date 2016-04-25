@@ -47,18 +47,12 @@
 @end
 
 @implementation SVResultCell
-{
-    // 所选cell的tag
-    int selectedTag;
-}
 
-@synthesize resultModel, columnName;
+@synthesize resultModel, columnName, selectedTag;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
               reuseIdentifier:(NSString *)reuseIdentifier
-                      WithTag:(int)currentTag
 {
-    selectedTag = currentTag;
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
     {
         [self addUI];
@@ -185,7 +179,6 @@
         _bgdBtn.layer.borderColor = [UIColor colorWithHexString:@"#DDDDDD"].CGColor;
         _bgdBtn.layer.borderWidth = FITHEIGHT (1);
         _bgdBtn.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
-        _bgdBtn.tag = selectedTag;
         [_bgdBtn addTarget:self
                     action:@selector (bgdBtnClick:)
           forControlEvents:UIControlEventTouchUpInside];
@@ -195,6 +188,7 @@
 
 - (void)bgdBtnClick:(UIButton *)button
 {
+    _bgdBtn.tag = self.selectedTag;
     if (self.delegate && [self.delegate respondsToSelector:@selector (toolCellClick:)])
     {
         [self.delegate toolCellClick:self];
@@ -297,12 +291,6 @@
                                   WithWidth:FITWIDTH (207)
                                  WithHeight:FITHEIGHT (170)];
 
-    // 设置被选中列的字体颜色
-    if (!self.columnName)
-    {
-        return;
-    }
-
     // 转换颜色
     [self chanageColor];
 }
@@ -310,9 +298,21 @@
 // 转换颜色
 - (void)chanageColor
 {
-
     UIColor *textColor = [UIColor blackColor];
     UIColor *selectedColor = [UIColor colorWithHexString:@"29A5E5"];
+
+    // 设置被选中列的字体颜色
+    if (!self.columnName || [self.columnName isEqualToString:@""])
+    {
+        self.testDate.textColor = textColor;
+        self.testTime.textColor = textColor;
+        self.videoMOS.textColor = textColor;
+        self.loadTimeValue.textColor = textColor;
+        self.loadTimeUnit.textColor = textColor;
+        self.bandWidthValue.textColor = textColor;
+        self.bandWidthUnit.textColor = textColor;
+        return;
+    }
     if ([self.columnName isEqualToString:@"testTime"])
     {
         self.testDate.textColor = selectedColor;

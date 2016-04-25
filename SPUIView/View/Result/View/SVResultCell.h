@@ -26,11 +26,12 @@
 
 @property (nonatomic, strong) NSString *columnName;
 
+@property int selectedTag;
+
 @property (nonatomic, copy) void (^cellBlock) ();
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
-              reuseIdentifier:(NSString *)reuseIdentifier
-                      WithTag:(int)currentTag;
+              reuseIdentifier:(NSString *)reuseIdentifier;
 
 
 @end
