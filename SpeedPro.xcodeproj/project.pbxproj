@@ -91,6 +91,9 @@
 		5641CF841CCA28E200A07584 /* speed_level_thrid_english.png in Resources */ = {isa = PBXBuildFile; fileRef = 5641CF6D1CCA28E100A07584 /* speed_level_thrid_english.png */; };
 		5644354C1C5215AB009B7024 /* i18n.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5644354E1C5215AB009B7024 /* i18n.strings */; };
 		564435771C5216AD009B7024 /* CTViewTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 564435761C5216AD009B7024 /* CTViewTools.m */; };
+		5659BAE31CCE6FEC008277A6 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5659BAE21CCE6FEC008277A6 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		5659BAE61CCE7008008277A6 /* share_to_email.png in Resources */ = {isa = PBXBuildFile; fileRef = 5659BAE41CCE7008008277A6 /* share_to_email.png */; };
+		5659BAE71CCE7008008277A6 /* share_to_weibo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5659BAE51CCE7008008277A6 /* share_to_weibo.png */; };
 		565DFAEA1C515BB10024FF45 /* ic_speed_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 565DFADD1C515BB10024FF45 /* ic_speed_normal.png */; };
 		565DFAEB1C515BB10024FF45 /* ic_speed_testing.png in Resources */ = {isa = PBXBuildFile; fileRef = 565DFADE1C515BB10024FF45 /* ic_speed_testing.png */; };
 		565DFAEE1C515BB10024FF45 /* ic_video_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 565DFAE11C515BB10024FF45 /* ic_video_normal.png */; };
@@ -484,6 +487,10 @@
 		5644354D1C5215AB009B7024 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/i18n.strings; sourceTree = "<group>"; };
 		564435751C5216AD009B7024 /* CTViewTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTViewTools.h; sourceTree = "<group>"; };
 		564435761C5216AD009B7024 /* CTViewTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTViewTools.m; sourceTree = "<group>"; };
+		5659BAE11CCE6FEC008277A6 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		5659BAE21CCE6FEC008277A6 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		5659BAE41CCE7008008277A6 /* share_to_email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_to_email.png; sourceTree = "<group>"; };
+		5659BAE51CCE7008008277A6 /* share_to_weibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_to_weibo.png; sourceTree = "<group>"; };
 		565DFADD1C515BB10024FF45 /* ic_speed_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_speed_normal.png; sourceTree = "<group>"; };
 		565DFADE1C515BB10024FF45 /* ic_speed_testing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_speed_testing.png; sourceTree = "<group>"; };
 		565DFAE11C515BB10024FF45 /* ic_video_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_video_normal.png; sourceTree = "<group>"; };
@@ -1215,6 +1222,15 @@
 			path = shared;
 			sourceTree = "<group>";
 		};
+		5659BAE01CCE6FEC008277A6 /* JsonKit */ = {
+			isa = PBXGroup;
+			children = (
+				5659BAE11CCE6FEC008277A6 /* JSONKit.h */,
+				5659BAE21CCE6FEC008277A6 /* JSONKit.m */,
+			);
+			path = JsonKit;
+			sourceTree = "<group>";
+		};
 		565DFADA1C515BB10024FF45 /* test */ = {
 			isa = PBXGroup;
 			children = (
@@ -1241,6 +1257,8 @@
 		568B78C21C916DDC00AF4097 /* share */ = {
 			isa = PBXGroup;
 			children = (
+				5659BAE41CCE7008008277A6 /* share_to_email.png */,
+				5659BAE51CCE7008008277A6 /* share_to_weibo.png */,
 				568B78C31C916DDC00AF4097 /* share_to_wechat.png */,
 				568B78C41C916DDC00AF4097 /* share_to_wechatmoments.png */,
 			);
@@ -1544,6 +1562,7 @@
 		B71E7C4F1C743DA200DF1AA4 /* Thirdpart */ = {
 			isa = PBXGroup;
 			children = (
+				5659BAE01CCE6FEC008277A6 /* JsonKit */,
 				5641CF541CCA289100A07584 /* Accounts.framework */,
 				5641CF521CCA288B00A07584 /* ImageIO.framework */,
 				5641CF501CCA287000A07584 /* CoreGraphics.framework */,
@@ -2078,7 +2097,7 @@
 				TargetAttributes = {
 					56F523DE1C4DCF7F00E6472B = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 7SGYK8N456;
+						DevelopmentTeam = DGQ9BHE78D;
 					};
 					B70FF3D21C6582AA002D571B = {
 						CreatedOnToolsVersion = 7.2;
@@ -2151,6 +2170,7 @@
 				563DA8E71CB6010F00578D02 /* clock_pointer_blue@2x.png in Resources */,
 				563DA8EE1CB6010F00578D02 /* clock_video_panel@3x.png in Resources */,
 				5641CF721CCA28E100A07584 /* share_image_forth_english.png in Resources */,
+				5659BAE71CCE7008008277A6 /* share_to_weibo.png in Resources */,
 				5B50AB091CC0119E006499BE /* config.properties in Resources */,
 				5B2521861CB36D4800C4481D /* ic_web_test@2x.png in Resources */,
 				B7B5D8D51CA407BA00DFEEBA /* tabbar_settings@3x.png in Resources */,
@@ -2224,6 +2244,7 @@
 				B7B5D8D41CA407BA00DFEEBA /* tabbar_test_selected@3x.png in Resources */,
 				B7B5D8D31CA407BA00DFEEBA /* tabbar_test@3x.png in Resources */,
 				563DA8EC1CB6010F00578D02 /* clock_speed_panel@3x.png in Resources */,
+				5659BAE61CCE7008008277A6 /* share_to_email.png in Resources */,
 				B7C61B411CA68247001E32DC /* starting_window_cn@2x_2.png in Resources */,
 				5B29086A1CC47D6C002B26F1 /* starting_window@1x_1.png in Resources */,
 				B7B5D8D71CA407BA00DFEEBA /* tabbar_settings_selected@3x.png in Resources */,
@@ -2333,6 +2354,7 @@
 				B7F2683B1CAE1C3900E44299 /* DDMultiFormatter.m in Sources */,
 				B7F2681D1CAE1C3900E44299 /* mztools.c in Sources */,
 				B7F268661CAE263300E44299 /* SVSpeedTest.m in Sources */,
+				5659BAE31CCE6FEC008277A6 /* JSONKit.m in Sources */,
 				564435771C5216AD009B7024 /* CTViewTools.m in Sources */,
 				561A36D11C896B5A00AC5F5E /* SVAboutViewCtrl.m in Sources */,
 				56BA8FDA1C561E9100886CAE /* SVToolModel.m in Sources */,
@@ -2569,7 +2591,7 @@
 					"$(PROJECT_DIR)/Thirdpart/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.debug1;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2610,7 +2632,7 @@
 					"$(PROJECT_DIR)/Thirdpart/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.debug1;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;

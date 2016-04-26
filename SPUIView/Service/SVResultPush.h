@@ -13,6 +13,6 @@
 
 - (id)initWithTestId:(long long)testId;
 
-- (void)sendResult;
+- (id)sendResult;
 
 @end

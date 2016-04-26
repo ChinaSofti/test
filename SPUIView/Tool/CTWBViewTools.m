@@ -7,20 +7,7 @@
 //
 #import "CTWBViewTools.h"
 #import "SVTextField.h"
-#import "SVToast.h"
-//微信分享
-#import "WXApi.h"
-//
-#import "UMSocial.h"
 
-//定义全局静态
-//中奖界面的覆盖greybtn
-static UIButton *greybtn;
-//输入的手机号码
-static SVTextField *textfield;
-@interface CTWBViewTools () <UMSocialDataDelegate>
-
-@end
 @implementation CTWBViewTools
 
 #pragma mark - 通用白色圆角背景rounded background
@@ -530,458 +517,6 @@ static SVTextField *textfield;
     return image;
 }
 
-//#pragma mark - 分享的点击事件
-//
-//+ (void)shareClicked1:(UIButton *)button
-//{
-//    NSString *title8 = I18N (@"Share on");
-//    NSString *title9 = I18N (@"Cancel");
-//    NSString *title10 = I18N (@"WeChat");
-//    NSString *title11 = I18N (@"Moments");
-//    NSString *title12 = I18N (@"Sina Weibo");
-//    NSString *title13 = I18N (@"Facebook");
-//
-//
-//    //获取整个屏幕的window
-//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//    UIView *_grey = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
-//    _grey.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.3];
-//    //创建一个分享到sharetoview
-//    UIView *sharetoview =
-//    [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - FITHEIGHT (580), kScreenW, FITHEIGHT
-//    (580))];
-//    sharetoview.backgroundColor = [UIColor whiteColor];
-//    //创建一个分享到label
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH / 10)];
-//    label.text = title8;
-//    label.font = [UIFont systemFontOfSize:pixelToFontsize (54)];
-//    label.textColor = [UIColor blackColor];
-//    label.textAlignment = NSTextAlignmentCenter;
-//    //创建一个显示取消的label2
-//    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake (0, FITHEIGHT (43), kScreenW,
-//    kScreenH / 2)];
-//    label2.text = title9;
-//    label2.font = [UIFont systemFontOfSize:pixelToFontsize (54)];
-//    label2.textColor = [UIColor colorWithRed:0.179 green:0.625 blue:1.000 alpha:1.000];
-//    label2.textAlignment = NSTextAlignmentCenter;
-//
-//    //创建4个分享按钮
-//    UIButton *button1 = [[UIButton alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (80), kScreenH - FITHEIGHT (405), FITHEIGHT (150),
-//    FITHEIGHT (150))];
-//    [button1 setImage:[UIImage imageNamed:@"share_to_wechat"] forState:UIControlStateNormal];
-//    [button1 addTarget:self
-//                action:@selector (Button1Click:)
-//      forControlEvents:UIControlEventTouchUpInside];
-//    UIButton *button2 = [[UIButton alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (80) + (kScreenW - FITWIDTH (58)) / 4,
-//                              kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
-//    [button2 setImage:[UIImage imageNamed:@"share_to_wechatmoments"]
-//    forState:UIControlStateNormal];
-//    [button2 addTarget:self
-//                action:@selector (Button2Click:)
-//      forControlEvents:UIControlEventTouchUpInside];
-//
-//    UIButton *button3 = [[UIButton alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (80) + (kScreenW - FITWIDTH (58)) / 2,
-//                              kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
-//    [button3 setImage:[UIImage imageNamed:@"share_to_weibo"] forState:UIControlStateNormal];
-//    [button3 addTarget:self
-//                action:@selector (Button3Click:)
-//      forControlEvents:UIControlEventTouchUpInside];
-//    UIButton *button4 = [[UIButton alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (80) + 3 * (kScreenW - FITWIDTH (58)) / 4,
-//                              kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
-//    [button4 setImage:[UIImage imageNamed:@"share_to_email"] forState:UIControlStateNormal];
-//    [button4 addTarget:self
-//                action:@selector (Button4Click:)
-//      forControlEvents:UIControlEventTouchUpInside];
-//    //添加4个label
-//    //创建一个显示微信的label3
-//    UILabel *label3 = [[UILabel alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (58), kScreenH / 10 + FITHEIGHT (202), FITWIDTH (200),
-//    FITHEIGHT (58))];
-//    label3.text = title10;
-//    //    label3.backgroundColor = [UIColor redColor];
-//    label3.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-//    label3.textColor = [UIColor lightGrayColor];
-//    label3.textAlignment = NSTextAlignmentCenter;
-//    //创建一个显示微信朋友圈的label4
-//    UILabel *label4 = [[UILabel alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (58) + (kScreenW - FITWIDTH (58)) / 4,
-//                              kScreenH / 10 + FITHEIGHT (202), FITWIDTH (230), FITHEIGHT (58))];
-//    label4.text = title11;
-//    label4.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-//    //    label4.backgroundColor = [UIColor blueColor];
-//    label4.textColor = [UIColor lightGrayColor];
-//    label4.textAlignment = NSTextAlignmentCenter;
-//    //创建一个显示微博的label5
-//    UILabel *label5 = [[UILabel alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (58) + (kScreenW - FITWIDTH (58)) / 2,
-//                              kScreenH / 10 + FITHEIGHT (202), FITWIDTH (230), FITHEIGHT (58))];
-//    label5.text = title12;
-//    //    label5.backgroundColor = [UIColor redColor];
-//    label5.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-//    label5.textColor = [UIColor lightGrayColor];
-//    label5.textAlignment = NSTextAlignmentCenter;
-//    //创建一个显示facebook的label6
-//    UILabel *label6 = [[UILabel alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (58) + 3 * (kScreenW - FITWIDTH (58)) / 4,
-//                              kScreenH / 10 + FITHEIGHT (202), FITWIDTH (200), FITHEIGHT (58))];
-//    label6.text = title13;
-//    //    label6.backgroundColor = [UIColor blueColor];
-//    label6.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-//    label6.textColor = [UIColor lightGrayColor];
-//    label6.textAlignment = NSTextAlignmentCenter;
-//
-//    //创建取消button
-//    UIButton *button33 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
-//    [button33 addTarget:self
-//                 action:@selector (Button33Click:)
-//       forControlEvents:UIControlEventTouchUpInside];
-//    //添加
-//    [sharetoview addSubview:label];
-//    [sharetoview addSubview:label2];
-//    [sharetoview addSubview:label3];
-//    [sharetoview addSubview:label4];
-//    [sharetoview addSubview:label5];
-//    [sharetoview addSubview:label6];
-//
-//    [_grey addSubview:sharetoview];
-//    [window addSubview:_grey];
-//    [_grey addSubview:button33];
-//    [_grey addSubview:button1];
-//    [_grey addSubview:button2];
-//    [_grey addSubview:button3];
-//    [_grey addSubview:button4];
-//}
-//
-//+ (void)shareClicked2:(UIButton *)button
-//{
-//    NSString *title8 = I18N (@"Share on");
-//    NSString *title9 = I18N (@"Cancel");
-//    NSString *title10 = I18N (@"WeChat");
-//    NSString *title11 = I18N (@"Moments");
-//    NSString *title12 = I18N (@"Sina Weibo");
-//
-//    //获取整个屏幕的window
-//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//    UIView *_grey = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
-//    _grey.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.3];
-//    //创建一个分享到sharetoview
-//    UIView *sharetoview =
-//    [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - FITHEIGHT (580), kScreenW, FITHEIGHT
-//    (580))];
-//    sharetoview.backgroundColor = [UIColor whiteColor];
-//    //创建一个分享到label
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH / 10)];
-//    label.text = title8;
-//    label.font = [UIFont systemFontOfSize:pixelToFontsize (54)];
-//    label.textColor = [UIColor blackColor];
-//    label.textAlignment = NSTextAlignmentCenter;
-//    //创建一个显示取消的label2
-//    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake (0, FITHEIGHT (43), kScreenW,
-//    kScreenH / 2)];
-//    label2.text = title9;
-//    label2.font = [UIFont systemFontOfSize:pixelToFontsize (54)];
-//    label2.textColor = [UIColor colorWithRed:0.179 green:0.625 blue:1.000 alpha:1.000];
-//    label2.textAlignment = NSTextAlignmentCenter;
-//
-//    //创建3个分享按钮
-//    UIButton *button1 = [[UIButton alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (120), kScreenH - FITHEIGHT (405), FITHEIGHT (150),
-//    FITHEIGHT (150))];
-//    [button1 setImage:[UIImage imageNamed:@"share_to_wechat"] forState:UIControlStateNormal];
-//    [button1 addTarget:self
-//                action:@selector (Button1Click:)
-//      forControlEvents:UIControlEventTouchUpInside];
-//    UIButton *button2 = [[UIButton alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (120) + (kScreenW - FITWIDTH (58)) / 3,
-//                              kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
-//    [button2 setImage:[UIImage imageNamed:@"share_to_wechatmoments"]
-//    forState:UIControlStateNormal];
-//    [button2 addTarget:self
-//                action:@selector (Button2Click:)
-//      forControlEvents:UIControlEventTouchUpInside];
-//
-//    UIButton *button3 = [[UIButton alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (120) + 2 * (kScreenW - FITWIDTH (58)) / 3,
-//                              kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
-//    [button3 setImage:[UIImage imageNamed:@"share_to_weibo"] forState:UIControlStateNormal];
-//    [button3 addTarget:self
-//                action:@selector (Button3Click:)
-//      forControlEvents:UIControlEventTouchUpInside];
-//
-//    //添加3个label
-//    //创建一个显示微信的label3
-//    UILabel *label3 =
-//    [[UILabel alloc] initWithFrame:CGRectMake (FITWIDTH (100), kScreenH / 10 + FITHEIGHT (202),
-//                                               FITWIDTH (200), FITHEIGHT (58))];
-//    label3.text = title10;
-//    //    label3.backgroundColor = [UIColor redColor];
-//    label3.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-//    label3.textColor = [UIColor lightGrayColor];
-//    label3.textAlignment = NSTextAlignmentCenter;
-//    //创建一个显示微信朋友圈的label4
-//    UILabel *label4 = [[UILabel alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (100) + (kScreenW - FITWIDTH (58)) / 3,
-//                              kScreenH / 10 + FITHEIGHT (202), FITWIDTH (230), FITHEIGHT (58))];
-//    label4.text = title11;
-//    label4.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-//    //    label4.backgroundColor = [UIColor blueColor];
-//    label4.textColor = [UIColor lightGrayColor];
-//    label4.textAlignment = NSTextAlignmentCenter;
-//    //创建一个显示微博的label5
-//    UILabel *label5 = [[UILabel alloc]
-//    initWithFrame:CGRectMake (FITWIDTH (100) + 2 * (kScreenW - FITWIDTH (58)) / 3,
-//                              kScreenH / 10 + FITHEIGHT (202), FITWIDTH (230), FITHEIGHT (58))];
-//    label5.text = title12;
-//    //    label5.backgroundColor = [UIColor redColor];
-//    label5.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-//    label5.textColor = [UIColor lightGrayColor];
-//    label5.textAlignment = NSTextAlignmentCenter;
-//    //创建取消button
-//    UIButton *button33 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
-//    [button33 addTarget:self
-//                 action:@selector (Button33Click:)
-//       forControlEvents:UIControlEventTouchUpInside];
-//    //添加
-//    [sharetoview addSubview:label];
-//    [sharetoview addSubview:label2];
-//    [sharetoview addSubview:label3];
-//    [sharetoview addSubview:label4];
-//    [sharetoview addSubview:label5];
-//
-//    [_grey addSubview:sharetoview];
-//    [window addSubview:_grey];
-//    [_grey addSubview:button33];
-//    [_grey addSubview:button1];
-//    [_grey addSubview:button2];
-//    [_grey addSubview:button3];
-//}
-////微信群组的分享方法实现
-//+ (void)Button1Click:(UIButton *)btn
-//{
-//
-//    //创建一个0-100的随机数
-//    int randomx = arc4random () % 101;
-//    NSLog (@"随机数是:-------------%d", randomx);
-//    //字符串拼接1
-//    NSString *titlea = I18N (@"I am at the ");
-//    NSString *titleb1 = I18N (@"Mastery");
-//    NSString *titleb2 = I18N (@"Expertise");
-//    NSString *titleb3 = I18N (@"Proficiency");
-//    NSString *titleb4 = I18N (@"Competence");
-//    NSString *titleb5 = I18N (@"Novice");
-//    NSString *titlec = I18N (@" level.What is yours?");
-//    NSString *titleA1 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb1, titlec];
-//    NSString *titleA2 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb2, titlec];
-//    NSString *titleA3 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb3, titlec];
-//    NSString *titleA4 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb4, titlec];
-//    NSString *titleA5 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb5, titlec];
-//    //字符串拼接2
-//    NSString *titley = I18N (@"I have defeated ");
-//    NSString *titlez =
-//    I18N (@"% of all users in the Red Envelope  War.Come on and test how fast you are!");
-//    NSString *titleB = [[NSString alloc] initWithFormat:@"%@%d%@", titley, randomx, titlez];
-//
-//    NSString *kLinkURL = @"http://58.60.106.185:12210";
-//    NSString *kLinkTitle1 = titleA1;
-//    NSString *kLinkTitle2 = titleA2;
-//    NSString *kLinkTitle3 = titleA3;
-//    NSString *kLinkTitle4 = titleA4;
-//    NSString *kLinkTitle5 = titleA5;
-//    NSString *kLinkDescription = titleB;
-//    //创建发送对象实例
-//    SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
-//    sendReq.bText = NO; //不使用文本信息
-//    sendReq.scene = 0; // 0 = 好友列表 1 = 朋友圈 2 = 收藏
-//
-//    //创建分享内容对象
-//    WXMediaMessage *urlMessage = [WXMediaMessage message];
-//    //根据随机数判断要分享的标题
-//    if (randomx >= 95)
-//    {
-//        urlMessage.title = kLinkTitle1; //分享标题
-//    }
-//    if (randomx >= 80 && randomx <= 95)
-//    {
-//        urlMessage.title = kLinkTitle2; //分享标题
-//    }
-//    if (randomx >= 60 && randomx <= 80)
-//    {
-//        urlMessage.title = kLinkTitle3; //分享标题
-//    }
-//    if (randomx >= 10 && randomx <= 60)
-//    {
-//        urlMessage.title = kLinkTitle4; //分享标题
-//    }
-//    if (randomx >= 0 && randomx <= 10)
-//    {
-//        urlMessage.title = kLinkTitle5; //分享标题
-//    }
-//    urlMessage.description = kLinkDescription; //分享描述
-//    //根据随机数显示压缩图片
-//    NSString *str11 = I18N (@"share_image_frist_english");
-//    NSString *str21 = I18N (@"share_image_second_english");
-//    NSString *str31 = I18N (@"share_image_thrid_english");
-//    NSString *str41 = I18N (@"share_image_forth_english");
-//    NSString *str51 = I18N (@"share_image_last_english");
-//    //分享图片,使用SDK的setThumbImage方法可压缩图片大小
-//    if (randomx >= 95)
-//    {
-//        [urlMessage setThumbImage:[UIImage imageNamed:str11]];
-//    }
-//    if (randomx >= 80 && randomx <= 95)
-//    {
-//        [urlMessage setThumbImage:[UIImage imageNamed:str21]];
-//    }
-//    if (randomx >= 60 && randomx <= 80)
-//    {
-//        [urlMessage setThumbImage:[UIImage imageNamed:str31]];
-//    }
-//    if (randomx >= 10 && randomx <= 60)
-//    {
-//        [urlMessage setThumbImage:[UIImage imageNamed:str41]];
-//    }
-//    if (randomx >= 0 && randomx <= 10)
-//    {
-//        [urlMessage setThumbImage:[UIImage imageNamed:str51]];
-//    }
-//
-//    //创建多媒体对象
-//    WXWebpageObject *webObj = [WXWebpageObject object];
-//    webObj.webpageUrl = kLinkURL; //分享链接
-//
-//    //完成发送对象实例
-//    urlMessage.mediaObject = webObj;
-//    sendReq.message = urlMessage;
-//
-//    //发送分享信息
-//    [WXApi sendReq:sendReq];
-//
-//    //点击按钮按钮移除
-//    [btn.superview removeFromSuperview];
-//}
-////微信朋友圈的分享方法实现
-//+ (void)Button2Click:(UIButton *)btn
-//{
-//    //创建一个0-100的随机数
-//    int randomx = arc4random () % 101;
-//    NSLog (@"随机数是:-------------%d", randomx);
-//    //字符串拼接1
-//    NSString *titlea = I18N (@"I am at the ");
-//    NSString *titleb1 = I18N (@"Mastery");
-//    NSString *titleb2 = I18N (@"Expertise");
-//    NSString *titleb3 = I18N (@"Proficiency");
-//    NSString *titleb4 = I18N (@"Competence");
-//    NSString *titleb5 = I18N (@"Novice");
-//    NSString *titlec = I18N (@" level.What is yours?");
-//    NSString *titleA1 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb1, titlec];
-//    NSString *titleA2 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb2, titlec];
-//    NSString *titleA3 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb3, titlec];
-//    NSString *titleA4 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb4, titlec];
-//    NSString *titleA5 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb5, titlec];
-//    //字符串拼接2
-//    NSString *titlew = I18N (@"I have defeated ");
-//    NSString *titlez =
-//    I18N (@"% of all users in the Red Envelope  War.Come on and test how fast you are!");
-//    NSString *titleB = [[NSString alloc] initWithFormat:@"%@%d%@", titlew, randomx, titlez];
-//
-//    NSString *kLinkURL = @"http://58.60.106.185:12210";
-//    NSString *kLinkTitle1 = titleA1;
-//    NSString *kLinkTitle2 = titleA2;
-//    NSString *kLinkTitle3 = titleA3;
-//    NSString *kLinkTitle4 = titleA4;
-//    NSString *kLinkTitle5 = titleA5;
-//    NSString *kLinkDescription = titleB;
-//    //创建发送对象实例
-//    SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
-//    sendReq.bText = NO; //不使用文本信息
-//    sendReq.scene = 1; // 0 = 好友列表 1 = 朋友圈 2 = 收藏
-//
-//    //创建分享内容对象
-//    WXMediaMessage *urlMessage = [WXMediaMessage message];
-//    //根据随机数判断要分享的标题
-//    if (randomx >= 95)
-//    {
-//        urlMessage.title = kLinkTitle1; //分享标题
-//    }
-//    if (randomx >= 80 && randomx <= 95)
-//    {
-//        urlMessage.title = kLinkTitle2; //分享标题
-//    }
-//    if (randomx >= 60 && randomx <= 80)
-//    {
-//        urlMessage.title = kLinkTitle3; //分享标题
-//    }
-//    if (randomx >= 10 && randomx <= 60)
-//    {
-//        urlMessage.title = kLinkTitle4; //分享标题
-//    }
-//    if (randomx >= 0 && randomx <= 10)
-//    {
-//        urlMessage.title = kLinkTitle5; //分享标题
-//    }
-//    urlMessage.description = kLinkDescription; //分享描述
-//    NSString *str11 = I18N (@"share_image_frist_english");
-//    NSString *str21 = I18N (@"share_image_second_english");
-//    NSString *str31 = I18N (@"share_image_thrid_english");
-//    NSString *str41 = I18N (@"share_image_forth_english");
-//    NSString *str51 = I18N (@"share_image_last_english");
-//    //根据随机数显示压缩图片
-//    //分享图片,使用SDK的setThumbImage方法可压缩图片大小
-//    if (randomx >= 95)
-//    {
-//        [urlMessage setThumbImage:[UIImage imageNamed:str11]];
-//    }
-//    if (randomx >= 80 && randomx <= 95)
-//    {
-//        [urlMessage setThumbImage:[UIImage imageNamed:str21]];
-//    }
-//    if (randomx >= 60 && randomx <= 80)
-//    {
-//        [urlMessage setThumbImage:[UIImage imageNamed:str31]];
-//    }
-//    if (randomx >= 10 && randomx <= 60)
-//    {
-//        [urlMessage setThumbImage:[UIImage imageNamed:str41]];
-//    }
-//    if (randomx >= 0 && randomx <= 10)
-//    {
-//        [urlMessage setThumbImage:[UIImage imageNamed:str51]];
-//    }
-//
-//    //创建多媒体对象
-//    WXWebpageObject *webObj = [WXWebpageObject object];
-//    webObj.webpageUrl = kLinkURL; //分享链接
-//
-//    //完成发送对象实例
-//    urlMessage.mediaObject = webObj;
-//    sendReq.message = urlMessage;
-//
-//    //发送分享信息
-//    [WXApi sendReq:sendReq];
-//
-//    //点击按钮按钮移除
-//    [btn.superview removeFromSuperview];
-//}
-////微博方法实现
-//+ (void)Button3Click:(UIButton *)btn
-//{
-//    NSLog (@"微博分享");
-//}
-//// facebook分享方法实现
-//+ (void)Button4Click:(UIButton *)btn
-//{
-//    NSLog (@"facebookshare");
-//}
-//
-////取消方法实现
-//+ (void)Button33Click:(UIButton *)btn
-//{
-//    [btn.superview removeFromSuperview];
-//}
 
 #pragma mark - 文字适配
 + (CGFloat)fitWidthToView:(UIView *)view
@@ -1014,5 +549,105 @@ static SVTextField *textfield;
         .size.height;
     }
 }
-
+//单一分享方法
++ (void)sharetototo
+{
+    //方法一
+    //    //字符串拼接1
+    //    NSString *titlea = I18N (@"I am at the ");
+    //    NSString *titleb1 = I18N (@"Mastery");
+    //    NSString *titleb2 = I18N (@"Expertise");
+    //    NSString *titleb3 = I18N (@"Proficiency");
+    //    NSString *titleb4 = I18N (@"Competence");
+    //    NSString *titleb5 = I18N (@"Novice");
+    //    NSString *titlec = I18N (@" level.What is yours?");
+    //    NSString *titleA1 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb1, titlec];
+    //    NSString *titleA2 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb2, titlec];
+    //    NSString *titleA3 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb3, titlec];
+    //    NSString *titleA4 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb4, titlec];
+    //    NSString *titleA5 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb5, titlec];
+    //    //字符串拼接2
+    //    NSString *titley = I18N (@"I have defeated ");
+    //    NSString *titlez =
+    //    I18N (@"% of all users in the Red Envelope  War.Come on and test how fast you are!");
+    //    NSString *titleB = [[NSString alloc] initWithFormat:@"%@%d%@", titley, randomx, titlez];
+    //
+    //    NSString *kLinkURL = @"http://58.60.106.185:12210";
+    //    NSString *kLinkTitle1 = titleA1;
+    //    NSString *kLinkTitle2 = titleA2;
+    //    NSString *kLinkTitle3 = titleA3;
+    //    NSString *kLinkTitle4 = titleA4;
+    //    NSString *kLinkTitle5 = titleA5;
+    //    NSString *kLinkDescription = titleB;
+    //    //创建发送对象实例
+    //    SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+    //    sendReq.bText = NO; //不使用文本信息
+    //    sendReq.scene = 0; // 0 = 好友列表 1 = 朋友圈 2 = 收藏
+    //
+    //    //创建分享内容对象
+    //    WXMediaMessage *urlMessage = [WXMediaMessage message];
+    //    //根据随机数判断要分享的标题
+    //    if (randomx >= 95)
+    //    {
+    //        urlMessage.title = kLinkTitle1; //分享标题
+    //    }
+    //    if (randomx >= 80 && randomx <= 95)
+    //    {
+    //        urlMessage.title = kLinkTitle2; //分享标题
+    //    }
+    //    if (randomx >= 60 && randomx <= 80)
+    //    {
+    //        urlMessage.title = kLinkTitle3; //分享标题
+    //    }
+    //    if (randomx >= 10 && randomx <= 60)
+    //    {
+    //        urlMessage.title = kLinkTitle4; //分享标题
+    //    }
+    //    if (randomx >= 0 && randomx <= 10)
+    //    {
+    //        urlMessage.title = kLinkTitle5; //分享标题
+    //    }
+    //    urlMessage.description = kLinkDescription; //分享描述
+    //    //根据随机数显示压缩图片
+    //    NSString *str11 = I18N (@"share_image_frist_english");
+    //    NSString *str21 = I18N (@"share_image_second_english");
+    //    NSString *str31 = I18N (@"share_image_thrid_english");
+    //    NSString *str41 = I18N (@"share_image_forth_english");
+    //    NSString *str51 = I18N (@"share_image_last_english");
+    //    //分享图片,使用SDK的setThumbImage方法可压缩图片大小
+    //    if (randomx >= 95)
+    //    {
+    //        [urlMessage setThumbImage:[UIImage imageNamed:str11]];
+    //    }
+    //    if (randomx >= 80 && randomx <= 95)
+    //    {
+    //        [urlMessage setThumbImage:[UIImage imageNamed:str21]];
+    //    }
+    //    if (randomx >= 60 && randomx <= 80)
+    //    {
+    //        [urlMessage setThumbImage:[UIImage imageNamed:str31]];
+    //    }
+    //    if (randomx >= 10 && randomx <= 60)
+    //    {
+    //        [urlMessage setThumbImage:[UIImage imageNamed:str41]];
+    //    }
+    //    if (randomx >= 0 && randomx <= 10)
+    //    {
+    //        [urlMessage setThumbImage:[UIImage imageNamed:str51]];
+    //    }
+    //
+    //    //创建多媒体对象
+    //    WXWebpageObject *webObj = [WXWebpageObject object];
+    //    webObj.webpageUrl = kLinkURL; //分享链接
+    //
+    //    //完成发送对象实例
+    //    urlMessage.mediaObject = webObj;
+    //    sendReq.message = urlMessage;
+    //
+    //    //发送分享信息
+    //    [WXApi sendReq:sendReq];
+    //
+    //    //点击按钮按钮移除
+    //    [btn.superview removeFromSuperview];
+}
 @end

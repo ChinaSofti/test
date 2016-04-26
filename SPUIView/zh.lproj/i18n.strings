@@ -6,6 +6,52 @@
  Copyright © 2016年 chinasofti. All rights reserved.
  */
 
+//抽奖
+//图片
+"speed_level_frist_english" = "speed_level_frist";
+"speed_level_second_english" = "speed_level_second";
+"speed_level_thrid_english" = "speed_level_thrid";
+"speed_level_forth_english" = "speed_level_forth";
+"speed_level_last_english" = "speed_level_last";
+
+"share_image_frist_english" = "share_image_frist";
+"share_image_second_english" = "share_image_second";
+"share_image_thrid_english" = "share_image_thrid";
+"share_image_forth_english" = "share_image_forth";
+"share_image_last_english" = "share_image_last";
+
+"I have defeated" = "打败全国";
+"of all users" = "的用户";
+"Activity period:4.1 to 4.7!" = "活动日期:4.1至4.7!";
+"Share to win 100-yuan top up" = "分享即有机会中100元";
+
+"I am at the " = "我的抢红包战斗级别是";
+"Mastery" = "抢帝";
+"Expertise" = "抢神";
+"Proficiency" = "抢将";
+"Competence" = "抢兵";
+"Novice" = "抢的着么";
+" level.What is yours?" = ",你呢?";
+
+"I have defeated " = "我的抢红红包速度击败了全球";
+"% of all users in the Red Envelope  War.Come on and test how fast you are!" = "%用户,你也来测一测!";
+//中奖页
+"Congratulations" = "中奖了耶!";
+"You have won " = "恭喜你获得";
+"100-yuan" = "100元";
+" top up" = "话费";
+
+
+"Enter a phone number" = "请输入手机话";
+"Send" = "发送号码";
+"Invalid phone number" = "手机号无效";
+"A working day for you to recharge" ="我们会在一个工作日内为您充值";
+//未中奖页
+"Thanks for participation" = "谢谢参与";
+"Sorry for not getting the prize." = "亲,很遗憾没有中奖,";
+"Try again." = "换个姿势重测一下吧~";
+"Continue Test" = "继续测试";
+
 //测试界面
 
 //初始设置
