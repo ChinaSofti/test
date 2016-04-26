@@ -386,7 +386,7 @@
         NSString *responseTimeValue = I18N (@"Timeout");
         NSString *loadTimeVlaue = I18N (@"Timeout");
         NSString *downloadSpeedVlaue = I18N (@"Timeout");
-        if ([loadTime doubleValue] < 10)
+        if ([loadTime doubleValue] < 10 && [loadTime doubleValue] >= 0)
         {
             responseTimeValue =
             [self formatFloatValue:[currentResultJson valueForKey:@"responseTime"] unit:@"s"];
@@ -395,6 +395,7 @@
             downloadSpeedVlaue =
             [self formatFloatValue:[currentResultJson valueForKey:@"downloadSpeed"] unit:@"Kbps"];
         }
+
         // 生成各个指标对应的UIView
         [_soucreMA addObject:[SVToolModels modelWithDict:@{
                        @"key": I18N (@"Response Time"),
