@@ -87,7 +87,7 @@
     _titleLabel.text = dic[@"title"];
     _titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
     //    _titleLabel.backgroundColor = [UIColor redColor];
-    _titleLabel.textColor = [UIColor colorWithHexString:@"#B2000000"];
+    _titleLabel.textColor = [UIColor colorWithHexString:@"#000000"];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
 
 

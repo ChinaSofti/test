@@ -52,7 +52,7 @@
         _titleLabel = [[UILabel alloc]
         initWithFrame:CGRectMake (_imgView.rightX + FITWIDTH (114), _imgView.originY,
                                   _rightImgView.originX - _imgView.rightX - FITWIDTH (114), FITHEIGHT (120))];
-        _titleLabel.textColor = [UIColor colorWithHexString:@"#B2000000"];
+        _titleLabel.textColor = [UIColor colorWithHexString:@"#000000"];
         _titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (51)];
 
         //初始化透明度

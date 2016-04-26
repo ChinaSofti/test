@@ -150,7 +150,7 @@
         NSString *title4 = I18N (@"Select Test Item");
         label.text = title4;
         label.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
-        label.textColor = [UIColor colorWithHexString:@"#CC000000"];
+        label.textColor = [UIColor colorWithHexString:@"#000000"];
         [bgdView addSubview:label];
         return bgdView;
     }

@@ -229,7 +229,7 @@ double _preSpeed = 0.0;
     // 初始化默认值
     NSMutableDictionary *defalutValue = [[NSMutableDictionary alloc] init];
     [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (36)] forKey:@"labelFontSize"];
-    [defalutValue setValue:[UIColor colorWithHexString:@"#B2000000"] forKey:@"labelColor"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#000000"] forKey:@"labelColor"];
     [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (60)] forKey:@"valueFontSize"];
     [defalutValue setValue:[UIColor colorWithHexString:@"#FC5F45"] forKey:@"valueColor"];
     [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (33)] forKey:@"unitFontSize"];
@@ -281,7 +281,7 @@ double _preSpeed = 0.0;
     _serverLocationLabel = [CTWBViewTools
     createLabelWithFrame:CGRectMake (FITWIDTH (50), FITHEIGHT (10), FITWIDTH (446), FITHEIGHT (50))
                 withFont:pixelToFontsize (44)
-          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:@""];
 
     // 初始化服务器地址标题的label
@@ -289,7 +289,7 @@ double _preSpeed = 0.0;
     createLabelWithFrame:CGRectMake (FITWIDTH (50), _serverLocationLabel.bottomY + FITHEIGHT (16),
                                      FITWIDTH (446), FITWIDTH (34))
                 withFont:pixelToFontsize (36)
-          withTitleColor:[UIColor colorWithHexString:@"#B2000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:I18N (@"Server Location")];
 
     // 初始化服务器归属地的label
@@ -297,7 +297,7 @@ double _preSpeed = 0.0;
     createLabelWithFrame:CGRectMake (FITWIDTH (50), _serverLocationTitle.bottomY + FITHEIGHT (28),
                                      FITWIDTH (446), FITWIDTH (50))
                 withFont:pixelToFontsize (39)
-          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:@""];
 
     // 初始化服务器归属地标题的label
@@ -305,7 +305,7 @@ double _preSpeed = 0.0;
     createLabelWithFrame:CGRectMake (FITWIDTH (50), _carrierLabel.bottomY + FITHEIGHT (16),
                                      FITWIDTH (446), FITHEIGHT (50))
                 withFont:pixelToFontsize (36)
-          withTitleColor:[UIColor colorWithHexString:@"#B2000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:I18N (@"Carrier")];
 
 

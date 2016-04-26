@@ -326,7 +326,7 @@
                              initSubTitleCellWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:@"CND Cell"
                                               subTitle:[NSString stringWithFormat:@"CDN%d%@", index, I18N (@"Information")]
-                                             WithColor:[UIColor colorWithHexString:@"#FFFEB960"]]];
+                                             WithColor:[UIColor colorWithHexString:@"#FEB960"]]];
 
         // 视频分片IP
         [_soucreMA addObject:[SVToolModels modelWithDict:@{
@@ -379,14 +379,14 @@
                              initSubTitleCellWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:@"urlCell"
                                               subTitle:url
-                                             WithColor:[UIColor colorWithHexString:@"#FF38C695"]]];
+                                             WithColor:[UIColor colorWithHexString:@"#38C695"]]];
 
         // 判断加载时间是否超过10S，如果超过则显示超时
         NSString *loadTime = [currentResultJson valueForKey:@"totalTime"];
         NSString *responseTimeValue = I18N (@"Timeout");
         NSString *loadTimeVlaue = I18N (@"Timeout");
         NSString *downloadSpeedVlaue = I18N (@"Timeout");
-        if ([loadTime doubleValue] < 10)
+        if ([loadTime doubleValue] < 10 && [loadTime doubleValue] >= 0)
         {
             responseTimeValue =
             [self formatFloatValue:[currentResultJson valueForKey:@"responseTime"] unit:@"s"];
@@ -395,6 +395,7 @@
             downloadSpeedVlaue =
             [self formatFloatValue:[currentResultJson valueForKey:@"downloadSpeed"] unit:@"Kbps"];
         }
+
         // 生成各个指标对应的UIView
         [_soucreMA addObject:[SVToolModels modelWithDict:@{
                        @"key": I18N (@"Response Time"),

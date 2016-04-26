@@ -93,24 +93,27 @@ static SVTestContextGetter *contextGetter = nil;
  */
 - (void)initIPAndISP
 {
-    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    NSString *localIP = servers.clientIP;
-    SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:localIP];
-    if (ipAndISP)
+    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+
+    // 如果归属地信息查询不到则默认为中国
+    if (!ipAndISP)
     {
-        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-        [probeInfo setIp:ipAndISP.query];
-        NSString *countryCode = ipAndISP.countryCode;
-        if (countryCode && [countryCode isEqualToString:@"CN"])
-        {
-            // 修改URL参数
-            _serverURL = inChinaURL;
-        }
-        else
-        {
-            _serverURL = overseaURL;
-        }
+        // 修改URL参数
+        _serverURL = inChinaURL;
+        return;
     }
+
+    // 根据归属地信息获取服务器的url
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    [probeInfo setIp:ipAndISP.query];
+    NSString *countryCode = ipAndISP.countryCode;
+    if (countryCode && [countryCode isEqualToString:@"CN"])
+    {
+        // 修改URL参数
+        _serverURL = inChinaURL;
+        return;
+    }
+    _serverURL = overseaURL;
 }
 
 /**

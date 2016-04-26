@@ -135,28 +135,35 @@
     }
 
     // 如果没有获取到url，使用默认的数据
-    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    NSString *localIP = servers.clientIP;
-    SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:localIP];
-    if (ipAndISP)
+    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+
+    // 默认使用国内的网站
+    if (!ipAndISP)
     {
-        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-        [probeInfo setIp:ipAndISP.query];
-        NSString *countryCode = ipAndISP.countryCode;
-        if (countryCode && [countryCode isEqualToString:@"CN"])
-        {
-            urlArray = @[
-                @"https://www.taobao.com/",
-                @"http://m.hao123.com/?vit=h123&from=3w123",
-                @"http://m.jd.com/",
-                @"http://m.sohu.com/"
-            ];
-        }
-        else
-        {
-            urlArray =
-            @[@"http://www.yahoo.com", @"http://www.facebook.com", @"http://www.google.com"];
-        }
+        urlArray = @[
+            @"https://www.taobao.com/",
+            @"http://m.hao123.com/?vit=h123&from=3w123",
+            @"http://m.jd.com/",
+            @"http://m.sohu.com/"
+        ];
+        [webTestContext setUrlArray:urlArray];
+        return;
+    }
+
+    // 根据归属地信息获取url
+    NSString *countryCode = ipAndISP.countryCode;
+    if (countryCode && [countryCode isEqualToString:@"CN"])
+    {
+        urlArray = @[
+            @"https://www.taobao.com/",
+            @"http://m.hao123.com/?vit=h123&from=3w123",
+            @"http://m.jd.com/",
+            @"http://m.sohu.com/"
+        ];
+    }
+    else
+    {
+        urlArray = @[@"http://www.yahoo.com", @"http://www.facebook.com", @"http://www.google.com"];
     }
     [webTestContext setUrlArray:urlArray];
 }
@@ -444,6 +451,7 @@ didFailNavigation:(WKNavigation *)navigation
     // 如果超过10S，则任务测试结束
     if (costTime >= 10)
     {
+        // 设置测试状态为结束
         finished = YES;
         [currentResult setFinished:finished];
 

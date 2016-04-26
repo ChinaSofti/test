@@ -114,7 +114,7 @@
     UILabel *lableScreenSize = [[UILabel alloc] init];
     lableScreenSize.frame = CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
     lableScreenSize.text = I18N (@"Screen Size:");
-    lableScreenSize.textColor = [UIColor colorWithHexString:@"#CC000000"];
+    lableScreenSize.textColor = [UIColor colorWithHexString:@"#000000"];
     lableScreenSize.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     [views addSubview:lableScreenSize];
 
@@ -141,7 +141,7 @@
     CGRectMake (lableScreenSize.rightX + FITWIDTH (401), FITHEIGHT (36), FITWIDTH (87), FITHEIGHT (58));
     lableInch.text = I18N (@"inch");
     lableInch.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    lableInch.textColor = [UIColor colorWithHexString:@"#CC000000"];
+    lableInch.textColor = [UIColor colorWithHexString:@"#000000"];
     [views addSubview:lableInch];
 }
 // 退出键盘的方法
@@ -167,7 +167,7 @@
     labelDuration.frame = CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
     labelDuration.text = I18N (@"Video Test Duration:");
     labelDuration.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    labelDuration.textColor = [UIColor colorWithHexString:@"#CC000000"];
+    labelDuration.textColor = [UIColor colorWithHexString:@"#000000"];
     [views addSubview:labelDuration];
 
     NSString *l = @"1min";
@@ -268,7 +268,7 @@
     lableVideoClarity.frame = CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
     lableVideoClarity.text = I18N (@"Video quality:");
     lableVideoClarity.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    lableVideoClarity.textColor = [UIColor colorWithHexString:@"#CC000000"];
+    lableVideoClarity.textColor = [UIColor colorWithHexString:@"#000000"];
     [views addSubview:lableVideoClarity];
 
     NSString *l = I18N (@"Auto");
@@ -473,7 +473,7 @@
     bandWidthLabel.frame = CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
     bandWidthLabel.text = I18N (@"Speed Test Server Config");
     bandWidthLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    bandWidthLabel.textColor = [UIColor colorWithHexString:@"#CC000000"];
+    bandWidthLabel.textColor = [UIColor colorWithHexString:@"#000000"];
     [bandWidthView addSubview:bandWidthLabel];
 
     // labelview
@@ -591,7 +591,7 @@
     UILabel *lableResultUpload = [[UILabel alloc] init];
     lableResultUpload.frame = CGRectMake (FITWIDTH (30), FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
     lableResultUpload.text = I18N (@"Result Upload");
-    lableResultUpload.textColor = [UIColor colorWithHexString:@"#CC000000"];
+    lableResultUpload.textColor = [UIColor colorWithHexString:@"#000000"];
     lableResultUpload.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
     [resultUploadView addSubview:lableResultUpload];
 
