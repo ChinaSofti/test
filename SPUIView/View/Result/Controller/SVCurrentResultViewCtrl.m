@@ -19,6 +19,8 @@
 #import "UMSocial.h"
 //微信分享
 #import "WXApi.h"
+//获取分享排名
+#import "SVSpeedTestServers.h"
 
 @interface SVCurrentResultViewCtrl () <UMSocialUIDelegate>
 //分享
@@ -49,11 +51,19 @@
     int rank;
     //当前页面判断标识符
     BOOL currentCtl;
+    //获取地域信息
+    SVIPAndISP *ipAndISP;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    //    获取地域信息
+    // 如果没有获取到url，使用默认的数据
+    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+    NSString *localIP = servers.clientIP;
+    ipAndISP = [SVIPAndISPGetter queryIPDetail:localIP];
 
     // 设置标题
     [self initTitleView];
@@ -342,22 +352,19 @@
 
           [self cleanOldData];
           SVResultPush *push = [[SVResultPush alloc] initWithTestId:_resultModel.testId];
+          //获取网络数据
           NSData *result = [push sendResult];
           NSError *error;
           id jsonStr = [NSJSONSerialization JSONObjectWithData:result options:0 error:&error];
-          NSLog (@"%@", jsonStr);
           NSString *results = [jsonStr valueForKey:@"totalCount"];
           NSString *result1 = [jsonStr valueForKey:@"currentPosition"];
           double aaaa = [results doubleValue];
           double bbbb = [result1 doubleValue];
           rank = (aaaa - bbbb) * 100 / aaaa;
 
+          //单写一个线程,结果传回来后显示UI
           dispatch_async (dispatch_get_main_queue (), ^{
-            //结果传回来后显示UI
-            //做判断,如果不是当前结果界面就不弹出
             [self createShareUI];
-
-
           });
         });
     }
@@ -906,10 +913,18 @@
     //判断如果不是当前结果页面就退出
     if (currentCtl == NO)
     {
+        SVInfo (@"不在当前结果页面,不弹出分享界面");
         return;
     }
+
     randomx = rank;
-    NSLog (@"排名为%d", randomx);
+    SVInfo (@"排名为%d", randomx);
+    //判断如果随机数不大于0就退出
+    if (randomx < 0)
+    {
+        SVInfo (@"排名小于0,不弹出分享界面");
+        return;
+    }
     //获取整个屏幕的window
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //创建一个覆盖garybutton
@@ -1002,9 +1017,32 @@
 - (void)shareBtnClick
 {
     [_greybtn removeFromSuperview];
-    //对国家做判断(如果在国内用shareClicked1,如果在国外用shareClicked2)
-    [self shareClicked1:nil];
+    //根据归属地，判断Facebook分享是否添加
+    [self getFacebookArray];
 }
+// 根据归属地，判断Facebook分享是否添加
+- (void)getFacebookArray
+{
+
+    if (ipAndISP)
+    {
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        [probeInfo setIp:ipAndISP.query];
+        NSString *countryCode = ipAndISP.countryCode;
+        if (countryCode && [countryCode isEqualToString:@"CN"])
+        {
+            SVInfo (@"不分享Facebook");
+#pragma mark - 需要修改成shareClicked2
+            [self shareClicked1:nil];
+        }
+        else
+        {
+            SVInfo (@"分享Facebook");
+            [self shareClicked1:nil];
+        }
+    }
+}
+
 #pragma mark - 分享的点击事件
 //有Facebook的情况
 - (void)shareClicked1:(UIButton *)button
