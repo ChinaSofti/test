@@ -246,12 +246,6 @@ NSString *insertSVDetailResultModelSQL;
     while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING)
     {
         int fd = socket (AF_INET, SOCK_STREAM, 0);
-
-        // 设置超时时间
-        struct timeval timeout = { 2, 0 }; // 2s
-        setsockopt (fd, SOL_SOCKET, SO_SNDTIMEO, (const char *)&timeout, sizeof (timeout));
-        setsockopt (fd, SOL_SOCKET, SO_RCVTIMEO, (const char *)&timeout, sizeof (timeout));
-
         int ret = connect (fd, (struct sockaddr *)&addr, sizeof (struct sockaddr));
         if (-1 == ret)
         {
@@ -305,11 +299,6 @@ NSString *insertSVDetailResultModelSQL;
     while (_testStatus == TEST_TESTING && _internalTestStatus == TEST_TESTING)
     {
         int fd = socket (AF_INET, SOCK_STREAM, 0);
-
-        // 设置超时时间
-        struct timeval timeout = { 2, 0 }; // 2s
-        setsockopt (fd, SOL_SOCKET, SO_SNDTIMEO, (const char *)&timeout, sizeof (timeout));
-        setsockopt (fd, SOL_SOCKET, SO_RCVTIMEO, (const char *)&timeout, sizeof (timeout));
 
         // 设置忽略SIGPIPE
         int set = 1;
