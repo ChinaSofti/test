@@ -47,6 +47,8 @@
     //随机数
     int randomx;
     int rank;
+    //当前页面判断标识符
+    BOOL currentCtl;
 }
 
 - (void)viewDidLoad
@@ -128,6 +130,8 @@
 {
     [super viewWillAppear:animated];
 
+    //屏幕即将出现标识符设置为yes
+    currentCtl = YES;
     // 设置屏幕自动锁屏
     [UIApplication sharedApplication].idleTimerDisabled = NO;
 
@@ -318,7 +322,12 @@
         isSave = YES;
     }
 }
-
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    //屏幕即将消失标识符设置为no
+    currentCtl = NO;
+}
 - (void)persistData
 {
     SVInfo (@"persistData");
@@ -347,6 +356,8 @@
             //结果传回来后显示UI
             //做判断,如果不是当前结果界面就不弹出
             [self createShareUI];
+
+
           });
         });
     }
@@ -891,6 +902,12 @@
 
 - (void)createShareUI
 {
+
+    //判断如果不是当前结果页面就退出
+    if (currentCtl == NO)
+    {
+        return;
+    }
     randomx = rank;
     NSLog (@"排名为%d", randomx);
     //获取整个屏幕的window
