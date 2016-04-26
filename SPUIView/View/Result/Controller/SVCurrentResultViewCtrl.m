@@ -444,7 +444,7 @@
         UIImageView *videoImageView = [self createResultImageViewWithName:@"ic_video_label"];
 
         // 字体颜色
-        UIColor *color = [UIColor colorWithHexString:@"#FFFEB960"];
+        UIColor *color = [UIColor colorWithHexString:@"#FEB960"];
 
         // 创建左侧指标的view
         NSString *leftValue = _failTitle;
@@ -511,7 +511,7 @@
         UIImageView *webImageView = [self createResultImageViewWithName:@"ic_web_label"];
 
         // 字体颜色
-        UIColor *color = [UIColor colorWithHexString:@"#FF38C695"];
+        UIColor *color = [UIColor colorWithHexString:@"#38C695"];
 
         // 创建左侧指标的view
         NSString *leftValue = I18N (@"Fail");
@@ -579,7 +579,7 @@
         UIImageView *speedImageView = [self createResultImageViewWithName:@"ic_speed_label"];
 
         // 字体颜色
-        UIColor *color = [UIColor colorWithHexString:@"#FFFC5F45"];
+        UIColor *color = [UIColor colorWithHexString:@"#FC5F45"];
 
         // 创建左侧指标的view
         NSString *leftValue = I18N (@"Fail");
@@ -682,7 +682,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = title;
     titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (30)];
-    titleLabel.textColor = [UIColor colorWithHexString:@"#B2000000"];
+    titleLabel.textColor = [UIColor colorWithHexString:@"#000000"];
 
     // 使Label根据内容自适应大小
     [SVLabelTools resetLayoutWithTitleLabel:titleLabel

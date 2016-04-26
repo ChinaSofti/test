@@ -227,7 +227,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     {
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         cell.textLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-        cell.textLabel.textColor = [UIColor colorWithHexString:@"#CC000000"];
+        cell.textLabel.textColor = [UIColor colorWithHexString:@"#000000"];
 
         if (indexPath.row == 0)
         {

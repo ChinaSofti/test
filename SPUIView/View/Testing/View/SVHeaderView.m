@@ -88,7 +88,7 @@
 
     // 初始化左侧指标值的label
     leftValueLabel = [[UILabel alloc] init];
-    [leftValueLabel setTextColor:[UIColor colorWithHexString:@"#4C000000"]];
+    [leftValueLabel setTextColor:[UIColor colorWithHexString:@"#000000"]];
     [leftValueLabel setText:dic[@"leftDefaultValue"]];
     [leftValueLabel setFont:valueFontSize];
 
@@ -100,7 +100,7 @@
 
     // 左侧指标单位的label
     leftUnitLabel = [[UILabel alloc] init];
-    [leftUnitLabel setTextColor:[UIColor colorWithHexString:@"#4C000000"]];
+    [leftUnitLabel setTextColor:[UIColor colorWithHexString:@"#000000"]];
     [leftUnitLabel setText:dic[@"leftUnit"]];
     [leftUnitLabel setFont:unitFontSize];
 
@@ -115,7 +115,7 @@
 
     // 中间指标值的label
     middleValueLabel = [[UILabel alloc] init];
-    [middleValueLabel setTextColor:[UIColor colorWithHexString:@"#4C000000"]];
+    [middleValueLabel setTextColor:[UIColor colorWithHexString:@"#000000"]];
     [middleValueLabel setText:dic[@"middleDefaultValue"]];
     [middleValueLabel setFont:valueFontSize];
 
@@ -127,7 +127,7 @@
 
     // 中间指标单位的label
     middleUnitLabel = [[UILabel alloc] init];
-    [middleUnitLabel setTextColor:[UIColor colorWithHexString:@"#4C000000"]];
+    [middleUnitLabel setTextColor:[UIColor colorWithHexString:@"#000000"]];
     [middleUnitLabel setText:dic[@"middleUnit"]];
     [middleUnitLabel setFont:unitFontSize];
 
@@ -141,7 +141,7 @@
 
     // 右侧指标值的label
     rightValueLabel = [[UILabel alloc] init];
-    [rightValueLabel setTextColor:[UIColor colorWithHexString:@"#4C000000"]];
+    [rightValueLabel setTextColor:[UIColor colorWithHexString:@"#000000"]];
     [rightValueLabel setText:dic[@"rightDefaultValue"]];
     [rightValueLabel setFont:valueFontSize];
 
@@ -153,7 +153,7 @@
 
     // 右侧指标单位的label
     rightUnitLabel = [[UILabel alloc] init];
-    [rightUnitLabel setTextColor:[UIColor colorWithHexString:@"#4C000000"]];
+    [rightUnitLabel setTextColor:[UIColor colorWithHexString:@"#000000"]];
     [rightUnitLabel setText:dic[@"rightUnit"]];
     [rightUnitLabel setFont:unitFontSize];
 
