@@ -1270,7 +1270,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 //微信朋友圈的分享方法实现
 - (void)Button2Click:(UIButton *)btn
@@ -1280,7 +1280,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 //微博方法实现
 - (void)Button3Click:(UIButton *)btn
@@ -1290,7 +1290,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 // facebook分享方法实现
 - (void)Button4Click:(UIButton *)btn
@@ -1300,7 +1300,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToFacebook].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 
 //分享内容
