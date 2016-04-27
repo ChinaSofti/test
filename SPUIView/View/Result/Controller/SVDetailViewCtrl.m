@@ -326,7 +326,7 @@
                              initSubTitleCellWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:@"CND Cell"
                                               subTitle:[NSString stringWithFormat:@"CDN%d%@", index, I18N (@"Information")]
-                                             WithColor:[UIColor colorWithHexString:@"#FFFEB960"]]];
+                                             WithColor:[UIColor colorWithHexString:@"#FEB960"]]];
 
         // 视频分片IP
         [_soucreMA addObject:[SVToolModels modelWithDict:@{
@@ -379,7 +379,7 @@
                              initSubTitleCellWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:@"urlCell"
                                               subTitle:url
-                                             WithColor:[UIColor colorWithHexString:@"#FF38C695"]]];
+                                             WithColor:[UIColor colorWithHexString:@"#38C695"]]];
 
         // 判断加载时间是否超过10S，如果超过则显示超时
         NSString *loadTime = [currentResultJson valueForKey:@"totalTime"];

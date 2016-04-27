@@ -45,7 +45,7 @@
                                   FITHEIGHT (132))];
         _keyLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
         _keyLabel.textAlignment = NSTextAlignmentLeft;
-        _keyLabel.textColor = [UIColor colorWithHexString:@"#CC000000"];
+        _keyLabel.textColor = [UIColor colorWithHexString:@"#000000"];
         [bgdView addSubview:_keyLabel];
 
         // 设置指标值的label
@@ -54,7 +54,7 @@
                                   FITHEIGHT (132))];
         _valueLabel.textAlignment = NSTextAlignmentRight;
         _valueLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-        _valueLabel.textColor = [UIColor colorWithHexString:@"#E5000000"];
+        _valueLabel.textColor = [UIColor colorWithHexString:@"#000000"];
         [bgdView addSubview:_valueLabel];
 
 
@@ -91,7 +91,7 @@
                                   kScreenW - 2 * (imageView.rightX + FITWIDTH (15)), FITHEIGHT (36))];
         label.text = title;
         label.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
-        label.textColor = [UIColor colorWithHexString:@"#B2000000"];
+        label.textColor = [UIColor colorWithHexString:@"#000000"];
 
         // 将UIView放到cell中
         [self addSubview:imageView];

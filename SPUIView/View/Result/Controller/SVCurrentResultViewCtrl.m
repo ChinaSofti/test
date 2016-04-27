@@ -58,13 +58,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    //    获取地域信息
-    // 如果没有获取到url，使用默认的数据
-    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    NSString *localIP = servers.clientIP;
-    ipAndISP = [SVIPAndISPGetter queryIPDetail:localIP];
-
     // 设置标题
     [self initTitleView];
 
@@ -140,8 +133,12 @@
 {
     [super viewWillAppear:animated];
 
-    //屏幕即将出现标识符设置为yes
-    currentCtl = YES;
+    //添加同步锁(同时只能有一个发生)
+    @synchronized (self)
+    {
+        //屏幕即将出现标识符设置为yes
+        currentCtl = YES;
+    }
     // 设置屏幕自动锁屏
     [UIApplication sharedApplication].idleTimerDisabled = NO;
 
@@ -334,9 +331,13 @@
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
+    //添加同步锁(同时只有一个发生)
+    @synchronized (self)
+    {
+        //屏幕即将消失标识符设置为no
+        currentCtl = NO;
+    }
     [super viewWillDisappear:animated];
-    //屏幕即将消失标识符设置为no
-    currentCtl = NO;
 }
 - (void)persistData
 {
@@ -444,7 +445,7 @@
         UIImageView *videoImageView = [self createResultImageViewWithName:@"ic_video_label"];
 
         // 字体颜色
-        UIColor *color = [UIColor colorWithHexString:@"#FFFEB960"];
+        UIColor *color = [UIColor colorWithHexString:@"#FEB960"];
 
         // 创建左侧指标的view
         NSString *leftValue = _failTitle;
@@ -511,7 +512,7 @@
         UIImageView *webImageView = [self createResultImageViewWithName:@"ic_web_label"];
 
         // 字体颜色
-        UIColor *color = [UIColor colorWithHexString:@"#FF38C695"];
+        UIColor *color = [UIColor colorWithHexString:@"#38C695"];
 
         // 创建左侧指标的view
         NSString *leftValue = I18N (@"Fail");
@@ -579,7 +580,7 @@
         UIImageView *speedImageView = [self createResultImageViewWithName:@"ic_speed_label"];
 
         // 字体颜色
-        UIColor *color = [UIColor colorWithHexString:@"#FFFC5F45"];
+        UIColor *color = [UIColor colorWithHexString:@"#FC5F45"];
 
         // 创建左侧指标的view
         NSString *leftValue = I18N (@"Fail");
@@ -682,7 +683,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = title;
     titleLabel.font = [UIFont systemFontOfSize:pixelToFontsize (30)];
-    titleLabel.textColor = [UIColor colorWithHexString:@"#B2000000"];
+    titleLabel.textColor = [UIColor colorWithHexString:@"#000000"];
 
     // 使Label根据内容自适应大小
     [SVLabelTools resetLayoutWithTitleLabel:titleLabel
@@ -910,12 +911,6 @@
 - (void)createShareUI
 {
 
-    //判断如果不是当前结果页面就退出
-    if (currentCtl == NO)
-    {
-        SVInfo (@"不在当前结果页面,不弹出分享界面");
-        return;
-    }
 
     randomx = rank;
     SVInfo (@"排名为%d", randomx);
@@ -1006,7 +1001,16 @@
     [imageview addSubview:label];
     [_greybtn addSubview:imageview];
     [_greybtn addSubview:_sharebtn];
-    [window addSubview:_greybtn];
+    @synchronized (self)
+    {
+        //判断如果不是当前结果页面就退出
+        if (currentCtl == NO)
+        {
+            SVInfo (@"不在当前结果页面,不弹出分享界面");
+            return;
+        }
+        [window addSubview:_greybtn];
+    }
 }
 //移除分享页面
 - (void)greyBtnBackClick
@@ -1018,29 +1022,7 @@
 {
     [_greybtn removeFromSuperview];
     //根据归属地，判断Facebook分享是否添加
-    [self getFacebookArray];
-}
-// 根据归属地，判断Facebook分享是否添加
-- (void)getFacebookArray
-{
-
-    if (ipAndISP)
-    {
-        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-        [probeInfo setIp:ipAndISP.query];
-        NSString *countryCode = ipAndISP.countryCode;
-        if (countryCode && [countryCode isEqualToString:@"CN"])
-        {
-            SVInfo (@"不分享Facebook");
-#pragma mark - 需要修改成shareClicked2
-            [self shareClicked1:nil];
-        }
-        else
-        {
-            SVInfo (@"分享Facebook");
-            [self shareClicked1:nil];
-        }
-    }
+    [self shareClicked1:nil];
 }
 
 #pragma mark - 分享的点击事件
@@ -1270,7 +1252,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 //微信朋友圈的分享方法实现
 - (void)Button2Click:(UIButton *)btn
@@ -1280,7 +1262,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 //微博方法实现
 - (void)Button3Click:(UIButton *)btn
@@ -1290,7 +1272,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 // facebook分享方法实现
 - (void)Button4Click:(UIButton *)btn
@@ -1300,7 +1282,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToFacebook].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 
 //分享内容

@@ -203,7 +203,7 @@
     // 初始化默认值
     NSMutableDictionary *defalutValue = [[NSMutableDictionary alloc] init];
     [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (36)] forKey:@"labelFontSize"];
-    [defalutValue setValue:[UIColor colorWithHexString:@"#B2000000"] forKey:@"labelColor"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#000000"] forKey:@"labelColor"];
     [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (60)] forKey:@"valueFontSize"];
     [defalutValue setValue:[UIColor colorWithHexString:@"#38C695"] forKey:@"valueColor"];
     [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (33)] forKey:@"unitFontSize"];
@@ -255,7 +255,7 @@
     _testUrlLabel = [CTWBViewTools
     createLabelWithFrame:CGRectMake (FITWIDTH (50), FITHEIGHT (106), FITWIDTH (446), FITHEIGHT (50))
                 withFont:pixelToFontsize (45)
-          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:@""];
 
     // 初始化测试地址标题的label
@@ -263,7 +263,7 @@
     createLabelWithFrame:CGRectMake (FITWIDTH (50), _testUrlLabel.bottomY + FITHEIGHT (16),
                                      FITWIDTH (446), FITWIDTH (34))
                 withFont:pixelToFontsize (36)
-          withTitleColor:[UIColor colorWithHexString:@"#B2000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:I18N (@"Test Url")];
 
     // 设置Label对齐

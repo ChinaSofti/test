@@ -91,7 +91,7 @@
     lableBWType.frame = CGRectMake (FITWIDTH (33), FITHEIGHT (45), FITWIDTH (580), FITHEIGHT (58));
     lableBWType.text = title1;
     lableBWType.font = [UIFont systemFontOfSize:pixelToFontsize (36)];
-    lableBWType.textColor = [UIColor colorWithHexString:@"#CC000000"];
+    lableBWType.textColor = [UIColor colorWithHexString:@"#000000"];
     [views addSubview:lableBWType];
 
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
@@ -112,7 +112,7 @@
         // button普通状态下的字体颜色
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         // button选中状态下的字体颜色
-        [button setTitleColor:[UIColor colorWithHexString:@"#e50000000"]
+        [button setTitleColor:[UIColor colorWithHexString:@"#000000"]
                      forState:UIControlStateSelected | UIControlStateHighlighted];
         [button setTitleColor:[UIColor colorWithHexString:@"#29a5e5"]
                      forState:UIControlStateSelected];
@@ -153,7 +153,7 @@
     //文字
     _textField.text = [probeInfo getBandwidth];
     _textField.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    _textField.textColor = [UIColor colorWithHexString:@"#E5000000"];
+    _textField.textColor = [UIColor colorWithHexString:@"#000000"];
     _textField.layer.cornerRadius = svCornerRadius (12);
     //边框
     _textField.borderStyle = UITextBorderStyleRoundedRect;

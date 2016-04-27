@@ -336,7 +336,7 @@
     // 初始化默认值
     NSMutableDictionary *defalutValue = [[NSMutableDictionary alloc] init];
     [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (36)] forKey:@"labelFontSize"];
-    [defalutValue setValue:[UIColor colorWithHexString:@"#CC000000"] forKey:@"labelColor"];
+    [defalutValue setValue:[UIColor colorWithHexString:@"#000000"] forKey:@"labelColor"];
     [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (60)] forKey:@"valueFontSize"];
     [defalutValue setValue:[UIColor colorWithHexString:@"#FEB960"] forKey:@"valueColor"];
     [defalutValue setValue:[UIFont systemFontOfSize:pixelToFontsize (32)] forKey:@"unitFontSize"];
@@ -496,7 +496,7 @@
     _locationValue = [CTWBViewTools
     createLabelWithFrame:CGRectMake (FITWIDTH (50), FITHEIGHT (0), FITWIDTH (446), FITHEIGHT (50))
                 withFont:pixelToFontsize (44)
-          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:@""];
 
     // 初始化位置标题的label
@@ -504,7 +504,7 @@
     createLabelWithFrame:CGRectMake (FITWIDTH (50), _locationValue.bottomY + FITHEIGHT (16),
                                      FITWIDTH (446), FITWIDTH (34))
                 withFont:pixelToFontsize (30)
-          withTitleColor:[UIColor colorWithHexString:@"#CC000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:I18N (@"Video Server Location")];
 
     // 初始化分辨率标题
@@ -512,7 +512,7 @@
     createLabelWithFrame:CGRectMake (FITWIDTH (50), _locationTitle.bottomY + FITHEIGHT (60),
                                      FITWIDTH (223), FITHEIGHT (41))
                 withFont:pixelToFontsize (36)
-          withTitleColor:[UIColor colorWithHexString:@"#CC000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:I18N (@"Resolution")];
 
     // 初始化分辨率的值
@@ -520,7 +520,7 @@
     createLabelWithFrame:CGRectMake (_resolutionTitle.rightX, _locationTitle.bottomY + FITHEIGHT (60),
                                      FITWIDTH (223), FITHEIGHT (41))
                 withFont:pixelToFontsize (36)
-          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:@""];
 
     // 码率标题
@@ -528,7 +528,7 @@
     createLabelWithFrame:CGRectMake (FITWIDTH (50), _resolutionTitle.bottomY + FITHEIGHT (40),
                                      FITWIDTH (223), FITHEIGHT (41))
                 withFont:pixelToFontsize (36)
-          withTitleColor:[UIColor colorWithHexString:@"#CC000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:I18N (@"Bit Rate")];
 
     // 码率
@@ -536,7 +536,7 @@
     createLabelWithFrame:CGRectMake (_bitRateTitle.rightX, _resolutionTitle.bottomY + FITHEIGHT (40),
                                      FITWIDTH (223), FITHEIGHT (41))
                 withFont:pixelToFontsize (36)
-          withTitleColor:[UIColor colorWithHexString:@"#E5000000"]
+          withTitleColor:[UIColor colorWithHexString:@"#000000"]
                withTitle:@""];
 
     // 设置Label对齐

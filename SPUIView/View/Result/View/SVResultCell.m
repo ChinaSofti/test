@@ -77,7 +77,7 @@
     {
         _testDate = [[UILabel alloc] init];
         _testDate.frame = CGRectMake (FITWIDTH (207), FITHEIGHT (33), FITWIDTH (207), FITHEIGHT (52));
-        _testDate.textColor = [UIColor colorWithHexString:@"#E5000000"];
+        _testDate.textColor = [UIColor colorWithHexString:@"#000000"];
         _testDate.font = [UIFont systemFontOfSize:pixelToFontsize (48)];
         _testDate.textAlignment = NSTextAlignmentCenter;
         //        _testDate.backgroundColor = [UIColor redColor];
@@ -92,7 +92,7 @@
     {
         _testTime = [[UILabel alloc] init];
         _testTime.frame = CGRectMake (FITWIDTH (207), FITHEIGHT (85), FITWIDTH (207), FITHEIGHT (52));
-        _testTime.textColor = [UIColor colorWithHexString:@"#B2000000"];
+        _testTime.textColor = [UIColor colorWithHexString:@"#000000"];
         _testTime.font = [UIFont systemFontOfSize:pixelToFontsize (30)];
         _testTime.textAlignment = NSTextAlignmentCenter;
     }
@@ -106,7 +106,7 @@
     {
         _videoMOS = [[UILabel alloc] init];
         _videoMOS.frame = CGRectMake (FITWIDTH (414), 0, FITWIDTH (207), FITHEIGHT (170));
-        _videoMOS.textColor = [UIColor colorWithHexString:@"#E5000000"];
+        _videoMOS.textColor = [UIColor colorWithHexString:@"#000000"];
         _videoMOS.font = [UIFont systemFontOfSize:pixelToFontsize (48)];
         _videoMOS.textAlignment = NSTextAlignmentCenter;
     }
@@ -125,14 +125,14 @@
     if (_loadTimeValue == nil)
     {
         _loadTimeValue = [[UILabel alloc] init];
-        _loadTimeValue.textColor = [UIColor colorWithHexString:@"#E5000000"];
+        _loadTimeValue.textColor = [UIColor colorWithHexString:@"#000000"];
         _loadTimeValue.font = [UIFont systemFontOfSize:pixelToFontsize (48)];
     }
 
     if (_loadTimeUnit == nil)
     {
         _loadTimeUnit = [[UILabel alloc] init];
-        _loadTimeUnit.textColor = [UIColor colorWithHexString:@"#E5000000"];
+        _loadTimeUnit.textColor = [UIColor colorWithHexString:@"#000000"];
         _loadTimeUnit.font = [UIFont systemFontOfSize:pixelToFontsize (30)];
     }
 
@@ -152,14 +152,14 @@
     if (_bandWidthValue == nil)
     {
         _bandWidthValue = [[UILabel alloc] init];
-        _bandWidthValue.textColor = [UIColor colorWithHexString:@"#E5000000"];
+        _bandWidthValue.textColor = [UIColor colorWithHexString:@"#000000"];
         _bandWidthValue.font = [UIFont systemFontOfSize:pixelToFontsize (48)];
     }
 
     if (_bandWidthUnit == nil)
     {
         _bandWidthUnit = [[UILabel alloc] init];
-        _bandWidthUnit.textColor = [UIColor colorWithHexString:@"#E5000000"];
+        _bandWidthUnit.textColor = [UIColor colorWithHexString:@"#000000"];
         _bandWidthUnit.font = [UIFont systemFontOfSize:pixelToFontsize (30)];
     }
 
@@ -299,7 +299,7 @@
 - (void)chanageColor
 {
     UIColor *textColor = [UIColor blackColor];
-    UIColor *selectedColor = [UIColor colorWithHexString:@"29A5E5"];
+    UIColor *selectedColor = [UIColor colorWithHexString:@"#29A5E5"];
 
     // 设置被选中列的字体颜色
     if (!self.columnName || [self.columnName isEqualToString:@""])

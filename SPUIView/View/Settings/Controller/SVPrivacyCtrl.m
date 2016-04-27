@@ -132,7 +132,7 @@
     UILabel *label1 = [[UILabel alloc] init];
     //    label1.backgroundColor = [UIColor redColor];
     label1.text = title11;
-    label1.textColor = [UIColor colorWithHexString:@"#4C000000"];
+    label1.textColor = [UIColor colorWithHexString:@"#000000"];
     label1.font = [UIFont systemFontOfSize:pixelToFontsize (58)];
     label1.frame =
     CGRectMake (FITWIDTH (44), statusBarH + NavBarH + FITHEIGHT (20), kScreenW - FITWIDTH (88),
@@ -153,7 +153,7 @@
     UILabel *label2 = [[UILabel alloc] init];
     //    label2.backgroundColor = [UIColor blueColor];
     label2.text = title12;
-    label2.textColor = [UIColor colorWithHexString:@"#4C000000"];
+    label2.textColor = [UIColor colorWithHexString:@"#000000"];
     label2.font = [UIFont systemFontOfSize:pixelToFontsize (58)];
     label2.frame =
     CGRectMake (FITWIDTH (44), label1.bottomY + FITHEIGHT (100), kScreenW - FITWIDTH (88),
