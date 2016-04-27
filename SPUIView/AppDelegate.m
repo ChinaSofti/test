@@ -47,7 +47,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     // 1.友盟分享的Key
     NSString *UmengAppkey = @"57173b1ce0f55add74000285";
     // 2.要分享的URL
-    NSString *Url = @"http://58.60.106.185:12210";
+    NSString *Url = I18N (@"myurl");
     // 3.1设置友盟社会化组件appkey
     [UMSocialData setAppKey:UmengAppkey];
     // 3.2设置微信AppId、appSecret，分享url
