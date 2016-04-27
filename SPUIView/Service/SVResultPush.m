@@ -672,15 +672,17 @@ NSArray *_emptyArr;
 
         // 完整下载时间
         NSNumber *totalTime = [self string2num:[currentResultJson valueForKey:@"totalTime"]];
-        [currentDic setObject:[[NSNumber alloc] initWithLong:[totalTime doubleValue] * 1000]
-                       forKey:@"loadingTime"];
+        double loadTime =
+        [totalTime doubleValue] >= 0 ? [totalTime doubleValue] * 1000 : [totalTime doubleValue];
+        [currentDic setObject:[[NSNumber alloc] initWithLong:loadTime] forKey:@"loadingTime"];
 
         [currentDic setObject:[[NSNumber alloc] initWithInt:100] forKey:@"progress"];
 
         // 响应时间
         NSNumber *responseTime = [self string2num:[currentResultJson valueForKey:@"responseTime"]];
-        [currentDic setObject:[[NSNumber alloc] initWithLong:[responseTime doubleValue] * 1000]
-                       forKey:@"responseTime"];
+        double resTime = [responseTime doubleValue] >= 0 ? [responseTime doubleValue] * 1000 :
+                                                           [responseTime doubleValue];
+        [currentDic setObject:[[NSNumber alloc] initWithLong:resTime] forKey:@"responseTime"];
 
         [currentDic setObject:[[NSNumber alloc] initWithInt:0] forKey:@"startLoadingUrlCount"];
 

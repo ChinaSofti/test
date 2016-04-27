@@ -58,7 +58,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>Facebook</string>
+			<string>facebook</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb1694953214094427</string>
@@ -67,6 +67,10 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>1694953214094427</string>
+	<key>FacebookDisplayName</key>
+	<string>SpeedPro</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>wechat</string>

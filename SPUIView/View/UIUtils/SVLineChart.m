@@ -96,6 +96,7 @@
 
         [self labelWithFrame:self.frame index:(int)index];
 
+        NSLog (@"%@ ", value);
         CGPoint point2 = CGPointMake ([self nextPointX:index], [self nextPointY:[value floatValue]]);
         [self addPoint:point2];
 
@@ -129,7 +130,7 @@
         [self labelWithFrame:self.frame index:(int)index];
 
         CGPoint point2 = CGPointMake ([self nextPointX:index], [self nextPointY:[value floatValue]]);
-        
+        NSLog (@"%@ ", value);
         [self addPoint:point2];
 
         UIBezierPath *colorPath = [self createPathWithFirstPoint:lastPoint SecondPoint:point2];

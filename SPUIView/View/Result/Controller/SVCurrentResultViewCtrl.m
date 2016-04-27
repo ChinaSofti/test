@@ -58,13 +58,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    //    获取地域信息
-    // 如果没有获取到url，使用默认的数据
-    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    NSString *localIP = servers.clientIP;
-    ipAndISP = [SVIPAndISPGetter queryIPDetail:localIP];
-
     // 设置标题
     [self initTitleView];
 
@@ -140,8 +133,12 @@
 {
     [super viewWillAppear:animated];
 
-    //屏幕即将出现标识符设置为yes
-    currentCtl = YES;
+    //添加同步锁(同时只能有一个发生)
+    @synchronized (self)
+    {
+        //屏幕即将出现标识符设置为yes
+        currentCtl = YES;
+    }
     // 设置屏幕自动锁屏
     [UIApplication sharedApplication].idleTimerDisabled = NO;
 
@@ -334,9 +331,13 @@
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
+    //添加同步锁(同时只有一个发生)
+    @synchronized (self)
+    {
+        //屏幕即将消失标识符设置为no
+        currentCtl = NO;
+    }
     [super viewWillDisappear:animated];
-    //屏幕即将消失标识符设置为no
-    currentCtl = NO;
 }
 - (void)persistData
 {
@@ -909,14 +910,6 @@
 
 - (void)createShareUI
 {
-
-    //判断如果不是当前结果页面就退出
-    if (currentCtl == NO)
-    {
-        SVInfo (@"不在当前结果页面,不弹出分享界面");
-        return;
-    }
-
     randomx = rank;
     SVInfo (@"排名为%d", randomx);
     //判断如果随机数不大于0就退出
@@ -1006,7 +999,16 @@
     [imageview addSubview:label];
     [_greybtn addSubview:imageview];
     [_greybtn addSubview:_sharebtn];
-    [window addSubview:_greybtn];
+    @synchronized (self)
+    {
+        //判断如果不是当前结果页面就退出
+        if (currentCtl == NO)
+        {
+            SVInfo (@"不在当前结果页面,不弹出分享界面");
+            return;
+        }
+        [window addSubview:_greybtn];
+    }
 }
 //移除分享页面
 - (void)greyBtnBackClick
@@ -1018,29 +1020,7 @@
 {
     [_greybtn removeFromSuperview];
     //根据归属地，判断Facebook分享是否添加
-    [self getFacebookArray];
-}
-// 根据归属地，判断Facebook分享是否添加
-- (void)getFacebookArray
-{
-
-    if (ipAndISP)
-    {
-        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-        [probeInfo setIp:ipAndISP.query];
-        NSString *countryCode = ipAndISP.countryCode;
-        if (countryCode && [countryCode isEqualToString:@"CN"])
-        {
-            SVInfo (@"不分享Facebook");
-#pragma mark - 需要修改成shareClicked2
-            [self shareClicked1:nil];
-        }
-        else
-        {
-            SVInfo (@"分享Facebook");
-            [self shareClicked1:nil];
-        }
-    }
+    [self shareClicked1:nil];
 }
 
 #pragma mark - 分享的点击事件
@@ -1100,7 +1080,7 @@
     UIButton *button4 = [[UIButton alloc]
     initWithFrame:CGRectMake (FITWIDTH (80) + 3 * (kScreenW - FITWIDTH (58)) / 4,
                               kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
-    [button4 setImage:[UIImage imageNamed:@"share_to_email"] forState:UIControlStateNormal];
+    [button4 setImage:[UIImage imageNamed:@"share_to_facebook"] forState:UIControlStateNormal];
     [button4 addTarget:self
                 action:@selector (Button4Click:)
       forControlEvents:UIControlEventTouchUpInside];
@@ -1270,7 +1250,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 //微信朋友圈的分享方法实现
 - (void)Button2Click:(UIButton *)btn
@@ -1280,7 +1260,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 //微博方法实现
 - (void)Button3Click:(UIButton *)btn
@@ -1290,7 +1270,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 // facebook分享方法实现
 - (void)Button4Click:(UIButton *)btn
@@ -1300,7 +1280,7 @@
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToFacebook].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
-    [self ButtonRemoveClick:nil];
+    [btn.superview removeFromSuperview];
 }
 
 //分享内容

@@ -335,7 +335,7 @@
       }
 
       // 成功的时候显示指标值
-      if (totalTime < 10)
+      if (totalTime < 10 && totalTime >= 0)
       {
           // 显示头部指标
           [_headerView updateLeftValue:[NSString stringWithFormat:@"%.2f", responseTime]

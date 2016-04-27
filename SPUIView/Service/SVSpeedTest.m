@@ -12,6 +12,7 @@
 #import "SVProbeInfo.h"
 #import "SVResultPush.h"
 #import "SVSpeedDelayTest.h"
+#import "SVSpeedDownloadTest.h"
 #import "SVSpeedTest.h"
 #import "SVSpeedTestInfo.h"
 #import "SVSpeedTestServers.h"
@@ -60,6 +61,9 @@ struct sockaddr_in addr;
 double _beginTime;
 
 NSString *insertSVDetailResultModelSQL;
+
+// 下载测试
+SVSpeedDownloadTest *downloadTest;
 
 /**
  *  初始化带宽测试对象，初始化必须放在UI主线程中进行
@@ -169,16 +173,13 @@ NSString *insertSVDetailResultModelSQL;
 {
     @try
     {
-        // 启动两个线程
-        for (int i = 0; i < THREAD_NUM; i++)
-        {
-            dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-              [self download];
-            });
-        }
-
-        // 下载测试需要测试10秒
-        [self sample:false];
+        downloadTest = [[SVSpeedDownloadTest alloc] initWithUrl:_testContext.downloadUrl
+                                                   WithDelegate:_testDelegate
+                                                     WithTestId:_testId
+                                                 WithTestResult:_testResult
+                                                 WithTestContet:_testContext
+                                                 WithTestStatus:_testStatus];
+        [downloadTest startTest];
     }
     @catch (NSException *exception)
     {
@@ -717,6 +718,11 @@ void sort (double *a, int n)
 {
     _testStatus = TEST_FINISHED;
     _internalTestStatus = TEST_FINISHED;
+
+    if (downloadTest)
+    {
+        [downloadTest updateStatus:_testStatus];
+    }
 
     SVInfo (@"stop speed test!!!!");
 

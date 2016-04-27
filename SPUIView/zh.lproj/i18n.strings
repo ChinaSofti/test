@@ -6,6 +6,7 @@
  Copyright © 2016年 chinasofti. All rights reserved.
  */
 
+"myurl"= "http://mp.weixin.qq.com/s?__biz=MzA3MTE1NzAxMg==&mid=402069391&idx=1&sn=48f75c6378c44c3c0863dd8169eb9bb9&scene=1&srcid=0222uC268gG8hyOJacHr3n8n&from=groupmessage&isappinstalled=0#wechat_redirect";
 //抽奖
 //图片
 "speed_level_frist_english" = "speed_level_frist";
@@ -175,7 +176,7 @@
 "Sina Weibo"="新浪微博";
 "WeChat"="微信";
 "Moments"="微信朋友圈";
-"Email"="邮件";
+"Facebook"="脸书";
 "Cancel"="取消";
 
 //设置界面
@@ -198,7 +199,7 @@
 "Submit" = "提交";
 
 //分享
-"Share"="分享";
+"Share"="分享本次测试结果";
 
 //关于
 "About"="关于";
