@@ -20,7 +20,6 @@
 
     CGFloat _maxY;
     NSMutableArray *_pathArrays;
-    NSMutableArray *_heightArrays;
 }
 
 - (id)initWithFrame:(CGRect)frame maxY:(float)maxY
