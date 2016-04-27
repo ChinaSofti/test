@@ -910,8 +910,6 @@
 
 - (void)createShareUI
 {
-
-
     randomx = rank;
     SVInfo (@"排名为%d", randomx);
     //判断如果随机数不大于0就退出
@@ -1082,7 +1080,7 @@
     UIButton *button4 = [[UIButton alloc]
     initWithFrame:CGRectMake (FITWIDTH (80) + 3 * (kScreenW - FITWIDTH (58)) / 4,
                               kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
-    [button4 setImage:[UIImage imageNamed:@"share_to_email"] forState:UIControlStateNormal];
+    [button4 setImage:[UIImage imageNamed:@"share_to_facebook"] forState:UIControlStateNormal];
     [button4 addTarget:self
                 action:@selector (Button4Click:)
       forControlEvents:UIControlEventTouchUpInside];
