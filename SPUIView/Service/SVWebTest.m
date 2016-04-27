@@ -451,6 +451,12 @@ didFailNavigation:(WKNavigation *)navigation
     // 如果超过10S，则任务测试结束
     if (costTime >= 10)
     {
+        // 设置失败的数据
+        [currentResult setTotalTime:-1];
+        [currentResult setDownloadSpeed:-1];
+        [currentResult setDownloadSize:-1];
+        [currentResult setResponseTime:-1];
+
         // 设置测试状态为结束
         finished = YES;
         [currentResult setFinished:finished];
