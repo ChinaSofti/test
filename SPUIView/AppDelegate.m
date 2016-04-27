@@ -17,7 +17,6 @@
 #import "SVToast.h"
 //微信分享
 #import "WXApi.h"
-#import <FBSDKShareKit/FBSDKShareKit.h>
 //分享
 #import "UMSocial.h"
 #import "UMSocialFacebookHandler.h"
@@ -44,6 +43,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
         [[NSUserDefaults standardUserDefaults] setValue:currentVersion forKey:@"lastversion"];
     }
+
+    /*****************************************分享代码********************************/
     // 1.友盟分享的Key
     NSString *UmengAppkey = @"57173b1ce0f55add74000285";
     // 2.要分享的URL
@@ -58,9 +59,15 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1657697846"
                                               secret:@"d09a66e00701f15f5f5bcc20f514fc53"
                                          RedirectURL:Url];
-    // 3.4设置Facebook，AppID和分享url
-    [UMSocialFacebookHandler setFacebookAppID:@"1694953214094427" shareFacebookWithURL:Url];
-
+    // 3.4设置Facebook，AppID和分享url(根据bundel不同需要更换APPID)
+    /*
+     bundel id:com.huawei.speedpro
+     1694953214094427
+     1758631544423034
+     bundel id:com.huawei.speedpro.debug
+     221368888244101
+     */
+    [UMSocialFacebookHandler setFacebookAppID:@"221368888244101" shareFacebookWithURL:Url];
     // 4.1支持横屏
     [UMSocialConfig setSupportedInterfaceOrientations:UIInterfaceOrientationMaskLandscape];
     // 4.2对未安装客户端平台进行隐藏(苹果审核需要,如果不加审核不过)
@@ -70,30 +77,11 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         UMShareToSina,
         UMShareToFacebook
     ]];
-    // 4.3详细信息添加
-    // 4.3.1设置标题
-    //    NSString *title = @"SpeedPro分享1";
-    //@"标题"
-    //    [UMSocialData defaultData].extConfig.title = title;
-    //    [UMSocialData defaultData].extConfig.wechatSessionData.title = @"SpeedPro";
-    //    [UMSocialData defaultData].extConfig.wechatFavoriteData.title = @"SpeedPro";
-    //    [UMSocialData defaultData].extConfig.facebookData.title = @"SpeedPro";
-    // 4.3.2设置点击分享内容跳转链接
-    //    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://baidu.com";
-    // 4.3.4设置分享消息类型
-    //纯图片分享
-    //    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeImage;
-    //纯文字分享
-    //    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeText;
-    //应用分享
-    //    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeApp;
-    // 4.3.4分享链接
-    //    NSString *url = @"www.baidu.com";
-    //    @"链接网址"
-    //    [[UMSocialData defaultData].urlResource setResourceType:UMSocialUrlResourceTypeImage
-    //    url:url];
-
-
+    // 4.3分享图片
+    [[UMSocialData defaultData].urlResource setResourceType:UMSocialUrlResourceTypeImage url:Url];
+    // 4.4分享链接
+    [[UMSocialData defaultData].urlResource setResourceType:UMSocialUrlResourceTypeWeb url:Url];
+    /*****************************************分享代码********************************/
     //设置navigationBar的颜色
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#263841"]];
 
@@ -116,39 +104,39 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     return YES;
 }
 #pragma mark - 分享的方法
-//回调函数
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
-{
-    BOOL result = [UMSocialSnsService handleOpenURL:url];
-    if (result == FALSE)
-    {
-        //调用其他SDK，例如支付宝SDK等
-        SVInfo (@"分享回调函数");
-    }
-    return result;
-}
-
-- (void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
-{
-    //根据`responseCode`得到发送结果,如果分享成功
-    if (response.responseCode == UMSResponseCodeSuccess)
-    {
-        //得到分享到的微博平台名
-        SVInfo (@"share to sns name is %@", [[response.data allKeys] objectAtIndex:0]);
-    }
-}
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-{
-    return [UMSocialSnsService handleOpenURL:url];
-}
-//弹出列表方法presentSnsIconSheetView需要设置delegate为self
-- (BOOL)isDirectShareInIconActionSheet
-{
-    return YES;
-}
+////回调函数
+//- (BOOL)application:(UIApplication *)application
+//            openURL:(NSURL *)url
+//  sourceApplication:(NSString *)sourceApplication
+//         annotation:(id)annotation
+//{
+//    BOOL result = [UMSocialSnsService handleOpenURL:url];
+//    if (result == FALSE)
+//    {
+//        //调用其他SDK，例如支付宝SDK等
+//        SVInfo (@"分享回调函数");
+//    }
+//    return result;
+//}
+//
+//- (void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+//{
+//    //根据`responseCode`得到发送结果,如果分享成功
+//    if (response.responseCode == UMSResponseCodeSuccess)
+//    {
+//        //得到分享到的微博平台名
+//        SVInfo (@"share to sns name is %@", [[response.data allKeys] objectAtIndex:0]);
+//    }
+//}
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+//{
+//    return [UMSocialSnsService handleOpenURL:url];
+//}
+////弹出列表方法presentSnsIconSheetView需要设置delegate为self
+//- (BOOL)isDirectShareInIconActionSheet
+//{
+//    return YES;
+//}
 
 #pragma mark - 网络状态
 - (void)networkStatusChange:(SVRealReachabilityStatus)status

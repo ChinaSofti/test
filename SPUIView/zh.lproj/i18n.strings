@@ -6,7 +6,8 @@
  Copyright © 2016年 chinasofti. All rights reserved.
  */
 
-"myurl"= "http://mp.weixin.qq.com/s?__biz=MzA3MTE1NzAxMg==&mid=402069391&idx=1&sn=48f75c6378c44c3c0863dd8169eb9bb9&scene=1&srcid=0222uC268gG8hyOJacHr3n8n&from=groupmessage&isappinstalled=0#wechat_redirect";
+//"myurl"= "http://mp.weixin.qq.com/s?__biz=MzA3MTE1NzAxMg==&mid=402069391&idx=1&sn=48f75c6378c44c3c0863dd8169eb9bb9&scene=1&srcid=0222uC268gG8hyOJacHr3n8n&from=groupmessage&isappinstalled=0#wechat_redirect";
+"myurl"= "http://fir.im/speedpro";
 //抽奖
 //图片
 "speed_level_frist_english" = "speed_level_frist";
