@@ -8,6 +8,7 @@
 
 #import "SVLog.h"
 #import "SVProbeInfo.h"
+#import "SVRealReachability.h"
 #import "SVTimeUtil.h"
 #import "SVVideoSegement.h"
 #import "SVVideoUtil.h"
@@ -297,7 +298,7 @@ static int execute_total_times = 4;
     [sample setStallingDuration:0];
     [sample setVideoStartPlayTime:[testResult videoStartPlayTime]];
     [sample setVideoTotalCuttonTime:0];
-    [uvMOSCalculator calculateUvMOS:sample time:firstBufferedTime];
+    [uvMOSCalculator calculateUvMOS:sample time:testResult.firstBufferTime];
     if (!testResult.videoTestSamples)
     {
         testResult.videoTestSamples = [[NSMutableArray alloc] init];
@@ -383,6 +384,12 @@ static int execute_total_times = 4;
     // 卡顿开始
     int interval = (int)([SVTimeUtil currentMilliSecondStamp] - [testResult videoStartPlayTime]);
     [uvMOSCalculator update:STATUS_IMPAIR_START time:interval];
+
+    // 开始缓存时，暂停定时器
+    if (timer)
+    {
+        [timer setFireDate:[NSDate distantFuture]];
+    }
 }
 
 /**
@@ -414,6 +421,12 @@ static int execute_total_times = 4;
     [uvMOSCalculator update:STATUS_IMPAIR_END time:interval];
     SVInfo (@"NAL 3HBT &&&&&&&&&&&&&&&&.......&&&&&&&&&&&&&&&&&  bufferingEnd");
     [player start];
+
+    // 卡顿结束，重启定时器
+    if (timer)
+    {
+        [timer setFireDate:[NSDate distantPast]];
+    }
 }
 
 - (void)pushTestSample

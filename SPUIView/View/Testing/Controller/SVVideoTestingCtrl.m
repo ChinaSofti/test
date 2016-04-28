@@ -778,4 +778,8 @@
     [self.view addSubview:_transparentView];
 }
 
+- (void)stopTest
+{
+    [_videoTest stopTest];
+}
 @end

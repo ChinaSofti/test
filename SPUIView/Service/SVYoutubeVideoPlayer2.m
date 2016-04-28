@@ -306,6 +306,12 @@ static int execute_total_times = 4;
         int interval = (int)([SVTimeUtil currentMilliSecondStamp] - [testResult videoStartPlayTime]);
         [uvMOSCalculator update:STATUS_IMPAIR_START time:interval];
     }
+
+    // 开始缓存时，暂停定时器
+    if (timer)
+    {
+        [timer setFireDate:[NSDate distantFuture]];
+    }
 }
 
 /**
@@ -334,6 +340,12 @@ static int execute_total_times = 4;
 
     SVInfo (@"NAL 3HBT &&&&&&&&&&&&&&&&.......&&&&&&&&&&&&&&&&&  bufferingEnd");
     [self startCalculateUvMOS_bufferedTime:bufferedTime];
+
+    // 卡顿结束，重启定时器
+    if (timer)
+    {
+        [timer setFireDate:[NSDate distantPast]];
+    }
 }
 
 - (void)startCalculateUvMOS_bufferedTime:(int)bufferedTime

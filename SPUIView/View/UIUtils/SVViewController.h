@@ -29,4 +29,8 @@
                                         WithColor:(nonnull UIColor *)bgColor
                                      WithDelegate:(nonnull id)delegate
                                    WithDataSource:(nonnull id)dataSource;
+
+// 当前页面是否正在显示
+- (BOOL)isVisible;
+
 @end

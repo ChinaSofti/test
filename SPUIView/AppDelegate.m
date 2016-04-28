@@ -156,10 +156,19 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     switch (status)
     {
     case SV_RealStatusNotReachable:
+    {
         SVInfo (@"%@", @"Network unreachable!");
         [SVToast showWithText:I18N (@"Network unreachable!")];
         [[SVProbeInfo sharedInstance] setNetworkType:@"1"];
+
+        // 创建一个消息对象
+        NSNotification *notice =
+        [NSNotification notificationWithName:@"networkStatusChange" object:nil userInfo:nil];
+
+        //发送消息
+        [[NSNotificationCenter defaultCenter] postNotification:notice];
         break;
+    }
     case SV_RealStatusViaWWAN:
         SVInfo (@"%@", @"Network WWAN! In charge!");
         [SVToast showWithText:I18N (@"Network WWAN!")];

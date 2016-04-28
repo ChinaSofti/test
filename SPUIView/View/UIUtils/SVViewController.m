@@ -150,4 +150,11 @@
     return newImage;
 }
 
+// 当前页面是否正在显示
+- (BOOL)isVisible
+{
+    return (self.isViewLoaded && self.view.window);
+}
+
+
 @end

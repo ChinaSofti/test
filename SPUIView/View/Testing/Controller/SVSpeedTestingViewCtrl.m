@@ -481,5 +481,9 @@ double _preSpeed = 0.0;
     [currentResultModel pushNextCtrl];
 }
 
+- (void)stopTest
+{
+    [_speedTest stopTest];
+}
 
 @end

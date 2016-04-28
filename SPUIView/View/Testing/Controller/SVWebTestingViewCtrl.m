@@ -394,5 +394,9 @@
     [currentResultModel pushNextCtrl];
 }
 
+- (void)stopTest
+{
+    [_webTest stopTest];
+}
 
 @end
