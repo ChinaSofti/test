@@ -67,7 +67,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
      bundel id:com.huawei.speedpro.debug
      221368888244101
      */
-    [UMSocialFacebookHandler setFacebookAppID:@"221368888244101" shareFacebookWithURL:Url];
+    [UMSocialFacebookHandler setFacebookAppID:@"1694953214094427" shareFacebookWithURL:Url];
     // 4.1支持横屏
     [UMSocialConfig setSupportedInterfaceOrientations:UIInterfaceOrientationMaskLandscape];
     // 4.2对未安装客户端平台进行隐藏(苹果审核需要,如果不加审核不过)

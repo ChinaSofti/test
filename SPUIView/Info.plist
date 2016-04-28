@@ -27,7 +27,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb221368888244101</string>
+				<string>fb1694953214094427</string>
 			</array>
 		</dict>
 		<dict>
@@ -54,7 +54,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>221368888244101</string>
+	<string>1694953214094427</string>
 	<key>FacebookDisplayName</key>
 	<string>SpeedPro</string>
 	<key>LSApplicationQueriesSchemes</key>
