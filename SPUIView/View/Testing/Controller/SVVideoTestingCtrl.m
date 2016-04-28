@@ -730,6 +730,9 @@
     // 退出全屏模式时将videoView放回原处
     [_footerView.leftView addSubview:_videoView];
     [_footerView.leftView addSubview:_transparentView];
+
+    [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIInterfaceOrientationPortrait]
+                                forKey:@"orientation"];
 }
 
 
@@ -776,6 +779,9 @@
     // 进入全屏时将videoView放到当前view中
     [self.view addSubview:_videoView];
     [self.view addSubview:_transparentView];
+
+    [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight]
+                                forKey:@"orientation"];
 }
 
 - (void)stopTest

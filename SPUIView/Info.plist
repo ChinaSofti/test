@@ -25,30 +25,18 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>prefs</string>
+				<string>fb1694953214094427</string>
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wx1d6b749a18f33c50</string>
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>weibo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wb1657697846</string>
@@ -57,11 +45,9 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>facebook</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1694953214094427</string>
+				<string>prefs</string>
 			</array>
 		</dict>
 	</array>

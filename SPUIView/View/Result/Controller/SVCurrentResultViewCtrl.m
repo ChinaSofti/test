@@ -1357,6 +1357,18 @@
                                                             shareImage:[UIImage imageNamed:image]
                                                       socialUIDelegate:self];
 }
+
+//分享成功调用此方法
+- (void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    if (response.responseCode == UMSResponseCodeSuccess)
+    {
+        //把分享完成提示框放在底部
+        [UMSocialConfig setFinishToastIsHidden:NO position:UMSocialiToastPositionBottom];
+        SVInfo (@"分享成功了");
+    }
+}
+
 //取消方法实现
 - (void)ButtonRemoveClick:(UIButton *)btn
 {
