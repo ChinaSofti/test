@@ -77,8 +77,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         UMShareToSina,
         UMShareToFacebook
     ]];
-    // 4.3分享图片
-    [[UMSocialData defaultData].urlResource setResourceType:UMSocialUrlResourceTypeImage url:Url];
     // 4.4分享链接
     [[UMSocialData defaultData].urlResource setResourceType:UMSocialUrlResourceTypeWeb url:Url];
     /*****************************************分享代码********************************/

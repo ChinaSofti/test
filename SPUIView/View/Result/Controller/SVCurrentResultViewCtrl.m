@@ -1277,6 +1277,8 @@
 {
     SVInfo (@"分享到Facebook");
     [self ShareContent];
+    //把分享完成提示框放在底部
+    [UMSocialConfig setFinishToastIsHidden:NO position:UMSocialiToastPositionBottom];
     //设置分享内容和回调对象
     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToFacebook].snsClickHandler (
     self, [UMSocialControllerService defaultControllerService], YES);
@@ -1286,49 +1288,58 @@
 //分享内容
 - (void)ShareContent
 {
-    //分享的文本
-    NSString *titlea = I18N (@"I am at the ");
+    // 1.0分享的标题
+    NSString *titlea = I18N (@"Come to use SpeedPro!I am at the ");
     NSString *titleb1 = I18N (@"Mastery");
     NSString *titleb2 = I18N (@"Expertise");
     NSString *titleb3 = I18N (@"Proficiency");
     NSString *titleb4 = I18N (@"Competence");
     NSString *titleb5 = I18N (@"Novice");
-    NSString *titlec = I18N (@" level.What is yours?");
+    NSString *titlec = I18N (@" level.");
     NSString *titleA1 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb1, titlec];
     NSString *titleA2 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb2, titlec];
     NSString *titleA3 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb3, titlec];
     NSString *titleA4 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb4, titlec];
     NSString *titleA5 = [[NSString alloc] initWithFormat:@"%@%@%@", titlea, titleb5, titlec];
-    //创建分享内容对象
-    NSString *urlMessage;
+    //创建分享标题对象
+    NSString *MessageTitle;
     //根据随机数判断要分享的标题
     if (randomx >= 95)
     {
-        urlMessage = titleA1; //分享标题
+        MessageTitle = titleA1; //分享标题
     }
     if (randomx >= 80 && randomx <= 95)
     {
-        urlMessage = titleA2; //分享标题
+        MessageTitle = titleA2; //分享标题
     }
     if (randomx >= 60 && randomx <= 80)
     {
-        urlMessage = titleA3; //分享标题
+        MessageTitle = titleA3; //分享标题
     }
     if (randomx >= 10 && randomx <= 60)
     {
-        urlMessage = titleA4; //分享标题
+        MessageTitle = titleA4; //分享标题
     }
     if (randomx >= 0 && randomx <= 10)
     {
-        urlMessage = titleA5; //分享标题
+        MessageTitle = titleA5; //分享标题
     }
+    // 2.0分享的内容
+    NSString *titleaq = I18N (@"I have defeated ");
+    NSString *titlecq =
+    I18N (@"% of all users in the Red Envelope  War.Come on and test how fast you are!");
+    NSString *titleAq = [[NSString alloc] initWithFormat:@"%@%d%@", titleaq, randomx, titlecq];
+    //创建分享内容对象
+    NSString *MessageText;
+    MessageText = titleAq; //分享内容
+
     //根据随机数显示压缩图片
     NSString *str11 = I18N (@"share_image_frist_english");
     NSString *str21 = I18N (@"share_image_second_english");
     NSString *str31 = I18N (@"share_image_thrid_english");
     NSString *str41 = I18N (@"share_image_forth_english");
     NSString *str51 = I18N (@"share_image_last_english");
-    //创建分享的图片
+    // 3.0分享的图片
     NSString *image;
     //分享图片,使用SDK的setThumbImage方法可压缩图片大小
     if (randomx >= 95)
@@ -1352,10 +1363,33 @@
         image = str51;
     }
 
-    //分享
-    [[UMSocialControllerService defaultControllerService] setShareText:urlMessage
+    // 4.0分享的网址和资源
+    NSString *Url = I18N (@"myurl");
+    UMSocialUrlResource *UrlResource =
+    [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb
+                                                     url:@"www.baidu.com"];
+    // 5.0分享
+    [[UMSocialControllerService defaultControllerService] setShareText:MessageText
                                                             shareImage:[UIImage imageNamed:image]
                                                       socialUIDelegate:self];
+    //微信好友
+    [UMSocialData defaultData].extConfig.wechatSessionData.title = MessageTitle;
+    [UMSocialData defaultData].extConfig.wechatSessionData.shareText = MessageText;
+
+    //微信朋友圈
+    [UMSocialData defaultData].extConfig.wechatTimelineData.title = MessageTitle;
+    //    [UMSocialData defaultData].extConfig.wechatTimelineData.shareText = MessageText;
+
+    // Facebook
+    [UMSocialData defaultData].extConfig.facebookData.title = MessageTitle;
+    [UMSocialData defaultData].extConfig.facebookData.shareText = MessageText;
+    [UMSocialData defaultData].extConfig.facebookData.url = Url;
+    [UMSocialData defaultData].extConfig.facebookData.urlResource = UrlResource;
+    [UMSocialData defaultData].extConfig.facebookData.linkDescription =
+    I18N (@"Click download application");
+    //微博
+    //    [UMSocialData defaultData].extConfig.title = MessageTitle;
+    //    [UMSocialData defaultData].extConfig.sinaData.shareText = MessageText;
 }
 
 //分享成功调用此方法

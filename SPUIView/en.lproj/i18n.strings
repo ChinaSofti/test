@@ -6,9 +6,11 @@
  Copyright © 2016年 chinasofti. All rights reserved.
  */
 
-//"myurl"= "http://mp.weixin.qq.com/s?__biz=MzA3MTE1NzAxMg==&mid=402069391&idx=1&sn=48f75c6378c44c3c0863dd8169eb9bb9&scene=1&srcid=0222uC268gG8hyOJacHr3n8n&from=groupmessage&isappinstalled=0#wechat_redirect";
+
+//分享
 "myurl"= "http://fir.im/speedpro";
-//抽奖
+//点击下载应用
+"Click download application" = "Click download application";
 //图片
 "speed_level_frist_english" = "speed_level_frist_english";
 "speed_level_second_english" = "speed_level_second_english";
@@ -24,19 +26,17 @@
 //界面文字
 "I have defeated" = "I have defeated";
 "of all users" = "of all users";
-"Activity period:4.1 to 4.7!" = "Activity period:4.1 to 4.7!";
-"Share to win 100-yuan top up" = "Share to win 100-yuan top up";
-
-"I am at the " = "I am at the ";
+"Come to use SpeedPro!I am at the " = "Come to use SpeedPro!I am at the ";
 "Mastery" = "Mastery";
 "Expertise" = "Expertise";
 "Proficiency" = "Proficiency";
 "Competence" = "Competence";
 "Novice" = "Novice";
-" level.What is yours?" = " level.What is yours?";
+" level." = " level.";
 
 "I have defeated " = "I have defeated ";
 "% of all users in the Red Envelope  War.Come on and test how fast you are!" = "% of all users in the Red Envelope  War.Come on and test how fast you are!";
+//抽奖
 //中奖页
 "Congratulations" = "Congratulations!";
 "You have won " = "You have won ";
