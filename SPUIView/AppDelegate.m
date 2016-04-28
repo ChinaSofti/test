@@ -104,39 +104,39 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     return YES;
 }
 #pragma mark - 分享的方法
-////回调函数
-//- (BOOL)application:(UIApplication *)application
-//            openURL:(NSURL *)url
-//  sourceApplication:(NSString *)sourceApplication
-//         annotation:(id)annotation
-//{
-//    BOOL result = [UMSocialSnsService handleOpenURL:url];
-//    if (result == FALSE)
-//    {
-//        //调用其他SDK，例如支付宝SDK等
-//        SVInfo (@"分享回调函数");
-//    }
-//    return result;
-//}
-//
-//- (void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
-//{
-//    //根据`responseCode`得到发送结果,如果分享成功
-//    if (response.responseCode == UMSResponseCodeSuccess)
-//    {
-//        //得到分享到的微博平台名
-//        SVInfo (@"share to sns name is %@", [[response.data allKeys] objectAtIndex:0]);
-//    }
-//}
-//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-//{
-//    return [UMSocialSnsService handleOpenURL:url];
-//}
-////弹出列表方法presentSnsIconSheetView需要设置delegate为self
-//- (BOOL)isDirectShareInIconActionSheet
-//{
-//    return YES;
-//}
+//回调函数
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE)
+    {
+        //调用其他SDK，例如支付宝SDK等
+        SVInfo (@"分享回调函数");
+    }
+    return result;
+}
+
+- (void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    //根据`responseCode`得到发送结果,如果分享成功
+    if (response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        SVInfo (@"share to sns name is %@", [[response.data allKeys] objectAtIndex:0]);
+    }
+}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [UMSocialSnsService handleOpenURL:url];
+}
+//弹出列表方法presentSnsIconSheetView需要设置delegate为self
+- (BOOL)isDirectShareInIconActionSheet
+{
+    return YES;
+}
 
 #pragma mark - 网络状态
 - (void)networkStatusChange:(SVRealReachabilityStatus)status
