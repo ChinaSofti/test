@@ -10,6 +10,7 @@
 		4DD033911C734BB400A8CE9B /* ic_language_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD033901C734BB400A8CE9B /* ic_language_select.png */; };
 		561447C11C59BCE900003B9A /* SVPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 561447C01C59BCE900003B9A /* SVPointView.m */; };
 		5614729F1CC0906F0089BC02 /* SVProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5614729E1CC0906F0089BC02 /* SVProgressView.m */; };
+		56158E2C1CD250D000AE03F6 /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56158E2B1CD250D000AE03F6 /* share@2x.png */; };
 		561A36B91C89693F00AC5F5E /* SVUploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36B81C89693F00AC5F5E /* SVUploadFile.m */; };
 		561A36BF1C896A0C00AC5F5E /* SVResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36BC1C896A0C00AC5F5E /* SVResultCell.m */; };
 		561A36C01C896A0C00AC5F5E /* SVToolCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36BE1C896A0C00AC5F5E /* SVToolCells.m */; };
@@ -108,7 +109,6 @@
 		568B78C51C916DDC00AF4097 /* share_to_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B78C31C916DDC00AF4097 /* share_to_wechat.png */; };
 		568B78C61C916DDC00AF4097 /* share_to_wechatmoments.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B78C41C916DDC00AF4097 /* share_to_wechatmoments.png */; };
 		568D42B41C89E20B00F2916B /* SVBandWidthCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */; };
-		568E03401C78135D00A7CD72 /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = 568E033B1C78135D00A7CD72 /* share.png */; };
 		568E03421C78137C00A7CD72 /* ic_language_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 568E03411C78137C00A7CD72 /* ic_language_select.png */; };
 		56A919151C4F4BAA00E8BB72 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A919101C4F4BAA00E8BB72 /* AppDelegate.m */; };
 		56AA27361C57090400FA5D0F /* CTWBViewTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AA27351C57090400FA5D0F /* CTWBViewTools.m */; };
@@ -361,6 +361,7 @@
 		561447C01C59BCE900003B9A /* SVPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPointView.m; sourceTree = "<group>"; };
 		5614729D1CC0906F0089BC02 /* SVProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressView.h; sourceTree = "<group>"; };
 		5614729E1CC0906F0089BC02 /* SVProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressView.m; sourceTree = "<group>"; };
+		56158E2B1CD250D000AE03F6 /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@2x.png"; sourceTree = "<group>"; };
 		561A36B71C89693F00AC5F5E /* SVUploadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVUploadFile.h; sourceTree = "<group>"; };
 		561A36B81C89693F00AC5F5E /* SVUploadFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVUploadFile.m; sourceTree = "<group>"; };
 		561A36BB1C896A0C00AC5F5E /* SVResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultCell.h; sourceTree = "<group>"; };
@@ -513,7 +514,6 @@
 		568B78C41C916DDC00AF4097 /* share_to_wechatmoments.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_to_wechatmoments.png; sourceTree = "<group>"; };
 		568D42B21C89E20B00F2916B /* SVBandWidthCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVBandWidthCtrl.h; sourceTree = "<group>"; };
 		568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVBandWidthCtrl.m; sourceTree = "<group>"; };
-		568E033B1C78135D00A7CD72 /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
 		568E03411C78137C00A7CD72 /* ic_language_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_language_select.png; sourceTree = "<group>"; };
 		56A9190F1C4F4BAA00E8BB72 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
 		56A919101C4F4BAA00E8BB72 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../AppDelegate.m; sourceTree = "<group>"; };
@@ -1271,6 +1271,7 @@
 		568E03361C78135D00A7CD72 /* detail */ = {
 			isa = PBXGroup;
 			children = (
+				56158E2B1CD250D000AE03F6 /* share@2x.png */,
 				5BB0DE611CB410A500F8DAF9 /* rt_detail_title_collector_img@2x.png */,
 				5BB0DE621CB410A500F8DAF9 /* rt_detail_title_collector_img@3x.png */,
 				5BB0DE631CB410A500F8DAF9 /* rt_detail_title_ftp_img@2x.png */,
@@ -1279,7 +1280,6 @@
 				5BB0DE661CB410A500F8DAF9 /* rt_detail_title_video_img@3x.png */,
 				5BB0DE671CB410A500F8DAF9 /* rt_detail_title_web_img@2x.png */,
 				5BB0DE681CB410A500F8DAF9 /* rt_detail_title_web_img@3x.png */,
-				568E033B1C78135D00A7CD72 /* share.png */,
 			);
 			path = detail;
 			sourceTree = "<group>";
@@ -2137,6 +2137,7 @@
 			files = (
 				563DA8EB1CB6010F00578D02 /* clock_speed_panel@2x.png in Resources */,
 				B7E4C17C1CC3B89E00CB941A /* Privacy_en.html in Resources */,
+				56158E2C1CD250D000AE03F6 /* share@2x.png in Resources */,
 				5B2521911CB396E200C4481D /* ic_network_type_wifi@3x.png in Resources */,
 				B7C61B491CA68362001E32DC /* icon80.png in Resources */,
 				568B78C51C916DDC00AF4097 /* share_to_wechat.png in Resources */,
@@ -2240,7 +2241,6 @@
 				5B29086D1CC47D6C002B26F1 /* starting_window@2x_2.png in Resources */,
 				5BC491F01CAB5D420002CA68 /* ic_web_check@2x.png in Resources */,
 				5B2521931CB396E200C4481D /* ic_sort_asc@3x.png in Resources */,
-				568E03401C78135D00A7CD72 /* share.png in Resources */,
 				5BC491EF1CAB5D420002CA68 /* ic_video_label@3x.png in Resources */,
 				B7C61B431CA68247001E32DC /* starting_window_cn@1x_2.png in Resources */,
 				5641CF7F1CCA28E200A07584 /* speed_level_last.png in Resources */,

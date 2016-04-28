@@ -61,8 +61,23 @@
     // 设置标题
     [self initTitleView];
 
-    // 设置返回按钮
-    [self initBackButtonWithTarget:self action:@selector (backBtnClik)];
+    // 添加返回按钮
+    UIBarButtonItem *backButton =
+    [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"homeindicator"]
+                                     style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector (backBtnClik)];
+    [backButton setTintColor:[UIColor whiteColor]];
+    self.navigationItem.leftBarButtonItem = backButton;
+    // 为了保持平衡添加一个leftBtn
+    // 添加返回按钮
+    UIBarButtonItem *rightButton =
+    [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"]
+                                     style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector (shareClicked1:)];
+    [rightButton setTintColor:[UIColor whiteColor]];
+    self.navigationItem.rightBarButtonItem = rightButton;
 
     // 初始化当前结果页面的View
     UIView *uiview = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
