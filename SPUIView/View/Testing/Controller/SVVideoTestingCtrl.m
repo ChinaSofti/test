@@ -614,8 +614,18 @@
       realuvMOSSession = uvMOSSession;
 
       int i = arc4random () % 50;
-      [_bitRateValue setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
-      [_bitRateInFullScreenValue setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
+
+      // 卡顿时码率不需要变动
+      if (testResult.isCutton)
+      {
+          [_bitRateValue setText:[NSString stringWithFormat:@"%.2fKbps", bitrate]];
+          [_bitRateInFullScreenValue setText:[NSString stringWithFormat:@"%.2fKbps", bitrate]];
+      }
+      else
+      {
+          [_bitRateValue setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
+          [_bitRateInFullScreenValue setText:[NSString stringWithFormat:@"%.2fKbps", (bitrate - i)]];
+      }
 
 
       int j = arc4random () % 10;

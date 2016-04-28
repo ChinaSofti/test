@@ -300,7 +300,7 @@
 
     // 去掉测试地址中的http头
     NSArray *strArray = [testUrl componentsSeparatedByString:@"/"];
-    if ([strArray count] >= 4)
+    if ([strArray count] >= 3)
     {
         testUrl = strArray[2];
     }

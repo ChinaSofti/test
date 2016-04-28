@@ -39,10 +39,13 @@
 
 // 开始视频播放
 @property long long videoStartPlayTime;
+
 // 结束视频播放
 @property long long videoEndPlayTime;
+
 // 视频卡顿次数
 @property int videoCuttonTimes;
+
 // 视频卡顿总时长
 @property int videoCuttonTotalTime;
 
@@ -75,5 +78,8 @@
 
 // 视频实际播放时长 = 视频播放时长-卡顿总时长-首次缓冲时长
 @property int videoPlayTime;
+
+// 是否卡顿
+@property BOOL isCutton;
 
 @end

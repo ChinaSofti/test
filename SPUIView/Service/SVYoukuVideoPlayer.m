@@ -266,6 +266,9 @@ static int execute_total_times = 4;
     int firstBufferedTime = (int)([SVTimeUtil currentMilliSecondStamp] - startPlayTime);
     [testResult setFirstBufferTime:firstBufferedTime];
 
+    // 初始化卡顿状态，默认为不卡顿
+    testResult.isCutton = NO;
+
     SVInfo (@"------------------------------didPrepared------------------------------");
     _didPrepared = YES;
     [player setVideoFillMode:VMVideoFillModeFit];
@@ -385,11 +388,8 @@ static int execute_total_times = 4;
     int interval = (int)([SVTimeUtil currentMilliSecondStamp] - [testResult videoStartPlayTime]);
     [uvMOSCalculator update:STATUS_IMPAIR_START time:interval];
 
-    // 开始缓存时，暂停定时器
-    if (timer)
-    {
-        [timer setFireDate:[NSDate distantFuture]];
-    }
+    // 开始缓存时，重置状态
+    testResult.isCutton = YES;
 }
 
 /**
@@ -422,11 +422,8 @@ static int execute_total_times = 4;
     SVInfo (@"NAL 3HBT &&&&&&&&&&&&&&&&.......&&&&&&&&&&&&&&&&&  bufferingEnd");
     [player start];
 
-    // 卡顿结束，重启定时器
-    if (timer)
-    {
-        [timer setFireDate:[NSDate distantPast]];
-    }
+    // 卡顿结束，重置状态
+    testResult.isCutton = NO;
 }
 
 - (void)pushTestSample

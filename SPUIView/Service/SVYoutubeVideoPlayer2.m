@@ -307,11 +307,8 @@ static int execute_total_times = 4;
         [uvMOSCalculator update:STATUS_IMPAIR_START time:interval];
     }
 
-    // 开始缓存时，暂停定时器
-    if (timer)
-    {
-        [timer setFireDate:[NSDate distantFuture]];
-    }
+    // 开始缓存时，重置状态
+    testResult.isCutton = YES;
 }
 
 /**
@@ -341,11 +338,8 @@ static int execute_total_times = 4;
     SVInfo (@"NAL 3HBT &&&&&&&&&&&&&&&&.......&&&&&&&&&&&&&&&&&  bufferingEnd");
     [self startCalculateUvMOS_bufferedTime:bufferedTime];
 
-    // 卡顿结束，重启定时器
-    if (timer)
-    {
-        [timer setFireDate:[NSDate distantPast]];
-    }
+    // 卡顿结束，重置状态
+    testResult.isCutton = NO;
 }
 
 - (void)startCalculateUvMOS_bufferedTime:(int)bufferedTime
@@ -539,6 +533,8 @@ static int execute_total_times = 4;
         [self mediaPlayer_playbackComplete];
         break;
     case kYTPlayerStatePlaying:
+        // 初始化卡顿状态，默认为不卡顿
+        testResult.isCutton = NO;
         if (!_firstBufferTime)
         {
             [self startCalculateUvMOS_bufferedTime:_firstBufferTime];
