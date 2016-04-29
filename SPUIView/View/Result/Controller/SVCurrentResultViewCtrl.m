@@ -1071,30 +1071,31 @@
     label2.textAlignment = NSTextAlignmentCenter;
 
     //创建4个分享按钮
+    float leftMargin = (FITWIDTH (270) - FITHEIGHT (150)) / 2;
     UIButton *button1 = [[UIButton alloc]
-    initWithFrame:CGRectMake (FITWIDTH (80), kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
+    initWithFrame:CGRectMake (leftMargin, kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
     [button1 setImage:[UIImage imageNamed:@"share_to_wechat"] forState:UIControlStateNormal];
     [button1 addTarget:self
                 action:@selector (Button1Click:)
       forControlEvents:UIControlEventTouchUpInside];
     UIButton *button2 = [[UIButton alloc]
-    initWithFrame:CGRectMake (FITWIDTH (80) + (kScreenW - FITWIDTH (58)) / 4,
-                              kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
+    initWithFrame:CGRectMake (button1.rightX + leftMargin * 2, kScreenH - FITHEIGHT (405),
+                              FITHEIGHT (150), FITHEIGHT (150))];
     [button2 setImage:[UIImage imageNamed:@"share_to_wechatmoments"] forState:UIControlStateNormal];
     [button2 addTarget:self
                 action:@selector (Button2Click:)
       forControlEvents:UIControlEventTouchUpInside];
 
     UIButton *button3 = [[UIButton alloc]
-    initWithFrame:CGRectMake (FITWIDTH (80) + (kScreenW - FITWIDTH (58)) / 2,
-                              kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
+    initWithFrame:CGRectMake (button2.rightX + leftMargin * 2, kScreenH - FITHEIGHT (405),
+                              FITHEIGHT (150), FITHEIGHT (150))];
     [button3 setImage:[UIImage imageNamed:@"share_to_weibo"] forState:UIControlStateNormal];
     [button3 addTarget:self
                 action:@selector (Button3Click:)
       forControlEvents:UIControlEventTouchUpInside];
     UIButton *button4 = [[UIButton alloc]
-    initWithFrame:CGRectMake (FITWIDTH (80) + 3 * (kScreenW - FITWIDTH (58)) / 4,
-                              kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
+    initWithFrame:CGRectMake (button3.rightX + leftMargin * 2, kScreenH - FITHEIGHT (405),
+                              FITHEIGHT (150), FITHEIGHT (150))];
     [button4 setImage:[UIImage imageNamed:@"share_to_facebook"] forState:UIControlStateNormal];
     [button4 addTarget:self
                 action:@selector (Button4Click:)
@@ -1102,7 +1103,7 @@
     //添加4个label
     //创建一个显示微信的label3
     UILabel *label3 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (58), kScreenH / 10 + FITHEIGHT (202), FITWIDTH (200), FITHEIGHT (58))];
+    initWithFrame:CGRectMake (0, kScreenH / 10 + FITHEIGHT (202), FITWIDTH (270), FITHEIGHT (58))];
     label3.text = title10;
     //    label3.backgroundColor = [UIColor redColor];
     label3.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
@@ -1110,8 +1111,7 @@
     label3.textAlignment = NSTextAlignmentCenter;
     //创建一个显示微信朋友圈的label4
     UILabel *label4 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (58) + (kScreenW - FITWIDTH (58)) / 4,
-                              kScreenH / 10 + FITHEIGHT (202), FITWIDTH (230), FITHEIGHT (58))];
+    initWithFrame:CGRectMake (label3.rightX, kScreenH / 10 + FITHEIGHT (202), FITWIDTH (270), FITHEIGHT (58))];
     label4.text = title11;
     label4.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
     //    label4.backgroundColor = [UIColor blueColor];
@@ -1119,8 +1119,7 @@
     label4.textAlignment = NSTextAlignmentCenter;
     //创建一个显示微博的label5
     UILabel *label5 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (58) + (kScreenW - FITWIDTH (58)) / 2,
-                              kScreenH / 10 + FITHEIGHT (202), FITWIDTH (230), FITHEIGHT (58))];
+    initWithFrame:CGRectMake (label4.rightX, kScreenH / 10 + FITHEIGHT (202), FITWIDTH (270), FITHEIGHT (58))];
     label5.text = title12;
     //    label5.backgroundColor = [UIColor redColor];
     label5.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
@@ -1128,8 +1127,7 @@
     label5.textAlignment = NSTextAlignmentCenter;
     //创建一个显示facebook的label6
     UILabel *label6 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (58) + 3 * (kScreenW - FITWIDTH (58)) / 4,
-                              kScreenH / 10 + FITHEIGHT (202), FITWIDTH (200), FITHEIGHT (58))];
+    initWithFrame:CGRectMake (label5.rightX, kScreenH / 10 + FITHEIGHT (202), FITWIDTH (270), FITHEIGHT (58))];
     label6.text = title13;
     //    label6.backgroundColor = [UIColor blueColor];
     label6.font = [UIFont systemFontOfSize:pixelToFontsize (45)];

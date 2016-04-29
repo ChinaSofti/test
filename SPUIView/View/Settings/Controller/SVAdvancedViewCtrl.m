@@ -124,7 +124,7 @@
     _textField = [[SVTextField alloc] init];
     [_textField setDelegate:self];
     _textField.frame = CGRectMake (lableScreenSize.rightX, FITHEIGHT (36), FITWIDTH (488), FITHEIGHT (58));
-    _textField.text = probeInfo.getScreenSize;
+    _textField.text = [NSString stringWithFormat:@"%d", [probeInfo.getScreenSize intValue]];
     _textField.placeholder = I18N (@"Please enter the number of 13~100");
     _textField.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
 
@@ -132,7 +132,7 @@
     _textField.borderStyle = UITextBorderStyleRoundedRect;
 
     // 输入键盘类型
-    _textField.keyboardType = UIKeyboardTypeDecimalPad;
+    _textField.keyboardType = UIKeyboardTypeNumberPad;
     [views addSubview:_textField];
 
     // 单位(英寸)

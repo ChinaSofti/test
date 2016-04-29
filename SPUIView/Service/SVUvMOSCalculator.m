@@ -58,7 +58,7 @@
     //    stMediaInfo.fScreenSize = [SVVideoUtil getScreenScale];
     // 孙海龙 2016/02/13  屏幕尺寸 固定为42寸
     SVProbeInfo *probeInfo = [[SVProbeInfo alloc] init];
-    float screenSize = [[probeInfo getScreenSize] floatValue];
+    int screenSize = [[probeInfo getScreenSize] intValue];
     stMediaInfo.dScreenSize = screenSize;
     [_testResult setScreenSize:screenSize];
 
