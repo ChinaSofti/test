@@ -54,8 +54,8 @@
 
     // 随机选取一个测试地址
     int index = arc4random () % urlArray.count;
-    //    videoURLString = [urlArray objectAtIndex:index];
-    videoURLString = @"http://v.youku.com/v_show/id_XMTUzMjk1ODM3Mg==.html";
+    videoURLString = [urlArray objectAtIndex:index];
+    //    videoURLString = @"http://v.youku.com/v_show/id_XMTUzMjk1ODM3Mg==.html";
 
     // videoURLString = @"https://www.youtube.com/watch?v=TmDKbUrSYxQ";
 }
