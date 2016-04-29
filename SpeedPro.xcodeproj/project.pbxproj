@@ -191,6 +191,7 @@
 		5BE7A5D81CBF81E20080FEA9 /* libVideoParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE7A5D61CBF81E20080FEA9 /* libVideoParser.a */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
+		B722195A1CD3519500459F2A /* SVIPAndISPGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B72219591CD3519500459F2A /* SVIPAndISPGetter.m */; };
 		B73105961CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105911CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m */; };
 		B73105971CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105921CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m */; };
 		B73105991CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m in Sources */ = {isa = PBXBuildFile; fileRef = B73105941CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m */; };
@@ -260,7 +261,6 @@
 		B7F267861CAE1BF300E44299 /* SVSpeedTestServer.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2675B1CAE1BF300E44299 /* SVSpeedTestServer.m */; };
 		B7F267881CAE1BF300E44299 /* SVProbeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2675F1CAE1BF300E44299 /* SVProbeInfo.m */; };
 		B7F267891CAE1BF300E44299 /* SVLogUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267611CAE1BF300E44299 /* SVLogUploader.m */; };
-		B7F2678A1CAE1BF300E44299 /* SVIPAndISPGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267631CAE1BF300E44299 /* SVIPAndISPGetter.m */; };
 		B7F2678B1CAE1BF300E44299 /* SVIPAndISP.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267651CAE1BF300E44299 /* SVIPAndISP.m */; };
 		B7F2678C1CAE1BF300E44299 /* SVDetailResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F267671CAE1BF300E44299 /* SVDetailResultModel.m */; };
 		B7F2678E1CAE1BF300E44299 /* SVContentProviderGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2676B1CAE1BF300E44299 /* SVContentProviderGetter.m */; };
@@ -619,6 +619,8 @@
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B71F89011C8D7E56002E8375 /* SVToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToast.h; sourceTree = "<group>"; };
 		B71F89021C8D7E56002E8375 /* SVToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToast.m; sourceTree = "<group>"; };
+		B72219581CD3519500459F2A /* SVIPAndISPGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIPAndISPGetter.h; sourceTree = "<group>"; };
+		B72219591CD3519500459F2A /* SVIPAndISPGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIPAndISPGetter.m; sourceTree = "<group>"; };
 		B731058C1CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoAnalyser_youtube.h; sourceTree = "<group>"; };
 		B731058D1CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVYoukuVideoPlayer.h; sourceTree = "<group>"; };
 		B731058F1CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVYoutubeVideoPlayer2.h; sourceTree = "<group>"; };
@@ -722,8 +724,6 @@
 		B7F267601CAE1BF300E44299 /* SVProbeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProbeInfo.h; sourceTree = "<group>"; };
 		B7F267611CAE1BF300E44299 /* SVLogUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVLogUploader.m; sourceTree = "<group>"; };
 		B7F267621CAE1BF300E44299 /* SVLogUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVLogUploader.h; sourceTree = "<group>"; };
-		B7F267631CAE1BF300E44299 /* SVIPAndISPGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIPAndISPGetter.m; sourceTree = "<group>"; };
-		B7F267641CAE1BF300E44299 /* SVIPAndISPGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIPAndISPGetter.h; sourceTree = "<group>"; };
 		B7F267651CAE1BF300E44299 /* SVIPAndISP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIPAndISP.m; sourceTree = "<group>"; };
 		B7F267661CAE1BF300E44299 /* SVIPAndISP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIPAndISP.h; sourceTree = "<group>"; };
 		B7F267671CAE1BF300E44299 /* SVDetailResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDetailResultModel.m; sourceTree = "<group>"; };
@@ -1982,14 +1982,14 @@
 			children = (
 				B7F267611CAE1BF300E44299 /* SVLogUploader.m */,
 				B7F267621CAE1BF300E44299 /* SVLogUploader.h */,
-				B7F267631CAE1BF300E44299 /* SVIPAndISPGetter.m */,
-				B7F267641CAE1BF300E44299 /* SVIPAndISPGetter.h */,
 				B7F267651CAE1BF300E44299 /* SVIPAndISP.m */,
 				B7F267661CAE1BF300E44299 /* SVIPAndISP.h */,
 				561A36B71C89693F00AC5F5E /* SVUploadFile.h */,
 				561A36B81C89693F00AC5F5E /* SVUploadFile.m */,
 				5B2FA8EF1C984C9E0018D699 /* SVWarningView.h */,
 				5B2FA8F01C984C9E0018D699 /* SVWarningView.m */,
+				B72219581CD3519500459F2A /* SVIPAndISPGetter.h */,
+				B72219591CD3519500459F2A /* SVIPAndISPGetter.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -2321,7 +2321,6 @@
 				561A36E21C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m in Sources */,
 				B7F268271CAE1C3900E44299 /* FSMEngine.m in Sources */,
 				566CB03A1C90199A001AA64D /* SVWebView.m in Sources */,
-				B7F2678A1CAE1BF300E44299 /* SVIPAndISPGetter.m in Sources */,
 				B7F267751CAE1BF300E44299 /* SVVideoTestResult.m in Sources */,
 				B7F267831CAE1BF300E44299 /* SVSummaryResultModel.m in Sources */,
 				B7F268411CAE1C3900E44299 /* UUBar.m in Sources */,
@@ -2435,6 +2434,7 @@
 				B7F267731CAE1BF300E44299 /* SVVideoUtil.m in Sources */,
 				B7F268381CAE1C3900E44299 /* DDTTYLogger.m in Sources */,
 				B7F267861CAE1BF300E44299 /* SVSpeedTestServer.m in Sources */,
+				B722195A1CD3519500459F2A /* SVIPAndISPGetter.m in Sources */,
 				B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */,
 				B7F267721CAE1BF300E44299 /* SVWebContext.m in Sources */,
 				5B1FEDC01CAA85B400508920 /* UIColor+Hex.m in Sources */,

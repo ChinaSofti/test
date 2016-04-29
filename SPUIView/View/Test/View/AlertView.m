@@ -66,7 +66,8 @@ static NSInteger BtnTag = 10086;
     NSString *title6 = I18N (@"Package");
     NSString *title7 = I18N (@"Carrier");
     //    NSString *title8 = I18N (@"China Unicom Beijing");
-    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
+
     NSString *title8 = ipAndISP.isp;
     NSString *title9 = I18N (@"Ignore");
     NSString *title10 = I18N (@"Save");

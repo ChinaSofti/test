@@ -93,7 +93,7 @@ static SVTestContextGetter *contextGetter = nil;
  */
 - (void)initIPAndISP
 {
-    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
 
     // 如果归属地信息查询不到则默认为中国
     if (!ipAndISP)
@@ -212,7 +212,7 @@ static SVTestContextGetter *contextGetter = nil;
     [segement setVideoSegementURL:url];
     @try
     {
-        SVIPAndISP *ipAndISP = [SVIPAndISPGetter queryIPDetail:url.host];
+        SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] queryIPDetail:url.host];
         if (ipAndISP)
         {
             [segement setVideoIP:ipAndISP.query];

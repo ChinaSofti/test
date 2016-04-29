@@ -135,7 +135,7 @@
     }
 
     // 如果没有获取到url，使用默认的数据
-    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
 
     // 默认使用国内的网站
     if (!ipAndISP)
@@ -533,7 +533,7 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     //    SVInfo (@"SVProbeInfo ip:%@   isp:%@", probeInfo.ip, probeInfo.isp);
     [dictionary setObject:!probeInfo.ip ? @"" : probeInfo.ip forKey:@"ip"];
     //    [dictionary setObject:!probeInfo.isp ? @"" : probeInfo.isp forKey:@"isp"];
-    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
     [dictionary setObject:!ipAndISP.isp ? @"" : ipAndISP.isp forKey:@"isp"];
     [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
                    forKey:@"networkType"];

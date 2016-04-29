@@ -1,21 +1,24 @@
 //
-//  TSIPAndISPGetter.m
-//  TaskService
+//  SVIPAndISPGetter2.m
+//  SpeedPro
 //
-//  Created by Rain on 1/27/16.
+//  Created by Rain on 4/29/16.
 //  Copyright © 2016 Huawei. All rights reserved.
 //
 
 #import "SVHttpGetter.h"
-#import "SVI18N.h"
+#import "SVIPAndISP.h"
 #import "SVIPAndISPGetter.h"
-#import "SVLog.h"
-#import "SVSpeedTestServers.h"
 
 @implementation SVIPAndISPGetter
 {
-    //    TSIPAndISP *ipAndISP;
+    // 缓存IP归属地信息
+    NSMutableDictionary *ipAndISPCacheDic;
+
+    // 本机IP和运营商信息
+    SVIPAndISP *localIPAndISP;
 }
+
 
 static NSString *defaultURL = @"http://www.ip-api.com/json?lang=%@";
 
@@ -32,68 +35,131 @@ static NSString *bakQueryIPLocationURL =
 static NSString *bakQueryIPInfoURL = @"http://ip.taobao.com/service/getIpInfo.php?ip=%@";
 
 
-static NSString *DEFAULT_ZH_CN_LANG = @"zh-CN";
-
 static NSString *DEFAULT_EN_US_LANG = @"en";
 
-static SVIPAndISP *localIPAndISP;
+/**
+ *  单例对象
+ *
+ *  @return 单例对象
+ */
++ (id)sharedInstance
+{
+    static SVIPAndISPGetter *ipAndISPGetter;
+    @synchronized (self)
+    {
+        if (ipAndISPGetter == nil)
+        {
+            ipAndISPGetter = [[super allocWithZone:NULL] init];
+        }
+    }
 
-+ (SVIPAndISP *)getIPAndISP
+    return ipAndISPGetter;
+}
+
+/**
+ *  覆写allocWithZone方法
+ *
+ *  @param zone _NSZone
+ *
+ *  @return 单例对象
+ */
++ (id)allocWithZone:(struct _NSZone *)zone
+{
+    return [SVIPAndISPGetter sharedInstance];
+}
+
+/**
+ *  覆写copyWithZone方法
+ *
+ *  @param zone _NSZone
+ *
+ *  @return 单例对象
+ */
+
++ (id)copyWithZone:(struct _NSZone *)zone
+{
+    return [SVIPAndISPGetter sharedInstance];
+}
+
+/**
+ *  获取本机IP，归属地，运营商等信息
+ *
+ *  @return TSIPAndISP 本机IP，归属地，运营商等信息
+ */
+- (SVIPAndISP *)getIPAndISP
 {
     if (localIPAndISP)
     {
         return localIPAndISP;
     }
 
-    localIPAndISP = [SVIPAndISPGetter queryIPDetail:nil];
+    // 使用首选方案获取IP信息
+    localIPAndISP = [self ipInfoWithIp:nil];
+
+    // 如果首选方案获取失败，则使用备选方案
+    if (!localIPAndISP)
+    {
+        // 使用备选方案
+        localIPAndISP = [self bakIpInfoWithIp:nil];
+    }
+
     return localIPAndISP;
 }
 
-
 /**
- *  根据IP查询归属地。目前只支持两种语言的返回结果，英文和中文。缺省采用系统语言进行查询，并返回结果
+ *  根据IP查询归属地和运营商等信息。目前只支持两种语言的返回结果，英文和中文。缺省采用系统语言进行查询，并返回结果
  *
  *  @param ip IP地址
  *
  *  @return IP归属地
  */
-+ (SVIPAndISP *)queryIPDetail:(NSString *)ip
+- (SVIPAndISP *)queryIPDetail:(NSString *)ip
 {
+    SVIPAndISP *ipAndISP = nil;
+    @synchronized (self)
+    {
+        if (!ipAndISPCacheDic)
+        {
+            ipAndISPCacheDic = [[NSMutableDictionary alloc] init];
+        }
+
+        ipAndISP = [ipAndISPCacheDic valueForKey:ip];
+    }
+
+    if (ipAndISP)
+    {
+        return ipAndISP;
+    }
+
     // 使用首选方案获取IP信息
-    SVIPAndISP *ipInfo = [self ipInfoWithIp:ip];
+    ipAndISP = [self ipInfoWithIp:ip];
 
     // 如果首选方案获取失败，则使用备选方案
-    if (!ipInfo)
+    if (!ipAndISP)
     {
         // 使用备选方案
-        ipInfo = [self bakIpInfoWithIp:ip];
+        ipAndISP = [self bakIpInfoWithIp:ip];
     }
 
-    // 如果备选方案还是没有结果则返回空
-    if (!ipInfo)
+    @synchronized (self)
     {
-        return nil;
-    }
-
-    if (!localIPAndISP)
-    {
-        SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-        NSString *localIP = servers.clientIP;
-        if ([ip isEqualToString:localIP])
+        SVIPAndISP *cacheIPAndISP = [ipAndISPCacheDic valueForKey:ip];
+        if (!cacheIPAndISP && ipAndISP)
         {
-            localIPAndISP = ipInfo;
+            [ipAndISPCacheDic setObject:ipAndISP forKey:ip];
         }
     }
 
-    return ipInfo;
+    return ipAndISP;
 }
+
 
 /**
  * 获取指定IP的相关信息
  * @param ip 指定的IP
  * @return IP归属地信息
  */
-+ (SVIPAndISP *)ipInfoWithIp:(NSString *)ip
+- (SVIPAndISP *)ipInfoWithIp:(NSString *)ip
 {
     // 获取系统语言
     //    SVI18N *i18n = [SVI18N sharedInstance];
@@ -178,7 +244,7 @@ static SVIPAndISP *localIPAndISP;
  * @param ip 指定的IP
  * @return IP归属地信息
  */
-+ (SVIPAndISP *)bakIpInfoWithIp:(NSString *)ip
+- (SVIPAndISP *)bakIpInfoWithIp:(NSString *)ip
 {
     // 查询IP地址信息的json数据
     NSData *jsonData = nil;
@@ -259,5 +325,6 @@ static SVIPAndISP *localIPAndISP;
 
     return ipAndISP;
 }
+
 
 @end

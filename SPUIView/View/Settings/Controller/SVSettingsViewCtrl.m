@@ -78,7 +78,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     NSString *title1 = I18N (@"Current Connection:");
 
     //准备字符串
-    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     NSString *type = [probeInfo getBandwidthType];
     int bandwidthTypeIndex = [type intValue];

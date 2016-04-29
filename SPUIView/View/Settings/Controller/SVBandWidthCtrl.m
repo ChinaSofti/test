@@ -41,7 +41,7 @@
     // 把tableView添加到 view
     [self.view addSubview:_tableView];
 
-    _ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    _ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
 }
 //进去时 隐藏tabBar
 - (void)viewWillAppear:(BOOL)animated

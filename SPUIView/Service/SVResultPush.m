@@ -196,7 +196,7 @@ NSArray *_emptyArr;
     // 1. collectorResults
     // 1.1 location
 
-    SVIPAndISP *isp = [SVIPAndISPGetter getIPAndISP];
+    SVIPAndISP *isp = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
 
     NSMutableDictionary *locationDic = [[NSMutableDictionary alloc] init];
@@ -310,37 +310,6 @@ NSArray *_emptyArr;
     }
 
 
-    //    NSString *ipAddress = [speedTestResultJson valueForKey:@"ipAddress"];
-    //    SVIPAndISP *isp = [SVIPAndISPGetter queryIPDetail:ipAddress];
-    //    if (isp)
-    //    {
-    //        [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.carrier] forKey:@"carrier"];
-    //        [locationDic
-    //        setObject:[self ispFilter:isp str:[speedTestResultJson valueForKey:@"location"]]
-    //           forKey:@"city"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.country] forKey:@"country"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.countryCode]
-    //        forKey:@"countryCode"];
-    //        [locationDic setObject:@"" forKey:@"district"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"ip"];
-    //        [locationDic setObject:[self ispFilter:isp str:[speedTestResultJson
-    //        valueForKey:@"isp"]]
-    //                        forKey:@"isp"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.lat] forKey:@"lat"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.lon] forKey:@"lon"];
-    //        [locationDic setObject:@"" forKey:@"message"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.org] forKey:@"org"];
-    //        [locationDic setObject:@"" forKey:@"province"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.query] forKey:@"query"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.region] forKey:@"region"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.regionName] forKey:@"regionName"];
-    //        [locationDic setObject:@"success" forKey:@"status"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.timezone] forKey:@"timezone"];
-    //        [locationDic setObject:[self ispFilter:isp str:isp.zip] forKey:@"zip"];
-    //    }
-    //    else
-    //    {
     [locationDic setObject:@"" forKey:@"as"];
     [locationDic setObject:@"" forKey:@"carrier"];
     [locationDic setObject:[speedTestResultJson valueForKey:@"location"] forKey:@"city"];
@@ -463,7 +432,7 @@ NSArray *_emptyArr;
 
         // 地址信息
         locationDic = [[NSMutableDictionary alloc] init];
-        SVIPAndISP *isp = [SVIPAndISPGetter queryIPDetail:ipAddress];
+        SVIPAndISP *isp = [[SVIPAndISPGetter sharedInstance] queryIPDetail:ipAddress];
         if (isp)
         {
             [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
