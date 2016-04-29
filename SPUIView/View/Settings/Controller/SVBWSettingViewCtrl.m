@@ -74,7 +74,7 @@
     NSString *title7 = I18N (@"Carrier");
     //    NSString *title8 = I18N (@"China Unicom Beijing");
     //    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
     NSString *title8 = ipAndISP.isp;
     NSString *title9 = I18N (@"Save");
 

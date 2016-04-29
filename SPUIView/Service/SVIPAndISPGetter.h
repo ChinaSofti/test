@@ -1,8 +1,8 @@
 //
-//  TSIPAndISPGetter.h
-//  TaskService
+//  SVIPAndISPGetter2.h
+//  SpeedPro
 //
-//  Created by Rain on 1/27/16.
+//  Created by Rain on 4/29/16.
 //  Copyright © 2016 Huawei. All rights reserved.
 //
 
@@ -11,12 +11,21 @@
 
 @interface SVIPAndISPGetter : NSObject
 
+
+/**
+ *  单例对象
+ *
+ *  @return 单例对象
+ */
++ (id)sharedInstance;
+
+
 /**
  *  获取本机IP，归属地，运营商等信息
  *
  *  @return TSIPAndISP 本机IP，归属地，运营商等信息
  */
-+ (SVIPAndISP *)getIPAndISP;
+- (SVIPAndISP *)getIPAndISP;
 
 /**
  *  根据IP查询归属地和运营商等信息。目前只支持两种语言的返回结果，英文和中文。缺省采用系统语言进行查询，并返回结果
@@ -25,6 +34,6 @@
  *
  *  @return IP归属地
  */
-+ (SVIPAndISP *)queryIPDetail:(NSString *)ip;
+- (SVIPAndISP *)queryIPDetail:(NSString *)ip;
 
 @end

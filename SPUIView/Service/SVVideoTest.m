@@ -239,7 +239,7 @@
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
 
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-    SVIPAndISP *ipAndISP = [SVIPAndISPGetter getIPAndISP];
+    SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
     if (!ipAndISP)
     {
         return @"";

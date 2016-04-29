@@ -269,4 +269,4 @@
 "Privacy Instructions" = "隐私说明";
 
 //隐私声明
-"Test Fail. Check Network" = "由于网络原因导致视频播放失败，是否继续测试？";
+"Test Fail. Check Network" = "由于网络原因导致测试失败，是否继续测试？";
