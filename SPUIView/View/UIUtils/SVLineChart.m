@@ -79,12 +79,12 @@
     if (pointsNumbers == 1)
     {
         // 第一个点， 即起点
-        CGPoint point = CGPointMake (0, _frameHeight);
+        CGPoint point = CGPointMake (3, _frameHeight);
         [self addPoint:point];
 
         // 创建贝塞尔路径~
         UIBezierPath *path = [UIBezierPath bezierPath];
-        [path moveToPoint:CGPointMake (0, _frameHeight)];
+        [path moveToPoint:CGPointMake (3, _frameHeight)];
 
         // 添加原点
         [self labelWithFrame:self.frame index:0];
@@ -96,12 +96,11 @@
 
         [self labelWithFrame:self.frame index:(int)index];
 
-        NSLog (@"%@ ", value);
         CGPoint point2 = CGPointMake ([self nextPointX:index], [self nextPointY:[value floatValue]]);
         [self addPoint:point2];
 
         UIBezierPath *colorPath =
-        [self createPathWithFirstPoint:CGPointMake (0, _frameHeight) SecondPoint:point2];
+        [self createPathWithFirstPoint:CGPointMake (3, _frameHeight) SecondPoint:point2];
         arc.path = colorPath.CGPath;
         [_pathArrays addObject:colorPath];
 
@@ -130,7 +129,12 @@
         [self labelWithFrame:self.frame index:(int)index];
 
         CGPoint point2 = CGPointMake ([self nextPointX:index], [self nextPointY:[value floatValue]]);
-        NSLog (@"%@ ", value);
+        //        if (index == 10) {
+        //
+        //            point2 = CGPointMake ([self nextPointX:index] + 1, [self nextPointY:[value
+        //            floatValue]]);
+        //        }
+
         [self addPoint:point2];
 
         UIBezierPath *colorPath = [self createPathWithFirstPoint:lastPoint SecondPoint:point2];
@@ -139,6 +143,11 @@
         [_pathArrays addObject:colorPath];
 
         lastPoint = CGPointMake ([self nextPointX:index], [self nextPointY:[value floatValue]]);
+        //        if (index == 10) {
+        //
+        //            lastPoint = CGPointMake ([self nextPointX:index] + 1, [self nextPointY:[value
+        //            floatValue]]);
+        //        }
         [path addLineToPoint:lastPoint];
 
         // 关联layer和贝塞尔路径~
@@ -158,7 +167,7 @@
 
 - (CGFloat)nextPointX:(long)pointIndex
 {
-    CGFloat one_column_width = _frameWidth / 10;
+    CGFloat one_column_width = (_frameWidth - 3) / 10;
     return one_column_width * pointIndex;
 }
 
@@ -172,10 +181,10 @@
 
 - (void)addPoint:(CGPoint)point
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake (0, 0, 8, 8)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake (0, 0, 6, 6)];
     view.center = point;
     view.layer.masksToBounds = YES;
-    view.layer.cornerRadius = 6;
+    view.layer.cornerRadius = 3;
     view.layer.borderWidth = 1.2;
     view.layer.borderColor = [UIColor whiteColor].CGColor;
     view.backgroundColor = [UIColor colorWithHexString:@"#F54D2D"];
@@ -185,14 +194,14 @@
 // 创建X轴间距值 label
 - (void)labelWithFrame:(CGRect)frame index:(int)index
 {
-    CGFloat x = (frame.origin.x - 4) + index * (_frameWidth / 10);
+    CGFloat x = (frame.origin.x - 5) + index * ((_frameWidth - 3) / 10);
     if (index == 0)
     {
-        x = x + 2;
+        x = x + 3;
     }
     else if (index == 10)
     {
-        x = x - 4;
+        x = x - 3;
     }
     CGFloat y = frame.size.height;
     CGFloat w = 10;
