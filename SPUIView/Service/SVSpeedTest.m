@@ -224,21 +224,17 @@ int caclCount;
         _curTestResult.isUpload = NO;
         _curTestResult.isSummeryResult = NO;
 
-        // 定时器只需要初始化一次
-        if (!caclSeedTimer)
-        {
-            beginTime = [[NSDate date] timeIntervalSince1970];
-            preTime = beginTime;
+        beginTime = [[NSDate date] timeIntervalSince1970];
+        preTime = beginTime;
 
-            // 启动计算下载速度的定时器，当前时间200ms后，每隔200ms执行一次
-            caclSeedTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:0.2]
-                                                     interval:0.2
-                                                       target:self
-                                                     selector:@selector (caclSpeed:)
-                                                     userInfo:@"Download"
-                                                      repeats:YES];
-            [[NSRunLoop currentRunLoop] addTimer:caclSeedTimer forMode:NSDefaultRunLoopMode];
-        }
+        // 启动计算下载速度的定时器，当前时间200ms后，每隔200ms执行一次
+        caclSeedTimer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:0.2]
+                                                 interval:0.2
+                                                   target:self
+                                                 selector:@selector (caclSpeed:)
+                                                 userInfo:@"Download"
+                                                  repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:caclSeedTimer forMode:NSDefaultRunLoopMode];
 
         while (_internalTestStatus != TEST_FINISHED)
         {
@@ -841,6 +837,13 @@ void sort (double *a, int n)
     for (id test in testObjArray)
     {
         [test updateStatus:_testStatus];
+    }
+
+    // 关闭定时器
+    if (caclSeedTimer)
+    {
+        [caclSeedTimer invalidate];
+        caclSeedTimer = nil;
     }
 
     SVInfo (@"stop speed test!!!!");
