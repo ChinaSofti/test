@@ -233,7 +233,11 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     // If your application supports background execution, this method is called
     // instead of applicationWillTerminate: when the user quits.
     // 如果正在测试，则终止当前测试。
-    exit (0);
+    SVProbeInfo *probe = [[SVProbeInfo alloc] init];
+    if (probe.isTesting)
+    {
+        exit (0);
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

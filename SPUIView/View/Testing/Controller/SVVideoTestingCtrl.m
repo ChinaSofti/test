@@ -223,6 +223,10 @@
 {
     [super viewWillAppear:animated];
 
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    int _videoPlayTime = [probeInfo getVideoPlayTime];
+    [probeInfo setIsTesting:YES];
+
     // 初始化进度条
     pro = [[SVProgressView alloc] initWithheight:NavBarH];
     value = 0.0;
@@ -266,9 +270,6 @@
     [tapGesture setNumberOfTapsRequired:1];
     [_transparentView addGestureRecognizer:tapGesture];
     [_footerView.leftView addSubview:_transparentView];
-
-    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    int _videoPlayTime = [probeInfo getVideoPlayTime];
 
     // 视频总时长 除以 20个U-vMOS柱子 获得每个柱子需要的时长，单位秒。再乘以5，将单位转换为200毫秒
     _per_uvmos_bar_need_time = _videoPlayTime * 5 / 20;

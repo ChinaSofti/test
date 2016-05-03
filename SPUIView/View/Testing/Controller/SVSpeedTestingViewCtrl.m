@@ -7,16 +7,16 @@
 //
 
 //主View下的4个子View
-#import "SVFooterView.h"
-#import "SVHeaderView.h"
-#import "SVPointView.h"
-#import "SVSpeedView.h"
-
 #import "SVChart.h"
 #import "SVCurrentResultViewCtrl.h"
+#import "SVFooterView.h"
+#import "SVHeaderView.h"
 #import "SVLabelTools.h"
+#import "SVPointView.h"
+#import "SVProbeInfo.h"
 #import "SVProgressView.h"
 #import "SVSpeedTestingViewCtrl.h"
+#import "SVSpeedView.h"
 
 #define kVideoViewDefaultRect \
     CGRectMake (FITWIDTH (10), FITWIDTH (425), FITWIDTH (150), FITWIDTH (90))
@@ -149,6 +149,8 @@ double _preSpeed = 0.0;
 
     // 设置屏幕不会休眠
     //    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    SVProbeInfo *probe = [[SVProbeInfo alloc] init];
+    [probe setIsTesting:YES];
 
     // 显示tabbar 和navigationbar
     self.tabBarController.tabBar.hidden = NO;

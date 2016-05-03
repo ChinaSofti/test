@@ -148,6 +148,9 @@
 {
     [super viewWillAppear:animated];
 
+    SVProbeInfo *probe = [[SVProbeInfo alloc] init];
+    [probe setIsTesting:NO];
+
     //添加同步锁(同时只能有一个发生)
     @synchronized (self)
     {

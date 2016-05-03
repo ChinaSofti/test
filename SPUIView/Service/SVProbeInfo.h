@@ -14,6 +14,7 @@
 @property NSString *location;
 @property NSString *networkType;
 @property NSString *singnal;
+@property BOOL isTesting;
 
 
 /**

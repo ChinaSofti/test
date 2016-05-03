@@ -11,6 +11,7 @@
 #import "SVHeaderView.h"
 #import "SVLabelTools.h"
 #import "SVPointView.h"
+#import "SVProbeInfo.h"
 #import "SVProgressView.h"
 #import "SVWebTest.h"
 #import "SVWebTestingViewCtrl.h"
@@ -125,6 +126,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    SVProbeInfo *probe = [[SVProbeInfo alloc] init];
+    [probe setIsTesting:YES];
 
     // 设置屏幕不会休眠
     //    [UIApplication sharedApplication].idleTimerDisabled = YES;

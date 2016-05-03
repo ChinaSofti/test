@@ -9,6 +9,7 @@
 #import "AlertView.h"
 #import "SVCurrentResultModel.h"
 #import "SVCurrentResultViewCtrl.h"
+#import "SVProbeInfo.h"
 #import "SVRealReachability.h"
 #import "SVSpeedTestingViewCtrl.h"
 #import "SVTestContextGetter.h"
@@ -95,6 +96,14 @@
     //    SVRealReachability *realReachability = [SVRealReachability sharedInstance];
     //    [realReachability addDelegate:self];
     // ---------暂时取消网络设置按钮，无论是否有网络，均显示开始测试- end------
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    SVProbeInfo *probe = [[SVProbeInfo alloc] init];
+    [probe setIsTesting:NO];
 }
 
 #pragma mark - tableview的方法
