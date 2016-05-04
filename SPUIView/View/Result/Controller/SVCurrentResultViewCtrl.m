@@ -1280,11 +1280,12 @@
     [UMSocialData defaultData].extConfig.wechatTimelineData.title = MessageTitle;
 
     // Facebook
-    [UMSocialData defaultData].extConfig.facebookData.title = MessageTitle;
-    [UMSocialData defaultData].extConfig.facebookData.shareText = MessageText;
-    [UMSocialData defaultData].extConfig.facebookData.url = Url;
-    [UMSocialData defaultData].extConfig.facebookData.linkDescription =
-    I18N (@"Click download application");
+    //    [UMSocialData defaultData].extConfig.facebookData.title = MessageTitle;
+    //    [UMSocialData defaultData].extConfig.facebookData.url = Url;
+    //    [UMSocialData defaultData].extConfig.facebookData.linkDescription =
+    //    I18N (@"Click download application");
+    [UMSocialData defaultData].extConfig.facebookData.shareText =
+    [[NSString alloc] initWithFormat:@"%@%@", MessageTitle, Url];
     //微博
     [UMSocialData defaultData].extConfig.sinaData.shareText = MessageTitle;
 }
