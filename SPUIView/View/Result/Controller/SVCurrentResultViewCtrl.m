@@ -53,6 +53,8 @@
     BOOL currentCtl;
     //获取地域信息
     SVIPAndISP *ipAndISP;
+    //分享到界面判断标识符
+    BOOL shareTo;
 }
 
 - (void)viewDidLoad
@@ -60,7 +62,8 @@
     [super viewDidLoad];
     // 设置标题
     [self initTitleView];
-
+    //界面一出现分享到页面没有
+    shareTo = NO;
     // 添加返回按钮
     UIBarButtonItem *backButton =
     [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"homeindicator"]
@@ -1037,14 +1040,21 @@
 - (void)shareBtnClick
 {
     [_greybtn removeFromSuperview];
-    //根据归属地，判断Facebook分享是否添加
-    [self shareClicked1:nil];
+    //当分享到界面不存在时,添加点击事件
+    if (shareTo == NO)
+    {
+        [self shareClicked1:nil];
+    }
 }
 
 #pragma mark - 分享的点击事件
 //有Facebook的情况
 - (void)shareClicked1:(UIButton *)button
 {
+
+    //分享到界面存在
+    shareTo = YES;
+
     NSString *title8 = I18N (@"Share on");
     NSString *title9 = I18N (@"Cancel");
     NSString *title10 = I18N (@"WeChat");
@@ -1422,6 +1432,8 @@
 //取消方法实现
 - (void)ButtonRemoveClick:(UIButton *)btn
 {
+    //分享到界面取消
+    shareTo = NO;
     [btn.superview removeFromSuperview];
 }
 
