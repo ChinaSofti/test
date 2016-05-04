@@ -136,14 +136,14 @@
     cell.delegate = self;
     [cell cellViewModel:_soucreMA[indexPath.section] section:indexPath.section];
 
-    // 默认视频勾选，且不能取消勾选。在视频项上添加透明UIVIew遮挡事件
-    if (indexPath.section == 0)
-    {
-        UIView *view =
-        [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (22), 0, FITWIDTH (1036), FITHEIGHT (209))];
-        [view setAlpha:0.1];
-        [cell addSubview:view];
-    }
+//    // 默认视频勾选，且不能取消勾选。在视频项上添加透明UIVIew遮挡事件
+//    if (indexPath.section == 0)
+//    {
+//        UIView *view =
+//        [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (22), 0, FITWIDTH (1036), FITHEIGHT (209))];
+//        [view setAlpha:0.1];
+//        [cell addSubview:view];
+//    }
     return cell;
 }
 

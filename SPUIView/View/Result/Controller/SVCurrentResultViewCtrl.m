@@ -1262,43 +1262,12 @@
     //创建分享内容对象
     NSString *MessageText;
     MessageText = titleAq; //分享内容
-
-    //根据随机数显示压缩图片
-    //    NSString *str11 = I18N (@"share_image_frist_english");
-    //    NSString *str21 = I18N (@"share_image_second_english");
-    //    NSString *str31 = I18N (@"share_image_thrid_english");
-    //    NSString *str41 = I18N (@"share_image_forth_english");
-    //    NSString *str51 = I18N (@"share_image_last_english");
     NSString *str61 = @"logo";
     // 3.0分享的图片
     NSString *image;
-    //    //分享图片,使用SDK的setThumbImage方法可压缩图片大小
-    //    if (randomx >= 95)
-    //    {
-    //        image = str11;
-    //    }
-    //    if (randomx >= 80 && randomx <= 95)
-    //    {
-    //        image = str21;
-    //    }
-    //    if (randomx >= 60 && randomx <= 80)
-    //    {
-    //        image = str31;
-    //    }
-    //    if (randomx >= 10 && randomx <= 60)
-    //    {
-    //        image = str41;
-    //    }
-    //    if (randomx >= 0 && randomx <= 10)
-    //    {
-    //        image = str51;
-    //    }
     image = str61;
     // 4.0分享的网址和资源
     NSString *Url = I18N (@"myurl");
-    UMSocialUrlResource *UrlResource =
-    [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb
-                                                     url:@"www.baidu.com"];
     // 5.0分享
     [[UMSocialControllerService defaultControllerService] setShareText:MessageText
                                                             shareImage:[UIImage imageNamed:image]
@@ -1309,18 +1278,15 @@
 
     //微信朋友圈
     [UMSocialData defaultData].extConfig.wechatTimelineData.title = MessageTitle;
-    //    [UMSocialData defaultData].extConfig.wechatTimelineData.shareText = MessageText;
 
     // Facebook
     [UMSocialData defaultData].extConfig.facebookData.title = MessageTitle;
     [UMSocialData defaultData].extConfig.facebookData.shareText = MessageText;
     [UMSocialData defaultData].extConfig.facebookData.url = Url;
-    [UMSocialData defaultData].extConfig.facebookData.urlResource = UrlResource;
     [UMSocialData defaultData].extConfig.facebookData.linkDescription =
     I18N (@"Click download application");
     //微博
-    //    [UMSocialData defaultData].extConfig.title = MessageTitle;
-    //    [UMSocialData defaultData].extConfig.sinaData.shareText = MessageText;
+    [UMSocialData defaultData].extConfig.sinaData.shareText = MessageTitle;
 }
 
 //分享成功调用此方法
