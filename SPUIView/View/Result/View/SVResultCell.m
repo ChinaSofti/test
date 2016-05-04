@@ -51,7 +51,7 @@
     SVSummaryResultModel *_resultModel;
 }
 
-@synthesize columnName, selectedTag;
+@synthesize selectedTag;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
               reuseIdentifier:(NSString *)reuseIdentifier
@@ -300,20 +300,22 @@
                                   UnitLabel:self.bandWidthUnit
                                   WithWidth:FITWIDTH (207)
                                  WithHeight:FITHEIGHT (170)];
-
-    // 转换颜色
-    [self chanageColor];
 }
 
-// 转换颜色
-- (void)chanageColor
+/**
+ *  转换被选中列的字体颜色
+ *
+ *  @param columnIndex 被选中列索引
+ */
+- (void)chanageSelectedColumnColor:(NSInteger)columnIndex
 {
     UIColor *textColor = [UIColor blackColor];
     UIColor *selectedColor = [UIColor colorWithHexString:@"#29A5E5"];
 
     // 设置被选中列的字体颜色
-    if (!self.columnName || [self.columnName isEqualToString:@""])
+    switch (columnIndex)
     {
+    case 0:
         self.testDate.textColor = textColor;
         self.testTime.textColor = textColor;
         self.videoMOS.textColor = textColor;
@@ -321,61 +323,52 @@
         self.loadTimeUnit.textColor = textColor;
         self.bandWidthValue.textColor = textColor;
         self.bandWidthUnit.textColor = textColor;
-        return;
-    }
-    if ([self.columnName isEqualToString:@"testTime"])
-    {
+        break;
+    case 1:
         self.testDate.textColor = selectedColor;
         self.testTime.textColor = selectedColor;
-
         self.videoMOS.textColor = textColor;
         self.loadTimeValue.textColor = textColor;
         self.loadTimeUnit.textColor = textColor;
         self.bandWidthValue.textColor = textColor;
         self.bandWidthUnit.textColor = textColor;
-    }
-    if ([self.columnName isEqualToString:@"UvMOS"])
-    {
+        break;
+    case 2:
         self.videoMOS.textColor = selectedColor;
-
         self.testDate.textColor = textColor;
         self.testTime.textColor = textColor;
         self.loadTimeValue.textColor = textColor;
         self.loadTimeUnit.textColor = textColor;
         self.bandWidthValue.textColor = textColor;
         self.bandWidthUnit.textColor = textColor;
-    }
-    if ([self.columnName isEqualToString:@"loadTime"])
-    {
+        break;
+    case 3:
         self.loadTimeValue.textColor = selectedColor;
         self.loadTimeUnit.textColor = selectedColor;
-
         self.videoMOS.textColor = textColor;
         self.testDate.textColor = textColor;
         self.testTime.textColor = textColor;
         self.bandWidthValue.textColor = textColor;
         self.bandWidthUnit.textColor = textColor;
-    }
-    if ([self.columnName isEqualToString:@"bandwidth"])
-    {
+        break;
+    case 4:
         self.bandWidthValue.textColor = selectedColor;
         self.bandWidthUnit.textColor = selectedColor;
-
         self.loadTimeValue.textColor = textColor;
         self.loadTimeUnit.textColor = textColor;
         self.videoMOS.textColor = textColor;
         self.testDate.textColor = textColor;
         self.testTime.textColor = textColor;
-    }
-    if ([self.columnName isEqualToString:@"type"])
-    {
+        break;
+    default:
+        self.testDate.textColor = textColor;
+        self.testTime.textColor = textColor;
+        self.videoMOS.textColor = textColor;
+        self.loadTimeValue.textColor = textColor;
+        self.loadTimeUnit.textColor = textColor;
         self.bandWidthValue.textColor = textColor;
         self.bandWidthUnit.textColor = textColor;
-        self.loadTimeValue.textColor = textColor;
-        self.loadTimeUnit.textColor = textColor;
-        self.videoMOS.textColor = textColor;
-        self.testDate.textColor = textColor;
-        self.testTime.textColor = textColor;
+        break;
     }
 }
 

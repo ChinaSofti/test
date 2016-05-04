@@ -22,8 +22,6 @@
 
 @property (nonatomic, retain) UIButton *bgdBtn;
 
-@property (nonatomic, strong) NSString *columnName;
-
 @property int selectedTag;
 
 @property (nonatomic, copy) void (^cellBlock) ();
@@ -34,4 +32,12 @@
 - (void)setResultModel:(SVSummaryResultModel *)resultModel;
 
 - (SVSummaryResultModel *)getResultModel;
+
+/**
+ *  转换被选中列的字体颜色
+ *
+ *  @param columnIndex 被选中列索引
+ */
+- (void)chanageSelectedColumnColor:(NSInteger)columnIndex;
+
 @end

@@ -418,9 +418,15 @@
     SVSummaryResultModel *summaryResultModel = _dataSource[indexPath.section];
     [cell setResultModel:summaryResultModel];
 
+    NSInteger selectedColumnIndex = 0;
+    if (_selectedButton)
+    {
+        selectedColumnIndex = _selectedButton.tag;
+    }
+    [cell chanageSelectedColumnColor:selectedColumnIndex];
+
     //设置cell的背景颜色
     cell.backgroundColor = [UIColor colorWithHexString:@"#FAFAFA"];
-
     return cell;
 }
 
@@ -475,6 +481,7 @@
 
                              //从数据库中删除
                              [_db executeUpdate:@"delete from SVDetailResultModel;"];
+                             [self readDataFromDB:_type order:_order];
                            }];
 
     [alert addAction:noAction];
