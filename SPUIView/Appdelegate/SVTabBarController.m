@@ -34,7 +34,7 @@
     [super viewDidLoad];
     SVInfo (@"SVTabbarController");
     NSString *title1 = I18N (@"Test");
-    NSString *title2 = I18N (@"Results");
+    NSString *title2 = I18N (@"Result List");
     NSString *title3 = I18N (@"Settings");
 
     // 测试
@@ -110,8 +110,11 @@
     SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
     if (![contextGetter isInitSuccess])
     {
-        progressVlaue += 0.05;
-        [progressView setProgress:progressVlaue];
+        if (progressVlaue < 0.8)
+        {
+            progressVlaue += 0.05;
+            [progressView setProgress:progressVlaue];
+        }
     }
     else
     {

@@ -39,11 +39,23 @@
  */
 + (NSData *)requestDataWithoutParameter:(NSString *)urlString
 {
+    return [self requestDataWithoutParameter:urlString WithTimeOut:10];
+}
+
+/**
+ *  请求指定URL，并获取服务器响应数据
+ *
+ *  @param urlString 请求URL
+ *
+ *  @return 服务器返回数据
+ */
++ (NSData *)requestDataWithoutParameter:(NSString *)urlString WithTimeOut:(int)timeout
+{
     SVInfo (@"request URL:%@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url
                                                   cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                              timeoutInterval:10];
+                                              timeoutInterval:timeout];
     //    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     //    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSError *error = nil;
