@@ -92,6 +92,7 @@
 		5641CF841CCA28E200A07584 /* speed_level_thrid_english.png in Resources */ = {isa = PBXBuildFile; fileRef = 5641CF6D1CCA28E100A07584 /* speed_level_thrid_english.png */; };
 		5644354C1C5215AB009B7024 /* i18n.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5644354E1C5215AB009B7024 /* i18n.strings */; };
 		564435771C5216AD009B7024 /* CTViewTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 564435761C5216AD009B7024 /* CTViewTools.m */; };
+		564AFD351CD9D34B002B6806 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 564AFD341CD9D34B002B6806 /* logo.png */; };
 		5659BAE31CCE6FEC008277A6 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5659BAE21CCE6FEC008277A6 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5659BAE71CCE7008008277A6 /* share_to_weibo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5659BAE51CCE7008008277A6 /* share_to_weibo.png */; };
 		565DFAEA1C515BB10024FF45 /* ic_speed_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 565DFADD1C515BB10024FF45 /* ic_speed_normal.png */; };
@@ -488,6 +489,7 @@
 		5644354D1C5215AB009B7024 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/i18n.strings; sourceTree = "<group>"; };
 		564435751C5216AD009B7024 /* CTViewTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTViewTools.h; sourceTree = "<group>"; };
 		564435761C5216AD009B7024 /* CTViewTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTViewTools.m; sourceTree = "<group>"; };
+		564AFD341CD9D34B002B6806 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		5659BAE11CCE6FEC008277A6 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		5659BAE21CCE6FEC008277A6 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		5659BAE51CCE7008008277A6 /* share_to_weibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_to_weibo.png; sourceTree = "<group>"; };
@@ -1198,6 +1200,7 @@
 		5641CF561CCA28E100A07584 /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				564AFD341CD9D34B002B6806 /* logo.png */,
 				5641CF571CCA28E100A07584 /* close_btn.png */,
 				5641CF581CCA28E100A07584 /* draw_background.png */,
 				5641CF591CCA28E100A07584 /* draw_person.png */,
@@ -2199,6 +2202,7 @@
 				5B2521841CB36D4800C4481D /* ic_video_testing@2x.png in Resources */,
 				5B1FEDBA1CAA63C100508920 /* speedpro@3x.png in Resources */,
 				5B2521901CB396E200C4481D /* ic_network_type_wifi@2x.png in Resources */,
+				564AFD351CD9D34B002B6806 /* logo.png in Resources */,
 				B7B5D8BA1CA3E8A400DFEEBA /* tabbar_result_selected@3x.png in Resources */,
 				563DA8E61CB6010F00578D02 /* clock_middle@3x.png in Resources */,
 				5641CF441CCA280500A07584 /* UMSocialSDKResourcesNew.bundle in Resources */,

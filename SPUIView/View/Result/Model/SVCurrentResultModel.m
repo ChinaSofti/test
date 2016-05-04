@@ -94,10 +94,10 @@ stDownloadSpeed, stUploadSpeed, stIsp, stLocation;
 
     // 弹出提示框
     dispatch_async (dispatch_get_main_queue (), ^{
-      NSString *title1 = I18N (@"Prompt");
+      NSString *title1 = I18N (@"Warning");
       NSString *title2 = I18N (@"Test Fail. Check Network");
-      NSString *title3 = I18N (@"Cancel Test");
-      NSString *title4 = I18N (@"Continue Test");
+      NSString *title3 = I18N (@"No");
+      NSString *title4 = I18N (@"Yes");
       UIAlertController *alert = [UIAlertController alertControllerWithTitle:title1
                                                                      message:title2
                                                               preferredStyle:UIAlertControllerStyleAlert];

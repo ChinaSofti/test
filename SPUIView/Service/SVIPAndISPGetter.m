@@ -182,14 +182,15 @@ static NSString *DEFAULT_EN_US_LANG = @"en";
         if (!ip)
         {
             SVInfo (@"query ip and isp of this iphone, and return value with %@ language", lang);
-            jsonData =
-            [SVHttpGetter requestDataWithoutParameter:[NSString stringWithFormat:defaultURL, lang]];
+            jsonData = [SVHttpGetter requestDataWithoutParameter:[NSString stringWithFormat:defaultURL, lang]
+                                                     WithTimeOut:6];
         }
         else
         {
             SVInfo (@"query ip[%@] location, and return value with %@ language", ip, lang);
             jsonData = [SVHttpGetter
-            requestDataWithoutParameter:[NSString stringWithFormat:queryIPLocationURL, ip, lang]];
+            requestDataWithoutParameter:[NSString stringWithFormat:queryIPLocationURL, ip, lang]
+                            WithTimeOut:6];
         }
     }
     @catch (NSException *exception)
