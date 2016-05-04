@@ -1,16 +1,13 @@
 //
-//  SVResultViewCtrl.h
-//  SPUIView
+//  SVResultViewCtrl2.h
+//  SpeedPro
 //
-//  Created by WBapple on 16/1/20.
-//  Copyright © 2016年 chinasofti. All rights reserved.
+//  Created by Rain on 5/3/16.
+//  Copyright © 2016 Huawei. All rights reserved.
 //
 
-/**
- *  结果界面
- */
-#import <UIKit/UIKit.h>
+#import "SVResultCell.h"
 
-@interface SVResultViewCtrl : SVViewController
+@interface SVResultViewCtrl : SVViewController <SVResultCellDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @end

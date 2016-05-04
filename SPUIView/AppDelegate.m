@@ -236,6 +236,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     SVProbeInfo *probe = [[SVProbeInfo alloc] init];
     if (probe.isTesting)
     {
+        SVInfo (@"SpeedPro exit...");
         exit (0);
     }
 }

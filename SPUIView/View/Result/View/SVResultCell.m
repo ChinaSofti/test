@@ -47,8 +47,11 @@
 @end
 
 @implementation SVResultCell
+{
+    SVSummaryResultModel *_resultModel;
+}
 
-@synthesize resultModel, columnName, selectedTag;
+@synthesize columnName, selectedTag;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
               reuseIdentifier:(NSString *)reuseIdentifier
@@ -218,15 +221,22 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)setResultModel:(SVSummaryResultModel *)_resultModel
+- (SVSummaryResultModel *)getResultModel
 {
+    return _resultModel;
+}
+
+- (void)setResultModel:(SVSummaryResultModel *)resultModel
+{
+    _resultModel = resultModel;
+
     // WIFI 1  Mobile 0
     UIImage *networkTypeImage;
-    if ([_resultModel.type isEqualToString:@"1"])
+    if ([resultModel.type isEqualToString:@"1"])
     {
         networkTypeImage = [UIImage imageNamed:@"ic_network_type_wifi"];
     }
-    else if ([_resultModel.type isEqualToString:@"0"])
+    else if ([resultModel.type isEqualToString:@"0"])
     {
         networkTypeImage = [UIImage imageNamed:@"ic_network_type_mobile"];
     }
@@ -238,14 +248,14 @@
     double y = (FITHEIGHT (170) - height) / 2;
     _imgViewType.frame = CGRectMake (x, y, width, height);
 
-    NSString *testTime = _resultModel.testTime;
+    NSString *testTime = resultModel.testTime;
     self.testDate.text =
     [SVTimeUtil formatDateByMilliSecond:[testTime longLongValue] formatStr:@"MM/dd"];
     self.testTime.text =
     [SVTimeUtil formatDateByMilliSecond:[testTime longLongValue] formatStr:@"HH:mm:ss"];
 
     // 显示指标值，-1的显示--
-    float uvmos = [_resultModel.UvMOS floatValue];
+    float uvmos = [resultModel.UvMOS floatValue];
     if (uvmos == -1.0f)
     {
         self.videoMOS.text = @"--";
@@ -255,7 +265,7 @@
         self.videoMOS.text = [NSString stringWithFormat:@"%.2f", uvmos];
     }
 
-    double totalTime = [_resultModel.loadTime doubleValue];
+    double totalTime = [resultModel.loadTime doubleValue];
     if (totalTime == -1.0f)
     {
         self.loadTimeValue.text = @"--";
@@ -273,7 +283,7 @@
                                   WithWidth:FITWIDTH (207)
                                  WithHeight:FITHEIGHT (170)];
 
-    double bandWidth = [_resultModel.bandwidth doubleValue];
+    double bandWidth = [resultModel.bandwidth doubleValue];
     if (bandWidth == -1.0f)
     {
         self.bandWidthValue.text = @"--";

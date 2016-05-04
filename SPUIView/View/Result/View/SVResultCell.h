@@ -18,8 +18,6 @@
 
 @interface SVResultCell : UITableViewCell
 
-@property (nonatomic, strong) SVSummaryResultModel *resultModel;
-
 @property (nonatomic, assign) id<SVResultCellDelegate> delegate;
 
 @property (nonatomic, retain) UIButton *bgdBtn;
@@ -33,5 +31,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
               reuseIdentifier:(NSString *)reuseIdentifier;
 
+- (void)setResultModel:(SVSummaryResultModel *)resultModel;
 
+- (SVSummaryResultModel *)getResultModel;
 @end

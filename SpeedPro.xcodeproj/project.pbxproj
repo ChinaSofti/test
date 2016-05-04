@@ -22,7 +22,6 @@
 		561A36DA1C896B7E00AC5F5E /* SVTestViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36D91C896B7E00AC5F5E /* SVTestViewCtrl.m */; };
 		561A36E21C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36DD1C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m */; };
 		561A36E31C896BAF00AC5F5E /* SVDetailViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36DF1C896BAF00AC5F5E /* SVDetailViewCtrl.m */; };
-		561A36E41C896BAF00AC5F5E /* SVResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E11C896BAF00AC5F5E /* SVResultViewCtrl.m */; };
 		561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 561A36E71C896BD700AC5F5E /* SVVideoTestingCtrl.m */; };
 		5623B16F1CD06FBF002FA200 /* share_to_facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 5623B16E1CD06FBF002FA200 /* share_to_facebook.png */; };
 		5627689D1C907D760048D867 /* SVSpeedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5627689C1C907D760048D867 /* SVSpeedView.m */; };
@@ -329,6 +328,7 @@
 		B7F268921CAE4BC800E44299 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B7F268881CAE4BC800E44299 /* LICENSE */; };
 		B7F268931CAE4BC800E44299 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F2688A1CAE4BC800E44299 /* libWeChatSDK.a */; };
 		B7F3CA4A1C72CA3F009B087F /* toast_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F3CA491C72CA3F009B087F /* toast_icon.png */; };
+		B7FE25BB1CD8DDA600478B63 /* SVResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B7FE25BA1CD8DDA600478B63 /* SVResultViewCtrl.m */; };
 		F69C9C981C95332B00D89B87 /* SVResultPush.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C9C971C95332B00D89B87 /* SVResultPush.m */; };
 /* End PBXBuildFile section */
 
@@ -384,8 +384,6 @@
 		561A36DD1C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVCurrentResultViewCtrl.m; sourceTree = "<group>"; };
 		561A36DE1C896BAF00AC5F5E /* SVDetailViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVDetailViewCtrl.h; sourceTree = "<group>"; };
 		561A36DF1C896BAF00AC5F5E /* SVDetailViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVDetailViewCtrl.m; sourceTree = "<group>"; };
-		561A36E01C896BAF00AC5F5E /* SVResultViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultViewCtrl.h; sourceTree = "<group>"; };
-		561A36E11C896BAF00AC5F5E /* SVResultViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultViewCtrl.m; sourceTree = "<group>"; };
 		561A36E61C896BD700AC5F5E /* SVVideoTestingCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVideoTestingCtrl.h; sourceTree = "<group>"; };
 		561A36E71C896BD700AC5F5E /* SVVideoTestingCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVideoTestingCtrl.m; sourceTree = "<group>"; };
 		5623B16E1CD06FBF002FA200 /* share_to_facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_to_facebook.png; sourceTree = "<group>"; };
@@ -863,6 +861,8 @@
 		B7F2688C1CAE4BC800E44299 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		B7F2688D1CAE4BC800E44299 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		B7F3CA491C72CA3F009B087F /* toast_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toast_icon.png; sourceTree = "<group>"; };
+		B7FE25B91CD8DDA600478B63 /* SVResultViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultViewCtrl.h; sourceTree = "<group>"; };
+		B7FE25BA1CD8DDA600478B63 /* SVResultViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultViewCtrl.m; sourceTree = "<group>"; };
 		B7FEB2DB1C87DDD900A027D9 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/i18n.strings; sourceTree = "<group>"; };
 		F69C9C961C95332B00D89B87 /* SVResultPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultPush.h; sourceTree = "<group>"; };
 		F69C9C971C95332B00D89B87 /* SVResultPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultPush.m; sourceTree = "<group>"; };
@@ -1043,8 +1043,8 @@
 				561A36DD1C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m */,
 				561A36DE1C896BAF00AC5F5E /* SVDetailViewCtrl.h */,
 				561A36DF1C896BAF00AC5F5E /* SVDetailViewCtrl.m */,
-				561A36E01C896BAF00AC5F5E /* SVResultViewCtrl.h */,
-				561A36E11C896BAF00AC5F5E /* SVResultViewCtrl.m */,
+				B7FE25B91CD8DDA600478B63 /* SVResultViewCtrl.h */,
+				B7FE25BA1CD8DDA600478B63 /* SVResultViewCtrl.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1565,6 +1565,7 @@
 		B71E7C4F1C743DA200DF1AA4 /* Thirdpart */ = {
 			isa = PBXGroup;
 			children = (
+				B7FE25701CD89FC500478B63 /* Reachability */,
 				5659BAE01CCE6FEC008277A6 /* JsonKit */,
 				5641CF541CCA289100A07584 /* Accounts.framework */,
 				5641CF521CCA288B00A07584 /* ImageIO.framework */,
@@ -2048,6 +2049,13 @@
 			path = WebChat;
 			sourceTree = "<group>";
 		};
+		B7FE25701CD89FC500478B63 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2334,7 +2342,6 @@
 				B7F267881CAE1BF300E44299 /* SVProbeInfo.m in Sources */,
 				B7F267851CAE1BF300E44299 /* SVSpeedTestServers.m in Sources */,
 				B7F267B21CAE1C0000E44299 /* SVLog.m in Sources */,
-				561A36E41C896BAF00AC5F5E /* SVResultViewCtrl.m in Sources */,
 				561A36E31C896BAF00AC5F5E /* SVDetailViewCtrl.m in Sources */,
 				B7F267711CAE1BF300E44299 /* SVWebTestContext.m in Sources */,
 				B7F2677C1CAE1BF300E44299 /* SVVideoAnalyser.m in Sources */,
@@ -2415,6 +2422,7 @@
 				B73105961CAF5C4400B6C3A5 /* SVVideoAnalyser_youtube.m in Sources */,
 				5614729F1CC0906F0089BC02 /* SVProgressView.m in Sources */,
 				5BE6DE271CAE69CD00CA2B5B /* SVLabelTools.m in Sources */,
+				B7FE25BB1CD8DDA600478B63 /* SVResultViewCtrl.m in Sources */,
 				B7F268321CAE1C3900E44299 /* CLIColor.m in Sources */,
 				B7F2678C1CAE1BF300E44299 /* SVDetailResultModel.m in Sources */,
 				B77D21F21C957904006BE281 /* SVLineChart.m in Sources */,
