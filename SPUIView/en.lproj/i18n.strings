@@ -275,5 +275,5 @@
 //隐私声明
 "Test Fail. Check Network" = "A network fault causes the test failure. Continue testing?";
 "Network Connection Changed" = "Network Connection has changed. Please reload the configuration information!";
-"Loading Process" = "加载进度";
-"Prepareing" = "准备中...";
+"Loading Process" = "Loading";
+"Prepareing" = "Preparing...";
