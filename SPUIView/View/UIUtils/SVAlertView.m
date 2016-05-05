@@ -93,7 +93,7 @@
     UIButton *leftButton = [[UIButton alloc] init];
     [leftButton setSize:CGSizeMake (FITWIDTH (300), FITHEIGHT (116))];
     [leftButton setCenter:CGPointMake (width / 4 + offset, buttonViewHeight / 2)];
-    [leftButton setTitle:@"No" forState:UIControlStateNormal];
+    [leftButton setTitle:I18N (@"No") forState:UIControlStateNormal];
     [leftButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [leftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [leftButton.layer setBorderWidth:0.4];
@@ -106,7 +106,7 @@
     UIButton *rightButton = [[UIButton alloc] init];
     [rightButton setSize:CGSizeMake (FITWIDTH (300), FITHEIGHT (116))];
     [rightButton setCenter:CGPointMake (width / 4 * 3 - offset, buttonViewHeight / 2)];
-    [rightButton setTitle:@"Yes" forState:UIControlStateNormal];
+    [rightButton setTitle:I18N (@"Yes") forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton.layer setCornerRadius:5];
     [rightButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
