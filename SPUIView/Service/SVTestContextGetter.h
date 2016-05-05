@@ -70,6 +70,11 @@
 - (BOOL)isInitSuccess;
 
 /**
+ *  重新进行初始化
+ */
+- (void)reInitSuccess;
+
+/**
  *  获取视频Context对象
  *
  *  @return 视频Context对象

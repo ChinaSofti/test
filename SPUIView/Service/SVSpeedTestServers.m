@@ -73,6 +73,18 @@ static NSString *SPEEDTEST_SERVER_QUERY_URL = @"https://www.speedtest.net/api/an
         return;
     }
 
+    [self reInitSpeedTestServer];
+}
+
+
+/**
+ *  重新初始化所有SpeedTestServer
+ */
+- (void)reInitSpeedTestServer
+{
+    [_serverArray removeAllObjects];
+    _server = nil;
+
     SVInfo (@"start request speed test server list.");
     SVHttpsTools *getter =
     [[SVHttpsTools alloc] initWithURLNSString:SPEEDTEST_SERVER_QUERY_URL WithCert:NO];
@@ -100,7 +112,6 @@ static NSString *SPEEDTEST_SERVER_QUERY_URL = @"https://www.speedtest.net/api/an
     _lat = parser.lat;
     _lon = parser.lon;
 }
-
 
 /**
  *  设置缺省SpeedTestServer

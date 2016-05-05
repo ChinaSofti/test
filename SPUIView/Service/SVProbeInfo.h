@@ -15,7 +15,7 @@
 @property NSString *networkType;
 @property NSString *singnal;
 @property BOOL isTesting;
-
+@property NSString *wifiName;
 
 /**
  *  单例

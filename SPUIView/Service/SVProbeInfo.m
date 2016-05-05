@@ -16,7 +16,7 @@
 
 @implementation SVProbeInfo
 
-@synthesize singnal, ip, networkType, location;
+@synthesize singnal, ip, networkType, location, wifiName;
 
 // 屏幕尺寸
 static NSString *_screenSize;

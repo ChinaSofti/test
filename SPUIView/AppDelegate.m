@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SVAppVersionChecker.h"
 #import "SVCurrentDevice.h"
+#import "SVCurrentDevice.h"
 #import "SVDBManager.h"
 #import "SVProbeInfo.h"
 #import "SVSpeedTestServers.h"
@@ -18,6 +19,7 @@
 //微信分享
 #import "WXApi.h"
 //分享
+#import "SVReloadingDataAlertViewManager.h"
 #import "UMSocial.h"
 #import "UMSocialFacebookHandler.h"
 #import "UMSocialSinaSSOHandler.h"
@@ -28,6 +30,9 @@
 @end
 
 @implementation AppDelegate
+{
+    BOOL noFirstStart;
+}
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -98,7 +103,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
     SVRealReachability *realReachability = [SVRealReachability sharedInstance];
     [realReachability addDelegate:self];
-
     return YES;
 }
 #pragma mark - 分享的方法
@@ -139,6 +143,23 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 #pragma mark - 网络状态
 - (void)networkStatusChange:(SVRealReachabilityStatus)status
 {
+    if (!noFirstStart && status != SV_RealStatusNotReachable)
+    {
+        // 当网络正常时，从服务器加载测试相关配置信息
+        [self loadResouceFromServer];
+        noFirstStart = YES;
+
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        NSString *wifiName = [SVCurrentDevice getWifiName];
+        [probeInfo setWifiName:wifiName];
+        return;
+    }
+
+    if (status != SV_RealStatusNotReachable)
+    {
+        [self reloadData];
+    }
+
     switch (status)
     {
     case SV_RealStatusNotReachable:
@@ -185,17 +206,16 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         [[SVProbeInfo sharedInstance] setNetworkType:@"1"];
         break;
     }
-
-    if (status != SV_RealStatusNotReachable)
-    {
-        // 当网络正常时，从服务器加载测试相关配置信息
-        [self loadResouceFromServer];
-    }
 }
 
 - (void)loadResouceFromServer
 {
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+      NSString *wifiName = [SVCurrentDevice getWifiName];
+      SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+      [probeInfo setWifiName:wifiName];
+      //      SVProbeInfo.wifiName = wifiName;
 
       SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
       [servers initSpeedTestServer];
@@ -245,6 +265,38 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Called as part of the transition from the background to the inactive state;
     // here you can undo many of the changes made on entering the background.
+    //    SVRealReachability *realReachability = [SVRealReachability sharedInstance];
+    //    if ([realReachability isReachable])
+    //    {
+    //        [self reloadData];
+    //    }
+}
+
+- (void)reloadData
+{
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSString *lastWifiName = probeInfo.wifiName;
+    NSString *wifiName = [SVCurrentDevice getWifiName];
+    if (lastWifiName)
+    {
+        if (![lastWifiName isEqualToString:wifiName])
+        {
+            SVReloadingDataAlertViewManager *rdAlertViewManager =
+            [SVReloadingDataAlertViewManager sharedInstance];
+            [rdAlertViewManager showAlertView];
+            [probeInfo setWifiName:wifiName];
+        }
+    }
+    else
+    {
+        if (wifiName)
+        {
+            SVReloadingDataAlertViewManager *rdAlertViewManager =
+            [SVReloadingDataAlertViewManager sharedInstance];
+            [rdAlertViewManager showAlertView];
+            [probeInfo setWifiName:wifiName];
+        }
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

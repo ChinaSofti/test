@@ -140,6 +140,7 @@ static SVTestContextGetter *contextGetter = nil;
 {
     if (!self.data)
     {
+        isInitSuccess = TRUE;
         SVError (@"request data is null");
         return;
     }
@@ -149,6 +150,7 @@ static SVTestContextGetter *contextGetter = nil;
     [NSJSONSerialization JSONObjectWithData:self.data options:0 error:&error];
     if (error)
     {
+        isInitSuccess = TRUE;
         SVError (@"convert NSData to json fail. Error:%@", error);
         return;
     }
@@ -167,6 +169,14 @@ static SVTestContextGetter *contextGetter = nil;
 - (BOOL)isInitSuccess
 {
     return isInitSuccess;
+}
+
+/**
+ *  重新进行初始化
+ */
+- (void)reInitSuccess
+{
+    isInitSuccess = FALSE;
 }
 
 /**

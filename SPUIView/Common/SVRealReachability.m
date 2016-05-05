@@ -161,4 +161,16 @@ static NSMutableArray *delegates;
     return _realStatus;
 }
 
+- (BOOL)isReachable
+{
+    RealReachability *rr = [RealReachability sharedInstance];
+    ReachabilityStatus reachable = [rr currentReachabilityStatus];
+    if (RealStatusNotReachable == reachable)
+    {
+        return false;
+    }
+
+    return true;
+}
+
 @end

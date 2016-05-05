@@ -330,6 +330,10 @@
 		B7F268931CAE4BC800E44299 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F2688A1CAE4BC800E44299 /* libWeChatSDK.a */; };
 		B7F3CA4A1C72CA3F009B087F /* toast_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B7F3CA491C72CA3F009B087F /* toast_icon.png */; };
 		B7FE25BB1CD8DDA600478B63 /* SVResultViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B7FE25BA1CD8DDA600478B63 /* SVResultViewCtrl.m */; };
+		B7FE25BD1CD9EEF800478B63 /* SVCurrentDeviceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B7FE25BC1CD9EEF800478B63 /* SVCurrentDeviceTest.m */; };
+		B7FE25C01CDA59A200478B63 /* SVAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7FE25BF1CDA59A200478B63 /* SVAlertView.m */; };
+		B7FE25C31CDAE10A00478B63 /* SVReloadingDataAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7FE25C21CDAE10A00478B63 /* SVReloadingDataAlertView.m */; };
+		B7FE25C61CDB07A800478B63 /* SVReloadingDataAlertViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B7FE25C51CDB07A800478B63 /* SVReloadingDataAlertViewManager.m */; };
 		F69C9C981C95332B00D89B87 /* SVResultPush.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C9C971C95332B00D89B87 /* SVResultPush.m */; };
 /* End PBXBuildFile section */
 
@@ -865,6 +869,13 @@
 		B7F3CA491C72CA3F009B087F /* toast_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toast_icon.png; sourceTree = "<group>"; };
 		B7FE25B91CD8DDA600478B63 /* SVResultViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultViewCtrl.h; sourceTree = "<group>"; };
 		B7FE25BA1CD8DDA600478B63 /* SVResultViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultViewCtrl.m; sourceTree = "<group>"; };
+		B7FE25BC1CD9EEF800478B63 /* SVCurrentDeviceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVCurrentDeviceTest.m; sourceTree = "<group>"; };
+		B7FE25BE1CDA59A200478B63 /* SVAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVAlertView.h; sourceTree = "<group>"; };
+		B7FE25BF1CDA59A200478B63 /* SVAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVAlertView.m; sourceTree = "<group>"; };
+		B7FE25C11CDAE10A00478B63 /* SVReloadingDataAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVReloadingDataAlertView.h; sourceTree = "<group>"; };
+		B7FE25C21CDAE10A00478B63 /* SVReloadingDataAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVReloadingDataAlertView.m; sourceTree = "<group>"; };
+		B7FE25C41CDB07A800478B63 /* SVReloadingDataAlertViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVReloadingDataAlertViewManager.h; sourceTree = "<group>"; };
+		B7FE25C51CDB07A800478B63 /* SVReloadingDataAlertViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVReloadingDataAlertViewManager.m; sourceTree = "<group>"; };
 		B7FEB2DB1C87DDD900A027D9 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/i18n.strings; sourceTree = "<group>"; };
 		F69C9C961C95332B00D89B87 /* SVResultPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVResultPush.h; sourceTree = "<group>"; };
 		F69C9C971C95332B00D89B87 /* SVResultPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVResultPush.m; sourceTree = "<group>"; };
@@ -1561,6 +1572,7 @@
 				B70FF3D51C6582AA002D571B /* SPUIViewTests.m */,
 				B70FF3D71C6582AA002D571B /* Info.plist */,
 				B75B237D1CC8CB6900F7C120 /* SVAppVersionCheckerTest.m */,
+				B7FE25BC1CD9EEF800478B63 /* SVCurrentDeviceTest.m */,
 			);
 			path = SPUIViewTests;
 			sourceTree = "<group>";
@@ -1622,6 +1634,12 @@
 				5B1FEDBC1CAA74D600508920 /* SVViewController.m */,
 				5BE6DE251CAE69CD00CA2B5B /* SVLabelTools.h */,
 				5BE6DE261CAE69CD00CA2B5B /* SVLabelTools.m */,
+				B7FE25BE1CDA59A200478B63 /* SVAlertView.h */,
+				B7FE25BF1CDA59A200478B63 /* SVAlertView.m */,
+				B7FE25C11CDAE10A00478B63 /* SVReloadingDataAlertView.h */,
+				B7FE25C21CDAE10A00478B63 /* SVReloadingDataAlertView.m */,
+				B7FE25C41CDB07A800478B63 /* SVReloadingDataAlertViewManager.h */,
+				B7FE25C51CDB07A800478B63 /* SVReloadingDataAlertViewManager.m */,
 			);
 			path = UIUtils;
 			sourceTree = "<group>";
@@ -2436,6 +2454,7 @@
 				5B80D3921C91742700FF61DE /* SVNetworkTrafficMonitor.m in Sources */,
 				B7F267891CAE1BF300E44299 /* SVLogUploader.m in Sources */,
 				5B50AB0F1CC08645006499BE /* NSString+AES256.m in Sources */,
+				B7FE25C01CDA59A200478B63 /* SVAlertView.m in Sources */,
 				B7F268651CAE263300E44299 /* SVSpeedServerDelay.m in Sources */,
 				B7F267821CAE1BF300E44299 /* SVTestContext.m in Sources */,
 				5B1FEDBD1CAA74D600508920 /* SVViewController.m in Sources */,
@@ -2443,6 +2462,7 @@
 				B7F2682E1CAE1C3900E44299 /* ReachStateWWAN.m in Sources */,
 				B7F268291CAE1C3900E44299 /* ReachState.m in Sources */,
 				B7F267791CAE1BF300E44299 /* SVVideoPlayer.m in Sources */,
+				B7FE25C31CDAE10A00478B63 /* SVReloadingDataAlertView.m in Sources */,
 				B7F267731CAE1BF300E44299 /* SVVideoUtil.m in Sources */,
 				B7F268381CAE1C3900E44299 /* DDTTYLogger.m in Sources */,
 				B7F267861CAE1BF300E44299 /* SVSpeedTestServer.m in Sources */,
@@ -2450,6 +2470,7 @@
 				B7CD57521C70C7FB00668E88 /* SVCurrentResultModel.m in Sources */,
 				B7F267721CAE1BF300E44299 /* SVWebContext.m in Sources */,
 				5B1FEDC01CAA85B400508920 /* UIColor+Hex.m in Sources */,
+				B7FE25C61CDB07A800478B63 /* SVReloadingDataAlertViewManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2459,6 +2480,7 @@
 			files = (
 				B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */,
 				B75B237E1CC8CB6900F7C120 /* SVAppVersionCheckerTest.m in Sources */,
+				B7FE25BD1CD9EEF800478B63 /* SVCurrentDeviceTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

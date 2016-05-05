@@ -21,4 +21,12 @@
 
 + (NSString *)getIPAddress;
 
+/**
+ *  获取WiFi网络名称。
+ *  注意：该方法只在真机可用，真机可用正常获取WiFi名称
+ *
+ *  @return WiFi网络名称
+ */
++ (NSString *)getWifiName;
+
 @end

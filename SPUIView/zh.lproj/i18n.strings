@@ -270,3 +270,6 @@
 
 //隐私声明
 "Test Fail. Check Network" = "由于网络原因导致测试失败，是否继续测试？";
+"Network Connection Changed" = "网络连接已经发生改变，继续测试将产生无效测试结果，是否重新加载配置信息？";
+"Loading Process" = "加载进度";
+"Prepareing" = "准备中...";

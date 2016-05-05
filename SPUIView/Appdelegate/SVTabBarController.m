@@ -223,7 +223,7 @@
              animations:^{
                // 黑色透明阴影
                UIView *shadowView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-               shadowView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.8];
+               shadowView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.3];
 
                if (!_alertView)
                {

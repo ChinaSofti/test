@@ -85,4 +85,9 @@
  */
 - (void)initSpeedTestServer;
 
+/**
+ *  重新初始化所有SpeedTestServer
+ */
+- (void)reInitSpeedTestServer;
+
 @end

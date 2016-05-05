@@ -75,4 +75,7 @@ typedef NS_ENUM (NSInteger, SVRealReachabilityStatus) {
  */
 - (SVRealReachabilityStatus)getNetworkStatus;
 
+
+- (BOOL)isReachable;
+
 @end
