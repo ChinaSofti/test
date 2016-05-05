@@ -67,8 +67,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     // 3.4设置Facebook，AppID和分享url(根据bundel不同需要更换APPID)
     /*
      bundel id:com.huawei.speedpro
-     1694953214094427
-     1758631544423034
+     576212805892427
      bundel id:com.huawei.speedpro.debug
      221368888244101
      */
