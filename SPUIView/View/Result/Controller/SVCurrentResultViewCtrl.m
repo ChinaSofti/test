@@ -53,7 +53,7 @@
     BOOL currentCtl;
     //获取地域信息
     SVIPAndISP *ipAndISP;
-    //分享到界面判断标识符
+    //分享到界面判断有无标识符
     BOOL shareTo;
 }
 
@@ -62,8 +62,9 @@
     [super viewDidLoad];
     // 设置标题
     [self initTitleView];
-    //界面一出现分享到页面没有
+    //界面一出现,分享到页面是没有的,为NO
     shareTo = NO;
+
     // 添加返回按钮
     UIBarButtonItem *backButton =
     [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"homeindicator"]
@@ -940,7 +941,7 @@
         return;
     }
     //获取整个屏幕的window
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    //    UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //创建一个覆盖garybutton
     _greybtn = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
     _greybtn.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.0];
@@ -1022,25 +1023,28 @@
     [_greybtn addSubview:_sharebtn];
     @synchronized (self)
     {
-        //判断如果不是当前结果页面就退出
-        if (currentCtl == NO)
+        if (currentCtl)
         {
-            SVInfo (@"不在当前结果页面,不弹出分享界面");
-            return;
+            [self.view addSubview:_greybtn];
+            SVInfo (@"在当前结果页面,添加分享页面");
         }
-        [window addSubview:_greybtn];
+        else
+        {
+            SVInfo (@"不在当前结果页面,不添加分享页面");
+        }
     }
 }
 //移除分享页面
 - (void)greyBtnBackClick
 {
     [_greybtn removeFromSuperview];
+    SVInfo (@"分享页面消失");
 }
 //调分享点击事件
 - (void)shareBtnClick
 {
     [_greybtn removeFromSuperview];
-    //当分享到界面不存在时,添加点击事件
+    //当分享到界面不存在时,点击事件生效
     if (shareTo == NO)
     {
         [self shareClicked1:nil];
@@ -1168,106 +1172,6 @@
     [_grey addSubview:button3];
     [_grey addSubview:button4];
 }
-//没有Facebook的情况
-- (void)shareClicked2:(UIButton *)button
-{
-    NSString *title8 = I18N (@"Share on");
-    NSString *title9 = I18N (@"Cancel");
-    NSString *title10 = I18N (@"WeChat");
-    NSString *title11 = I18N (@"Moments");
-    NSString *title12 = I18N (@"Sina Weibo");
-
-    //获取整个屏幕的window
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    UIView *_grey = [[UIView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
-    _grey.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.3];
-    //创建一个分享到sharetoview
-    UIView *sharetoview =
-    [[UIView alloc] initWithFrame:CGRectMake (0, kScreenH - FITHEIGHT (580), kScreenW, FITHEIGHT (580))];
-    sharetoview.backgroundColor = [UIColor whiteColor];
-    //创建一个分享到label
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH / 10)];
-    label.text = title8;
-    label.font = [UIFont systemFontOfSize:pixelToFontsize (54)];
-    label.textColor = [UIColor blackColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    //创建一个显示取消的label2
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake (0, FITHEIGHT (43), kScreenW, kScreenH / 2)];
-    label2.text = title9;
-    label2.font = [UIFont systemFontOfSize:pixelToFontsize (54)];
-    label2.textColor = [UIColor colorWithRed:0.179 green:0.625 blue:1.000 alpha:1.000];
-    label2.textAlignment = NSTextAlignmentCenter;
-
-    //创建3个分享按钮
-    UIButton *button1 = [[UIButton alloc]
-    initWithFrame:CGRectMake (FITWIDTH (120), kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
-    [button1 setImage:[UIImage imageNamed:@"share_to_wechat"] forState:UIControlStateNormal];
-    [button1 addTarget:self
-                action:@selector (Button1Click:)
-      forControlEvents:UIControlEventTouchUpInside];
-    UIButton *button2 = [[UIButton alloc]
-    initWithFrame:CGRectMake (FITWIDTH (120) + (kScreenW - FITWIDTH (58)) / 3,
-                              kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
-    [button2 setImage:[UIImage imageNamed:@"share_to_wechatmoments"] forState:UIControlStateNormal];
-    [button2 addTarget:self
-                action:@selector (Button2Click:)
-      forControlEvents:UIControlEventTouchUpInside];
-
-    UIButton *button3 = [[UIButton alloc]
-    initWithFrame:CGRectMake (FITWIDTH (120) + 2 * (kScreenW - FITWIDTH (58)) / 3,
-                              kScreenH - FITHEIGHT (405), FITHEIGHT (150), FITHEIGHT (150))];
-    [button3 setImage:[UIImage imageNamed:@"share_to_weibo"] forState:UIControlStateNormal];
-    [button3 addTarget:self
-                action:@selector (Button3Click:)
-      forControlEvents:UIControlEventTouchUpInside];
-
-    //添加3个label
-    //创建一个显示微信的label3
-    UILabel *label3 =
-    [[UILabel alloc] initWithFrame:CGRectMake (FITWIDTH (100), kScreenH / 10 + FITHEIGHT (202),
-                                               FITWIDTH (200), FITHEIGHT (58))];
-    label3.text = title10;
-    //    label3.backgroundColor = [UIColor redColor];
-    label3.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-    label3.textColor = [UIColor lightGrayColor];
-    label3.textAlignment = NSTextAlignmentCenter;
-    //创建一个显示微信朋友圈的label4
-    UILabel *label4 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (100) + (kScreenW - FITWIDTH (58)) / 3,
-                              kScreenH / 10 + FITHEIGHT (202), FITWIDTH (230), FITHEIGHT (58))];
-    label4.text = title11;
-    label4.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-    //    label4.backgroundColor = [UIColor blueColor];
-    label4.textColor = [UIColor lightGrayColor];
-    label4.textAlignment = NSTextAlignmentCenter;
-    //创建一个显示微博的label5
-    UILabel *label5 = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (100) + 2 * (kScreenW - FITWIDTH (58)) / 3,
-                              kScreenH / 10 + FITHEIGHT (202), FITWIDTH (230), FITHEIGHT (58))];
-    label5.text = title12;
-    //    label5.backgroundColor = [UIColor redColor];
-    label5.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-    label5.textColor = [UIColor lightGrayColor];
-    label5.textAlignment = NSTextAlignmentCenter;
-    //创建取消button
-    UIButton *button33 = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
-    [button33 addTarget:self
-                 action:@selector (ButtonRemoveClick:)
-       forControlEvents:UIControlEventTouchUpInside];
-    //添加
-    [sharetoview addSubview:label];
-    [sharetoview addSubview:label2];
-    [sharetoview addSubview:label3];
-    [sharetoview addSubview:label4];
-    [sharetoview addSubview:label5];
-
-    [_grey addSubview:sharetoview];
-    [window addSubview:_grey];
-    [_grey addSubview:button33];
-    [_grey addSubview:button1];
-    [_grey addSubview:button2];
-    [_grey addSubview:button3];
-}
 //微信群组的分享方法实现
 - (void)Button1Click:(UIButton *)btn
 {
@@ -1358,43 +1262,12 @@
     //创建分享内容对象
     NSString *MessageText;
     MessageText = titleAq; //分享内容
-
-    //根据随机数显示压缩图片
-    //    NSString *str11 = I18N (@"share_image_frist_english");
-    //    NSString *str21 = I18N (@"share_image_second_english");
-    //    NSString *str31 = I18N (@"share_image_thrid_english");
-    //    NSString *str41 = I18N (@"share_image_forth_english");
-    //    NSString *str51 = I18N (@"share_image_last_english");
     NSString *str61 = @"logo";
     // 3.0分享的图片
     NSString *image;
-    //    //分享图片,使用SDK的setThumbImage方法可压缩图片大小
-    //    if (randomx >= 95)
-    //    {
-    //        image = str11;
-    //    }
-    //    if (randomx >= 80 && randomx <= 95)
-    //    {
-    //        image = str21;
-    //    }
-    //    if (randomx >= 60 && randomx <= 80)
-    //    {
-    //        image = str31;
-    //    }
-    //    if (randomx >= 10 && randomx <= 60)
-    //    {
-    //        image = str41;
-    //    }
-    //    if (randomx >= 0 && randomx <= 10)
-    //    {
-    //        image = str51;
-    //    }
     image = str61;
     // 4.0分享的网址和资源
     NSString *Url = I18N (@"myurl");
-    UMSocialUrlResource *UrlResource =
-    [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb
-                                                     url:@"www.baidu.com"];
     // 5.0分享
     [[UMSocialControllerService defaultControllerService] setShareText:MessageText
                                                             shareImage:[UIImage imageNamed:image]
@@ -1405,18 +1278,16 @@
 
     //微信朋友圈
     [UMSocialData defaultData].extConfig.wechatTimelineData.title = MessageTitle;
-    //    [UMSocialData defaultData].extConfig.wechatTimelineData.shareText = MessageText;
 
     // Facebook
-    [UMSocialData defaultData].extConfig.facebookData.title = MessageTitle;
-    [UMSocialData defaultData].extConfig.facebookData.shareText = MessageText;
-    [UMSocialData defaultData].extConfig.facebookData.url = Url;
-    [UMSocialData defaultData].extConfig.facebookData.urlResource = UrlResource;
-    [UMSocialData defaultData].extConfig.facebookData.linkDescription =
-    I18N (@"Click download application");
+    //    [UMSocialData defaultData].extConfig.facebookData.title = MessageTitle;
+    //    [UMSocialData defaultData].extConfig.facebookData.url = Url;
+    //    [UMSocialData defaultData].extConfig.facebookData.linkDescription =
+    //    I18N (@"Click download application");
+    [UMSocialData defaultData].extConfig.facebookData.shareText =
+    [[NSString alloc] initWithFormat:@"%@%@", MessageTitle, Url];
     //微博
-    //    [UMSocialData defaultData].extConfig.title = MessageTitle;
-    //    [UMSocialData defaultData].extConfig.sinaData.shareText = MessageText;
+    [UMSocialData defaultData].extConfig.sinaData.shareText = MessageTitle;
 }
 
 //分享成功调用此方法
@@ -1433,7 +1304,7 @@
 //取消方法实现
 - (void)ButtonRemoveClick:(UIButton *)btn
 {
-    //分享到界面取消
+    //分享到界面消失
     shareTo = NO;
     [btn.superview removeFromSuperview];
 }

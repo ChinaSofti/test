@@ -40,6 +40,7 @@ static NSString *_screenSize;
             [probeInfo setBandwidthType:0];
             [probeInfo setVideoClarity:@"1080P"];
             [probeInfo setUploadResult:YES];
+            [probeInfo setBandwidth:@""];
             probeInfo.networkType = @"";
             probeInfo.location = @"";
             probeInfo.ip = @"";
