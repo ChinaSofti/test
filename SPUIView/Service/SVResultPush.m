@@ -260,8 +260,10 @@ NSArray *_emptyArr;
     [collectorResultsDic setObject:@"SUCCESS" forKey:@"completions"];
     [collectorResultsDic setObject:@0 forKey:@"id"];
     [collectorResultsDic setObject:locationDic forKey:@"location"];
-    NSString *networkType = !probeInfo.networkType ? @"0" : probeInfo.networkType;
-    [collectorResultsDic setObject:networkType forKey:@"networktype"];
+
+    int networkType = !probeInfo.networkType ? 1 : probeInfo.networkType;
+    [collectorResultsDic setObject:[[NSNumber alloc] initWithInt:networkType]
+                            forKey:@"networktype"];
     [collectorResultsDic setObject:paramDic forKey:@"param"];
     [collectorResultsDic setObject:@0 forKey:@"sampleTime"];
     [collectorResultsDic setObject:@0 forKey:@"signalStrength"];

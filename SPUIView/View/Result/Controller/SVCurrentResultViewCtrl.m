@@ -763,14 +763,14 @@
 
     // 获取网络类型
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    NSString *networkType = probeInfo.networkType;
+    int networkType = probeInfo.networkType;
 
     NSString *insertSVSummaryResultModelSQL =
     [NSString stringWithFormat:@"INSERT INTO "
                                @"SVSummaryResultModel(testId,type,testTime,UvMOS,loadTime,"
                                @"bandwidth)VALUES(%lld, %d, %lld, %lf, %lf, %lf);",
-                               _resultModel.testId, networkType.intValue, _resultModel.testId,
-                               _resultModel.uvMOS, _resultModel.totalTime, _resultModel.stDownloadSpeed];
+                               _resultModel.testId, networkType, _resultModel.testId, _resultModel.uvMOS,
+                               _resultModel.totalTime, _resultModel.stDownloadSpeed];
     // 插入汇总结果
     [db executeUpdate:insertSVSummaryResultModelSQL];
 }

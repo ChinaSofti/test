@@ -746,8 +746,8 @@ int caclCount;
     //    SVInfo (@"SVProbeInfo ip:%@   isp:%@", probeInfo.ip, probeInfo.isp);
     [dictionary setObject:!probeInfo.ip ? @"" : probeInfo.ip forKey:@"ip"];
     [dictionary setObject:!ipAndISP.isp ? @"" : ipAndISP.isp forKey:@"isp"];
-    [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
-                   forKey:@"networkType"];
+    int networkType = !probeInfo.networkType ? 1 : probeInfo.networkType;
+    [dictionary setObject:[[NSNumber alloc] initWithInt:networkType] forKey:@"networkType"];
     [dictionary setObject:![probeInfo getBandwidth] ? @"" : [probeInfo getBandwidth]
                    forKey:@"signedBandwidth"];
 
