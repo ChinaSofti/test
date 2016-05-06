@@ -281,6 +281,7 @@
       }
       else
       {
+          [_videoTest stopTest];
           dispatch_async (dispatch_get_main_queue (), ^{
             NSString *title1 = I18N (@"Warning");
             NSString *title2 = I18N (@"Test Fail. Check Network");
