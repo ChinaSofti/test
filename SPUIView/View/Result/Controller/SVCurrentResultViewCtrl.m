@@ -379,12 +379,19 @@
           NSData *result = [push sendResult];
           NSError *error;
           id jsonStr = [NSJSONSerialization JSONObjectWithData:result options:0 error:&error];
-          NSString *results = [jsonStr valueForKey:@"totalCount"];
-          NSString *result1 = [jsonStr valueForKey:@"currentPosition"];
-          double aaaa = [results doubleValue];
-          double bbbb = [result1 doubleValue];
-          rank = (aaaa - bbbb) * 100 / aaaa;
+          if (error)
+          {
+              SVInfo (@"解析服务器返回数据失败,排名计算失败,"
+                      @"不在弹出分享页面");
+              return;
+          }
+          NSString *strTotalCount = [jsonStr valueForKey:@"totalCount"];
+          NSString *strCurrentPosition = [jsonStr valueForKey:@"currentPosition"];
+          double totalCount = [strTotalCount doubleValue];
+          double currentPosition = [strCurrentPosition doubleValue];
+          rank = (totalCount - currentPosition) * 100 / totalCount;
 
+          SVInfo (@"totalCoutn:%@,currentPosition:%@,rank:%d", strTotalCount, strCurrentPosition, rank);
           //单写一个线程,结果传回来后显示UI
           dispatch_async (dispatch_get_main_queue (), ^{
             [self createShareUI];
@@ -789,7 +796,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SVInfo (@"indexPath -----------------------------%@", indexPath);
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aCell"];
 
     if (cell == nil)
@@ -878,9 +884,6 @@
 
 - (void)CellDetailClick:(UIButton *)sender testType:(NSString *)testType
 {
-    // cell被点击
-    SVInfo (@"cell-------dianjile");
-
     //按钮点击后alloc一个界面
     SVDetailViewCtrl *detailViewCtrl = [[SVDetailViewCtrl alloc] init];
     [detailViewCtrl setTestId:_resultModel.testId];
