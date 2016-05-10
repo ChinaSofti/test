@@ -150,6 +150,7 @@
 "Load duration"="Load Duration";
 "Download"="Download";
 "Timeout"="Timeout";
+"ResultTimeout" = "UnKnown";
 
 
 //宽带测试
