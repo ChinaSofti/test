@@ -82,7 +82,8 @@
     // 创建一个 tableView
     CGFloat tabBarH = self.tabBarController.tabBar.frame.size.height;
     UITableView *tableView = [super
-    createTableViewWithRect:CGRectMake (0, NavBarH + StatusBarH + FITHEIGHT (150), kScreenW, kScreenH - tabBarH)
+    createTableViewWithRect:CGRectMake (0, NavBarH + StatusBarH + FITHEIGHT (150), kScreenW,
+                                        kScreenH - tabBarH - NavBarH - StatusBarH - FITHEIGHT (150))
                   WithStyle:UITableViewStyleGrouped
                   WithColor:[UIColor colorWithHexString:@"#FAFAFA"]
                WithDelegate:self

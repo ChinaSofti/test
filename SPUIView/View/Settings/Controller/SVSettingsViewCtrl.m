@@ -232,6 +232,12 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
         if (indexPath.row == 0)
         {
             cell.textLabel.text = title3;
+            //添加二维码缩略图
+            UIImageView *imageView =
+            [[UIImageView alloc] initWithFrame:CGRectMake (kScreenW - FITWIDTH (220), FITHEIGHT (37),
+                                                           FITHEIGHT (56), FITHEIGHT (56))];
+            imageView.image = [UIImage imageNamed:@"litimg56"];
+            [cell addSubview:imageView];
         }
         if (indexPath.row == 1)
         {
