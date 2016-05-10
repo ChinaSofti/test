@@ -14,6 +14,7 @@
 #import "SVIPAndISPGetter.h"
 #import "SVProbeInfo.h"
 #import "SVResultPush.h"
+#import "SVUploadFile.h"
 #import "SVUvMOSCalculator.h"
 
 @interface SVResultPush ()
@@ -48,9 +49,12 @@
 
     // 上报结果后，服务器响应的数据
     NSData *_responseData;
+
+    // 是否需要上传日志
+    BOOL needUploadLogFile;
 }
 
-const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/upload";
+NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/upload";
 
 - (id)initWithTestId:(long long)testId
 {
@@ -65,8 +69,9 @@ const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/uploa
     return self;
 }
 
-- (id)sendResult
+- (void)sendResult:(CompletionHandler)handler
 {
+    _handler = handler;
     [self queryResult];
 
     // 3.设置请求体
@@ -134,13 +139,15 @@ const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/uploa
         }
     }
 
-
-    NSURL *url =
-    [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@", _urlString, _mobileidStr]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-
     NSString *resultJson = [self dictionaryToJsonString:dic];
     SVInfo (@"json = %@", resultJson);
+    [self sendResultToServer:resultJson];
+}
+
+- (void)sendResultToServer:(NSString *)resultJson
+{
+    NSURL *url = [[NSURL alloc] initWithString:_urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 
     [request setHTTPBody:[resultJson dataUsingEncoding:NSUTF8StringEncoding]];
     [request setTimeoutInterval:10];
@@ -149,21 +156,7 @@ const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/uploa
     // 设置Content-Type
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
 
-    [self sendResultToServer:request];
 
-    //    while (!httpsTools.finished)
-    //    {
-    //        // spend 1 second processing events on each loop
-    //        NSDate *oneSecond = [NSDate dateWithTimeIntervalSinceNow:1];
-    //        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:oneSecond];
-    //    }
-    //    return [httpsTools getResponseData];
-
-    return _responseData;
-}
-
-- (void)sendResultToServer:(NSURLRequest *)request
-{
     // 连接服务器发送结果
     SVHttpsTools *httpsTools = [[SVHttpsTools alloc] init];
     [httpsTools sendRequest:request
@@ -175,15 +168,45 @@ const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/uploa
                 if (_failCount < 3)
                 {
                     SVError (@"retry send result to server. result push error:%@ ", error);
-                    [self sendResultToServer:request];
+                    [self sendResultToServer:resultJson];
                     return;
                 }
 
+                _handler (nil, error);
                 return;
             }
 
             _responseData = responseData;
+            NSString *mesg =
+            [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+            SVInfo (@"send result success. response data:%@", mesg);
+
+            if (_handler)
+            {
+                _handler (responseData, nil);
+            }
+
+            if (needUploadLogFile)
+            {
+                // 测试失败时，上报日志文件
+                [self sendLogFileToServerWhenTestFail];
+            }
           }];
+}
+
+/**
+ *  测试失败时，上报日志文件
+ */
+- (void)sendLogFileToServerWhenTestFail
+{
+    SVLog *log = [SVLog sharedInstance];
+    NSString *filePath = [log compressLogFiles];
+    SVInfo (@"upload log file:%@", filePath);
+
+    SVUploadFile *upload = [[SVUploadFile alloc] init];
+    // 设置上报日志过程显示Toast提示用户上报进度
+    [upload setShowToast:FALSE];
+    [upload uploadFile:filePath];
 }
 
 - (void)queryResult
@@ -326,6 +349,7 @@ const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/uploa
     //[testResultJson valueForKey:@"downloadSpeed"];
     if (_speedResultArray.count == 0)
     {
+        needUploadLogFile = TRUE;
         return nil;
     }
 
@@ -375,6 +399,11 @@ const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/uploa
     [upAverageDic setObject:@1457841583057 forKey:@"sampleTime"];
     NSNumber *upSpeed =
     [[NSNumber alloc] initWithFloat:[[speedTestResultJson valueForKey:@"uploadSpeed"] floatValue]];
+    if (upSpeed.floatValue < 0)
+    {
+        needUploadLogFile = TRUE;
+    }
+
     [upAverageDic setObject:upSpeed forKey:@"speed"];
     [upAverageDic setObject:@"0" forKey:@"testId"];
 
@@ -387,6 +416,12 @@ const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/uploa
     [downAverageDic setObject:@1457841583057 forKey:@"sampleTime"];
     NSNumber *downSpeed =
     [[NSNumber alloc] initWithFloat:[[speedTestResultJson valueForKey:@"downloadSpeed"] floatValue]];
+
+    if (downSpeed.floatValue < 0)
+    {
+        needUploadLogFile = TRUE;
+    }
+
     [downAverageDic setObject:downSpeed forKey:@"speed"];
     [downAverageDic setObject:@"0" forKey:@"testId"];
 
@@ -418,6 +453,7 @@ const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/uploa
     // 3.1 location
     if (_videoResultArray.count == 0)
     {
+        needUploadLogFile = TRUE;
         return nil;
     }
 
@@ -572,8 +608,14 @@ const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/uploa
     // 3.4 uvMOSScore
     NSMutableDictionary *uvMOSScoreDic = [[NSMutableDictionary alloc] init];
     [uvMOSScoreDic setObject:@0.0 forKey:@"satCurUvmos"];
-    [uvMOSScoreDic setObject:[self string2num:[videoTestResultJson valueForKey:@"sQualitySession"]]
-                      forKey:@"satSequenceSquality"];
+    NSNumber *sQualitySession =
+    [self string2num:[videoTestResultJson valueForKey:@"sQualitySession"]];
+    if (sQualitySession.floatValue < 0)
+    {
+        needUploadLogFile = TRUE;
+    }
+
+    [uvMOSScoreDic setObject:sQualitySession forKey:@"satSequenceSquality"];
     [uvMOSScoreDic setObject:[self string2num:[videoTestResultJson valueForKey:@"sViewSession"]]
                       forKey:@"satSequenceSview"];
     [uvMOSScoreDic setObject:[self string2num:[videoTestResultJson valueForKey:@"UvMOSSession"]]
@@ -625,6 +667,7 @@ const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/uploa
 {
     if (_webResultArray.count == 0)
     {
+        needUploadLogFile = TRUE;
         return nil;
     }
 
@@ -675,6 +718,11 @@ const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/uploa
 
         // 完整下载时间
         NSNumber *totalTime = [self string2num:[currentResultJson valueForKey:@"totalTime"]];
+        if (totalTime.floatValue < 0)
+        {
+            needUploadLogFile = TRUE;
+        }
+
         double loadTime =
         [totalTime doubleValue] >= 0 ? [totalTime doubleValue] * 1000 : [totalTime doubleValue];
         [currentDic setObject:[[NSNumber alloc] initWithLong:loadTime] forKey:@"loadingTime"];

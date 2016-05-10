@@ -155,9 +155,7 @@ static BOOL isNeedCert = YES;
     [conn start];
     while (!finished)
     {
-        // spend 1 second processing events on each loop
-        NSDate *oneSecond = [NSDate dateWithTimeIntervalSinceNow:0.1];
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:oneSecond];
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
     return self;
 }
@@ -179,6 +177,10 @@ static BOOL isNeedCert = YES;
     NSURLConnection *conn =
     [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self startImmediately:NO];
     [conn start];
+    while (!finished)
+    {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
 }
 
 /**
@@ -271,7 +273,12 @@ static BOOL isNeedCert = YES;
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    _handler (nil, error);
+    if (_handler)
+    {
+        _handler (nil, error);
+    }
+
+    [self performSelectorOnMainThread:@selector (setEnd) withObject:nil waitUntilDone:NO];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -298,7 +305,17 @@ static BOOL isNeedCert = YES;
         SVInfo (@"request finished. data length:0");
     }
 
-    _handler (_allData, nil);
+    if (_handler)
+    {
+        _handler (_allData, nil);
+    }
+
+    [self performSelectorOnMainThread:@selector (setEnd) withObject:nil waitUntilDone:NO];
+}
+
+- (void)setEnd
+{
+    finished = YES;
 }
 
 // 服务器回调函数，验证证书
@@ -311,6 +328,7 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
              forAuthenticationChallenge:challenge];
         return;
     }
+
     // 获取trust object
     SecTrustRef trust = challenge.protectionSpace.serverTrust;
     SecTrustResultType result;

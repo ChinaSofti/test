@@ -71,6 +71,8 @@ NSString *urlString = @"https://tools-speedpro.huawei.com/prolog/upload?mobileid
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     NSString *uuid = [probeInfo getUUID];
     NSString *url_str = [NSString stringWithFormat:urlString, uuid];
+
+    SVInfo (@"upload log file[%@] to Server[%@]", filePath, url_str);
     [self uploadFileWithURL:[NSURL URLWithString:url_str] filePath:filePath];
 }
 
