@@ -450,9 +450,9 @@
 
 - (NSString *)stringFilter:(NSString *)str
 {
-    if (!str)
+    if (!str || [str floatValue] < 0)
     {
-        return @"未知";
+        return I18N (@"Unknown");
     }
     return str;
 }
@@ -551,7 +551,7 @@
 - (NSString *)formatFloatValue:(NSString *)value
 {
     if ([value floatValue] < 0) {
-        return @"未知";
+        return I18N (@"Unknown");
     }
     return [NSString stringWithFormat:@"%.2f", [value floatValue]];
 }
@@ -560,7 +560,7 @@
 - (NSString *)formatOneDecimal:(NSString *)value
 {
     if ([value floatValue] < 0) {
-        return @"未知";
+        return I18N (@"Unknown");
     }
     return [NSString stringWithFormat:@"%.2f", [value floatValue]];
 }
@@ -568,9 +568,9 @@
 // 输出整形的数值,无小数
 - (NSString *)formatValue:(NSString *)value
 {
-    if (!value)
+    if (!value || [value floatValue] < 0)
     {
-        return @"未知";
+        return I18N (@"Unknown");
     }
     return [NSString stringWithFormat:@"%@ ", value];
 }
@@ -579,7 +579,7 @@
 - (NSString *)formatIntValue:(NSString *)value unit:(NSString *)unit
 {
     if ([value floatValue] < 0) {
-        return @"未知";
+        return I18N (@"Unknown");
     }
     return [NSString stringWithFormat:@"%.0f%@ ", [value floatValue], unit];
 }
@@ -588,7 +588,7 @@
 - (NSString *)formatFloatValue:(NSString *)value unit:(NSString *)unit
 {
     if ([value floatValue] < 0) {
-        return @"未知";
+        return I18N (@"Unknown");
     }
     return [NSString stringWithFormat:@"%.2f%@ ", [value floatValue], unit];
 }

@@ -81,7 +81,7 @@
 
 //视频测试
 "Loading..." = "Loading...";
-"Fail" = "Fail";
+"Fail" = "Timeout";
 "Inch" = "Inch";
 "inch" = "inch";
 "U-vMOS"="U-vMOS";
