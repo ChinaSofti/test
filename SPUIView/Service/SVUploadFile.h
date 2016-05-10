@@ -12,9 +12,16 @@
 #import <Foundation/Foundation.h>
 
 @interface SVUploadFile : NSObject
+{
+    BOOL _isShowToast;
+}
+
+- (void)uploadFile:(NSString *)filePath;
 
 - (void)uploadFileWithURL:(NSURL *)url filePath:(NSString *)filePath;
 
 - (void)uploadFileWithURL:(NSURL *)url data:(NSData *)data;
+
+- (void)setShowToast:(BOOL)isShowToast;
 
 @end

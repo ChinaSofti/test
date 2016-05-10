@@ -29,7 +29,7 @@ static BOOL isNeedCert = YES;
     CFArrayRef trustedCerArr;
 
     // 失败次数
-    int failCount;
+    //    int failCount;
 
     // URL请求对象
     NSURLRequest *urlRequest;
@@ -44,6 +44,9 @@ static BOOL isNeedCert = YES;
 
     // 日志文件目录
     NSString *filePath;
+
+    // 连接成功，返回数据
+    //    NSData *_data;
 }
 
 @synthesize finished;
@@ -152,9 +155,7 @@ static BOOL isNeedCert = YES;
     [conn start];
     while (!finished)
     {
-        // spend 1 second processing events on each loop
-        NSDate *oneSecond = [NSDate dateWithTimeIntervalSinceNow:0.1];
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:oneSecond];
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
     return self;
 }
@@ -176,32 +177,18 @@ static BOOL isNeedCert = YES;
     NSURLConnection *conn =
     [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self startImmediately:NO];
     [conn start];
+    while (!finished)
+    {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
 }
 
 /**
- *  发送指定的请求
- *
- *  @param request http请求
- *  @param isUpload 是否是上传测试结果
  *
  */
-- (void)sendRequest:(NSURLRequest *)request isUploadResult:(BOOL)isUpload
+- (void)sendRequest:(NSURLRequest *)request completionHandler:(CompletionHandler)completionHandler
 {
-    isUploadResult = isUpload;
-    [self sendRequest:request];
-}
-
-/**
- *  使用指定Request和日志文件目录进行对象初始化
- *
- *  @param request http请求
- *  @param path 上传文件的路径
- */
-- (void)sendRequest:(NSURLRequest *)request WithFilePath:(NSString *)path
-{
-    filePath = path;
-    isUploadLog = YES;
-
+    _handler = completionHandler;
     [self sendRequest:request];
 }
 
@@ -282,96 +269,16 @@ static BOOL isNeedCert = YES;
     return dataString;
 }
 
-// 初始化弹出框并显示
-- (void)showAlertView
-{
-    UIAlertView *warningView =
-    [[UIAlertView alloc] initWithTitle:@""
-                               message:I18N (@"Upload the test result failed, continue?")
-                              delegate:self
-                     cancelButtonTitle:I18N (@"Cancel")
-                     otherButtonTitles:I18N (@"Continue"), nil];
-    [warningView setTag:100];
-
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:warningView];
-    [warningView show];
-}
-
-// 点击按钮时间
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    // 判断是否是需要处理的alertView
-    if (alertView.tag != 100)
-    {
-        return;
-    }
-
-    // 继续按钮的index是1
-    if (buttonIndex == 1)
-    {
-        // 点击继续时，将failCount重置，然后继续发送请求
-        failCount = 0;
-        [self sendRequest:urlRequest];
-
-        // 让alertView消失
-        [alertView dismissWithClickedButtonIndex:0 animated:NO];
-    }
-}
-
-
 #pragma mark - NSURLConnectionDataDelegate
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    if (error)
+    if (_handler)
     {
-        // 如果是上传结果时失败，需要重试3次
-        if (isUploadResult)
-        {
-            // 发送失败时继续请求
-            if (failCount < 3)
-            {
-                SVError (@"result push error:%@", error);
-                failCount++;
-                [self sendRequest:urlRequest];
-                return;
-            }
-
-            // 请求失败重试3次，然后弹出提示框
-            if (failCount >= 3)
-            {
-                //                dispatch_async (dispatch_get_main_queue (), ^{
-                //                  [self showAlertView];
-                //                });
-                SVInfo (@"result push failed！");
-                return;
-            }
-        }
-
-        // 如果是上传日志时成功，打印日志
-        if (isUploadLog)
-        {
-            if (filePath)
-            {
-                // 删除文件
-                NSFileManager *fileManager = [NSFileManager defaultManager];
-                [fileManager removeItemAtPath:filePath error:nil];
-                SVInfo (@"file has been deleted. file path:%@", filePath);
-            }
-
-            dispatch_async (dispatch_get_main_queue (), ^{
-              NSString *title3 = I18N (@"Upload Failed");
-              [SVToast showWithText:title3];
-
-            });
-            SVError (@"Upload log failed, error:%@", error);
-            return;
-        }
+        _handler (nil, error);
     }
 
-    SVError (@"request URL:%@ fail.  Error:%@", _urlString, error);
-    finished = true;
+    [self performSelectorOnMainThread:@selector (setEnd) withObject:nil waitUntilDone:NO];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -398,31 +305,17 @@ static BOOL isNeedCert = YES;
         SVInfo (@"request finished. data length:0");
     }
 
-    // 如果是上传结果时成功，打印日志
-    if (isUploadResult)
+    if (_handler)
     {
-        NSString *result = [[NSString alloc] initWithData:_allData encoding:NSUTF8StringEncoding];
-        SVInfo (@"result push success %@", result);
+        _handler (_allData, nil);
     }
 
-    // 如果是上传日志时成功，打印日志
-    if (isUploadLog)
-    {
-        if (filePath)
-        {
-            // 删除文件
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            [fileManager removeItemAtPath:filePath error:nil];
-            SVInfo (@"file has been deleted. file path:%@", filePath);
-        }
+    [self performSelectorOnMainThread:@selector (setEnd) withObject:nil waitUntilDone:NO];
+}
 
-        SVInfo (@"%@Upload sucess! ", filePath);
-        dispatch_async (dispatch_get_main_queue (), ^{
-          NSString *title2 = I18N (@"Upload Success");
-          [SVToast showWithText:title2];
-        });
-    }
-    finished = true;
+- (void)setEnd
+{
+    finished = YES;
 }
 
 // 服务器回调函数，验证证书
@@ -435,6 +328,7 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
              forAuthenticationChallenge:challenge];
         return;
     }
+
     // 获取trust object
     SecTrustRef trust = challenge.protectionSpace.serverTrust;
     SecTrustResultType result;

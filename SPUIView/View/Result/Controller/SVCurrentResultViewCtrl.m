@@ -375,27 +375,35 @@
 
           [self cleanOldData];
           SVResultPush *push = [[SVResultPush alloc] initWithTestId:_resultModel.testId];
-          //获取网络数据
-          NSData *result = [push sendResult];
-          NSError *error;
-          id jsonStr = [NSJSONSerialization JSONObjectWithData:result options:0 error:&error];
-          if (error)
-          {
-              SVInfo (@"解析服务器返回数据失败,排名计算失败,"
-                      @"不在弹出分享页面");
-              return;
-          }
-          NSString *strTotalCount = [jsonStr valueForKey:@"totalCount"];
-          NSString *strCurrentPosition = [jsonStr valueForKey:@"currentPosition"];
-          double totalCount = [strTotalCount doubleValue];
-          double currentPosition = [strCurrentPosition doubleValue];
-          rank = (totalCount - currentPosition) * 100 / totalCount;
+          [push sendResult:^(NSData *responseData, NSError *error) {
+            if (error)
+            {
+                //
+                SVError (@"send result to server fail. not show sharing UI.");
+                return;
+            }
 
-          SVInfo (@"totalCoutn:%@,currentPosition:%@,rank:%d", strTotalCount, strCurrentPosition, rank);
-          //单写一个线程,结果传回来后显示UI
-          dispatch_async (dispatch_get_main_queue (), ^{
-            [self createShareUI];
-          });
+            NSError *err;
+            id jsonStr = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&err];
+            if (error)
+            {
+                SVInfo (@"解析服务器返回数据失败,排名计算失败,"
+                        @"不在弹出分享页面");
+                return;
+            }
+            NSString *strTotalCount = [jsonStr valueForKey:@"totalCount"];
+            NSString *strCurrentPosition = [jsonStr valueForKey:@"currentPosition"];
+            double totalCount = [strTotalCount doubleValue];
+            double currentPosition = [strCurrentPosition doubleValue];
+            rank = (totalCount - currentPosition) * 100 / totalCount;
+
+            SVInfo (@"totalCoutn:%@,currentPosition:%@,rank:%d", strTotalCount, strCurrentPosition, rank);
+            //单写一个线程,结果传回来后显示UI
+            dispatch_async (dispatch_get_main_queue (), ^{
+              [self createShareUI];
+            });
+          }];
+
         });
     }
 }

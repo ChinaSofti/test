@@ -14,6 +14,7 @@
 #import "SVIPAndISPGetter.h"
 #import "SVProbeInfo.h"
 #import "SVResultPush.h"
+#import "SVUploadFile.h"
 #import "SVUvMOSCalculator.h"
 
 @interface SVResultPush ()
@@ -23,26 +24,37 @@
 @end
 
 @implementation SVResultPush
+{
+    SVCurrentResultModel *_resultModel;
 
-SVCurrentResultModel *_resultModel;
+    NSMutableData *_allData;
 
-NSMutableData *_allData;
+
+    NSString *_mobileidStr;
+
+    BOOL finished;
+
+    long long _svTestId;
+    long long *_svTestTime;
+
+    SVDBManager *_db;
+    NSArray *_videoResultArray;
+    NSArray *_webResultArray;
+    NSArray *_speedResultArray;
+
+    NSArray *_emptyArr;
+
+    // 上传结果失败后尝试次数。上传结果连续3次都上传失败，则取消结果上传
+    int _failCount;
+
+    // 上报结果后，服务器响应的数据
+    NSData *_responseData;
+
+    // 是否需要上传日志
+    BOOL needUploadLogFile;
+}
 
 NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/upload";
-
-BOOL finished;
-
-long long _svTestId;
-long long *_svTestTime;
-
-
-SVDBManager *_db;
-NSArray *_videoResultArray;
-NSArray *_webResultArray;
-NSArray *_speedResultArray;
-
-NSArray *_emptyArr;
-
 
 - (id)initWithTestId:(long long)testId
 {
@@ -57,8 +69,9 @@ NSArray *_emptyArr;
     return self;
 }
 
-- (id)sendResult
+- (void)sendResult:(CompletionHandler)handler
 {
+    _handler = handler;
     [self queryResult];
 
     // 3.设置请求体
@@ -126,12 +139,15 @@ NSArray *_emptyArr;
         }
     }
 
-
-    NSURL *url = [[NSURL alloc] initWithString:_urlString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-
     NSString *resultJson = [self dictionaryToJsonString:dic];
     SVInfo (@"json = %@", resultJson);
+    [self sendResultToServer:resultJson];
+}
+
+- (void)sendResultToServer:(NSString *)resultJson
+{
+    NSURL *url = [[NSURL alloc] initWithString:_urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 
     [request setHTTPBody:[resultJson dataUsingEncoding:NSUTF8StringEncoding]];
     [request setTimeoutInterval:10];
@@ -140,18 +156,58 @@ NSArray *_emptyArr;
     // 设置Content-Type
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
 
-    // 连接服务器发送请求
+
+    // 连接服务器发送结果
     SVHttpsTools *httpsTools = [[SVHttpsTools alloc] init];
-    [httpsTools sendRequest:request isUploadResult:YES];
-    while (!httpsTools.finished)
-    {
-        // spend 1 second processing events on each loop
-        NSDate *oneSecond = [NSDate dateWithTimeIntervalSinceNow:1];
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:oneSecond];
-    }
-    return [httpsTools getResponseData];
+    [httpsTools sendRequest:request
+          completionHandler:^(NSData *responseData, NSError *error) {
+            // 上报结果失败
+            if (error)
+            {
+                _failCount++;
+                if (_failCount < 3)
+                {
+                    SVError (@"retry send result to server. result push error:%@ ", error);
+                    [self sendResultToServer:resultJson];
+                    return;
+                }
+
+                _handler (nil, error);
+                return;
+            }
+
+            _responseData = responseData;
+            NSString *mesg =
+            [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+            SVInfo (@"send result success. response data:%@", mesg);
+
+            if (_handler)
+            {
+                _handler (responseData, nil);
+            }
+
+            if (needUploadLogFile)
+            {
+                // 测试失败时，上报日志文件
+                [self sendLogFileToServerWhenTestFail];
+            }
+          }];
 }
 
+/**
+ *  测试失败时，上报日志文件
+ */
+- (void)sendLogFileToServerWhenTestFail
+{
+    SVLog *log = [SVLog sharedInstance];
+    NSString *filePath = [log compressLogFiles];
+    SVInfo (@"upload log file:%@", filePath);
+
+    SVUploadFile *upload = [[SVUploadFile alloc] init];
+    // 设置上报日志过程显示Toast提示用户上报进度
+    [upload setShowToast:FALSE];
+    [upload uploadFile:filePath];
+}
 
 - (void)queryResult
 {
@@ -245,6 +301,7 @@ NSArray *_emptyArr;
 
     [paramDic setObject:@0 forKey:@"cellid"];
     [paramDic setObject:!uuid ? @"" : uuid forKey:@"mobileid"];
+    _mobileidStr = !uuid ? @"" : uuid;
     [paramDic setObject:!localIP ? @"" : [self hideIp:localIP] forKey:@"mobileip"];
     [paramDic setObject:deviceName forKey:@"mobilename"];
     //    [paramDic setObject:mobilename forKey:@"mobilename"];
@@ -294,6 +351,7 @@ NSArray *_emptyArr;
     //[testResultJson valueForKey:@"downloadSpeed"];
     if (_speedResultArray.count == 0)
     {
+        needUploadLogFile = TRUE;
         return nil;
     }
 
@@ -343,6 +401,11 @@ NSArray *_emptyArr;
     [upAverageDic setObject:@1457841583057 forKey:@"sampleTime"];
     NSNumber *upSpeed =
     [[NSNumber alloc] initWithFloat:[[speedTestResultJson valueForKey:@"uploadSpeed"] floatValue]];
+    if (upSpeed.floatValue < 0)
+    {
+        needUploadLogFile = TRUE;
+    }
+
     [upAverageDic setObject:upSpeed forKey:@"speed"];
     [upAverageDic setObject:@"0" forKey:@"testId"];
 
@@ -355,6 +418,12 @@ NSArray *_emptyArr;
     [downAverageDic setObject:@1457841583057 forKey:@"sampleTime"];
     NSNumber *downSpeed =
     [[NSNumber alloc] initWithFloat:[[speedTestResultJson valueForKey:@"downloadSpeed"] floatValue]];
+
+    if (downSpeed.floatValue < 0)
+    {
+        needUploadLogFile = TRUE;
+    }
+
     [downAverageDic setObject:downSpeed forKey:@"speed"];
     [downAverageDic setObject:@"0" forKey:@"testId"];
 
@@ -386,6 +455,7 @@ NSArray *_emptyArr;
     // 3.1 location
     if (_videoResultArray.count == 0)
     {
+        needUploadLogFile = TRUE;
         return nil;
     }
 
@@ -540,8 +610,14 @@ NSArray *_emptyArr;
     // 3.4 uvMOSScore
     NSMutableDictionary *uvMOSScoreDic = [[NSMutableDictionary alloc] init];
     [uvMOSScoreDic setObject:@0.0 forKey:@"satCurUvmos"];
-    [uvMOSScoreDic setObject:[self string2num:[videoTestResultJson valueForKey:@"sQualitySession"]]
-                      forKey:@"satSequenceSquality"];
+    NSNumber *sQualitySession =
+    [self string2num:[videoTestResultJson valueForKey:@"sQualitySession"]];
+    if (sQualitySession.floatValue < 0)
+    {
+        needUploadLogFile = TRUE;
+    }
+
+    [uvMOSScoreDic setObject:sQualitySession forKey:@"satSequenceSquality"];
     [uvMOSScoreDic setObject:[self string2num:[videoTestResultJson valueForKey:@"sViewSession"]]
                       forKey:@"satSequenceSview"];
     [uvMOSScoreDic setObject:[self string2num:[videoTestResultJson valueForKey:@"UvMOSSession"]]
@@ -593,6 +669,7 @@ NSArray *_emptyArr;
 {
     if (_webResultArray.count == 0)
     {
+        needUploadLogFile = TRUE;
         return nil;
     }
 
@@ -643,6 +720,11 @@ NSArray *_emptyArr;
 
         // 完整下载时间
         NSNumber *totalTime = [self string2num:[currentResultJson valueForKey:@"totalTime"]];
+        if (totalTime.floatValue < 0)
+        {
+            needUploadLogFile = TRUE;
+        }
+
         double loadTime =
         [totalTime doubleValue] >= 0 ? [totalTime doubleValue] * 1000 : [totalTime doubleValue];
         [currentDic setObject:[[NSNumber alloc] initWithLong:loadTime] forKey:@"loadingTime"];

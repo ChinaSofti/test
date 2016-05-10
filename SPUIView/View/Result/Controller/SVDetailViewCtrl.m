@@ -381,9 +381,9 @@
 
         // 判断加载时间是否超过10S，如果超过则显示超时
         NSString *loadTime = [currentResultJson valueForKey:@"totalTime"];
-        NSString *responseTimeValue = I18N (@"Timeout");
-        NSString *loadTimeVlaue = I18N (@"Timeout");
-        NSString *downloadSpeedVlaue = I18N (@"Timeout");
+        NSString *responseTimeValue = I18N (@"ResultTimeout");
+        NSString *loadTimeVlaue = I18N (@"ResultTimeout");
+        NSString *downloadSpeedVlaue = I18N (@"ResultTimeout");
         if ([loadTime doubleValue] < 10 && [loadTime doubleValue] >= 0)
         {
             responseTimeValue =
@@ -450,7 +450,7 @@
 {
     if (!str)
     {
-        return @"";
+        return @"未知";
     }
     return str;
 }
@@ -548,12 +548,18 @@
 // 输出浮点型的数值,保留2位小数
 - (NSString *)formatFloatValue:(NSString *)value
 {
+    if ([value floatValue] < 0) {
+        return @"未知";
+    }
     return [NSString stringWithFormat:@"%.2f", [value floatValue]];
 }
 
 // 输出浮点型的数值,保留1位小数
 - (NSString *)formatOneDecimal:(NSString *)value
 {
+    if ([value floatValue] < 0) {
+        return @"未知";
+    }
     return [NSString stringWithFormat:@"%.2f", [value floatValue]];
 }
 
@@ -562,7 +568,7 @@
 {
     if (!value)
     {
-        return @" ";
+        return @"未知";
     }
     return [NSString stringWithFormat:@"%@ ", value];
 }
@@ -570,12 +576,18 @@
 // 输出整形的数值,无小数+单位
 - (NSString *)formatIntValue:(NSString *)value unit:(NSString *)unit
 {
+    if ([value floatValue] < 0) {
+        return @"未知";
+    }
     return [NSString stringWithFormat:@"%.0f%@ ", [value floatValue], unit];
 }
 
 // 输出浮点型的数值,保留2位小数+单位
 - (NSString *)formatFloatValue:(NSString *)value unit:(NSString *)unit
 {
+    if ([value floatValue] < 0) {
+        return @"未知";
+    }
     return [NSString stringWithFormat:@"%.2f%@ ", [value floatValue], unit];
 }
 

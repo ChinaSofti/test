@@ -358,37 +358,23 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
     {
         //上传日志
         SVInfo (@"开始上传日志");
-        [self performSelector:@selector (delayMethod1) withObject:nil afterDelay:0.5f];
-        [self performSelector:@selector (delayMethod) withObject:nil afterDelay:5.0f];
+        [self uploadLogFile];
     }
 }
-//正在上传
-- (void)delayMethod1
-{
-    NSString *title1 = I18N (@"Uploading");
-    [SVToast showWithText:title1];
-}
+
 //上传成功与失败判断
-- (void)delayMethod
+- (void)uploadLogFile
 {
+    SVLog *log = [SVLog sharedInstance];
+    NSString *filePath = [log compressLogFiles];
+    SVInfo (@"upload log file:%@", filePath);
 
-    @try
-    {
-        SVLog *log = [SVLog alloc];
-        NSString *filePath = [log compressLogFiles];
-        SVInfo (@"upload log file:%@", filePath);
-        SVUploadFile *upload = [[SVUploadFile alloc] init];
-        NSString *urlString = @"https://tools-speedpro.huawei.com/prolog/upload";
-        [upload uploadFileWithURL:[NSURL URLWithString:urlString] filePath:filePath];
-    }
-    @catch (NSException *exception)
-    {
-        SVError (@"上传失败. %@", exception);
-
-        NSString *title3 = I18N (@"Upload Failed");
-        [SVToast showWithText:title3];
-    }
+    SVUploadFile *upload = [[SVUploadFile alloc] init];
+    // 设置上报日志过程显示Toast提示用户上报进度
+    [upload setShowToast:TRUE];
+    [upload uploadFile:filePath];
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

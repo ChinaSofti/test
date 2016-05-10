@@ -153,9 +153,7 @@ static NSString *useragent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_1 like Mac
     // NSURLConnection connectionWithRequest:request delegate:self];
     while (!finished)
     {
-        // spend 1 second processing events on each loop
-        NSDate *oneSecond = [NSDate dateWithTimeIntervalSinceNow:1];
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:oneSecond];
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
 }
 
