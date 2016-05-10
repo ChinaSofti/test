@@ -2634,7 +2634,7 @@
 					"$(PROJECT_DIR)/Thirdpart/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2675,7 +2675,7 @@
 					"$(PROJECT_DIR)/Thirdpart/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;

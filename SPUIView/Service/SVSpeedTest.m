@@ -746,8 +746,8 @@ int caclCount;
     //    SVInfo (@"SVProbeInfo ip:%@   isp:%@", probeInfo.ip, probeInfo.isp);
     [dictionary setObject:!probeInfo.ip ? @"" : probeInfo.ip forKey:@"ip"];
     [dictionary setObject:!ipAndISP.isp ? @"" : ipAndISP.isp forKey:@"isp"];
-    [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
-                   forKey:@"networkType"];
+    int networkType = !probeInfo.networkType ? 1 : probeInfo.networkType;
+    [dictionary setObject:[[NSNumber alloc] initWithInt:networkType] forKey:@"networkType"];
     [dictionary setObject:![probeInfo getBandwidth] ? @"" : [probeInfo getBandwidth]
                    forKey:@"signedBandwidth"];
 
@@ -871,6 +871,22 @@ void sort (double *a, int n)
     info.port = [_testContext.downloadUrl port];
 
     return info;
+}
+
+/**
+ *  重置结果
+ */
+- (void)resetResult
+{
+    SVInfo (@"reset speedtest result.");
+    _testResult.delay = -1;
+    _testResult.downloadSpeed = -1;
+    _testResult.uploadSpeed = -1;
+    _testResult.ipAddress = nil;
+    _testResult.isp.city = nil;
+    _testResult.isp.isp = nil;
+
+    [self persistSVDetailResultModel];
 }
 
 @end

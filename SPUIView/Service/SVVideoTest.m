@@ -94,11 +94,20 @@
 {
     @try
     {
+        // 初始化TestResult
+        if (!testResult)
+        {
+            testResult = [[SVVideoTestResult alloc] init];
+            [testResult setTestId:_testId];
+            [testResult setTestTime:_testId];
+        }
+
         // 初始化TestContext
         SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
         testContext = [contextGetter getVideoContext];
         if (!testContext)
         {
+            [testResult setErrorCode:1];
             SVError (@"test[testId=%lld] fail. there is no test context", _testId);
             return false;
         }
@@ -123,15 +132,6 @@
         {
             if (testStatus == TEST_TESTING)
             {
-                // 初始化TestResult
-                if (!testResult)
-                {
-                    testResult = [[SVVideoTestResult alloc] init];
-                    [testResult setTestId:_testId];
-                    [testResult setTestTime:_testId];
-                }
-
-
                 // 开始播放视频
                 [_videoPlayer setTestContext:testContext];
                 [_videoPlayer setTestResult:testResult];
@@ -184,9 +184,19 @@
         }
     }
 
-    // 持久化结果明细
-    [self persistSVDetailResultModel];
-    SVInfo (@"persist test[testId=%lld] result success", _testId);
+    if (testResult)
+    {
+        if (testContext.testStatus == TEST_ERROR)
+        {
+            [self resetResult];
+        }
+        else
+        {
+            // 持久化结果明细
+            [self persistSVDetailResultModel];
+            SVInfo (@"persist test[testId=%lld] result success", _testId);
+        }
+    }
 
     return true;
 }
@@ -247,8 +257,8 @@
 
     [dictionary setObject:!ipAndISP.isp ? @"" : ipAndISP.isp forKey:@"isp"];
     [dictionary setObject:!probeInfo.ip ? @"" : probeInfo.ip forKey:@"ip"];
-    [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
-                   forKey:@"networkType"];
+    int networkType = !probeInfo.networkType ? 1 : probeInfo.networkType;
+    [dictionary setObject:[[NSNumber alloc] initWithInt:networkType] forKey:@"networkType"];
     NSString *bandwidth = [probeInfo getBandwidth];
     [dictionary setObject:!bandwidth ? @"" : bandwidth forKey:@"signedBandwidth"];
 
@@ -271,6 +281,7 @@
     float bitrate = !testResult.bitrate ? 0 : testResult.bitrate;
     float screenSize = !testResult.screenSize ? 0 : testResult.screenSize;
     int playDuration = !testResult.videoPlayTime ? 0 : testResult.videoPlayTime;
+    int errorCode = !testResult.errorCode ? 0 : testResult.errorCode;
 
     NSString *videoResolution = !testResult.videoResolution ? @"" : testResult.videoResolution;
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
@@ -296,40 +307,18 @@
     [dictionary setObject:[[NSNumber alloc] initWithFloat:screenSize] forKey:@"screenSize"];
     [dictionary setObject:[[NSNumber alloc] initWithInt:playDuration] forKey:@"playDuration"];
     [dictionary setObject:videoResolution forKey:@"videoResolution"];
-
+    [dictionary setObject:[[NSNumber alloc] initWithInt:errorCode] forKey:@"errorCode"];
     return [self dictionaryToJsonString:dictionary];
 }
 
 - (NSString *)testContextToJsonString
 {
-    //    NSString *videoSegementURLString = !testContext.videoSegementURLString ? @"" :
-    //    testContext.videoSegementURLString;
     NSString *videoURLString = !testContext.videoURLString ? @"" : testContext.videoURLString;
-    //    int videoSegementURL = !testContext.videoSegementSize ? 0 : testContext.videoSegementSize;
-    //    int videoSegementDuration = !testContext.videoSegementDuration ? 0 :
-    //    testContext.videoSegementDuration;
-    //    float videoSegementBitrate = !testContext.videoSegementBitrate ? 0 :
-    //    testContext.videoSegementBitrate;
-    //    NSString *videoSegementIP = !testContext.videoSegementIP ? @"" :
-    //    testContext.videoSegementIP;
-    //    NSString *videoSegemnetLocation = !testContext.videoSegemnetLocation ? @"" :
-    //    testContext.videoSegemnetLocation;
-    //    NSString *videoSegemnetISP = !testContext.videoSegemnetISP ? @"" :
-    //    testContext.videoSegemnetISP;
     int videoPlayDuration = !testContext.videoPlayDuration ? 60 : testContext.videoPlayDuration;
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
 
     [dictionary setObject:[NSNumber numberWithInt:videoPlayDuration] forKey:@"videoPlayDuration"];
     [dictionary setObject:videoURLString forKey:@"videoURL"];
-    //    [dictionary setObject:[[NSNumber alloc] initWithInt:videoSegementURL]
-    //                   forKey:@"videoSegementSize"];
-    //    [dictionary setObject:[[NSNumber alloc] initWithLong:videoSegementDuration]
-    //                   forKey:@"videoSegementDuration"];
-    //    [dictionary setObject:[[NSNumber alloc] initWithFloat:videoSegementBitrate]
-    //                   forKey:@"videoSegementBitrate"];
-    //    [dictionary setObject:videoSegementIP forKey:@"videoSegementIP"];
-    //    [dictionary setObject:videoSegemnetLocation forKey:@"videoSegemnetLocation"];
-    //    [dictionary setObject:videoSegemnetISP forKey:@"videoSegemnetISP"];
 
     for (SVVideoSegement *segement in testContext.videoSegementInfo)
     {
@@ -377,6 +366,32 @@
         NSString *resultJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         return resultJson;
     }
+}
+
+/**
+ *  重置结果
+ */
+- (void)resetResult
+{
+    SVInfo (@"reset videotest result.");
+
+    testResult.sQualitySession = -1;
+    testResult.sInteractionSession = -1;
+    testResult.UvMOSSession = -1;
+    testResult.sViewSession = -1;
+    testResult.firstBufferTime = -1;
+    testResult.videoCuttonTimes = -1;
+    testResult.videoCuttonTotalTime = -1;
+    testResult.downloadSpeed = -1;
+    testResult.videoWidth = -1;
+    testResult.videoHeight = -1;
+    testResult.frameRate = -1;
+    testResult.bitrate = -1;
+    testResult.screenSize = -1;
+    testResult.videoPlayTime = -1;
+    testResult.errorCode = 1;
+
+    [self persistSVDetailResultModel];
 }
 
 @end

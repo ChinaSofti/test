@@ -81,12 +81,19 @@ static int execute_total_times = 4;
     showOnView = _showOnView;
     [self addLoadingUIView:showOnView];
     _testDelegate = testDelegate;
-    SVInfo (@"init player view:%@", _showOnView);
+    SVInfo (@"init player view");
     if (!_VMpalyer)
     {
         _VMpalyer = [VMediaPlayer sharedInstance];
-        //        [_VMpalyer setVideoFillMode:VMVideoFillModeFit];
         _isSetup = [_VMpalyer setupPlayerWithCarrierView:showOnView withDelegate:self];
+        if (_isSetup)
+        {
+            SVError (@"setup player success.");
+        }
+        else
+        {
+            SVError (@"setup fails.");
+        }
     }
 
     return self;
@@ -185,32 +192,36 @@ static int execute_total_times = 4;
             return;
         }
 
+        // 隐藏加载图标
+        [activityView stopAnimating];
+        //取消定时器
+        [timer invalidate];
+        timer = nil;
+
+        // 弹出提示框
         @try
         {
-            // 隐藏加载图标
-            [activityView stopAnimating];
-            //取消定时器
-            [timer invalidate];
-            timer = nil;
             // 视频正在播放，则停止视频
             if (_VMpalyer)
             {
-                BOOL isPlaying = [_VMpalyer isPlaying];
-                if (isPlaying)
-                {
-                    SVInfo (@"vmplayer pause");
-                    [_VMpalyer pause];
-                }
-
                 [_VMpalyer reset];
-                SVInfo (@"vmplayer reset");
-                [_VMpalyer unSetupPlayer];
+                BOOL unSetup = [_VMpalyer unSetupPlayer];
+                if (unSetup)
+                {
+                    SVInfo (@"vmplayer unSetupPlayer success.");
+                }
+                else
+                {
+                    SVInfo (@"the media player have not ever setup yet");
+                }
             }
         }
         @catch (NSException *exception)
         {
             SVError (@"stop video fail. exception:%@", exception);
         }
+
+        [testResult setErrorCode:0];
 
         // 取消 UvMOS 注册服务
         [uvMOSCalculator unRegisteService];
@@ -241,6 +252,7 @@ static int execute_total_times = 4;
         SVInfo (@"prepareVideo");
         //播放时不要锁屏
         //        [UIApplication sharedApplication].idleTimerDisabled = YES;
+        //        [_VMpalyer reset];
         // 设置缓冲大小为2倍码率
         [_VMpalyer setBufferSize:segement.bitrate * 2 * 1024];
         [_VMpalyer setDataSource:segement.videoSegementURL];
@@ -341,8 +353,9 @@ static int execute_total_times = 4;
  */
 - (void)mediaPlayer:(VMediaPlayer *)player error:(id)arg
 {
-    SVInfo (@"------------------------------VMediaPlayer Error------------------------------");
+    SVInfo (@"------------------------------VMediaPlayer Error:%@", arg);
     [activityView stopAnimating];
+    [testResult setErrorCode:3];
     testContext.testStatus = TEST_ERROR;
 }
 

@@ -54,4 +54,9 @@
  */
 - (NSString *)getPersistDataSQL;
 
+/**
+ *  重置结果
+ */
+- (void)resetResult;
+
 @end

@@ -535,8 +535,8 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     //    [dictionary setObject:!probeInfo.isp ? @"" : probeInfo.isp forKey:@"isp"];
     SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
     [dictionary setObject:!ipAndISP.isp ? @"" : ipAndISP.isp forKey:@"isp"];
-    [dictionary setObject:!probeInfo.networkType ? @"" : probeInfo.networkType
-                   forKey:@"networkType"];
+    int networkType = !probeInfo.networkType ? 1 : probeInfo.networkType;
+    [dictionary setObject:[[NSNumber alloc] initWithInt:networkType] forKey:@"networkType"];
     [dictionary setObject:![probeInfo getBandwidth] ? @"" : [probeInfo getBandwidth]
                    forKey:@"signedBandwidth"];
 
@@ -600,6 +600,27 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
         NSString *resultJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         return resultJson;
     }
+}
+
+/**
+ *  重置结果
+ */
+- (void)resetResult
+{
+    SVInfo (@"reset webtest result.");
+
+    for (NSString *testUrl in [self.webTestResultDic allKeys])
+    {
+        SVWebTestResult *result = [self.webTestResultDic objectForKey:testUrl];
+        if (result.downloadSize <= 0)
+        {
+            result.responseTime = -1;
+            result.totalTime = -1;
+            result.downloadSpeed = -1;
+        }
+    }
+
+    [self persistSVDetailResultModel];
 }
 
 @end
