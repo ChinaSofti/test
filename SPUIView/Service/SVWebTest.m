@@ -602,4 +602,25 @@ canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
     }
 }
 
+/**
+ *  重置结果
+ */
+- (void)resetResult
+{
+    SVInfo (@"reset webtest result.");
+
+    for (NSString *testUrl in [self.webTestResultDic allKeys])
+    {
+        SVWebTestResult *result = [self.webTestResultDic objectForKey:testUrl];
+        if (result.downloadSize <= 0)
+        {
+            result.responseTime = -1;
+            result.totalTime = -1;
+            result.downloadSpeed = -1;
+        }
+    }
+
+    [self persistSVDetailResultModel];
+}
+
 @end

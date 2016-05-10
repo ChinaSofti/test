@@ -91,6 +91,7 @@ stDownloadSpeed, stUploadSpeed, stIsp, stLocation;
 
     // 停止测视
     [currentCtrl stopTest];
+    [currentCtrl resetResult];
 
     // 弹出提示框
     dispatch_async (dispatch_get_main_queue (), ^{

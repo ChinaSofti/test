@@ -82,4 +82,7 @@
 // 是否卡顿
 @property BOOL isCutton;
 
+// 失败码  0：成功  1：解析失败  2：加载失败  3：播放失败
+@property int errorCode;
+
 @end

@@ -873,4 +873,20 @@ void sort (double *a, int n)
     return info;
 }
 
+/**
+ *  重置结果
+ */
+- (void)resetResult
+{
+    SVInfo (@"reset speedtest result.");
+    _testResult.delay = -1;
+    _testResult.downloadSpeed = -1;
+    _testResult.uploadSpeed = -1;
+    _testResult.ipAddress = nil;
+    _testResult.isp.city = nil;
+    _testResult.isp.isp = nil;
+
+    [self persistSVDetailResultModel];
+}
+
 @end

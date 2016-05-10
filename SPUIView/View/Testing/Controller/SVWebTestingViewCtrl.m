@@ -403,4 +403,9 @@
     [_webTest stopTest];
 }
 
+- (void)resetResult
+{
+    [_webTest resetResult];
+}
+
 @end

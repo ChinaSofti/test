@@ -488,4 +488,9 @@ double _preSpeed = 0.0;
     [_speedTest stopTest];
 }
 
+- (void)resetResult
+{
+    [_speedTest resetResult];
+}
+
 @end
