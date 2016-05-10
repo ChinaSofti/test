@@ -43,97 +43,63 @@
 #pragma mark - 创建UI
 - (void)createUI
 {
-    //添加imageView
-    UIImageView *imageView =
-    [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, FITHEIGHT (230), FITHEIGHT (230))];
-    imageView.image = [UIImage imageNamed:@"icon"];
-    //创建手势添加的View
-    UIView *view = [[UIView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (115), FITHEIGHT (290), FITWIDTH (230), FITHEIGHT (230))];
-    //    view.backgroundColor = [UIColor redColor];
-    [view addSubview:imageView];
-    [self.view addSubview:view];
-    //添加手势
-    //单击
-    UITapGestureRecognizer *singTap = [[UITapGestureRecognizer alloc] init];
-    [singTap addTarget:self action:@selector (handleSingTap)];
-    [singTap setNumberOfTapsRequired:1];
-    [view addGestureRecognizer:singTap];
-    //双击
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] init];
-    [doubleTap addTarget:self action:@selector (handleDoubleTap)];
-    [doubleTap setNumberOfTapsRequired:2];
-    [view addGestureRecognizer:doubleTap];
-    //区分单双击
-    [singTap requireGestureRecognizerToFail:doubleTap];
-
-    //添加LabSpeedPro
-    UILabel *labSpeedPro =
-    [[UILabel alloc] initWithFrame:CGRectMake (CGRectGetMaxX (view.frame) + FITWIDTH (58),
-                                               view.frame.origin.y, FITWIDTH (348), FITHEIGHT (126))];
-    labSpeedPro.text = @"SpeedPro";
-    labSpeedPro.textColor = [UIColor blackColor];
-    labSpeedPro.font = [UIFont systemFontOfSize:pixelToFontsize (80)];
-    [self.view addSubview:labSpeedPro];
-
-    //添加LabV0.0.1
+    //添加logoimage
+    UIImageView *imageView = [[UIImageView alloc]
+    initWithFrame:CGRectMake (0, StatusBarH + NavBarH + FITHEIGHT (70), FITWIDTH (489), FITHEIGHT (83))];
+    imageView.centerX = self.view.centerX;
+    imageView.image = [UIImage imageNamed:@"aboutLogo489"];
+    [self.view addSubview:imageView];
+    //添加LabV0.0.1版本号
     UILabel *labV = [[UILabel alloc]
-    initWithFrame:CGRectMake (CGRectGetMaxX (view.frame) + FITWIDTH (58),
-                              view.frame.origin.y + FITHEIGHT (129), FITWIDTH (348), FITHEIGHT (126))];
+    initWithFrame:CGRectMake (0, imageView.bottomY + FITHEIGHT (30), kScreenW, FITHEIGHT (120))];
+    labV.centerX = self.view.centerX;
     labV.text = [SVAppVersionChecker currentVersion];
-    labV.textColor = [UIColor grayColor];
-    labV.font = [UIFont systemFontOfSize:pixelToFontsize (60)];
+    labV.textAlignment = NSTextAlignmentCenter;
+    labV.textColor = [UIColor colorWithHexString:@"#000000"];
+    labV.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    labV.alpha = 0.7;
     [self.view addSubview:labV];
-
-    //添加ViewLine
-    UIView *viewLine = [[UIImageView alloc]
-    initWithFrame:CGRectMake (FITWIDTH (115), FITHEIGHT (580), kScreenW - FITWIDTH (230), FITHEIGHT (3))];
-    viewLine.backgroundColor = [UIColor grayColor];
-    viewLine.alpha = 0.2;
-    [self.view addSubview:viewLine];
-
-    //添加LabCopyright
-    UILabel *labCopyright = [[UILabel alloc]
-    initWithFrame:CGRectMake (viewLine.frame.origin.x, viewLine.frame.origin.y + FITHEIGHT (58),
-                              FITWIDTH (930), FITHEIGHT (126))];
-    labCopyright.text = @"Copyright @ Huawei Software Technologies Co.,";
-    labCopyright.textColor = [UIColor grayColor];
-    //    labCopyright.backgroundColor = [UIColor redColor];
-    labCopyright.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    [self.view addSubview:labCopyright];
-
-    //添加LabLtd
-    UILabel *labLtd = [[UILabel alloc]
-    initWithFrame:CGRectMake (labCopyright.frame.origin.x, labCopyright.frame.origin.y + FITHEIGHT (58),
-                              kScreenW - FITWIDTH (230), FITHEIGHT (126))];
-    labLtd.text = @"Ltd. 2014-2016.";
-    labLtd.textColor = [UIColor grayColor];
-    labLtd.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    [self.view addSubview:labLtd];
-
-    //添加LabAllRights
-    UILabel *labAllRights = [[UILabel alloc]
-    initWithFrame:CGRectMake (labLtd.frame.origin.x, labLtd.frame.origin.y + FITHEIGHT (58),
-                              kScreenW - FITWIDTH (230), FITHEIGHT (126))];
-    labAllRights.text = @"All rights reserved.";
-    labAllRights.textColor = [UIColor grayColor];
-    labAllRights.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    [self.view addSubview:labAllRights];
-}
-#pragma mark - 点击事件
-/**
- *  单击事件
- */
-- (void)handleSingTap
-{
-    SVInfo (@"单击了");
-}
-/**
- *  双击事件
- */
-- (void)handleDoubleTap
-{
-    SVInfo (@"双击了");
+    //添加二维码背景view
+    UIView *whiteView = [[UIView alloc]
+    initWithFrame:CGRectMake (0, StatusBarH + NavBarH + FITHEIGHT (306), kScreenW, FITHEIGHT (926))];
+    whiteView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
+    [self.view addSubview:whiteView];
+    //添加二维码图片
+    UIImageView *imageViewQR =
+    [[UIImageView alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (666), FITWIDTH (666))];
+    imageViewQR.centerX = self.view.centerX;
+    imageViewQR.centerY = whiteView.centerY;
+    imageViewQR.image = [UIImage imageNamed:@"SpeedPro666"];
+    [self.view addSubview:imageViewQR];
+    //添加扫一扫文字
+    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, kScreenW, FITHEIGHT (100))];
+    lable.centerX = self.view.centerX;
+    lable.bottomY = whiteView.bottomY;
+    lable.text = I18N (@"Sweep, Download SpeedPro");
+    lable.textAlignment = NSTextAlignmentCenter;
+    lable.textColor = [UIColor colorWithHexString:@"#000000"];
+    lable.font = [UIFont systemFontOfSize:pixelToFontsize (48)];
+    lable.alpha = 0.8;
+    [self.view addSubview:lable];
+    //添加公司信息lableCopy
+    UILabel *lableCopy1 = [[UILabel alloc]
+    initWithFrame:CGRectMake (0, whiteView.bottomY + FITHEIGHT (93), kScreenW, FITHEIGHT (80))];
+    lableCopy1.centerX = self.view.centerX;
+    lableCopy1.text = @"Copyright @ Huawei Software Technologies Co.,Ltd. 2014-2016.";
+    lableCopy1.textAlignment = NSTextAlignmentCenter;
+    lableCopy1.textColor = [UIColor colorWithHexString:@"#000000"];
+    lableCopy1.font = [UIFont systemFontOfSize:pixelToFontsize (30)];
+    lableCopy1.alpha = 0.6;
+    [self.view addSubview:lableCopy1];
+    UILabel *lableCopy2 =
+    [[UILabel alloc] initWithFrame:CGRectMake (0, lableCopy1.bottomY, kScreenW, FITHEIGHT (80))];
+    lableCopy2.centerX = self.view.centerX;
+    lableCopy2.text = @"All rights reserved.";
+    lableCopy2.textAlignment = NSTextAlignmentCenter;
+    lableCopy2.textColor = [UIColor colorWithHexString:@"#000000"];
+    lableCopy2.font = [UIFont systemFontOfSize:pixelToFontsize (30)];
+    lableCopy2.alpha = 0.6;
+    [self.view addSubview:lableCopy2];
 }
 //返回按钮点击事件
 - (void)backButtonClick
