@@ -7,6 +7,7 @@
 //
 
 #import "SVHttpsTools.h"
+#import "SVProbeInfo.h"
 #import "SVToast.h"
 #import "SVUploadFile.h"
 
@@ -24,6 +25,7 @@ static NSString *useragent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_1 like Mac
 static NSString *boundaryStr = @"--"; // 分隔字符串
 static NSString *randomIDStr; // 本次上传标示字符串
 static NSString *uploadID; // 上传(php)脚本中，接收文件字段
+NSString *urlString = @"https://tools-speedpro.huawei.com/prolog/upload?mobileid=%@";
 
 - (instancetype)init
 {
@@ -34,6 +36,11 @@ static NSString *uploadID; // 上传(php)脚本中，接收文件字段
         uploadID = @"uploadFile";
     }
     return self;
+}
+
+- (void)setShowToast:(BOOL)isShowToast
+{
+    _isShowToast = isShowToast;
 }
 
 #pragma mark - 私有方法
@@ -57,8 +64,21 @@ static NSString *uploadID; // 上传(php)脚本中，接收文件字段
 }
 
 #pragma mark - 上传文件
+
+- (void)uploadFile:(NSString *)filePath
+{
+    // UUID
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSString *uuid = [probeInfo getUUID];
+    NSString *url_str = [NSString stringWithFormat:urlString, uuid];
+    [self uploadFileWithURL:[NSURL URLWithString:url_str] filePath:filePath];
+}
+
 - (void)uploadFileWithURL:(NSURL *)url filePath:(NSString *)filePath
 {
+    NSString *title1 = I18N (@"Uploading");
+    [self showToastForUser:title1];
+
     _filePath = filePath;
     NSData *data = [NSData dataWithContentsOfFile:_filePath];
     [self uploadFileWithURL:url data:data];
@@ -96,9 +116,47 @@ static NSString *uploadID; // 上传(php)脚本中，接收文件字段
     // 5> 设置User-Agent(请求头)
     [request setValue:useragent forHTTPHeaderField:@"User-Agent"];
 
-    // 6> 连接服务器发送请求
+    [self sendResultToServer:request];
+}
+
+- (void)sendResultToServer:(NSURLRequest *)request
+{
+    // 连接服务器发送结果
     SVHttpsTools *httpsTools = [[SVHttpsTools alloc] init];
-    [httpsTools sendRequest:request WithFilePath:_filePath];
+    [httpsTools sendRequest:request
+          completionHandler:^(NSData *responseData, NSError *error) {
+            // 上报结果失败
+            if (error)
+            {
+                SVError (@"retry send result to server. result push error:%@ ", error);
+                NSString *title2 = I18N (@"Upload Failed");
+                [self showToastForUser:title2];
+                return;
+            }
+
+            NSString *mesg =
+            [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+            SVInfo (@"upload log file success. response data from server:%@", mesg);
+
+            NSString *title2 = I18N (@"Upload Success");
+            [self showToastForUser:title2];
+          }];
+}
+
+/**
+ * 弹出提示信息，告知用户
+ */
+- (void)showToastForUser:(NSString *)mesg
+{
+    if (!_isShowToast)
+    {
+        return;
+    }
+
+    // 弹出提示信息，告知用户上传日志成功
+    dispatch_async (dispatch_get_main_queue (), ^{
+      [SVToast showWithText:mesg];
+    });
 }
 
 @end

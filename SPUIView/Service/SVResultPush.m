@@ -23,26 +23,34 @@
 @end
 
 @implementation SVResultPush
+{
+    SVCurrentResultModel *_resultModel;
 
-SVCurrentResultModel *_resultModel;
-
-NSMutableData *_allData;
-
-NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/upload";
-
-BOOL finished;
-
-long long _svTestId;
-long long *_svTestTime;
+    NSMutableData *_allData;
 
 
-SVDBManager *_db;
-NSArray *_videoResultArray;
-NSArray *_webResultArray;
-NSArray *_speedResultArray;
+    NSString *_mobileidStr;
 
-NSArray *_emptyArr;
+    BOOL finished;
 
+    long long _svTestId;
+    long long *_svTestTime;
+
+    SVDBManager *_db;
+    NSArray *_videoResultArray;
+    NSArray *_webResultArray;
+    NSArray *_speedResultArray;
+
+    NSArray *_emptyArr;
+
+    // 上传结果失败后尝试次数。上传结果连续3次都上传失败，则取消结果上传
+    int _failCount;
+
+    // 上报结果后，服务器响应的数据
+    NSData *_responseData;
+}
+
+const NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/upload";
 
 - (id)initWithTestId:(long long)testId
 {
@@ -127,7 +135,8 @@ NSArray *_emptyArr;
     }
 
 
-    NSURL *url = [[NSURL alloc] initWithString:_urlString];
+    NSURL *url =
+    [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@", _urlString, _mobileidStr]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 
     NSString *resultJson = [self dictionaryToJsonString:dic];
@@ -140,18 +149,42 @@ NSArray *_emptyArr;
     // 设置Content-Type
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
 
-    // 连接服务器发送请求
-    SVHttpsTools *httpsTools = [[SVHttpsTools alloc] init];
-    [httpsTools sendRequest:request isUploadResult:YES];
-    while (!httpsTools.finished)
-    {
-        // spend 1 second processing events on each loop
-        NSDate *oneSecond = [NSDate dateWithTimeIntervalSinceNow:1];
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:oneSecond];
-    }
-    return [httpsTools getResponseData];
+    [self sendResultToServer:request];
+
+    //    while (!httpsTools.finished)
+    //    {
+    //        // spend 1 second processing events on each loop
+    //        NSDate *oneSecond = [NSDate dateWithTimeIntervalSinceNow:1];
+    //        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:oneSecond];
+    //    }
+    //    return [httpsTools getResponseData];
+
+    return _responseData;
 }
 
+- (void)sendResultToServer:(NSURLRequest *)request
+{
+    // 连接服务器发送结果
+    SVHttpsTools *httpsTools = [[SVHttpsTools alloc] init];
+    [httpsTools sendRequest:request
+          completionHandler:^(NSData *responseData, NSError *error) {
+            // 上报结果失败
+            if (error)
+            {
+                _failCount++;
+                if (_failCount < 3)
+                {
+                    SVError (@"retry send result to server. result push error:%@ ", error);
+                    [self sendResultToServer:request];
+                    return;
+                }
+
+                return;
+            }
+
+            _responseData = responseData;
+          }];
+}
 
 - (void)queryResult
 {
@@ -245,6 +278,7 @@ NSArray *_emptyArr;
 
     [paramDic setObject:@0 forKey:@"cellid"];
     [paramDic setObject:!uuid ? @"" : uuid forKey:@"mobileid"];
+    _mobileidStr = !uuid ? @"" : uuid;
     [paramDic setObject:!localIP ? @"" : [self hideIp:localIP] forKey:@"mobileip"];
     [paramDic setObject:deviceName forKey:@"mobilename"];
     //    [paramDic setObject:mobilename forKey:@"mobilename"];
