@@ -61,7 +61,7 @@
     [self.view addSubview:labV];
     //添加二维码背景view
     UIView *whiteView = [[UIView alloc]
-    initWithFrame:CGRectMake (0, StatusBarH + NavBarH + FITHEIGHT (306), kScreenW, FITHEIGHT (926))];
+    initWithFrame:CGRectMake (0, StatusBarH + NavBarH + FITHEIGHT (386), kScreenW, FITHEIGHT (926))];
     whiteView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
     [self.view addSubview:whiteView];
     //添加二维码图片
@@ -82,8 +82,8 @@
     lable.alpha = 0.8;
     [self.view addSubview:lable];
     //添加公司信息lableCopy
-    UILabel *lableCopy1 = [[UILabel alloc]
-    initWithFrame:CGRectMake (0, whiteView.bottomY + FITHEIGHT (93), kScreenW, FITHEIGHT (80))];
+    UILabel *lableCopy1 =
+    [[UILabel alloc] initWithFrame:CGRectMake (0, kScreenH - FITHEIGHT (230), kScreenW, FITHEIGHT (80))];
     lableCopy1.centerX = self.view.centerX;
     lableCopy1.text = @"Copyright @ Huawei Software Technologies Co.,Ltd. 2014-2016.";
     lableCopy1.textAlignment = NSTextAlignmentCenter;
