@@ -6,8 +6,10 @@
 //  Copyright © 2016 chinasofti. All rights reserved.
 //
 
+#import "SVCurrentDevice.h"
 #import "SVLog.h"
 #import "SVProbeInfo.h"
+#import "SVWifiInfo.h"
 
 #define default_screenSize 42;
 #define VIDEO_PLAY_TIME_KEY @"videoPlayTime"
@@ -35,15 +37,42 @@ static NSString *_screenSize;
         if (probeInfo == nil)
         {
             probeInfo = [[super allocWithZone:NULL] init];
-            [probeInfo setVideoPlayTime:60];
-            [probeInfo setScreenSize:42.00];
-            [probeInfo setBandwidthType:0];
-            [probeInfo setVideoClarity:@"1080P"];
-            [probeInfo setUploadResult:YES];
-            [probeInfo setBandwidth:@""];
+
+            // 初始化基本信息
             probeInfo.networkType = 1;
             probeInfo.location = @"";
             probeInfo.ip = @"";
+
+            // 初始化屏幕大小
+            if (![probeInfo getScreenSize])
+            {
+                [probeInfo setScreenSize:42.00];
+            }
+
+            // 初始化带宽类型
+            if (![probeInfo getBandwidthType])
+            {
+                [probeInfo setBandwidthType:@"0"];
+            }
+
+            // 初始化视频清晰度
+            if (![probeInfo getVideoClarity])
+            {
+                [probeInfo setVideoClarity:@"1080P"];
+            }
+
+            // 初始化wifi数组，用于记录使用过的wifi信息
+            if (![probeInfo getWifiInfo])
+            {
+                NSMutableArray *wifiInfo = [[NSMutableArray alloc] init];
+                [probeInfo setWifiInfo:wifiInfo];
+            }
+
+            // 初始化带宽
+            if (![probeInfo getBandwidth])
+            {
+                [probeInfo setBandwidth:@""];
+            }
 
             // 初始化UUID
             if (![probeInfo getUUID])
@@ -138,9 +167,29 @@ static NSString *_screenSize;
 - (void)setBandwidth:(NSString *)bandwidth
 {
     SVInfo (@"Advanced Setting[bandwidth=%@]", bandwidth);
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:bandwidth forKey:@"bandwidth"];
-    [defaults synchronize];
+
+    // 如果带宽是0，则当没有设置处理
+    if (!bandwidth || [bandwidth isEqualToString:@"0"])
+    {
+        bandwidth = @"";
+    }
+
+    // 更新wifi信息
+    NSMutableArray *wifiInfoArray = [self getWifiInfo];
+
+    // 获取当前wifi的名称
+    NSString *currWifiName = [SVCurrentDevice getWifiName];
+
+    // 修改对应wifi的带宽
+    for (SVWifiInfo *wifiInfo in wifiInfoArray)
+    {
+        // 如果名称已经记录过，且带宽也设置过，则不是新的wifi
+        if ([wifiInfo.wifiName isEqualToString:currWifiName])
+        {
+            wifiInfo.bandWidth = bandwidth;
+        }
+    }
+    [self setWifiInfo:wifiInfoArray];
 }
 
 /**
@@ -150,8 +199,23 @@ static NSString *_screenSize;
  */
 - (NSString *)getBandwidth
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults valueForKey:@"bandwidth"];
+    // 更新wifi信息
+    NSMutableArray *wifiInfoArray = [self getWifiInfo];
+
+    // 获取当前wifi的名称
+    NSString *currWifiName = [SVCurrentDevice getWifiName];
+
+    // 修改对应wifi的带宽
+    for (SVWifiInfo *wifiInfo in wifiInfoArray)
+    {
+        // 如果名称已经记录过，且带宽也设置过，则不是新的wifi
+        if ([wifiInfo.wifiName isEqualToString:currWifiName])
+        {
+            return wifiInfo.bandWidth;
+        }
+    }
+
+    return nil;
 }
 
 
@@ -211,6 +275,13 @@ static NSString *_screenSize;
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *videoPlayTime = [defaults valueForKey:VIDEO_PLAY_TIME_KEY];
+
+    // 如果缓存中没有，则初始化
+    if (!videoPlayTime)
+    {
+        [self setVideoPlayTime:60];
+        return 60;
+    }
     return [videoPlayTime intValue];
 }
 
@@ -261,6 +332,13 @@ static NSString *_screenSize;
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *isUploadResult = [defaults valueForKey:@"isUploadResult"];
+
+    // 如果没有缓存则初始化
+    if (!isUploadResult)
+    {
+        [self setUploadResult:YES];
+        return YES;
+    }
     return [isUploadResult boolValue];
 }
 
@@ -286,6 +364,47 @@ static NSString *_screenSize;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *uuid = [defaults valueForKey:@"speedProUUID"];
     return uuid;
+}
+
+/**
+ *  设置本机使用过的wifi信息，只记录五条
+ *  @param wifiInfos 本机使用过的wifi信息
+ */
+- (void)setWifiInfo:(NSMutableArray *)wifiInfo
+{
+    SVInfo (@"Current wifiInfo = %@]", wifiInfo);
+
+    // 判断数组长度，如果大于五则将第一个数据移除掉
+    if ([wifiInfo count] > 5)
+    {
+        [wifiInfo removeObjectAtIndex:0];
+    }
+
+    // 序列化数组
+    NSData *wifiData = [NSKeyedArchiver archivedDataWithRootObject:wifiInfo];
+
+    // 放到UserDefaults中
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:wifiData forKey:@"SVWifiInfo"];
+    [defaults synchronize];
+}
+
+/**
+ *  获取本机使用过的wifi信息
+ *
+ *  @return 本机使用过的wifi信息
+ */
+- (NSMutableArray *)getWifiInfo
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *wifiData = [defaults objectForKey:@"SVWifiInfo"];
+    if (!wifiData)
+    {
+        return nil;
+    }
+
+    // 反序列化数组
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:wifiData] mutableCopy];
 }
 
 // 生成UUID

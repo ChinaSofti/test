@@ -7,11 +7,14 @@
 //
 
 #import "AlertView.h"
+#import "SVCurrentDevice.h"
+#import "SVProbeInfo.h"
 #import "SVResultViewCtrl.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVTabBarController.h"
 #import "SVTestContextGetter.h"
 #import "SVTestViewCtrl.h"
+#import "SVWifiInfo.h"
 
 
 @interface SVTabBarController () <AlertViewDelegate>
@@ -159,9 +162,8 @@
         [progressView removeFromSuperview];
         [launchImageView removeFromSuperview];
 
-        // 显示主页面
-        // 如果网络是wifi，则弹出带宽设置的窗口
-        if (currentStatus == SV_RealStatusViaWiFi)
+        // 如果网络是wifi并且wifi信息没有记录过，则弹出带宽设置的窗口
+        if (currentStatus == SV_RealStatusViaWiFi && [self isNewWifi])
         {
             [self setShadowView];
         }
@@ -195,6 +197,38 @@
         [progressView setProgress:progressVlaue];
         [loadingProcessLabelValue setText:@"100%"];
     }
+}
+
+/**
+ * 判断是否是新的wifi网络
+ */
+- (BOOL)isNewWifi
+{
+    // 获取当前wifi的名称
+    NSString *currWifiName = [SVCurrentDevice getWifiName];
+
+    // 获取之前记录过得wifi名称
+    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSMutableArray *wifiInfoArray = [probeInfo getWifiInfo];
+
+    // 判断当前wifi是否记录过
+    for (SVWifiInfo *wifiInfo in wifiInfoArray)
+    {
+        // 如果名称已经记录过，且带宽也设置过，则不是新的wifi
+        if ([wifiInfo.wifiName isEqualToString:currWifiName] &&
+            (!wifiInfo.bandWidth || wifiInfo.bandWidth.length > 0))
+        {
+            return NO;
+        }
+    }
+
+    // 将新的wifi信息记录一下
+    SVWifiInfo *wifiInfo = [[SVWifiInfo alloc] init];
+    [wifiInfo setWifiName:currWifiName];
+    [wifiInfoArray addObject:wifiInfo];
+    [probeInfo setWifiInfo:wifiInfoArray];
+
+    return YES;
 }
 
 
