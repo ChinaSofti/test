@@ -74,12 +74,11 @@
     NSString *title1 = I18N (@"Current Connection:");
 
     //准备字符串
-    SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
-    NSString *value11 = ipAndISP.isp;
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+    NSString *carrier = probeInfo.isp;
     NSString *type = [probeInfo getBandwidthType];
     int bandwidthTypeIndex = [type intValue];
-    NSString *value = [probeInfo getBandwidth];
+    NSString *Bandwidth = [probeInfo getBandwidth];
 
     NSString *title21 = I18N (@"Carrier");
     NSString *title22;
@@ -88,13 +87,13 @@
      value11 == nil
      value11.length == 0
      */
-    if ([value11 isEqualToString:@""] || !value11)
+    if ([carrier isEqualToString:@""] || !carrier)
     {
         title22 = I18N (@"Unknown");
     }
     else
     {
-        title22 = value11;
+        title22 = carrier;
     }
     NSString *title23 = I18N (@"bandwidth type");
     NSString *titlea = I18N (@"Unknown");
@@ -102,13 +101,13 @@
     NSString *titlec = I18N (@"Copper");
     NSString *title25 = I18N (@"Bandwidth package");
     NSString *title26;
-    if ([value isEqualToString:@""] || !value)
+    if ([Bandwidth isEqualToString:@""] || !Bandwidth)
     {
         title26 = I18N (@"Unknown");
     }
     else
     {
-        title26 = [NSString stringWithFormat:@"%@M", value];
+        title26 = [NSString stringWithFormat:@"%@M", Bandwidth];
     }
 
     SVRealReachability *realReachablity = [SVRealReachability sharedInstance];
