@@ -12,7 +12,7 @@
 
 @property NSString *ip;
 @property NSString *location;
-@property NSString *networkType;
+@property int networkType;
 @property NSString *singnal;
 @property BOOL isTesting;
 @property NSString *wifiName;

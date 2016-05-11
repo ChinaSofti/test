@@ -253,6 +253,8 @@ static int execute_total_times = 4;
 
         [_videoPlayer stopVideo];
         isFinished = TRUE;
+
+        [testResult setErrorCode:0];
     }
 }
 
@@ -293,6 +295,7 @@ static int execute_total_times = 4;
 {
     SVInfo (@"------------------------------VMediaPlayer Error------------------------------");
     testContext.testStatus = TEST_ERROR;
+    [testResult setErrorCode:3];
 }
 
 - (void)mediaPlayer_bufferingStart

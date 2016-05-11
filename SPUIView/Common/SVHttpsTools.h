@@ -8,7 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^CompletionHandler) (NSData *responseData, NSError *error);
+
 @interface SVHttpsTools : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+{
+    // 服务器响应后进行操作的对象
+    CompletionHandler _handler;
+}
+
 
 @property BOOL finished;
 
@@ -78,15 +85,7 @@
  *  @param isUpload 是否是上传测试结果
  *
  */
-- (void)sendRequest:(NSURLRequest *)request isUploadResult:(BOOL)isUpload;
-
-/**
- *  发送指定的请求
- *
- *  @param request http请求
- *  @param path 上传文件的路径
- */
-- (void)sendRequest:(NSURLRequest *)request WithFilePath:(NSString *)path;
+- (void)sendRequest:(NSURLRequest *)request completionHandler:(CompletionHandler)completionHandler;
 
 // 设置是否需要证书
 - (void)isNeedCert:(BOOL)isNeed;

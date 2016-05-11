@@ -5,7 +5,7 @@
  Created by WBapple on 16/1/22.
  Copyright © 2016年 chinasofti. All rights reserved.
  */
-
+"Sweep, Download SpeedPro" = "扫一扫,下载SpeedPro";
 "Warning" = "警告";
 //分享
 "myurl"= "http://fir.im/speedpro";
@@ -81,7 +81,7 @@
 
 //视频测试
 "Loading..." = "计算中...";
-"Fail" = "失败";
+"Fail" = "超时";
 "Inch" = "英寸";
 "inch" = "英寸";
 "U-vMOS"="U-vMOS";
@@ -150,6 +150,7 @@
 "Load duration"="完全加载时间";
 "Download"="下载速率";
 "Timeout" = "超时";
+"ResultTimeout" = "未知";
 
 
 //宽带测试

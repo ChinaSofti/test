@@ -165,34 +165,32 @@
                    @"value": [self formatValue:[probeInfoJson valueForKey:@"isp"]]
                }]];
 
-    // 网络类型
-    NSString *networkType = [probeInfoJson valueForKey:@"networkType"];
-    if ([networkType isEqualToString:@"1"])
+    // 宽带套餐
+    NSString *bandWidth = [probeInfoJson valueForKey:@"signedBandwidth"];
+    if (!bandWidth || [bandWidth isEqualToString:@""])
     {
-        networkType = I18N (@"WIFI");
-
-        // 宽带套餐 （当网络为WIFI时才显示）
-        NSString *bandWidth = [probeInfoJson valueForKey:@"signedBandwidth"];
-        if (!bandWidth || [bandWidth isEqualToString:@""])
-        {
-            valueStr = I18N (@"Unknown");
-        }
-        else
-        {
-            valueStr = [NSString stringWithFormat:@"%@M", bandWidth];
-        }
-        [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                       @"key": I18N (@"Bandwidth package"),
-                       @"value": valueStr
-                   }]];
+        valueStr = I18N (@"Unknown");
     }
     else
     {
-        networkType = I18N (@"Mobile network");
+        valueStr = [NSString stringWithFormat:@"%@M", bandWidth];
     }
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Bandwidth package"),
+                   @"value": valueStr
+               }]];
+
+    // 网络类型
+    NSNumber *networkType = [probeInfoJson valueForKey:@"networkType"];
+    NSString *networkTypeStr = I18N (@"WIFI");
+    if (networkType.intValue != 1)
+    {
+        networkTypeStr = I18N (@"Mobile network");
+    }
+
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
                    @"key": I18N (@"Network type"),
-                   @"value": networkType
+                   @"value": networkTypeStr
                }]];
 
     // 测试时间
@@ -383,9 +381,9 @@
 
         // 判断加载时间是否超过10S，如果超过则显示超时
         NSString *loadTime = [currentResultJson valueForKey:@"totalTime"];
-        NSString *responseTimeValue = I18N (@"Timeout");
-        NSString *loadTimeVlaue = I18N (@"Timeout");
-        NSString *downloadSpeedVlaue = I18N (@"Timeout");
+        NSString *responseTimeValue = I18N (@"ResultTimeout");
+        NSString *loadTimeVlaue = I18N (@"ResultTimeout");
+        NSString *downloadSpeedVlaue = I18N (@"ResultTimeout");
         if ([loadTime doubleValue] < 10 && [loadTime doubleValue] >= 0)
         {
             responseTimeValue =
@@ -452,7 +450,7 @@
 {
     if (!str)
     {
-        return @"";
+        return @"未知";
     }
     return str;
 }
@@ -550,12 +548,18 @@
 // 输出浮点型的数值,保留2位小数
 - (NSString *)formatFloatValue:(NSString *)value
 {
+    if ([value floatValue] < 0) {
+        return @"未知";
+    }
     return [NSString stringWithFormat:@"%.2f", [value floatValue]];
 }
 
 // 输出浮点型的数值,保留1位小数
 - (NSString *)formatOneDecimal:(NSString *)value
 {
+    if ([value floatValue] < 0) {
+        return @"未知";
+    }
     return [NSString stringWithFormat:@"%.2f", [value floatValue]];
 }
 
@@ -564,7 +568,7 @@
 {
     if (!value)
     {
-        return @" ";
+        return @"未知";
     }
     return [NSString stringWithFormat:@"%@ ", value];
 }
@@ -572,12 +576,18 @@
 // 输出整形的数值,无小数+单位
 - (NSString *)formatIntValue:(NSString *)value unit:(NSString *)unit
 {
+    if ([value floatValue] < 0) {
+        return @"未知";
+    }
     return [NSString stringWithFormat:@"%.0f%@ ", [value floatValue], unit];
 }
 
 // 输出浮点型的数值,保留2位小数+单位
 - (NSString *)formatFloatValue:(NSString *)value unit:(NSString *)unit
 {
+    if ([value floatValue] < 0) {
+        return @"未知";
+    }
     return [NSString stringWithFormat:@"%.2f%@ ", [value floatValue], unit];
 }
 

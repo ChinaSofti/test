@@ -9,7 +9,7 @@
 #import "SVToast.h"
 
 
-#define DEFAULT_DISPLAY_DURATION 2.0f
+#define DEFAULT_DISPLAY_DURATION 3.0f
 #define DEFAULT_LINE_HEIGHT 30
 
 @implementation SVToast
@@ -137,7 +137,7 @@ static NSLock *lock;
 
 + (void)showWithText:(NSString *)text_
 {
-    [SVToast showWithText:text_ bottomOffset:100 duration:2];
+    [SVToast showWithText:text_ bottomOffset:100 duration:DEFAULT_DISPLAY_DURATION];
 }
 
 @end

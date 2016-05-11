@@ -375,20 +375,35 @@
 
           [self cleanOldData];
           SVResultPush *push = [[SVResultPush alloc] initWithTestId:_resultModel.testId];
-          //获取网络数据
-          NSData *result = [push sendResult];
-          NSError *error;
-          id jsonStr = [NSJSONSerialization JSONObjectWithData:result options:0 error:&error];
-          NSString *results = [jsonStr valueForKey:@"totalCount"];
-          NSString *result1 = [jsonStr valueForKey:@"currentPosition"];
-          double aaaa = [results doubleValue];
-          double bbbb = [result1 doubleValue];
-          rank = (aaaa - bbbb) * 100 / aaaa;
+          [push sendResult:^(NSData *responseData, NSError *error) {
+            if (error)
+            {
+                //
+                SVError (@"send result to server fail. not show sharing UI.");
+                return;
+            }
 
-          //单写一个线程,结果传回来后显示UI
-          dispatch_async (dispatch_get_main_queue (), ^{
-            [self createShareUI];
-          });
+            NSError *err;
+            id jsonStr = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&err];
+            if (error)
+            {
+                SVInfo (@"解析服务器返回数据失败,排名计算失败,"
+                        @"不在弹出分享页面");
+                return;
+            }
+            NSString *strTotalCount = [jsonStr valueForKey:@"totalCount"];
+            NSString *strCurrentPosition = [jsonStr valueForKey:@"currentPosition"];
+            double totalCount = [strTotalCount doubleValue];
+            double currentPosition = [strCurrentPosition doubleValue];
+            rank = (totalCount - currentPosition) * 100 / totalCount;
+
+            SVInfo (@"totalCoutn:%@,currentPosition:%@,rank:%d", strTotalCount, strCurrentPosition, rank);
+            //单写一个线程,结果传回来后显示UI
+            dispatch_async (dispatch_get_main_queue (), ^{
+              [self createShareUI];
+            });
+          }];
+
         });
     }
 }
@@ -763,14 +778,14 @@
 
     // 获取网络类型
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    NSString *networkType = probeInfo.networkType;
+    int networkType = probeInfo.networkType;
 
     NSString *insertSVSummaryResultModelSQL =
     [NSString stringWithFormat:@"INSERT INTO "
                                @"SVSummaryResultModel(testId,type,testTime,UvMOS,loadTime,"
                                @"bandwidth)VALUES(%lld, %d, %lld, %lf, %lf, %lf);",
-                               _resultModel.testId, networkType.intValue, _resultModel.testId,
-                               _resultModel.uvMOS, _resultModel.totalTime, _resultModel.stDownloadSpeed];
+                               _resultModel.testId, networkType, _resultModel.testId, _resultModel.uvMOS,
+                               _resultModel.totalTime, _resultModel.stDownloadSpeed];
     // 插入汇总结果
     [db executeUpdate:insertSVSummaryResultModelSQL];
 }
@@ -789,7 +804,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SVInfo (@"indexPath -----------------------------%@", indexPath);
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aCell"];
 
     if (cell == nil)
@@ -878,9 +892,6 @@
 
 - (void)CellDetailClick:(UIButton *)sender testType:(NSString *)testType
 {
-    // cell被点击
-    SVInfo (@"cell-------dianjile");
-
     //按钮点击后alloc一个界面
     SVDetailViewCtrl *detailViewCtrl = [[SVDetailViewCtrl alloc] init];
     [detailViewCtrl setTestId:_resultModel.testId];

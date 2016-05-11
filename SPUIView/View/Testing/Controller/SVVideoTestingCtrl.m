@@ -800,4 +800,10 @@
 {
     [_videoTest stopTest];
 }
+
+- (void)resetResult
+{
+    [_videoTest resetResult];
+}
+
 @end
