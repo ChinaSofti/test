@@ -38,7 +38,7 @@ const int DELAY_BUFFER_SIZE = 512;
 
     // 初始化server
     self.testServer = server;
-    self.delay = 0.0f;
+    self.delay = -1;
     self.finished = NO;
 
     // 初始化测试参数
@@ -111,10 +111,10 @@ const int DELAY_BUFFER_SIZE = 512;
     read (fd, buff, DELAY_BUFFER_SIZE);
     self.delay = [[NSDate date] timeIntervalSince1970] * 1000 - startTime;
 
-    // 如果超时，则将时延设为0
+    // 如果超时，则将时延设为-1
     if (self.delay >= 2000)
     {
-        self.delay = 0;
+        self.delay = -1;
     }
 
     // 关闭socket连接，释放内存

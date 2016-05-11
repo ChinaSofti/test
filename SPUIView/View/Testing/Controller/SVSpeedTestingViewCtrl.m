@@ -188,6 +188,7 @@ double _preSpeed = 0.0;
       }
       else
       {
+          [_speedTest resetResult];
           dispatch_async (dispatch_get_main_queue (), ^{
             [self goToCurrentResultViewCtrl];
           });

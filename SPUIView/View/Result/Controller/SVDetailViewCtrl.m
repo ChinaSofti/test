@@ -448,7 +448,7 @@
 
 - (NSString *)stringFilter:(NSString *)str
 {
-    if (!str || [str floatValue] < 0)
+    if (!str || [str floatValue] < 0 || str.length == 0)
     {
         return I18N (@"Unknown");
     }
@@ -566,7 +566,7 @@
 // 输出整形的数值,无小数
 - (NSString *)formatValue:(NSString *)value
 {
-    if (!value || [value floatValue] < 0)
+    if (!value || [value floatValue] < 0 || value.length == 0)
     {
         return I18N (@"Unknown");
     }
