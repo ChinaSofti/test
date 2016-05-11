@@ -198,6 +198,9 @@
 		5BE6DE271CAE69CD00CA2B5B /* SVLabelTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE6DE261CAE69CD00CA2B5B /* SVLabelTools.m */; };
 		5BE7A5D71CBF81E20080FEA9 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE7A5D51CBF81E20080FEA9 /* libpcre.a */; };
 		5BE7A5D81CBF81E20080FEA9 /* libVideoParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE7A5D61CBF81E20080FEA9 /* libVideoParser.a */; };
+		A2A8471E1CE3184D00C6242B /* faq_cn.html in Resources */ = {isa = PBXBuildFile; fileRef = A2A8471C1CE3184D00C6242B /* faq_cn.html */; };
+		A2A8471F1CE3184D00C6242B /* faq_en.html in Resources */ = {isa = PBXBuildFile; fileRef = A2A8471D1CE3184D00C6242B /* faq_en.html */; };
+		A2A847221CE328A900C6242B /* SVHtmlTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A847211CE328A900C6242B /* SVHtmlTools.m */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B722195A1CD3519500459F2A /* SVIPAndISPGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B72219591CD3519500459F2A /* SVIPAndISPGetter.m */; };
@@ -628,6 +631,10 @@
 		5BE7A5D31CBF81E20080FEA9 /* DLVideoParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLVideoParser.h; sourceTree = "<group>"; };
 		5BE7A5D51CBF81E20080FEA9 /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpcre.a; sourceTree = "<group>"; };
 		5BE7A5D61CBF81E20080FEA9 /* libVideoParser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVideoParser.a; sourceTree = "<group>"; };
+		A2A8471C1CE3184D00C6242B /* faq_cn.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = faq_cn.html; sourceTree = "<group>"; };
+		A2A8471D1CE3184D00C6242B /* faq_en.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = faq_en.html; sourceTree = "<group>"; };
+		A2A847201CE328A900C6242B /* SVHtmlTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVHtmlTools.h; sourceTree = "<group>"; };
+		A2A847211CE328A900C6242B /* SVHtmlTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVHtmlTools.m; sourceTree = "<group>"; };
 		B70FF3D31C6582AA002D571B /* SpeedPro.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedPro.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70FF3D51C6582AA002D571B /* SPUIViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUIViewTests.m; sourceTree = "<group>"; };
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1754,6 +1761,8 @@
 			children = (
 				B7E4C17B1CC3B89E00CB941A /* Privacy_en.html */,
 				B7E4C1721CBFE31800CB941A /* Privacy_cn.html */,
+				A2A8471C1CE3184D00C6242B /* faq_cn.html */,
+				A2A8471D1CE3184D00C6242B /* faq_en.html */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -1769,6 +1778,8 @@
 				B7F267991CAE1C0000E44299 /* SVHttpGetter.m */,
 				B7F2679A1CAE1C0000E44299 /* SVHttpsTools.h */,
 				B7F2679B1CAE1C0000E44299 /* SVHttpsTools.m */,
+				A2A847201CE328A900C6242B /* SVHtmlTools.h */,
+				A2A847211CE328A900C6242B /* SVHtmlTools.m */,
 				B7F2679C1CAE1C0000E44299 /* SVI18N.h */,
 				B7F2679D1CAE1C0000E44299 /* SVI18N.m */,
 				B7F267A01CAE1C0000E44299 /* SVJunitTestTable.h */,
@@ -2254,6 +2265,7 @@
 				B7C61B481CA68362001E32DC /* icon87.png in Resources */,
 				5BB0DE6A1CB410A500F8DAF9 /* rt_detail_title_collector_img@3x.png in Resources */,
 				5641CF3D1CCA280500A07584 /* UMSCommentInputController.xib in Resources */,
+				A2A8471F1CE3184D00C6242B /* faq_en.html in Resources */,
 				563148581CE0304C00C430DD /* litimg19.png in Resources */,
 				5BC491EB1CAB5D420002CA68 /* ic_speed_label@3x.png in Resources */,
 				5B50AB071CC0110F006499BE /* trust.p12 in Resources */,
@@ -2278,6 +2290,7 @@
 				563DA8F21CB6010F00578D02 /* speedpro@3x.png in Resources */,
 				5641CF711CCA28E100A07584 /* share_image_forth.png in Resources */,
 				5B29086D1CC47D6C002B26F1 /* starting_window@2x_2.png in Resources */,
+				A2A8471E1CE3184D00C6242B /* faq_cn.html in Resources */,
 				5BC491F01CAB5D420002CA68 /* ic_web_check@2x.png in Resources */,
 				5B2521931CB396E200C4481D /* ic_sort_asc@3x.png in Resources */,
 				5631485D1CE0304C00C430DD /* aboutLogo489.png in Resources */,
@@ -2373,6 +2386,7 @@
 				B7F267881CAE1BF300E44299 /* SVProbeInfo.m in Sources */,
 				B7F267851CAE1BF300E44299 /* SVSpeedTestServers.m in Sources */,
 				B7F267B21CAE1C0000E44299 /* SVLog.m in Sources */,
+				A2A847221CE328A900C6242B /* SVHtmlTools.m in Sources */,
 				561A36E31C896BAF00AC5F5E /* SVDetailViewCtrl.m in Sources */,
 				B7F267711CAE1BF300E44299 /* SVWebTestContext.m in Sources */,
 				B7F2677C1CAE1BF300E44299 /* SVVideoAnalyser.m in Sources */,
