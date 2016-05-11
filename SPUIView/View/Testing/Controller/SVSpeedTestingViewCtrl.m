@@ -463,7 +463,7 @@ double _preSpeed = 0.0;
 {
     currentResultModel.testId = testResult.testId;
     currentResultModel.stDelay = testResult.delay;
-    currentResultModel.stDownloadSpeed = testResult.downloadSpeed;
+    currentResultModel.stDownloadSpeed = testResult.downloadSpeed == 0 ? -1 : testResult.downloadSpeed;
     currentResultModel.stUploadSpeed = testResult.uploadSpeed;
     if (testResult.isp)
     {
