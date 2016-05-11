@@ -9,6 +9,7 @@
 #import "SVAboutViewCtrl.h"
 #import "SVAdvancedViewCtrl.h"
 #import "SVBWSettingViewCtrl.h"
+#import "SVFAQViewCtrl.h"
 #import "SVIPAndISPGetter.h"
 #import "SVLanguageSettingViewCtrl.h"
 #import "SVPrivacyCtrl.h"
@@ -29,11 +30,6 @@
 {
     UITableViewCell *_networkcell;
 }
-
-static NSString *kLinkURL = @"http://58.60.106.185:12210";
-static NSString *kLinkTagName = @"WECHAT_TAG_JUMP_SHOWRANK";
-static NSString *kLinkTitle = @"SpeedPro";
-static NSString *kLinkDescription = @"福利来了,大家注意了";
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -180,7 +176,7 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
         return 1;
     }
     else
-        return 5;
+        return 6;
 }
 
 // 设置 tableView 的行高
@@ -199,10 +195,11 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *title3 = I18N (@"About");
-    NSString *title4 = I18N (@"Language Settings");
-    NSString *title5 = I18N (@"Privacy Statemtent");
-    NSString *title6 = I18N (@"Upload Logs");
-    NSString *title7 = I18N (@"Advanced Settings");
+    NSString *title4 = I18N (@"FAQ");
+    NSString *title5 = I18N (@"Language Settings");
+    NSString *title6 = I18N (@"Privacy Statemtent");
+    NSString *title7 = I18N (@"Upload Logs");
+    NSString *title8 = I18N (@"Advanced Settings");
 
     static NSString *cellId = @"cell";
 
@@ -250,6 +247,10 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
         if (indexPath.row == 3)
         {
             cell.textLabel.text = title6;
+        }
+        if (indexPath.row == 4)
+        {
+            cell.textLabel.text = title7;
 
             //添加上传日志的点击事件
             UIButton *button = [[UIButton alloc]
@@ -260,25 +261,26 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
              forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:button];
         }
-        if (indexPath.row == 4)
+        if (indexPath.row == 5)
         {
-            cell.textLabel.text = title7;
+            cell.textLabel.text = title8;
         }
     }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title0 = I18N (@"Bandwidth Settings");
+    NSString *title2 = I18N (@"Bandwidth Settings");
     NSString *title3 = I18N (@"About");
-    NSString *title4 = I18N (@"Language Settings");
-    NSString *title5 = I18N (@"Privacy Instructions");
-    NSString *title6 = I18N (@"Advanced Settings");
+    NSString *title4 = I18N (@"FAQ");
+    NSString *title5 = I18N (@"Language Settings");
+    NSString *title6 = I18N (@"Privacy Instructions");
+    NSString *title7 = I18N (@"Advanced Settings");
     //当前连接
     if (indexPath.section == 0)
     {
         SVBWSettingViewCtrl *bandwidthSetting = [[SVBWSettingViewCtrl alloc] init];
-        bandwidthSetting.title = title0;
+        bandwidthSetting.title = title2;
         [self.navigationController pushViewController:bandwidthSetting animated:YES];
     }
 
@@ -288,34 +290,42 @@ static NSString *kLinkDescription = @"福利来了,大家注意了";
         //关于
         if (indexPath.row == 0)
         {
+
             SVAboutViewCtrl *about = [[SVAboutViewCtrl alloc] init];
             about.title = title3;
             [self.navigationController pushViewController:about animated:YES];
         }
-        //语言设置
+        // FAQ
         if (indexPath.row == 1)
         {
+            SVFAQViewCtrl *faq = [[SVFAQViewCtrl alloc] init];
+            faq.title = title4;
+            [self.navigationController pushViewController:faq animated:YES];
+        }
+        //语言设置
+        if (indexPath.row == 2)
+        {
             SVLanguageSettingViewCtrl *languageSetting = [[SVLanguageSettingViewCtrl alloc] init];
-            languageSetting.title = title4;
+            languageSetting.title = title5;
             [self.navigationController pushViewController:languageSetting animated:YES];
         }
 
         //隐私说明
-        if (indexPath.row == 2)
+        if (indexPath.row == 3)
         {
             SVPrivacyCtrl *advanced = [[SVPrivacyCtrl alloc] init];
-            advanced.title = title5;
+            advanced.title = title6;
             [self.navigationController pushViewController:advanced animated:YES];
         }
         //上传日志
-        if (indexPath.row == 3)
+        if (indexPath.row == 4)
         {
         }
         //高级设置
-        if (indexPath.row == 4)
+        if (indexPath.row == 5)
         {
             SVAdvancedViewCtrl *advanced = [[SVAdvancedViewCtrl alloc] init];
-            advanced.title = title6;
+            advanced.title = title7;
             [self.navigationController pushViewController:advanced animated:YES];
         }
     }

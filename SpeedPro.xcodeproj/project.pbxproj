@@ -26,6 +26,7 @@
 		5623B16F1CD06FBF002FA200 /* share_to_facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 5623B16E1CD06FBF002FA200 /* share_to_facebook.png */; };
 		5627689D1C907D760048D867 /* SVSpeedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5627689C1C907D760048D867 /* SVSpeedView.m */; };
 		5629C2651CBF9ACC007070D6 /* SVPrivacyCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5629C2641CBF9ACC007070D6 /* SVPrivacyCtrl.m */; };
+		562AD07B1CE30D4B00B94ABB /* SVFAQViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 562AD07A1CE30D4B00B94ABB /* SVFAQViewCtrl.m */; };
 		563148581CE0304C00C430DD /* litimg19.png in Resources */ = {isa = PBXBuildFile; fileRef = 563148511CE0304C00C430DD /* litimg19.png */; };
 		563148591CE0304C00C430DD /* litimg38.png in Resources */ = {isa = PBXBuildFile; fileRef = 563148521CE0304C00C430DD /* litimg38.png */; };
 		5631485A1CE0304C00C430DD /* litimg56.png in Resources */ = {isa = PBXBuildFile; fileRef = 563148531CE0304C00C430DD /* litimg56.png */; };
@@ -395,6 +396,8 @@
 		5627689C1C907D760048D867 /* SVSpeedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedView.m; sourceTree = "<group>"; };
 		5629C2631CBF9ACC007070D6 /* SVPrivacyCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPrivacyCtrl.h; sourceTree = "<group>"; };
 		5629C2641CBF9ACC007070D6 /* SVPrivacyCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPrivacyCtrl.m; sourceTree = "<group>"; };
+		562AD0791CE30D4B00B94ABB /* SVFAQViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVFAQViewCtrl.h; sourceTree = "<group>"; };
+		562AD07A1CE30D4B00B94ABB /* SVFAQViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVFAQViewCtrl.m; sourceTree = "<group>"; };
 		563148511CE0304C00C430DD /* litimg19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = litimg19.png; sourceTree = "<group>"; };
 		563148521CE0304C00C430DD /* litimg38.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = litimg38.png; sourceTree = "<group>"; };
 		563148531CE0304C00C430DD /* litimg56.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = litimg56.png; sourceTree = "<group>"; };
@@ -1029,6 +1032,8 @@
 				561A36CC1C896B5A00AC5F5E /* SVLanguageSettingViewCtrl.m */,
 				561A36CF1C896B5A00AC5F5E /* SVSettingsViewCtrl.h */,
 				561A36D01C896B5A00AC5F5E /* SVSettingsViewCtrl.m */,
+				562AD0791CE30D4B00B94ABB /* SVFAQViewCtrl.h */,
+				562AD07A1CE30D4B00B94ABB /* SVFAQViewCtrl.m */,
 				568D42B21C89E20B00F2916B /* SVBandWidthCtrl.h */,
 				568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */,
 				5629C2631CBF9ACC007070D6 /* SVPrivacyCtrl.h */,
@@ -2421,6 +2426,7 @@
 				B7F2677F1CAE1BF300E44299 /* SVUvMOSCalculator.m in Sources */,
 				B7F268671CAE263300E44299 /* SVSpeedTestContext.m in Sources */,
 				B7F268301CAE1C3900E44299 /* PingHelper.m in Sources */,
+				562AD07B1CE30D4B00B94ABB /* SVFAQViewCtrl.m in Sources */,
 				5629C2651CBF9ACC007070D6 /* SVPrivacyCtrl.m in Sources */,
 				56B5180D1C5126C700AA76F1 /* UIView+Exten.m in Sources */,
 				B7F267B31CAE1C0000E44299 /* SVRealReachability.m in Sources */,
