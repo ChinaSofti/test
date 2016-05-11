@@ -184,7 +184,7 @@ void UncaughtExceptionHandler (NSException *exception)
     case SV_RealStatusViaWiFi:
         SVInfo (@"%@", @"Network wifi! Free!");
         [SVToast showWithText:I18N (@"Network wifi!")];
-        [[SVProbeInfo sharedInstance] setNetworkType:0];
+        [[SVProbeInfo sharedInstance] setNetworkType:1];
         break;
     case SV_WWANType2G:
         SVInfo (@"%@", @"RealReachabilityStatus2G");
