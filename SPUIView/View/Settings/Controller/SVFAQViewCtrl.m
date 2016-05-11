@@ -7,6 +7,7 @@
 //
 
 #import "SVFAQViewCtrl.h"
+#import "SVHtmlTools.h"
 
 @interface SVFAQViewCtrl ()
 
@@ -37,10 +38,9 @@
 
 - (void)createUI
 {
-    UIWebView *webview = [[UIWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
-    NSURL *url = [NSURL URLWithString:@"http://58.60.106.185:12210/faq-ios.html"];
-    [webview loadRequest:[NSURLRequest requestWithURL:url]];
-    [self.view addSubview:webview];
+    // 创建WKWebView并且加载内置网页
+    SVHtmlTools *htmlTools = [[SVHtmlTools alloc] init];
+    [htmlTools createWebViewWithFileName:@"faq" superView:self.view];
 }
 
 //返回按钮点击事件
@@ -48,4 +48,5 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 @end

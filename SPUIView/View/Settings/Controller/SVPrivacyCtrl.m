@@ -7,7 +7,7 @@
 //
 
 #import "SVPrivacyCtrl.h"
-#import <WebKit/WebKit.h>
+#import "SVHtmlTools.h"
 
 @interface SVPrivacyCtrl ()
 @end
@@ -22,94 +22,11 @@
 
     // 初始化返回按钮
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
-
-    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
-
-
-    //调用逻辑
-
-    NSString *htmlPath = [NSString stringWithFormat:@"file://%@", [self getHtmlPath]];
-    SVInfo (@"load Privacy html from resource directory. URL:%@", htmlPath);
-    NSURL *fileURL = [NSURL URLWithString:htmlPath];
-
-    if (fileURL)
-    {
-        if ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0)
-        {
-            // iOS9. One year later things are OK.
-            [webView loadFileURL:fileURL allowingReadAccessToURL:fileURL];
-        }
-        else
-        {
-            // iOS8. Things can be workaround-ed
-            //   Brave people can do just this
-            //   fileURL = try! pathForBuggyWKWebView8(fileURL)
-            //   webView.loadRequest(NSURLRequest(URL: fileURL))
-            NSURL *url = [self fileURLForBuggyWKWebView8:fileURL];
-            NSURLRequest *request = [NSURLRequest requestWithURL:url];
-            [webView loadRequest:request];
-        }
-    }
-
-    [self.view addSubview:webView];
-    //    [self createUI];
+    
+    // 创建WKWebView并且加载内置的网页
+    SVHtmlTools *htmlTool = [[SVHtmlTools alloc] init];
+    [htmlTool createWebViewWithFileName:@"Privacy" superView:self.view];
 }
-
-//将文件copy到tmp目录
-- (NSURL *)fileURLForBuggyWKWebView8:(NSURL *)fileURL
-{
-    NSError *error = nil;
-    if (!fileURL.fileURL || ![fileURL checkResourceIsReachableAndReturnError:&error])
-    {
-        return nil;
-    }
-    // Create "/temp/www" directory
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *temDirURL = [[NSURL fileURLWithPath:NSTemporaryDirectory ()] URLByAppendingPathComponent:@"www"];
-    [fileManager createDirectoryAtURL:temDirURL
-          withIntermediateDirectories:YES
-                           attributes:nil
-                                error:&error];
-
-    NSURL *dstURL = [temDirURL URLByAppendingPathComponent:fileURL.lastPathComponent];
-    // Now copy given file to the temp directory
-    [fileManager removeItemAtURL:dstURL error:&error];
-    [fileManager copyItemAtURL:fileURL toURL:dstURL error:&error];
-    // Files in "/temp/www" load flawlesly :)
-    return dstURL;
-}
-
-- (NSString *)getHtmlPath
-{
-    // 资源目录
-    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *dirArray = [fileManager subpathsAtPath:resourcePath];
-    SVI18N *i18n = [SVI18N sharedInstance];
-    NSString *language = [i18n getLanguage];
-
-    NSString *playerHtmlPath;
-    for (NSString *path in dirArray)
-    {
-        if ([path containsString:@"html"])
-        {
-            NSLog (@"%@", path);
-        }
-        if ([language containsString:@"en"] && [path containsString:@"Privacy_en.html"])
-        {
-            playerHtmlPath = [resourcePath stringByAppendingPathComponent:path];
-            break;
-        }
-        else if ([language containsString:@"zh"] && [path containsString:@"Privacy_cn.html"])
-        {
-            playerHtmlPath = [resourcePath stringByAppendingPathComponent:path];
-            break;
-        }
-    }
-
-    return playerHtmlPath;
-}
-
 
 //进去时 隐藏tabBar
 - (void)viewWillAppear:(BOOL)animated
