@@ -128,6 +128,9 @@ int caclCount;
     _testContext = [[SVSpeedTestContext alloc] init];
     _testResult = [[SVSpeedTestResult alloc] init];
     _speedTestInfo = [[SVSpeedTestInfo alloc] init];
+    
+    _testResult.downloadSpeed = -1;
+    _testResult.uploadSpeed = -1;
 
     _downloadSize = 0;
     _uploadSize = 0;
@@ -141,7 +144,7 @@ int caclCount;
     SVInfo (@"Start Speed Test!");
     _testResult.testId = _testId;
     _testResult.testTime = [[NSDate date] timeIntervalSince1970] * 1000;
-    _testResult.delay = 0;
+    _testResult.delay = -1;
 
     // 启动时延测试
     [self startDelayTest];

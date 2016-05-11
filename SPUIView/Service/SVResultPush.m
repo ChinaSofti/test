@@ -211,7 +211,7 @@ NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/upload";
 
 - (void)queryResult
 {
-    sleep (2);
+    //    sleep (2);
 
     // 拼写sql // 测试类型：0=video,1=web,2=speed
     NSMutableString *vsql = [NSMutableString

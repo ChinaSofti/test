@@ -165,29 +165,27 @@
                    @"value": [self formatValue:[probeInfoJson valueForKey:@"isp"]]
                }]];
 
+    // 宽带套餐
+    NSString *bandWidth = [probeInfoJson valueForKey:@"signedBandwidth"];
+    if (!bandWidth || [bandWidth isEqualToString:@""])
+    {
+        valueStr = I18N (@"Unknown");
+    }
+    else
+    {
+        valueStr = [NSString stringWithFormat:@"%@M", bandWidth];
+    }
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Bandwidth package"),
+                   @"value": valueStr
+               }]];
+
     // 网络类型
     NSNumber *networkType = [probeInfoJson valueForKey:@"networkType"];
     NSString *networkTypeStr = I18N (@"WIFI");
     if (networkType.intValue != 1)
     {
         networkTypeStr = I18N (@"Mobile network");
-    }
-    else
-    {
-        // 宽带套餐
-        NSString *bandWidth = [probeInfoJson valueForKey:@"signedBandwidth"];
-        if (!bandWidth || [bandWidth isEqualToString:@""])
-        {
-            valueStr = I18N (@"Unknown");
-        }
-        else
-        {
-            valueStr = [NSString stringWithFormat:@"%@M", bandWidth];
-        }
-        [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                       @"key": I18N (@"Bandwidth package"),
-                       @"value": valueStr
-                   }]];
     }
 
     [_soucreMA addObject:[SVToolModels modelWithDict:@{
@@ -450,9 +448,9 @@
 
 - (NSString *)stringFilter:(NSString *)str
 {
-    if (!str)
+    if (!str || [str floatValue] < 0 || str.length == 0)
     {
-        return @"未知";
+        return I18N (@"Unknown");
     }
     return str;
 }
@@ -550,9 +548,8 @@
 // 输出浮点型的数值,保留2位小数
 - (NSString *)formatFloatValue:(NSString *)value
 {
-    if ([value floatValue] < 0)
-    {
-        return @"未知";
+    if ([value floatValue] < 0) {
+        return I18N (@"Unknown");
     }
     return [NSString stringWithFormat:@"%.2f", [value floatValue]];
 }
@@ -560,9 +557,8 @@
 // 输出浮点型的数值,保留1位小数
 - (NSString *)formatOneDecimal:(NSString *)value
 {
-    if ([value floatValue] < 0)
-    {
-        return @"未知";
+    if ([value floatValue] < 0) {
+        return I18N (@"Unknown");
     }
     return [NSString stringWithFormat:@"%.2f", [value floatValue]];
 }
@@ -570,9 +566,9 @@
 // 输出整形的数值,无小数
 - (NSString *)formatValue:(NSString *)value
 {
-    if (!value)
+    if (!value || [value floatValue] < 0 || value.length == 0)
     {
-        return @"未知";
+        return I18N (@"Unknown");
     }
     return [NSString stringWithFormat:@"%@ ", value];
 }
@@ -580,9 +576,8 @@
 // 输出整形的数值,无小数+单位
 - (NSString *)formatIntValue:(NSString *)value unit:(NSString *)unit
 {
-    if ([value floatValue] < 0)
-    {
-        return @"未知";
+    if ([value floatValue] < 0) {
+        return I18N (@"Unknown");
     }
     return [NSString stringWithFormat:@"%.0f%@ ", [value floatValue], unit];
 }
@@ -590,9 +585,8 @@
 // 输出浮点型的数值,保留2位小数+单位
 - (NSString *)formatFloatValue:(NSString *)value unit:(NSString *)unit
 {
-    if ([value floatValue] < 0)
-    {
-        return @"未知";
+    if ([value floatValue] < 0) {
+        return I18N (@"Unknown");
     }
     return [NSString stringWithFormat:@"%.2f%@ ", [value floatValue], unit];
 }
