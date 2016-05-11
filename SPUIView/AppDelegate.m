@@ -152,7 +152,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
         // 创建一个消息对象
         NSNotification *notice =
-        [NSNotification notificationWithName:@"networkStatusChange" object:nil userInfo:nil];
+        [NSNotification notificationWithName:@"networkStatusError" object:nil userInfo:nil];
 
         //发送消息
         [[NSNotificationCenter defaultCenter] postNotification:notice];

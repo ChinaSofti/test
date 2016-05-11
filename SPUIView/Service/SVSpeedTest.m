@@ -518,9 +518,14 @@ int caclCount;
     // 如果时延为0，则认为测试失败，中止测试
     if (_testResult.delay <= 0)
     {
-        [self stopTest];
-
         _testContext.testStatus = TEST_FINISHED;
+
+        // 创建一个消息对象
+        NSNotification *notice =
+        [NSNotification notificationWithName:@"networkStatusError" object:nil userInfo:nil];
+
+        //发送消息
+        [[NSNotificationCenter defaultCenter] postNotification:notice];
         return;
     }
 
