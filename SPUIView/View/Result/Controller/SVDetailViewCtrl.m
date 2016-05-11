@@ -165,26 +165,26 @@
                    @"value": [self formatValue:[probeInfoJson valueForKey:@"isp"]]
                }]];
 
-    // 宽带套餐
-    NSString *bandWidth = [probeInfoJson valueForKey:@"signedBandwidth"];
-    if (!bandWidth || [bandWidth isEqualToString:@""])
-    {
-        valueStr = I18N (@"Unknown");
-    }
-    else
-    {
-        valueStr = [NSString stringWithFormat:@"%@M", bandWidth];
-    }
-    [_soucreMA addObject:[SVToolModels modelWithDict:@{
-                   @"key": I18N (@"Bandwidth package"),
-                   @"value": valueStr
-               }]];
-
     // 网络类型
     NSString *networkType = [probeInfoJson valueForKey:@"networkType"];
     if ([networkType isEqualToString:@"1"])
     {
         networkType = I18N (@"WIFI");
+
+        // 宽带套餐 （当网络为WIFI时才显示）
+        NSString *bandWidth = [probeInfoJson valueForKey:@"signedBandwidth"];
+        if (!bandWidth || [bandWidth isEqualToString:@""])
+        {
+            valueStr = I18N (@"Unknown");
+        }
+        else
+        {
+            valueStr = [NSString stringWithFormat:@"%@M", bandWidth];
+        }
+        [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                       @"key": I18N (@"Bandwidth package"),
+                       @"value": valueStr
+                   }]];
     }
     else
     {

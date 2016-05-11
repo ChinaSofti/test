@@ -27,6 +27,8 @@
     UIProgressView *progressView;
     NSTimer *progressTimer;
     float progressVlaue;
+    UILabel *loadingProcessLabelValue;
+    UIView *contentView;
 }
 
 - (void)viewDidLoad
@@ -60,6 +62,67 @@
     [launchImageView addSubview:imageView];
     [self.view addSubview:launchImageView];
 
+    // 显示进度条
+    [self showProgressView];
+}
+
+- (void)showProgressView
+{
+    // --------Content
+    contentView = [[UIView alloc]
+    initWithFrame:CGRectMake (FITWIDTH (108), FITHEIGHT (860), FITWIDTH (864), FITHEIGHT (100))];
+    CGFloat contentViewHeight = contentView.frame.size.height;
+
+    // 加载中文字的label
+    NSString *prepareLabelMessage = I18N (@"Prepareing");
+    NSDictionary *attributes = @{
+        NSFontAttributeName: [UIFont systemFontOfSize:pixelToFontsize (46)],
+    };
+
+    CGRect textRect = [prepareLabelMessage boundingRectWithSize:CGSizeMake (FITWIDTH (864), FITHEIGHT (150))
+                                                        options:NSStringDrawingTruncatesLastVisibleLine
+                                                     attributes:attributes
+                                                        context:nil];
+
+    // 初始化loading图标
+    UIActivityIndicatorView *activityView =
+    [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [activityView setColor:[UIColor whiteColor]];
+
+    // 设置loading图标位置
+    CGFloat activityViewHeight = activityView.frame.size.height;
+    CGFloat activityViewWidth = activityView.frame.size.width;
+    CGFloat x = (FITWIDTH (864) - FITWIDTH (180) - activityViewWidth - textRect.size.width) / 2;
+    [activityView setOrigin:CGPointMake (x, (contentViewHeight - activityViewHeight) / 2)];
+
+    UILabel *loadingProcessLabel = [[UILabel alloc] init];
+    [loadingProcessLabel setSize:CGSizeMake (textRect.size.width, textRect.size.height)];
+    [loadingProcessLabel setOrigin:CGPointMake (activityView.rightX + FITWIDTH (30),
+                                                (contentViewHeight - textRect.size.height) / 2)];
+    [loadingProcessLabel setText:prepareLabelMessage];
+    [loadingProcessLabel setTextColor:[UIColor whiteColor]];
+    [loadingProcessLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (46)]];
+
+    CGFloat loadingProcessLabelValueWidth = FITWIDTH (150);
+    CGFloat loadingProcessLabelValueHeight = FITHEIGHT (80);
+    loadingProcessLabelValue = [[UILabel alloc] init];
+    [loadingProcessLabelValue setSize:CGSizeMake (loadingProcessLabelValueWidth, loadingProcessLabelValueHeight)];
+    [loadingProcessLabelValue
+    setOrigin:CGPointMake (loadingProcessLabel.rightX + FITWIDTH (20),
+                           (contentViewHeight - loadingProcessLabelValueHeight) / 2)];
+    [loadingProcessLabelValue setText:@"0%"];
+    [loadingProcessLabelValue setTextColor:[UIColor whiteColor]];
+    [loadingProcessLabelValue setFont:[UIFont systemFontOfSize:pixelToFontsize (46)]];
+
+    [contentView addSubview:activityView];
+    [contentView addSubview:loadingProcessLabel];
+    [contentView addSubview:loadingProcessLabelValue];
+    [activityView startAnimating];
+
+    [self.view addSubview:contentView];
+    //    [contentView addSubview:content];
+    // --------Content  end--
+
     // 设置进度条
     progressView = [[UIProgressView alloc]
     initWithFrame:CGRectMake (FITWIDTH (108), FITHEIGHT (960), FITWIDTH (864), FITHEIGHT (20))];
@@ -80,6 +143,10 @@
 // 改变进度条进度
 - (void)changeProgress
 {
+    // 获取网络状态
+    SVRealReachability *realReachability = [SVRealReachability sharedInstance];
+    SVRealReachabilityStatus currentStatus = realReachability.getNetworkStatus;
+
     // 进度值为1，说明进度条已经满了
     if (progressVlaue >= 1)
     {
@@ -88,21 +155,25 @@
         progressTimer = nil;
 
         // 去掉进度条和启动图片
+        [contentView removeFromSuperview];
         [progressView removeFromSuperview];
         [launchImageView removeFromSuperview];
 
         // 显示主页面
-        [self setShadowView];
+        // 如果网络是wifi，则弹出带宽设置的窗口
+        if (currentStatus == SV_RealStatusViaWiFi)
+        {
+            [self setShadowView];
+        }
         return;
     }
 
     // 如果网络无法连接，则直接进入
-    SVRealReachability *realReachability = [SVRealReachability sharedInstance];
-    SVRealReachabilityStatus currentStatus = realReachability.getNetworkStatus;
     if (currentStatus == SV_WWANTypeUnknown || currentStatus == SV_RealStatusNotReachable)
     {
         progressVlaue = 1;
         [progressView setProgress:progressVlaue];
+        [loadingProcessLabelValue setText:@"100%"];
         return;
     }
 
@@ -114,12 +185,15 @@
         {
             progressVlaue += 0.05;
             [progressView setProgress:progressVlaue];
+            int value = progressVlaue * 100;
+            [loadingProcessLabelValue setText:[NSString stringWithFormat:@"%d%%", value]];
         }
     }
     else
     {
         progressVlaue = 1;
         [progressView setProgress:progressVlaue];
+        [loadingProcessLabelValue setText:@"100%"];
     }
 }
 
