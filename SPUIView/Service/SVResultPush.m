@@ -632,6 +632,9 @@ NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/upload";
     NSMutableDictionary *videoTestResultsDic = [[NSMutableDictionary alloc] init];
     [videoTestResultsDic setObject:[self string2num:[videoTestResultJson valueForKey:@"bitrate"]]
                             forKey:@"aveBitRate"];
+    [videoTestResultsDic setObject:[self string2int:[videoTestResultJson valueForKey:@"errorCode"]]
+                            forKey:@"errorCode"];
+
     [videoTestResultsDic
     setObject:[self string2num:[videoTestResultJson valueForKey:@"videoCuttonTotalTime"]]
        forKey:@"bufferTime"];
@@ -807,6 +810,18 @@ NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/upload";
 
     return [[NSNumber alloc] initWithDouble:[str doubleValue]];
 }
+
+// 将字符串转换为数字
+- (NSNumber *)string2int:(NSString *)str
+{
+    if (!str)
+    {
+        return @0;
+    }
+
+    return [[NSNumber alloc] initWithInt:[str intValue]];
+}
+
 
 // 将字典转换成json字符串
 - (NSString *)dictionaryToJsonString:(NSMutableDictionary *)dictionary

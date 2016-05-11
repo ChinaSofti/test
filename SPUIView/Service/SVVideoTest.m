@@ -389,7 +389,11 @@
     testResult.bitrate = -1;
     testResult.screenSize = -1;
     testResult.videoPlayTime = -1;
-    testResult.errorCode = 1;
+    if (testResult.errorCode == 0)
+    {
+        testResult.errorCode = 3;
+    }
+
 
     [self persistSVDetailResultModel];
 }

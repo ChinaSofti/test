@@ -37,6 +37,8 @@
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSSetUncaughtExceptionHandler (&UncaughtExceptionHandler);
+
     NSString *lastVersion = [[NSUserDefaults standardUserDefaults] valueForKey:@"lastversion"];
     NSString *currentVersion = [SVAppVersionChecker currentVersion];
     // 判断是否是安装后第一次启动APP
@@ -104,6 +106,22 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [realReachability addDelegate:self];
     return YES;
 }
+
+void UncaughtExceptionHandler (NSException *exception)
+{
+    /**
+     *  获取异常崩溃信息
+     */
+    NSArray *callStack = [exception callStackSymbols];
+    NSString *reason = [exception reason];
+    NSString *name = [exception name];
+    NSString *content = [NSString
+    stringWithFormat:@"========异常错误报告========\nname:%@\nreason:\n%@\ncallStackSymbols:\n%@",
+                     name, reason, [callStack componentsJoinedByString:@"\n"]];
+
+    SVError (@"%@", content);
+}
+
 #pragma mark - 分享的方法
 //回调函数
 - (BOOL)application:(UIApplication *)application
