@@ -84,7 +84,11 @@ NSString *const kRealReachabilityChangedNotification = @"kRealReachabilityChange
 {
     if (self.isNotifying)
     {
-        [self reachabilityWithBlock:nil];
+        //        [self reachabilityWithBlock:nil];
+        dispatch_async (dispatch_get_main_queue (), ^{
+          [[NSNotificationCenter defaultCenter] postNotificationName:kRealReachabilityChangedNotification
+                                                              object:self];
+        });
     }
 }
 
@@ -121,9 +125,9 @@ NSString *const kRealReachabilityChangedNotification = @"kRealReachabilityChange
                                              selector:@selector (localConnectionChanged:)
                                                  name:kLocalConnectionChangedNotification
                                                object:nil];
-
-    GPingHelper.host = _hostForPing;
-    [self autoCheckReachability];
+    //
+    //    GPingHelper.host = _hostForPing;
+    //    [self autoCheckReachability];
 }
 
 - (void)stopNotifier
@@ -337,7 +341,7 @@ NSString *const kRealReachabilityChangedNotification = @"kRealReachabilityChange
             [[NSNotificationCenter defaultCenter] postNotificationName:kRealReachabilityChangedNotification
                                                                 object:self];
             // To make sure your reachability is "Real".
-            [self reachabilityWithBlock:nil];
+            //            [self reachabilityWithBlock:nil];
         }
     }
 }

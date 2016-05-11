@@ -360,6 +360,13 @@ int caclCount;
     {
         speed = (caclSize - preCaclSize) * 8.0 / (currentTime - preTime) / 1000000;
     }
+
+    // 如果平均速度小于0.1则认为是失败
+    if (speed < 0.1)
+    {
+        speed = 0;
+    }
+
     preTime = currentTime;
     preCaclSize = caclSize;
 
