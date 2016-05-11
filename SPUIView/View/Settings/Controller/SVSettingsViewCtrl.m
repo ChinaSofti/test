@@ -75,20 +75,34 @@
 
     //准备字符串
     SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
+    NSString *value11 = ipAndISP.isp;
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     NSString *type = [probeInfo getBandwidthType];
     int bandwidthTypeIndex = [type intValue];
     NSString *value = [probeInfo getBandwidth];
 
     NSString *title21 = I18N (@"Carrier");
-    NSString *title22 = ipAndISP.isp;
+    NSString *title22;
+    /*
+     !value11
+     value11 == nil
+     value11.length == 0
+     */
+    if ([value11 isEqualToString:@""] || !value11)
+    {
+        title22 = I18N (@"Unknown");
+    }
+    else
+    {
+        title22 = value11;
+    }
     NSString *title23 = I18N (@"bandwidth type");
     NSString *titlea = I18N (@"Unknown");
     NSString *titleb = I18N (@"Fiber");
     NSString *titlec = I18N (@"Copper");
     NSString *title25 = I18N (@"Bandwidth package");
     NSString *title26;
-    if ([value isEqualToString:@""])
+    if ([value isEqualToString:@""] || !value)
     {
         title26 = I18N (@"Unknown");
     }
@@ -97,26 +111,38 @@
         title26 = [NSString stringWithFormat:@"%@M", value];
     }
 
+    SVRealReachability *realReachablity = [SVRealReachability sharedInstance];
+    SVRealReachabilityStatus status = [realReachablity getNetworkStatus];
+
     NSString *title2;
-    NSLog (@"%d", bandwidthTypeIndex);
-    if (bandwidthTypeIndex == 0)
+    if (bandwidthTypeIndex == 0 && status == SV_RealStatusViaWiFi)
     {
         title2 = [NSString stringWithFormat:@"%@:  %@,%@:  %@,%@:  %@", title21, title22, title23,
                                             titlea, title25, title26];
     }
-    if (bandwidthTypeIndex == 1)
+    if (bandwidthTypeIndex == 1 && status == SV_RealStatusViaWiFi)
     {
         title2 = [NSString stringWithFormat:@"%@:  %@,%@:  %@,%@:  %@", title21, title22, title23,
                                             titleb, title25, title26];
     }
-    if (bandwidthTypeIndex == 2)
+    if (bandwidthTypeIndex == 2 && status == SV_RealStatusViaWiFi)
     {
         title2 = [NSString stringWithFormat:@"%@:  %@,%@:  %@,%@:  %@", title21, title22, title23,
                                             titlec, title25, title26];
     }
 
-    SVRealReachability *realReachablity = [SVRealReachability sharedInstance];
-    SVRealReachabilityStatus status = [realReachablity getNetworkStatus];
+    if (bandwidthTypeIndex == 0 && status != SV_RealStatusViaWiFi)
+    {
+        title2 = [NSString stringWithFormat:@"%@:  %@", title21, title22];
+    }
+    if (bandwidthTypeIndex == 1 && status != SV_RealStatusViaWiFi)
+    {
+        title2 = [NSString stringWithFormat:@"%@:  %@", title21, title22];
+    }
+    if (bandwidthTypeIndex == 2 && status != SV_RealStatusViaWiFi)
+    {
+        title2 = [NSString stringWithFormat:@"%@:  %@", title21, title22];
+    }
 
 
     UIImage *image1 = [UIImage imageNamed:@"ic_settings_mobile"];

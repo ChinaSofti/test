@@ -133,6 +133,7 @@
 		56CAFFC71C9BFC2100210081 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFC61C9BFC2100210081 /* SystemConfiguration.framework */; };
 		56EC8C811C4F45A500EBDA6C /* SVTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56EC8C601C4F45A500EBDA6C /* SVTabBarController.m */; };
 		56F523E41C4DCF7F00E6472B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F523E31C4DCF7F00E6472B /* main.m */; };
+		5B1F982F1CE2D42E0056107D /* SVWifiInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F982E1CE2D42E0056107D /* SVWifiInfo.m */; };
 		5B1FEDB51CAA413A00508920 /* tabbar_test_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1FEDB31CAA413A00508920 /* tabbar_test_selected@2x.png */; };
 		5B1FEDB61CAA413A00508920 /* tabbar_test@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1FEDB41CAA413A00508920 /* tabbar_test@2x.png */; };
 		5B1FEDB91CAA63C100508920 /* speedpro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1FEDB71CAA63C100508920 /* speedpro@2x.png */; };
@@ -555,6 +556,8 @@
 		56EC8C601C4F45A500EBDA6C /* SVTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVTabBarController.m; sourceTree = "<group>"; };
 		56F523DF1C4DCF7F00E6472B /* SpeedPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56F523E31C4DCF7F00E6472B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5B1F982D1CE2D42E0056107D /* SVWifiInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWifiInfo.h; sourceTree = "<group>"; };
+		5B1F982E1CE2D42E0056107D /* SVWifiInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWifiInfo.m; sourceTree = "<group>"; };
 		5B1FEDB31CAA413A00508920 /* tabbar_test_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_test_selected@2x.png"; sourceTree = "<group>"; };
 		5B1FEDB41CAA413A00508920 /* tabbar_test@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_test@2x.png"; sourceTree = "<group>"; };
 		5B1FEDB71CAA63C100508920 /* speedpro@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speedpro@2x.png"; sourceTree = "<group>"; };
@@ -988,6 +991,8 @@
 				B7F267541CAE1BF300E44299 /* SVTestContext.h */,
 				B7F2675F1CAE1BF300E44299 /* SVProbeInfo.m */,
 				B7F267601CAE1BF300E44299 /* SVProbeInfo.h */,
+				5B1F982D1CE2D42E0056107D /* SVWifiInfo.h */,
+				5B1F982E1CE2D42E0056107D /* SVWifiInfo.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2361,6 +2366,7 @@
 				5B2FA8F11C984C9E0018D699 /* SVWarningView.m in Sources */,
 				B73105991CAF5C4400B6C3A5 /* SVYoutubeVideoPlayer2.m in Sources */,
 				B7F268311CAE1C3900E44299 /* RealReachability.m in Sources */,
+				5B1F982F1CE2D42E0056107D /* SVWifiInfo.m in Sources */,
 				B748CE251C9FF62C00FD388C /* SVTextField.m in Sources */,
 				B7F267AB1CAE1C0000E44299 /* SVCurrentDevice.m in Sources */,
 				B73105971CAF5C4400B6C3A5 /* SVYoukuVideoPlayer.m in Sources */,

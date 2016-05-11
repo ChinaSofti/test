@@ -132,5 +132,17 @@
  */
 - (NSString *)getUUID;
 
+/**
+ *  设置本机使用过的wifi信息，只记录五条
+ *  @param wifiInfos 本机使用过的wifi信息
+ */
+- (void)setWifiInfo:(NSMutableArray *)wifiInfo;
+
+/**
+ *  获取本机使用过的wifi信息
+ *
+ *  @return 本机使用过的wifi信息
+ */
+- (NSMutableArray *)getWifiInfo;
 
 @end
