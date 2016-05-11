@@ -63,7 +63,7 @@ stDownloadSpeed, stUploadSpeed, stIsp, stLocation;
     // 添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
     [center addObserver:self
                selector:@selector (alertMessage:)
-                   name:@"networkStatusChange"
+                   name:@"networkStatusError"
                  object:nil];
 
     return self;

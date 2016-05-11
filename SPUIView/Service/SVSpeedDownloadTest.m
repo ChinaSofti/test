@@ -108,6 +108,9 @@
     if (error)
     {
         SVError (@"download connect error, error:%@", error);
+
+        // 发送错误信息
+        [self sendErrorNotice];
     }
 
     isFinished = YES;
@@ -126,6 +129,16 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     isFinished = YES;
+}
+
+- (void)sendErrorNotice
+{
+    // 创建一个消息对象
+    NSNotification *notice =
+    [NSNotification notificationWithName:@"networkStatusError" object:nil userInfo:nil];
+
+    //发送消息
+    [[NSNotificationCenter defaultCenter] postNotification:notice];
 }
 
 @end
