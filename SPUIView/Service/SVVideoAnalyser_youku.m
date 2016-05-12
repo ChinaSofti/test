@@ -120,7 +120,7 @@ static NSString *_ykss;
         // 解析分片
         for (int j = 0; vResult->streams[i].segs != NULL && j < (int)vResult->streams[i].segCount; j++)
         {
-            int fileSize = [[NSNumber alloc] initWithLong:vResult->streams[i].segs[j].fileSize].intValue;
+            int fileSize = [[NSNumber alloc] initWithLongLong:vResult->streams[i].segs[j].fileSize].intValue;
             int duration = vResult->streams[i].segs[j].seconds;
             NSString *segUrl = (vResult->streams[i].segs[j].url != NULL ?
                                 [NSString stringWithUTF8String:vResult->streams[i].segs[j].url] :
@@ -140,6 +140,8 @@ static NSString *_ykss;
             [_videoInfo addSegement:segement];
         }
     }
+
+    DLVideo_FreeVideoResult (vResult);
 
     //    // 视频清晰度的字典
     //    NSDictionary *videoTypeDic = @{ @"480P": @"mp4hd", @"720P": @"mp4hd2", @"1080P": @"mp4hd3"
