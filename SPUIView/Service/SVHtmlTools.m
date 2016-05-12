@@ -7,28 +7,25 @@
 //
 
 #import "SVHtmlTools.h"
-#import <WebKit/WebKit.h>
 
 @implementation SVHtmlTools
 
 /**
- * 创建WKWebView并且加载内置网页
+ * 加载内置网页
  */
-- (void)createWebViewWithFileName:(NSString *)fileName superView:(UIView *)superView {
-
-    WKWebView *webview = [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
-    
+- (void)loadHtmlWithFileName:(NSString *)fileName webView:(WKWebView *)webView
+{
     //调用逻辑
     NSString *htmlPath = [NSString stringWithFormat:@"file://%@", [self getHtmlPathWithFileName:fileName]];
     SVInfo (@"load FAQ html from resource directory. URL:%@", htmlPath);
     NSURL *fileURL = [NSURL URLWithString:htmlPath];
-    
+
     if (fileURL)
     {
         if ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0)
         {
             // iOS9. One year later things are OK.
-            [webview loadFileURL:fileURL allowingReadAccessToURL:fileURL];
+            [webView loadFileURL:fileURL allowingReadAccessToURL:fileURL];
         }
         else
         {
@@ -38,11 +35,9 @@
             //   webView.loadRequest(NSURLRequest(URL: fileURL))
             NSURL *url = [self fileURLForBuggyWKWebView8:fileURL];
             NSURLRequest *request = [NSURLRequest requestWithURL:url];
-            [webview loadRequest:request];
+            [webView loadRequest:request];
         }
     }
-    [superView addSubview:webview];
-    
 }
 
 //将文件copy到tmp目录
@@ -60,7 +55,7 @@
           withIntermediateDirectories:YES
                            attributes:nil
                                 error:&error];
-    
+
     NSURL *dstURL = [temDirURL URLByAppendingPathComponent:fileURL.lastPathComponent];
     // Now copy given file to the temp directory
     [fileManager removeItemAtURL:dstURL error:&error];
@@ -77,7 +72,7 @@
     NSArray *dirArray = [fileManager subpathsAtPath:resourcePath];
     SVI18N *i18n = [SVI18N sharedInstance];
     NSString *language = [i18n getLanguage];
-    
+
     NSString *playerHtmlPath;
     for (NSString *path in dirArray)
     {
@@ -85,18 +80,20 @@
         {
             NSLog (@"%@", path);
         }
-        if ([language containsString:@"en"] && [path containsString:[NSString stringWithFormat:@"%@_en.html", fileName]])
+        if ([language containsString:@"en"] &&
+            [path containsString:[NSString stringWithFormat:@"%@_en.html", fileName]])
         {
             playerHtmlPath = [resourcePath stringByAppendingPathComponent:path];
             break;
         }
-        else if ([language containsString:@"zh"] && [path containsString:[NSString stringWithFormat:@"%@_cn.html", fileName]])
+        else if ([language containsString:@"zh"] &&
+                 [path containsString:[NSString stringWithFormat:@"%@_cn.html", fileName]])
         {
             playerHtmlPath = [resourcePath stringByAppendingPathComponent:path];
             break;
         }
     }
-    
+
     return playerHtmlPath;
 }
 

@@ -128,7 +128,7 @@ int caclCount;
     _testContext = [[SVSpeedTestContext alloc] init];
     _testResult = [[SVSpeedTestResult alloc] init];
     _speedTestInfo = [[SVSpeedTestInfo alloc] init];
-    
+
     _testResult.downloadSpeed = -1;
     _testResult.uploadSpeed = -1;
 
@@ -312,6 +312,12 @@ int caclCount;
         // 计算结果
         double currentTime = [[NSDate date] timeIntervalSince1970];
         speedAvg = caclSize * 8.0 / (currentTime - beginTime) / 1000000;
+
+        // 如果平均速度小于0.1则认为是失败
+        if (speedAvg < 0.1)
+        {
+            speedAvg = 0;
+        }
 
         SVInfo (@"download totalSize = %lld, costTime = %f", caclSize, (currentTime - beginTime));
 
@@ -731,8 +737,9 @@ int caclCount;
 
     [dic setObject:[[NSNumber alloc] initWithLong:_testResult.testTime] forKey:@"testTime"];
     [dic setObject:[[NSNumber alloc] initWithDouble:_testResult.delay] forKey:@"delay"];
-    [dic setObject:[[NSNumber alloc] initWithDouble:_testResult.downloadSpeed]
-            forKey:@"downloadSpeed"];
+
+    double speed = _testResult.downloadSpeed == 0 ? -1 : _testResult.downloadSpeed;
+    [dic setObject:[[NSNumber alloc] initWithDouble:speed] forKey:@"downloadSpeed"];
     [dic setObject:[[NSNumber alloc] initWithDouble:_testResult.uploadSpeed] forKey:@"uploadSpeed"];
     [dic setObject:!_testResult.ipAddress ? @"" : _testResult.ipAddress forKey:@"ipAddress"];
 

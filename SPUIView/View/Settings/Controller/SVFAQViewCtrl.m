@@ -8,6 +8,7 @@
 
 #import "SVFAQViewCtrl.h"
 #import "SVHtmlTools.h"
+#import <WebKit/WebKit.h>
 
 @interface SVFAQViewCtrl ()
 
@@ -38,9 +39,12 @@
 
 - (void)createUI
 {
-    // 创建WKWebView并且加载内置网页
+    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
+    [self.view addSubview:webView];
+
+    // 加载内置网页
     SVHtmlTools *htmlTools = [[SVHtmlTools alloc] init];
-    [htmlTools createWebViewWithFileName:@"faq" superView:self.view];
+    [htmlTools loadHtmlWithFileName:@"faq" webView:webView];
 }
 
 //返回按钮点击事件

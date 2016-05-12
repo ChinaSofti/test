@@ -6,8 +6,9 @@
 //  Copyright © 2016年 Huawei. All rights reserved.
 //
 
-#import "SVPrivacyCtrl.h"
 #import "SVHtmlTools.h"
+#import "SVPrivacyCtrl.h"
+#import <WebKit/WebKit.h>
 
 @interface SVPrivacyCtrl ()
 @end
@@ -22,10 +23,13 @@
 
     // 初始化返回按钮
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
-    
-    // 创建WKWebView并且加载内置的网页
+
+    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
+    [self.view addSubview:webView];
+
+    // 加载内置的网页
     SVHtmlTools *htmlTool = [[SVHtmlTools alloc] init];
-    [htmlTool createWebViewWithFileName:@"Privacy" superView:self.view];
+    [htmlTool loadHtmlWithFileName:@"Privacy" webView:webView];
 }
 
 //进去时 隐藏tabBar

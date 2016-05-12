@@ -206,6 +206,10 @@
 {
     // 获取当前wifi的名称
     NSString *currWifiName = [SVCurrentDevice getWifiName];
+    if (!currWifiName)
+    {
+        return NO;
+    }
 
     // 获取之前记录过得wifi名称
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
@@ -216,7 +220,7 @@
     {
         // 如果名称已经记录过，且带宽也设置过，则不是新的wifi
         if ([wifiInfo.wifiName isEqualToString:currWifiName] &&
-            (!wifiInfo.bandWidth || wifiInfo.bandWidth.length > 0))
+            (wifiInfo.bandWidth && wifiInfo.bandWidth.length > 0))
         {
             return NO;
         }
