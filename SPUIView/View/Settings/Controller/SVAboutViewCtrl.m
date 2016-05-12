@@ -8,7 +8,7 @@
 
 #import "SVAboutViewCtrl.h"
 #import "SVAppVersionChecker.h"
-
+#import "SVConfigServerViewCtrl.h"
 @interface SVAboutViewCtrl ()
 @end
 
@@ -71,6 +71,20 @@
     imageViewQR.centerY = whiteView.centerY;
     imageViewQR.image = [UIImage imageNamed:@"SpeedPro666"];
     [self.view addSubview:imageViewQR];
+    //添加手势
+    //单击
+    UITapGestureRecognizer *singTap = [[UITapGestureRecognizer alloc] init];
+    [singTap addTarget:self action:@selector (handleSingTap)];
+    [singTap setNumberOfTapsRequired:1];
+    [whiteView addGestureRecognizer:singTap];
+    // 6连击
+    UITapGestureRecognizer *sixTap = [[UITapGestureRecognizer alloc] init];
+    [sixTap addTarget:self action:@selector (handleSixTap)];
+    [sixTap setNumberOfTapsRequired:6];
+    [whiteView addGestureRecognizer:sixTap];
+    //区分单双击
+    [singTap requireGestureRecognizerToFail:sixTap];
+
     //添加扫一扫文字
     UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, kScreenW, FITHEIGHT (100))];
     lable.centerX = self.view.centerX;
@@ -100,6 +114,24 @@
     lableCopy2.font = [UIFont systemFontOfSize:pixelToFontsize (30)];
     lableCopy2.alpha = 0.6;
     [self.view addSubview:lableCopy2];
+}
+#pragma mark - 点击事件
+/**
+ *  单击事件
+ */
+- (void)handleSingTap
+{
+    //    SVInfo (@"单击了");
+}
+/**
+ *  6连击事件
+ */
+- (void)handleSixTap
+{
+    SVInfo (@"进入配置服务器页面");
+    SVConfigServerViewCtrl *configServerViewCtrl = [[SVConfigServerViewCtrl alloc] init];
+    configServerViewCtrl.title = @"配置服务器";
+    [self.navigationController pushViewController:configServerViewCtrl animated:YES];
 }
 //返回按钮点击事件
 - (void)backButtonClick
