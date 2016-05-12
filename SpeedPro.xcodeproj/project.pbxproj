@@ -126,6 +126,8 @@
 		56BA8FDA1C561E9100886CAE /* SVToolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCA1C561E9100886CAE /* SVToolModel.m */; };
 		56BA8FDB1C561E9100886CAE /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCD1C561E9100886CAE /* AlertView.m */; };
 		56BA8FDC1C561E9100886CAE /* SVToolCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA8FCF1C561E9100886CAE /* SVToolCell.m */; };
+		56C113E31CE4E0B400FD2D28 /* SVConfigServerURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C113E21CE4E0B400FD2D28 /* SVConfigServerURL.m */; };
+		56C113E61CE4E0D000FD2D28 /* SVConfigServerViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C113E51CE4E0D000FD2D28 /* SVConfigServerViewCtrl.m */; };
 		56CAFFBF1C9BFBDB00210081 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFBE1C9BFBDB00210081 /* libc++.tbd */; };
 		56CAFFC11C9BFBEB00210081 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFC01C9BFBEB00210081 /* CoreTelephony.framework */; };
 		56CAFFC31C9BFBFC00210081 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */; };
@@ -549,6 +551,10 @@
 		56BA8FCD1C561E9100886CAE /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
 		56BA8FCE1C561E9100886CAE /* SVToolCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVToolCell.h; sourceTree = "<group>"; };
 		56BA8FCF1C561E9100886CAE /* SVToolCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVToolCell.m; sourceTree = "<group>"; };
+		56C113E11CE4E0B400FD2D28 /* SVConfigServerURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVConfigServerURL.h; sourceTree = "<group>"; };
+		56C113E21CE4E0B400FD2D28 /* SVConfigServerURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVConfigServerURL.m; sourceTree = "<group>"; };
+		56C113E41CE4E0D000FD2D28 /* SVConfigServerViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVConfigServerViewCtrl.h; sourceTree = "<group>"; };
+		56C113E51CE4E0D000FD2D28 /* SVConfigServerViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVConfigServerViewCtrl.m; sourceTree = "<group>"; };
 		56CAFFBE1C9BFBDB00210081 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		56CAFFC01C9BFBEB00210081 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		56CAFFC21C9BFBFC00210081 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -1043,6 +1049,8 @@
 			children = (
 				561A36C51C896B5A00AC5F5E /* SVAboutViewCtrl.h */,
 				561A36C61C896B5A00AC5F5E /* SVAboutViewCtrl.m */,
+				56C113E41CE4E0D000FD2D28 /* SVConfigServerViewCtrl.h */,
+				56C113E51CE4E0D000FD2D28 /* SVConfigServerViewCtrl.m */,
 				561A36C71C896B5A00AC5F5E /* SVAdvancedViewCtrl.h */,
 				561A36C81C896B5A00AC5F5E /* SVAdvancedViewCtrl.m */,
 				561A36C91C896B5A00AC5F5E /* SVBWSettingViewCtrl.h */,
@@ -2008,6 +2016,8 @@
 				5B80D3911C91742700FF61DE /* SVNetworkTrafficMonitor.m */,
 				5B85C0651C9025E000CA8A1E /* SVWebTest.h */,
 				5B85C0661C9025E000CA8A1E /* SVWebTest.m */,
+				56C113E11CE4E0B400FD2D28 /* SVConfigServerURL.h */,
+				56C113E21CE4E0B400FD2D28 /* SVConfigServerURL.m */,
 				5B85C0671C9025E000CA8A1E /* SVWebTestResult.h */,
 				5B85C0681C9025E000CA8A1E /* SVWebTestResult.m */,
 				B7F267311CAE1BF300E44299 /* SVWebTestContext.m */,
@@ -2395,6 +2405,7 @@
 				B77D21F11C957904006BE281 /* SVChart.m in Sources */,
 				561A36C01C896A0C00AC5F5E /* SVToolCells.m in Sources */,
 				B7F2682D1CAE1C3900E44299 /* ReachStateWIFI.m in Sources */,
+				56C113E61CE4E0D000FD2D28 /* SVConfigServerViewCtrl.m in Sources */,
 				561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */,
 				B7F268391CAE1C3900E44299 /* DDContextFilterLogFormatter.m in Sources */,
 				B7F267881CAE1BF300E44299 /* SVProbeInfo.m in Sources */,
@@ -2450,6 +2461,7 @@
 				B7F268281CAE1C3900E44299 /* FSMStateUtil.m in Sources */,
 				561A36D31C896B5A00AC5F5E /* SVBWSettingViewCtrl.m in Sources */,
 				B7F268261CAE1C3900E44299 /* LocalConnection.m in Sources */,
+				56C113E31CE4E0B400FD2D28 /* SVConfigServerURL.m in Sources */,
 				F69C9C981C95332B00D89B87 /* SVResultPush.m in Sources */,
 				B7F2677F1CAE1BF300E44299 /* SVUvMOSCalculator.m in Sources */,
 				B7F268671CAE263300E44299 /* SVSpeedTestContext.m in Sources */,
