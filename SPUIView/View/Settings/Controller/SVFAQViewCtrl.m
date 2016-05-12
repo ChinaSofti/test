@@ -39,7 +39,11 @@
 
 - (void)createUI
 {
-    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    config.selectionGranularity = WKSelectionGranularityCharacter;
+
+    WKWebView *webView =
+    [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH) configuration:config];
     [self.view addSubview:webView];
 
     // 加载内置网页
