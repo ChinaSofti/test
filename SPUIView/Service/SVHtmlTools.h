@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 
 @interface SVHtmlTools : NSObject
 
 /**
- * 创建WKWebView并且加载内置网页
+ * 加载内置网页
  */
-- (void)createWebViewWithFileName:(NSString *)fileName superView:(UIView *)superView;
+- (void)createWebViewWithFileName:(NSString *)fileName webView:(WKWebView *)webView;
 
 @end
