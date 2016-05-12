@@ -9,7 +9,7 @@
 #import "SVHttpGetter.h"
 #import "SVIPAndISP.h"
 #import "SVIPAndISPGetter.h"
-
+#import "SVProbeInfo.h"
 @implementation SVIPAndISPGetter
 {
     // 缓存IP归属地信息
@@ -102,7 +102,12 @@ static NSString *DEFAULT_EN_US_LANG = @"en";
         // 使用备选方案
         localIPAndISP = [self bakIpInfoWithIp:nil];
     }
-
+    if (localIPAndISP)
+    {
+        // 如果localIPAndISP存在,给SVProbeInfo的isp赋值为localIPAndISP.isp
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        probeInfo.isp = localIPAndISP.isp;
+    }
     return localIPAndISP;
 }
 

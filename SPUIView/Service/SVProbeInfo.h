@@ -16,7 +16,7 @@
 @property NSString *singnal;
 @property BOOL isTesting;
 @property NSString *wifiName;
-
+@property NSString *isp;
 /**
  *  单例
  *

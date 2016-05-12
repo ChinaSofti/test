@@ -450,6 +450,11 @@
 
 - (NSString *)stringFilter:(NSString *)str
 {
+    // 如果value是NSNumber类型的则转换为NSString
+    if ([str isKindOfClass:[NSNumber class]])
+    {
+        str = [NSString stringWithFormat:@"%@", str];
+    }
     if (!str || [str floatValue] < 0 || str.length == 0)
     {
         return I18N (@"Unknown");
@@ -570,6 +575,11 @@
 // 输出整形的数值,无小数
 - (NSString *)formatValue:(NSString *)value
 {
+    // 如果value是NSNumber类型的则转换为NSString
+    if ([value isKindOfClass:[NSNumber class]])
+    {
+        value = [NSString stringWithFormat:@"%@", value];
+    }
     if (!value || [value floatValue] < 0 || value.length == 0)
     {
         return I18N (@"Unknown");
