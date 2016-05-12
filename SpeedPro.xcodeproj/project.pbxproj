@@ -202,6 +202,8 @@
 		A21E16361CE41B5700E52CF5 /* SVHtmlTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A21E16351CE41B5700E52CF5 /* SVHtmlTools.m */; };
 		A2A8471E1CE3184D00C6242B /* faq_cn.html in Resources */ = {isa = PBXBuildFile; fileRef = A2A8471C1CE3184D00C6242B /* faq_cn.html */; };
 		A2A8471F1CE3184D00C6242B /* faq_en.html in Resources */ = {isa = PBXBuildFile; fileRef = A2A8471D1CE3184D00C6242B /* faq_en.html */; };
+		A2B3A1E41CE4831C003621A2 /* SVSearchCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A1E31CE4831C003621A2 /* SVSearchCountry.m */; };
+		A2B3A1E61CE483F9003621A2 /* SVSearchCountryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A1E51CE483F9003621A2 /* SVSearchCountryTest.m */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B722195A1CD3519500459F2A /* SVIPAndISPGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B72219591CD3519500459F2A /* SVIPAndISPGetter.m */; };
@@ -638,6 +640,9 @@
 		A21E16351CE41B5700E52CF5 /* SVHtmlTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVHtmlTools.m; sourceTree = "<group>"; };
 		A2A8471C1CE3184D00C6242B /* faq_cn.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = faq_cn.html; sourceTree = "<group>"; };
 		A2A8471D1CE3184D00C6242B /* faq_en.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = faq_en.html; sourceTree = "<group>"; };
+		A2B3A1E21CE4831C003621A2 /* SVSearchCountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSearchCountry.h; sourceTree = "<group>"; };
+		A2B3A1E31CE4831C003621A2 /* SVSearchCountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSearchCountry.m; sourceTree = "<group>"; };
+		A2B3A1E51CE483F9003621A2 /* SVSearchCountryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSearchCountryTest.m; sourceTree = "<group>"; };
 		B70FF3D31C6582AA002D571B /* SpeedPro.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedPro.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70FF3D51C6582AA002D571B /* SPUIViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUIViewTests.m; sourceTree = "<group>"; };
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -993,6 +998,8 @@
 				B7F267601CAE1BF300E44299 /* SVProbeInfo.h */,
 				5B1F982D1CE2D42E0056107D /* SVWifiInfo.h */,
 				5B1F982E1CE2D42E0056107D /* SVWifiInfo.m */,
+				A2B3A1E21CE4831C003621A2 /* SVSearchCountry.h */,
+				A2B3A1E31CE4831C003621A2 /* SVSearchCountry.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1605,6 +1612,7 @@
 				B70FF3D71C6582AA002D571B /* Info.plist */,
 				B75B237D1CC8CB6900F7C120 /* SVAppVersionCheckerTest.m */,
 				B7FE25BC1CD9EEF800478B63 /* SVCurrentDeviceTest.m */,
+				A2B3A1E51CE483F9003621A2 /* SVSearchCountryTest.m */,
 			);
 			path = SPUIViewTests;
 			sourceTree = "<group>";
@@ -2414,6 +2422,7 @@
 				B7F268361CAE1C3900E44299 /* DDFileLogger.m in Sources */,
 				B7F2683B1CAE1C3900E44299 /* DDMultiFormatter.m in Sources */,
 				B7F2681D1CAE1C3900E44299 /* mztools.c in Sources */,
+				A2B3A1E41CE4831C003621A2 /* SVSearchCountry.m in Sources */,
 				B7F268661CAE263300E44299 /* SVSpeedTest.m in Sources */,
 				5659BAE31CCE6FEC008277A6 /* JSONKit.m in Sources */,
 				564435771C5216AD009B7024 /* CTViewTools.m in Sources */,
@@ -2511,6 +2520,7 @@
 				B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */,
 				B75B237E1CC8CB6900F7C120 /* SVAppVersionCheckerTest.m in Sources */,
 				B7FE25BD1CD9EEF800478B63 /* SVCurrentDeviceTest.m in Sources */,
+				A2B3A1E61CE483F9003621A2 /* SVSearchCountryTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
