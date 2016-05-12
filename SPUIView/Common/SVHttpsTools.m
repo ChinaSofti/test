@@ -25,16 +25,8 @@ static BOOL isNeedCert = YES;
 
     NSString *_urlString;
 
-    // 证书数组
-    CFArrayRef trustedCerArr;
-
-    // 失败次数
-    //    int failCount;
-
     // URL请求对象
     NSURLRequest *urlRequest;
-
-    SecIdentityRef identity;
 
     // 是否是上传结果
     BOOL isUploadResult;
@@ -46,87 +38,10 @@ static BOOL isNeedCert = YES;
     NSString *filePath;
 
     // 连接成功，返回数据
-    //    NSData *_data;
+    BOOL isClientCert;
 }
 
 @synthesize finished;
-
-/**
- *  初始化证书
- *
- */
-- (void)initCertWithPath:(NSString *)certPath
-{
-    // 导入证书
-    NSData *PKCS12Data = [[NSData alloc] initWithContentsOfFile:certPath];
-
-    // 读取p12证书中的内容
-    OSStatus result = [self extractP12Data:(__bridge CFDataRef) (PKCS12Data)];
-    if (result != errSecSuccess)
-    {
-        SVError (@"Read certificate failed!");
-        return;
-    }
-
-    SecCertificateRef certificate = NULL;
-    SecIdentityCopyCertificate (identity, &certificate);
-    const void *certs[] = { certificate };
-    trustedCerArr = CFArrayCreate (kCFAllocatorDefault, certs, 1, NULL);
-}
-
-/**
- *  初始化Client端证书
- *
- */
-- (void)initClientCert
-{
-    // 导入证书
-    NSString *thePath = [[NSBundle mainBundle] pathForResource:@"key" ofType:@"p12"];
-    [self initCertWithPath:thePath];
-}
-
-/**
- *  初始化server端证书
- *
- */
-- (void)initServerCert
-{
-    // 导入证书
-    NSString *thePath = [[NSBundle mainBundle] pathForResource:@"trust" ofType:@"p12"];
-    [self initCertWithPath:thePath];
-}
-
-// 读取证书内容
-- (OSStatus)extractP12Data:(CFDataRef)inP12Data
-{
-
-    OSStatus securityError = errSecSuccess;
-
-    NSString *keyStr = [self getKeyStr];
-    CFStringRef password = (__bridge CFStringRef) (keyStr);
-    const void *keys[] = { kSecImportExportPassphrase };
-    const void *values[] = { password };
-
-    CFDictionaryRef options = CFDictionaryCreate (NULL, keys, values, 1, NULL, NULL);
-
-    CFArrayRef items = CFArrayCreate (NULL, 0, 0, NULL);
-    securityError = SecPKCS12Import (inP12Data, options, &items);
-
-    if (securityError == 0)
-    {
-        CFDictionaryRef ident = CFArrayGetValueAtIndex (items, 0);
-        const void *tempIdentity = NULL;
-        tempIdentity = CFDictionaryGetValue (ident, kSecImportItemIdentity);
-        identity = (SecIdentityRef)tempIdentity;
-    }
-
-    if (options)
-    {
-        CFRelease (options);
-    }
-
-    return securityError;
-}
 
 /**
  *  使用指定Request进行对象初始化
@@ -146,7 +61,7 @@ static BOOL isNeedCert = YES;
     urlRequest = request;
 
     // 初始化证书
-    [self initServerCert];
+    isClientCert = FALSE;
 
     // 建立连接
     NSURLConnection *conn =
@@ -171,7 +86,7 @@ static BOOL isNeedCert = YES;
     urlRequest = request;
 
     // 初始化证书
-    [self initClientCert];
+    isClientCert = TRUE;
 
     // 建立连接
     NSURLConnection *conn =
@@ -333,10 +248,7 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
     SecTrustRef trust = challenge.protectionSpace.serverTrust;
     SecTrustResultType result;
 
-    // 注意：这里将之前导入的证书设置成下面验证的Trust Object的anchor certificate
-    SecTrustSetAnchorCertificates (trust, trustedCerArr);
-
-
+    [self extractP12Data:trust];
     // SecTrustEvaluate会查找前面SecTrustSetAnchorCertificates设置的证书或者系统默认提供的证书，对trust进行验证
     OSStatus status = SecTrustEvaluate (trust, &result);
     if (status == errSecSuccess && (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified))
@@ -353,6 +265,94 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
     }
 }
 
+
+// 读取证书内容
+- (void)extractP12Data:(SecTrustRef)trust
+{
+    NSString *certPath = nil;
+    if (isClientCert)
+    {
+        // 导入证书
+        certPath = [[NSBundle mainBundle] pathForResource:@"key" ofType:@"p12"];
+    }
+    else
+    {
+        // 导入证书
+        certPath = [[NSBundle mainBundle] pathForResource:@"trust" ofType:@"p12"];
+    }
+
+    if (!certPath)
+    {
+        return;
+    }
+
+
+    // 导入证书
+    NSData *PKCS12Data = [[NSData alloc] initWithContentsOfFile:certPath];
+    CFDataRef inP12Data = (__bridge CFDataRef) (PKCS12Data);
+
+    OSStatus securityError = errSecSuccess;
+
+    NSString *keyStr = [self getKeyStr];
+    CFStringRef password = (__bridge CFStringRef) (keyStr);
+    const void *keys[] = { kSecImportExportPassphrase };
+    const void *values[] = { password };
+    CFDictionaryRef options = CFDictionaryCreate (NULL, keys, values, 1, NULL, NULL);
+
+    CFArrayRef items = CFArrayCreate (NULL, 0, 0, NULL);
+    securityError = SecPKCS12Import (inP12Data, options, &items);
+    if (securityError != 0)
+    {
+        if (options)
+        {
+            CFRelease (options);
+        }
+
+        if (items)
+        {
+            CFRelease (items);
+        }
+        SVError (@"SecPKCS12Import certificate failed!");
+        return;
+    }
+
+    CFDictionaryRef ident = CFArrayGetValueAtIndex (items, 0);
+    const void *tempIdentity = NULL;
+    tempIdentity = CFDictionaryGetValue (ident, kSecImportItemIdentity);
+    SecIdentityRef identity = (SecIdentityRef)tempIdentity;
+
+    if (securityError != errSecSuccess)
+    {
+        SVError (@"Read certificate failed!");
+        return;
+    }
+
+    SecCertificateRef certificate = NULL;
+    SecIdentityCopyCertificate (identity, &certificate);
+    const void *certs[] = { certificate };
+
+    CFArrayRef trustedCerArr = CFArrayCreate (kCFAllocatorDefault, certs, 1, NULL);
+
+    // 注意：这里将之前导入的证书设置成下验证的Trust Object的anchor certificate
+    SecTrustSetAnchorCertificates (trust, trustedCerArr);
+
+    if (options)
+    {
+        CFRelease (options);
+    }
+
+    if (items)
+    {
+        CFRelease (items);
+    }
+
+    if (trustedCerArr)
+    {
+        CFRelease (trustedCerArr);
+    }
+}
+
+
 // 获取证书秘钥
 - (NSString *)getKeyStr
 {
@@ -367,6 +367,7 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
         SVError (@"Read config failed! error:%@", error);
         return nil;
     }
+
     NSMutableDictionary *configDic = [self getDicWithData:configData];
 
     NSString *paramPath = [[NSBundle mainBundle] pathForResource:@"params" ofType:@"properties"];
