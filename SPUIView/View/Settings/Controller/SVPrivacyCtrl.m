@@ -26,10 +26,10 @@
 
     WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
     [self.view addSubview:webView];
-    
+
     // 加载内置的网页
     SVHtmlTools *htmlTool = [[SVHtmlTools alloc] init];
-    [htmlTool createWebViewWithFileName:@"Privacy" webView:webView];
+    [htmlTool loadHtmlWithFileName:@"Privacy" webView:webView];
 }
 
 //进去时 隐藏tabBar

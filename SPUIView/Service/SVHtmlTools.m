@@ -13,7 +13,7 @@
 /**
  * 加载内置网页
  */
-- (void)createWebViewWithFileName:(NSString *)fileName webView:(WKWebView *)webView
+- (void)loadHtmlWithFileName:(NSString *)fileName webView:(WKWebView *)webView
 {
     //调用逻辑
     NSString *htmlPath = [NSString stringWithFormat:@"file://%@", [self getHtmlPathWithFileName:fileName]];

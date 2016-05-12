@@ -14,6 +14,6 @@
 /**
  * 加载内置网页
  */
-- (void)createWebViewWithFileName:(NSString *)fileName webView:(WKWebView *)webView;
+- (void)loadHtmlWithFileName:(NSString *)fileName webView:(WKWebView *)webView;
 
 @end

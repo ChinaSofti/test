@@ -41,10 +41,10 @@
 {
     WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
     [self.view addSubview:webView];
-    
-    // 并且加载内置网页
+
+    // 加载内置网页
     SVHtmlTools *htmlTools = [[SVHtmlTools alloc] init];
-    [htmlTools createWebViewWithFileName:@"faq" webView:webView];
+    [htmlTools loadHtmlWithFileName:@"faq" webView:webView];
 }
 
 //返回按钮点击事件
