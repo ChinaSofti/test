@@ -15,6 +15,7 @@
 #import "SVProbeInfo.h"
 #import "SVResultPush.h"
 #import "SVUploadFile.h"
+#import "SVUrlTools.h"
 #import "SVUvMOSCalculator.h"
 
 @interface SVResultPush ()
@@ -53,8 +54,6 @@
     // 是否需要上传日志
     BOOL needUploadLogFile;
 }
-
-NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/upload";
 
 - (id)initWithTestId:(long long)testId
 {
@@ -146,7 +145,7 @@ NSString *_urlString = @"https://tools-speedpro.huawei.com/proresult/upload";
 
 - (void)sendResultToServer:(NSString *)resultJson
 {
-    NSURL *url = [[NSURL alloc] initWithString:_urlString];
+    NSURL *url = [[NSURL alloc] initWithString:[SVUrlTools getResultUploadUrl]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 
     [request setHTTPBody:[resultJson dataUsingEncoding:NSUTF8StringEncoding]];

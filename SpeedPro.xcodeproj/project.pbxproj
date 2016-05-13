@@ -204,6 +204,7 @@
 		A2A8471F1CE3184D00C6242B /* faq_en.html in Resources */ = {isa = PBXBuildFile; fileRef = A2A8471D1CE3184D00C6242B /* faq_en.html */; };
 		A2B3A1E41CE4831C003621A2 /* SVSearchCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A1E31CE4831C003621A2 /* SVSearchCountry.m */; };
 		A2B3A1E61CE483F9003621A2 /* SVSearchCountryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A1E51CE483F9003621A2 /* SVSearchCountryTest.m */; };
+		A2D043121CE57553009E2C9D /* SVUrlTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D043111CE57553009E2C9D /* SVUrlTools.m */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B722195A1CD3519500459F2A /* SVIPAndISPGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B72219591CD3519500459F2A /* SVIPAndISPGetter.m */; };
@@ -643,6 +644,8 @@
 		A2B3A1E21CE4831C003621A2 /* SVSearchCountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSearchCountry.h; sourceTree = "<group>"; };
 		A2B3A1E31CE4831C003621A2 /* SVSearchCountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSearchCountry.m; sourceTree = "<group>"; };
 		A2B3A1E51CE483F9003621A2 /* SVSearchCountryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSearchCountryTest.m; sourceTree = "<group>"; };
+		A2D043101CE57553009E2C9D /* SVUrlTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVUrlTools.h; sourceTree = "<group>"; };
+		A2D043111CE57553009E2C9D /* SVUrlTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVUrlTools.m; sourceTree = "<group>"; };
 		B70FF3D31C6582AA002D571B /* SpeedPro.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedPro.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70FF3D51C6582AA002D571B /* SPUIViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUIViewTests.m; sourceTree = "<group>"; };
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1000,6 +1003,8 @@
 				5B1F982E1CE2D42E0056107D /* SVWifiInfo.m */,
 				A2B3A1E21CE4831C003621A2 /* SVSearchCountry.h */,
 				A2B3A1E31CE4831C003621A2 /* SVSearchCountry.m */,
+				A2D043101CE57553009E2C9D /* SVUrlTools.h */,
+				A2D043111CE57553009E2C9D /* SVUrlTools.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2442,6 +2447,7 @@
 				B71F89031C8D7E56002E8375 /* SVToast.m in Sources */,
 				B7F268371CAE1C3900E44299 /* DDLog.m in Sources */,
 				B7F2682C1CAE1C3900E44299 /* ReachStateUnReachable.m in Sources */,
+				A2D043121CE57553009E2C9D /* SVUrlTools.m in Sources */,
 				563734851C8ED6590064DA33 /* SVWebTestingViewCtrl.m in Sources */,
 				B7F2681F1CAE1C3900E44299 /* zip.c in Sources */,
 				561A36D21C896B5A00AC5F5E /* SVAdvancedViewCtrl.m in Sources */,

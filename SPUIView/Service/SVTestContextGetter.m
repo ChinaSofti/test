@@ -12,6 +12,7 @@
 #import "SVProbeInfo.h"
 #import "SVSpeedTestServers.h"
 #import "SVTestContextGetter.h"
+#import "SVUrlTools.h"
 #import "SVVideoAnalyser.h"
 #import "SVVideoAnalyserFactory.h"
 
@@ -37,10 +38,6 @@
     // 是否初始化完成
     BOOL isInitSuccess;
 }
-
-static NSString *inChinaURL = @"https://tools-speedpro.huawei.com/proconfig/distribute?lang=CN";
-
-static NSString *overseaURL = @"https://tools-speedpro.huawei.com/proconfig/distribute?lang=EN";
 
 static SVTestContextGetter *contextGetter = nil;
 
@@ -99,7 +96,7 @@ static SVTestContextGetter *contextGetter = nil;
     if (!ipAndISP)
     {
         // 修改URL参数
-        _serverURL = inChinaURL;
+        _serverURL = [SVUrlTools getProconfigUrlWithLang:@"CN"];
         return;
     }
 
@@ -110,10 +107,10 @@ static SVTestContextGetter *contextGetter = nil;
     if (countryCode && [countryCode isEqualToString:@"CN"])
     {
         // 修改URL参数
-        _serverURL = inChinaURL;
+        _serverURL = [SVUrlTools getProconfigUrlWithLang:@"CN"];
         return;
     }
-    _serverURL = overseaURL;
+    _serverURL = [SVUrlTools getProconfigUrlWithLang:@"EN"];
 }
 
 /**

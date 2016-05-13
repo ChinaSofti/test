@@ -10,6 +10,7 @@
 #import "SVProbeInfo.h"
 #import "SVToast.h"
 #import "SVUploadFile.h"
+#import "SVUrlTools.h"
 
 @implementation SVUploadFile
 {
@@ -25,7 +26,6 @@ static NSString *useragent = @"Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_1 like Mac
 static NSString *boundaryStr = @"--"; // 分隔字符串
 static NSString *randomIDStr; // 本次上传标示字符串
 static NSString *uploadID; // 上传(php)脚本中，接收文件字段
-NSString *urlString = @"https://tools-speedpro.huawei.com/prolog/upload?mobileid=%@";
 
 - (instancetype)init
 {
@@ -70,7 +70,7 @@ NSString *urlString = @"https://tools-speedpro.huawei.com/prolog/upload?mobileid
     // UUID
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     NSString *uuid = [probeInfo getUUID];
-    NSString *url_str = [NSString stringWithFormat:urlString, uuid];
+    NSString *url_str = [SVUrlTools getLogUploadUrlWithMobileid:uuid];
 
     SVInfo (@"upload log file[%@] to Server[%@]", filePath, url_str);
     [self uploadFileWithURL:[NSURL URLWithString:url_str] filePath:filePath];
