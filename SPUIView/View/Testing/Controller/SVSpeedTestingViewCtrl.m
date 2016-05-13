@@ -351,15 +351,25 @@ double _preSpeed = 0.0;
 
     dispatch_async (dispatch_get_main_queue (), ^{
 
+      // 如果时延小于0，则认为测试失败，直接返回
+      double delay = testResult.delay;
+      if (delay < 0)
+      {
+          [_headerView updateLeftValue:[NSString stringWithFormat:@"%@", I18N (@"Timeout")]
+                              WithUnit:@""];
+          return;
+      }
+
+      // 收到第一次结果时，初始化进度条
       if (isFirstResult)
       {
-          //初始化进度条
           pro = [[SVProgressView alloc] initWithheight:NavBarH];
           value = 0.0;
           [self.view addSubview:pro];
           [pro bindTimerTotalTime:22];
           isFirstResult = NO;
       }
+
       // 如果测试结束，则初始化测试结果，并跳转到当前结果页面
       if (testContext.testStatus == TEST_FINISHED)
       {
@@ -388,7 +398,7 @@ double _preSpeed = 0.0;
           }
       }
 
-      // 显示头部指标
+      // 显示时延
       [_headerView updateLeftValue:[NSString stringWithFormat:@"%.0f", testResult.delay]
                           WithUnit:@"ms"];
 
