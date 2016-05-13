@@ -306,7 +306,7 @@ void UncaughtExceptionHandler (NSException *exception)
     }
     else
     {
-        if (![wifiName isEqualToString:@"None"])
+        if (wifiName && ![wifiName isEqualToString:@"None"])
         {
             SVReloadingDataAlertViewManager *rdAlertViewManager =
             [SVReloadingDataAlertViewManager sharedInstance];
