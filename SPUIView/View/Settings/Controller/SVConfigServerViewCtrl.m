@@ -19,10 +19,10 @@
     UIButton *_choosebutton;
     UIButton *_savebutton;
     UIButton *_buttonback;
-    UITextField *_textField;
-    NSString *_url;
-    NSArray *_array;
-    NSString *_sign;
+    UITextField *_usedSeverUrlTextField;
+    NSString *_usedSeverUrl;
+    NSMutableSet *_serverSet;
+    NSString *_sectionSign;
 }
 - (void)viewDidLoad
 {
@@ -31,8 +31,13 @@
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
     //初始化默认数据
     SVConfigServerURL *configServerURL = [SVConfigServerURL sharedInstance];
-    _url = [configServerURL getConfigServerUrl];
-    _array = [configServerURL getConfigServerUrlListArray];
+    _usedSeverUrl = [configServerURL getConfigServerUrl];
+    NSArray *serverURLArray = [configServerURL getConfigServerUrlListArray];
+    _serverSet = [[NSMutableSet alloc] init];
+    for (int i = 0; i < serverURLArray.count; i++)
+    {
+        [_serverSet addObject:serverURLArray[i]];
+    }
     [self createUI];
 }
 //进去时 隐藏tabBar
@@ -66,23 +71,20 @@
     [_views addSubview:labelConfigServer];
 
     // textfield文本输入框
-    _textField = [[UITextField alloc] init];
-    _textField.frame = CGRectMake (labelConfigServer.rightX, FITHEIGHT (36), FITWIDTH (608), FITHEIGHT (58));
-    _textField.text = _url;
-    _textField.placeholder = @"请输入URL";
-    _textField.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    _textField.borderStyle = UITextBorderStyleRoundedRect;
-    _textField.keyboardType = UIKeyboardTypeDefault;
-    //添加textfield实时监听的方法
-    [_textField addTarget:self
-                   action:@selector (textFieldEditChanged:)
-         forControlEvents:UIControlEventEditingChanged];
-    [_views addSubview:_textField];
+    _usedSeverUrlTextField = [[UITextField alloc] init];
+    _usedSeverUrlTextField.frame =
+    CGRectMake (labelConfigServer.rightX, FITHEIGHT (36), FITWIDTH (608), FITHEIGHT (58));
+    _usedSeverUrlTextField.text = _usedSeverUrl;
+    _usedSeverUrlTextField.placeholder = @"请输入URL";
+    _usedSeverUrlTextField.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    _usedSeverUrlTextField.borderStyle = UITextBorderStyleRoundedRect;
+    _usedSeverUrlTextField.keyboardType = UIKeyboardTypeDefault;
+    [_views addSubview:_usedSeverUrlTextField];
 
     // 选择按钮
     _choosebutton =
-    [[UIButton alloc] initWithFrame:CGRectMake (_textField.rightX + FITWIDTH (12), FITHEIGHT (16),
-                                                FITWIDTH (136), FITHEIGHT (96))];
+    [[UIButton alloc] initWithFrame:CGRectMake (_usedSeverUrlTextField.rightX + FITWIDTH (12),
+                                                FITHEIGHT (16), FITWIDTH (136), FITHEIGHT (96))];
     NSString *title = I18N (@"选择");
     [_choosebutton setTitle:title forState:UIControlStateNormal];
     [_choosebutton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -118,9 +120,12 @@
 - (void)creatTableviewUI
 {
     CGFloat tableviewH;
-    if ((unsigned long)_array.count < 7)
+    long count = _serverSet.count;
+    //设置tableview限制条数
+    int tableviewCountMAX = 7;
+    if (count < tableviewCountMAX)
     {
-        tableviewH = FITHEIGHT (130) * (unsigned long)_array.count;
+        tableviewH = FITHEIGHT (130) * count;
     }
     else
     {
@@ -128,7 +133,7 @@
     }
     // 创建一个 tableView
     _tableView = [self
-    createTableViewWithRect:CGRectMake (_textField.originX, _views.bottomY, _textField.width, tableviewH)
+    createTableViewWithRect:CGRectMake (FITWIDTH (30), _views.bottomY, kScreenW - FITWIDTH (60), tableviewH)
                   WithStyle:UITableViewStylePlain
                   WithColor:[UIColor colorWithHexString:@"#FFFFFF"]
                WithDelegate:self
@@ -153,7 +158,7 @@
 //设置 tableView 的 numberOfSectionsInTableView(设置几个 section)
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return (unsigned long)_array.count;
+    return _serverSet.count;
 }
 //设置 tableView的 numberOfRowsInSection(设置每个section中有几个cell)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -176,10 +181,24 @@
     [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
     //    设置每个cell的内容
     UILabel *label = [[UILabel alloc]
-    initWithFrame:CGRectMake (FITWIDTH (30), FITHEIGHT (36), _textField.width, FITHEIGHT (58))];
-    label.text = _array[indexPath.section];
+    initWithFrame:CGRectMake (FITWIDTH (30), FITHEIGHT (36), kScreenW - FITWIDTH (180), FITHEIGHT (58))];
+    label.text = [_serverSet allObjects][indexPath.section];
+
     // 设置字体和是否加粗
     label.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
+    // button
+    UIButton *delesectionbutton =
+    [[UIButton alloc] initWithFrame:CGRectMake (label.rightX, 0, FITWIDTH (60), FITWIDTH (60))];
+    delesectionbutton.centerY = label.centerY;
+    [delesectionbutton setImage:[UIImage imageNamed:@"close_btn"] forState:UIControlStateNormal];
+
+    delesectionbutton.tag = indexPath.section;
+
+    [delesectionbutton addTarget:self
+
+                          action:@selector (deletebuttonClick:)
+                forControlEvents:UIControlEventTouchUpInside];
+    [cell addSubview:delesectionbutton];
     [cell addSubview:label];
     return cell;
 }
@@ -187,12 +206,14 @@
 // 点击cell的点击事件
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    for (int i = 0; i < (unsigned long)_array.count; i++)
+    long count = _serverSet.count;
+    NSArray *array = [_serverSet allObjects];
+    for (int i = 0; i < count; i++)
     {
         if (indexPath.section == i)
         {
-            _textField.text = _array[i];
-            _sign = [NSString stringWithFormat:@"%d", i];
+            _usedSeverUrlTextField.text = array[i];
+            _sectionSign = [NSString stringWithFormat:@"%d", i];
         }
     }
     [self tableViewbackbutton:nil];
@@ -214,33 +235,24 @@
 //保存按钮的点击事件
 - (void)mysavebuttonClick:(UIButton *)btn
 {
-    //保存数据
-    for (int i = 0; i < (unsigned long)_array.count; i++)
-    {
-        if ([_sign isEqual:[NSString stringWithFormat:@"%d", i]])
-        {
-            SVConfigServerURL *configServerURL = [SVConfigServerURL sharedInstance];
-            [configServerURL setConfigServerUrl:_array[i]];
-        }
-    }
-    //获取textfield的值
-    [self textFieldEditChanged:_textField];
+    NSString *usedServerURL = _usedSeverUrlTextField.text;
+    [_serverSet addObject:usedServerURL];
+    [_tableView reloadData];
 
-    if (_textField)
-    {
-        SVConfigServerURL *configServerURL = [SVConfigServerURL sharedInstance];
-        [configServerURL setConfigServerUrl:_textField.text];
-        //退出键盘
-        [_textField resignFirstResponder];
-    }
-    [self backButtonClick];
+    SVConfigServerURL *configServerURL = [SVConfigServerURL sharedInstance];
+    [configServerURL setConfigServerUrl:usedServerURL];
+    SVInfo (@"用户点击的URL为%@", usedServerURL);
+    [configServerURL setConfigServerUrlListArray:[_serverSet allObjects]];
+    SVInfo (@"改变后的URL数组为%@", [_serverSet allObjects]);
+    //退出键盘
+    [_usedSeverUrlTextField resignFirstResponder];
 }
 // 退出键盘的方法
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (![_textField isExclusiveTouch])
+    if (![_usedSeverUrlTextField isExclusiveTouch])
     {
-        [_textField resignFirstResponder];
+        [_usedSeverUrlTextField resignFirstResponder];
     }
 }
 //返回按钮的点击事件
@@ -254,9 +266,16 @@
     [_tableView removeFromSuperview];
     [_buttonback removeFromSuperview];
 }
-//添加输入改变的方法
-- (void)textFieldEditChanged:(UITextField *)textField
+// scetion删除的点击事件
+- (void)deletebuttonClick:(UIButton *)btn
 {
-    //    SVInfo (@"%@", _textField.text);
+    //删除数组的数据
+    NSObject *obj = [_serverSet allObjects][btn.tag];
+    [_serverSet removeObject:obj];
+    SVConfigServerURL *configServerURL = [SVConfigServerURL sharedInstance];
+    [configServerURL setConfigServerUrlListArray:[_serverSet allObjects]];
+    SVInfo (@"改变后的URL数组为%@", [_serverSet allObjects]);
+    //重画tableview
+    [_tableView reloadData];
 }
 @end

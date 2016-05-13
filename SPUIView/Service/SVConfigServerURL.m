@@ -28,14 +28,14 @@
             //初始化URL
             if (![configServerURL getConfigServerUrl])
             {
-                [configServerURL setConfigServerUrl:@"58.60.106.188:12210"];
+                [configServerURL setConfigServerUrl:@"https://58.60.106.185:8080/"];
             }
             //初始化URL数组
             if (![configServerURL getConfigServerUrlListArray])
             {
                 [configServerURL setConfigServerUrlListArray:@[
-                    @"58.60.106.188:12210",
-                    @"tools-speedpro.huawei.com",
+                    @"https://58.60.106.185:8080/",
+                    @"https://tools-speedpro.huawei.com/",
                 ]];
             }
         }
@@ -66,7 +66,6 @@
 {
     return [SVConfigServerURL sharedInstance];
 }
-
 /**
  *  设置默认的URL
  *
@@ -77,33 +76,6 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:URL forKey:@"configServerUrl"];
     [defaults synchronize];
-
-    NSArray *array = [self getConfigServerUrlListArray];
-    long int count = [array count];
-    if (count == 0)
-    {
-        return;
-    }
-    BOOL exist = NO;
-    for (int i = 0; i < count; i++)
-    {
-        if ([array[i] isEqualToString:URL])
-        {
-            exist = YES;
-        }
-    }
-    if (exist == NO)
-    {
-        //数组里添加一条数据
-        NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
-        [mutableArray addObject:URL];
-        for (int i = 0; i < count; i++)
-        {
-            [mutableArray addObject:array[i]];
-        }
-        SVInfo (@"改变后的URL数组为%@", mutableArray);
-        [self setConfigServerUrlListArray:mutableArray];
-    }
 }
 /**
  *  获得默认的url

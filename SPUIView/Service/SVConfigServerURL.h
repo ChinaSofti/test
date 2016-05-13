@@ -29,6 +29,12 @@
  */
 - (NSString *)getConfigServerUrl;
 /**
+ *  设置默认的url列表
+ *
+ *  @param Array 字符串的数组
+ */
+- (void)setConfigServerUrlListArray:(NSArray *)Array;
+/**
  *  获取的url列表
  *
  *  @return url列表数组
