@@ -103,7 +103,6 @@
         SVError (@"calculate UvMOS fail. hServiceHandle is null");
         return;
     }
-    NSLog (@"--#####-----------------%d", status);
 
     /* 赋值周期性采样参数 */
     UvMOSSegmentInfo stSegmentInfo = { 0 };
@@ -138,8 +137,6 @@
     }
 
     _lastePlayStatus = stSegmentInfo.ePlayStatus;
-    NSLog (@"--##-----------------%d", _lastePlayStatus);
-
 
     SVInfo (@"-----UvMOSSegmentInfo[iAvgVideoBitrate:%d  iVideoFrameRate:%.2f  iAvgKeyFrameSize:%d "
             @" "

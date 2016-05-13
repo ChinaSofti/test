@@ -35,9 +35,6 @@
     // 每5秒周期卡顿总时长
     int videoCuttonTotalTime;
 
-    // 缓冲时间集合
-    NSMutableArray *bufferedTimeArray;
-
     // 加载图标
     UIActivityIndicatorView *activityView;
 
@@ -62,6 +59,9 @@
     SVVideoSegement *segement;
 
     int maxDownloadSize;
+
+    // 上一次缓冲前的视频位置
+    long lastVideoPosition;
 }
 
 @synthesize showOnView, testResult, testContext, uvMOSCalculator;
@@ -293,7 +293,6 @@ static int execute_total_times = 4;
     // 视频帧率
     NSDictionary *metaData = [player getMetadata];
     float frame_rate = [[metaData valueForKey:@"video_frame_rate"] floatValue];
-
     [testResult setVideoWidth:videoWidth];
     [testResult setVideoHeight:videoHeight];
     if (videoHeight && videoWidth)
@@ -388,6 +387,9 @@ static int execute_total_times = 4;
 
 - (void)mediaPlayer:(VMediaPlayer *)player bufferingStart:(id)arg
 {
+    lastVideoPosition = [player getCurrentPosition];
+    NSLog (@"----------bufferingStart----currentPosition:%ld", lastVideoPosition);
+
     SVInfo (@"NAL 2HBT &&&&&&&&&&&&&&&&.......&&&&&&&&&&&&&&&&& bufferingStart");
     _bufferStartTime = [SVTimeUtil currentMilliSecondStamp];
     [player pause];
@@ -397,9 +399,13 @@ static int execute_total_times = 4;
         [activityView startAnimating];
     }
 
-    // 卡顿开始
-    int interval = (int)([SVTimeUtil currentMilliSecondStamp] - [testResult videoStartPlayTime]);
-    [uvMOSCalculator update:STATUS_IMPAIR_START time:interval];
+    // 注意：
+    // 首次缓冲时长不计入卡顿时长，且第一次缓冲不算卡顿。首次缓冲时长只是首次缓冲时长
+    if (lastVideoPosition > 0)
+    {
+        int interval = (int)([SVTimeUtil currentMilliSecondStamp] - [testResult videoStartPlayTime]);
+        [uvMOSCalculator update:STATUS_IMPAIR_START time:interval];
+    }
 
     // 开始缓存时，重置状态
     testResult.isCutton = YES;
@@ -423,15 +429,18 @@ static int execute_total_times = 4;
 
     // 注意：
     // 首次缓冲时长不计入卡顿时长，且第一次缓冲不算卡顿。首次缓冲时长只是首次缓冲时长
-    // 卡顿次数加一
-    videoCuttonTimes += 1;
-    videoCuttonTotalTime += bufferedTime;
-    [testResult setVideoCuttonTimes:(testResult.videoCuttonTimes + 1)];
-    [testResult setVideoCuttonTotalTime:(testResult.videoCuttonTotalTime + bufferedTime)];
+    if (lastVideoPosition > 0)
+    {
+        // 卡顿次数加一
+        videoCuttonTimes += 1;
+        videoCuttonTotalTime += bufferedTime;
+        [testResult setVideoCuttonTimes:(testResult.videoCuttonTimes + 1)];
+        [testResult setVideoCuttonTotalTime:(testResult.videoCuttonTotalTime + bufferedTime)];
+        // 卡顿结束
+        int interval = (int)([SVTimeUtil currentMilliSecondStamp] - [testResult videoStartPlayTime]);
+        [uvMOSCalculator update:STATUS_IMPAIR_END time:interval];
+    }
 
-    // 卡顿结束
-    int interval = (int)([SVTimeUtil currentMilliSecondStamp] - [testResult videoStartPlayTime]);
-    [uvMOSCalculator update:STATUS_IMPAIR_END time:interval];
     SVInfo (@"NAL 3HBT &&&&&&&&&&&&&&&&.......&&&&&&&&&&&&&&&&&  bufferingEnd");
     [player start];
 
