@@ -6,10 +6,11 @@
 //  Copyright © 2016年 Huawei. All rights reserved.
 //
 
+#import "SVConfigServerURL.h"
 #import "SVUrlTools.h"
 
 // 服务器baseUrl
-static NSString *baseUrl = @"https://tools-speedpro.huawei.com/";
+// static NSString *baseUrl = @"https://tools-speedpro.huawei.com/";
 
 @implementation SVUrlTools
 
@@ -18,7 +19,8 @@ static NSString *baseUrl = @"https://tools-speedpro.huawei.com/";
  */
 + (NSString *)getResultUploadUrl
 {
-    return [NSString stringWithFormat:@"%@proresult/upload?i=%d", baseUrl, arc4random ()];
+    return [NSString stringWithFormat:@"%@/proresult/upload?i=%d",
+                                      [[SVConfigServerURL sharedInstance] getConfigServerUrl], arc4random ()];
 }
 
 /**
@@ -26,7 +28,9 @@ static NSString *baseUrl = @"https://tools-speedpro.huawei.com/";
  */
 + (NSString *)getProconfigUrlWithLang:(NSString *)lang
 {
-    return [NSString stringWithFormat:@"%@proconfig/distribute?lang=%@&i=%d", baseUrl, lang, arc4random ()];
+    return [NSString stringWithFormat:@"%@/proconfig/distribute?lang=%@&i=%d",
+                                      [[SVConfigServerURL sharedInstance] getConfigServerUrl], lang,
+                                      arc4random ()];
 }
 
 /**
@@ -34,7 +38,9 @@ static NSString *baseUrl = @"https://tools-speedpro.huawei.com/";
  */
 + (NSString *)getLogUploadUrlWithMobileid:(NSString *)mobileid
 {
-    return [NSString stringWithFormat:@"%@prolog/upload?mobileid=%@&i=%d", baseUrl, mobileid, arc4random ()];
+    return [NSString stringWithFormat:@"%@/prolog/upload?mobileid=%@&i=%d",
+                                      [[SVConfigServerURL sharedInstance] getConfigServerUrl],
+                                      mobileid, arc4random ()];
 }
 
 @end
