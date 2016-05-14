@@ -86,6 +86,12 @@ stDownloadSpeed, stUploadSpeed, stIsp, stLocation;
         return;
     }
 
+    // 如果已经停止，则不需要在弹出提示框
+    if (isStoped)
+    {
+        return;
+    }
+
     // 设置状态
     isStoped = YES;
 

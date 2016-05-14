@@ -55,6 +55,11 @@
 - (void)stop;
 
 /**
+ *  暂停视频播放
+ */
+- (void)pause;
+
+/**
  *  是否完成播放
  *
  *  @return TRUE 完成

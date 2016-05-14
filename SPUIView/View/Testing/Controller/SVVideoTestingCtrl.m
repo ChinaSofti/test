@@ -799,7 +799,7 @@
 
 - (void)stopTest
 {
-    [_videoTest stopTest];
+    [_videoTest prepareStopTest];
 }
 
 - (void)resetResult

@@ -167,13 +167,6 @@ void UncaughtExceptionHandler (NSException *exception)
         SVInfo (@"%@", @"Network unreachable!");
         [SVToast showWithText:I18N (@"Network unreachable!")];
         [[SVProbeInfo sharedInstance] setNetworkType:1];
-
-        // 创建一个消息对象
-        NSNotification *notice =
-        [NSNotification notificationWithName:@"networkStatusError" object:nil userInfo:nil];
-
-        //发送消息
-        [[NSNotificationCenter defaultCenter] postNotification:notice];
         break;
     }
     case SV_RealStatusViaWWAN:
@@ -205,6 +198,17 @@ void UncaughtExceptionHandler (NSException *exception)
         SVInfo (@"%@", @"Unknown RealReachability WWAN Status, might be iOS6");
         [[SVProbeInfo sharedInstance] setNetworkType:0];
         break;
+    }
+
+    // 如果网络不可达，则发送通知
+    if (status == SV_RealStatusNotReachable)
+    {
+        // 创建一个消息对象
+        NSNotification *notice =
+        [NSNotification notificationWithName:@"networkStatusError" object:nil userInfo:nil];
+
+        //发送消息
+        [[NSNotificationCenter defaultCenter] postNotification:notice];
     }
 
     if (!noFirstStart && status != SV_RealStatusNotReachable)
