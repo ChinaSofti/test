@@ -393,7 +393,9 @@
     {
         //上传日志
         SVInfo (@"开始上传日志");
-        [self uploadLogFile];
+        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+          [self uploadLogFile];
+        });
     }
 }
 
