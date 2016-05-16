@@ -54,6 +54,11 @@
 - (BOOL)stopTest;
 
 /**
+ *   停止测试前的准备工作
+ */
+- (BOOL)prepareStopTest;
+
+/**
  *  获取持久化数据的SQL语句
  *
  *  @return SQL语句

@@ -194,13 +194,12 @@ static int execute_total_times = 4;
 
         // 隐藏加载图标
         [activityView stopAnimating];
-        //取消定时器
-        [timer invalidate];
-        timer = nil;
 
         // 弹出提示框
         @try
         {
+            [self pause];
+
             // 视频正在播放，则停止视频
             if (_VMpalyer)
             {
@@ -232,6 +231,21 @@ static int execute_total_times = 4;
 
         isFinished = TRUE;
     }
+}
+
+/**
+ *  暂停视频播放
+ */
+- (void)pause
+{
+    //取消定时器
+    if (timer)
+    {
+        [timer invalidate];
+        timer = nil;
+    }
+
+    [_VMpalyer pause];
 }
 
 /**

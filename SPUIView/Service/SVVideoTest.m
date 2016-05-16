@@ -202,6 +202,36 @@
 }
 
 /**
+ *   停止测试前的准备工作
+ */
+- (BOOL)prepareStopTest
+{
+    @synchronized (_showVideoView)
+    {
+        if (testStatus == TEST_TESTING)
+        {
+            testStatus = TEST_FINISHED;
+        }
+
+        if (_videoPlayer)
+        {
+            @try
+            {
+                // 暂停播放
+                [_videoPlayer pause];
+            }
+            @catch (NSException *exception)
+            {
+                SVError (@"pause play video fail. %@", exception);
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+/**
  *  获取持久化数据的SQL语句
  *
  *  @return SQL语句
