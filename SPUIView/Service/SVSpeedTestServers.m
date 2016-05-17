@@ -74,6 +74,15 @@ static NSString *SPEEDTEST_SERVER_QUERY_URL = @"https://www.speedtest.net/api/an
     }
 
     [self reInitSpeedTestServer];
+
+    // 如果请求失败，一直请求，直到请求成功
+    dispatch_async (dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      while (_serverArray == nil || _serverArray.count == 0)
+      {
+          [self reInitSpeedTestServer];
+          [NSThread sleepForTimeInterval:10];
+      }
+    });
 }
 
 
