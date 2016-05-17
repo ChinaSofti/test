@@ -19,5 +19,14 @@
  *  @return 一个运行总长为totalTiem的ProgressView进度条
  */
 - (instancetype)initWithheight:(int)height;
+
+/**
+ * 绑定定时器
+ */
 - (void)bindTimerTotalTime:(float)totalTime;
+
+/**
+ * 取消定时器
+ */
+- (void)cancelTimer;
 @end

@@ -399,11 +399,27 @@
     [currentResultModel pushNextCtrl];
 }
 
+/**
+ * 停止测试
+ */
 - (void)stopTest
 {
-    [_webTest stopTest];
+    // 停止测试例
+    if (_webTest)
+    {
+        [_webTest stopTest];
+    }
+
+    // 停止进度条的定时器
+    if (pro)
+    {
+        [pro cancelTimer];
+    }
 }
 
+/**
+ * 重置测试结果
+ */
 - (void)resetResult
 {
     [_webTest resetResult];

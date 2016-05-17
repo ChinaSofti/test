@@ -797,11 +797,27 @@
                                 forKey:@"orientation"];
 }
 
+/**
+ * 停止测试
+ */
 - (void)stopTest
 {
-    [_videoTest prepareStopTest];
+    // 停止测试例
+    if (_videoTest)
+    {
+        [_videoTest prepareStopTest];
+    }
+
+    // 停止进度条的定时器
+    if (pro)
+    {
+        [pro cancelTimer];
+    }
 }
 
+/**
+ * 重置测试结果
+ */
 - (void)resetResult
 {
     [_videoTest resetResult];

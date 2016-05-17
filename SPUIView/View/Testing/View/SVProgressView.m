@@ -12,12 +12,17 @@
 {
     //定时器
     NSTimer *progressTimer;
+
     //进度条的进度值
     float progressVlaue;
+
     //进度条播放总时间
     float totalTimed;
 }
-//初始化方法
+
+/**
+ * 初始化方法
+ */
 - (instancetype)initWithheight:(int)height
 {
     self = [super init];
@@ -37,7 +42,10 @@
     progressVlaue = 0.0;
     return self;
 }
-//定时器
+
+/**
+ * 绑定定时器
+ */
 - (void)bindTimerTotalTime:(float)totalTime
 {
     totalTimed = totalTime;
@@ -48,7 +56,10 @@
                                                    userInfo:@"Progress"
                                                     repeats:YES];
 }
-// 改变进度条进度
+
+/**
+ * 改变进度条进度
+ */
 - (void)changeProgress
 {
     // 进度值为1，说明进度条已经满了
@@ -63,5 +74,18 @@
     //每秒钟增加多少 = 1/总时间(s)
     progressVlaue += 1 / totalTimed;
     [self setProgress:progressVlaue];
+}
+
+/**
+ * 取消定时器
+ */
+- (void)cancelTimer
+{
+    if (progressTimer)
+    {
+        // 取消定时器
+        [progressTimer invalidate];
+        progressTimer = nil;
+    }
 }
 @end

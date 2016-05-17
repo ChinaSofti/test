@@ -494,11 +494,24 @@ double _preSpeed = 0.0;
     [currentResultModel pushNextCtrl];
 }
 
+/**
+ * 停止测试
+ */
 - (void)stopTest
 {
+    // 停止测试例
     [_speedTest stopTest];
+
+    // 停止进度条的定时器
+    if (pro)
+    {
+        [pro cancelTimer];
+    }
 }
 
+/**
+ * 重置测试结果
+ */
 - (void)resetResult
 {
     [_speedTest resetResult];

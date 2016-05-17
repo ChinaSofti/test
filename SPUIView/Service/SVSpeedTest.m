@@ -313,12 +313,6 @@ int caclCount;
         double currentTime = [[NSDate date] timeIntervalSince1970];
         speedAvg = caclSize * 8.0 / (currentTime - beginTime) / 1000000;
 
-        // 如果平均速度小于0.1则认为是失败
-        if (speedAvg < 0.1)
-        {
-            speedAvg = 0;
-        }
-
         SVInfo (@"download totalSize = %lld, costTime = %f", caclSize, (currentTime - beginTime));
 
         // 所有50个采样点，排序，去除最小30%和最大10%的采样点，再取平均值
@@ -348,6 +342,14 @@ int caclCount;
         [_testResult setIsUpload:NO];
         _testResult.downloadSpeed = speedAvg;
         _testResult.isSummeryResult = YES;
+
+        // 如果平均速度小于0.1则认为是失败
+        if (speedAvg < 0.1)
+        {
+            SVError (@"Download error, downloadSize < 0.1.");
+            [self sendErrorNotice];
+            return;
+        }
 
         SVInfo (@"download over, downloadSize = %lld, avg speed = %f", caclSize, speedAvg);
         return;
@@ -535,13 +537,7 @@ int caclCount;
     if (_testResult.delay <= 0)
     {
         _testContext.testStatus = TEST_FINISHED;
-
-        // 创建一个消息对象
-        NSNotification *notice =
-        [NSNotification notificationWithName:@"networkStatusError" object:nil userInfo:nil];
-
-        //发送消息
-        [[NSNotificationCenter defaultCenter] postNotification:notice];
+        [self sendErrorNotice];
         return;
     }
 
@@ -699,6 +695,14 @@ int caclCount;
     }
 
     _testResult.isSummeryResult = YES;
+
+    // 如果平均速度小于0.1则认为是失败
+    if (speedAvg < 0.1)
+    {
+        SVError (@"Upload error, uploadSize < 0.1.");
+        [self sendErrorNotice];
+        return;
+    }
 
     SVInfo (@"sample over, isUpload = %d, avg speed = %f, len = %d", isUpload, speedAvg, len);
 }
@@ -909,6 +913,19 @@ void sort (double *a, int n)
     _testResult.isp.isp = nil;
 
     [self persistSVDetailResultModel];
+}
+
+/**
+ * 处理测试失败的情况
+ */
+- (void)sendErrorNotice
+{
+    // 创建一个消息对象
+    NSNotification *notice =
+    [NSNotification notificationWithName:@"networkStatusError" object:nil userInfo:nil];
+
+    //发送消息
+    [[NSNotificationCenter defaultCenter] postNotification:notice];
 }
 
 @end
