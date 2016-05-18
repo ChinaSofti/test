@@ -89,7 +89,6 @@ static NSString *SPEEDTEST_SERVER_QUERY_URL = @"https://www.speedtest.net/api/an
     SVHttpsTools *getter =
     [[SVHttpsTools alloc] initWithURLNSString:SPEEDTEST_SERVER_QUERY_URL WithCert:NO];
     NSData *reponseData = [getter getResponseData];
-    reponseData = nil;
     if (!reponseData)
     {
         SVError (@"request speed test server list fail.");
