@@ -145,4 +145,17 @@
  */
 - (NSMutableArray *)getWifiInfo;
 
+/**
+ *  设置服务器信息(服务器用来获取配置和上传结果)
+ *  @param serverInfo 服务器信息
+ */
+- (void)setServerInfo:(NSDictionary *)serverInfo;
+
+/**
+ *  获取服务器信息(服务器用来获取配置和上传结果)
+ *
+ *  @return 服务器信息
+ */
+- (NSDictionary *)getServerInfo;
+
 @end

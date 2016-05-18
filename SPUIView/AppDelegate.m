@@ -12,13 +12,12 @@
 #import "SVCurrentDevice.h"
 #import "SVDBManager.h"
 #import "SVProbeInfo.h"
-#import "SVSpeedTestServers.h"
 #import "SVTabBarController.h"
-#import "SVTestContextGetter.h"
 #import "SVToast.h"
 //微信分享
 #import "WXApi.h"
 //分享
+#import "SVInitConfig.h"
 #import "SVReloadingDataAlertViewManager.h"
 #import "UMSocial.h"
 #import "UMSocialFacebookHandler.h"
@@ -236,23 +235,9 @@ void UncaughtExceptionHandler (NSException *exception)
       NSString *wifiName = [SVCurrentDevice getWifiName];
       SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
       [probeInfo setWifiName:wifiName];
-      //      SVProbeInfo.wifiName = wifiName;
 
-      SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-      [servers initSpeedTestServer];
-
-      // 初始化Test Context
-      SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
-      if (![contextGetter isInitSuccess])
-      {
-          // 初始化本机IP和运营商等信息
-          [contextGetter initIPAndISP];
-          //从服务器请求Test Context Data相关信息
-          [contextGetter requestContextDataFromServer];
-          // 解析服务器返回的Test Context Data
-          [contextGetter parseContextData];
-      }
-
+      // 初始化配置
+      [[SVInitConfig sharedManager] loadResouceFromServer];
     });
 }
 

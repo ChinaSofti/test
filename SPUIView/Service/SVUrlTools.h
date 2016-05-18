@@ -11,6 +11,11 @@
 @interface SVUrlTools : NSObject
 
 /**
+ * 获取请求配置服务器的url
+ */
++ (NSString *)getResponseServerUrl;
+
+/**
  * 获取上传测试结果的url
  */
 + (NSString *)getResultUploadUrl;

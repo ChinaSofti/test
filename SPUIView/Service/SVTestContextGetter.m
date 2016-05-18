@@ -36,7 +36,7 @@
     NSString *_serverURL;
 
     // 是否初始化完成
-    BOOL isInitSuccess;
+    BOOL isInitCompleted;
 }
 
 static SVTestContextGetter *contextGetter = nil;
@@ -88,7 +88,7 @@ static SVTestContextGetter *contextGetter = nil;
 /**
  *  根据IP运营商信息进行初始化对象
  */
-- (void)initIPAndISP
+- (BOOL)initIPAndISP
 {
     SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
 
@@ -97,7 +97,7 @@ static SVTestContextGetter *contextGetter = nil;
     {
         // 修改URL参数
         _serverURL = [SVUrlTools getProconfigUrlWithLang:@"CN"];
-        return;
+        return NO;
     }
 
     // 根据归属地信息获取服务器的url
@@ -108,9 +108,10 @@ static SVTestContextGetter *contextGetter = nil;
     {
         // 修改URL参数
         _serverURL = [SVUrlTools getProconfigUrlWithLang:@"CN"];
-        return;
+        return YES;
     }
     _serverURL = [SVUrlTools getProconfigUrlWithLang:@"EN"];
+    return YES;
 }
 
 /**
@@ -133,13 +134,12 @@ static SVTestContextGetter *contextGetter = nil;
 /**
  *  解析从服务器获取的数据，并将数据解析为对应测试的Context对象
  */
-- (void)parseContextData
+- (BOOL)parseContextData
 {
     if (!self.data)
     {
-        isInitSuccess = TRUE;
         SVError (@"request data is null");
-        return;
+        return NO;
     }
 
     NSError *error = nil;
@@ -147,9 +147,8 @@ static SVTestContextGetter *contextGetter = nil;
     [NSJSONSerialization JSONObjectWithData:self.data options:0 error:&error];
     if (error)
     {
-        isInitSuccess = TRUE;
         SVError (@"convert NSData to json fail. Error:%@", error);
-        return;
+        return NO;
     }
 
     if (dictionay)
@@ -159,21 +158,20 @@ static SVTestContextGetter *contextGetter = nil;
         //        NSString *versionCode = [dictionay valueForKey:@"versionCode"];
         //        NSString *downloadUrl = [dictionay valueForKey:@"downloadUrl"];
     }
-
-    isInitSuccess = TRUE;
+    return YES;
 }
 
-- (BOOL)isInitSuccess
+- (BOOL)isInitCompleted
 {
-    return isInitSuccess;
+    return isInitCompleted;
 }
 
 /**
  *  重新进行初始化
  */
-- (void)reInitSuccess
+- (void)reInitCompleted
 {
-    isInitSuccess = FALSE;
+    [self setCompleted:NO];
 }
 
 /**
@@ -309,6 +307,15 @@ static SVTestContextGetter *contextGetter = nil;
     }
 
     return false;
+}
+
+/**
+ *  初始化配置是否完成
+ */
+- (void)setCompleted:(BOOL)isCompleted
+{
+
+    isInitCompleted = isCompleted;
 }
 
 @end

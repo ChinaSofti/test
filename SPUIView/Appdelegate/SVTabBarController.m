@@ -8,6 +8,7 @@
 
 #import "AlertView.h"
 #import "SVCurrentDevice.h"
+#import "SVInitConfig.h"
 #import "SVProbeInfo.h"
 #import "SVResultViewCtrl.h"
 #import "SVSettingsViewCtrl.h"
@@ -167,6 +168,13 @@
         {
             [self setShadowView];
         }
+
+        // 添加定时器，判断配置是否加载完成
+        [NSTimer scheduledTimerWithTimeInterval:5.0
+                                         target:self
+                                       selector:@selector (reloadConfig)
+                                       userInfo:nil
+                                        repeats:YES];
         return;
     }
 
@@ -181,7 +189,7 @@
 
     // 根据测试数据是否加载完成来显示进度条的进度
     SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
-    if (![contextGetter isInitSuccess])
+    if (![contextGetter isInitCompleted])
     {
         if (progressVlaue < 0.8)
         {
@@ -197,6 +205,19 @@
         [progressView setProgress:progressVlaue];
         [loadingProcessLabelValue setText:@"100%"];
     }
+}
+
+/**
+ * 定时检查配置是否成功
+ */
+- (void)reloadConfig
+{
+    SVInitConfig *initConfig = [SVInitConfig sharedManager];
+    if ([initConfig isSuccess])
+    {
+        return;
+    }
+    [initConfig loadResouceForTimer];
 }
 
 /**

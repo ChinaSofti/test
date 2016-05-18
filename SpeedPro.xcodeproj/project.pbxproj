@@ -197,6 +197,7 @@
 		5BE7A5D71CBF81E20080FEA9 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE7A5D51CBF81E20080FEA9 /* libpcre.a */; };
 		5BE7A5D81CBF81E20080FEA9 /* libVideoParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE7A5D61CBF81E20080FEA9 /* libVideoParser.a */; };
 		A21E16361CE41B5700E52CF5 /* SVHtmlTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A21E16351CE41B5700E52CF5 /* SVHtmlTools.m */; };
+		A2217EB61CEB06F6004A0BFC /* SVInitConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A2217EB51CEB06F6004A0BFC /* SVInitConfig.m */; };
 		A22826431CE962500084E47F /* faq_cn.html in Resources */ = {isa = PBXBuildFile; fileRef = A22826411CE962500084E47F /* faq_cn.html */; };
 		A22826441CE962500084E47F /* faq_en.html in Resources */ = {isa = PBXBuildFile; fileRef = A22826421CE962500084E47F /* faq_en.html */; };
 		A228264A1CE972BF0084E47F /* starting_window@1x_1.png in Resources */ = {isa = PBXBuildFile; fileRef = A22826491CE972BF0084E47F /* starting_window@1x_1.png */; };
@@ -207,6 +208,7 @@
 		A2B3A1E41CE4831C003621A2 /* SVSearchCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A1E31CE4831C003621A2 /* SVSearchCountry.m */; };
 		A2B3A1E61CE483F9003621A2 /* SVSearchCountryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A1E51CE483F9003621A2 /* SVSearchCountryTest.m */; };
 		A2D043121CE57553009E2C9D /* SVUrlTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D043111CE57553009E2C9D /* SVUrlTools.m */; };
+		A2E41A3A1CEC0A4800E7AD37 /* SVObjectTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A2E41A391CEC0A4800E7AD37 /* SVObjectTools.m */; };
 		B70FF3D61C6582AA002D571B /* SPUIViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B70FF3D51C6582AA002D571B /* SPUIViewTests.m */; };
 		B71F89031C8D7E56002E8375 /* SVToast.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F89021C8D7E56002E8375 /* SVToast.m */; };
 		B722195A1CD3519500459F2A /* SVIPAndISPGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B72219591CD3519500459F2A /* SVIPAndISPGetter.m */; };
@@ -640,6 +642,8 @@
 		5BE7A5D61CBF81E20080FEA9 /* libVideoParser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVideoParser.a; sourceTree = "<group>"; };
 		A21E16341CE41B5700E52CF5 /* SVHtmlTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVHtmlTools.h; sourceTree = "<group>"; };
 		A21E16351CE41B5700E52CF5 /* SVHtmlTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVHtmlTools.m; sourceTree = "<group>"; };
+		A2217EB41CEB06F6004A0BFC /* SVInitConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVInitConfig.h; sourceTree = "<group>"; };
+		A2217EB51CEB06F6004A0BFC /* SVInitConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVInitConfig.m; sourceTree = "<group>"; };
 		A22826411CE962500084E47F /* faq_cn.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = faq_cn.html; sourceTree = "<group>"; };
 		A22826421CE962500084E47F /* faq_en.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = faq_en.html; sourceTree = "<group>"; };
 		A22826491CE972BF0084E47F /* starting_window@1x_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starting_window@1x_1.png"; sourceTree = "<group>"; };
@@ -652,6 +656,8 @@
 		A2B3A1E51CE483F9003621A2 /* SVSearchCountryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSearchCountryTest.m; sourceTree = "<group>"; };
 		A2D043101CE57553009E2C9D /* SVUrlTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVUrlTools.h; sourceTree = "<group>"; };
 		A2D043111CE57553009E2C9D /* SVUrlTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVUrlTools.m; sourceTree = "<group>"; };
+		A2E41A381CEC0A4800E7AD37 /* SVObjectTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVObjectTools.h; sourceTree = "<group>"; };
+		A2E41A391CEC0A4800E7AD37 /* SVObjectTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVObjectTools.m; sourceTree = "<group>"; };
 		B70FF3D31C6582AA002D571B /* SpeedPro.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedPro.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70FF3D51C6582AA002D571B /* SPUIViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUIViewTests.m; sourceTree = "<group>"; };
 		B70FF3D71C6582AA002D571B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1011,6 +1017,8 @@
 				A2B3A1E31CE4831C003621A2 /* SVSearchCountry.m */,
 				A2D043101CE57553009E2C9D /* SVUrlTools.h */,
 				A2D043111CE57553009E2C9D /* SVUrlTools.m */,
+				A2217EB41CEB06F6004A0BFC /* SVInitConfig.h */,
+				A2217EB51CEB06F6004A0BFC /* SVInitConfig.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1818,6 +1826,8 @@
 				B7F267A91CAE1C0000E44299 /* SVWebBrowser.m */,
 				B7B547C71CC72AD40054D471 /* SVAppVersionChecker.h */,
 				B7B547C81CC72AD40054D471 /* SVAppVersionChecker.m */,
+				A2E41A381CEC0A4800E7AD37 /* SVObjectTools.h */,
+				A2E41A391CEC0A4800E7AD37 /* SVObjectTools.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2418,6 +2428,7 @@
 				B7F267851CAE1BF300E44299 /* SVSpeedTestServers.m in Sources */,
 				B7F267B21CAE1C0000E44299 /* SVLog.m in Sources */,
 				561A36E31C896BAF00AC5F5E /* SVDetailViewCtrl.m in Sources */,
+				A2217EB61CEB06F6004A0BFC /* SVInitConfig.m in Sources */,
 				B7F267711CAE1BF300E44299 /* SVWebTestContext.m in Sources */,
 				B7F2677C1CAE1BF300E44299 /* SVVideoAnalyser.m in Sources */,
 				B7F268201CAE1C3900E44299 /* ZipArchive.mm in Sources */,
@@ -2443,6 +2454,7 @@
 				B7F268661CAE263300E44299 /* SVSpeedTest.m in Sources */,
 				5659BAE31CCE6FEC008277A6 /* JSONKit.m in Sources */,
 				564435771C5216AD009B7024 /* CTViewTools.m in Sources */,
+				A2E41A3A1CEC0A4800E7AD37 /* SVObjectTools.m in Sources */,
 				561A36D11C896B5A00AC5F5E /* SVAboutViewCtrl.m in Sources */,
 				56BA8FDA1C561E9100886CAE /* SVToolModel.m in Sources */,
 				56665D381C71F9E100A63D44 /* SVToolModels.m in Sources */,

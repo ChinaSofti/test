@@ -74,22 +74,13 @@ static NSString *SPEEDTEST_SERVER_QUERY_URL = @"https://www.speedtest.net/api/an
     }
 
     [self reInitSpeedTestServer];
-
-    // 如果请求失败，一直请求，直到请求成功
-    dispatch_async (dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-      while (_serverArray == nil || _serverArray.count == 0)
-      {
-          [self reInitSpeedTestServer];
-          [NSThread sleepForTimeInterval:10];
-      }
-    });
 }
 
 
 /**
  *  重新初始化所有SpeedTestServer
  */
-- (void)reInitSpeedTestServer
+- (BOOL)reInitSpeedTestServer
 {
     [_serverArray removeAllObjects];
     _server = nil;
@@ -98,10 +89,11 @@ static NSString *SPEEDTEST_SERVER_QUERY_URL = @"https://www.speedtest.net/api/an
     SVHttpsTools *getter =
     [[SVHttpsTools alloc] initWithURLNSString:SPEEDTEST_SERVER_QUERY_URL WithCert:NO];
     NSData *reponseData = [getter getResponseData];
+    reponseData = nil;
     if (!reponseData)
     {
         SVError (@"request speed test server list fail.");
-        return;
+        return NO;
     }
 
     // 记录日志
@@ -120,6 +112,13 @@ static NSString *SPEEDTEST_SERVER_QUERY_URL = @"https://www.speedtest.net/api/an
     _isp = parser.isp;
     _lat = parser.lat;
     _lon = parser.lon;
+
+    // 判断初始化SpeedTestServer是否成功
+    if (_serverArray == nil || _serverArray.count == 0)
+    {
+        return NO;
+    }
+    return YES;
 }
 
 /**

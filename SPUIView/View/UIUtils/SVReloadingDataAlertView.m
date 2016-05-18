@@ -6,8 +6,8 @@
 //  Copyright © 2016 Huawei. All rights reserved.
 //
 
+#import "SVInitConfig.h"
 #import "SVReloadingDataAlertView.h"
-#import "SVSpeedTestServers.h"
 #import "SVTestContextGetter.h"
 
 @implementation SVReloadingDataAlertView
@@ -175,7 +175,7 @@
 
     // 根据测试数据是否加载完成来显示进度条的进度
     SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
-    if (![contextGetter isInitSuccess])
+    if (![contextGetter isInitCompleted])
     {
         if (progressVlaue < 0.8)
         {
@@ -199,24 +199,15 @@
  */
 - (void)loadResouceFromServer
 {
-    SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
-    [contextGetter reInitSuccess];
-
     dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-      SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-      [servers reInitSpeedTestServer];
+      SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
+      [contextGetter reInitCompleted];
 
-      // 初始化本机IP和运营商等信息
-      [contextGetter initIPAndISP];
-      //从服务器请求Test Context Data相关信息
-      [contextGetter requestContextDataFromServer];
-      // 解析服务器返回的Test Context Data
-      [contextGetter parseContextData];
-
+      // 初始化配置
+      [[SVInitConfig sharedManager] loadResouceFromServer];
     });
 }
-
 
 - (void)hideAlertView
 {

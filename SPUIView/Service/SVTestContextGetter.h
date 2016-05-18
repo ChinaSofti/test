@@ -49,7 +49,7 @@
 /**
  *  根据IP运营商信息进行初始化对象
  */
-- (void)initIPAndISP;
+- (BOOL)initIPAndISP;
 
 /**
  *  从缺省的指定服务器请求Test Context Data数据，请求回数据后，需要调用parseContextData对Context
@@ -60,19 +60,19 @@
 /**
  *  解析从服务器获取的数据，并将数据解析为对应测试的Context对象
  */
-- (void)parseContextData;
+- (BOOL)parseContextData;
 
 /**
  *  是否完成初始化
  *
  *  @return true 完成初始化
  */
-- (BOOL)isInitSuccess;
+- (BOOL)isInitCompleted;
 
 /**
  *  重新进行初始化
  */
-- (void)reInitSuccess;
+- (void)reInitCompleted;
 
 /**
  *  获取视频Context对象
@@ -102,5 +102,10 @@
  *  @return TRUE 视频是YouTube视频
  */
 - (BOOL)isYoutube;
+
+/**
+ *  初始化配置是否完成
+ */
+- (void)setCompleted:(BOOL)isSuccess;
 
 @end

@@ -88,6 +88,6 @@
 /**
  *  重新初始化所有SpeedTestServer
  */
-- (void)reInitSpeedTestServer;
+- (BOOL)reInitSpeedTestServer;
 
 @end

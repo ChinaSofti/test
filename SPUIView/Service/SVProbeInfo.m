@@ -407,6 +407,37 @@ static NSString *_screenSize;
     return [[NSKeyedUnarchiver unarchiveObjectWithData:wifiData] mutableCopy];
 }
 
+/**
+ *  设置服务器信息(服务器用来获取配置和上传结果)
+ *  @param serverInfo 服务器信息
+ */
+- (void)setServerInfo:(NSDictionary *)serverInfo
+{
+    SVInfo (@"Current ServerInfo = %@]", serverInfo);
+
+    // 放到UserDefaults中
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:serverInfo forKey:@"SVServerInfo"];
+    [defaults synchronize];
+}
+
+/**
+ *  获取服务器信息(服务器用来获取配置和上传结果)
+ *
+ *  @return 服务器信息
+ */
+- (NSDictionary *)getServerInfo
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *serverInfo = [defaults dictionaryForKey:@"SVServerInfo"];
+    if (!serverInfo)
+    {
+        return nil;
+    }
+
+    return serverInfo;
+}
+
 // 生成UUID
 - (NSString *)gen_uuid
 {
