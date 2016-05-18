@@ -83,7 +83,7 @@
 /**
  *  初始化所有SpeedTestServer
  */
-- (void)initSpeedTestServer;
+- (BOOL)initSpeedTestServer;
 
 /**
  *  重新初始化所有SpeedTestServer

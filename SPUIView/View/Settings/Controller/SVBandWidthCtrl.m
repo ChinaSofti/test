@@ -49,7 +49,7 @@
     [super viewWillAppear:animated];
 
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    _array = [servers getAllServer];
+    _array = [[NSArray alloc] initWithArray:[servers getAllServer]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"HideTabBar" object:nil];
 }
 //出来时 显示tabBar

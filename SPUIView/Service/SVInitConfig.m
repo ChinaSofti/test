@@ -65,7 +65,7 @@
     SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
 
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    BOOL initServerIsSuccess = [servers reInitSpeedTestServer];
+    BOOL initServerIsSuccess = [servers initSpeedTestServer];
 
     // 初始化本机IP和运营商等信息
     BOOL initIPIsSuccess = [contextGetter initIPAndISP];

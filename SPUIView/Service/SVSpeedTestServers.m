@@ -66,14 +66,14 @@ static NSString *SPEEDTEST_SERVER_QUERY_URL = @"https://www.speedtest.net/api/an
     return [SVSpeedTestServers sharedInstance];
 }
 
-- (void)initSpeedTestServer
+- (BOOL)initSpeedTestServer
 {
     if (_serverArray && _serverArray.count > 0)
     {
-        return;
+        return YES;
     }
 
-    [self reInitSpeedTestServer];
+    return [self reInitSpeedTestServer];
 }
 
 
