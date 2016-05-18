@@ -6,6 +6,7 @@
 //  Copyright © 2016 chinasofti. All rights reserved.
 //
 
+#import "CTWBLabel.h"
 #import "SVCurrentResultViewCtrl.h"
 #import "SVDBManager.h"
 #import "SVDetailViewCtrl.h"
@@ -366,7 +367,6 @@
     SVInfo (@"persistData");
     [self persistTestResultDetail];
     [self persistSVSummaryResultModel];
-
     // 判断用户是否允许上传结果，如果允许，则将测试结果上传
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     if (probeInfo.isUploadResult)
@@ -951,62 +951,161 @@
         SVInfo (@"排名小于0,不弹出分享界面");
         return;
     }
-    //获取整个屏幕的window
-    //    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+
     //创建一个覆盖garybutton
     _greybtn = [[UIButton alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
     _greybtn.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.0];
     [_greybtn addTarget:self
                  action:@selector (greyBtnBackClick)
        forControlEvents:UIControlEventTouchUpInside];
-    //创建一个图片
-    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectZero];
-    imageview.size = CGSizeMake (kScreenW, kScreenH * 0.8);
-    NSString *str11 = I18N (@"speed_level_frist_english");
-    NSString *str21 = I18N (@"speed_level_second_english");
-    NSString *str31 = I18N (@"speed_level_thrid_english");
-    NSString *str41 = I18N (@"speed_level_forth_english");
-    NSString *str51 = I18N (@"speed_level_last_english");
-    //根据随机数显示
+    //创建背景图片
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    imageView.size = CGSizeMake (kScreenW, kScreenH * 0.8);
+    imageView.image = [UIImage imageNamed:@"draw_background"];
+    imageView.center = CGPointMake (_greybtn.frame.size.width / 2, _greybtn.frame.size.height / 2);
+    //创建人物图片
+    UIImageView *imageViewPeople = [[UIImageView alloc] initWithFrame:CGRectZero];
+    imageViewPeople.size = CGSizeMake (kScreenW * 0.6, kScreenW * 0.6);
+    //根据随机数显示图片
     if (randomx >= 95)
     {
-        imageview.image = [UIImage imageNamed:str11];
+        imageViewPeople.image = [UIImage imageNamed:@"speed_level_frist"];
     }
     if (randomx >= 80 && randomx <= 95)
     {
-        imageview.image = [UIImage imageNamed:str21];
+        imageViewPeople.image = [UIImage imageNamed:@"speed_level_second"];
     }
     if (randomx >= 60 && randomx <= 80)
     {
-        imageview.image = [UIImage imageNamed:str31];
+        imageViewPeople.image = [UIImage imageNamed:@"speed_level_thrid"];
     }
     if (randomx >= 10 && randomx <= 60)
     {
-        imageview.image = [UIImage imageNamed:str41];
+        imageViewPeople.image = [UIImage imageNamed:@"speed_level_forth"];
     }
     if (randomx >= 0 && randomx <= 10)
     {
-        imageview.image = [UIImage imageNamed:str51];
+        imageViewPeople.image = [UIImage imageNamed:@"speed_level_last"];
+    }
+    imageViewPeople.center = CGPointMake (_greybtn.frame.size.width / 2, _greybtn.frame.size.height / 1.8);
+    //创建打败用户描述文字
+    CTWBLabel *descriptionLabel1;
+    CTWBLabel *descriptionLabel2;
+    CTWBLabel *descriptionLabel3;
+    //根据语言不同显示不通文字
+    SVI18N *language = [SVI18N sharedInstance];
+    NSString *myLanguage = [language getLanguage];
+    if ([myLanguage isEqualToString:@"zh"])
+    {
+        descriptionLabel1 = [[CTWBLabel alloc]
+        initWithFrame:CGRectMake (FITWIDTH (60), FITHEIGHT (300), FITWIDTH (400), FITHEIGHT (180))];
+        descriptionLabel1.text = I18N (@"YOU'VE DEFEATED");
+        descriptionLabel1.textAlignment = NSTextAlignmentRight;
+        [descriptionLabel1
+        setFont:[UIFont fontWithName:@"Helvetica-BoldOblique" size:pixelToFontsize (90)]];
+        //        descriptionLabel1.backgroundColor = [UIColor yellowColor];
+
+        descriptionLabel2 =
+        [[CTWBLabel alloc] initWithFrame:CGRectMake (descriptionLabel1.rightX - FITWIDTH (10),
+                                                     FITHEIGHT (270), FITWIDTH (200), FITHEIGHT (180))];
+        descriptionLabel2.text = [NSString stringWithFormat:@"%d", randomx];
+        descriptionLabel2.textAlignment = NSTextAlignmentCenter;
+        [descriptionLabel2
+        setFont:[UIFont fontWithName:@"Helvetica-BoldOblique" size:pixelToFontsize (160)]];
+        //        descriptionLabel2.backgroundColor = [UIColor redColor];
+
+        descriptionLabel3 =
+        [[CTWBLabel alloc] initWithFrame:CGRectMake (descriptionLabel2.rightX - FITWIDTH (10),
+                                                     FITHEIGHT (300), FITWIDTH (400), FITHEIGHT (180))];
+        descriptionLabel3.text = I18N (@"%OF ALL USERS");
+        descriptionLabel3.textAlignment = NSTextAlignmentLeft;
+        [descriptionLabel3
+        setFont:[UIFont fontWithName:@"Helvetica-BoldOblique" size:pixelToFontsize (90)]];
+        //        descriptionLabel3.backgroundColor = [UIColor yellowColor];
+    }
+    else
+    {
+        descriptionLabel1 = [[CTWBLabel alloc]
+        initWithFrame:CGRectMake (FITWIDTH (30), FITHEIGHT (300), FITWIDTH (480), FITHEIGHT (180))];
+        descriptionLabel1.text = I18N (@"YOU'VE DEFEATED");
+        descriptionLabel1.textAlignment = NSTextAlignmentCenter;
+        [descriptionLabel1
+        setFont:[UIFont fontWithName:@"Helvetica-BoldOblique" size:pixelToFontsize (50)]];
+        //    descriptionLabel1.backgroundColor = [UIColor yellowColor];
+        descriptionLabel2 =
+        [[CTWBLabel alloc] initWithFrame:CGRectMake (descriptionLabel1.rightX - FITWIDTH (30),
+                                                     FITHEIGHT (270), FITWIDTH (150), FITHEIGHT (180))];
+        descriptionLabel2.text = [NSString stringWithFormat:@"%d", randomx];
+        descriptionLabel2.textAlignment = NSTextAlignmentCenter;
+        [descriptionLabel2
+        setFont:[UIFont fontWithName:@"Helvetica-BoldOblique" size:pixelToFontsize (90)]];
+        //    descriptionLabel2.backgroundColor = [UIColor redColor];
+        descriptionLabel3 =
+        [[CTWBLabel alloc] initWithFrame:CGRectMake (descriptionLabel2.rightX - FITWIDTH (30),
+                                                     FITHEIGHT (300), FITWIDTH (430), FITHEIGHT (180))];
+        descriptionLabel3.text = I18N (@"%OF ALL USERS");
+        descriptionLabel3.textAlignment = NSTextAlignmentCenter;
+        [descriptionLabel3
+        setFont:[UIFont fontWithName:@"Helvetica-BoldOblique" size:pixelToFontsize (50)]];
+        //    descriptionLabel3.backgroundColor = [UIColor yellowColor];
     }
 
-    imageview.center = CGPointMake (_greybtn.frame.size.width / 2, _greybtn.frame.size.height / 2);
-    //创建一个label
-    UILabel *label = [[UILabel alloc] init];
-    //字符串拼接
-    NSString *str1 = I18N (@"I have defeated");
-    NSString *str2 = @"%";
-    NSString *str3 = I18N (@"of all users");
-    //根据随机数显示
-    NSString *str4 = [[NSString alloc] initWithFormat:@"%@%d%@%@", str1, randomx, str2, str3];
-    //显示
-    label.text = str4;
-    label.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    label.textColor = [UIColor blueColor];
-    //    label.backgroundColor = [UIColor redColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.size = CGSizeMake (FITWIDTH (589), FITHEIGHT (58));
-    label.centerX = imageview.centerX;
-    label.centerY = imageview.centerY / 1.9;
+    //添加固定文字
+    UILabel *fixLabel = [[UILabel alloc]
+    initWithFrame:CGRectMake (0, descriptionLabel1.bottomY - FITHEIGHT (30), kScreenW, FITHEIGHT (90))];
+    fixLabel.text = I18N (@"Red Envelope Snatching Level ");
+    fixLabel.textColor = [UIColor colorWithHexString:@"#ffffff"];
+    fixLabel.alpha = 0.9;
+    [fixLabel setFont:[UIFont fontWithName:@"Helvetica-BoldOblique" size:pixelToFontsize (50)]];
+    fixLabel.textAlignment = NSTextAlignmentCenter;
+
+    //添加图片文字背景
+    UIImageView *imageViewBg = [[UIImageView alloc]
+    initWithFrame:CGRectMake (0, imageViewPeople.bottomY - FITHEIGHT (140), FITWIDTH (641), FITHEIGHT (140))];
+    imageViewBg.image = [UIImage imageNamed:@"sharebackground"];
+    imageViewBg.centerX = self.view.centerX;
+
+    //添加图片文字
+    UILabel *imageViewBgLabel =
+    [[UILabel alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (641), FITHEIGHT (140))];
+    //根据随机数显示文字
+    NSString *imageViewBgLabelText;
+    if (randomx >= 95)
+    {
+        imageViewBgLabelText = I18N (@"Mastery");
+    }
+    if (randomx >= 80 && randomx <= 95)
+    {
+        imageViewBgLabelText = I18N (@"Expertise");
+    }
+    if (randomx >= 60 && randomx <= 80)
+    {
+        imageViewBgLabelText = I18N (@"Proficiency");
+    }
+    if (randomx >= 10 && randomx <= 60)
+    {
+        imageViewBgLabelText = I18N (@"Competence");
+    }
+    if (randomx >= 0 && randomx <= 10)
+    {
+        imageViewBgLabelText = I18N (@"Novice");
+    }
+    imageViewBgLabel.text = imageViewBgLabelText;
+    imageViewBgLabel.textColor = [UIColor orangeColor];
+    [imageViewBgLabel
+    setFont:[UIFont fontWithName:@"Helvetica-BoldOblique" size:pixelToFontsize (90)]];
+    imageViewBgLabel.textAlignment = NSTextAlignmentCenter;
+    //添加组件
+    [imageView addSubview:descriptionLabel1];
+    [imageView addSubview:descriptionLabel3];
+    [imageView addSubview:descriptionLabel2];
+    [imageView addSubview:fixLabel];
+    [_greybtn addSubview:imageView];
+    [_greybtn addSubview:imageViewPeople];
+    [imageViewBg addSubview:imageViewBgLabel];
+    [_greybtn addSubview:imageViewBg];
+
+
     //创建一个按钮
     _sharebtn = [[UIButton alloc]
     initWithFrame:CGRectMake (kScreenW * 0.03, kScreenH * 0.82, kScreenW * 0.94, kScreenH * 0.08)];
@@ -1029,8 +1128,6 @@
                   action:@selector (shareBtnClick)
         forControlEvents:UIControlEventTouchUpInside];
     //添加
-    [imageview addSubview:label];
-    [_greybtn addSubview:imageview];
     [_greybtn addSubview:_sharebtn];
     @synchronized (self)
     {
