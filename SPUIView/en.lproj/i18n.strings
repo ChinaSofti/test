@@ -5,6 +5,8 @@
  Created by WBapple on 16/1/22.
  Copyright © 2016年 chinasofti. All rights reserved.
  */
+
+"No Data" = "No Data";
 "YOU'VE DEFEATED" = "YOU'VE DEFEATED";
 "%OF ALL USERS" = "%OF ALL USERS.";
  "Red Envelope Snatching Level " = "Red Envelope Snatching Level ";
@@ -36,7 +38,7 @@
 "Proficiency" = "Proficiency";
 "Competence" = "Competence";
 "Novice" = "Novice";
-" level." = " level.";
+" level." = " level.What is yours?";
 
 "I have defeated " = "I have defeated ";
 "% of all users in the Red Envelope  War.Come on and test how fast you are!" = "% of all users in the Red Envelope  War.Come on and test how fast you are!";
@@ -90,6 +92,8 @@
 "inch" = "inch";
 "U-vMOS"="U-vMOS";
 "U-vMOS"="U-vMOS";
+"Analysising"="Analysising";
+"Loading"="Loading";
 
 //网页测试
 "response"="Response";
