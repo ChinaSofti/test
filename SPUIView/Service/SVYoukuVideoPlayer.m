@@ -62,6 +62,9 @@
 
     // 上一次缓冲前的视频位置
     long lastVideoPosition;
+
+    // 播放视频的状态 （解析中，加载中）
+    UILabel *statusLabel;
 }
 
 @synthesize showOnView, testResult, testContext, uvMOSCalculator;
@@ -107,14 +110,28 @@ static int execute_total_times = 4;
 - (void)addLoadingUIView:(UIView *)view
 {
     // 视频播放缓冲进度
-    UIView *activityCarrier = [[UIView alloc]
-    initWithFrame:CGRectMake ((showOnView.bounds.size.width - 40) / 2,
-                              (showOnView.bounds.size.height - 40) / 2, FITWIDTH (40), FITWIDTH (40))];
+    //    UIView *activityCarrier = [[UIView alloc]
+    //    initWithFrame:CGRectMake ((showOnView.bounds.size.width - 40) / 2,
+    //                              (showOnView.bounds.size.height - 40) / 2, FITWIDTH (40),
+    //                              FITWIDTH (40))];
+    UIView *activityCarrier = [[UIView alloc] initWithFrame:showOnView.frame];
+
+    // 视频缓冲加载圆圈图标
     activityView = [[UIActivityIndicatorView alloc]
     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityView.center = CGPointMake (showOnView.frame.size.width / 2, 30);
     [activityCarrier addSubview:activityView];
     [showOnView addSubview:activityCarrier];
     [activityView startAnimating];
+
+    // 显示加载状态
+    statusLabel = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (300), FITWIDTH (60))];
+    statusLabel.center = CGPointMake (showOnView.frame.size.width / 2, 70);
+    statusLabel.text = I18N(@"Analysising");
+    statusLabel.textColor = [UIColor lightGrayColor];
+    statusLabel.textAlignment = NSTextAlignmentCenter;
+    statusLabel.font = [UIFont systemFontOfSize:14];
+    [activityCarrier addSubview:statusLabel];
 }
 
 /**
@@ -128,6 +145,11 @@ static int execute_total_times = 4;
         SVError (@"test context or test result is null. so refuse play video.");
         return;
     }
+
+    // 播放视频的状态改为 - 加载中
+    dispatch_async (dispatch_get_main_queue (), ^{
+      statusLabel.text = I18N(@"Loading");
+    });
 
     startPlayTime = [SVTimeUtil currentMilliSecondStamp];
     [testResult setVideoStartPlayTime:startPlayTime];
@@ -194,6 +216,7 @@ static int execute_total_times = 4;
 
         // 隐藏加载图标
         [activityView stopAnimating];
+        statusLabel.hidden = YES;
 
         // 弹出提示框
         @try
@@ -287,6 +310,7 @@ static int execute_total_times = 4;
     if ([activityView isAnimating])
     {
         [activityView stopAnimating];
+        statusLabel.hidden = YES;
     }
 
     int firstBufferedTime = (int)([SVTimeUtil currentMilliSecondStamp] - startPlayTime);
@@ -368,6 +392,7 @@ static int execute_total_times = 4;
 {
     SVInfo (@"------------------------------VMediaPlayer Error:%@", arg);
     [activityView stopAnimating];
+    statusLabel.hidden = YES;
     [testResult setErrorCode:3];
     testContext.testStatus = TEST_ERROR;
 }
@@ -411,6 +436,7 @@ static int execute_total_times = 4;
     if (![activityView isAnimating])
     {
         [activityView startAnimating];
+        statusLabel.hidden = NO;
     }
 
     // 注意：
@@ -437,6 +463,7 @@ static int execute_total_times = 4;
     if ([activityView isAnimating])
     {
         [activityView stopAnimating];
+        statusLabel.hidden = YES;
     }
 
     int bufferedTime = (int)([SVTimeUtil currentMilliSecondStamp] - _bufferStartTime);

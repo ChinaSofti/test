@@ -92,6 +92,8 @@
 "inch" = "英寸";
 "U-vMOS"="U-vMOS";
 "U-vMOS"="U-vMOS";
+"Analysising"="解析中";
+"Loading"="加载中";
 
 //网页测试
 "response"="响应时间";
