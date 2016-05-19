@@ -169,12 +169,12 @@
             [self setShadowView];
         }
 
-        // 添加定时器，判断配置是否加载完成
-        [NSTimer scheduledTimerWithTimeInterval:5.0
-                                         target:self
-                                       selector:@selector (reloadConfig)
-                                       userInfo:nil
-                                        repeats:YES];
+        //        // 添加定时器，判断配置是否加载完成
+        //        [NSTimer scheduledTimerWithTimeInterval:5.0
+        //                                         target:self
+        //                                       selector:@selector (reloadConfig)
+        //                                       userInfo:nil
+        //                                        repeats:YES];
         return;
     }
 

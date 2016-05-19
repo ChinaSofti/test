@@ -58,7 +58,8 @@
     [super viewDidLoad];
 
     // 判断3D Touch是否可用，可用则注册
-    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0 &&
+        self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
     {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }

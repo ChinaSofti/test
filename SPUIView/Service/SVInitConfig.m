@@ -15,6 +15,18 @@
 #import "SVTestContextGetter.h"
 #import "SVUrlTools.h"
 
+// 初始化带宽服务器是否成功
+static BOOL initServerIsSuccess;
+
+// 初始化IP归属地信息是否成功
+static BOOL initIPIsSuccess;
+
+// 初始化配置服务器是否成功
+static BOOL initResponseServerIsSucess;
+
+// 解析配置信息是否成功
+static BOOL parseDataIsSuccess;
+
 @implementation SVInitConfig
 
 /**
@@ -27,6 +39,10 @@
     if (instance == nil)
     {
         instance = [[super allocWithZone:NULL] init];
+        initServerIsSuccess = NO;
+        initIPIsSuccess = NO;
+        parseDataIsSuccess = NO;
+        initResponseServerIsSucess = NO;
     }
 
     return instance;
@@ -62,27 +78,38 @@
  */
 - (void)loadResouceForTimer
 {
+    // 初始化带宽服务器列表
+    if (!initServerIsSuccess)
+    {
+        SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+        initServerIsSuccess = [servers initSpeedTestServer];
+    }
+
     SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
 
-    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    BOOL initServerIsSuccess = [servers initSpeedTestServer];
-
     // 初始化本机IP和运营商等信息
-    BOOL initIPIsSuccess = [contextGetter initIPAndISP];
+    if (!initIPIsSuccess)
+    {
+        initIPIsSuccess = [contextGetter initIPAndISP];
+    }
 
-    // 判断IP信息是否初始化成功，如果成功则向服务器请求配置服务器地址
-    if (initIPIsSuccess)
+    // 向服务器请求配置服务器地址
+    if (!initResponseServerIsSucess)
     {
         [self initServerInfoWithISP:[[SVIPAndISPGetter sharedInstance] getIPAndISP]];
     }
 
-    // 从服务器请求Test Context Data相关信息
-    [contextGetter requestContextDataFromServer];
+    if (!parseDataIsSuccess)
+    {
+        // 从服务器请求Test Context Data相关信息
+        [contextGetter requestContextDataFromServer];
 
-    // 解析服务器返回的Test Context Data
-    BOOL parseDataIsSuccess = [contextGetter parseContextData];
+        // 解析服务器返回的Test Context Data
+        parseDataIsSuccess = [contextGetter parseContextData];
+    }
 
-    self.isSuccess = initServerIsSuccess && initIPIsSuccess && parseDataIsSuccess;
+    // 只有四个都成功，才算是初始化成功
+    self.isSuccess = initServerIsSuccess && initIPIsSuccess && parseDataIsSuccess && initResponseServerIsSucess;
 }
 
 /**
@@ -92,15 +119,43 @@
 {
     [self loadResouceForTimer];
     [[SVTestContextGetter sharedInstance] setCompleted:YES];
+
+    // 如果测试成功，则直接返回
+    if (self.isSuccess)
+    {
+        SVInfo (@"Load resource from server successed.");
+        return;
+    }
+
+    // 如果测试失败，则启动线程重试3次
+    dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      int retryCount = 0;
+      while (!self.isSuccess && retryCount < 3)
+      {
+          [self loadResouceForTimer];
+          retryCount++;
+      }
+    });
 }
 
 /**
  * 初始化配置服务器信息
  *
  * @param ipAndISP ip归属地信息
+ * @return 初始化是否成功
  */
 - (void)initServerInfoWithISP:(SVIPAndISP *)ipAndISP
 {
+    // 如果ip归属地信息为空则返回失败
+    if (!ipAndISP)
+    {
+        SVError (@"Init response server failed. ipAndISP is null.");
+
+        // 设置状态为失败
+        initResponseServerIsSucess = NO;
+        return;
+    }
+
     // 将ip归属地信息转换为json
     NSString *jsonStr = [SVObjectTools getJSON:ipAndISP options:0];
 
@@ -123,7 +178,10 @@
             // 上报结果失败
             if (error)
             {
-                SVError (@"Get server info failed. error:%@ ", error);
+                SVError (@"Get response server info failed. error:%@ ", error);
+
+                // 设置状态为失败
+                initResponseServerIsSucess = NO;
                 return;
             }
 
@@ -131,6 +189,9 @@
             NSDictionary *serverInfo = [[JSONDecoder decoder] objectWithData:responseData];
             SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
             [probeInfo setServerInfo:serverInfo];
+
+            // 设置状态为成功
+            initResponseServerIsSucess = YES;
           }];
 }
 

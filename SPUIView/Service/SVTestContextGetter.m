@@ -121,6 +121,10 @@ static SVTestContextGetter *contextGetter = nil;
 {
     @try
     {
+        if (self.data)
+        {
+            return;
+        }
         SVHttpsTools *getter = [[SVHttpsTools alloc] initWithURLNSString:_serverURL];
         self.data = [getter getResponseData];
         SVInfo (@"%@", [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]);
