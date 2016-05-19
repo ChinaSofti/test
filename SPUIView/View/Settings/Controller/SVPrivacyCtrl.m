@@ -19,6 +19,8 @@
 {
     [super viewDidLoad];
 
+    self.title = I18N (@"Privacy Instructions");
+
     //    self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
 
     // 初始化返回按钮

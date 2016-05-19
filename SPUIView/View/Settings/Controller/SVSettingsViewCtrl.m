@@ -12,6 +12,7 @@
 #import "SVFAQViewCtrl.h"
 #import "SVIPAndISPGetter.h"
 #import "SVLanguageSettingViewCtrl.h"
+#import "SVLogViewController.h"
 #import "SVPrivacyCtrl.h"
 #import "SVProbeInfo.h"
 #import "SVQRCodeViewCtrl.h"
@@ -30,6 +31,7 @@
 @implementation SVSettingsViewCtrl
 {
     UITableViewCell *_networkcell;
+    NSArray *_array;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -53,7 +55,8 @@
     [super viewDidLoad];
     SVInfo (@"SVSettingsView");
     self.view.backgroundColor = [UIColor colorWithHexString:@"#fafafa"];
-
+    //初始化控制器
+    [self initwithctrl];
     // 创建一个 tableView, style:Grouped化合的,分组的
     _tableView = [self createTableViewWithRect:CGRectMake (FITWIDTH (22), 0, kScreenW - FITWIDTH (44),
                                                            kScreenH - FITHEIGHT (144))
@@ -64,6 +67,35 @@
 
     // 把tableView添加到 view
     [self.view addSubview:_tableView];
+}
+//初始化控制器
+- (void)initwithctrl
+{
+    NSString *title2 = I18N (@"About");
+    NSString *title3 = I18N (@"QR Code");
+    NSString *title4 = I18N (@"FAQ");
+    NSString *title5 = I18N (@"Language Settings");
+    NSString *title6 = I18N (@"Privacy Statemtent");
+    NSString *title7 = I18N (@"Upload Logs");
+    NSString *title8 = I18N (@"Advanced Settings");
+    //初始化所有控制器
+    SVAboutViewCtrl *about = [[SVAboutViewCtrl alloc] init];
+    about.title = title2;
+    SVQRCodeViewCtrl *QRCode = [[SVQRCodeViewCtrl alloc] init];
+    QRCode.title = title3;
+    SVFAQViewCtrl *faq = [[SVFAQViewCtrl alloc] init];
+    faq.title = title4;
+    SVLanguageSettingViewCtrl *languageSetting = [[SVLanguageSettingViewCtrl alloc] init];
+    languageSetting.title = title5;
+    SVPrivacyCtrl *privacyCtrl = [[SVPrivacyCtrl alloc] init];
+    privacyCtrl.title = title6;
+    SVLogViewController *logContr = [[SVLogViewController alloc] init];
+    logContr.title = title7;
+    SVAdvancedViewCtrl *advanced = [[SVAdvancedViewCtrl alloc] init];
+    advanced.title = title8;
+    //初始化控制器数组
+    _array = [[NSArray alloc]
+    initWithObjects:about, QRCode, faq, languageSetting, privacyCtrl, logContr, advanced, nil];
 }
 //创建UI
 - (void)setNetworkImageAndType
@@ -80,7 +112,6 @@
     NSString *type = [probeInfo getBandwidthType];
     int bandwidthTypeIndex = [type intValue];
     NSString *Bandwidth = [probeInfo getBandwidth];
-
     NSString *title21 = I18N (@"Carrier");
     NSString *title22;
     /*
@@ -202,7 +233,7 @@
         return 1;
     }
     else
-        return 7;
+        return _array.count;
 }
 
 // 设置 tableView 的行高
@@ -220,14 +251,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title2 = I18N (@"About");
-    NSString *title3 = I18N (@"QR Code");
-    NSString *title4 = I18N (@"FAQ");
-    NSString *title5 = I18N (@"Language Settings");
-    NSString *title6 = I18N (@"Privacy Statemtent");
-    NSString *title7 = I18N (@"Upload Logs");
-    NSString *title8 = I18N (@"Advanced Settings");
-
     static NSString *cellId = @"cell";
 
     UITableViewCell *cell =
@@ -240,7 +263,6 @@
     if (indexPath.section == 0)
     {
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-
         if (indexPath.row == 0)
         {
             _networkcell = cell;
@@ -252,14 +274,11 @@
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         cell.textLabel.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
         cell.textLabel.textColor = [UIColor colorWithHexString:@"#000000"];
+        UIViewController *crtl = [_array objectAtIndex:indexPath.row];
+        cell.textLabel.text = crtl.title;
 
-        if (indexPath.row == 0)
-        {
-            cell.textLabel.text = title2;
-        }
         if (indexPath.row == 1)
         {
-            cell.textLabel.text = title3;
             //添加二维码缩略图
             UIImageView *imageView =
             [[UIImageView alloc] initWithFrame:CGRectMake (kScreenW - FITWIDTH (220), FITHEIGHT (37),
@@ -267,106 +286,28 @@
             imageView.image = [UIImage imageNamed:@"litimg56"];
             [cell addSubview:imageView];
         }
-        if (indexPath.row == 2)
-        {
-            cell.textLabel.text = title4;
-        }
-        if (indexPath.row == 3)
-        {
-            cell.textLabel.text = title5;
-        }
-        if (indexPath.row == 4)
-        {
-            cell.textLabel.text = title6;
-        }
-        if (indexPath.row == 5)
-        {
-            cell.textLabel.text = title7;
-
-            //添加上传日志的点击事件
-            UIButton *button = [[UIButton alloc]
-            initWithFrame:CGRectMake (0, 0, kScreenW - FITWIDTH (44), FITHEIGHT (130))];
-            //            button.backgroundColor = [UIColor redColor];
-            [button addTarget:self
-                       action:@selector (UploadClicked:)
-             forControlEvents:UIControlEventTouchUpInside];
-            [cell addSubview:button];
-        }
-        if (indexPath.row == 6)
-        {
-            cell.textLabel.text = title8;
-        }
     }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title1 = I18N (@"Bandwidth Settings");
-    NSString *title2 = I18N (@"About");
-    NSString *title3 = I18N (@"QR Code");
-    NSString *title4 = I18N (@"FAQ");
-    NSString *title5 = I18N (@"Language Settings");
-    NSString *title6 = I18N (@"Privacy Instructions");
-    NSString *title7 = I18N (@"Advanced Settings");
     //当前连接
     if (indexPath.section == 0)
     {
         SVBWSettingViewCtrl *bandwidthSetting = [[SVBWSettingViewCtrl alloc] init];
-        bandwidthSetting.title = title1;
+        bandwidthSetting.title = I18N (@"Bandwidth Settings");
         [self.navigationController pushViewController:bandwidthSetting animated:YES];
     }
 
     if (indexPath.section == 1)
     {
-
-        //关于
-        if (indexPath.row == 0)
-        {
-            SVAboutViewCtrl *about = [[SVAboutViewCtrl alloc] init];
-            about.title = title2;
-            [self.navigationController pushViewController:about animated:YES];
-        }
-        //二维码
-        if (indexPath.row == 1)
-        {
-
-            SVQRCodeViewCtrl *QRCode = [[SVQRCodeViewCtrl alloc] init];
-            QRCode.title = title3;
-            [self.navigationController pushViewController:QRCode animated:YES];
-        }
-        // FAQ
-        if (indexPath.row == 2)
-        {
-            SVFAQViewCtrl *faq = [[SVFAQViewCtrl alloc] init];
-            faq.title = title4;
-            [self.navigationController pushViewController:faq animated:YES];
-        }
-        //语言设置
-        if (indexPath.row == 3)
-        {
-            SVLanguageSettingViewCtrl *languageSetting = [[SVLanguageSettingViewCtrl alloc] init];
-            languageSetting.title = title5;
-            [self.navigationController pushViewController:languageSetting animated:YES];
-        }
-
-        //隐私说明
-        if (indexPath.row == 4)
-        {
-            SVPrivacyCtrl *advanced = [[SVPrivacyCtrl alloc] init];
-            advanced.title = title6;
-            [self.navigationController pushViewController:advanced animated:YES];
-        }
-        //上传日志
         if (indexPath.row == 5)
         {
+            [self UploadClicked];
+            return;
         }
-        //高级设置
-        if (indexPath.row == 6)
-        {
-            SVAdvancedViewCtrl *advanced = [[SVAdvancedViewCtrl alloc] init];
-            advanced.title = title7;
-            [self.navigationController pushViewController:advanced animated:YES];
-        }
+        UIViewController *viewCtrl = _array[indexPath.row];
+        [self.navigationController pushViewController:viewCtrl animated:YES];
     }
 }
 //设置 tableView的section 的Header的高度
@@ -386,7 +327,7 @@
 }
 
 #pragma mark - 上传日志按钮的点击事件
-- (void)UploadClicked:(UIButton *)button
+- (void)UploadClicked
 
 {
     NSString *title1 = I18N (@"Upload Logs");
@@ -419,7 +360,6 @@
     SVLog *log = [SVLog sharedInstance];
     NSString *filePath = [log compressLogFiles];
     SVInfo (@"upload log file:%@", filePath);
-
     SVUploadFile *upload = [[SVUploadFile alloc] init];
     // 设置上报日志过程显示Toast提示用户上报进度
     [upload setShowToast:TRUE];

@@ -40,6 +40,7 @@
 		5628C43B1CEC063C00352663 /* CTWBLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5628C43A1CEC063C00352663 /* CTWBLabel.m */; };
 		5629C2651CBF9ACC007070D6 /* SVPrivacyCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5629C2641CBF9ACC007070D6 /* SVPrivacyCtrl.m */; };
 		562AD07B1CE30D4B00B94ABB /* SVFAQViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 562AD07A1CE30D4B00B94ABB /* SVFAQViewCtrl.m */; };
+		562CE2661CEDB34500576938 /* SVLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 562CE2651CEDB34500576938 /* SVLogViewController.m */; };
 		563734851C8ED6590064DA33 /* SVWebTestingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 563734841C8ED6590064DA33 /* SVWebTestingViewCtrl.m */; };
 		563734881C8ED6730064DA33 /* SVSpeedTestingViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 563734871C8ED6730064DA33 /* SVSpeedTestingViewCtrl.m */; };
 		563DA8D51CB6006F00578D02 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 563DA8D41CB6006F00578D02 /* icon.png */; };
@@ -404,6 +405,8 @@
 		5629C2641CBF9ACC007070D6 /* SVPrivacyCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPrivacyCtrl.m; sourceTree = "<group>"; };
 		562AD0791CE30D4B00B94ABB /* SVFAQViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVFAQViewCtrl.h; sourceTree = "<group>"; };
 		562AD07A1CE30D4B00B94ABB /* SVFAQViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVFAQViewCtrl.m; sourceTree = "<group>"; };
+		562CE2641CEDB34500576938 /* SVLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVLogViewController.h; sourceTree = "<group>"; };
+		562CE2651CEDB34500576938 /* SVLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVLogViewController.m; sourceTree = "<group>"; };
 		563734831C8ED6590064DA33 /* SVWebTestingViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebTestingViewCtrl.h; sourceTree = "<group>"; };
 		563734841C8ED6590064DA33 /* SVWebTestingViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebTestingViewCtrl.m; sourceTree = "<group>"; };
 		563734861C8ED6730064DA33 /* SVSpeedTestingViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedTestingViewCtrl.h; sourceTree = "<group>"; };
@@ -1044,6 +1047,8 @@
 				568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */,
 				5629C2631CBF9ACC007070D6 /* SVPrivacyCtrl.h */,
 				5629C2641CBF9ACC007070D6 /* SVPrivacyCtrl.m */,
+				562CE2641CEDB34500576938 /* SVLogViewController.h */,
+				562CE2651CEDB34500576938 /* SVLogViewController.m */,
 			);
 			name = Controller;
 			path = SPUIView/View/Settings/Controller;
@@ -2349,6 +2354,7 @@
 				561A36C01C896A0C00AC5F5E /* SVToolCells.m in Sources */,
 				B7F2682D1CAE1C3900E44299 /* ReachStateWIFI.m in Sources */,
 				56C113E61CE4E0D000FD2D28 /* SVConfigServerViewCtrl.m in Sources */,
+				562CE2661CEDB34500576938 /* SVLogViewController.m in Sources */,
 				561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */,
 				B7F268391CAE1C3900E44299 /* DDContextFilterLogFormatter.m in Sources */,
 				B7F267881CAE1BF300E44299 /* SVProbeInfo.m in Sources */,
