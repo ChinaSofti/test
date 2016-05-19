@@ -14,6 +14,7 @@
 #import "SVLanguageSettingViewCtrl.h"
 #import "SVPrivacyCtrl.h"
 #import "SVProbeInfo.h"
+#import "SVQRCodeViewCtrl.h"
 #import "SVRealReachability.h"
 #import "SVSettingsViewCtrl.h"
 #import "SVUploadFile.h"
@@ -201,7 +202,7 @@
         return 1;
     }
     else
-        return 6;
+        return 7;
 }
 
 // 设置 tableView 的行高
@@ -219,7 +220,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title3 = I18N (@"About");
+    NSString *title2 = I18N (@"About");
+    NSString *title3 = I18N (@"QR Code");
     NSString *title4 = I18N (@"FAQ");
     NSString *title5 = I18N (@"Language Settings");
     NSString *title6 = I18N (@"Privacy Statemtent");
@@ -253,6 +255,10 @@
 
         if (indexPath.row == 0)
         {
+            cell.textLabel.text = title2;
+        }
+        if (indexPath.row == 1)
+        {
             cell.textLabel.text = title3;
             //添加二维码缩略图
             UIImageView *imageView =
@@ -261,19 +267,19 @@
             imageView.image = [UIImage imageNamed:@"litimg56"];
             [cell addSubview:imageView];
         }
-        if (indexPath.row == 1)
+        if (indexPath.row == 2)
         {
             cell.textLabel.text = title4;
         }
-        if (indexPath.row == 2)
+        if (indexPath.row == 3)
         {
             cell.textLabel.text = title5;
         }
-        if (indexPath.row == 3)
+        if (indexPath.row == 4)
         {
             cell.textLabel.text = title6;
         }
-        if (indexPath.row == 4)
+        if (indexPath.row == 5)
         {
             cell.textLabel.text = title7;
 
@@ -286,7 +292,7 @@
              forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:button];
         }
-        if (indexPath.row == 5)
+        if (indexPath.row == 6)
         {
             cell.textLabel.text = title8;
         }
@@ -295,8 +301,9 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title2 = I18N (@"Bandwidth Settings");
-    NSString *title3 = I18N (@"About");
+    NSString *title1 = I18N (@"Bandwidth Settings");
+    NSString *title2 = I18N (@"About");
+    NSString *title3 = I18N (@"QR Code");
     NSString *title4 = I18N (@"FAQ");
     NSString *title5 = I18N (@"Language Settings");
     NSString *title6 = I18N (@"Privacy Instructions");
@@ -305,7 +312,7 @@
     if (indexPath.section == 0)
     {
         SVBWSettingViewCtrl *bandwidthSetting = [[SVBWSettingViewCtrl alloc] init];
-        bandwidthSetting.title = title2;
+        bandwidthSetting.title = title1;
         [self.navigationController pushViewController:bandwidthSetting animated:YES];
     }
 
@@ -315,20 +322,27 @@
         //关于
         if (indexPath.row == 0)
         {
-
             SVAboutViewCtrl *about = [[SVAboutViewCtrl alloc] init];
-            about.title = title3;
+            about.title = title2;
             [self.navigationController pushViewController:about animated:YES];
         }
-        // FAQ
+        //二维码
         if (indexPath.row == 1)
+        {
+
+            SVQRCodeViewCtrl *QRCode = [[SVQRCodeViewCtrl alloc] init];
+            QRCode.title = title3;
+            [self.navigationController pushViewController:QRCode animated:YES];
+        }
+        // FAQ
+        if (indexPath.row == 2)
         {
             SVFAQViewCtrl *faq = [[SVFAQViewCtrl alloc] init];
             faq.title = title4;
             [self.navigationController pushViewController:faq animated:YES];
         }
         //语言设置
-        if (indexPath.row == 2)
+        if (indexPath.row == 3)
         {
             SVLanguageSettingViewCtrl *languageSetting = [[SVLanguageSettingViewCtrl alloc] init];
             languageSetting.title = title5;
@@ -336,18 +350,18 @@
         }
 
         //隐私说明
-        if (indexPath.row == 3)
+        if (indexPath.row == 4)
         {
             SVPrivacyCtrl *advanced = [[SVPrivacyCtrl alloc] init];
             advanced.title = title6;
             [self.navigationController pushViewController:advanced animated:YES];
         }
         //上传日志
-        if (indexPath.row == 4)
+        if (indexPath.row == 5)
         {
         }
         //高级设置
-        if (indexPath.row == 5)
+        if (indexPath.row == 6)
         {
             SVAdvancedViewCtrl *advanced = [[SVAdvancedViewCtrl alloc] init];
             advanced.title = title7;

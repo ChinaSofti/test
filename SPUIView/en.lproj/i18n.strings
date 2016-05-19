@@ -6,6 +6,8 @@
  Copyright © 2016年 chinasofti. All rights reserved.
  */
 
+
+
 "No Data" = "No Data";
 "YOU'VE DEFEATED" = "YOU'VE DEFEATED";
 "%OF ALL USERS" = "%OF ALL USERS.";
@@ -216,6 +218,9 @@
 
 //关于
 "About"="About";
+
+//二维码
+"QR Code" = "QR Code";
 
 //FAQ
 "FAQ"="FAQ";
