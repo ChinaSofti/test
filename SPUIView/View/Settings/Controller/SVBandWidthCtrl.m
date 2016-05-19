@@ -30,17 +30,6 @@
     // 初始化返回按钮
     [super initBackButtonWithTarget:self action:@selector (backButtonClick)];
 
-    //一.创建一个 tableView,style:Grouped化合的,分组的
-    _tableView = [self
-    createTableViewWithRect:CGRectMake (FITWIDTH (29), FITHEIGHT (0), kScreenW - FITHEIGHT (48), kScreenH)
-                  WithStyle:UITableViewStyleGrouped
-                  WithColor:[UIColor colorWithHexString:@"#fafafa"]
-               WithDelegate:self
-             WithDataSource:self];
-
-    // 把tableView添加到 view
-    [self.view addSubview:_tableView];
-
     _ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
 }
 //进去时 隐藏tabBar
@@ -50,6 +39,32 @@
 
     SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
     _array = [[NSArray alloc] initWithArray:[servers getAllServer]];
+
+    NSUInteger mycount = _array.count;
+
+    if (mycount)
+    {
+        //一.创建一个 tableView,style:Grouped化合的,分组的
+        _tableView = [self
+        createTableViewWithRect:CGRectMake (FITWIDTH (29), FITHEIGHT (0), kScreenW - FITHEIGHT (48), kScreenH)
+                      WithStyle:UITableViewStyleGrouped
+                      WithColor:[UIColor colorWithHexString:@"#fafafa"]
+                   WithDelegate:self
+                 WithDataSource:self];
+
+        // 把tableView添加到 view
+        [self.view addSubview:_tableView];
+    }
+    else
+    {
+        UILabel *lable = [[UILabel alloc] init];
+        lable.text = I18N (@"No Data");
+        lable.frame = CGRectMake (0, 0, 300, 30);
+        lable.textAlignment = NSTextAlignmentCenter;
+        lable.center = self.view.center;
+        [self.view addSubview:lable];
+    }
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"HideTabBar" object:nil];
 }
 //出来时 显示tabBar
