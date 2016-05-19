@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SVDetailViewCtrl : SVViewController
+@interface SVDetailViewCtrl : SVViewController <UIPreviewActionItem>
 @property long long testId; // 测试ID
 @property NSString *testType; // 测试类型：0=video,1=web,2=speed
 

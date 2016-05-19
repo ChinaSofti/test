@@ -118,6 +118,7 @@
 "IP Address"="IP地址";
 "City"="城市";
 "Carrier"="运营商";
+"Delete"="删除";
 //删除 提示视图
 "Prompt"="提示";
 "Clear all test results"="清空所有测试结果";

@@ -43,6 +43,12 @@
 
     // 上一次选择的按钮
     UIButton *_selectedButton;
+
+    // 3D Touch手势所在的位置
+    NSIndexPath *selectedPath;
+
+    // 弹出视图的初始位置
+    CGRect sourceRect;
 }
 
 
@@ -50,6 +56,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    // 判断3D Touch是否可用，可用则注册
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
+    {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+
+    // 获取通知中心单例对象
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+
+    // 添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
+    [center addObserver:self selector:@selector (reloadResult) name:@"reloadResult" object:nil];
 
     SVInfo (@"初始化SVResultView页面");
     _type = @"testTime";
@@ -351,6 +369,13 @@
     [_tableView reloadData];
 }
 
+/**
+ * 重新加载数据
+ */
+- (void)reloadResult
+{
+    [self readDataFromDB:_type order:_order];
+}
 
 #pragma mark - 添加NavigationRightItem
 - (void)initNavigationBar
@@ -488,6 +513,77 @@
     [alert addAction:noAction];
     [alert addAction:yesAction];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+/**
+ *  peek手势
+ */
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+              viewControllerForLocation:(CGPoint)location
+{
+
+    // 获取用户手势点所在cell的下标。同时判断手势点是否超出tableView响应范围。
+    if (![self getShouldShowRectAndIndexPathWithLocation:location])
+    {
+        return nil;
+    }
+
+    // 弹出视图的初始位置，sourceRect是peek触发时的高亮区域。这个区域内的View会高亮显示，其余的会模糊掉
+    previewingContext.sourceRect = sourceRect;
+
+    // 获取数据进行传值
+    SVDetailViewCtrl *childVC = [[SVDetailViewCtrl alloc] init];
+    SVSummaryResultModel *resultModel = _dataSource[selectedPath.section];
+    long long testId = [resultModel.testId longLongValue];
+    [childVC setTestId:testId];
+    return childVC;
+}
+
+/**
+ *  pop手势
+ */
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(UIViewController *)viewControllerToCommit
+{
+    // 按钮点击后alloc一个界面
+    SVDetailViewCtrl *detailViewCtrl = [[SVDetailViewCtrl alloc] init];
+    SVSummaryResultModel *resultModel = _dataSource[selectedPath.section];
+    long long testId = [resultModel.testId longLongValue];
+    SVInfo (@"查看结果%lld对应的结果明细", testId);
+    [detailViewCtrl setTestId:testId];
+
+    // 隐藏hidesBottomBarWhenPushed
+    self.hidesBottomBarWhenPushed = YES;
+
+    // push界面
+    [self.navigationController pushViewController:detailViewCtrl animated:NO];
+
+    // 返回时显示hidesBottomBarWhenPushed
+    self.hidesBottomBarWhenPushed = NO;
+}
+
+/**
+ *  获取用户手势点所在cell的下标，同时判断手势点是否超出tableview的范围
+ */
+- (BOOL)getShouldShowRectAndIndexPathWithLocation:(CGPoint)location
+{
+    // 坐标点的转化，
+    CGPoint tableLocation = [self.view convertPoint:location toView:_tableView];
+    selectedPath = [_tableView indexPathForRowAtPoint:tableLocation];
+
+    // 如果selctedPath是nil，则说明越界
+    if (!selectedPath)
+    {
+        return NO;
+    }
+
+    // 计算弹出视图的初始位置
+    sourceRect =
+    CGRectMake (0, NavBarH + StatusBarH + FITHEIGHT (160) + selectedPath.section * FITHEIGHT (190),
+                kScreenW, FITHEIGHT (170));
+
+    // 如果row越界了，返回NO 不处理peek手势
+    return (selectedPath.section >= (_dataSource.count + 1)) ? NO : YES;
 }
 
 @end

@@ -47,22 +47,34 @@
     NSString *_loadTimeTitle;
     NSString *_delayTitle;
     NSString *_uploadSpeedTitle;
+
     //随机数
     int randomx;
     int rank;
+
     //当前页面判断标识符
     BOOL currentCtl;
+
     //获取地域信息
     SVIPAndISP *ipAndISP;
+
     //分享到界面判断有无标识符
     BOOL shareTo;
+
+    // 3D Touch手势所在的位置
+    NSIndexPath *selectedPath;
+
+    // 弹出视图的初始位置
+    CGRect sourceRect;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // 设置标题
     [self initTitleView];
+
     //界面一出现,分享到页面是没有的,为NO
     shareTo = NO;
 
@@ -89,16 +101,23 @@
     uiview.backgroundColor = [UIColor colorWithHexString:@"FAFAFA"];
 
     // 把tableView添加到 view
-    [uiview addSubview:[self createTableViewWithRect:CGRectMake (0, 0, kScreenW, FITHEIGHT (1242))
-                                           WithStyle:UITableViewStyleGrouped
-                                           WithColor:[UIColor colorWithHexString:@"#FAFAFA"]
-                                        WithDelegate:self
-                                      WithDataSource:self]];
+    _tableView = [self createTableViewWithRect:CGRectMake (0, 0, kScreenW, FITHEIGHT (1242))
+                                     WithStyle:UITableViewStyleGrouped
+                                     WithColor:[UIColor colorWithHexString:@"#FAFAFA"]
+                                  WithDelegate:self
+                                WithDataSource:self];
+    [uiview addSubview:_tableView];
 
     // 把button添加到 view
     [uiview addSubview:self.buildTestBtn];
 
     self.view = uiview;
+
+    // 判断3D Touch是否可用，可用则注册
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
+    {
+        [self registerForPreviewingWithDelegate:self sourceView:uiview];
+    }
 
     // 初始化表格数据
     [self initButtons];
@@ -535,6 +554,7 @@
         [videoResultBtn addSubview:leftView];
         [videoResultBtn addSubview:middleView];
         [videoResultBtn addSubview:rightView];
+        [videoResultBtn setTag:0];
         [_buttons addObject:videoResultBtn];
     }
     if (_resultModel.webTest == YES)
@@ -603,6 +623,7 @@
         [webResultBtn addSubview:leftView];
         [webResultBtn addSubview:middleView];
         [webResultBtn addSubview:rightView];
+        [webResultBtn setTag:1];
         [_buttons addObject:webResultBtn];
     }
     if (_resultModel.speedTest == YES)
@@ -672,6 +693,7 @@
         [speedResultBtn addSubview:leftView];
         [speedResultBtn addSubview:middleView];
         [speedResultBtn addSubview:rightView];
+        [speedResultBtn setTag:2];
         [_buttons addObject:speedResultBtn];
     }
 }
@@ -1416,5 +1438,64 @@
     shareTo = NO;
     [btn.superview removeFromSuperview];
 }
+
+/**
+ *  peek手势
+ */
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+              viewControllerForLocation:(CGPoint)location
+{
+
+    // 获取用户手势点所在cell的下标。同时判断手势点是否超出tableView响应范围。
+    if (![self getShouldShowRectAndIndexPathWithLocation:location])
+    {
+        return nil;
+    }
+
+    // 弹出视图的初始位置，sourceRect是peek触发时的高亮区域。这个区域内的View会高亮显示，其余的会模糊掉
+    previewingContext.sourceRect = sourceRect;
+
+    // 获取数据进行传值
+    UIButton *currentBtn = _buttons[selectedPath.section];
+    SVDetailViewCtrl *childVC = [[SVDetailViewCtrl alloc] init];
+    [childVC setTestId:_resultModel.testId];
+    [childVC setTestType:[NSString stringWithFormat:@"%ld", (long)currentBtn.tag]];
+    return childVC;
+}
+
+/**
+ *  pop手势
+ */
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(UIViewController *)viewControllerToCommit
+{
+    UIButton *currentBtn = _buttons[selectedPath.section];
+    [self CellDetailClick:currentBtn
+                 testType:[NSString stringWithFormat:@"%ld", (long)currentBtn.tag]];
+}
+
+/**
+ *  获取用户手势点所在cell的下标，同时判断手势点是否超出tableview的范围
+ */
+- (BOOL)getShouldShowRectAndIndexPathWithLocation:(CGPoint)location
+{
+    // 坐标点的转化，
+    CGPoint tableLocation = [self.view convertPoint:location toView:_tableView];
+    selectedPath = [_tableView indexPathForRowAtPoint:tableLocation];
+
+    // 如果selctedPath是nil，则说明越界
+    if (!selectedPath)
+    {
+        return NO;
+    }
+
+    // 计算弹出视图的初始位置
+    sourceRect = CGRectMake (0, NavBarH + StatusBarH + selectedPath.section * FITHEIGHT (239),
+                             kScreenW, FITHEIGHT (209));
+
+    // 如果row越界了，返回NO 不处理peek手势
+    return (selectedPath.section >= (_buttons.count)) ? NO : YES;
+}
+
 
 @end

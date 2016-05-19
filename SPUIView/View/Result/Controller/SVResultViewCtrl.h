@@ -8,6 +8,7 @@
 
 #import "SVResultCell.h"
 
-@interface SVResultViewCtrl : SVViewController <SVResultCellDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SVResultViewCtrl
+: SVViewController <SVResultCellDelegate, UITableViewDelegate, UITableViewDataSource, UIViewControllerPreviewingDelegate>
 
 @end

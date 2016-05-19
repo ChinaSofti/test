@@ -116,6 +116,7 @@
 "IP Address"="IP Address";
 "City"="City";
 "Carrier"="Carrier";
+"Delete"="Delete";
 //删除 提示视图
 "Prompt"="Prompt";
 "Clear all test results"="Clear All Test Results";

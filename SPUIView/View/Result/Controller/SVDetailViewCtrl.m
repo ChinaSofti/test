@@ -607,5 +607,45 @@
     return [NSString stringWithFormat:@"%.2f%@ ", [value floatValue], unit];
 }
 
+/**
+ *  3D Touch 上移显示的视图
+ */
+- (NSArray<id<UIPreviewActionItem>> *)previewActionItems
+{
+    // 如果testType不为空，说明是从当前结果页面跳转过来的，所以不需要显示删除
+    if (testType && ![testType isEqualToString:@""])
+    {
+        return nil;
+    }
+
+    // 实现删除当前结果功能
+    UIPreviewAction *delAction = [UIPreviewAction
+    actionWithTitle:I18N (@"Delete")
+              style:UIPreviewActionStyleDefault
+            handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
+              SVInfo (@"删除当前结果，testId=%lld", testId);
+
+              //从数据库中删除
+              [_db
+              executeUpdate:[NSString
+                            stringWithFormat:@"delete from SVSummaryResultModel where testId=%lld;", testId]];
+
+              //从数据库中删除
+              [_db
+              executeUpdate:[NSString
+                            stringWithFormat:@"delete from SVDetailResultModel where testId=%lld;", testId]];
+
+              // 创建一个消息对象
+              NSNotification *notice =
+              [NSNotification notificationWithName:@"reloadResult" object:nil userInfo:nil];
+
+              //发送消息
+              [[NSNotificationCenter defaultCenter] postNotification:notice];
+            }];
+
+    //想要显示多个就定义多个 UIPreviewAction
+    NSArray *actions = @[delAction];
+    return actions;
+}
 
 @end
