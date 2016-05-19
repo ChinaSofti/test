@@ -59,6 +59,7 @@
     {
         UILabel *lable = [[UILabel alloc] init];
         lable.text = I18N (@"No Data");
+        lable.textColor = [UIColor grayColor];
         lable.frame = CGRectMake (0, 0, 300, 30);
         lable.textAlignment = NSTextAlignmentCenter;
         lable.center = self.view.center;

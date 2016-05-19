@@ -100,6 +100,7 @@
 		568B78C61C916DDC00AF4097 /* share_to_wechatmoments.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B78C41C916DDC00AF4097 /* share_to_wechatmoments.png */; };
 		568D42B41C89E20B00F2916B /* SVBandWidthCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */; };
 		568E03421C78137C00A7CD72 /* ic_language_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 568E03411C78137C00A7CD72 /* ic_language_select.png */; };
+		56A1CE251CED656C00B3C99C /* SVQRCodeViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A1CE241CED656C00B3C99C /* SVQRCodeViewCtrl.m */; };
 		56A919151C4F4BAA00E8BB72 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A919101C4F4BAA00E8BB72 /* AppDelegate.m */; };
 		56AA27361C57090400FA5D0F /* CTWBViewTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AA27351C57090400FA5D0F /* CTWBViewTools.m */; };
 		56B5180D1C5126C700AA76F1 /* UIView+Exten.m in Sources */ = {isa = PBXBuildFile; fileRef = 56B5180C1C5126C700AA76F1 /* UIView+Exten.m */; };
@@ -502,6 +503,8 @@
 		568D42B21C89E20B00F2916B /* SVBandWidthCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVBandWidthCtrl.h; sourceTree = "<group>"; };
 		568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVBandWidthCtrl.m; sourceTree = "<group>"; };
 		568E03411C78137C00A7CD72 /* ic_language_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_language_select.png; sourceTree = "<group>"; };
+		56A1CE231CED656C00B3C99C /* SVQRCodeViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVQRCodeViewCtrl.h; sourceTree = "<group>"; };
+		56A1CE241CED656C00B3C99C /* SVQRCodeViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVQRCodeViewCtrl.m; sourceTree = "<group>"; };
 		56A9190F1C4F4BAA00E8BB72 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
 		56A919101C4F4BAA00E8BB72 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../AppDelegate.m; sourceTree = "<group>"; };
 		56A919121C4F4BAA00E8BB72 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
@@ -1023,6 +1026,8 @@
 			children = (
 				561A36C51C896B5A00AC5F5E /* SVAboutViewCtrl.h */,
 				561A36C61C896B5A00AC5F5E /* SVAboutViewCtrl.m */,
+				56A1CE231CED656C00B3C99C /* SVQRCodeViewCtrl.h */,
+				56A1CE241CED656C00B3C99C /* SVQRCodeViewCtrl.m */,
 				56C113E41CE4E0D000FD2D28 /* SVConfigServerViewCtrl.h */,
 				56C113E51CE4E0D000FD2D28 /* SVConfigServerViewCtrl.m */,
 				561A36C71C896B5A00AC5F5E /* SVAdvancedViewCtrl.h */,
@@ -2332,6 +2337,7 @@
 				B7F2678B1CAE1BF300E44299 /* SVIPAndISP.m in Sources */,
 				B7F268331CAE1C3900E44299 /* DDAbstractDatabaseLogger.m in Sources */,
 				561A36E21C896BAF00AC5F5E /* SVCurrentResultViewCtrl.m in Sources */,
+				56A1CE251CED656C00B3C99C /* SVQRCodeViewCtrl.m in Sources */,
 				B7F268271CAE1C3900E44299 /* FSMEngine.m in Sources */,
 				566CB03A1C90199A001AA64D /* SVWebView.m in Sources */,
 				B7F267751CAE1BF300E44299 /* SVVideoTestResult.m in Sources */,

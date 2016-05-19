@@ -484,17 +484,29 @@
     [bandWidthView addSubview:labelview];
 
     // 归属地label
-    _label1 = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (580), FITHEIGHT (58))];
-    _label1.text = _defaultvalue.name;
-    _label1.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-    [labelview addSubview:_label1];
+    if (_defaultvalue.name && _defaultvalue.sponsor)
+    {
+        _label1 = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (580), FITHEIGHT (58))];
+        _label1.text = _defaultvalue.name;
+        _label1.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
+        [labelview addSubview:_label1];
 
-    // 服务器地址label
-    _label2 = [[UILabel alloc]
-    initWithFrame:CGRectMake (0, _label1.bottomY + FITHEIGHT (22), FITWIDTH (580), FITHEIGHT (58))];
-    _label2.text = _defaultvalue.sponsor;
-    _label2.font = [UIFont systemFontOfSize:pixelToFontsize (35)];
-    [labelview addSubview:_label2];
+        // 服务器地址label
+        _label2 = [[UILabel alloc]
+        initWithFrame:CGRectMake (0, _label1.bottomY + FITHEIGHT (22), FITWIDTH (580), FITHEIGHT (58))];
+        _label2.text = _defaultvalue.sponsor;
+        _label2.font = [UIFont systemFontOfSize:pixelToFontsize (35)];
+        [labelview addSubview:_label2];
+    }
+    else
+    {
+        UILabel *lable = [[UILabel alloc] init];
+        lable.text = I18N (@"No Data");
+        lable.textColor = [UIColor grayColor];
+        lable.frame = CGRectMake (0, 0, 150, 50);
+        lable.textAlignment = NSTextAlignmentLeft;
+        [labelview addSubview:lable];
+    }
 
     // button自动
     _button = [UIButton buttonWithType:UIButtonTypeCustom];
