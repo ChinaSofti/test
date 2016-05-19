@@ -10,6 +10,6 @@
 
 @implementation SVSummaryResultModel
 
-@synthesize ID, testId, type, testTime, UvMOS, loadTime, bandwidth;
+@synthesize ID, testId, type, testTime, UvMOS, loadTime, bandwidth, videoTest, webTest, speedTest;
 
 @end

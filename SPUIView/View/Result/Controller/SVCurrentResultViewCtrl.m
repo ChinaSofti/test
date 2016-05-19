@@ -794,9 +794,11 @@
     SVDBManager *db = [SVDBManager sharedInstance];
 
     // 如果表不存在，则创建表
-    [db executeUpdate:@"CREATE TABLE IF NOT EXISTS SVSummaryResultModel(ID integer PRIMARY KEY "
-                      @"AUTOINCREMENT, testId integer, type integer, testTime integer, UvMOS "
-                      @"real, loadTime integer, bandwidth real);"];
+    [db
+    executeUpdate:@"CREATE TABLE IF NOT EXISTS SVSummaryResultModel(ID integer PRIMARY KEY "
+                  @"AUTOINCREMENT, testId integer, type integer, testTime integer, UvMOS "
+                  @"real, loadTime integer, bandwidth real, videoTest integer, webTest integer, "
+                  @"speedTest integer);"];
 
     // 获取网络类型
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
@@ -805,9 +807,11 @@
     NSString *insertSVSummaryResultModelSQL =
     [NSString stringWithFormat:@"INSERT INTO "
                                @"SVSummaryResultModel(testId,type,testTime,UvMOS,loadTime,"
-                               @"bandwidth)VALUES(%lld, %d, %lld, %lf, %lf, %lf);",
-                               _resultModel.testId, networkType, _resultModel.testId, _resultModel.uvMOS,
-                               _resultModel.totalTime, _resultModel.stDownloadSpeed];
+                               @"bandwidth,videoTest,webTest,speedTest)VALUES(%lld, %d, %lld, %lf, "
+                               @"%lf, %lf, %d, %d, %d);",
+                               _resultModel.testId, networkType, _resultModel.testId,
+                               _resultModel.uvMOS, _resultModel.totalTime, _resultModel.stDownloadSpeed,
+                               _resultModel.videoTest, _resultModel.webTest, _resultModel.speedTest];
     // 插入汇总结果
     [db executeUpdate:insertSVSummaryResultModelSQL];
 }

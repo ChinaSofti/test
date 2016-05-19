@@ -256,26 +256,18 @@
 
     // 显示指标值，-1的显示--
     float uvmos = [resultModel.UvMOS floatValue];
-    if (uvmos == -1.0f)
-    {
-        self.videoMOS.text = @"--";
-    }
-    else
-    {
-        self.videoMOS.text = [NSString stringWithFormat:@"%.2f", uvmos];
-    }
+    [self showTextWithValue:uvmos
+               WithIsTested:[resultModel.videoTest boolValue]
+             WithValueLable:_videoMOS
+              WithUnitLabel:nil
+                   WithUnit:@""];
 
     double totalTime = [resultModel.loadTime doubleValue];
-    if (totalTime == -1.0f)
-    {
-        self.loadTimeValue.text = @"--";
-        self.loadTimeUnit.text = @"";
-    }
-    else
-    {
-        self.loadTimeValue.text = [NSString stringWithFormat:@"%.2f", totalTime];
-        self.loadTimeUnit.text = @"s";
-    }
+    [self showTextWithValue:totalTime
+               WithIsTested:[resultModel.webTest boolValue]
+             WithValueLable:_loadTimeValue
+              WithUnitLabel:_loadTimeUnit
+                   WithUnit:@"s"];
 
     // 对Label重新布局
     [SVLabelTools resetLayoutWithValueLabel:self.loadTimeValue
@@ -284,22 +276,49 @@
                                  WithHeight:FITHEIGHT (170)];
 
     double bandWidth = [resultModel.bandwidth doubleValue];
-    if (bandWidth == -1.0f)
-    {
-        self.bandWidthValue.text = @"--";
-        self.bandWidthUnit.text = @"";
-    }
-    else
-    {
-        self.bandWidthValue.text = [NSString stringWithFormat:@"%.2f", bandWidth];
-        self.bandWidthUnit.text = @"Mbps";
-    }
+    [self showTextWithValue:bandWidth
+               WithIsTested:[resultModel.speedTest boolValue]
+             WithValueLable:_bandWidthValue
+              WithUnitLabel:_bandWidthUnit
+                   WithUnit:@"Mbps"];
 
     // 对Label重新布局
     [SVLabelTools resetLayoutWithValueLabel:self.bandWidthValue
                                   UnitLabel:self.bandWidthUnit
                                   WithWidth:FITWIDTH (207)
                                  WithHeight:FITHEIGHT (170)];
+}
+
+- (void)showTextWithValue:(double)value
+             WithIsTested:(BOOL)isTested
+           WithValueLable:(UILabel *)valueLabel
+            WithUnitLabel:(UILabel *)unitLabel
+                 WithUnit:(NSString *)unit
+{
+    if (!isTested)
+    {
+        valueLabel.text = @"--";
+        if (unitLabel)
+        {
+            unitLabel.text = @"";
+        }
+        return;
+    }
+    if (value < 0)
+    {
+        valueLabel.text = I18N (@"Fail");
+        if (unitLabel)
+        {
+            unitLabel.text = @"";
+        }
+        return;
+    }
+
+    valueLabel.text = [NSString stringWithFormat:@"%.2f", value];
+    if (unitLabel)
+    {
+        unitLabel.text = unit;
+    }
 }
 
 /**
