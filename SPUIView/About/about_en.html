@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="language" content="zh_cn" />
+    <style>
+        body
+        {
+            margin: 0;
+            padding: 1em 1em 1em 1em;
+            line-height: 1.5em;
+            color:rgb(100,100,100);
+            font-size:1.5em;
+        }
+    
+        p {
+            margin-bottom: 8px;
+            text-align: justify;
+            text-indent: 2em;
+         }
+        .title1
+        {
+            font-size:1.5em;
+            color:#222;
+            font-weight:bold;
+            margin:1em 0em 0.5em 0em;
+        }
+    
+        .title2
+        {
+            font-size:1.5em;
+            color:#222;
+            margin:0.5em 0em 0em 0em;
+        }
+    
+        .content
+        {
+            font-size:1.5em;
+            color:rgb(100,100,100);
+            margin:0.5em 0em 1em 0em;
+        }
+    
+        .foreword
+        {
+            font-size:1.5em;
+            color:#222;
+            margin:0.5em 0em 1em 0em;
+        }
+    
+        table
+        {
+            border-collapse:collapse;
+            margin:0.5em 0em 0em 0em;
+            width:100%;
+        }
+    
+        td
+        {
+            font-size:1.25em;
+            border:1px solid #222;
+            padding:0.3em;
+            word-warp:break-word;
+            color:rgb(100,100,100);
+        }
+    
+        th
+        {
+            font-size:1.5em;
+            border:1px solid #222;
+            padding:0.5em;
+            word-warp:break-word;
+            color:#222;
+            background:rgb(200,200,200);
+            font-weight:normal;
+        }
+    
+        img
+        {
+            width:100%;
+            margin:0.5em 0em 0em 0em;
+        }
+    </style>
+</head>
+<body>
+    
+    <p class="foreword">
+    Mobile SpeedPro evaluates video quality using Huawei U-vMOS criteria.
+	</p>
+	
+	<p class="foreword">
+		Based on the long-term user behavior analysis in Huawei iLAB, it is found that unified criteria should be established to evaluate video experience on various screens in diverse network scenarios.
+	</p>
+	<p class="foreword">
+		Combining ergonomics experimentation, sample surveys, and technology research, Huawei iLAB comes up with the top 3 factors in all-scenario video experience and released the video experience evaluation criteria User-experience-centric Video Mean Opinion Score (U-vMOS). The top 3 factors are video quality (sQuality), interactive experiences (sInteraction), and viewing experiences (sView).
+	</p>
+	
+	<p class="foreword">	
+	During video playback, the network bandwidth and E2E delay affect the loading speed and fluency. Playing high-definition videos requires higher network performance. SpeedPro can get a scaled U-vMOS score of 1 to 5 to evaluate network readiness for video services, where 5 is Excellent, 4 Good, 3 Fair, 2 Poor, and 1 Bad.
+	</p>
+	<p class="foreword">
+		SpeedPro tests 1080p videos by default. If a terminal or the live network does not support 1080P video testing, using 720P or 480P videos instead is recommended to get a more accurate test result.
+	</p>
+	<p class="foreword">
+		Given the same initial buffering time and video freeze rate, the playback duration determines a U-vMOS score. By default, a video is played for one minute, which can be adjusted in line with actual requirements.
+	</p>
+		<p class="foreword">
+		A video starts to play only after a specified amount of video data has been downloaded. Therefore, the amount of video data to be buffered determines the initial buffering time on a video client under the same network condition. Currently, this setting varies with OTT video vendors. SpeedPro uses the buffered data volume of about 2 seconds, which is the typical value for mainstream video clients.
+	</p>
+
+	<p class="title1">Key indicators of a video test:</p>
+	<table>
+		<tr>
+			<th>Indicator</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>U-vMOS Score</td>
+			<td>A U-vMOS score is calculated by subtracting the damaged values of sInteraction and sView from the sQuality value. The obtained U-vMOS score may be lower than either sInteraction or sView value.
+The calculation formula is as follows:
+U-vMOS = (sQuality - 1)·(1 – α · (5 - sInteraction) – β (5 - sView) ) + 1
+α and β indicate the sInteraction and sView damage coefficients, respectively, which are embedded into the U-vMOS algorithm library.
+Videos with different resolutions have different maximum U-vMOS scores. The following table lists the maximum U-vMOS scores at different resolutions on a 42-inch screen:
+
+<br/>
+<table>
+		<tr>
+			<td>Resolution</td>
+			<td>Maximum U-vMOS</td>
+		</tr>
+		<tr>
+			<td>4K（2160P）</td>
+			<td>4.75</td>
+		</tr>
+		<tr>
+			<td>2K（1440P）</td>
+			<td>4.67</td>
+		</tr>
+		<tr>
+			<td>1080P</td>
+			<td>4.54</td>
+		</tr>
+		<tr>
+			<td>720P</td>
+			<td>4.15</td>
+		</tr>
+		<tr>
+			<td>480P</td>
+			<td>2.69</td>
+		</tr>
+			<tr>
+			<td>360P</td>
+			<td>2.02</td>
+		</tr>
+	</table>
+</td>
+		</tr>
+		<tr>
+			<td>sView Score</td>
+			<td>The sView score is determined by the video freeze rate. A higher video rate indicates a lower sView score if the sInteraction scores are the same. The calculation formula is as follows:
+Video freeze rate = Video freeze duration/(Playback time + Video freeze duration + Initial loading time)
+	<table>
+		<tr>
+			<td>sView Score</td>
+			<td>Video Freeze Rate</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>0%</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>0.1%</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>1%</td>
+		</tr>
+	<tr>
+			<td>2</td>
+			<td>5%</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>10%</td>
+		</tr>
+	</table>
+</td>
+		</tr>
+		<tr>
+			<td>sQuality Score</td>
+			<td>The sQuality score is determined by the video resolution, bit rate, frame rate, and screen size. 
+A larger bit rate indicates a higher sQuality score, and the maximum bit rate is determined by the video resolution and frame rate. A video resolution increases with the maximum bit rate. If a video resolution is not changed and the frame rate improves by two folds, the bit rate can increase by 1.6 folds.
+A larger screen size requires a higher resolution. If a low-resolution video is played on a large screen, a low sQuality score will be obtained.
+</td>
+		</tr>
+		<tr>
+			<td>sInteraction Score</td>
+			<td>The sInteraction score is determined by the initial buffer time. A longer buffer time leads to a lower sInteraction score.
+	<table>
+		<tr>
+			<td>sInteraction Score</td>
+			<td>Initial Buffer Time (ms)</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td><=100</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>1000</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>2000</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>5000</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>8000</td>
+		</tr>
+	</table>
+</td>
+		</tr>
+		<tr>
+			<td>Initial Buffer Time</td>
+			<td>Indicates from when a terminal sends an OTT program request to when the OTT cloud platform returns enough data for the terminal to display the first video image.</td>
+		</tr>
+		<tr>
+			<td>Stalling Time</td>
+			<td>Indicates the total video stall durations during video viewing.</td>
+		</tr>
+		<tr>
+			<td>Stalling Times</td>
+			<td>Indicates the number of video stalls during video viewing.</td>
+		</tr>
+		<tr>
+			<td>Max Download Speed</td>
+			<td>Indicates the peak video download rate per second.</td>
+		</tr>
+		<tr>
+			<td>Bit Rate</td>
+			<td>Indicates the number of bits sent within the specified period during video transmission.</td>
+		</tr>
+		<tr>
+			<td>Frame Rate</td>
+			<td>Indicates the number of images displayed each second. A frame is a static image, and continuous frames constitute an animation.</td>
+		</tr>
+		<tr>
+			<td>Resolution</td>
+			<td>Indicates the number of pixels in an image.</td>
+		</tr>
+		<tr>
+			<td>Screen Size</td>
+			<td>The default value is 42 inches, the minimum screen size for 4K video playback, which best simulates actual video playback for 4K video U-vMOS calculation. You can choose Setting > Advanced Setting to modify the default value.</td>
+		</tr><tr>
+			<td>Video Test Duration</td>
+			<td>The default value is 1 minute, which can be modified by choosing Setting > Advanced Setting.</td>
+		</tr>
+	</table>
+</body>
+</html>

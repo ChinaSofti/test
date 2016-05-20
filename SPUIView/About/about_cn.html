@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="language" content="zh_cn" />
+    <style>
+        body
+        {
+            margin: 0;
+            padding: 1em 1em 1em 1em;
+            line-height: 1.5em;
+            color:rgb(100,100,100);
+            font-size:1.5em;
+        }
+    
+    .title1
+    {
+        font-size:1.5em;
+        color:#222;
+        font-weight:bold;
+        margin:1em 0em 0.5em 0em;
+    }
+    
+    .title2
+    {
+        font-size:1.5em;
+        color:#222;
+        margin:0.5em 0em 0em 0em;
+    }
+    
+    .content
+    {
+        font-size:1.5em;
+        color:rgb(100,100,100);
+        margin:0.5em 0em 1em 0em;
+    }
+    
+    .foreword
+    {
+        font-size:1.5em;
+        color:#222;
+        margin:0.5em 0em 1em 0em;
+    }
+    
+    table
+    {
+        border-collapse:collapse;
+        margin:0.5em 0em 0em 0em;
+        width:100%;
+    }
+    
+    td
+    {
+        font-size:1.25em;
+        border:1px solid #222;
+        padding:0.3em;
+        word-warp:break-word;
+        color:rgb(100,100,100);
+    }
+    
+    th
+    {
+        font-size:1.5em;
+        border:1px solid #222;
+        padding:0.5em;
+        word-warp:break-word;
+        color:#222;
+        background:rgb(200,200,200);
+        font-weight:normal;
+    }
+    
+    img
+    {
+        width:100%;
+        margin:0.5em 0em 0em 0em;
+    }
+    </style>
+</head>
+<body>
+
+	<p class="foreword">
+		SpeedPro手机客户端在进行视频质量评分时，采用了华为U-vMOS标准。
+	</p>
+	
+	<p class="foreword">
+		通过华为iLAB实验室长期用户行为分析研究，iLAB发现需要以用户体验为中心，用统一的衡量标准，来评价不同网络，不同屏幕，不同场景应用下的视频体验的好坏。
+	</p>
+	<p class="foreword">
+		基于以上出发点，华为iLAB在ITU-T vMOS基础上，结合人体工程学实验，样本调研和深入技术研究，提炼出适配全场景的视频体验的TOP3影响因子，即视频质量（sQualtiy），互动体验(sInteraction)和观看体验(sView)，并发布了视频体验衡量体系评价标准U-vMOS。
+	</p>
+	
+	<p class="foreword">	由于在视频播放过程中，网络可以提供的带宽及端到端时延，都会影响视频的加载速度和流畅度。同时，播放更高分辨率的视频对网络的要求也相应提高。因此，SpeedPro测试出的U-vMOS得分，可以评估网络对视频业务的满足程度，其得分典型值分为以下5档：Excellent = 5； Good = 4； Fair = 3； Poor = 2； Bad = 1。
+	</p>
+	<p class="foreword">
+		SpeedPro默认选择1080P分辨率视频进行测试。当终端分辨率或网络条件不满足1080P时，建议选择720P或480P视频进行测试获取更准确的测试结果。
+	</p>
+	<p class="foreword">
+		在相同的初始缓冲和卡顿率情况下，播放时长对U-vMOS得分存在影响。SpeedPro测试时默认播放1分钟。用户可根据自身需求，修改测试播放时长。
+	</p>
+		<p class="foreword">
+		视频客户端在加载视频时，需要缓冲下载一定的视频数据量才会开始播放，因此视频缓冲数据量的设置，在相同的网络条件和片源条件下，会影响客户端的视频初始缓冲时间，目前不同的OTT视频商用客户端对于缓冲数据量的设置均存在差异，SpeedPro客户端的设置择采用了业界主流视频客户端初始缓冲量的典型值：2秒左右视频播放数据量。
+	</p>
+
+	<p class="title1">视频测试关键指标介绍：</p>
+	<table>
+		<tr>
+			<th>指标名称</th>
+			<th>定义</th>
+		</tr>
+		<tr>
+			<td>U-vMOS得分</td>
+			<td>U-vMOS得分根据片源得分（sQualtiy），交互得分(sInteraction)和观看得分(sView)计算得出，是在sQualtiy的基础上逐一减去sInteraction损伤和sView损伤，损伤后的结果可能比sInteraction和sView都低。
+U-vMOS = (sQuality - 1)•(1 – α • (5 - sInteraction)  – β • (5 - sView) ) + 1  
+α、β分别是sInteraction、sView损伤系数，由U-vMOS算法库内置。
+不同分辨率的视频都存在U-vMOS极限。例如以42英寸屏幕为例，各分辨率视频的U-vMOS最大值如下：
+<br/>
+<table>
+		<tr>
+			<td>分辨率</td>
+			<td>U-vMOS最大值</td>
+		</tr>
+		<tr>
+			<td>4K（2160P）</td>
+			<td>4.75</td>
+		</tr>
+		<tr>
+			<td>2K（1440P）</td>
+			<td>4.67</td>
+		</tr>
+		<tr>
+			<td>1080P</td>
+			<td>4.54</td>
+		</tr>
+		<tr>
+			<td>720P</td>
+			<td>4.15</td>
+		</tr>
+		<tr>
+			<td>480P</td>
+			<td>2.69</td>
+		</tr>
+			<tr>
+			<td>360P</td>
+			<td>2.02</td>
+		</tr>
+	</table>
+</td>
+		</tr>
+		<tr>
+			<td>观看得分</td>
+			<td>观看得分与卡顿占比相关，在交互得分一定的情况下，卡顿占比越高，得分越低。卡顿占比=卡顿总时长 /（播放时长+卡顿总时长+初始加载时长）
+	<table>
+		<tr>
+			<td>观看得分</td>
+			<td>卡顿占比</td>
+		</tr>
+		<tr>
+			<td>5分</td>
+			<td>0%</td>
+		</tr>
+		<tr>
+			<td>4分</td>
+			<td>0.1%</td>
+		</tr>
+		<tr>
+			<td>3分</td>
+			<td>1%</td>
+		</tr>
+	<tr>
+			<td>2分</td>
+			<td>5%</td>
+		</tr>
+		<tr>
+			<td>1分</td>
+			<td>10%</td>
+		</tr>
+	</table>
+</td>
+		</tr>
+		<tr>
+			<td>片源得分</td>
+			<td>片源得分，与视频分辨率、码率、帧率及屏幕尺寸相关。
+码率越大，片源得分越高，而码率的最大值由视频分辨率和帧率决定。随着视频分辨率的提升，码率最大值也随之提升。若视频分辨率不变，当帧率提升2倍时，码率可提升1.6倍。
+屏幕尺寸越大，分辨率要求越高。若在大屏上播放低分辨率视频，则片源得分会较低。
+</td>
+		</tr>
+		<tr>
+			<td>交互得分</td>
+			<td>交互得分与视频首次缓冲时间相关，缓冲时间越长，得分越低。
+	<table>
+		<tr>
+			<td>交互得分</td>
+			<td>首次缓冲时间（毫秒）</td>
+		</tr>
+		<tr>
+			<td>5分</td>
+			<td><=100</td>
+		</tr>
+		<tr>
+			<td>4分</td>
+			<td>1000</td>
+		</tr>
+		<tr>
+			<td>3分</td>
+			<td>2000</td>
+		</tr>
+		<tr>
+			<td>2分</td>
+			<td>5000</td>
+		</tr>
+		<tr>
+			<td>1分</td>
+			<td>8000</td>
+		</tr>
+	</table>
+</td>
+		</tr>
+		<tr>
+			<td>首次缓冲时间</td>
+			<td>用户开始点播视频节目，在点播动作发起后，终端发出获取OTT节目源请求消息直至收到OTT云平台返回的数据能够满足终端首次出现视频影像的等待时间。</td>
+		</tr>
+		<tr>
+			<td>卡顿总时长</td>
+			<td>用户在观看时间内，所有的卡顿时长之和。</td>
+		</tr>
+		<tr>
+			<td>卡顿次数</td>
+			<td>用户在观看时间内，终端出现卡顿等待缓冲的次数。</td>
+		</tr>
+		<tr>
+			<td>峰值下载速率</td>
+			<td>以1秒为单位，记录视频下载过程中的速率，其最大值为峰值下载速率。</td>
+		</tr>
+		<tr>
+			<td>码率</td>
+			<td>视频平均码率，视频传输时单位时间传送的数据位数。</td>
+		</tr>
+		<tr>
+			<td>帧率</td>
+			<td>一帧就是一副静止的画面，连续的帧形成动画。帧率指每秒钟显示的图片数量。</td>
+		</tr>
+		<tr>
+			<td>分辨率</td>
+			<td>分辨率表示每幅图像的尺寸，即像素数量。</td>
+		</tr>
+		<tr>
+			<td>屏幕尺寸</td>
+			<td>默认值是42英寸。该尺寸是4K视频播放的最低屏幕尺寸。默认设置42英寸是为了在计算4K片源的U-vMOS时尽量模拟实际视频播放场景。该值可以在设置-高级设置中修改。</td>
+		</tr><tr>
+			<td>视频测试持续时间</td>
+			<td>默认值是1分钟。该值可以在设置-高级设置中修改。</td>
+		</tr>
+	</table>
+</body>
+</html>
