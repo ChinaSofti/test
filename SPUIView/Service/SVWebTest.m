@@ -113,6 +113,9 @@
             return NO;
         }
 
+        // 获取要测试的url
+        [self getUrlArray];
+
         // 初始化测试字典
         self.webTestResultDic = [[NSMutableDictionary alloc] init];
         return YES;

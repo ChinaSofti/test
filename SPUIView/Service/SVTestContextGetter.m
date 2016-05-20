@@ -187,6 +187,10 @@ static SVTestContextGetter *contextGetter = nil;
 {
     // 初始化VideoTestContext
     videoContext = [[SVVideoTestContext alloc] initWithData:self.data];
+
+    // 初始化视频url
+    [self getVideoURLS];
+
     [videoContext setVideoURLsString:videoURLS];
     if (!videoContext.videoURLString)
     {
@@ -237,17 +241,6 @@ static SVTestContextGetter *contextGetter = nil;
     // 初始化需要播放的分片信息
     NSMutableArray *videoSegmentInfo = [[NSMutableArray alloc] init];
     [videoSegmentInfo addObject:segement];
-
-    //    [videoContext setVideoSegementURLString:segement.videoSegementURL];
-    //    [videoContext setVideoSegementURL:url];
-    //    [videoContext setVideoSegementSize:segement.size];
-    //    [videoContext setVideoSegementDuration:segement.duration];
-    //    [videoContext setVideoSegementBitrate:segement.bitrate];
-    //    [videoContext setVideoSegementIP:url.host];
-    //    [videoContext setVideoQuality:segement.videoQuality];
-    //    [videoContext setVideoResolution:segement.videoResolution];
-    //    [videoContext setFrameRate:segement.frameRate];
-
     [videoContext setVideoSegementInfo:videoSegmentInfo];
     [videoContext setVid:videoInfo.vid];
 
@@ -258,6 +251,54 @@ static SVTestContextGetter *contextGetter = nil;
     NSString *videoClarity = [probeInfo getVideoClarity];
     [videoContext setVideoClarity:videoClarity];
     return videoContext;
+}
+
+// 根据归属地，获取默认的url
+- (void)getVideoURLS
+{
+    // 如果videoURLS存在，则直接返回
+    if (videoURLS && videoURLS.length > 0)
+    {
+        return;
+    }
+
+    // 如果没有获取到url，使用默认的数据
+    SVIPAndISP *ipAndISP = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
+
+    // 默认使用国内的网站
+    if (!ipAndISP)
+    {
+        videoURLS =
+        @"http://v.youku.com/v_show/id_XMTUzNzA0NzYwMA==.html\r\nhttp://v.youku.com/v_show/"
+        @"id_XMTUzMjk1ODM3Mg==.html\r\nhttp://v.youku.com/v_show/"
+        @"id_XMTUzODQyNDY5Ng==.html\r\nhttp://v.youku.com/v_show/"
+        @"id_XMTQ3NjM4NDQ2MA==.html\r\nhttp://v.youku.com/v_show/id_XODM4MTYwNjI0.html\r\nhttp://"
+        @"v.youku.com/v_show/id_XOTQwMDEwNDQ4.html\r\nhttp://v.youku.com/v_show/"
+        @"id_XNzQ0MDAwMjY4.html\r\nhttp://v.youku.com/v_show/id_XMTI5MzQ5MjU0OA==.html\r\nhttp://"
+        @"v.youku.com/v_show/id_XMTUyNTgxMzk4OA==.html";
+        return;
+    }
+
+    // 根据归属地信息获取url
+    NSString *countryCode = ipAndISP.countryCode;
+    if (countryCode && [countryCode isEqualToString:@"CN"])
+    {
+        videoURLS =
+        @"http://v.youku.com/v_show/id_XMTUzNzA0NzYwMA==.html\r\nhttp://v.youku.com/v_show/"
+        @"id_XMTUzMjk1ODM3Mg==.html\r\nhttp://v.youku.com/v_show/"
+        @"id_XMTUzODQyNDY5Ng==.html\r\nhttp://v.youku.com/v_show/"
+        @"id_XMTQ3NjM4NDQ2MA==.html\r\nhttp://v.youku.com/v_show/id_XODM4MTYwNjI0.html\r\nhttp://"
+        @"v.youku.com/v_show/id_XOTQwMDEwNDQ4.html\r\nhttp://v.youku.com/v_show/"
+        @"id_XNzQ0MDAwMjY4.html\r\nhttp://v.youku.com/v_show/id_XMTI5MzQ5MjU0OA==.html\r\nhttp://"
+        @"v.youku.com/v_show/id_XMTUyNTgxMzk4OA==.html";
+    }
+    else
+    {
+        videoURLS = @"https://www.youtube.com/watch?v=SGP6Y0Pnhe4\r\nhttps://www.youtube.com/"
+                    @"watch?v=_P5tPnkbWa4\r\nhttps://www.youtube.com/"
+                    @"watch?v=PXaQmHoR4Hs\r\nhttps://www.youtube.com/"
+                    @"watch?v=5g65acAhzt0";
+    }
 }
 
 /**

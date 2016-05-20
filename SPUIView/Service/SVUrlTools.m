@@ -76,7 +76,13 @@
         return serverHost;
     }
 
-    return [NSString stringWithFormat:@"https://%@", serverIp];
+    NSString *serverPort = [server valueForKey:@"serverPort"];
+    if (!serverPort)
+    {
+        return serverHost;
+    }
+
+    return [NSString stringWithFormat:@"https://%@:%@", serverIp, serverPort];
 }
 
 @end
