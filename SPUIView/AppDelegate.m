@@ -17,6 +17,7 @@
 //微信分享
 #import "WXApi.h"
 //分享
+#import "SVCurentLocation.h"
 #import "SVInitConfig.h"
 #import "SVReloadingDataAlertViewManager.h"
 #import "UMSocial.h"
@@ -103,6 +104,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
     SVRealReachability *realReachability = [SVRealReachability sharedInstance];
     [realReachability addDelegate:self];
+
+    // 获取定位信息
+    [[SVCurentLocation sharedInstance] getUserLocation];
     return YES;
 }
 

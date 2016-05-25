@@ -367,6 +367,56 @@ static NSString *_screenSize;
 }
 
 /**
+ *  设置经度
+ *
+ *  @param longitude 经度
+ */
+- (void)setLongitude:(NSString *)longitude
+{
+    SVInfo (@"Current location : longitude = %@", longitude);
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:longitude forKey:@"CurrentLongitude"];
+    [defaults synchronize];
+}
+
+/**
+ *  获取经度
+ *
+ *  @return 经度
+ */
+- (NSString *)getLongitude
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *longitude = [defaults valueForKey:@"CurrentLongitude"];
+    return longitude;
+}
+
+/**
+ *  设置纬度
+ *
+ *  @param latitude 纬度
+ */
+- (void)setLatitude:(NSString *)latitude
+{
+    SVInfo (@"Current location : latitude = %@", latitude);
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:latitude forKey:@"CurrentLatitude"];
+    [defaults synchronize];
+}
+
+/**
+ *  获取纬度
+ *
+ *  @return 纬度
+ */
+- (NSString *)getLatitude
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *latitude = [defaults valueForKey:@"CurrentLatitude"];
+    return latitude;
+}
+
+/**
  *  设置本机使用过的wifi信息，只记录五条
  *  @param wifiInfos 本机使用过的wifi信息
  */

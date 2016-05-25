@@ -30,4 +30,9 @@
  */
 + (NSString *)getLogUploadUrlWithMobileid:(NSString *)mobileid;
 
+/**
+ * 获取根服务器
+ */
++ (NSString *)getRootServer;
+
 @end

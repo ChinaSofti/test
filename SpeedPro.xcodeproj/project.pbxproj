@@ -162,6 +162,11 @@
 		5BB0DE6E1CB410A500F8DAF9 /* rt_detail_title_video_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB0DE661CB410A500F8DAF9 /* rt_detail_title_video_img@3x.png */; };
 		5BB0DE6F1CB410A500F8DAF9 /* rt_detail_title_web_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB0DE671CB410A500F8DAF9 /* rt_detail_title_web_img@2x.png */; };
 		5BB0DE701CB410A500F8DAF9 /* rt_detail_title_web_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB0DE681CB410A500F8DAF9 /* rt_detail_title_web_img@3x.png */; };
+		5BBA1FFD1CF2996D00E44A3A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBA1FFC1CF2996C00E44A3A /* CoreLocation.framework */; };
+		5BBA20001CF302DE00E44A3A /* SVCurentLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBA1FFF1CF302DE00E44A3A /* SVCurentLocation.m */; };
+		5BBA20031CF5804E00E44A3A /* serverConfig.conf in Resources */ = {isa = PBXBuildFile; fileRef = 5BBA20021CF5804E00E44A3A /* serverConfig.conf */; };
+		5BBA20061CF580A600E44A3A /* serverConfig_local.conf in Resources */ = {isa = PBXBuildFile; fileRef = 5BBA20041CF580A600E44A3A /* serverConfig_local.conf */; };
+		5BBA20071CF580A600E44A3A /* serverConfig_server.conf in Resources */ = {isa = PBXBuildFile; fileRef = 5BBA20051CF580A600E44A3A /* serverConfig_server.conf */; };
 		5BC0627E1CD09809001DDF04 /* SVSpeedDownloadTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0627D1CD09809001DDF04 /* SVSpeedDownloadTest.m */; };
 		5BC491E81CAB5D420002CA68 /* ic_speed_check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BC491DC1CAB5D420002CA68 /* ic_speed_check@2x.png */; };
 		5BC491E91CAB5D420002CA68 /* ic_speed_check@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BC491DD1CAB5D420002CA68 /* ic_speed_check@3x.png */; };
@@ -588,6 +593,12 @@
 		5BB0DE661CB410A500F8DAF9 /* rt_detail_title_video_img@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rt_detail_title_video_img@3x.png"; sourceTree = "<group>"; };
 		5BB0DE671CB410A500F8DAF9 /* rt_detail_title_web_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rt_detail_title_web_img@2x.png"; sourceTree = "<group>"; };
 		5BB0DE681CB410A500F8DAF9 /* rt_detail_title_web_img@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rt_detail_title_web_img@3x.png"; sourceTree = "<group>"; };
+		5BBA1FFC1CF2996C00E44A3A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5BBA1FFE1CF302DE00E44A3A /* SVCurentLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVCurentLocation.h; sourceTree = "<group>"; };
+		5BBA1FFF1CF302DE00E44A3A /* SVCurentLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVCurentLocation.m; sourceTree = "<group>"; };
+		5BBA20021CF5804E00E44A3A /* serverConfig.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = serverConfig.conf; sourceTree = "<group>"; };
+		5BBA20041CF580A600E44A3A /* serverConfig_local.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = serverConfig_local.conf; sourceTree = "<group>"; };
+		5BBA20051CF580A600E44A3A /* serverConfig_server.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = serverConfig_server.conf; sourceTree = "<group>"; };
 		5BC0627C1CD09809001DDF04 /* SVSpeedDownloadTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedDownloadTest.h; sourceTree = "<group>"; };
 		5BC0627D1CD09809001DDF04 /* SVSpeedDownloadTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedDownloadTest.m; sourceTree = "<group>"; };
 		5BC491DC1CAB5D420002CA68 /* ic_speed_check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_speed_check@2x.png"; sourceTree = "<group>"; };
@@ -884,6 +895,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BBA1FFD1CF2996D00E44A3A /* CoreLocation.framework in Frameworks */,
 				5641CF551CCA289100A07584 /* Accounts.framework in Frameworks */,
 				5641CF531CCA288B00A07584 /* ImageIO.framework in Frameworks */,
 				5641CF511CCA287000A07584 /* CoreGraphics.framework in Frameworks */,
@@ -1528,6 +1540,7 @@
 		56F523E21C4DCF7F00E6472B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5BBA20011CF5803100E44A3A /* conf */,
 				5B50AB031CC0110F006499BE /* Cert */,
 				B7E4C1711CBFE31800CB941A /* About */,
 				B731059B1CAF5F5100B6C3A5 /* Youtube */,
@@ -1550,6 +1563,16 @@
 				5B50AB141CC08BDE006499BE /* key.properties */,
 			);
 			path = Cert;
+			sourceTree = "<group>";
+		};
+		5BBA20011CF5803100E44A3A /* conf */ = {
+			isa = PBXGroup;
+			children = (
+				5BBA20041CF580A600E44A3A /* serverConfig_local.conf */,
+				5BBA20051CF580A600E44A3A /* serverConfig_server.conf */,
+				5BBA20021CF5804E00E44A3A /* serverConfig.conf */,
+			);
+			path = conf;
 			sourceTree = "<group>";
 		};
 		5BE7A5D11CBF81E20080FEA9 /* DLVideoParser */ = {
@@ -1593,6 +1616,7 @@
 		B71E7C4F1C743DA200DF1AA4 /* Thirdpart */ = {
 			isa = PBXGroup;
 			children = (
+				5BBA1FFC1CF2996C00E44A3A /* CoreLocation.framework */,
 				B7FE25701CD89FC500478B63 /* Reachability */,
 				5659BAE01CCE6FEC008277A6 /* JsonKit */,
 				5641CF541CCA289100A07584 /* Accounts.framework */,
@@ -1780,6 +1804,8 @@
 				B7B547C81CC72AD40054D471 /* SVAppVersionChecker.m */,
 				A2E41A381CEC0A4800E7AD37 /* SVObjectTools.h */,
 				A2E41A391CEC0A4800E7AD37 /* SVObjectTools.m */,
+				5BBA1FFE1CF302DE00E44A3A /* SVCurentLocation.h */,
+				5BBA1FFF1CF302DE00E44A3A /* SVCurentLocation.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2191,6 +2217,7 @@
 				5B25218E1CB396E200C4481D /* ic_network_type_mobile@2x.png in Resources */,
 				5B1FEDB51CAA413A00508920 /* tabbar_test_selected@2x.png in Resources */,
 				5BC491ED1CAB5D420002CA68 /* ic_video_check@3x.png in Resources */,
+				5BBA20071CF580A600E44A3A /* serverConfig_server.conf in Resources */,
 				5BC491EE1CAB5D420002CA68 /* ic_video_label@2x.png in Resources */,
 				5628C42D1CEC060F00352663 /* aboutLogo489.png in Resources */,
 				5BC491F31CAB5D420002CA68 /* ic_web_label@3x.png in Resources */,
@@ -2263,10 +2290,12 @@
 				5B50AB061CC0110F006499BE /* key.p12 in Resources */,
 				B7B5D8CC1CA407A300DFEEBA /* homeindicator@2x.png in Resources */,
 				5628C4351CEC060F00352663 /* speed_level_frist.png in Resources */,
+				5BBA20061CF580A600E44A3A /* serverConfig_local.conf in Resources */,
 				B7B5D8D61CA407BA00DFEEBA /* tabbar_settings@2x.png in Resources */,
 				5BB0DE6F1CB410A500F8DAF9 /* rt_detail_title_web_img@2x.png in Resources */,
 				5628C4301CEC060F00352663 /* SpeedPro666.png in Resources */,
 				5BB0DE6D1CB410A500F8DAF9 /* rt_detail_title_video_img@2x.png in Resources */,
+				5BBA20031CF5804E00E44A3A /* serverConfig.conf in Resources */,
 				563DA8F21CB6010F00578D02 /* speedpro@3x.png in Resources */,
 				5628C4371CEC060F00352663 /* speed_level_second.png in Resources */,
 				5BC491F01CAB5D420002CA68 /* ic_web_check@2x.png in Resources */,
@@ -2372,6 +2401,7 @@
 				B7F267B51CAE1C0000E44299 /* SVWebBrowser.m in Sources */,
 				B7F267AF1CAE1C0000E44299 /* SVI18N.m in Sources */,
 				B7F2682B1CAE1C3900E44299 /* ReachStateUnloaded.m in Sources */,
+				5BBA20001CF302DE00E44A3A /* SVCurentLocation.m in Sources */,
 				566589E21C88414600269F78 /* SVFooterView.m in Sources */,
 				5B50AB0C1CC085BB006499BE /* NSData+AES256.m in Sources */,
 				B7F2677A1CAE1BF300E44299 /* SVVideoInfo.m in Sources */,

@@ -263,8 +263,21 @@
     [locationDic setObject:@"" forKey:@"district"];
     [locationDic setObject:[self hideIp:[self ispFilter:isp str:isp.query]] forKey:@"ip"];
     [locationDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"isp"];
-    [locationDic setObject:[self ispFilter:isp str:isp.lat] forKey:@"lat"];
-    [locationDic setObject:[self ispFilter:isp str:isp.lon] forKey:@"lon"];
+
+    // 获取经纬度
+    NSString *latStr = [probeInfo getLatitude];
+    if (!latStr || latStr.length == 0)
+    {
+        latStr = [self ispFilter:isp str:isp.lat];
+    }
+    NSString *lonStr = [probeInfo getLongitude];
+    if (!lonStr || lonStr.length == 0)
+    {
+        lonStr = [self ispFilter:isp str:isp.lon];
+    }
+    [locationDic setObject:latStr forKey:@"lat"];
+    [locationDic setObject:lonStr forKey:@"lon"];
+
     [locationDic setObject:@"" forKey:@"message"];
     [locationDic setObject:[self ispFilter:isp str:isp.org] forKey:@"org"];
     [locationDic setObject:@"" forKey:@"province"];

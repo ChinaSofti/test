@@ -20,7 +20,7 @@
  */
 + (NSString *)getResponseServerUrl
 {
-    return @"https://58.60.106.185:8080/proresult/responseServer";
+    return [NSString stringWithFormat:@"%@/proresult/responseServer", [self getRootServer]];
 }
 
 /**
@@ -83,6 +83,50 @@
     }
 
     return [NSString stringWithFormat:@"https://%@:%@", serverIp, serverPort];
+}
+
+/**
+ * 获取根服务器
+ */
++ (NSString *)getRootServer
+{
+    // 加载配置文件
+    NSError *error;
+    NSString *configPath = [[NSBundle mainBundle] pathForResource:@"serverConfig" ofType:@"conf"];
+    NSData *configData = [[NSData alloc] initWithContentsOfFile:configPath
+                                                        options:NSDataReadingMappedIfSafe
+                                                          error:&error];
+    if (error)
+    {
+        SVError (@"Read serverConfig.conf failed! error:%@", error);
+        return nil;
+    }
+
+    NSMutableDictionary *configDic = [self getDicWithData:configData];
+
+    return [NSString stringWithFormat:@"https://%@:%@", [configDic valueForKey:@"rootHost"],
+                                      [configDic valueForKey:@"rootPort"]];
+}
+
+/**
+ * 将文件内容解析为字典
+ */
++ (NSMutableDictionary *)getDicWithData:(NSData *)fileData
+{
+    NSMutableDictionary *configDic = [[NSMutableDictionary alloc] init];
+    NSString *contents = [[NSString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+    NSArray *lineArray = [contents componentsSeparatedByString:@"\n"];
+    for (NSString *lineStr in lineArray)
+    {
+        NSArray *params = [lineStr componentsSeparatedByString:@":"];
+        if ([params count] != 2)
+        {
+            continue;
+        }
+
+        [configDic setObject:params[1] forKey:params[0]];
+    }
+    return configDic;
 }
 
 @end

@@ -112,6 +112,34 @@
 - (NSString *)getVideoClarity;
 
 /**
+ *  设置经度
+ *
+ *  @param longitude 经度
+ */
+- (void)setLongitude:(NSString *)longitude;
+
+/**
+ *  获取经度
+ *
+ *  @return 经度
+ */
+- (NSString *)getLongitude;
+
+/**
+ *  设置纬度
+ *
+ *  @param latitude 纬度
+ */
+- (void)setLatitude:(NSString *)latitude;
+
+/**
+ *  获取纬度
+ *
+ *  @return 纬度
+ */
+- (NSString *)getLatitude;
+
+/**
  *  设置是否上传结果
  *
  *  @param isUploadResult 是否上传结果
