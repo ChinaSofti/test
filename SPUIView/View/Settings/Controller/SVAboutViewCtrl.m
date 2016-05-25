@@ -39,24 +39,16 @@
 
 - (void)createUI
 {
-    //    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    //    config.selectionGranularity = WKSelectionGranularityCharacter;
-    //
-    //    WKWebView *webView =
-    //    [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)
-    //    configuration:config];
-    //    [self.view addSubview:webView];
-    //
-    //    // 加载内置网页
-    //    SVHtmlTools *htmlTools = [[SVHtmlTools alloc] init];
-    //    [htmlTools loadHtmlWithFileName:@"faq" webView:webView];
-    UILabel *lable = [[UILabel alloc] init];
-    lable.text = @"内容待添加";
-    lable.textColor = [UIColor grayColor];
-    lable.frame = CGRectMake (0, 0, 300, 30);
-    lable.textAlignment = NSTextAlignmentCenter;
-    lable.center = self.view.center;
-    [self.view addSubview:lable];
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    config.selectionGranularity = WKSelectionGranularityCharacter;
+
+    WKWebView *webView =
+    [[WKWebView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH) configuration:config];
+    [self.view addSubview:webView];
+
+    // 加载内置的网页
+    SVHtmlTools *htmlTool = [[SVHtmlTools alloc] init];
+    [htmlTool loadHtmlWithFileName:@"about" webView:webView];
 }
 
 //返回按钮点击事件
