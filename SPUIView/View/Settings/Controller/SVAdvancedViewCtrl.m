@@ -22,17 +22,16 @@
     UITextField *_textField;
     UIButton *_button;
     UIButton *_button2;
-    NSString *_name;
-    NSString *_sponsor;
     UILabel *_label1;
     UILabel *_label2;
-    SVSpeedTestServer *_defaultvalue;
     UITableView *_tableView;
     UITableView *_tableView2;
     UIButton *_buttonback;
     UIButton *_buttonback2;
     UIButton *_timebutton;
     UIButton *_timebutton2;
+    // UIView 存放SpeedServer的名称和运营商
+    UIView *speedServerlabelview;
 
     // 播放时间数组
     NSArray *durationDic;
@@ -70,13 +69,11 @@
 {
     [super viewWillAppear:animated];
 
-    //取点击的cell的值
-    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    SVSpeedTestServer *server = [servers getDefaultServer];
-    _name = server.name;
-    _sponsor = server.sponsor;
+    [self createSpeedServerLabel];
 
-    if ([servers isAuto])
+    //取点击的cell的值
+    SVSpeedTestServers *servers2 = [SVSpeedTestServers sharedInstance];
+    if ([servers2 isAuto])
     {
         _button2.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
         _button.backgroundColor =
@@ -88,8 +85,7 @@
         _button2.backgroundColor =
         [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
     }
-    _label1.text = _name;
-    _label2.text = _sponsor;
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"HideTabBar" object:nil];
 }
 //出来时显示tabBar
@@ -454,13 +450,6 @@
 #pragma mark - 创建带框服务器设置的UI界面
 - (void)createBandwidthUI
 {
-    // 获取默认值
-    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-    SVSpeedTestServer *object = [servers getDefaultServer];
-
-    // 取数组里的值
-    _defaultvalue = object;
-
     // views3
     UIView *bandWidthView = [[UIView alloc] init];
     bandWidthView.frame =
@@ -477,40 +466,16 @@
     [bandWidthView addSubview:bandWidthLabel];
 
     // labelview
-    UIView *labelview =
+    speedServerlabelview =
     [[UIView alloc] initWithFrame:CGRectMake (FITWIDTH (30), bandWidthLabel.bottomY + FITHEIGHT (22),
                                               FITWIDTH (580), FITHEIGHT (138))];
-    labelview.layer.cornerRadius = svCornerRadius (12);
-    [bandWidthView addSubview:labelview];
-
-    // 归属地label
-    if (_defaultvalue.name && _defaultvalue.sponsor)
-    {
-        _label1 = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (580), FITHEIGHT (58))];
-        _label1.text = _defaultvalue.name;
-        _label1.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
-        [labelview addSubview:_label1];
-
-        // 服务器地址label
-        _label2 = [[UILabel alloc]
-        initWithFrame:CGRectMake (0, _label1.bottomY + FITHEIGHT (22), FITWIDTH (580), FITHEIGHT (58))];
-        _label2.text = _defaultvalue.sponsor;
-        _label2.font = [UIFont systemFontOfSize:pixelToFontsize (35)];
-        [labelview addSubview:_label2];
-    }
-    else
-    {
-        UILabel *lable = [[UILabel alloc] init];
-        lable.text = I18N (@"No Data");
-        lable.textColor = [UIColor grayColor];
-        lable.frame = CGRectMake (0, 0, 150, 50);
-        lable.textAlignment = NSTextAlignmentLeft;
-        [labelview addSubview:lable];
-    }
+    speedServerlabelview.layer.cornerRadius = svCornerRadius (12);
+    [bandWidthView addSubview:speedServerlabelview];
 
     // button自动
     _button = [UIButton buttonWithType:UIButtonTypeCustom];
-    _button.frame = CGRectMake (labelview.rightX, FITHEIGHT (90), FITWIDTH (172), FITHEIGHT (110));
+    _button.frame =
+    CGRectMake (speedServerlabelview.rightX, FITHEIGHT (90), FITWIDTH (172), FITHEIGHT (110));
     _button.backgroundColor =
     [UIColor colorWithRed:51 / 255.0 green:166 / 255.0 blue:226 / 255.0 alpha:1.0];
 
@@ -538,6 +503,46 @@
        forControlEvents:UIControlEventTouchUpInside];
     [bandWidthView addSubview:_button2];
 }
+
+- (void)createSpeedServerLabel
+{
+    // 获取默认值
+    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+    SVSpeedTestServer *object = [servers getDefaultServer];
+
+    NSArray *array = [speedServerlabelview subviews];
+    for (UIView *view in array)
+    {
+        [view removeFromSuperview];
+    }
+
+    // 归属地label
+    if (object.name && object.sponsor)
+    {
+        _label1 = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (580), FITHEIGHT (58))];
+        _label1.text = object.name;
+        _label1.font = [UIFont systemFontOfSize:pixelToFontsize (45)];
+        [speedServerlabelview addSubview:_label1];
+
+        // 服务器地址label
+        _label2 = [[UILabel alloc]
+        initWithFrame:CGRectMake (0, _label1.bottomY + FITHEIGHT (22), FITWIDTH (580), FITHEIGHT (58))];
+        _label2.text = object.sponsor;
+        _label2.font = [UIFont systemFontOfSize:pixelToFontsize (35)];
+        [speedServerlabelview addSubview:_label2];
+    }
+    else
+    {
+        UILabel *lable = [[UILabel alloc] init];
+        lable.text = I18N (@"No Data");
+        lable.textColor = [UIColor grayColor];
+        lable.frame = CGRectMake (0, 0, 150, 50);
+        lable.textAlignment = NSTextAlignmentLeft;
+        [speedServerlabelview addSubview:lable];
+    }
+}
+
+
 //自动按钮的点击事件
 - (void)BtnClicked:(UIButton *)button
 {
