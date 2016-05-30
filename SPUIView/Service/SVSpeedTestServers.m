@@ -101,7 +101,6 @@ static NSString *SPEEDTEST_SERVER_QUERY_URL = @"https://www.speedtest.net/api/an
     SVSpeedTestServersParser *parser = [[SVSpeedTestServersParser alloc] initWithData:reponseData];
     NSArray *array = [parser parse];
 
-    _serverArray = [[NSMutableArray alloc] init];
     _serverArray = [[NSMutableArray alloc] initWithArray:array];
     SVSpeedTestServer *server = [_serverArray objectAtIndex:0];
     _server = server;
