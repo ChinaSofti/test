@@ -55,7 +55,8 @@
 + (NSString *)getServerHost
 {
     // 获取默认域名
-    NSString *serverHost = [[SVConfigServerURL sharedInstance] getConfigServerUrl];
+    //    NSString *serverHost = [[SVConfigServerURL sharedInstance] getConfigServerUrl];
+    NSString *serverHost = @"https://tools-speedpro.huawei.com/";
 
     // 获取服务器域名，如果服务器信息为空，则使用默认地址
     NSDictionary *serverInfo = [[SVProbeInfo sharedInstance] getServerInfo];
