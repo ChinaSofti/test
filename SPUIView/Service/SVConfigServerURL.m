@@ -28,7 +28,7 @@
             //初始化URL
             if (![configServerURL getConfigServerUrl])
             {
-                [configServerURL setConfigServerUrl:@"https://58.60.106.185:8080/"];
+                [configServerURL setConfigServerUrl:@"https://tools-speedpro.huawei.com/"];
             }
             //初始化URL数组
             if (![configServerURL getConfigServerUrlListArray])
