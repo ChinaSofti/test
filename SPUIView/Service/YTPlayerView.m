@@ -87,7 +87,13 @@ NSString static *const kYTPlayerStaticProxyRegexPattern =
         //        _webView.scrollView.bounces = NO;
         [_webView setMediaPlaybackRequiresUserAction:NO];
         [_webView setAllowsInlineMediaPlayback:YES];
-        [_webView setAllowsPictureInPictureMediaPlayback:NO];
+
+        // setAllowsPictureInPictureMediaPlayback是9.0的方法，当版本号小于9.0时不需要设置
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
+        {
+            [_webView setAllowsPictureInPictureMediaPlayback:NO];
+        }
+
         [_webView setDelegate:self];
         //        _webView.allowsPictureInPictureMediaPlayback = NO;
         //        _webView.allowsInlineMediaPlayback = YES;

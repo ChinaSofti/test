@@ -34,6 +34,15 @@
 
                // 根据经纬度获取位置信息
                NSDictionary *dict = [place addressDictionary];
+
+               // 获取地区信息
+               NSString *districtStr = dict[@"SubAdministrativeArea"] ?
+                                       dict[@"SubAdministrativeArea"] :
+                                       dict[@"SubLocality"];
+               if (!districtStr || districtStr.length == 0)
+               {
+                   districtStr = dict[@"City"];
+               }
                NSMutableDictionary *locationInfo = [[NSMutableDictionary alloc] init];
                [locationInfo setObject:latStr forKey:@"lat"];
                [locationInfo setObject:lngStr forKey:@"lon"];
@@ -41,7 +50,7 @@
                [locationInfo setObject:dict[@"Country"] forKey:@"country"];
                [locationInfo setObject:dict[@"State"] forKey:@"regionName"];
                [locationInfo setObject:dict[@"City"] forKey:@"city"];
-               [locationInfo setObject:dict[@"SubLocality"] forKey:@"district"];
+               [locationInfo setObject:districtStr forKey:@"district"];
                [locationInfo setObject:dict[@"Street"] forKey:@"street"];
                [locationInfo setObject:dict[@"Name"] forKey:@"address"];
 
