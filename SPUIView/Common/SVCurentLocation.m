@@ -18,50 +18,42 @@
 {
     CLLocation *currLocation = [locations lastObject];
 
-    // 取出当前位置的坐标
-    SVInfo (@"latitude : %f,longitude: %f", currLocation.coordinate.latitude, currLocation.coordinate.longitude);
-    NSString *latStr = [NSString stringWithFormat:@"%f", currLocation.coordinate.latitude];
-    NSString *lngStr = [NSString stringWithFormat:@"%f", currLocation.coordinate.longitude];
+    // 反向解析，根据及纬度反向解析出地址
+    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+    CLLocation *location = [locations objectAtIndex:0];
+    [geoCoder
+    reverseGeocodeLocation:location
+         completionHandler:^(NSArray *placemarks, NSError *error) {
 
-    // 记录坐标位置
-    SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-    [probeInfo setLatitude:latStr];
-    [probeInfo setLongitude:lngStr];
+           for (CLPlacemark *place in placemarks)
+           {
+               // 取出当前位置的坐标
+               NSString *latStr = [NSString stringWithFormat:@"%f", currLocation.coordinate.latitude];
+               NSString *lngStr = [NSString stringWithFormat:@"%f", currLocation.coordinate.longitude];
+               SVInfo (@"latitude : %@,longitude: %@", latStr, lngStr);
 
-    // 停止定位
-    [_locaManager stopUpdatingLocation];
+               // 根据经纬度获取位置信息
+               NSDictionary *dict = [place addressDictionary];
+               NSMutableDictionary *locationInfo = [[NSMutableDictionary alloc] init];
+               [locationInfo setObject:latStr forKey:@"lat"];
+               [locationInfo setObject:lngStr forKey:@"lon"];
+               [locationInfo setObject:dict[@"CountryCode"] forKey:@"countryCode"];
+               [locationInfo setObject:dict[@"Country"] forKey:@"country"];
+               [locationInfo setObject:dict[@"State"] forKey:@"regionName"];
+               [locationInfo setObject:dict[@"City"] forKey:@"city"];
+               [locationInfo setObject:dict[@"SubLocality"] forKey:@"district"];
+               [locationInfo setObject:dict[@"Street"] forKey:@"street"];
+               [locationInfo setObject:dict[@"Name"] forKey:@"address"];
 
-    //    // 反向解析，根据及纬度反向解析出地址
-    //    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
-    //    CLLocation *location = [locations objectAtIndex:0];
-    //    [geoCoder
-    //    reverseGeocodeLocation:location
-    //         completionHandler:^(NSArray *placemarks, NSError *error) {
-    //
-    //           for (CLPlacemark *place in placemarks)
-    //           {
-    //               // 取出当前位置的坐标
-    //               SVInfo (@"latitude : %f,longitude: %f", currLocation.coordinate.latitude,
-    //                       currLocation.coordinate.longitude);
-    //               NSString *latStr = [NSString stringWithFormat:@"%f",
-    //               currLocation.coordinate.latitude];
-    //               NSString *lngStr = [NSString stringWithFormat:@"%f",
-    //               currLocation.coordinate.longitude];
-    //               NSDictionary *dict = [place addressDictionary];
-    //               NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
-    //               [resultDic setObject:dict[@"SubLocality"] forKey:@"xian"];
-    //               [resultDic setObject:dict[@"City"] forKey:@"shi"];
-    //               [resultDic setObject:latStr forKey:@"wei"];
-    //               [resultDic setObject:lngStr forKey:@"jing"];
-    //               [resultDic setObject:dict[@"State"] forKey:@"sheng"];
-    //               [resultDic setObject:dict[@"Name"] forKey:@"all"];
-    //               [[NSUserDefaults standardUserDefaults] setObject:dict[@"SubLocality"]
-    //                                                         forKey:@"XianUser"];
-    //               [[NSUserDefaults standardUserDefaults] setObject:resultDic
-    //               forKey:@"LocationInfo"];
-    //               [[NSUserDefaults standardUserDefaults] synchronize];
-    //           }
-    //         }];
+
+               // 记录坐标位置
+               SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+               [probeInfo setLocationInfo:locationInfo];
+           }
+
+           // 停止定位
+           [_locaManager stopUpdatingLocation];
+         }];
 }
 
 #pragma mark - 检测应用是否开启定位服务

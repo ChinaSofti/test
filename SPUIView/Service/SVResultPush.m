@@ -254,36 +254,78 @@
     SVIPAndISP *isp = [[SVIPAndISPGetter sharedInstance] getIPAndISP];
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
 
-    NSMutableDictionary *locationDic = [[NSMutableDictionary alloc] init];
-    [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
-    [locationDic setObject:[self ispFilter:isp str:isp.carrier] forKey:@"carrier"];
-    [locationDic setObject:[self ispFilter:isp str:isp.city] forKey:@"city"];
-    [locationDic setObject:[self ispFilter:isp str:isp.country] forKey:@"country"];
-    [locationDic setObject:[self ispFilter:isp str:isp.countryCode] forKey:@"countryCode"];
-    [locationDic setObject:@"" forKey:@"district"];
-    [locationDic setObject:[self hideIp:[self ispFilter:isp str:isp.query]] forKey:@"ip"];
-    [locationDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"isp"];
+    // 获取位置信息
+    NSMutableDictionary *locationInfo = [probeInfo getLocationInfo];
+    if (!locationInfo)
+    {
+        locationInfo = [[NSMutableDictionary alloc] init];
+    }
 
     // 获取经纬度
-    NSString *latStr = [probeInfo getLatitude];
+    NSString *latStr = [locationInfo valueForKey:@"lat"];
     if (!latStr || latStr.length == 0)
     {
         latStr = [self ispFilter:isp str:isp.lat];
     }
-    NSString *lonStr = [probeInfo getLongitude];
+    NSString *lonStr = [locationInfo valueForKey:@"lon"];
     if (!lonStr || lonStr.length == 0)
     {
         lonStr = [self ispFilter:isp str:isp.lon];
     }
+
+    // 获取国家码
+    NSString *countryCodeStr = [locationInfo valueForKey:@"countryCode"];
+    if (!countryCodeStr || countryCodeStr.length == 0)
+    {
+        countryCodeStr = [self ispFilter:isp str:isp.countryCode];
+    }
+
+    // 获取国家
+    NSString *countryStr = [locationInfo valueForKey:@"country"];
+    if (!countryStr || countryStr.length == 0)
+    {
+        countryStr = [self ispFilter:isp str:isp.country];
+    }
+
+    // 获取省
+    NSString *regionNameStr = [locationInfo valueForKey:@"regionName"];
+    if (!regionNameStr || regionNameStr.length == 0)
+    {
+        regionNameStr = [self ispFilter:isp str:isp.regionName];
+    }
+
+    // 获取市
+    NSString *cityStr = [locationInfo valueForKey:@"city"];
+    if (!cityStr || cityStr.length == 0)
+    {
+        cityStr = [self ispFilter:isp str:isp.city];
+    }
+
+    // 获取地区，如果地区信息没有获取到，则使用市
+    NSString *districtStr = [locationInfo valueForKey:@"district"];
+    if (!districtStr || districtStr.length == 0)
+    {
+        districtStr = cityStr;
+    }
+
+
+    NSMutableDictionary *locationDic = [[NSMutableDictionary alloc] init];
+    [locationDic setObject:[self ispFilter:isp str:isp.as] forKey:@"as"];
+    [locationDic setObject:[self ispFilter:isp str:isp.carrier] forKey:@"carrier"];
+    [locationDic setObject:cityStr forKey:@"city"];
+    [locationDic setObject:countryStr forKey:@"country"];
+    [locationDic setObject:countryCodeStr forKey:@"countryCode"];
+    [locationDic setObject:districtStr forKey:@"district"];
+    [locationDic setObject:[self hideIp:[self ispFilter:isp str:isp.query]] forKey:@"ip"];
+    [locationDic setObject:[self ispFilter:isp str:isp.isp] forKey:@"isp"];
     [locationDic setObject:latStr forKey:@"lat"];
     [locationDic setObject:lonStr forKey:@"lon"];
-
     [locationDic setObject:@"" forKey:@"message"];
     [locationDic setObject:[self ispFilter:isp str:isp.org] forKey:@"org"];
     [locationDic setObject:@"" forKey:@"province"];
     [locationDic setObject:[self hideIp:[self ispFilter:isp str:isp.query]] forKey:@"query"];
     [locationDic setObject:[self ispFilter:isp str:isp.region] forKey:@"region"];
-    [locationDic setObject:[self ispFilter:isp str:isp.regionName] forKey:@"regionName"];
+    [locationDic setObject:regionNameStr forKey:@"regionName"];
     [locationDic setObject:@"success" forKey:@"status"];
     [locationDic setObject:[self ispFilter:isp str:isp.timezone] forKey:@"timezone"];
     [locationDic setObject:[self ispFilter:isp str:isp.zip] forKey:@"zip"];

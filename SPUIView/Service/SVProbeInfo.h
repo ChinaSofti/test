@@ -112,32 +112,18 @@
 - (NSString *)getVideoClarity;
 
 /**
- *  设置经度
+ *  设置当前位置信息
  *
- *  @param longitude 经度
+ *  @param locationInfo 当前位置信息
  */
-- (void)setLongitude:(NSString *)longitude;
+- (void)setLocationInfo:(NSMutableDictionary *)locationInfo;
 
 /**
- *  获取经度
+ *  获取当前位置信息
  *
- *  @return 经度
+ *  @return 当前位置信息
  */
-- (NSString *)getLongitude;
-
-/**
- *  设置纬度
- *
- *  @param latitude 纬度
- */
-- (void)setLatitude:(NSString *)latitude;
-
-/**
- *  获取纬度
- *
- *  @return 纬度
- */
-- (NSString *)getLatitude;
+- (NSMutableDictionary *)getLocationInfo;
 
 /**
  *  设置是否上传结果

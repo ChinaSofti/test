@@ -11,7 +11,7 @@
 #import "SVUrlTools.h"
 
 // 服务器baseUrl
-// static NSString *baseUrl = @"https://tools-speedpro.huawei.com/";
+static NSString *baseUrl = @"https://tools-speedpro.huawei.com/";
 
 @implementation SVUrlTools
 
@@ -56,7 +56,11 @@
 {
     // 获取默认域名
     //    NSString *serverHost = [[SVConfigServerURL sharedInstance] getConfigServerUrl];
-    NSString *serverHost = @"https://tools-speedpro.huawei.com/";
+    NSString *serverHost = [self getRootServer];
+    if (!serverHost)
+    {
+        serverHost = baseUrl;
+    }
 
     // 获取服务器域名，如果服务器信息为空，则使用默认地址
     NSDictionary *serverInfo = [[SVProbeInfo sharedInstance] getServerInfo];

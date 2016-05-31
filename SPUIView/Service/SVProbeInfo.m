@@ -367,53 +367,28 @@ static NSString *_screenSize;
 }
 
 /**
- *  设置经度
+ *  设置当前位置信息
  *
- *  @param longitude 经度
+ *  @param locationInfo 当前位置信息
  */
-- (void)setLongitude:(NSString *)longitude
+- (void)setLocationInfo:(NSMutableDictionary *)locationInfo
 {
-    SVInfo (@"Current location : longitude = %@", longitude);
+    SVInfo (@"Current location info = %@", locationInfo);
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:longitude forKey:@"CurrentLongitude"];
+    [defaults setObject:locationInfo forKey:@"CurrentLocationInfo"];
     [defaults synchronize];
 }
 
 /**
- *  获取经度
+ *  获取当前位置信息
  *
- *  @return 经度
+ *  @return 当前位置信息
  */
-- (NSString *)getLongitude
+- (NSMutableDictionary *)getLocationInfo
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *longitude = [defaults valueForKey:@"CurrentLongitude"];
-    return longitude;
-}
-
-/**
- *  设置纬度
- *
- *  @param latitude 纬度
- */
-- (void)setLatitude:(NSString *)latitude
-{
-    SVInfo (@"Current location : latitude = %@", latitude);
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:latitude forKey:@"CurrentLatitude"];
-    [defaults synchronize];
-}
-
-/**
- *  获取纬度
- *
- *  @return 纬度
- */
-- (NSString *)getLatitude
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *latitude = [defaults valueForKey:@"CurrentLatitude"];
-    return latitude;
+    NSMutableDictionary *locationInfo = [defaults valueForKey:@"CurrentLocationInfo"];
+    return locationInfo;
 }
 
 /**
