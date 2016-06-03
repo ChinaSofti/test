@@ -62,6 +62,12 @@
     [self createVideoQualityUI];
     [self createBandwidthUI];
     //    [self createResultUploadUI];
+
+    // 获取通知中心单例对象
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+
+    // 添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
+    [center addObserver:self selector:@selector (reloadInfo:) name:@"reloadInfo" object:nil];
 }
 
 //进去时 隐藏tabBar
@@ -94,6 +100,16 @@
     [super viewWillDisappear:animated];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowTabBar" object:nil];
+}
+
+/**
+ * 重新加载数据
+ */
+- (void)reloadInfo:(id)sender
+{
+    dispatch_async (dispatch_get_main_queue (), ^{
+      [self createSpeedServerLabel];
+    });
 }
 
 #pragma mark - 创建屏幕尺寸的UI界面
@@ -586,7 +602,7 @@
         [SVToast showWithText:message];
 
         SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
-        _textField.text = probeInfo.getScreenSize;
+        _textField.text = [NSString stringWithFormat:@"%d", [probeInfo.getScreenSize intValue]];
     }
     else
     {

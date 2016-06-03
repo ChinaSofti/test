@@ -15,9 +15,6 @@
 #import "SVTestContextGetter.h"
 #import "SVUrlTools.h"
 
-// 初始化带宽服务器是否成功
-static BOOL initServerIsSuccess;
-
 // 初始化IP归属地信息是否成功
 static BOOL initIPIsSuccess;
 
@@ -39,7 +36,8 @@ static BOOL parseDataIsSuccess;
     if (instance == nil)
     {
         instance = [[super allocWithZone:NULL] init];
-        initServerIsSuccess = NO;
+        instance.initServerIsSuccess = NO;
+        instance.isSuccess = NO;
         initIPIsSuccess = NO;
         parseDataIsSuccess = NO;
         initResponseServerIsSucess = NO;
@@ -79,10 +77,10 @@ static BOOL parseDataIsSuccess;
 - (void)loadResouceForTimer
 {
     // 初始化带宽服务器列表
-    if (!initServerIsSuccess)
+    if (!_initServerIsSuccess)
     {
         SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
-        initServerIsSuccess = [servers initSpeedTestServer];
+        _initServerIsSuccess = [servers initSpeedTestServer];
     }
 
     SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
@@ -109,7 +107,7 @@ static BOOL parseDataIsSuccess;
     }
 
     // 只有四个都成功，才算是初始化成功
-    self.isSuccess = initServerIsSuccess && initIPIsSuccess && parseDataIsSuccess && initResponseServerIsSucess;
+    self.isSuccess = _initServerIsSuccess && initIPIsSuccess && parseDataIsSuccess && initResponseServerIsSucess;
 }
 
 /**

@@ -13,6 +13,9 @@
 // 配置是否初始化成功
 @property BOOL isSuccess;
 
+// 带宽服务器配置是否初始化成功
+@property BOOL initServerIsSuccess;
+
 /**
  *  单例对象
  */

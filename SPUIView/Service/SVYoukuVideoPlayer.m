@@ -119,18 +119,18 @@ static int execute_total_times = 4;
     // 视频缓冲加载圆圈图标
     activityView = [[UIActivityIndicatorView alloc]
     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityView.center = CGPointMake (showOnView.frame.size.width / 2, 30);
+    activityView.center = CGPointMake (showOnView.frame.size.width / 2, FITHEIGHT (120));
     [activityCarrier addSubview:activityView];
     [showOnView addSubview:activityCarrier];
     [activityView startAnimating];
 
     // 显示加载状态
-    statusLabel = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (300), FITWIDTH (60))];
-    statusLabel.center = CGPointMake (showOnView.frame.size.width / 2, 70);
-    statusLabel.text = I18N(@"Analysising");
+    statusLabel = [[UILabel alloc] initWithFrame:CGRectMake (0, 0, FITWIDTH (300), FITHEIGHT (60))];
+    statusLabel.center = CGPointMake (showOnView.frame.size.width / 2, FITHEIGHT (230));
+    statusLabel.text = I18N (@"Analysising");
     statusLabel.textColor = [UIColor lightGrayColor];
     statusLabel.textAlignment = NSTextAlignmentCenter;
-    statusLabel.font = [UIFont systemFontOfSize:14];
+    statusLabel.font = [UIFont systemFontOfSize:pixelToFontsize (37)];
     [activityCarrier addSubview:statusLabel];
 }
 
@@ -148,7 +148,7 @@ static int execute_total_times = 4;
 
     // 播放视频的状态改为 - 加载中
     dispatch_async (dispatch_get_main_queue (), ^{
-      statusLabel.text = I18N(@"Loading");
+      statusLabel.text = I18N (@"Loading");
     });
 
     startPlayTime = [SVTimeUtil currentMilliSecondStamp];

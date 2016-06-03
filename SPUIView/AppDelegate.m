@@ -206,12 +206,8 @@ void UncaughtExceptionHandler (NSException *exception)
     // 如果网络不可达，则发送通知
     if (status == SV_RealStatusNotReachable)
     {
-        // 创建一个消息对象
-        NSNotification *notice =
-        [NSNotification notificationWithName:@"networkStatusError" object:nil userInfo:nil];
-
-        //发送消息
-        [[NSNotificationCenter defaultCenter] postNotification:notice];
+        // 发送消息
+        [self sendNotificationWithName:@"networkStatusError"];
     }
 
     if (!noFirstStart && status != SV_RealStatusNotReachable)
@@ -223,6 +219,15 @@ void UncaughtExceptionHandler (NSException *exception)
         SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
         NSString *wifiName = [SVCurrentDevice getWifiName];
         [probeInfo setWifiName:wifiName];
+
+        // 发送消息，通知部分界面重新加载数据
+        dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+          while (![SVInitConfig sharedManager].initServerIsSuccess)
+          {
+              [NSThread sleepForTimeInterval:0.5];
+          }
+          [self sendNotificationWithName:@"reloadInfo"];
+        });
         return;
     }
 
@@ -243,6 +248,15 @@ void UncaughtExceptionHandler (NSException *exception)
       // 初始化配置
       [[SVInitConfig sharedManager] loadResouceFromServer];
     });
+}
+
+- (void)sendNotificationWithName:(NSString *)name
+{
+    // 创建一个消息对象
+    NSNotification *notice = [NSNotification notificationWithName:name object:nil userInfo:nil];
+
+    //发送消息
+    [[NSNotificationCenter defaultCenter] postNotification:notice];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -284,9 +298,12 @@ void UncaughtExceptionHandler (NSException *exception)
 
 - (void)reloadData
 {
+    // 获取wifi信息
     SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
     NSString *lastWifiName = probeInfo.wifiName;
     NSString *wifiName = [SVCurrentDevice getWifiName];
+
+    // 如果上次wifi信息，和当前wifi信息不一致也需要重新加载数据
     if (lastWifiName)
     {
         if (![wifiName isEqualToString:@"None"] && ![lastWifiName isEqualToString:wifiName])
