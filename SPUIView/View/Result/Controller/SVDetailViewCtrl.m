@@ -255,11 +255,11 @@
                }]];
 
     // 下载速度
-    [_soucreMA
-    addObject:[SVToolModels modelWithDict:@{
-        @"key": I18N (@"Max Download Speed"),
-        @"value": [self formatFloatValue:[testResultJson valueForKey:@"downloadSpeed"] unit:@"Kbps"]
-    }]];
+    [_soucreMA addObject:[SVToolModels modelWithDict:@{
+                   @"key": I18N (@"Max Download Speed"),
+                   @"value": [self formatFloatValue:[testResultJson valueForKey:@"maxDownloadSpeed"]
+                                               unit:@"Kbps"]
+               }]];
 
     // 码率
     [_soucreMA

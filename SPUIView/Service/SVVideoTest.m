@@ -305,6 +305,7 @@
     int videoCuttonTimes = !testResult.videoCuttonTimes ? 0 : testResult.videoCuttonTimes;
     int videoCuttonTotalTime = !testResult.videoCuttonTotalTime ? 0 : testResult.videoCuttonTotalTime;
     float downloadSpeed = !testResult.downloadSpeed ? 0 : testResult.downloadSpeed;
+    float maxDownloadSpeed = !testResult.maxDownloadSpeed ? 0 : testResult.maxDownloadSpeed;
     int videoWidth = !testResult.videoWidth ? 0 : testResult.videoWidth;
     int videoHeight = !testResult.videoHeight ? 0 : testResult.videoHeight;
     float frameRate = !testResult.frameRate ? 0 : testResult.frameRate;
@@ -330,6 +331,8 @@
     [dictionary setObject:[[NSNumber alloc] initWithInt:videoCuttonTotalTime]
                    forKey:@"videoCuttonTotalTime"];
     [dictionary setObject:[[NSNumber alloc] initWithFloat:downloadSpeed] forKey:@"downloadSpeed"];
+    [dictionary setObject:[[NSNumber alloc] initWithFloat:maxDownloadSpeed]
+                   forKey:@"maxDownloadSpeed"];
     [dictionary setObject:[[NSNumber alloc] initWithInt:videoWidth] forKey:@"videoWidth"];
     [dictionary setObject:[[NSNumber alloc] initWithInt:videoHeight] forKey:@"videoHeight"];
     [dictionary setObject:[[NSNumber alloc] initWithFloat:frameRate] forKey:@"frameRate"];
@@ -413,6 +416,7 @@
     testResult.videoCuttonTimes = -1;
     testResult.videoCuttonTotalTime = -1;
     testResult.downloadSpeed = -1;
+    testResult.maxDownloadSpeed = -1;
     testResult.videoWidth = -1;
     testResult.videoHeight = -1;
     testResult.frameRate = -1;

@@ -412,6 +412,7 @@ static int execute_total_times = 4;
     _downloadSize += [arg intValue];
     _downloadTime += 1;
 
+    // 记录峰值下载速度
     if (!maxDownloadSize)
     {
         maxDownloadSize = [arg intValue];
@@ -419,8 +420,14 @@ static int execute_total_times = 4;
 
     if ([arg intValue] >= maxDownloadSize)
     {
-        [testResult setDownloadSpeed:(maxDownloadSize * 8)];
+        [testResult setMaxDownloadSpeed:(maxDownloadSize * 8)];
         maxDownloadSize = [arg intValue];
+    }
+
+    // 计算平均下载速度
+    if (_downloadTime > 0)
+    {
+        [testResult setDownloadSpeed:(_downloadSize * 8 / _downloadTime)];
     }
 }
 

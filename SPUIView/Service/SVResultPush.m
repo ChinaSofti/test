@@ -699,11 +699,18 @@
     [videoTestResultsDic
     setObject:[self string2num:[videoTestResultJson valueForKey:@"downloadSpeed"]]
        forKey:@"downloadSpeedAvg"];
-    [videoTestResultsDic setObject:@0.0 forKey:@"downloadSpeedMax"];
+    [videoTestResultsDic
+    setObject:[self string2num:[videoTestResultJson valueForKey:@"maxDownloadSpeed"]]
+       forKey:@"downloadSpeedMax"];
     [videoTestResultsDic setObject:@0 forKey:@"id"];
     [videoTestResultsDic
     setObject:[self string2num:[videoTestResultJson valueForKey:@"firstBufferTime"]]
        forKey:@"initialBufferTime"];
+
+    if (!locationDic)
+    {
+        locationDic = [[NSMutableDictionary alloc] init];
+    }
     [videoTestResultsDic setObject:locationDic forKey:@"location"];
     [videoTestResultsDic setObject:mediaInputDic forKey:@"mediaInput"];
     [videoTestResultsDic setObject:ottTestParamsDic forKey:@"ottTestParams"];

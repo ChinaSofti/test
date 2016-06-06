@@ -28,6 +28,9 @@
     // 当前的流量
     double currentBytes;
 
+    // 下载时间
+    int downloadTime;
+
     // 每5秒周期卡顿次数
     int videoCuttonTimes;
     // 每5秒周期卡顿总时长
@@ -415,16 +418,24 @@ static int execute_total_times = 4;
     // 计算下载的大小
     double currentDownloadSize = [[SVNetworkTrafficMonitor getDataCounters] doubleValue] * 8 / 1024;
     double downloadSize = (currentDownloadSize - currentBytes);
+    downloadTime += 1;
     currentBytes = currentDownloadSize;
     [testResult setDownloadSize:(testResult.downloadSize + downloadSize)];
 
-    // 下载速率
-    float speed = testResult.downloadSpeed;
+    // 计算平均下载速度
+    if (downloadTime > 0)
+    {
+        [testResult setDownloadSpeed:(testResult.downloadSize / downloadTime)];
+    }
+    SVInfo (@"avg speed:%.2f", testResult.downloadSpeed);
+
+    // 峰值下载速率
+    float speed = testResult.maxDownloadSpeed;
     if (downloadSize > speed)
     {
-        [testResult setDownloadSpeed:downloadSize];
+        [testResult setMaxDownloadSpeed:downloadSize];
     }
-    SVInfo (@"speed:%.2f", downloadSize);
+    SVInfo (@"max speed:%.2f", downloadSize);
 }
 
 - (void)pushTestSample

@@ -11,10 +11,11 @@
 @implementation SVVideoTestResult
 
 
-@synthesize videoTestSamples, videoResolution, screenSize, bitrate, frameRate, videoHeight, videoWidth,
-downloadSize, downloadSpeed, videoCuttonTotalTime, videoCuttonTimes, videoEndPlayTime, videoStartPlayTime,
-sQualitySession, sInteractionSession, UvMOSSession, sViewSession, firstBufferTime, testTime,
-sViewInstant, sInteractionInstant, sQualityInstant, uvmosInstant, videoPlayTime, isCutton, errorCode;
+@synthesize videoTestSamples, videoResolution, screenSize, bitrate, frameRate, videoHeight,
+videoWidth, downloadSize, downloadSpeed, videoCuttonTotalTime, videoCuttonTimes, videoEndPlayTime,
+videoStartPlayTime, sQualitySession, sInteractionSession, UvMOSSession, sViewSession,
+firstBufferTime, testTime, sViewInstant, sInteractionInstant, sQualityInstant, uvmosInstant,
+videoPlayTime, isCutton, errorCode, maxDownloadSpeed;
 
 
 @end

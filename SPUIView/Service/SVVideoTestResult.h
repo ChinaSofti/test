@@ -52,6 +52,9 @@
 // 下载速率
 @property float downloadSpeed;
 
+// 峰值下载速率
+@property float maxDownloadSpeed;
+
 // 下载大小
 @property int downloadSize;
 
