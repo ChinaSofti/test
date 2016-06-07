@@ -518,11 +518,11 @@ int caclCount;
     // 按时延排序,测试失败的排在最后
     NSArray *sortedArray =
     [testArray sortedArrayUsingComparator:^NSComparisonResult (__strong id obj1, __strong id obj2) {
-      if ([obj1 delay] == 0 && [obj2 delay] > 0)
+      if ([obj1 delay] <= 0 && [obj2 delay] > 0)
       {
           return YES;
       }
-      if ([obj1 delay] > 0 && [obj2 delay] == 0)
+      if ([obj1 delay] > 0 && [obj2 delay] <= 0)
       {
           return NO;
       }

@@ -19,6 +19,12 @@ const int DELAY_BUFFER_SIZE = 512;
 
     // 建立socket需要的参数
     struct sockaddr_in currentAddr;
+
+    // 建立socket需要的request
+    NSString *downloadRequest;
+
+    // 建立socket需要的参数
+    struct sockaddr_in downloadAddr;
 }
 @synthesize delay, testServer, finished;
 
@@ -123,8 +129,95 @@ const int DELAY_BUFFER_SIZE = 512;
     buff = NULL;
     SVInfo (@"delayTest close socket, fd = %d, ret = %d", fd, ret);
 
+    // 当时延正常时，检查下载服务器是否可用
+    if (self.delay > 0)
+    {
+        if (![self checkDownloadServer])
+        {
+            self.delay = -1;
+        }
+    }
+
     // 测试完成
     self.finished = YES;
+}
+
+- (void)initDownloadServer
+{
+    // 初始化测试参数
+    NSURL *url = [NSURL URLWithString:testServer.serverURL];
+    NSURL *downloadURL =
+    [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", url.host, url.port,
+                                                    @"/speedtest/random4000x4000.jpg"]];
+
+    // 连接请求
+    downloadRequest = [NSString
+    stringWithFormat:@"%@ %@ HTTP/1.1\r\nAccept: %@\r\nHost: %@\r\nConnection: "
+                     @"%@\r\nAccept-Encoding:gzip, deflate, sdch "
+                     @"\r\nAccept-Language:zh-CN,zh;q=0.8\r\nUser-Agent:Mozilla/5.0 (iPhone "
+                     @"Simulator; U; CPU iPhone OS 6 like Mac OS X; en-us) AppleWebKit/532.9 "
+                     @"(KHTML, like Gecko) Mobile/8B117\r\n\r\n",
+                     @"GET", downloadURL.path, @"*/*", downloadURL.host, @"Close"];
+    SVInfo (@"delayTest request %@", downloadRequest);
+
+    // 初始化建立socket连接的参数
+    memset (&downloadAddr, 0, sizeof (downloadAddr));
+    downloadAddr.sin_len = sizeof (downloadAddr);
+    downloadAddr.sin_family = AF_INET;
+    downloadAddr.sin_addr.s_addr = INADDR_ANY;
+    downloadAddr.sin_port = htons ([downloadURL.port intValue]);
+    downloadAddr.sin_addr.s_addr = inet_addr ([[SVHttpsTools getIPWithHostName:downloadURL.host] UTF8String]);
+}
+
+- (BOOL)checkDownloadServer
+{
+    // 初始化参数
+    [self initDownloadServer];
+
+    // 建立socket连接
+    char *buff = (char *)malloc (1024 * sizeof (char));
+    memset (buff, '\0', 1024);
+    int fd = socket (AF_INET, SOCK_STREAM, 0);
+
+    // 开始连接
+    __block int ret = -1;
+    dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      ret = connect (fd, (struct sockaddr *)&downloadAddr, sizeof (struct sockaddr));
+    });
+
+    // 等待连接成功，如果超过两秒，则认为超时
+    double startTime = [[NSDate date] timeIntervalSince1970] * 1000;
+    while (ret == -1 && ([[NSDate date] timeIntervalSince1970] * 1000 - startTime) < 2000)
+    {
+        [NSThread sleepForTimeInterval:0.001];
+    }
+    if (-1 == ret)
+    {
+        // 关闭socket连接，释放内存
+        ret = close (fd);
+        free (buff);
+        buff = NULL;
+        SVInfo (@"check download server connect timeout, fd = %d, ret = %d", fd, ret);
+        return NO;
+    }
+
+    // 计算时延
+    write (fd, [downloadRequest UTF8String], [downloadRequest length] + 1);
+    long len = read (fd, buff, 1024);
+    SVInfo (@"check download server read len = %ld", len);
+
+    // 关闭socket连接，释放内存
+    ret = close (fd);
+    free (buff);
+    buff = NULL;
+    SVInfo (@"check download server close socket, fd = %d, ret = %d", fd, ret);
+
+    // 如果读取大小小于512，则认为失败
+    if (len < DELAY_BUFFER_SIZE)
+    {
+        return NO;
+    }
+    return YES;
 }
 
 @end

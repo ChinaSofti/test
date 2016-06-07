@@ -319,7 +319,6 @@
 		B7F268551CAE248500E44299 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268541CAE248500E44299 /* libstdc++.6.0.9.tbd */; };
 		B7F268571CAE248D00E44299 /* libiconv.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F268561CAE248D00E44299 /* libiconv.2.tbd */; };
 		B7F268641CAE263300E44299 /* SVSpeedDelayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2685E1CAE263300E44299 /* SVSpeedDelayTest.m */; };
-		B7F268651CAE263300E44299 /* SVSpeedServerDelay.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F2685F1CAE263300E44299 /* SVSpeedServerDelay.m */; };
 		B7F268661CAE263300E44299 /* SVSpeedTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F268601CAE263300E44299 /* SVSpeedTest.m */; };
 		B7F268671CAE263300E44299 /* SVSpeedTestContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F268611CAE263300E44299 /* SVSpeedTestContext.m */; };
 		B7F268681CAE263300E44299 /* SVSpeedTestInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7F268621CAE263300E44299 /* SVSpeedTestInfo.m */; };
@@ -852,13 +851,11 @@
 		B7F268541CAE248500E44299 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		B7F268561CAE248D00E44299 /* libiconv.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.tbd; path = usr/lib/libiconv.2.tbd; sourceTree = SDKROOT; };
 		B7F268581CAE263300E44299 /* SVSpeedDelayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedDelayTest.h; sourceTree = "<group>"; };
-		B7F268591CAE263300E44299 /* SVSpeedServerDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedServerDelay.h; sourceTree = "<group>"; };
 		B7F2685A1CAE263300E44299 /* SVSpeedTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedTest.h; sourceTree = "<group>"; };
 		B7F2685B1CAE263300E44299 /* SVSpeedTestContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedTestContext.h; sourceTree = "<group>"; };
 		B7F2685C1CAE263300E44299 /* SVSpeedTestInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedTestInfo.h; sourceTree = "<group>"; };
 		B7F2685D1CAE263300E44299 /* SVSpeedTestResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSpeedTestResult.h; sourceTree = "<group>"; };
 		B7F2685E1CAE263300E44299 /* SVSpeedDelayTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedDelayTest.m; sourceTree = "<group>"; };
-		B7F2685F1CAE263300E44299 /* SVSpeedServerDelay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedServerDelay.m; sourceTree = "<group>"; };
 		B7F268601CAE263300E44299 /* SVSpeedTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTest.m; sourceTree = "<group>"; };
 		B7F268611CAE263300E44299 /* SVSpeedTestContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestContext.m; sourceTree = "<group>"; };
 		B7F268621CAE263300E44299 /* SVSpeedTestInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSpeedTestInfo.m; sourceTree = "<group>"; };
@@ -1991,13 +1988,11 @@
 				B7F2675B1CAE1BF300E44299 /* SVSpeedTestServer.m */,
 				B7F2675C1CAE1BF300E44299 /* SVSpeedTestServer.h */,
 				B7F268581CAE263300E44299 /* SVSpeedDelayTest.h */,
-				B7F268591CAE263300E44299 /* SVSpeedServerDelay.h */,
 				B7F2685A1CAE263300E44299 /* SVSpeedTest.h */,
 				B7F2685B1CAE263300E44299 /* SVSpeedTestContext.h */,
 				B7F2685C1CAE263300E44299 /* SVSpeedTestInfo.h */,
 				B7F2685D1CAE263300E44299 /* SVSpeedTestResult.h */,
 				B7F2685E1CAE263300E44299 /* SVSpeedDelayTest.m */,
-				B7F2685F1CAE263300E44299 /* SVSpeedServerDelay.m */,
 				B7F268601CAE263300E44299 /* SVSpeedTest.m */,
 				B7F268611CAE263300E44299 /* SVSpeedTestContext.m */,
 				B7F268621CAE263300E44299 /* SVSpeedTestInfo.m */,
@@ -2497,7 +2492,6 @@
 				5B50AB0F1CC08645006499BE /* NSString+AES256.m in Sources */,
 				B7FE25C01CDA59A200478B63 /* SVAlertView.m in Sources */,
 				A21E16361CE41B5700E52CF5 /* SVHtmlTools.m in Sources */,
-				B7F268651CAE263300E44299 /* SVSpeedServerDelay.m in Sources */,
 				B7F267821CAE1BF300E44299 /* SVTestContext.m in Sources */,
 				5B1FEDBD1CAA74D600508920 /* SVViewController.m in Sources */,
 				B7F2683C1CAE1C3900E44299 /* FMDatabase.m in Sources */,
