@@ -145,7 +145,7 @@
     {
         urlArray = @[
             @"https://www.taobao.com/",
-            @"http://m.hao123.com/?vit=h123&from=3w123",
+            @"http://m.baidu.com/",
             @"http://m.jd.com/",
             @"http://m.sohu.com/"
         ];
@@ -159,7 +159,7 @@
     {
         urlArray = @[
             @"https://www.taobao.com/",
-            @"http://m.hao123.com/?vit=h123&from=3w123",
+            @"http://m.baidu.com/",
             @"http://m.jd.com/",
             @"http://m.sohu.com/"
         ];
