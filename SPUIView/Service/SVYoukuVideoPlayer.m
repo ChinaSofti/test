@@ -88,6 +88,9 @@ static int execute_total_times = 4;
     if (!_VMpalyer)
     {
         _VMpalyer = [VMediaPlayer sharedInstance];
+        [_VMpalyer setAutoSwitchDecodingScheme:NO];
+        [_VMpalyer setDecodingSchemeHint:VMDecodingSchemeHardware];
+
         _isSetup = [_VMpalyer setupPlayerWithCarrierView:showOnView withDelegate:self];
         if (_isSetup)
         {
@@ -290,6 +293,9 @@ static int execute_total_times = 4;
         //播放时不要锁屏
         //        [UIApplication sharedApplication].idleTimerDisabled = YES;
         //        [_VMpalyer reset];
+        // 设置清晰度
+        [_VMpalyer setVideoQuality:VMVideoQualityHigh];
+
         // 设置缓冲大小为2倍码率
         [_VMpalyer setBufferSize:segement.bitrate * 2 * 1024];
         [_VMpalyer setDataSource:segement.videoSegementURL];
