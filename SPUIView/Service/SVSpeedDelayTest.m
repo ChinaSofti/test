@@ -129,15 +129,6 @@ const int DELAY_BUFFER_SIZE = 512;
     buff = NULL;
     SVInfo (@"delayTest close socket, fd = %d, ret = %d", fd, ret);
 
-    // 当时延正常时，检查下载服务器是否可用
-    if (self.delay > 0)
-    {
-        if (![self checkDownloadServer])
-        {
-            self.delay = -1;
-        }
-    }
-
     // 测试完成
     self.finished = YES;
 }
@@ -169,6 +160,11 @@ const int DELAY_BUFFER_SIZE = 512;
     downloadAddr.sin_addr.s_addr = inet_addr ([[SVHttpsTools getIPWithHostName:downloadURL.host] UTF8String]);
 }
 
+/**
+ * 检查下载是否可用
+ *
+ * @return 是否可用
+ */
 - (BOOL)checkDownloadServer
 {
     // 初始化参数

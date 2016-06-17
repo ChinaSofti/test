@@ -31,4 +31,11 @@
  */
 - (void)startTest;
 
+/**
+ * 检查下载是否可用
+ *
+ * @return 是否可用
+ */
+- (BOOL)checkDownloadServer;
+
 @end

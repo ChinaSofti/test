@@ -479,21 +479,21 @@ int caclCount;
     // 在线程中遍历前五个服务器，初始化测试实例
     NSMutableArray *delayTestArray = [[NSMutableArray alloc] init];
     long size = [serverArray count] < DELAY_TEST_COUTN ? [serverArray count] : DELAY_TEST_COUTN;
+
+    // 获取默认服务器
+    SVSpeedTestServer *server = [servers getDefaultServer];
+
+    // 如果server为nil，则直接返回
+    if (!server)
+    {
+        _testContext.testStatus = TEST_FINISHED;
+        [self sendErrorNotice];
+        return;
+    }
+
+    // 测试四次，取时延最小的一次
     for (int i = 0; _testStatus == TEST_TESTING && i < size; i++)
     {
-        // 如果用户选择的是自动则取五个url测试,取时延最小的;否则使用用户选择的服务器测试五次
-        SVSpeedTestServer *server = serverArray[i];
-        if (![servers isAuto])
-        {
-            server = [servers getDefaultServer];
-        }
-
-        // 如果server为nil，则执行下一个
-        if (!server)
-        {
-            continue;
-        }
-
         // 初始化测试实例
         SVSpeedDelayTest *delayTest = [[SVSpeedDelayTest alloc] initTestServer:server];
 

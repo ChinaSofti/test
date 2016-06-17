@@ -11,9 +11,13 @@
 #import "SVInitConfig.h"
 #import "SVObjectTools.h"
 #import "SVProbeInfo.h"
+#import "SVSpeedDelayTest.h"
 #import "SVSpeedTestServers.h"
 #import "SVTestContextGetter.h"
 #import "SVUrlTools.h"
+
+// 服务器个数
+const int DEFAULT_SERVER_COUNT = 8;
 
 // 初始化IP归属地信息是否成功
 static BOOL initIPIsSuccess;
@@ -81,6 +85,14 @@ static BOOL parseDataIsSuccess;
     {
         SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
         _initServerIsSuccess = [servers initSpeedTestServer];
+
+        // 如果请求服务器成功，则去计算首选服务器
+        if (_initServerIsSuccess)
+        {
+            dispatch_async (dispatch_get_global_queue (DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+              [self caclPreferredServer];
+            });
+        }
     }
 
     SVTestContextGetter *contextGetter = [SVTestContextGetter sharedInstance];
@@ -191,6 +203,49 @@ static BOOL parseDataIsSuccess;
             // 设置状态为成功
             initResponseServerIsSucess = YES;
           }];
+}
+
+/**
+ * 计算首选服务器
+ */
+- (void)caclPreferredServer
+{
+    // 获取所有的带宽测试服务器
+    SVSpeedTestServers *servers = [SVSpeedTestServers sharedInstance];
+    NSArray *serverArray = [servers getAllServer];
+
+    // 在线程中遍历前五个服务器，初始化测试实例
+    long size = [serverArray count] < DEFAULT_SERVER_COUNT ? [serverArray count] : DEFAULT_SERVER_COUNT;
+    for (int i = 0; i < size; i++)
+    {
+        // 如果用户选择的是自动则取五个url测试,取时延最小的;否则使用用户选择的服务器测试五次
+        SVSpeedTestServer *server = serverArray[i];
+
+        // 如果server为nil，则执行下一个
+        if (!server)
+        {
+            continue;
+        }
+
+        // 初始化测试实例
+        SVSpeedDelayTest *delayTest = [[SVSpeedDelayTest alloc] initTestServer:server];
+
+        // 开始测试
+        [delayTest startTest];
+
+        // 当时延正常时，检查下载服务器是否可用
+        if (delayTest.delay > 0)
+        {
+            if (![delayTest checkDownloadServer])
+            {
+                continue;
+            }
+
+            // 如果服务器可达，且下载地址可用，则设为默认服务器
+            [servers setDefaultServer:server];
+            break;
+        }
+    }
 }
 
 @end
