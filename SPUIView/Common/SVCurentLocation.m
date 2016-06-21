@@ -51,8 +51,8 @@
                [locationInfo setObject:dict[@"State"] forKey:@"regionName"];
                [locationInfo setObject:dict[@"City"] forKey:@"city"];
                [locationInfo setObject:districtStr forKey:@"district"];
-               [locationInfo setObject:dict[@"Street"] forKey:@"street"];
-               [locationInfo setObject:dict[@"Name"] forKey:@"address"];
+               //               [locationInfo setObject:dict[@"Street"] forKey:@"street"];
+               //               [locationInfo setObject:dict[@"Name"] forKey:@"address"];
 
 
                // 记录坐标位置
