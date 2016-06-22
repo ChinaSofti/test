@@ -43,25 +43,9 @@
 #pragma mark - 创建UI
 - (void)createUI
 {
-    //添加logoimage
-    UIImageView *imageView = [[UIImageView alloc]
-    initWithFrame:CGRectMake (0, StatusBarH + NavBarH + FITHEIGHT (70), FITWIDTH (489), FITHEIGHT (83))];
-    imageView.centerX = self.view.centerX;
-    imageView.image = [UIImage imageNamed:@"aboutLogo489"];
-    [self.view addSubview:imageView];
-    //添加LabV0.0.1版本号
-    UILabel *labV = [[UILabel alloc]
-    initWithFrame:CGRectMake (0, imageView.bottomY + FITHEIGHT (30), kScreenW, FITHEIGHT (120))];
-    labV.centerX = self.view.centerX;
-    labV.text = [SVAppVersionChecker currentVersion];
-    labV.textAlignment = NSTextAlignmentCenter;
-    labV.textColor = [UIColor colorWithHexString:@"#000000"];
-    labV.font = [UIFont systemFontOfSize:pixelToFontsize (42)];
-    labV.alpha = 0.7;
-    [self.view addSubview:labV];
     //添加二维码背景view
     UIView *whiteView = [[UIView alloc]
-    initWithFrame:CGRectMake (0, StatusBarH + NavBarH + FITHEIGHT (386), kScreenW, FITHEIGHT (926))];
+    initWithFrame:CGRectMake (0, StatusBarH + NavBarH + FITHEIGHT (186), kScreenW, FITHEIGHT (926))];
     whiteView.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
     [self.view addSubview:whiteView];
     //添加二维码图片
@@ -95,9 +79,10 @@
     lable.font = [UIFont systemFontOfSize:pixelToFontsize (48)];
     lable.alpha = 0.8;
     [self.view addSubview:lable];
+
     //添加公司信息lableCopy
     UILabel *lableCopy1 =
-    [[UILabel alloc] initWithFrame:CGRectMake (0, kScreenH - FITHEIGHT (230), kScreenW, FITHEIGHT (80))];
+    [[UILabel alloc] initWithFrame:CGRectMake (0, kScreenH - FITHEIGHT (430), kScreenW, FITHEIGHT (80))];
     lableCopy1.centerX = self.view.centerX;
     lableCopy1.text = @"Copyright @ Huawei Software Technologies Co.,Ltd. 2014-2016.";
     lableCopy1.textAlignment = NSTextAlignmentCenter;
@@ -105,6 +90,7 @@
     lableCopy1.font = [UIFont systemFontOfSize:pixelToFontsize (30)];
     lableCopy1.alpha = 0.6;
     [self.view addSubview:lableCopy1];
+
     UILabel *lableCopy2 =
     [[UILabel alloc] initWithFrame:CGRectMake (0, lableCopy1.bottomY, kScreenW, FITHEIGHT (80))];
     lableCopy2.centerX = self.view.centerX;
