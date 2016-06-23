@@ -41,12 +41,25 @@
 {
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake (0, 0, kScreenW, kScreenH)];
     // 设置内容大小
-    //根据设备尺寸不同设置内容大小
+    //根据设备尺寸不同设置scrollView内容大小
     // 4s: *5
-    // 5s:
-    // 6s:*3.1
-    // 6sp:
-    scrollView.contentSize = CGSizeMake (kScreenW, kScreenH * 5);
+    // 5s: *4.3
+    // 6s: *3.2
+    // 6sp: *2.8
+    float height = kScreenH * 3.2;
+    if (kScreenH == 480)
+    {
+        height = kScreenH * 5;
+    }
+    if (kScreenH == 568)
+    {
+        height = kScreenH * 4.3;
+    }
+    if (kScreenH == 736)
+    {
+        height = kScreenH * 2.8;
+    }
+    scrollView.contentSize = CGSizeMake (kScreenW, height);
     [self.view addSubview:scrollView];
     //添加logoimage
     UIImageView *imageView = [[UIImageView alloc]

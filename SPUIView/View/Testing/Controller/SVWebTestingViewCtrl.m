@@ -39,6 +39,9 @@
 
     // 当前页面的主窗口
     UIWindow *window;
+
+    // 上一条测试的url
+    NSString *lastUrl;
 }
 
 //定义gray遮挡View
@@ -315,13 +318,15 @@
     }
 
     //进度条
-    if (testResult.finished)
+    if ((!lastUrl || ![lastUrl isEqualToString:testUrl]) && testResult.finished)
     {
         //柱状图更新
         value += (1.0 / [testContext.urlArray count]);
         [pro setProgress:value];
-    }
 
+        // 记录测试过的url
+        lastUrl = testUrl;
+    }
 
     // 下载速度
     double downloadSpeed = testResult.downloadSpeed;
