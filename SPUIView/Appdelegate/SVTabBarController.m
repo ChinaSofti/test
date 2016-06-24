@@ -163,18 +163,24 @@
         [progressView removeFromSuperview];
         [launchImageView removeFromSuperview];
 
-        // 如果网络是wifi并且wifi信息没有记录过，则弹出带宽设置的窗口
-        if (currentStatus == SV_RealStatusViaWiFi && [self isNewWifi])
+        // 如果是第一次进入该APP，则显示新功能指引
+        SVProbeInfo *probeInfo = [SVProbeInfo sharedInstance];
+        if (![probeInfo isFirstStart])
         {
-            [self setShadowView];
-        }
+            // 设置首次启动为NO
+            [probeInfo setFirstStart:YES];
 
-        //        // 添加定时器，判断配置是否加载完成
-        //        [NSTimer scheduledTimerWithTimeInterval:5.0
-        //                                         target:self
-        //                                       selector:@selector (reloadConfig)
-        //                                       userInfo:nil
-        //                                        repeats:YES];
+            // 显示新功能指引界面
+            [self showGuideView];
+        }
+        else
+        {
+            // 如果网络是wifi并且wifi信息没有记录过，则弹出带宽设置的窗口
+            if (currentStatus == SV_RealStatusViaWiFi && [self isNewWifi])
+            {
+                [self setShadowView];
+            }
+        }
         return;
     }
 
@@ -207,17 +213,27 @@
     }
 }
 
-/**
- * 定时检查配置是否成功
- */
-- (void)reloadConfig
+- (void)showGuideView
 {
-    SVInitConfig *initConfig = [SVInitConfig sharedManager];
-    if ([initConfig isSuccess])
+    SVGuideView *guideView = [[SVGuideView alloc] initWithPageNumber:3];
+    guideView.delegate = self;
+    [self.view addSubview:guideView];
+}
+
+- (void)hideGuideView:(SVGuideView *)guideView
+{
+    // 移除引导页
+    [guideView removeFromSuperview];
+
+    // 获取网络状态
+    SVRealReachability *realReachability = [SVRealReachability sharedInstance];
+    SVRealReachabilityStatus currentStatus = realReachability.getNetworkStatus;
+
+    // 如果网络是wifi并且wifi信息没有记录过，则弹出带宽设置的窗口
+    if (currentStatus == SV_RealStatusViaWiFi && [self isNewWifi])
     {
-        return;
+        [self setShadowView];
     }
-    [initConfig loadResouceForTimer];
 }
 
 /**

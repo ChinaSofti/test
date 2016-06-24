@@ -110,6 +110,29 @@ static NSString *_screenSize;
     return [SVProbeInfo sharedInstance];
 }
 
+/**
+ *  设置是否是第一次启动
+ *
+ *  @param firstStart 是否是第一次启动
+ */
+- (void)setFirstStart:(BOOL)firstStart
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:firstStart forKey:@"isFirstStart"];
+    [defaults synchronize];
+}
+
+/**
+ *  是否是第一次启动
+ *
+ *  @return 是否是第一次启动
+ */
+- (BOOL)isFirstStart
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:@"isFirstStart"];
+}
+
 
 /**
  *  设置屏幕尺寸

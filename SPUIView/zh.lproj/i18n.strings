@@ -81,6 +81,7 @@
 "NetWork disconnection,unable to test" = "网络异常，无法测试";
 "Network Settings" = "网络设置";
 "Start Test"="开始测试";
+"I Know"="我知道了";
 
 //网络提示框
 "Prompt" = "提示";

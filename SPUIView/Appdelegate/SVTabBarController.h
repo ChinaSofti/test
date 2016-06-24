@@ -10,8 +10,9 @@
  *  tabbar根控制器
  */
 
+#import "SVGuideView.h"
 #import <UIKit/UIKit.h>
 
-@interface SVTabBarController : UITabBarController
+@interface SVTabBarController : UITabBarController <SVGuideViewDelegate>
 
 @end

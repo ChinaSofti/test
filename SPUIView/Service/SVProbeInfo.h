@@ -24,6 +24,20 @@
  */
 + (id)sharedInstance;
 
+/**
+ *  设置是否是第一次启动
+ *
+ *  @param firstStart 是否是第一次启动
+ */
+- (void)setFirstStart:(BOOL)firstStart;
+
+/**
+ *  是否是第一次启动
+ *
+ *  @return 是否是第一次启动
+ */
+- (BOOL)isFirstStart;
+
 
 /**
  *  设置屏幕尺寸

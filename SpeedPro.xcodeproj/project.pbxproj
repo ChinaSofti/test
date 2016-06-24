@@ -156,6 +156,7 @@
 		5B80D3921C91742700FF61DE /* SVNetworkTrafficMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B80D3911C91742700FF61DE /* SVNetworkTrafficMonitor.m */; };
 		5B85C06A1C9025E000CA8A1E /* SVWebTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0661C9025E000CA8A1E /* SVWebTest.m */; };
 		5B85C06B1C9025E000CA8A1E /* SVWebTestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B85C0681C9025E000CA8A1E /* SVWebTestResult.m */; };
+		5B948B7D1D1BCBB600A68E2C /* SVGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B948B7C1D1BCBB600A68E2C /* SVGuideView.m */; };
 		5BB0DE691CB410A500F8DAF9 /* rt_detail_title_collector_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB0DE611CB410A500F8DAF9 /* rt_detail_title_collector_img@2x.png */; };
 		5BB0DE6A1CB410A500F8DAF9 /* rt_detail_title_collector_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB0DE621CB410A500F8DAF9 /* rt_detail_title_collector_img@3x.png */; };
 		5BB0DE6B1CB410A500F8DAF9 /* rt_detail_title_ftp_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB0DE631CB410A500F8DAF9 /* rt_detail_title_ftp_img@2x.png */; };
@@ -588,6 +589,8 @@
 		5B85C0661C9025E000CA8A1E /* SVWebTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebTest.m; sourceTree = "<group>"; };
 		5B85C0671C9025E000CA8A1E /* SVWebTestResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVWebTestResult.h; sourceTree = "<group>"; };
 		5B85C0681C9025E000CA8A1E /* SVWebTestResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebTestResult.m; sourceTree = "<group>"; };
+		5B948B7B1D1BCBB600A68E2C /* SVGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGuideView.h; sourceTree = "<group>"; };
+		5B948B7C1D1BCBB600A68E2C /* SVGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGuideView.m; sourceTree = "<group>"; };
 		5BB0DE611CB410A500F8DAF9 /* rt_detail_title_collector_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rt_detail_title_collector_img@2x.png"; sourceTree = "<group>"; };
 		5BB0DE621CB410A500F8DAF9 /* rt_detail_title_collector_img@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rt_detail_title_collector_img@3x.png"; sourceTree = "<group>"; };
 		5BB0DE631CB410A500F8DAF9 /* rt_detail_title_ftp_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rt_detail_title_ftp_img@2x.png"; sourceTree = "<group>"; };
@@ -1447,6 +1450,7 @@
 		56EC8C631C4F45A500EBDA6C /* Resoruces */ = {
 			isa = PBXGroup;
 			children = (
+				5BCFA57F1D1CDC770069B5E4 /* guide */,
 				5628C41F1CEC060F00352663 /* about */,
 				5628C4241CEC060F00352663 /* shared */,
 				563DA8D41CB6006F00578D02 /* icon.png */,
@@ -1576,6 +1580,13 @@
 			path = conf;
 			sourceTree = "<group>";
 		};
+		5BCFA57F1D1CDC770069B5E4 /* guide */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = guide;
+			sourceTree = "<group>";
+		};
 		5BE7A5D11CBF81E20080FEA9 /* DLVideoParser */ = {
 			isa = PBXGroup;
 			children = (
@@ -1678,6 +1689,8 @@
 				B7FE25C21CDAE10A00478B63 /* SVReloadingDataAlertView.m */,
 				B7FE25C41CDB07A800478B63 /* SVReloadingDataAlertViewManager.h */,
 				B7FE25C51CDB07A800478B63 /* SVReloadingDataAlertViewManager.m */,
+				5B948B7B1D1BCBB600A68E2C /* SVGuideView.h */,
+				5B948B7C1D1BCBB600A68E2C /* SVGuideView.m */,
 			);
 			path = UIUtils;
 			sourceTree = "<group>";
@@ -2390,6 +2403,7 @@
 				561A36EA1C896BD700AC5F5E /* SVVideoTestingCtrl.m in Sources */,
 				B7F268391CAE1C3900E44299 /* DDContextFilterLogFormatter.m in Sources */,
 				B7F267881CAE1BF300E44299 /* SVProbeInfo.m in Sources */,
+				5B948B7D1D1BCBB600A68E2C /* SVGuideView.m in Sources */,
 				B7F267851CAE1BF300E44299 /* SVSpeedTestServers.m in Sources */,
 				B7F267B21CAE1C0000E44299 /* SVLog.m in Sources */,
 				561A36E31C896BAF00AC5F5E /* SVDetailViewCtrl.m in Sources */,

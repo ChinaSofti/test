@@ -13,7 +13,8 @@
 #ifndef CTCommonDefine_pch
 #define CTCommonDefine_pch
 
-// 宏定义
+// 屏幕大小
+#define kScreen   [[UIScreen mainScreen] bounds]
 
 // 状态栏的高度
 #define statusBarH [[UIApplication sharedApplication] statusBarFrame].size.height
