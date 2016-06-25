@@ -154,8 +154,7 @@ static NSBundle *i18nBundle;
 
     // 如果包含en或者是香港或者台湾的繁体中文，则返回en
     if ([language containsString:@"en"] || [language isEqualToString:@"zh-hk"] ||
-        [language isEqualToString:@"zh-tw"] || [language isEqualToString:@"zh-hant-cn"] ||
-        [language isEqualToString:@"zh-hans-cn"])
+        [language isEqualToString:@"zh-tw"] || [language isEqualToString:@"zh-hant-cn"])
     {
         return @"en";
     }
