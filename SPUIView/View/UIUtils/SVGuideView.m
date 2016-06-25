@@ -88,7 +88,7 @@
     NSString *language = [i18n getLanguage];
 
     // 根据语言获取图片，并将图片添加到引导页
-    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"guide_view_%@_%d", language, index]];
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"guide_view_%d_%@", index, language]];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.frame = CGRectMake (kScreenW * (index - 1), 0, kScreenW, kScreenH);
 
@@ -112,19 +112,31 @@
 
         // 按钮尺寸
         startBtn.frame =
-        CGRectMake (FITWIDTH (220), kScreenH - FITHEIGHT (500), FITWIDTH (600), FITHEIGHT (116));
+        CGRectMake (FITWIDTH (348), kScreenH - FITHEIGHT (220), FITWIDTH (388), FITHEIGHT (78));
 
         // 按钮背景颜色
-        startBtn.backgroundColor = [UIColor clearColor];
+        //        // 绘制渐变色层
+        //        CAGradientLayer *colorLayer = [CAGradientLayer layer];
+        //        colorLayer.frame = startBtn.frame;
+        //        colorLayer.colors = @[
+        //            (__bridge id)[UIColor colorWithHexString:@"#F99526"]
+        //            .CGColor,
+        //            (__bridge id)[UIColor colorWithHexString:@"#F99526" alpha:0.5].CGColor
+        //        ];
+        //        colorLayer.locations = @[@0.5, @1.0];
+        //        [startBtn.layer insertSublayer:colorLayer atIndex:0];
+        //        [startBtn setBackgroundColor:[UIColor colorWithHexString:@"#F99526"]];
+        [startBtn setBackgroundColor:[UIColor clearColor]];
         [startBtn setTitle:I18N (@"I Know") forState:UIControlStateNormal];
-
-        // 设置边框
-        [startBtn.layer setBorderWidth:1.0];
 
         // 按钮点击事件
         [startBtn addTarget:self
                      action:@selector (btnClick)
            forControlEvents:UIControlEventTouchUpInside];
+
+        // 设置边框
+        startBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        startBtn.layer.borderWidth = 1;
 
         // 按钮圆角
         startBtn.layer.cornerRadius = svCornerRadius (12);
@@ -133,10 +145,10 @@
         startBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
 
         // 按钮文字颜色和类型
-        [startBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [startBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
 
         // 设置字体大小
-        [startBtn.titleLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (48)]];
+        [startBtn.titleLabel setFont:[UIFont systemFontOfSize:pixelToFontsize (70)]];
     }
     return startBtn;
 }

@@ -17,6 +17,8 @@
 #import "SVTestViewCtrl.h"
 #import "SVWifiInfo.h"
 
+// 新功能指导页的个数
+const int GUIDE_VIEW_NUM = 2;
 
 @interface SVTabBarController () <AlertViewDelegate>
 
@@ -215,7 +217,7 @@
 
 - (void)showGuideView
 {
-    SVGuideView *guideView = [[SVGuideView alloc] initWithPageNumber:3];
+    SVGuideView *guideView = [[SVGuideView alloc] initWithPageNumber:GUIDE_VIEW_NUM];
     guideView.delegate = self;
     [self.view addSubview:guideView];
 }
