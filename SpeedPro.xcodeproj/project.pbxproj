@@ -206,10 +206,10 @@
 		5BE6DE271CAE69CD00CA2B5B /* SVLabelTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE6DE261CAE69CD00CA2B5B /* SVLabelTools.m */; };
 		5BE7A5D71CBF81E20080FEA9 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE7A5D51CBF81E20080FEA9 /* libpcre.a */; };
 		5BE7A5D81CBF81E20080FEA9 /* libVideoParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE7A5D61CBF81E20080FEA9 /* libVideoParser.a */; };
+		5BED25AC1D212C9B008BDDE5 /* faq_cn.html in Resources */ = {isa = PBXBuildFile; fileRef = 5BED25AA1D212C9B008BDDE5 /* faq_cn.html */; };
+		5BED25AD1D212C9B008BDDE5 /* faq_en.html in Resources */ = {isa = PBXBuildFile; fileRef = 5BED25AB1D212C9B008BDDE5 /* faq_en.html */; };
 		A21E16361CE41B5700E52CF5 /* SVHtmlTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A21E16351CE41B5700E52CF5 /* SVHtmlTools.m */; };
 		A2217EB61CEB06F6004A0BFC /* SVInitConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A2217EB51CEB06F6004A0BFC /* SVInitConfig.m */; };
-		A22826431CE962500084E47F /* faq_cn.html in Resources */ = {isa = PBXBuildFile; fileRef = A22826411CE962500084E47F /* faq_cn.html */; };
-		A22826441CE962500084E47F /* faq_en.html in Resources */ = {isa = PBXBuildFile; fileRef = A22826421CE962500084E47F /* faq_en.html */; };
 		A228264A1CE972BF0084E47F /* starting_window@1x_1.png in Resources */ = {isa = PBXBuildFile; fileRef = A22826491CE972BF0084E47F /* starting_window@1x_1.png */; };
 		A228264C1CE972DF0084E47F /* starting_window@1x_2.png in Resources */ = {isa = PBXBuildFile; fileRef = A228264B1CE972DF0084E47F /* starting_window@1x_2.png */; };
 		A228264E1CE973060084E47F /* starting_window@2x_1.png in Resources */ = {isa = PBXBuildFile; fileRef = A228264D1CE973060084E47F /* starting_window@2x_1.png */; };
@@ -664,12 +664,12 @@
 		5BE7A5D31CBF81E20080FEA9 /* DLVideoParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLVideoParser.h; sourceTree = "<group>"; };
 		5BE7A5D51CBF81E20080FEA9 /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpcre.a; sourceTree = "<group>"; };
 		5BE7A5D61CBF81E20080FEA9 /* libVideoParser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVideoParser.a; sourceTree = "<group>"; };
+		5BED25AA1D212C9B008BDDE5 /* faq_cn.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = faq_cn.html; sourceTree = "<group>"; };
+		5BED25AB1D212C9B008BDDE5 /* faq_en.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = faq_en.html; sourceTree = "<group>"; };
 		A21E16341CE41B5700E52CF5 /* SVHtmlTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVHtmlTools.h; sourceTree = "<group>"; };
 		A21E16351CE41B5700E52CF5 /* SVHtmlTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVHtmlTools.m; sourceTree = "<group>"; };
 		A2217EB41CEB06F6004A0BFC /* SVInitConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVInitConfig.h; sourceTree = "<group>"; };
 		A2217EB51CEB06F6004A0BFC /* SVInitConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVInitConfig.m; sourceTree = "<group>"; };
-		A22826411CE962500084E47F /* faq_cn.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = faq_cn.html; sourceTree = "<group>"; };
-		A22826421CE962500084E47F /* faq_en.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = faq_en.html; sourceTree = "<group>"; };
 		A22826491CE972BF0084E47F /* starting_window@1x_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starting_window@1x_1.png"; sourceTree = "<group>"; };
 		A228264B1CE972DF0084E47F /* starting_window@1x_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starting_window@1x_2.png"; sourceTree = "<group>"; };
 		A228264D1CE973060084E47F /* starting_window@2x_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starting_window@2x_1.png"; sourceTree = "<group>"; };
@@ -1843,12 +1843,12 @@
 		B7E4C1711CBFE31800CB941A /* About */ = {
 			isa = PBXGroup;
 			children = (
+				5BED25AA1D212C9B008BDDE5 /* faq_cn.html */,
+				5BED25AB1D212C9B008BDDE5 /* faq_en.html */,
 				560182771CEF0B6400F546A3 /* about_cn.html */,
 				560182781CEF0B6400F546A3 /* about_en.html */,
 				B7E4C17B1CC3B89E00CB941A /* Privacy_en.html */,
 				B7E4C1721CBFE31800CB941A /* Privacy_cn.html */,
-				A22826411CE962500084E47F /* faq_cn.html */,
-				A22826421CE962500084E47F /* faq_en.html */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -2289,6 +2289,7 @@
 				4DD033911C734BB400A8CE9B /* ic_language_select.png in Resources */,
 				5B2521851CB36D4800C4481D /* ic_video_testing@3x.png in Resources */,
 				5BCFA5BE1D1E58E80069B5E4 /* guide_view_1_en@3x.png in Resources */,
+				5BED25AC1D212C9B008BDDE5 /* faq_cn.html in Resources */,
 				B7E4C1741CBFE31800CB941A /* Privacy_cn.html in Resources */,
 				B7B5D8B91CA3E8A400DFEEBA /* tabbar_result@2x.png in Resources */,
 				565DFAEB1C515BB10024FF45 /* ic_speed_testing.png in Resources */,
@@ -2343,7 +2344,6 @@
 				5B2521901CB396E200C4481D /* ic_network_type_wifi@2x.png in Resources */,
 				B7B5D8BA1CA3E8A400DFEEBA /* tabbar_result_selected@3x.png in Resources */,
 				563DA8E61CB6010F00578D02 /* clock_middle@3x.png in Resources */,
-				A22826431CE962500084E47F /* faq_cn.html in Resources */,
 				5641CF441CCA280500A07584 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				5BC491E91CAB5D420002CA68 /* ic_speed_check@3x.png in Resources */,
 				563DA8D51CB6006F00578D02 /* icon.png in Resources */,
@@ -2353,7 +2353,6 @@
 				563DA8F11CB6010F00578D02 /* speedpro@2x.png in Resources */,
 				5628C4331CEC060F00352663 /* sharebackground.png in Resources */,
 				563DA8ED1CB6010F00578D02 /* clock_video_panel@2x.png in Resources */,
-				A22826441CE962500084E47F /* faq_en.html in Resources */,
 				5B1FEDB91CAA63C100508920 /* speedpro@2x.png in Resources */,
 				B7B5D8B81CA3E8A400DFEEBA /* tabbar_result@3x.png in Resources */,
 				A22826541CE973920084E47F /* starting_window@3x.png in Resources */,
@@ -2365,6 +2364,7 @@
 				5BB0DE6A1CB410A500F8DAF9 /* rt_detail_title_collector_img@3x.png in Resources */,
 				5641CF3D1CCA280500A07584 /* UMSCommentInputController.xib in Resources */,
 				5BCFA5A61D1E54880069B5E4 /* guide_view_2_zh@1x_1.png in Resources */,
+				5BED25AD1D212C9B008BDDE5 /* faq_en.html in Resources */,
 				5BC491EB1CAB5D420002CA68 /* ic_speed_label@3x.png in Resources */,
 				5B50AB071CC0110F006499BE /* trust.p12 in Resources */,
 				5BC491EC1CAB5D420002CA68 /* ic_video_check@2x.png in Resources */,
