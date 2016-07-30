@@ -99,6 +99,7 @@
 		566CB03A1C90199A001AA64D /* SVWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 566CB0391C90199A001AA64D /* SVWebView.m */; };
 		567582241C7BF797009BEFFB /* ic_settings_mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 567582221C7BF797009BEFFB /* ic_settings_mobile.png */; };
 		567582251C7BF797009BEFFB /* ic_settings_wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = 567582231C7BF797009BEFFB /* ic_settings_wifi.png */; };
+		567EDE981D4D0A3B00E71B7A /* CTWBProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 567EDE971D4D0A3B00E71B7A /* CTWBProgress.m */; };
 		568B78C51C916DDC00AF4097 /* share_to_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B78C31C916DDC00AF4097 /* share_to_wechat.png */; };
 		568B78C61C916DDC00AF4097 /* share_to_wechatmoments.png in Resources */ = {isa = PBXBuildFile; fileRef = 568B78C41C916DDC00AF4097 /* share_to_wechatmoments.png */; };
 		568D42B41C89E20B00F2916B /* SVBandWidthCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 568D42B31C89E20B00F2916B /* SVBandWidthCtrl.m */; };
@@ -530,6 +531,8 @@
 		566CB0391C90199A001AA64D /* SVWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebView.m; sourceTree = "<group>"; };
 		567582221C7BF797009BEFFB /* ic_settings_mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_mobile.png; sourceTree = "<group>"; };
 		567582231C7BF797009BEFFB /* ic_settings_wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_settings_wifi.png; sourceTree = "<group>"; };
+		567EDE961D4D0A3B00E71B7A /* CTWBProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTWBProgress.h; sourceTree = "<group>"; };
+		567EDE971D4D0A3B00E71B7A /* CTWBProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTWBProgress.m; sourceTree = "<group>"; };
 		568B78C31C916DDC00AF4097 /* share_to_wechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_to_wechat.png; sourceTree = "<group>"; };
 		568B78C41C916DDC00AF4097 /* share_to_wechatmoments.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_to_wechatmoments.png; sourceTree = "<group>"; };
 		568D42B21C89E20B00F2916B /* SVBandWidthCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVBandWidthCtrl.h; sourceTree = "<group>"; };
@@ -1482,6 +1485,8 @@
 				56A919121C4F4BAA00E8BB72 /* Info.plist */,
 				56EC8C5F1C4F45A500EBDA6C /* SVTabBarController.h */,
 				56EC8C601C4F45A500EBDA6C /* SVTabBarController.m */,
+				567EDE961D4D0A3B00E71B7A /* CTWBProgress.h */,
+				567EDE971D4D0A3B00E71B7A /* CTWBProgress.m */,
 			);
 			name = AppDelegate;
 			path = Appdelegate;
@@ -2242,7 +2247,6 @@
 				TargetAttributes = {
 					56F523DE1C4DCF7F00E6472B = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = DXLY5XKBTZ;
 					};
 					B70FF3D21C6582AA002D571B = {
 						CreatedOnToolsVersion = 7.2;
@@ -2531,6 +2535,7 @@
 				B71F89031C8D7E56002E8375 /* SVToast.m in Sources */,
 				B7F268371CAE1C3900E44299 /* DDLog.m in Sources */,
 				B7F2682C1CAE1C3900E44299 /* ReachStateUnReachable.m in Sources */,
+				567EDE981D4D0A3B00E71B7A /* CTWBProgress.m in Sources */,
 				A2D043121CE57553009E2C9D /* SVUrlTools.m in Sources */,
 				563734851C8ED6590064DA33 /* SVWebTestingViewCtrl.m in Sources */,
 				B7F2681F1CAE1C3900E44299 /* zip.c in Sources */,
@@ -2732,7 +2737,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Weiguo Mo (S227D96RJ2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				ENABLE_BITCODE = NO;
@@ -2761,7 +2766,7 @@
 					"$(PROJECT_DIR)/Thirdpart/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.tes;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -2773,7 +2778,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Weiguo Mo (S227D96RJ2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				ENABLE_BITCODE = NO;
@@ -2802,7 +2807,7 @@
 					"$(PROJECT_DIR)/Thirdpart/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huawei.speedpro.tes;
 				PRODUCT_NAME = SpeedPro;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
